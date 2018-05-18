@@ -22,6 +22,11 @@ module.exports = {
         include: path.resolve(__dirname, "../")
       },
       {
+        test: /\.css$/,
+        loaders: ["style-loader", "css-loader", "sass-loader"],
+        include: path.resolve(__dirname, "../")
+      },
+      {
           test: /\.js?$/,
           exclude: /node_modules/,
           loader: 'babel-loader',
