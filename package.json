@@ -13,7 +13,7 @@
     "build:watch": "webpack --config ./webpack/webpack.config.babel.js --progress --colors --watch",
     "postbuild": "node utils/generateModulesList.js",
     "deploy:gp": "npm run build-storybook && gh-pages -m 'update storybook' -d ./build",
-    "deploy:npm": "npm run build && npm publish ./",
+    "deploy": "sh ./deploy.sh",
     "build-storybook": "build-storybook -o ./build",
     "prettier": "prettier --single-quote --write"
   },
