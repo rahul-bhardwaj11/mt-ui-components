@@ -1,0 +1,16 @@
+node_modules/*
+.tags*
+*.log
+tmp
+.DS_Store
+.idea
+coverage
+build
+build/**
+.nyc_output
+*.iml
+tests_output
+node_modules/
+.vscode
+lib
+lib/*
