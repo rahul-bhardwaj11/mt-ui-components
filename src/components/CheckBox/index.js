@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 
 //import style from './index.scss';
 
-import { Checkbox as AntCheckbox } from 'antd';
-import 'antd/dist/antd.css';
+import AntCheckbox from 'antd/lib/checkbox';
+import 'antd/lib/checkbox/style/css'
 
 
 

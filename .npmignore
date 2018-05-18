@@ -1,5 +1,5 @@
 ./build/main/*
 dist/main/*
-src/**
-src/components/**
+src/components/
 .DS_Store
+src/**

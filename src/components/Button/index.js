@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import style from './index.scss';
 
-import { Button as AntButton } from 'antd';
-import 'antd/dist/antd.css';
+import AntButton from 'antd/lib/button';
+import 'antd/lib/button/style/css'
 
 
 const noop = () => undefined;
