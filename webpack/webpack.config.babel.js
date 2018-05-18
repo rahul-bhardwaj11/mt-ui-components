@@ -14,8 +14,8 @@ fs.readdirSync('./src/components/').forEach((file) => {
   const isValid = new RegExp(/^(?!.*images|styles|.DS_Store).*$/g).test(file);
   if (isValid) {
     entries.push({
-      name: `mt${file}`,
-      destSrc: `${file}/${file}`,
+      name: `${file}`,
+      destSrc: `${file}/index`,
       srcSrc: `./src/components/${file}/index`
     });
   }
