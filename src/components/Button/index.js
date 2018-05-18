@@ -26,21 +26,6 @@ class Button extends Component {
 
 
   render() {
-    // return (
-    //   <button
-    //     disabled={this.props.disabled}
-    //     name={this.props.name}
-    //     onClick={this.props.onClick}
-    //     className={classnames(
-    //       this.getBtnStyle(this.props.type),
-    //       this.props.className,
-    //       style.commonButtonStyle
-    //     )}
-    //   >
-    //     {this.props.children}
-    //     {/* <Icon type="close" className={classnames(style.icon)} /> */}
-    //   </button>
-    // );
     return (
       <AntButton type={this.props.type} disabled={this.props.disabled}>{this.props.children}</AntButton>
       )
