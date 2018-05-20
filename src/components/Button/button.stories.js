@@ -14,18 +14,18 @@ stories
   .add(
     "Primary button",
     withInfo("Adding type primary to button")(() => (
-      <Button type="{text('type','primary'}">{text('Label','Submit')}</Button>
+      <Button type={text('type','primary')}>{text('Label','Submit')}</Button>
     ))
   )
   .add(
     "Dashed button",
     withInfo("Adding type dashed to button")(() => (
-      <Button type="{text('type','dashed'}">{text('Label','Submit')}</Button>
+      <Button type={text('type','dashed')}>{text('Label','Submit')}</Button>
     ))
   )
   .add(
     "Danger button",
     withInfo("Adding type danger to button")(() => (
-      <Button type="{text('type','danger'}">{text('Label','Submit')}</Button>
+      <Button type={text('type','danger')}>{text('Label','Submit')}</Button>
     ))
   );
