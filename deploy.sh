@@ -15,7 +15,7 @@ if [ -z "$NPM_TOKEN" ]; then
   exit 0
 fi
 
-npm set registry http://verdaccio.ops.mindtickle.com
+#npm set registry http://verdaccio.ops.mindtickle.com
 npm config set //verdaccio.ops.mindtickle.com/:_authToken=$NPM_TOKEN > /dev/null 2>&1
 
 
