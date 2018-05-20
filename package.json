@@ -1,6 +1,6 @@
 {
   "name": "@mindtickle/mt-ui-components",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Collection of common React UI components for Mindtickle",
   "repository": "git@github.com:MindTickle/mt-ui-components.git",
   "author": "Mindtickle",
@@ -107,6 +107,9 @@
     "react-tether": "^0.5.7",
     "styled-components": "^3.1.5",
     "webpack": "^3.5.5"
+  },
+  "publishConfig": {
+    "registry": "http://verdaccio.ops.mindtickle.com"
   },
   "lint-staged": {
     "*.js": [
