@@ -1,6 +1,6 @@
 {
   "name": "@mindtickle/mt-ui-components",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Collection of common React UI components for Mindtickle",
   "repository": "git@github.com:MindTickle/mt-ui-components.git",
   "author": "Mindtickle",
