@@ -29,13 +29,13 @@ TAG="latest" && [ -n "$2" ] && TAG=$2
 VERSION=$(npm --no-git-tag-version version $RELEASE | sed 's/v//')
 
 success "VERSION: "$VERSION;
-success "TAG": $TAG
+success "TAG: "$TAG
 
-npm run build && npm publish --tags $TAG
+npm run build && npm publish --tag $TAG
 
 git add package.json
 git commit -m "release: $VERSION"
 git push --set-upstream origin master
 
 
-success "pushed $VERSION"
+success "published v$VERSION with TAG:"$TAG

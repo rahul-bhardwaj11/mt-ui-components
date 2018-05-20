@@ -22,7 +22,7 @@ $ npm run deploy patch beta
 ### Deploying storybook
 
 ```
-$ npm run deploy:gp
+$ npm run deploy:sb
 ```
 
 ### Running storybook locally
