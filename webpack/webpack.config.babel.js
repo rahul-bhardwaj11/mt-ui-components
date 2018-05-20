@@ -36,7 +36,8 @@ for (let i = 0; i < entries.length; i++) {
       extensions: [".web.tsx", ".web.ts", ".web.jsx", ".web.js", ".ts", ".tsx", ".js", ".jsx", ".json"],
       alias: {
         [pkg.name]: process.cwd(),
-        styles: resolve(__dirname, "../src/components/styles")
+        styles: resolve(__dirname, "../src/styles"),
+        images: resolve(__dirname, "../src/images")
       }
     },
 
