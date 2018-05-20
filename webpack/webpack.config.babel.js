@@ -1,16 +1,16 @@
-const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const chalk = require('chalk');
-const postcssConfig = require('./postcssConfig');
-const pkg = require(path.join(process.cwd(), 'package.json'));
-const fs = require('fs');
-const resolve = require('path').resolve;
+const path = require("path");
+const webpack = require("webpack");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
+const chalk = require("chalk");
+const postcssConfig = require("./postcssConfig");
+const pkg = require(path.join(process.cwd(), "package.json"));
+const fs = require("fs");
+const resolve = require("path").resolve;
 
 const entries = [];
 const configs = [];
-fs.readdirSync('./src/components/').forEach((file) => {
+fs.readdirSync("./src/components/").forEach(file => {
   const isValid = new RegExp(/^(?!.*images|styles|.DS_Store).*$/g).test(file);
   if (isValid) {
     entries.push({
@@ -21,23 +21,22 @@ fs.readdirSync('./src/components/').forEach((file) => {
   }
 });
 
-
 for (let i = 0; i < entries.length; i++) {
   const config = {
     output: {
-      path: path.join(__dirname, '../lib'),
-      filename: '[name].js',
+      path: path.join(__dirname, "../lib"),
+      filename: "[name].js",
       library: entries[i].name,
-      libraryTarget: 'umd',
+      libraryTarget: "umd",
       umdNamedDefine: true
     },
 
     resolve: {
-      modules: ['node_modules', path.join(__dirname, '../node_modules')],
-      extensions: ['.web.tsx', '.web.ts', '.web.jsx', '.web.js', '.ts', '.tsx', '.js', '.jsx', '.json'],
+      modules: ["node_modules", path.join(__dirname, "../node_modules")],
+      extensions: [".web.tsx", ".web.ts", ".web.jsx", ".web.js", ".ts", ".tsx", ".js", ".jsx", ".json"],
       alias: {
         [pkg.name]: process.cwd(),
-        styles: resolve(__dirname, '../src/components/styles')
+        styles: resolve(__dirname, "../src/components/styles")
       }
     },
 
@@ -47,14 +46,14 @@ for (let i = 0; i < entries.length; i++) {
         {
           test: /\.jsx?$/,
           exclude: /node_modules/,
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['env', 'react', 'es2015', 'stage-0'],
+            presets: ["env", "react", "es2015", "stage-0"],
             plugins: [
-              'add-module-exports',
-              'transform-es2015-modules-umd',
-              'transform-remove-strict-mode',
-              'transform-decorators-legacy'
+              "add-module-exports",
+              "transform-es2015-modules-umd",
+              "transform-remove-strict-mode",
+              "transform-decorators-legacy"
             ]
           }
         },
@@ -63,13 +62,13 @@ for (let i = 0; i < entries.length; i++) {
           use: ExtractTextPlugin.extract({
             use: [
               {
-                loader: 'css-loader',
+                loader: "css-loader",
                 options: {
                   sourceMap: true
                 }
               },
               {
-                loader: 'postcss-loader',
+                loader: "postcss-loader",
                 options: Object.assign({}, postcssConfig, { sourceMap: true })
               }
             ]
@@ -80,17 +79,17 @@ for (let i = 0; i < entries.length; i++) {
           use: ExtractTextPlugin.extract({
             use: [
               {
-                loader: 'css-loader',
+                loader: "css-loader",
                 options: {
                   sourceMap: true
                 }
               },
               {
-                loader: 'postcss-loader',
+                loader: "postcss-loader",
                 options: Object.assign({}, postcssConfig, { sourceMap: true })
               },
               {
-                loader: 'sass-loader',
+                loader: "sass-loader",
                 options: {
                   sourceMap: true
                 }
@@ -103,7 +102,7 @@ for (let i = 0; i < entries.length; i++) {
 
     plugins: [
       new ExtractTextPlugin({
-        filename: '[name].css',
+        filename: "[name].css",
         disable: false,
         allChunks: true
       }),
@@ -120,7 +119,7 @@ All rights reserved.
           stream.write(`📦  ${chalk.magenta(msg)} (${chalk.magenta(addInfo)})`);
           stream.clearLine(1);
         } else if (percentage === 1) {
-          console.log(chalk.green('\nwebpack: bundle build is now finished.'));
+          console.log(chalk.green("\nwebpack: bundle build is now finished."));
         }
       })
     ]
@@ -129,16 +128,28 @@ All rights reserved.
   config.entry[entries[i].destSrc] = entries[i].srcSrc;
   config.externals = {
     react: {
-      root: 'React',
-      commonjs2: 'react',
-      commonjs: 'react',
-      amd: 'react'
+      root: "React",
+      commonjs2: "react",
+      commonjs: "react",
+      amd: "react"
     },
-    'react-dom': {
-      root: 'ReactDOM',
-      commonjs2: 'react-dom',
-      commonjs: 'react-dom',
-      amd: 'react-dom'
+    "prop-types": {
+      root: "PropTypes",
+      commonjs2: "prop-types",
+      commonjs: "prop-types",
+      amd: "prop-types"
+    },
+    classnames: {
+      root: "classnames",
+      commonjs2: "classnames",
+      commonjs: "classnames",
+      amd: "classnames"
+    },
+    "react-dom": {
+      root: "ReactDOM",
+      commonjs2: "react-dom",
+      commonjs: "react-dom",
+      amd: "react-dom"
     }
   };
   configs.push(config);

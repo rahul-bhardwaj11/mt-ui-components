@@ -8,7 +8,7 @@ setOptions({
   showLeftPanel: true,
   showDownPanel: true,
   showSearchBox: false,
-  downPanelInRight: false,
+  downPanelInRight: true,
   sortStoriesByKind: true,
 });
 
