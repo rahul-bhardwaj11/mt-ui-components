@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import style from './index.scss';
 import AntButton from 'antd/lib/button';
 import 'antd/lib/button/style/css'
 
@@ -14,18 +13,20 @@ class Button extends Component {
     type: PropTypes.string,
     children: PropTypes.node,
     className: PropTypes.string,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    size: PropTypes.number
   };
   static defaultProps = {
     onClick: noop,
     children: 'Submit',
-    disabled: false
+    disabled: false,
+    size: 'default'
   };
 
 
   render() {
     return (
-      <AntButton type={this.props.type} disabled={this.props.disabled}>{this.props.children}</AntButton>
+      <AntButton type={this.props.type} size={this.props.size} disabled={this.props.disabled}>{this.props.children}</AntButton>
       )
   }
 }

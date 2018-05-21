@@ -4,6 +4,12 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import CheckBox from "./index";
 import { withInfo } from "@storybook/addon-info";
+import { boolean, withKnobs , text} from "@storybook/addon-knobs";
 
-storiesOf("CheckBox", module)
-  .add("Default CheckBox", withInfo("Basic usage of the Checkbox")(() => <CheckBox />));
+const stories = storiesOf("CheckBox", module);
+stories.addDecorator(withKnobs);
+
+
+stories
+  .add("Default CheckBox", withInfo("Basic usage of the Checkbox")(() => <CheckBox label={text('label','Checkbox')} />))
+  .add("Checked CheckBox", withInfo("Checked checkbox")(() => <CheckBox checked={boolean('checked',true)} label='Checkbox' />));
