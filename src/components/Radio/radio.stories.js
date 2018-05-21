@@ -11,4 +11,4 @@ stories.addDecorator(withKnobs);
 
 
 stories
-  .add("Default Radio", withInfo("Basic usage of the Input")(() => <Radio label={text('label','Radio')} checked={boolean('checked',true)} />));
+  .add("Default Radio", withInfo("Basic usage of the Radio")(() => <Radio label={text('label','Radio')} checked={boolean('checked',true)} />));
