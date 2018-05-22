@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AntMenu from 'antd/lib/menu';
-//import 'antd/lib/menu/style/css'
-import 'antd/dist/antd.css'
+import 'antd/lib/menu/style/css'
 
 
 
@@ -25,7 +24,7 @@ class Menu extends Component {
         <AntMenu onClick={this.onClick}>
           {options.map((option, index) => {
             return (
-              <AntMenu.Item key={index} >{option}</AntMenu.Item>
+              <AntMenu.Item key={option.key} >{option.content}</AntMenu.Item>
             );
           })}
         </AntMenu>

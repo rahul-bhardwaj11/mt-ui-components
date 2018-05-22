@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import AntMenu from 'antd/lib/menu';
 import AntDropdown from 'antd/lib/dropdown';
+import 'antd/lib/dropdown/style/css';
 import Menu from '../Menu';
-import 'antd/lib/dropdown/style/css'
 
 
 
-class Dropdown extends Component {
+class GroupButtonDropdown extends Component {
 
   static propTypes = {
     options: PropTypes.array.isRequired,
     trigger: PropTypes.string,
+    onClick: PropTypes.func,
     children: PropTypes.node
   };
 
   static defaultProps = {
-    trigger: 'hover'
+    trigger: 'hover',
+    children: 'Button'
   };
 
 
   onClick = function ({ key }) {
-    this.props.onClick(key);
+    if(this.props.onClick){
+      this.props.onClick(key);
+    }
   };
 
 
@@ -29,10 +32,10 @@ class Dropdown extends Component {
     let {options, trigger, children} = this.props;
     const menu = <Menu options={options} />
     return (
-      <AntDropdown overlay={menu} >
+      <AntDropdown.Button overlay={menu} >
       {children}
-      </AntDropdown>
+      </AntDropdown.Button>
     );
   }
 }
-export default Dropdown;
+export default GroupButtonDropdown;

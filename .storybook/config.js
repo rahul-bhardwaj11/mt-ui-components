@@ -1,4 +1,4 @@
-import { configure, setAddon } from '@storybook/react';
+import { configure, setAddon,addDecorator} from '@storybook/react';
 import { setOptions } from '@storybook/addon-options';
 
 setOptions({
@@ -11,6 +11,20 @@ setOptions({
   downPanelInRight: true,
   sortStoriesByKind: true,
 });
+
+addDecorator((story) => {
+  return story();
+});
+
+addDecorator(story => (
+  <div>
+    <div style={{ padding: 10}}>
+      {story()}
+    </div>
+  </div>
+));
+
+
 
 const req = require.context('../src/components', true, /.stories.js$/);
 
