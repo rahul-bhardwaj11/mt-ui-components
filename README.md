@@ -5,6 +5,14 @@
 
 ##### [Demo](https://MindTickle.github.io/mt-ui-components/)
 
+## Usage
+
+```jsx
+import Dropdown from "@mindtickle/mt-ui-components/lib/Dropdown";
+import "@mindtickle/mt-ui-components/lib/Dropdown/index.css";
+
+```
+
 ## Deployment
 
 This project follows semantic versioning.We release patch versions for bugfixes, minor versions for new features, and major versions for any breaking changes
