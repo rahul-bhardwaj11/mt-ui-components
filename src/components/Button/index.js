@@ -14,19 +14,22 @@ class Button extends Component {
     children: PropTypes.node,
     className: PropTypes.string,
     disabled: PropTypes.bool,
-    size: PropTypes.number
+    size: PropTypes.number,
+    style: PropTypes.object
   };
   static defaultProps = {
     onClick: noop,
     children: 'Submit',
     disabled: false,
-    size: 'default'
+    size: 'default',
+    type: 'primary'
   };
 
 
   render() {
+    const {style, size, disabled, children, type} = this.props;
     return (
-      <AntButton type={this.props.type} size={this.props.size} disabled={this.props.disabled}>{this.props.children}</AntButton>
+      <AntButton type={type} style={style} size={size} disabled={disabled}>{children}</AntButton>
       )
   }
 }

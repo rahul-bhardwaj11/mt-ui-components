@@ -6,7 +6,7 @@
   "author": "Mindtickle",
   "license": "MIT",
   "scripts": {
-    "start": "start-storybook -p 6006",
+    "start": "npm run build:watch & start-storybook -p 6006",
     "test": "NODE_ENV=test jest",
     "prebuild": "rimraf ./lib",
     "build": "webpack --config ./webpack/webpack.config.babel.js --progress --colors",

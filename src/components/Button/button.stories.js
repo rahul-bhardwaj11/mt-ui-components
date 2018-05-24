@@ -10,7 +10,7 @@ const stories = storiesOf("Button", module);
 stories.addDecorator(withKnobs);
 
 stories
-  .add("Default button", withInfo("Basic usage of the button")(() => <Button>{text('Label','Submit')}</Button>))
+  .add("Default button", withInfo("Basic usage of the button")(() => <Button type={text('type','default')}>{text('Label','Submit')}</Button>))
   .add(
     "Primary button",
     withInfo("Adding type primary to button")(() => (

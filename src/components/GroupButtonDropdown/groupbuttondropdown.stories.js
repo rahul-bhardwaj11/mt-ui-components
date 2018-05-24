@@ -18,6 +18,6 @@ const options = [
 stories.add(
   "Default GroupButtonDropdown",
   withInfo("Basic usage of the GroupButtonDropdown")(() => (
-    <GroupButtonDropdown options={object("options", options)}>Button</GroupButtonDropdown>
+    <GroupButtonDropdown options={object("options", options)} label={text("label","Add")} />
   ))
 );

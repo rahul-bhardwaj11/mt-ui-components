@@ -13,8 +13,10 @@ class Menu extends Component {
   };
 
 
-  onClick = function ({ key }) {
-    this.props.onClick(key);
+  onClick = ({ key }) => {
+    if(this.props.onClick){
+      this.props.onClick(key);
+    }
   };
 
 

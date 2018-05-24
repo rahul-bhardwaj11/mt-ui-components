@@ -1,40 +1,54 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import AntDropdown from 'antd/lib/dropdown';
-import 'antd/lib/dropdown/style/css';
-import Menu from '../Menu';
-
-
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Dropdown from "../Dropdown";
+import Button from "../Button";
+import style from "./index.scss";
+import classnames from "classnames";
 
 class GroupButtonDropdown extends Component {
-
   static propTypes = {
     options: PropTypes.array.isRequired,
     trigger: PropTypes.string,
     onClick: PropTypes.func,
-    children: PropTypes.node
+    label: PropTypes.string
   };
 
   static defaultProps = {
-    trigger: 'hover',
-    children: 'Button'
+    trigger: "click"
   };
 
-
-  onClick = function ({ key }) {
-    if(this.props.onClick){
+  onClick = ({ key }) => {
+    if (this.props.onClick) {
       this.props.onClick(key);
     }
   };
 
-
   render() {
-    let {options, trigger, children} = this.props;
-    const menu = <Menu options={options} />
+    let { options, trigger, label } = this.props;
     return (
-      <AntDropdown.Button overlay={menu} >
-      {children}
-      </AntDropdown.Button>
+      <div>
+        <Button
+          style={{
+            "border-bottom-right-radius": 0,
+            "border-top-right-radius": 0
+          }}
+        >
+          {label}
+        </Button>
+        <Dropdown options={options} onClick={this.onClick} trigger={trigger}>
+          <div style={{ display: "inline-block" }} className={classnames(style.rightBtn)}>
+            <Button
+              style={{
+                "border-bottom-left-radius": 0,
+                "border-top-left-radius": 0,
+                "border-left": "1px solid"
+              }}
+            >
+              <span>&#9660;</span>
+            </Button>
+          </div>
+        </Dropdown>
+      </div>
     );
   }
 }
