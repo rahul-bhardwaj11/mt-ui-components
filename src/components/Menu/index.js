@@ -23,7 +23,7 @@ class Menu extends Component {
   render() {
     let {options} = this.props;
       return (
-        <AntMenu onClick={this.onClick}>
+        <AntMenu prefixCls={"ant-dropdown-menu"} onClick={this.onClick}>
           {options.map((option, index) => {
             return (
               <AntMenu.Item key={option.key} >{option.content}</AntMenu.Item>
