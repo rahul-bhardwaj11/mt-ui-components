@@ -4,10 +4,15 @@ import Dropdown from "../Dropdown";
 import Button from "../Button";
 import style from "./index.scss";
 import classnames from "classnames";
+//import Dropdown from 'antd/lib/dropdown';
+//import 'antd/lib/dropdown/style/css'
+//import Menu from '../Menu';
+import './index.scss'
+
 
 class GroupButtonDropdown extends Component {
   static propTypes = {
-    options: PropTypes.array.isRequired,
+    options: PropTypes.any.isRequired,
     trigger: PropTypes.string,
     onClick: PropTypes.func,
     label: PropTypes.string
@@ -17,7 +22,7 @@ class GroupButtonDropdown extends Component {
     trigger: "click"
   };
 
-  onClick = ({ key }) => {
+  onClick = (key) => {
     if (this.props.onClick) {
       this.props.onClick(key);
     }
@@ -25,12 +30,13 @@ class GroupButtonDropdown extends Component {
 
   render() {
     let { options, trigger, label } = this.props;
+
     return (
       <div>
         <Button
           style={{
-            "border-bottom-right-radius": 0,
-            "border-top-right-radius": 0
+            "borderBottomRightRadius": 0,
+            "borderTopRightRadius": 0
           }}
         >
           {label}
@@ -39,9 +45,9 @@ class GroupButtonDropdown extends Component {
           <div style={{ display: "inline-block" }} className={classnames(style.rightBtn)}>
             <Button
               style={{
-                "border-bottom-left-radius": 0,
-                "border-top-left-radius": 0,
-                "border-left": "1px solid"
+                "borderBottomLeftRadius": 0,
+                "borderTopLeftRadius": 0,
+                "borderLeft": "1px solid"
               }}
             >
               <span>&#9660;</span>
@@ -51,5 +57,20 @@ class GroupButtonDropdown extends Component {
       </div>
     );
   }
+
+  // render(){
+  //   let { options, trigger, label } = this.props;
+  //   let overlay;
+  //   if(options instanceof Array){
+  //     overlay = (<Menu options={options} onClick={this.onClick}/>);
+  //   } else {
+  //     overlay = options;
+  //   }
+  //   return (
+  //     <Dropdown.Button overlay={overlay}>
+  //       Dropdown
+  //     </Dropdown.Button>
+  //   );
+  // }
 }
 export default GroupButtonDropdown;

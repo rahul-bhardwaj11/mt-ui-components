@@ -21,7 +21,6 @@ class Button extends Component {
     onClick: noop,
     children: 'Submit',
     disabled: false,
-    size: 'default',
     type: 'primary'
   };
 

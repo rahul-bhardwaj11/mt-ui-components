@@ -9,7 +9,7 @@ import 'antd/lib/dropdown/style/css'
 class Dropdown extends Component {
 
   static propTypes = {
-    options: PropTypes.array.isRequired,
+    options: PropTypes.any.isRequired,
     trigger: PropTypes.string,
     children: PropTypes.node,
     onClick: PropTypes.func
@@ -28,10 +28,15 @@ class Dropdown extends Component {
 
 
   render() {
-    let {options, trigger, children} = this.props;
-    const menu = (<Menu options={options} onClick={this.onClick}/>);
+    let {options, trigger, children, prefixCls} = this.props;
+    let overlay;
+    if(options instanceof Array){
+      overlay = (<Menu options={options} onClick={this.onClick}/>);
+    } else {
+      overlay = options;
+    }
     return (
-      <AntDropdown overlay={menu} trigger={[trigger]} >
+      <AntDropdown overlay={overlay} trigger={[trigger]} prefixCls={prefixCls}>
       {children}
       </AntDropdown>
     );

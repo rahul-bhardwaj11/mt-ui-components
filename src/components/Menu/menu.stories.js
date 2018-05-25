@@ -10,7 +10,7 @@ const stories = storiesOf("Menu", module);
 stories.addDecorator(withKnobs);
 
 const options = [
-  { key: "1", content: "First Item" },
+  { key: "1", content: "<span>First Item</span>" },
   { key: "2", content: "Second Item" },
   { key: "3", content: "Third Item" }
 ];
