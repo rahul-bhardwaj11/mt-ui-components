@@ -3,7 +3,7 @@ import { setOptions } from '@storybook/addon-options';
 
 setOptions({
   name: 'MT React Components',
-  url: 'https://github.com/Mindtickle/mt-react-components',
+  url: 'https://github.com/Mindtickle/mt-ui-components',
   goFullScreen: false,
   showLeftPanel: true,
   showDownPanel: true,
