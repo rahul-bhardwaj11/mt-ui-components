@@ -37,3 +37,13 @@ $ npm run deploy:sb
 ```
 $ npm run start
 ```
+
+### Local Development
+For faster local development with this module, you can link them with npm as described below:
+
+```
+$ cd ~/mt-ui-components 
+$ npm link
+$ cd ~/your-project
+$ npm link @mindtickle/mt-ui-components 
+```
