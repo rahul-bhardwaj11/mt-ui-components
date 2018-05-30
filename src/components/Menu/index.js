@@ -2,13 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import AntMenu from "antd/lib/menu";
 import "antd/lib/menu/style/css";
-
-class HtmlToReact extends React.Component {
-  render() {
-    let { content } = this.props;
-    return <div dangerouslySetInnerHTML={{ __html: content }} />;
-  }
-}
+import StringToHTML from "../StringToHTML";
 
 class Menu extends Component {
   static propTypes = {
@@ -23,13 +17,13 @@ class Menu extends Component {
   };
 
   render() {
-    let { options } = this.props;
+    let { options, mode, prefixCls } = this.props;
     return (
-      <AntMenu prefixCls={"ant-dropdown-menu"} onClick={this.onClick}>
+      <AntMenu prefixCls={prefixCls} onClick={this.onClick} mode={mode}>
         {options.map((option, index) => {
           return (
             <AntMenu.Item key={option.key}>
-              <HtmlToReact content={option.content} />
+              <StringToHTML content={option.content} />
             </AntMenu.Item>
           );
         })}

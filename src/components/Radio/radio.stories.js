@@ -4,11 +4,27 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import Radio from "./index";
 import { withInfo } from "@storybook/addon-info";
-import { withKnobs , text, boolean} from "@storybook/addon-knobs";
+import { withKnobs, text, boolean } from "@storybook/addon-knobs";
 
 const stories = storiesOf("Radio", module);
 stories.addDecorator(withKnobs);
 
 
 stories
-  .add("Default Radio", withInfo("Basic usage of the Radio")(() => <Radio label={text('label','Radio')} checked={boolean('checked',true)} />));
+  .add(
+    "Default Radio",
+    withInfo("Basic usage of the Radio")(() => (
+      <Radio checked={boolean("checked", true)}>{text("children", "Radio")}</Radio>
+    ))
+  )
+  .add(
+    "Radio Group",
+    withInfo("Usage of the RadioGroup")(() => (
+      <Radio.Group>
+        <Radio value={1}>1</Radio>
+        <Radio value={2}>2</Radio>
+        <Radio value={3}>3</Radio>
+        <Radio value={4}>4</Radio>
+      </Radio.Group>
+    ))
+  );

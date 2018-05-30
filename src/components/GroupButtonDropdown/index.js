@@ -4,10 +4,6 @@ import Dropdown from "../Dropdown";
 import Button from "../Button";
 import style from "./index.scss";
 import classnames from "classnames";
-//import Dropdown from 'antd/lib/dropdown';
-//import 'antd/lib/dropdown/style/css'
-//import Menu from '../Menu';
-import './index.scss'
 
 
 class GroupButtonDropdown extends Component {
@@ -30,9 +26,8 @@ class GroupButtonDropdown extends Component {
 
   render() {
     let { options, trigger, label } = this.props;
-
     return (
-      <div>
+      <div className={style.container}>
         <Button
           style={{
             "borderBottomRightRadius": 0,
@@ -58,19 +53,5 @@ class GroupButtonDropdown extends Component {
     );
   }
 
-  // render(){
-  //   let { options, trigger, label } = this.props;
-  //   let overlay;
-  //   if(options instanceof Array){
-  //     overlay = (<Menu options={options} onClick={this.onClick}/>);
-  //   } else {
-  //     overlay = options;
-  //   }
-  //   return (
-  //     <Dropdown.Button overlay={overlay}>
-  //       Dropdown
-  //     </Dropdown.Button>
-  //   );
-  // }
 }
 export default GroupButtonDropdown;

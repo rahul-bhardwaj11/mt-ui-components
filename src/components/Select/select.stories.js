@@ -2,15 +2,11 @@ import React from "react";
 
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Dropdown from "./index";
+import Select from "./index";
 import { withInfo } from "@storybook/addon-info";
 import { withKnobs, object } from "@storybook/addon-knobs";
 
-const styles = {
-  textAlign: "center"
-};
-
-const stories = storiesOf("Dropdown", module);
+const stories = storiesOf("Select", module);
 stories.addDecorator(withKnobs);
 
 const options = [
@@ -20,12 +16,9 @@ const options = [
 ];
 
 stories.add(
-  "Default Dropdown",
-  withInfo("Basic usage of the Dropdown")(() => (
-    <Dropdown options={object("options", options)}>
-      <a className="ant-dropdown-link" href="#">
-        Hover me
-      </a>
-    </Dropdown>
+  "Default Select",
+  withInfo("Basic usage of the Select")(() => (
+    <Select options={object("options", options)}>
+    </Select>
   ))
 );

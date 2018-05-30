@@ -82,7 +82,8 @@ for (let i = 0; i < entries.length; i++) {
               {
                 loader: "css-loader",
                 options: {
-                  sourceMap: true
+                  sourceMap: true,
+                  modules: true
                 }
               },
               {

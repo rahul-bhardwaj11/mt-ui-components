@@ -8,16 +8,17 @@ import 'antd/lib/radio/style/css'
 class Radio extends Component {
 
   static propTypes = {
-    label: PropTypes.string,
+    children: PropTypes.any,
     checked: PropTypes.bool
   };
 
 
   render() {
-    let {label,checked} = this.props;
+    let { children } = this.props;
       return (
-        <AntRadio checked={checked}>{label}</AntRadio>
+        <AntRadio {...this.props} >{children}</AntRadio>
       );
   }
 }
+Radio.Group = AntRadio.Group;
 export default Radio;

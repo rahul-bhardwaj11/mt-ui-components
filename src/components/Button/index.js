@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import AntButton from 'antd/lib/button';
-import 'antd/lib/button/style/css'
-
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import classnames from "classnames";
+import AntButton from "antd/lib/button";
+import "antd/lib/button/style/css";
 
 const noop = () => undefined;
 
@@ -19,17 +18,18 @@ class Button extends Component {
   };
   static defaultProps = {
     onClick: noop,
-    children: 'Submit',
+    children: "Submit",
     disabled: false,
-    type: 'primary'
+    type: "primary"
   };
 
-
   render() {
-    const {style, size, disabled, children, type} = this.props;
+    const { style, size, disabled, children, type } = this.props;
     return (
-      <AntButton type={type} style={style} size={size} disabled={disabled}>{children}</AntButton>
-      )
+      <AntButton type={type} style={style} size={size} disabled={disabled} className={classnames("ant-dropdown-trigger")}>
+        {children}
+      </AntButton>
+    );
   }
 }
 export default Button;

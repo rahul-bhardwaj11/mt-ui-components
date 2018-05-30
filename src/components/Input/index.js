@@ -14,8 +14,9 @@ class Input extends Component {
 
   render() {
       return (
-        <AntInput placeholder={this.props.placeholder} />
+        <AntInput {...this.props} />
     )
   }
 }
+Input.TextArea = AntInput.TextArea;
 export default Input;
