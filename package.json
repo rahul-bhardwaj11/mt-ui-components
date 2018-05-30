@@ -85,7 +85,6 @@
     }
   },
   "dependencies": {
-    "@mindtickle/mt-ui-components": "0.0.4",
     "@storybook/addon-info": "^3.3.11",
     "@storybook/addon-knobs": "^3.4.5",
     "@storybook/addon-links": "^3.3.11",
