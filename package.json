@@ -1,6 +1,6 @@
 {
   "name": "@mindtickle/mt-ui-components",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Collection of common React UI components for Mindtickle",
   "repository": "git@github.com:MindTickle/mt-ui-components.git",
   "author": "Mindtickle",
@@ -101,7 +101,7 @@
     "react-test-renderer": "^16.1.1",
     "react-tether": "^0.5.7"
   },
-  "peerDependencies":{
+  "peerDependencies": {
     "react": "^16.1.0",
     "antd": "^3.5.2",
     "classnames": "^2.2.5",
