@@ -26,7 +26,8 @@ Ensure packages are installed with correct version numbers by running:
 ```jsx
 import React from 'react';
 import Button from '@mindtickle/mt-ui-components/lib/Button';
-
+```
+```jsx
 const MyComponent = () =>
   <Button onClick={() => console.log('Button clicked!)')}>
     Click me!
@@ -41,7 +42,8 @@ This project follows semantic versioning.We release patch versions for bugfixes,
 $ npm run deploy major
 $ npm run deploy minor
 $ npm run deploy patch
-
+```
+```
 Additionaly, you can tag your release to some prelease label as well
 $ npm run deploy patch alpha
 $ npm run deploy patch beta
