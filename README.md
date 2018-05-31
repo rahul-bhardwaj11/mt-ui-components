@@ -13,8 +13,13 @@ $ npm i @mindtickle/mt-ui-components
 ```
 
 ```jsx
-import Dropdown from "@mindtickle/mt-ui-components/lib/Dropdown"
+import React from 'react';
+import Button from '@mindtickle/mt-ui-components/lib/Button';
 
+const MyComponent = () =>
+  <Button onClick={() => console.log('Button clicked!)')}>
+    Click me!
+  </Button>;
 ```
 
 ## Deployment
