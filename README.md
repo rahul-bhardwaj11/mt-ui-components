@@ -8,8 +8,7 @@
 ## Usage
 
 ```jsx
-import Dropdown from "@mindtickle/mt-ui-components/lib/Dropdown";
-import "@mindtickle/mt-ui-components/lib/Dropdown/index.css";
+import Dropdown from "@mindtickle/mt-ui-components/lib/Dropdown"
 
 ```
 
