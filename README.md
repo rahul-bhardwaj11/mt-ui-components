@@ -5,11 +5,32 @@
 
 ##### [Demo](https://MindTickle.github.io/mt-ui-components/)
 
-## Usage
+## Getting Started
+
+### Installation
+```bash
+$ npm config set @mindtickle:registry http://verdaccio.ops.mindtickle.com
+$ npm i @mindtickle/mt-ui-components
+```
+
+### Install dependencies
+Ensure packages are installed with correct version numbers by running:
+```sh
+  (
+    export PKG=@mindtickle/mt-ui-components;
+    npm info "$PKG" peerDependencies --json | command sed 's/[\{\},]//g ; s/: /@/g; s/ *//g' | xargs npm install --save "$PKG"
+  )
+```
+### Usage
 
 ```jsx
-import Dropdown from "@mindtickle/mt-ui-components/lib/Dropdown"
+import React from 'react';
+import Button from '@mindtickle/mt-ui-components/lib/Button';
 
+const MyComponent = () =>
+  <Button onClick={() => console.log('Button clicked!)')}>
+    Click me!
+  </Button>;
 ```
 
 ## Deployment
