@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AntCollapse from 'antd/lib/collapse';
-import 'antd/lib/collapse/style/css';
+import 'antd/lib/collapse/style/index.css';
 import StringToHTML from "../StringToHTML";
 
 

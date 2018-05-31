@@ -42,7 +42,6 @@ for (let i = 0; i < entries.length; i++) {
     },
 
     module: {
-      noParse: [/moment.js/],
       rules: [
         {
           test: /\.jsx?$/,
@@ -60,44 +59,7 @@ for (let i = 0; i < entries.length; i++) {
         },
         {
           test: /\.css$/,
-          use: ExtractTextPlugin.extract({
-            use: [
-              {
-                loader: "css-loader",
-                options: {
-                  sourceMap: true
-                }
-              },
-              {
-                loader: "postcss-loader",
-                options: Object.assign({}, postcssConfig, { sourceMap: true })
-              }
-            ]
-          })
-        },
-        {
-          test: /\.scss$/,
-          use: ExtractTextPlugin.extract({
-            use: [
-              {
-                loader: "css-loader",
-                options: {
-                  sourceMap: true,
-                  modules: true
-                }
-              },
-              {
-                loader: "postcss-loader",
-                options: Object.assign({}, postcssConfig, { sourceMap: true })
-              },
-              {
-                loader: "sass-loader",
-                options: {
-                  sourceMap: true
-                }
-              }
-            ]
-          })
+          loader: "inline-css-webpack-loader"
         }
       ]
     },
@@ -152,6 +114,12 @@ All rights reserved.
       commonjs2: "react-dom",
       commonjs: "react-dom",
       amd: "react-dom"
+    },
+    "styled-components": {
+      root: "styled",
+      commonjs2: "styled-components",
+      commonjs: "styled-components",
+      amd: "styled-components"
     }
   };
   configs.push(config);

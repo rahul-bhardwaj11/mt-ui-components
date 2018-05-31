@@ -2,8 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Dropdown from "../Dropdown";
 import Button from "../Button";
-import style from "./index.scss";
 import classnames from "classnames";
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display-inline: block
+`;
 
 
 class GroupButtonDropdown extends Component {
@@ -27,7 +31,7 @@ class GroupButtonDropdown extends Component {
   render() {
     let { options, trigger, label } = this.props;
     return (
-      <div className={style.container}>
+      <Container>
         <Button
           style={{
             "borderBottomRightRadius": 0,
@@ -37,7 +41,7 @@ class GroupButtonDropdown extends Component {
           {label}
         </Button>
         <Dropdown options={options} onClick={this.onClick} trigger={trigger}>
-          <div style={{ display: "inline-block" }} className={classnames(style.rightBtn)}>
+          <div style={{ display: "inline-block" }}>
             <Button
               style={{
                 "borderBottomLeftRadius": 0,
@@ -49,7 +53,7 @@ class GroupButtonDropdown extends Component {
             </Button>
           </div>
         </Dropdown>
-      </div>
+      </Container>
     );
   }
 

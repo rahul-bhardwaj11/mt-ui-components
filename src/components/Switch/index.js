@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import AntSwitch from "antd/lib/switch";
-import "antd/lib/switch/style/css";
+import "antd/lib/switch/style/index.css";
 
 class Switch extends Component {
   constructor(props) {

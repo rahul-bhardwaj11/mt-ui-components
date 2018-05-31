@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AntRadio from 'antd/lib/radio';
-import 'antd/lib/radio/style/css'
+import 'antd/lib/radio/style/index.css'
 
 
 

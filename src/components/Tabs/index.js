@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AntTabs from 'antd/lib/tabs';
-import 'antd/lib/tabs/style/css'
+import 'antd/lib/tabs/style/index.css'
 
 class Tabs extends Component {
 

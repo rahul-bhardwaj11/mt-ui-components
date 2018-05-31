@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 //import style from './index.scss';
 
 import AntCheckbox from 'antd/lib/checkbox';
-import 'antd/lib/checkbox/style/css'
+import 'antd/lib/checkbox/style/index.css'
 
 
 

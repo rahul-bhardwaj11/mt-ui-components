@@ -7,7 +7,7 @@
 // to "React Create App". This only has babel loader to load JavaScript.
 
 const path = require("path");
-const resolve = require('path').resolve;
+const resolve = require("path").resolve;
 module.exports = {
   resolve: {
     alias: {
@@ -19,7 +19,17 @@ module.exports = {
     rules: [
       {
         test: /\.scss$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"],
+        loaders: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true,
+              localIdentName: "[folder]__[local]___[hash:base64:5]"
+            }
+          },
+          "sass-loader"
+        ],
         include: path.resolve(__dirname, "../")
       },
       {
@@ -28,19 +38,19 @@ module.exports = {
         include: path.resolve(__dirname, "../")
       },
       {
-          test: /\.js?$/,
-          exclude: /node_modules/,
-          loader: 'babel-loader',
-          options: {
-            presets: ['env', 'react', 'es2015', 'stage-0'],
-            plugins: [
-              'add-module-exports',
-              'transform-es2015-modules-umd',
-              'transform-remove-strict-mode',
-              'transform-decorators-legacy'
-            ]
-          }
-        },
+        test: /\.js?$/,
+        exclude: /node_modules/,
+        loader: "babel-loader",
+        options: {
+          presets: ["env", "react", "es2015", "stage-0"],
+          plugins: [
+            "add-module-exports",
+            "transform-es2015-modules-umd",
+            "transform-remove-strict-mode",
+            "transform-decorators-legacy"
+          ]
+        }
+      },
       {
         test: /\.jpg$/,
         use: "url-loader?limit=8192&name=[name].[ext]"

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import AntMenu from "antd/lib/menu";
-import "antd/lib/menu/style/css";
+import "antd/lib/menu/style/index.css";
 import StringToHTML from "../StringToHTML";
 
 class Menu extends Component {

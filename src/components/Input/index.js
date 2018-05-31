@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AntInput from 'antd/lib/input';
-import 'antd/lib/input/style/css'
+import 'antd/lib/input/style/index.css'
 
 
 

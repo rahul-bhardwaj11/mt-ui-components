@@ -2,7 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import AntButton from "antd/lib/button";
-import "antd/lib/button/style/css";
+import "antd/lib/button/style/index.css";
+import styled from 'styled-components';
+
+const MtButton = styled.div`
+display: inline-block
+`;
+
+
 
 const noop = () => undefined;
 
@@ -26,9 +33,11 @@ class Button extends Component {
   render() {
     const { style, size, disabled, children, type } = this.props;
     return (
-      <AntButton type={type} style={style} size={size} disabled={disabled} className={classnames("ant-dropdown-trigger")}>
-        {children}
-      </AntButton>
+      <MtButton>
+        <AntButton type={type} style={style} size={size} disabled={disabled} >
+          {children}
+        </AntButton>
+       </MtButton>
     );
   }
 }
