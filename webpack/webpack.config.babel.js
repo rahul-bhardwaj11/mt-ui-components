@@ -59,7 +59,7 @@ for (let i = 0; i < entries.length; i++) {
         },
         {
           test: /\.css$/,
-          loader: "inline-css-webpack-loader"
+          loader: "css-loader"
         }
       ]
     },
