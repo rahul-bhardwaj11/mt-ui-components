@@ -8,6 +8,7 @@
 ## Usage
 
 ```bash
+$ npm config set @mindtickle:registry http://verdaccio.ops.mindtickle.com
 $ npm i @mindtickle/mt-ui-components
 ```
 
