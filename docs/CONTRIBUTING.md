@@ -22,12 +22,11 @@ npm install
 
 Ensure packages are installed with correct version numbers by running:
 ```sh
-  (
-    export PKG=@mindtickle/mt-ui-components;
-    npm info "$PKG" peerDependencies --json | command sed 's/[\{\},]//g ; s/: /@/g; s/ *//g' | xargs npm install --save "$PKG"
-  )
+(
+  export PKG=@mindtickle/mt-ui-components;
+  npm info "$PKG" peerDependencies --json | command sed 's/[\{\},]//g ; s/: /@/g; s/ *//g' | xargs npm install --save "$PKG"
+)
 
-```sh
 npm start
 open localhost:6006
 ```
