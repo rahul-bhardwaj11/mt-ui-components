@@ -7,6 +7,10 @@
 
 ## Usage
 
+```bash
+$ npm i @mindtickle/mt-ui-components
+```
+
 ```jsx
 import Dropdown from "@mindtickle/mt-ui-components/lib/Dropdown"
 
