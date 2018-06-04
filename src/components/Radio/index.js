@@ -16,7 +16,7 @@ class Radio extends Component {
   render() {
     let { children } = this.props;
       return (
-        <AntRadio {...this.props} >{children}</AntRadio>
+        <AntRadio >{children}</AntRadio>
       );
   }
 }

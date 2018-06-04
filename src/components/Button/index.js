@@ -31,10 +31,10 @@ class Button extends Component {
   };
 
   render() {
-    const { style, size, disabled, children, type } = this.props;
+    const { style, size, disabled, children, type, onClick } = this.props;
     return (
       <MtButton>
-        <AntButton type={type} style={style} size={size} disabled={disabled} >
+        <AntButton type={type} style={style} size={size} disabled={disabled} onClick={onClick} >
           {children}
         </AntButton>
        </MtButton>
