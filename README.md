@@ -47,6 +47,8 @@ $ npm run deploy patch
 Additionaly, you can tag your release to some prelease label as well
 $ npm run deploy patch alpha
 $ npm run deploy patch beta
+$ npm run deploy prerelease alpha
+
 
 ```
 ### Deploying storybook
