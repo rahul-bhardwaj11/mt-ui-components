@@ -4,22 +4,8 @@ import AntInput from 'antd/lib/input';
 import 'antd/lib/input/style/index.css'
 import styled from 'styled-components'
 
-var //primary = '#4D7CC7',
-    // darkGrey = '#888',
-    // lightBlue= '4A90E2',
-    help: '#BBB',
+var help: '#BBB',
     disable: 'E8E8E8'
-    // light: '#E4EFFB',
-    // dark: '#2A2E36',
-    // light:  '#606369',
-    // lighter: '#989CA6',
-    // navigationDard: '#202A39',
-    // navigationLight: '#262B43',
-    // text:  '#868BA7',
-    //
-    // icon: '#888888',
-    // border: '#DDDDDD',
-    // background:  '#F5F6F7'
 
 
 const MtInput = styled.div`

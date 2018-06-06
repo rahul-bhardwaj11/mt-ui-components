@@ -4,7 +4,6 @@ import Dropdown from "../Dropdown";
 import Button from "../Button";
 import classnames from "classnames";
 import styled from 'styled-components';
-// import '../../styles/mixin.scss';
 
 const MtGroupDropdown = styled.div`
   div{
@@ -12,7 +11,6 @@ const MtGroupDropdown = styled.div`
   }
   .ant-dropdown-trigger {
     .ant-btn-primary {
-    /*  @include fstack(14px, 300);*/
       span{
           font-size: 9px;
           margin-top: 4px;

@@ -6,24 +6,7 @@ import StringToHTML from "../StringToHTML";
 import styled from 'styled-components';
 
 var primary = '#4D7CC7',
-    // darkGrey = '#888',
     lightBlue= '4A90E2'
-    // help: '#BBB'
-    //
-    // light: '#E4EFFB',
-    // dark: '#2A2E36',
-    // light:  '#606369',
-    // lighter: '#989CA6',
-    // navigationDard: '#202A39',
-    // navigationLight: '#262B43',
-    // text:  '#868BA7',
-    //
-    // icon: '#888888',
-    // border: '#DDDDDD',
-    // background:  '#F5F6F7'
-
-// syntax of mixin -----   ${ fsatck('12px', '300')};
-// syntax of variables -----   color: ${primary};
 
 const MtMenu = styled.div`
 .ant-select-dropdown-menu-item{
