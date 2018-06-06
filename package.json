@@ -1,6 +1,6 @@
 {
   "name": "@mindtickle/mt-ui-components",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Collection of common React UI components for Mindtickle",
   "repository": "git@github.com:MindTickle/mt-ui-components.git",
   "author": "Mindtickle",
@@ -62,6 +62,7 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^0.10.1",
     "gh-pages": "^0.12.0",
+    "is-plain-object": "^2.0.4",
     "jest": "^22.0.4",
     "jsdom": "^9.9.1",
     "lint-staged": "^5.0.0",
