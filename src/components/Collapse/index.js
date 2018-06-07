@@ -13,9 +13,6 @@ const MtCollapse = styled.div`
 .ant-collapse > .ant-collapse-item:last-child, .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header{
   border-radius: 0px;
 }
-.ant-collapse > .ant-collapse-item > .ant-collapse-header i{
-  ${'' /* background: green; */}
-}
 .ant-collapse-header{
   font-weight: bold;
 

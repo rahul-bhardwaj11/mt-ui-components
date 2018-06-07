@@ -5,21 +5,21 @@ import AntButton from "antd/lib/button";
 import "antd/lib/button/style/index.css";
 import styled from 'styled-components';
 
-export function truncate(width) {
-  return `
-    width: ${width};
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  `;
-}
-export function fsatck(fontsize, fontweight) {
-  return `
-    font-size: ${fontsize};
-    font-weight: ${fontweight};
-    font-family: 'Open Sans', sans-serif;
-  `;
-}
+// export function truncate(width) {
+//   return `
+//     width: ${width};
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//   `;
+// }
+// export function fsatck(fontsize, fontweight) {
+//   return `
+//     font-size: ${fontsize};
+//     font-weight: ${fontweight};
+//     font-family: 'Open Sans', sans-serif;
+//   `;
+// }
 var primary = '#4D7CC7',
     darkGrey = '#888',
     lightBlue= '4A90E2',

@@ -9,6 +9,7 @@ var taghoverBorder = '#468EE5',
     tagHoverTextColor= '#4A90E2'
 
 const MtTag = styled.div`
+  display: inline-block;
 
 .ant-tag{
     color: rgba(0, 0, 0, 0.65);

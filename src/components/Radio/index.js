@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AntRadio from 'antd/lib/radio';
 import 'antd/lib/radio/style/index.css'
 import styled from 'styled-components';
-import '../../styles/commonStyle.scss'
+//import '../../styles/commonStyle.scss'
 
 var primary = '#4D7CC7'
 
