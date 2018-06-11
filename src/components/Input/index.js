@@ -20,12 +20,14 @@ const MtInput = styled.div`
     }
 
   }
-  .ant-input:focus{
-    border-color: ${help};
-    font-weight: 500;
-    outline: 0;
-    -webkit-box-shadow: 0 0 0 0px rgba(24, 144, 255, 0.2);
-    box-shadow: 0 0 0 0px rgba(24, 144, 255, 0.2);
+  .ant-input{
+    &:focus{
+        border-color: ${help};
+        font-weight: 500;
+        outline: 0;
+        -webkit-box-shadow: 0 0 0 0px rgba(24, 144, 255, 0.2);
+        box-shadow: 0 0 0 0px rgba(24, 144, 255, 0.2);
+    }
   }
   .ant-input-disabled{
     border-color: ${disable};

@@ -44,22 +44,34 @@ const MtMenu = styled.div`
   line-height: 32px;
 }
 
-.ant-menu-horizontal > .ant-menu-item:hover,
-.ant-menu-horizontal > .ant-menu-submenu:hover,
-.ant-menu-horizontal > .ant-menu-item-active,
-.ant-menu-horizontal > .ant-menu-submenu-active,
-.ant-menu-horizontal > .ant-menu-item-selected,
-.ant-menu-horizontal > .ant-menu-submenu-selected{
-  border-bottom: 3px solid ${lightBlue};
-  color: #202A39;
+.ant-menu-horizontal
+{
+  & > .ant-menu-item,
+  & > .ant-menu-submenu,{
+    &:hover{
+      border-bottom: 3px solid ${lightBlue};
+      color: #202A39;
+    }
+  }
+  & > .ant-menu-item-active,
+  & > .ant-menu-submenu-active,
+  & > .ant-menu-item-selected,
+  & > .ant-menu-submenu-selected {
+      border-bottom: 3px solid ${lightBlue};
+      color: #202A39;
+  }
 }
+
 .ant-menu-item{
   font-size: 15px;
   padding: 0px 8px;
-    b {
+    b{
       font-weight: normal;
     }
     color: #8E9194;
+}
+.ant-dropdown-trigger{
+  font-size:13px;
 }
 `;
 

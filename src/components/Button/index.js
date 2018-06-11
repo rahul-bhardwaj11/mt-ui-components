@@ -47,7 +47,7 @@ const MtButton = styled.div`
 	border: 1px solid #ddd;
   color: #6F7583;
   height: 32px;
-  padding: 0px 32px;
+  padding: 0px 12px;
   &.ant-btn-sm{
     color: #888;
     font-size: 12px;
@@ -78,7 +78,7 @@ const MtButton = styled.div`
   color: #FFF;
   font-size: 14px;
   height: 32px;
-  padding: 0px 32px;
+  padding: 0px 12px;
 
   &.ant-btn-sm{
     color: #FFF;
@@ -112,7 +112,7 @@ const MtButton = styled.div`
   color: #989CA6;
   font-size: 14px;
   height: 32px;
-  padding: 0px 32px;
+  padding: 0px 12px;
 
   &.ant-btn-sm{
     color: #FFF;

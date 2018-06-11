@@ -15,7 +15,7 @@ const MtTag = styled.div`
     color: rgba(0, 0, 0, 0.65);
     border-radius: 16px;
     font-size: 12px;
-    background: #fff;
+    background: #F6F7F9;
     color: #606369;
     line-height: 24px;
     height: 24px;
