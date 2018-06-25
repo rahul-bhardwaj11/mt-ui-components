@@ -4,7 +4,7 @@ import AntTabs from 'antd/lib/tabs';
 import 'antd/lib/tabs/style/index.css'
 import styled from 'styled-components';
 
-var dark: '#2A2E36'
+var DARK: '#2A2E36'
 
 
 const MtTabs = styled.div`
@@ -23,12 +23,12 @@ const MtTabs = styled.div`
 .ant-tabs-nav {
   .ant-tabs-tab{
     &:hover{
-      color: ${dark};
+      color: ${DARK};
     }
   }
 
   .ant-tabs-tab-active{
-    color: ${dark};
+    color: ${DARK};
   }
 }
 .ant-tabs-content > .ant-tabs-tabpane{

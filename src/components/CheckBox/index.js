@@ -2,23 +2,31 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 //import style from './index.scss';
-
 import AntCheckbox from 'antd/lib/checkbox';
 import 'antd/lib/checkbox/style/index.css'
 import styled from 'styled-components';
 
-var dark: '#2A2E36',
-    lighter: '#989CA6'
+var DARK: '#2A2E36',
+    LIGHTER: '#989CA6'
 
 const MtCheckbox = styled.div`
   .ant-checkbox-wrapper{
     font-weight:500;
+    display:inherit;
+    .ant-checkbox{
+      float: left;
+    }
+    .ant-checkbox + span{
+      float: left;
+      min-width: 125px;
+      font-size: 12px;
+    }
     .ant-checkbox-checked + span{
-      color:${dark};
+      color:${DARK};
     }
 
     span{
-      color:${lighter};
+      color:${LIGHTER};
     }
   }
 

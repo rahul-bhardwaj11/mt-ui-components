@@ -23,6 +23,7 @@
       border-radius: 4px;
       padding: 5px 15px;
       margin-bottom: 8px;
+      font-weight: normal;
 
       &:hover{
         background: #4A90E2;
@@ -30,5 +31,8 @@
         border-radius: 4px;
       }
     }
+  }
+  .ant-select-selection-selected-value{
+      font-weight: normal;
   }
 }

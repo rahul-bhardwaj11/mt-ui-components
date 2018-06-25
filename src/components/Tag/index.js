@@ -4,31 +4,30 @@ import AntTag from 'antd/lib/tag';
 import 'antd/lib/tag/style/index.css'
 import styled from 'styled-components';
 
-var taghoverBorder = '#468EE5',
-    taghoverBg = '#E4EFFB',
-    tagHoverTextColor= '#4A90E2'
+var TAG_HOVER_TEXT_COLOR= '#4A90E2'
 
 const MtTag = styled.div`
+  display: inline-block;
 
 .ant-tag{
     color: rgba(0, 0, 0, 0.65);
     border-radius: 16px;
     font-size: 12px;
-    background: #fff;
+    background: #F6F7F9;
     color: #606369;
     line-height: 24px;
     height: 24px;
     padding: 0 15px;
 
     &:hover{
-      	border: 1px solid ${taghoverBorder};
+      	border: 1px solid #468EE5;
         border-radius: 16px;
-        background-color: ${taghoverBg};
-        color: ${tagHoverTextColor};
+        background-color: #E4EFFB;
+        color: ${TAG_HOVER_TEXT_COLOR};
       }
       a{
         &:hover{
-          color: ${tagHoverTextColor};
+          color: ${TAG_HOVER_TEXT_COLOR};
         }
       }
 }

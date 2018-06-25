@@ -4,7 +4,7 @@ import Dropdown from "../Dropdown";
 import "antd/lib/dropdown/style/css";
 import AntSelect from "antd/lib/select";
 import "antd/lib/select/style/index.css";
-import style from "./index.scss";
+import style from "./index.scss"
 const Option = AntSelect.Option;
 
 class Select extends Component {

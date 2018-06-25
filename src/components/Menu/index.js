@@ -5,16 +5,15 @@ import "antd/lib/menu/style/index.css";
 import StringToHTML from "../StringToHTML";
 import styled from 'styled-components';
 
-var primary = '#4D7CC7',
-    lightBlue= '4A90E2'
+var LIGHTBLUE= '#4A90E2'
 
 const MtMenu = styled.div`
 .ant-select-dropdown-menu-item{
-  background: ${lightBlue};
+  background: ${LIGHTBLUE};
   color: #fff;
 }
 .ant-select-dropdown{
-  background: ${lightBlue};
+  background: ${LIGHTBLUE};
   color: #fff;
 }
  .ant-select-dropdown-menu{
@@ -44,15 +43,23 @@ const MtMenu = styled.div`
   line-height: 32px;
 }
 
-.ant-menu-horizontal > .ant-menu-item:hover,
-.ant-menu-horizontal > .ant-menu-submenu:hover,
-.ant-menu-horizontal > .ant-menu-item-active,
-.ant-menu-horizontal > .ant-menu-submenu-active,
-.ant-menu-horizontal > .ant-menu-item-selected,
-.ant-menu-horizontal > .ant-menu-submenu-selected{
-  border-bottom: 3px solid ${lightBlue};
-  color: #202A39;
+.ant-menu-horizontal
+{
+  & > .ant-menu-item,
+  & > .ant-menu-submenu,{
+    &:hover{
+      color: #202A39;
+    }
+  }
+  & > .ant-menu-item-active,
+  & > .ant-menu-submenu-active,
+  & > .ant-menu-item-selected,
+  & > .ant-menu-submenu-selected {
+      border-bottom: 3px solid ${LIGHTBLUE};
+      color: #202A39;
+  }
 }
+
 .ant-menu-item{
   font-size: 15px;
   padding: 0px 8px;
@@ -60,6 +67,9 @@ const MtMenu = styled.div`
       font-weight: normal;
     }
     color: #8E9194;
+}
+.ant-dropdown-trigger{
+  font-size:13px;
 }
 `;
 
