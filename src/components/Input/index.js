@@ -5,14 +5,13 @@ import 'antd/lib/input/style/index.css'
 import styled from 'styled-components'
 
 var HELP: '#BBB',
-    DISABLE: 'E8E8E8'
+    DISABLE: '#E8E8E8'
 
 
 const MtInput = styled.div`
   .ant-input {
     border:1px solid #ddd;
     font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
   }
   .ant-input {
     &:hover{
