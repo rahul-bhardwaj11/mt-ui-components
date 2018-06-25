@@ -21,7 +21,7 @@ import styled from 'styled-components';
 //   `;
 // }
 var LIGHT_BLUE= '4A90E2',
-    HELP: '#BBB'
+    SILVER: '#BBB'
 
 const MtButton = styled.div`
 /* Default Button styles */
@@ -37,7 +37,7 @@ const MtButton = styled.div`
   }
 
   &:hover{
-	border: 1px solid ${HELP};
+	border: 1px solid ${SILVER};
   }
   &:focus, &.active{
     border: 1px solid ${LIGHT_BLUE};
@@ -49,7 +49,7 @@ const MtButton = styled.div`
     border: 1px solid #E8E8E8;
     border-radius: 4px;
     background-color: #F8F8F8;
-    color: ${HELP};
+    color: ${SILVER};
   }
 }
 
@@ -114,7 +114,7 @@ const MtButton = styled.div`
 }
 .ant-btn{
   &.disabled{
-    color: ${HELP};
+    color: ${SILVER};
   }
 }
 

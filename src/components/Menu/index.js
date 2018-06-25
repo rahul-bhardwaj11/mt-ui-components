@@ -5,15 +5,15 @@ import "antd/lib/menu/style/index.css";
 import StringToHTML from "../StringToHTML";
 import styled from 'styled-components';
 
-var LIGHTBLUE= '#4A90E2'
+const LIGHT_BLUE= '#4A90E2'
 
 const MtMenu = styled.div`
 .ant-select-dropdown-menu-item{
-  background: ${LIGHTBLUE};
+  background: ${LIGHT_BLUE};
   color: #fff;
 }
 .ant-select-dropdown{
-  background: ${LIGHTBLUE};
+  background: ${LIGHT_BLUE};
   color: #fff;
 }
  .ant-select-dropdown-menu{
@@ -55,7 +55,7 @@ const MtMenu = styled.div`
   & > .ant-menu-submenu-active,
   & > .ant-menu-item-selected,
   & > .ant-menu-submenu-selected {
-      border-bottom: 3px solid ${LIGHTBLUE};
+      border-bottom: 3px solid ${LIGHT_BLUE};
       color: #202A39;
   }
 }

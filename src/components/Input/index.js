@@ -4,7 +4,7 @@ import AntInput from "antd/lib/input";
 import "antd/lib/input/style/index.css";
 import styled from "styled-components";
 
-const HELP = "#BBB",
+const SILVER = "#BBB",
   DISABLE = "#E8E8E8";
 
 const MtInput = styled.div`
@@ -13,12 +13,12 @@ const MtInput = styled.div`
   }
   .ant-input {
     &:hover {
-      border-color: ${HELP};
+      border-color: ${SILVER};
     }
   }
   .ant-input {
     &:focus {
-      border-color: ${HELP};
+      border-color: ${SILVER};
       font-weight: 500;
       outline: 0;
       box-shadow: 0 0 0 0px rgba(24, 144, 255, 0.2);
@@ -27,7 +27,7 @@ const MtInput = styled.div`
   .ant-input-disabled {
     border-color: ${DISABLE};
     background-color: #f8f8f8;
-    color: ${HELP};
+    color: ${SILVER};
     &:hover {
       border-color: ${DISABLE};
     }

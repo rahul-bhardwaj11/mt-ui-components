@@ -7,7 +7,7 @@ import 'antd/lib/checkbox/style/index.css'
 import styled from 'styled-components';
 
 var DARK: '#2A2E36',
-    LIGHTER: '#989CA6'
+    OUTER_SPACE: '#989CA6'
 
 const MtCheckbox = styled.div`
   .ant-checkbox-wrapper{
@@ -26,7 +26,7 @@ const MtCheckbox = styled.div`
     }
 
     span{
-      color:${LIGHTER};
+      color:${OUTER_SPACE};
     }
   }
 
