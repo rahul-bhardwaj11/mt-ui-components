@@ -62,8 +62,6 @@ const MtCollapse = styled.div`
   & > .ant-collapse-item  {
     & > .ant-collapse-header[aria-expanded="true"] {
       .arrow {
-        -webkit-transform: rotate(270deg);
-        -ms-transform: rotate(270deg);
         transform: rotate(270deg);
         position: absolute;
         left: 91%;
