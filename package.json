@@ -76,6 +76,7 @@
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.8",
+    "webpack": "^3.7.1",
     "wix-storybook-utils": "^1.0.85"
   },
   "pre-commit": [

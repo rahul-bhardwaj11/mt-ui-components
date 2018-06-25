@@ -14,4 +14,4 @@ const styles = {
 };
 
 stories
-  .add("Default Input", withInfo("Basic usage of the Input")(() => <div style={styles}><Input placeholder={text('placeholder','Input some text')}  /></div>));
+  .add("Default Input", withInfo("Basic usage of the Input")(() => <div style={styles}><Input placeholder={text('Placeholder','Placeholder')}  /></div>));

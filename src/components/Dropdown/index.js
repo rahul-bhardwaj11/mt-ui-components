@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AntDropdown from 'antd/lib/dropdown';
 import Menu from '../Menu';
-import 'antd/lib/dropdown/style/index.css'
-
-
+import 'antd/lib/dropdown/style/index.css';
 
 class Dropdown extends Component {
 
