@@ -1,7 +1,7 @@
 @import "~styles/variableColor.scss";
 @import "~styles/mixin.scss";
 @import "~styles/z_index_partial.scss";
-
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
 :global {
   * {
     padding: 0px;
@@ -9,16 +9,16 @@
   }
   body {
     background: #f2f2f2;
-    font-family: "Open Sans", Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
   }
   textarea {
     resize: none;
-    font-family: "Open Sans", Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
   }
   input,
   a,
   button {
-    font-family: "Open Sans", Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
   }
   /* PlaceholderTextcolor  */
   textarea::-webkit-input-placeholder,
@@ -221,7 +221,7 @@
     color: #7c7c7c;
   }
   button {
-    @include fontStack_13;
+    // @include fontStack_13;
   }
   .marginAuto {
     margin: auto;

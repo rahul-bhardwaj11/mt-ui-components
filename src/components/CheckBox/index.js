@@ -5,14 +5,31 @@ import PropTypes from 'prop-types';
 
 import AntCheckbox from 'antd/lib/checkbox';
 import 'antd/lib/checkbox/style/index.css'
+import styled from 'styled-components';
 
+var dark: '#2A2E36',
+    lighter: '#989CA6'
+
+const MtCheckbox = styled.div`
+  .ant-checkbox-wrapper{
+    font-weight:500;
+    .ant-checkbox-checked + span{
+      color:${dark};
+    }
+
+    span{
+      color:${lighter};
+    }
+  }
+
+`;
 
 
 class CheckBox extends Component {
 
   static propTypes = {
     label: PropTypes.string,
-    checked: PropTypes.bool.isRequired,
+    checked: PropTypes.bool,
     onClick: PropTypes.func
   };
 
@@ -36,7 +53,11 @@ class CheckBox extends Component {
   render() {
     const { checked, className, onChange, label } = this.props;
     return (
-        <AntCheckbox checked={this.state.checked} onChange={this.onChange}>{label}</AntCheckbox>
+      <MtCheckbox>
+        <AntCheckbox checked={this.state.checked} onChange={this.onChange} onClick={(event) => {
+          event.stopPropagation();
+        }}>{label}</AntCheckbox>
+      </MtCheckbox>
     );
   }
 }

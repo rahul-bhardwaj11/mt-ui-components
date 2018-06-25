@@ -4,6 +4,7 @@ import Dropdown from "../Dropdown";
 import "antd/lib/dropdown/style/css";
 import AntSelect from "antd/lib/select";
 import "antd/lib/select/style/index.css";
+import style from "./index.scss";
 const Option = AntSelect.Option;
 
 class Select extends Component {
@@ -21,7 +22,14 @@ class Select extends Component {
   render() {
     let { options, onChange, defaultValue, style } = this.props;
     return (
-      <AntSelect onChange={onChange} defaultValue={defaultValue} style={style}>
+      <AntSelect
+        onChange={onChange}
+        defaultValue={defaultValue}
+        style={style}
+        onClick={event => {
+          event.stopPropagation();
+        }}
+      >
         {options.map((option, index) => {
           return (
             <Option key={option.key} value={option.key}>

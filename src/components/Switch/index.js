@@ -2,6 +2,35 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import AntSwitch from "antd/lib/switch";
 import "antd/lib/switch/style/index.css";
+import styled from 'styled-components';
+
+
+const MtSwitch = styled.div`
+.ant-switch-checked {
+  background-color: #4A90E2;
+}
+
+.ant-switch{
+  min-width:36px;
+  height: 20px;
+  &:after{
+    width: 14px;
+    height: 14px;
+    top: 2px;
+    margin-left:0px;
+  }
+}
+
+.ant-switch-checked{
+  &:after{
+    width: 14px;
+    height: 14px;
+    top: 2px;
+    margin-left: -16px;
+  }
+}
+`;
+
 
 class Switch extends Component {
   constructor(props) {
@@ -11,18 +40,24 @@ class Switch extends Component {
     };
   }
   static propTypes = {
-    checked: PropTypes.bool
+    checked: PropTypes.bool,
+    onChange: PropTypes.func
   };
 
   onChange = (checked) => {
     this.setState({
       checked: checked
     });
+    this.props.onChange(checked);
   };
 
   render() {
     let { checked } = this.state;
-    return <AntSwitch checked={checked} onChange={this.onChange} />;
+    return (
+        <MtSwitch>
+          <AntSwitch checked={checked} onChange={this.onChange} />
+        </MtSwitch>
+    );
   }
 }
 export default Switch;

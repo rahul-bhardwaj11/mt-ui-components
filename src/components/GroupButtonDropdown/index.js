@@ -5,10 +5,27 @@ import Button from "../Button";
 import classnames from "classnames";
 import styled from 'styled-components';
 
-const Container = styled.div`
-  display-inline: block
+const MtGroupDropdown = styled.div`
+  div{
+    display: inline-block;
+  }
+  .ant-dropdown-trigger {
+    .ant-btn-primary {
+      span{
+          font-size: 9px;
+          margin-top: 4px;
+          display: inline-block;
+          vertical-align: top;
+      }
+    }
+  }
+  .ant-dropdown-menu-light{
+    border: 1px solid rgba(205,210,217,0.5);
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.08);
+  }
 `;
-
 
 class GroupButtonDropdown extends Component {
   static propTypes = {
@@ -31,19 +48,23 @@ class GroupButtonDropdown extends Component {
   render() {
     let { options, trigger, label } = this.props;
     return (
-      <Container>
+      <MtGroupDropdown>
         <Button
-          style={{
+          className="eeee"
+          style={{display: "inline-block",
+            padding: "0px 10px",
             "borderBottomRightRadius": 0,
-            "borderTopRightRadius": 0
+            "borderTopRightRadius": 0,
           }}
         >
           {label}
         </Button>
+
         <Dropdown options={options} onClick={this.onClick} trigger={trigger}>
           <div style={{ display: "inline-block" }}>
             <Button
               style={{
+                padding: "0px 10px",
                 "borderBottomLeftRadius": 0,
                 "borderTopLeftRadius": 0,
                 "borderLeft": "1px solid"
@@ -53,7 +74,7 @@ class GroupButtonDropdown extends Component {
             </Button>
           </div>
         </Dropdown>
-      </Container>
+      </MtGroupDropdown>
     );
   }
 

@@ -18,7 +18,7 @@ const options = [
 stories.add(
   "Default Select",
   withInfo("Basic usage of the Select")(() => (
-    <Select options={object("options", options)}>
+    <Select options={object("options", options)} defaultValue="Select">
     </Select>
   ))
 );

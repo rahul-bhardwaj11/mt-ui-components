@@ -10,7 +10,6 @@ const stories = storiesOf("Button", module);
 stories.addDecorator(withKnobs);
 
 stories
-  .add("Default button", withInfo("Basic usage of the button")(() => <Button type={text('type','default')}>{text('children','Submit')}</Button>))
   .add(
     "Primary button",
     withInfo("Adding type primary to button")(() => (
@@ -18,14 +17,20 @@ stories
     ))
   )
   .add(
-    "Dashed button",
-    withInfo("Adding type dashed to button")(() => (
-      <Button type={text('type','dashed')}>{text('children','Submit')}</Button>
+    "Secondary button",
+    withInfo("Adding type secondary to button")(() => (
+      <Button type={text('type','secondary')}>{text('children','Submit')}</Button>
     ))
   )
   .add(
-    "Danger button",
-    withInfo("Adding type danger to button")(() => (
-      <Button type={text('type','danger')}>{text('children','Submit')}</Button>
+    "Tertiary button",
+    withInfo("Adding type tertiary to button")(() => (
+      <Button type={text('type','tertiary')}>{text('children','Submit')}</Button>
+    ))
+  )
+  .add(
+    "Pills button",
+    withInfo("Adding type tertiary to button")(() => (
+      <Button type={text('type','pills')}>{text('children','Submit')}</Button>
     ))
   );

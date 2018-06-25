@@ -5,6 +5,7 @@ import { action } from "@storybook/addon-actions";
 import Dropdown from "./index";
 import { withInfo } from "@storybook/addon-info";
 import { withKnobs, object } from "@storybook/addon-knobs";
+import { Menu, Icon } from 'antd';
 
 const styles = {
   textAlign: "center"
@@ -19,7 +20,8 @@ const options = [
   { key: "3", content: "Third Item" }
 ];
 
-stories.add(
+stories
+.add(
   "Default Dropdown",
   withInfo("Basic usage of the Dropdown")(() => (
     <Dropdown options={object("options", options)}>
@@ -28,4 +30,22 @@ stories.add(
       </a>
     </Dropdown>
   ))
+)
+.add(
+"Button Dropdown",
+withInfo("Basic usage of the Dropdown")(() => (
+  <Dropdown options={object("options", options)} type="button" label={"button"}>
+  </Dropdown>
+))
+)
+
+.add(
+"Link Dropdown",
+withInfo("Basic usage of the Dropdown")(() => (
+  <Dropdown options={object("options", options)} trigger={'click'}>
+    <a className="ant-dropdown-link" href="#">
+      Click me <Icon type="down" />
+    </a>
+  </Dropdown>
+))
 );
