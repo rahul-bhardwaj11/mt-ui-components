@@ -20,26 +20,8 @@ import styled from 'styled-components';
 //     font-family: 'Open Sans', sans-serif;
 //   `;
 // }
-var primary = '#4D7CC7',
-    darkGrey = '#888',
-    lightBlue= '4A90E2',
-    help: '#BBB'
-    //
-    // light: '#E4EFFB',
-    // dark: '#2A2E36',
-    // light:  '#606369',
-    // lighter: '#989CA6',
-    // navigationDard: '#202A39',
-    // navigationLight: '#262B43',
-    // text:  '#868BA7',
-    //
-    // icon: '#888888',
-    // border: '#DDDDDD',
-    // background:  '#F5F6F7'
-
-// syntax of mixin -----   ${ fsatck('12px', '300')};
-// syntax of variables -----   color: ${primary};
-
+var LIGHTBLUE= '4A90E2',
+    HELP: '#BBB'
 
 const MtButton = styled.div`
 /* Default Button styles */
@@ -55,11 +37,11 @@ const MtButton = styled.div`
   }
 
   &:hover{
-	border: 1px solid ${help};
+	border: 1px solid ${HELP};
   }
   &:focus, &.active{
-    border: 1px solid ${lightBlue};
-    color: ${lightBlue};
+    border: 1px solid ${LIGHTBLUE};
+    color: ${LIGHTBLUE};
   }
 }
 .ant-btn{
@@ -67,14 +49,14 @@ const MtButton = styled.div`
     border: 1px solid #E8E8E8;
     border-radius: 4px;
     background-color: #F8F8F8;
-    color: ${help};
+    color: ${HELP};
   }
 }
 
 /* Primary Button styles */
 .ant-btn-primary{
-	border: 1px solid ${lightBlue};
-  background-color: ${lightBlue};
+	border: 1px solid ${LIGHTBLUE};
+  background-color: ${LIGHTBLUE};
   color: #FFF;
   font-size: 14px;
   height: 32px;
@@ -129,7 +111,7 @@ const MtButton = styled.div`
 }
 .ant-btn{
   &.disabled{
-    color: ${help};
+    color: ${HELP};
   }
 }
 
