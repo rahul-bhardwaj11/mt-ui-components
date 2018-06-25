@@ -11,7 +11,6 @@ var HELP: '#BBB',
 const MtInput = styled.div`
   .ant-input {
     border:1px solid #ddd;
-    font-family: 'Open Sans', sans-serif;
   }
   .ant-input {
     &:hover{
@@ -24,7 +23,6 @@ const MtInput = styled.div`
         border-color: ${HELP};
         font-weight: 500;
         outline: 0;
-        -webkit-box-shadow: 0 0 0 0px rgba(24, 144, 255, 0.2);
         box-shadow: 0 0 0 0px rgba(24, 144, 255, 0.2);
     }
   }
