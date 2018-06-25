@@ -4,7 +4,7 @@ import AntTag from 'antd/lib/tag';
 import 'antd/lib/tag/style/index.css'
 import styled from 'styled-components';
 
-var TAGHOVERTEXTCOLOR= '#4A90E2'
+var TAG_HOVER_TEXT_COLOR= '#4A90E2'
 
 const MtTag = styled.div`
   display: inline-block;
@@ -23,11 +23,11 @@ const MtTag = styled.div`
       	border: 1px solid #468EE5;
         border-radius: 16px;
         background-color: #E4EFFB;
-        color: ${TAGHOVERTEXTCOLOR};
+        color: ${TAG_HOVER_TEXT_COLOR};
       }
       a{
         &:hover{
-          color: ${TAGHOVERTEXTCOLOR};
+          color: ${TAG_HOVER_TEXT_COLOR};
         }
       }
 }
