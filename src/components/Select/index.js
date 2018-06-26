@@ -22,7 +22,14 @@ class Select extends Component {
   render() {
     let { options, onChange, defaultValue, style } = this.props;
     return (
-      <AntSelect onChange={onChange} defaultValue={defaultValue} style={style}>
+      <AntSelect
+        onChange={onChange}
+        defaultValue={defaultValue}
+        style={style}
+        onClick={event => {
+          event.stopPropagation();
+        }}
+      >
         {options.map((option, index) => {
           return (
             <Option key={option.key} value={option.key}>

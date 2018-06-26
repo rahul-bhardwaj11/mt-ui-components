@@ -20,8 +20,8 @@ import styled from 'styled-components';
 //     font-family: 'Open Sans', sans-serif;
 //   `;
 // }
-var LIGHTBLUE= '4A90E2',
-    HELP: '#BBB'
+var LIGHT_BLUE= '4A90E2',
+    SILVER: '#BBB'
 
 const MtButton = styled.div`
 /* Default Button styles */
@@ -37,11 +37,11 @@ const MtButton = styled.div`
   }
 
   &:hover{
-	border: 1px solid ${HELP};
+	border: 1px solid ${SILVER};
   }
   &:focus, &.active{
-    border: 1px solid ${LIGHTBLUE};
-    color: ${LIGHTBLUE};
+    border: 1px solid ${LIGHT_BLUE};
+    color: ${LIGHT_BLUE};
   }
 }
 .ant-btn{
@@ -49,14 +49,14 @@ const MtButton = styled.div`
     border: 1px solid #E8E8E8;
     border-radius: 4px;
     background-color: #F8F8F8;
-    color: ${HELP};
+    color: ${SILVER};
   }
 }
 
 /* Primary Button styles */
 .ant-btn-primary{
-	border: 1px solid ${LIGHTBLUE};
-  background-color: ${LIGHTBLUE};
+	border: 1px solid ${LIGHT_BLUE};
+  background-color: ${LIGHT_BLUE};
   color: #FFF;
   font-size: 14px;
   height: 32px;
@@ -87,6 +87,9 @@ const MtButton = styled.div`
   }
 }
 
+.ant-btn-pills {
+}
+
 /* Dashed Button styles */
 .ant-btn-dashed{
 	border: 1px dashed #DDD;
@@ -111,13 +114,10 @@ const MtButton = styled.div`
 }
 .ant-btn{
   &.disabled{
-    color: ${HELP};
+    color: ${SILVER};
   }
 }
 
-/* Danger Button styles will come here*/
-
-/* Danger Button styles will come here*/
 
 .ant-btn-clicked{
   outline: none;
@@ -129,10 +129,17 @@ const MtButton = styled.div`
 
 const noop = () => undefined;
 
+const typeMap = {
+  primary: "primary",
+  secondary: "default",
+  tertiary: "dashed",
+  pills: "pills"
+}
+
 class Button extends Component {
   static propTypes = {
     onClick: PropTypes.func,
-    type: PropTypes.string,
+    type: PropTypes.oneOf(['primary', 'default','dashed','pills']),
     children: PropTypes.node,
     className: PropTypes.string,
     disabled: PropTypes.bool,
@@ -148,9 +155,10 @@ class Button extends Component {
 
   render() {
     const { style, size, disabled, children, type, onClick } = this.props;
+    let antdType = typeMap[type];
     return (
       <MtButton>
-        <AntButton type={type} style={style} size={size} disabled={disabled} onClick={onClick} >
+        <AntButton type={antdType} style={style} size={size} disabled={disabled} onClick={onClick} >
           {children}
         </AntButton>
        </MtButton>

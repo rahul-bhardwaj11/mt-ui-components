@@ -5,7 +5,7 @@ import { action } from "@storybook/addon-actions";
 import Dropdown from "./index";
 import { withInfo } from "@storybook/addon-info";
 import { withKnobs, object } from "@storybook/addon-knobs";
-import { Menu, Button, Icon } from 'antd';
+import { Menu, Icon } from 'antd';
 
 const styles = {
   textAlign: "center"
@@ -34,8 +34,7 @@ stories
 .add(
 "Button Dropdown",
 withInfo("Basic usage of the Dropdown")(() => (
-  <Dropdown options={object("options", options)}>
-     <Button>bottomLeft</Button>
+  <Dropdown options={object("options", options)} type="button" label={"button"}>
   </Dropdown>
 ))
 )

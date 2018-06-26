@@ -40,13 +40,15 @@ class Switch extends Component {
     };
   }
   static propTypes = {
-    checked: PropTypes.bool
+    checked: PropTypes.bool,
+    onChange: PropTypes.func
   };
 
   onChange = (checked) => {
     this.setState({
       checked: checked
     });
+    this.props.onChange(checked);
   };
 
   render() {
