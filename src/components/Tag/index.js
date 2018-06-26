@@ -18,6 +18,7 @@ const MtTag = styled.div`
     line-height: 24px;
     height: 24px;
     padding: 0 15px;
+    margin-bottom: 12px;
 
     &:hover{
       	border: 1px solid #468EE5;
