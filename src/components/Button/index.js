@@ -153,7 +153,7 @@ const MtButton = styled.div`
 
 
 /* Dashed Button styles */
-.ant-btn-text{
+.ant-btn-link{
 	border: 1px dashed transparent;
   background-color: transparent;
   font-size: 14px;
@@ -197,7 +197,7 @@ const typeMap = {
   secondary: "default",
   tertiary: "dashed",
   pills: "pills",
-  text: "text"
+  link: "link"
 }
 
 class Button extends Component {
