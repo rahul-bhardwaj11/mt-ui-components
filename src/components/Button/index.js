@@ -143,7 +143,7 @@ class Button extends Component {
     children: PropTypes.node,
     className: PropTypes.string,
     disabled: PropTypes.bool,
-    size: PropTypes.number,
+    size: PropTypes.string,
     style: PropTypes.object
   };
   static defaultProps = {

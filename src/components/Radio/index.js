@@ -4,7 +4,7 @@ import AntRadio from 'antd/lib/radio';
 import 'antd/lib/radio/style/index.css';
 import styled from 'styled-components';
 
-var PRIMARY = '#4D7CC7'
+const INDIGO = '#4D7CC7'
 
 const MtRadio = styled.div`
   .ant-radio-inner:after{
@@ -13,14 +13,14 @@ const MtRadio = styled.div`
 
   .ant-radio-checked {
     .ant-radio-inner {
-        border-color: ${PRIMARY};
-        background: ${PRIMARY};
+        border-color: ${INDIGO};
+        background: ${INDIGO};
     }
   }
   .ant-radio-wrapper{
     &:hover{
       .ant-radio .ant-radio-inner{
-        border: 1px solid  ${PRIMARY};
+        border: 1px solid  ${INDIGO};
       }
     }
   }
