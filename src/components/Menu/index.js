@@ -93,7 +93,7 @@ class Menu extends Component {
           {options.map((option, index) => {
             return (
               <AntMenu.Item key={option.key}>
-                <StringToHTML content={option.content} />
+                { (typeof option.content === "string") ? <StringToHTML content={option.content} /> : option.content }
               </AntMenu.Item>
             );
           })}

@@ -33,4 +33,10 @@ stories
     withInfo("Adding type tertiary to button")(() => (
       <Button type={text('type','pills')}>{text('children','Submit')}</Button>
     ))
+  )
+  .add(
+    "link button",
+    withInfo("Adding type link to button")(() => (
+      <Button type={text('type','link')}>{text('children','Submit')}</Button>
+    ))
   );

@@ -19,7 +19,6 @@ const MtInput = styled.div`
   .ant-input {
     &:focus {
       border-color: ${SILVER};
-      font-weight: 500;
       outline: 0;
       box-shadow: 0 0 0 0px rgba(24, 144, 255, 0.2);
     }

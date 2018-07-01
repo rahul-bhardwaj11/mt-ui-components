@@ -68,7 +68,10 @@ class Switch extends Component {
     let { checked } = this.state;
     return (
       <MtSwitch>
-        <AntSwitch checked={checked} onChange={this.onChange} />
+        <AntSwitch
+          checked={checked}
+          onChange={this.onChange}
+        />
       </MtSwitch>
     );
   }

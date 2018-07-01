@@ -73,15 +73,16 @@ const MtCollapse = styled.div`
 class Collapse extends Component {
 
   static propTypes = {
-    options: PropTypes.any.isRequired
+    options: PropTypes.any.isRequired,
+    accordion: PropTypes.bool
   };
 
 
   render() {
-    let { options } = this.props;
+    let { options, accordion } = this.props;
     return (
       <MtCollapse>
-        <AntCollapse accordion defaultActiveKey={['0']}>
+        <AntCollapse accordion={accordion} defaultActiveKey={['0']}>
           {options.map((option, index) => {
               return (
                 <AntCollapse.Panel key={index} header={option.header} >
