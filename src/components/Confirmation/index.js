@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import AntPopover from "antd/lib/popover";
-import Button from "antd/lib/button";
+import Button from "../Button";
 import 'antd/lib/popover/style/index.css';
-
-const MtPopover = styled.div`
-display: inline;
-`
+import style from "./index.scss";
 
 class Popover extends Component {
   static propTypes = {
@@ -21,12 +18,10 @@ class Popover extends Component {
     const {children, title, content} = this.props;
 
       return (
-        <MtPopover>
-          <AntPopover title={title} content={content} trigger="click" placement="bottom" >
-            <Button> icon</Button>
-            {children}
-          </AntPopover>
-        </MtPopover>
+        <AntPopover title={title} content={content} trigger="click" placement="bottomLeft" >
+          <Button type="default">i</Button>
+          {children}
+        </AntPopover>
     )
   }
 }
