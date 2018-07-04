@@ -1,8 +1,7 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import classnames from "classnames";
-import AntButton from "antd/lib/button";
-import "antd/lib/button/style/index.css";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import AntButton from 'antd/lib/button';
+import 'antd/lib/button/style/index.css';
 import styled from 'styled-components';
 
 // export function truncate(width) {
@@ -35,39 +34,38 @@ const MtButton = styled.div`
     color: #888;
     font-size: 12px;
     padding: 0px 12px;
+    &.ant-btn-sm {
+      color: #888;
+      font-size: 12px;
+      padding: 0px 12px;
+    }
+
+    &:hover {
+      border: 1px solid ${SILVER};
+    }
+    &:focus,
+    &.active {
+      border: 1px solid ${LIGHT_BLUE};
+      color: ${LIGHT_BLUE};
+    }
+  }
+  .ant-btn {
+    &.disabled {
+      border: 1px solid #e8e8e8;
+      border-radius: 4px;
+      background-color: #f8f8f8;
+      color: ${SILVER};
+    }
   }
 
-  &:hover{
-	border: 1px solid ${SILVER};
-  }
-  &:focus, &.active{
+  /* Primary Button styles */
+  .ant-btn-primary {
     border: 1px solid ${LIGHT_BLUE};
-    color: ${LIGHT_BLUE};
-  }
-}
-.ant-btn{
-  &.disabled{
-    border: 1px solid #E8E8E8;
-    border-radius: 4px;
-    background-color: #F8F8F8;
-    color: ${SILVER};
-  }
-}
-
-/* Primary Button styles */
-.ant-btn-primary{
-	border: 1px solid ${LIGHT_BLUE};
-  background-color: ${LIGHT_BLUE};
-  color: #FFF;
-  font-size: 14px;
-  height: 32px;
-  padding: 0px 12px;
-
-  &.ant-btn-sm{
-    color: #FFF;
-    font-size: 12px;
+    background-color: ${LIGHT_BLUE};
+    color: #fff;
+    font-size: 14px;
+    height: 32px;
     padding: 0px 12px;
-  }
 
   &:hover{
   	border: 1px solid #588CE0;
@@ -78,13 +76,13 @@ const MtButton = styled.div`
     background: #446CAD;
     color: #FFF;
   }
-}
-.ant-btn{
-  &.disabled{
-    border: 1px solid #CED2DB;
-    border-radius: 4px;
-    background-color: #CED2DB;
-    color: #FFF;
+  .ant-btn {
+    &.disabled {
+      border: 1px solid #ced2db;
+      border-radius: 4px;
+      background-color: #ced2db;
+      color: #fff;
+    }
   }
 }
 /* Pills Button styles */
@@ -127,24 +125,34 @@ const MtButton = styled.div`
   height: 32px;
   padding: 0px 12px;
 
-  &.ant-btn-sm{
-    color: #FFF;
-    font-size: 12px;
+  /* Dashed Button styles */
+  .ant-btn-dashed {
+    border: 1px dashed #ddd;
+    background-color: rgba(255, 255, 255, 0);
+    color: #989ca6;
+    font-size: 14px;
+    height: 32px;
     padding: 0px 12px;
-  }
 
-  &:hover{
-    color: #2A2E36;
+    &.ant-btn-sm {
+      color: #fff;
+      font-size: 12px;
+      padding: 0px 12px;
+    }
+
+    &:hover {
+      color: #2a2e36;
+    }
+    &:focus,
+    &.active {
+      color: #2a2e36;
+    }
   }
-  &:focus, &.active{
-    color: #2A2E36;
+  .ant-btn {
+    &.disabled {
+      color: ${SILVER};
+    }
   }
-}
-.ant-btn{
-  &.disabled{
-    color: ${SILVER};
-  }
-}
 
 
 .ant-btn-clicked{
@@ -189,8 +197,6 @@ const MtButton = styled.div`
 
 `;
 
-
-
 const noop = () => undefined;
 
 const typeMap = {
@@ -206,7 +212,6 @@ class Button extends Component {
     onClick: PropTypes.func,
     type: PropTypes.oneOf(['primary', 'default','dashed','pills', 'link']),
     children: PropTypes.node,
-    className: PropTypes.string,
     disabled: PropTypes.bool,
     size: PropTypes.string,
     style: PropTypes.object,
@@ -214,9 +219,9 @@ class Button extends Component {
   };
   static defaultProps = {
     onClick: noop,
-    children: "Submit",
+    children: 'Submit',
     disabled: false,
-    type: "primary"
+    type: 'primary'
   };
 
   render() {
@@ -227,7 +232,7 @@ class Button extends Component {
         <AntButton className={className} type={antdType} style={style} size={size} disabled={disabled} onClick={onClick} >
           {children}
         </AntButton>
-       </MtButton>
+      </MtButton>
     );
   }
 }
