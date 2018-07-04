@@ -36,7 +36,7 @@ class Dropdown extends Component {
       overlay = options;
     }
     if (type === "button") {
-      children = <Button>{ label || 'Button'}</Button>;
+      children = <Button >{ label || 'Button'}</Button>;
     }
     return (
       <AntDropdown

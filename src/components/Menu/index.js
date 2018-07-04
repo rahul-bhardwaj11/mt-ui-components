@@ -45,12 +45,20 @@ const MtMenu = styled.div`
 
 .ant-menu-horizontal
 {
-  & > .ant-menu-item,
-  & > .ant-menu-submenu,{
-    &:hover{
-      color: #202A39;
+
+    & > .ant-menu-item{
+      &:hover{
+        color: #202A39;
+      }
     }
-  }
+    & > .ant-menu-submenu{
+      &:hover{
+        color: #202A39;
+      }
+    }
+
+
+
   & > .ant-menu-item-active,
   & > .ant-menu-submenu-active,
   & > .ant-menu-item-selected,
@@ -60,13 +68,30 @@ const MtMenu = styled.div`
   }
 }
 
+
+.ant-menu-vertical {
+  & > .ant-menu-item{
+    color: #8E9194;
+
+    &:hover{
+      color: black;
+    }
+
+  }
+}
+
+
 .ant-menu-item{
   font-size: 15px;
   padding: 0px 8px;
-    b {
-      font-weight: normal;
-    }
-    color: #8E9194;
+  color: #8E9194;
+  &:hover{
+    color: #fff
+  }
+  b {
+    font-weight: normal;
+  }
+
 }
 .ant-dropdown-trigger{
   font-size:13px;

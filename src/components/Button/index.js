@@ -20,10 +20,11 @@ import styled from 'styled-components';
 //     font-family: 'Open Sans', sans-serif;
 //   `;
 // }
-var LIGHT_BLUE= '#4A90E2',
-    SILVER: '#BBB'
+const LIGHT_BLUE= '#4D7CC7',
+    SILVER= '#BBB'
 
 const MtButton = styled.div`
+  display: inline-block;
 /* Default Button styles */
 .ant-btn-default{
 	border: 1px solid #ddd;
@@ -69,12 +70,12 @@ const MtButton = styled.div`
   }
 
   &:hover{
-  	border: 1px solid #53A2FC;
-    background: #53A2FC;
+  	border: 1px solid #588CE0;
+    background: #588CE0;
   }
   &:focus, &.active{
-    border: 1px solid #4281C9;
-    background: #4281C9;
+    border: 1px solid #446CAD;
+    background: #446CAD;
     color: #FFF;
   }
 }
