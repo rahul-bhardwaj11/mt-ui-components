@@ -20,10 +20,11 @@ import styled from 'styled-components';
 //     font-family: 'Open Sans', sans-serif;
 //   `;
 // }
-var LIGHT_BLUE= '#4D7CC7',
-    SILVER: '#BBB'
+const LIGHT_BLUE= '#4D7CC7',
+    SILVER= '#BBB'
 
 const MtButton = styled.div`
+  display: inline-block;
 /* Default Button styles */
 .ant-btn-default{
 	border: 1px solid #ddd;

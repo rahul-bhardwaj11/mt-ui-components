@@ -2,7 +2,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from "../Button";
 import Link from "../Link";
-import style from "./index.scss";
+import styled from 'styled-components';
+
+const MtConfirmBox = styled.div`
+  .actionButtons{
+    text-align: right;
+    margin-top: 25px;
+    div{
+      display: inline-block;
+    }
+  }
+  h2{
+    color:#2A2E36;
+    font-size:14px;
+    font-weight: 600;
+    text-align: left;
+  }
+`;
 
 class ConfirmBox extends Component {
   static propTypes = {
@@ -14,14 +30,14 @@ class ConfirmBox extends Component {
   render() {
       let {title, children} = this.props;
       return (
-          <div className="confirmBoxWrapper">
-            <h2>{title}</h2>
-            <div className="actionButtons">
-              <Button type="link">Cancel</Button>
-              <Button type="primary">Delete</Button>
-            </div>
-            {children}
-          </div>
+          <MtConfirmBox>
+              <h2>{title}</h2>
+              <div className="actionButtons">
+                <Button type="link">Cancel</Button>
+                <Button type="primary">Delete</Button>
+              </div>
+              {children}
+          </MtConfirmBox>
       );
   }
 }
