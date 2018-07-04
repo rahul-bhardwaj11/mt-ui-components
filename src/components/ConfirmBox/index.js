@@ -1,29 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import AntPopover from "antd/lib/popover";
 import Button from "../Button";
-import 'antd/lib/popover/style/index.css';
+import Link from "../Link";
 import style from "./index.scss";
 
-class Popover extends Component {
+class ConfirmBox extends Component {
   static propTypes = {
+    title: PropTypes.string.isRequired,
     children: PropTypes.node,
-    title: PropTypes.string,
-    content: PropTypes.string
+    style: PropTypes.object
   };
 
-
   render() {
-    const {children, title, content} = this.props;
-
+      let {title, children} = this.props;
       return (
-        <AntPopover title={title} content={content} trigger="click" placement="bottomLeft" >
-          <Button type="default">i</Button>
-          {children}
-        </AntPopover>
-    )
+          <div className="confirmBoxWrapper">
+            <h2>{title}</h2>
+            <div className="actionButtons">
+              <Button type="link">Cancel</Button>
+              <Button type="primary">Delete</Button>
+            </div>
+            {children}
+          </div>
+      );
   }
 }
-
-export default Popover;
+export default ConfirmBox;
