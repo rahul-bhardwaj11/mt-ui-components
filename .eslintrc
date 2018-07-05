@@ -19,8 +19,12 @@
   "parser": "babel-eslint",
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": ["eslint:recommended", "plugin:react/recommended"],
-  "rules": {}
+  "rules": {
+    "react/no-children-prop" : 0,
+    "react/no-deprecated" : 0
+  }
 }

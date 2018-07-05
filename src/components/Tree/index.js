@@ -1,11 +1,19 @@
-import React, { Component } from "react";
-import SortableTree from "react-sortable-tree";
-import "react-sortable-tree/style.css";
+import React, { Component } from 'react';
+import SortableTree from 'react-sortable-tree';
+import PropTypes from 'prop-types';
+import 'react-sortable-tree/style.css';
 
 class Tree extends Component {
   constructor(props) {
     super(props);
   }
+  static propTypes = {
+    treeData: PropTypes.array,
+    onChange: PropTypes.func,
+    onMoveNode: PropTypes.func,
+    canDrag: PropTypes.bool,
+    canDrop: PropTypes.bool
+  };
 
   render() {
     let { treeData, onChange, onMoveNode, canDrag, canDrop } = this.props;

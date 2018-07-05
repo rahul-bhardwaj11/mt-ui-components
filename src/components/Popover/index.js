@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import AntPopover from "antd/lib/popover";
-import Button from "../Button";
+import AntPopover from 'antd/lib/popover';
 import 'antd/lib/popover/style/index.css';
-import "./index.scss";
-
-
+import './index.scss';
 
 class Popover extends Component {
   static propTypes = {
@@ -13,12 +10,8 @@ class Popover extends Component {
     content: PropTypes.object
   };
 
-
   render() {
-      return (
-          <AntPopover {...this.props} >
-          </AntPopover>
-    )
+    return <AntPopover {...this.props} />;
   }
 }
 

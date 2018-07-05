@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from "../Button";
-import Link from "../Link";
+import Button from '../Button';
 import styled from 'styled-components';
 
 const MtConfirmBox = styled.div`
-  .actionButtons{
+  .actionButtons {
     text-align: right;
     margin-top: 25px;
-    div{
+    div {
       display: inline-block;
     }
   }
-  h2{
-    color:#2A2E36;
-    font-size:14px;
+  h2 {
+    color: #2a2e36;
+    font-size: 14px;
     font-weight: 600;
     text-align: left;
   }
@@ -28,17 +27,17 @@ class ConfirmBox extends Component {
   };
 
   render() {
-      let {title, children} = this.props;
-      return (
-          <MtConfirmBox>
-              <h2>{title}</h2>
-              <div className="actionButtons">
-                <Button type="link">Cancel</Button>
-                <Button type="primary">Delete</Button>
-              </div>
-              {children}
-          </MtConfirmBox>
-      );
+    let { title, children } = this.props;
+    return (
+      <MtConfirmBox>
+        <h2>{title}</h2>
+        <div className="actionButtons">
+          <Button type="link">Cancel</Button>
+          <Button type="primary">Delete</Button>
+        </div>
+        {children}
+      </MtConfirmBox>
+    );
   }
 }
 export default ConfirmBox;

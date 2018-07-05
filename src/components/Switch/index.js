@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import AntSwitch from "antd/lib/switch";
-import "antd/lib/switch/style/index.css";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import AntSwitch from 'antd/lib/switch';
+import 'antd/lib/switch/style/index.css';
+import styled from 'styled-components';
 
 const MtSwitch = styled.div`
   .ant-switch-checked {
@@ -50,7 +50,8 @@ class Switch extends Component {
 
   static propTypes = {
     checked: PropTypes.bool,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    className: PropTypes.string
   };
 
   static defaultProps = {

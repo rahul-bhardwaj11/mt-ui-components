@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button matches default props snapshot when type is default 1`] = `
+<div
+  className="sc-bdVaJa cIcqkd"
+>
+  <button
+    className="ant-btn"
+    disabled={false}
+    onClick={[Function]}
+    style={undefined}
+    type="button"
+  >
+    <span>
+      Submit
+    </span>
+  </button>
+</div>
+`;
+
+exports[`Button matches default props snapshot when type is primary 1`] = `
+<div
+  className="sc-bdVaJa cIcqkd"
+>
+  <button
+    className="ant-btn ant-btn-primary"
+    disabled={false}
+    onClick={[Function]}
+    style={undefined}
+    type="button"
+  >
+    <span>
+      Submit
+    </span>
+  </button>
+</div>
+`;
