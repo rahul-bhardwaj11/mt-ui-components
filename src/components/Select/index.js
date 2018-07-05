@@ -1,10 +1,8 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Dropdown from "../Dropdown";
-import "antd/lib/dropdown/style/css";
-import AntSelect from "antd/lib/select";
-import "antd/lib/select/style/index.css";
-import style from "./index.scss"
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import 'antd/lib/dropdown/style/css';
+import AntSelect from 'antd/lib/select';
+import 'antd/lib/select/style/index.css';
 const Option = AntSelect.Option;
 
 class Select extends Component {
@@ -30,7 +28,7 @@ class Select extends Component {
           event.stopPropagation();
         }}
       >
-        {options.map((option, index) => {
+        {options.map(option => {
           return (
             <Option key={option.key} value={option.key}>
               {option.content}

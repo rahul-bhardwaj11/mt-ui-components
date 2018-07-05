@@ -1,35 +1,15 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import AntMenu from "antd/lib/menu";
-import "antd/lib/menu/style/index.css";
-import StringToHTML from "../StringToHTML";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import AntMenu from 'antd/lib/menu';
+import 'antd/lib/menu/style/index.css';
+import StringToHTML from '../StringToHTML';
 import styled from 'styled-components';
 
-const LIGHT_BLUE= '#4A90E2'
+const LIGHT_BLUE = '#4A90E2';
 
 const MtMenu = styled.div`
-.ant-select-dropdown-menu-item{
-  background: ${LIGHT_BLUE};
-  color: #fff;
-}
-.ant-select-dropdown{
-  background: ${LIGHT_BLUE};
-  color: #fff;
-}
- .ant-select-dropdown-menu{
-  background-color: #fff;
-  color: #888;
-  padding: 0px 5px;
-  margin:8px;
-  border-radius: 4px;
-  height: 32px;
-  line-height: 32px;
-}
-.ant-dropdown-menu-item,.ant-dropdown-menu-submenu-title{
-  -webkit-transition: all 0.2s;
-  transition: all .2s;
-  &:hover{
-    background: #4A90E2;
+  .ant-select-dropdown-menu-item {
+    background: ${LIGHT_BLUE};
     color: #fff;
   }
 }
@@ -64,9 +44,9 @@ const MtMenu = styled.div`
   & > .ant-menu-item-selected,
   & > .ant-menu-submenu-selected {
       border-bottom: 3px solid ${LIGHT_BLUE};
-      color: #202A39;
+      color: #202a39;
+    }
   }
-}
 
 
 .ant-menu-vertical {
@@ -101,7 +81,9 @@ const MtMenu = styled.div`
 class Menu extends Component {
   static propTypes = {
     options: PropTypes.array.isRequired,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    mode: PropTypes.string,
+    prefixCls: PropTypes.any
   };
 
   onClick = ({ key }) => {
@@ -115,7 +97,7 @@ class Menu extends Component {
     return (
       <MtMenu>
         <AntMenu prefixCls={prefixCls} onClick={this.onClick} mode={mode}>
-          {options.map((option, index) => {
+          {options.map(option => {
             return (
               <AntMenu.Item key={option.key}>
                 { (typeof option.content === "string") ? <StringToHTML content={option.content} /> : option.content }

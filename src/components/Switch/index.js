@@ -65,7 +65,6 @@ class Switch extends Component {
   };
 
   render() {
-    let { checked } = this.state;
     return (
       <MtSwitch>
         <AntSwitch
