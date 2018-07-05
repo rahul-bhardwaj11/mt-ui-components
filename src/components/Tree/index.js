@@ -16,17 +16,12 @@ class Tree extends Component {
   };
 
   render() {
-    let { treeData, onChange, onMoveNode, canDrag, canDrop } = this.props;
     return (
       <SortableTree
+        {...this.props}
         maxDepth={2}
         scaffoldBlockPxWidth={10}
         isVirtualized={false}
-        treeData={treeData}
-        canDrop={canDrop}
-        canDrag={canDrag}
-        onChange={onChange}
-        onMoveNode={onMoveNode}
       />
     );
   }

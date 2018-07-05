@@ -8,7 +8,6 @@ exports[`Button matches default props snapshot when type is default 1`] = `
     className="ant-btn"
     disabled={false}
     onClick={[Function]}
-    style={undefined}
     type="button"
   >
     <span>
@@ -26,7 +25,6 @@ exports[`Button matches default props snapshot when type is primary 1`] = `
     className="ant-btn ant-btn-primary"
     disabled={false}
     onClick={[Function]}
-    style={undefined}
     type="button"
   >
     <span>

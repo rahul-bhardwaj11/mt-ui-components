@@ -10,7 +10,7 @@ class Select extends Component {
     options: PropTypes.any.isRequired,
     onChange: PropTypes.func,
     style: PropTypes.object,
-    defaultValue: PropTypes.any
+    defaultValue: PropTypes.string
   };
 
   static defaultProps = {
@@ -18,12 +18,10 @@ class Select extends Component {
   };
 
   render() {
-    let { options, onChange, defaultValue, style } = this.props;
+    let { options } = this.props;
     return (
       <AntSelect
-        onChange={onChange}
-        defaultValue={defaultValue}
-        style={style}
+        {...this.props}
         onClick={event => {
           event.stopPropagation();
         }}

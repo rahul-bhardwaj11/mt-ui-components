@@ -45,7 +45,7 @@ class GroupButtonDropdown extends Component {
   };
 
   render() {
-    let { options, trigger, label } = this.props;
+    let { label } = this.props;
     return (
       <MtGroupDropdown>
         <Button
@@ -60,7 +60,7 @@ class GroupButtonDropdown extends Component {
           {label}
         </Button>
 
-        <Dropdown options={options} onClick={this.onClick} trigger={trigger}>
+        <Dropdown {...this.props} onClick={this.onClick}>
           <div style={{ display: 'inline-block' }}>
             <Button
               style={{

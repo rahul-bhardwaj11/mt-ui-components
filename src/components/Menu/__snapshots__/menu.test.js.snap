@@ -6,6 +6,22 @@ exports[`Menu matches Vertical Menu snapshot 1`] = `
 >
   <ul
     className="ant-menu ant-menu-light ant-menu-root ant-menu-vertical"
+    options={
+      Array [
+        Object {
+          "content": "<b>First Item</b>",
+          "key": "1",
+        },
+        Object {
+          "content": "Second Item",
+          "key": "2",
+        },
+        Object {
+          "content": "Third Item",
+          "key": "3",
+        },
+      ]
+    }
     role="menu"
     style={Object {}}
   >
@@ -88,6 +104,22 @@ exports[`Menu matches default snapshot 1`] = `
 >
   <ul
     className="ant-menu ant-menu-light ant-menu-root ant-menu-horizontal"
+    options={
+      Array [
+        Object {
+          "content": "<b>First Item</b>",
+          "key": "1",
+        },
+        Object {
+          "content": "Second Item",
+          "key": "2",
+        },
+        Object {
+          "content": "Third Item",
+          "key": "3",
+        },
+      ]
+    }
     role="menu"
     style={Object {}}
   >

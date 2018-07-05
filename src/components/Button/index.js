@@ -19,8 +19,8 @@ import styled from 'styled-components';
 //     font-family: 'Open Sans', sans-serif;
 //   `;
 // }
-const LIGHT_BLUE= '#4D7CC7',
-    SILVER= '#BBB'
+const LIGHT_BLUE = '#4D7CC7',
+  SILVER = '#BBB';
 
 const MtButton = styled.div`
   display: inline-block;
@@ -200,22 +200,22 @@ const MtButton = styled.div`
 const noop = () => undefined;
 
 const typeMap = {
-  primary: "primary",
-  secondary: "default",
-  tertiary: "dashed",
-  pills: "pills",
-  link: "link"
-}
+  primary: 'primary',
+  secondary: 'default',
+  tertiary: 'dashed',
+  pills: 'pills',
+  link: 'link'
+};
 
 class Button extends Component {
   static propTypes = {
     onClick: PropTypes.func,
-    type: PropTypes.oneOf(['primary', 'default','dashed','pills', 'link']),
+    type: PropTypes.oneOf(['primary', 'default', 'dashed', 'pills', 'link']),
     children: PropTypes.node,
     disabled: PropTypes.bool,
     size: PropTypes.string,
     style: PropTypes.object,
-    className:PropTypes.string
+    className: PropTypes.string
   };
   static defaultProps = {
     onClick: noop,
@@ -225,11 +225,11 @@ class Button extends Component {
   };
 
   render() {
-    const { style, size, disabled, children, type, onClick, className} = this.props;
+    const { children, type } = this.props;
     let antdType = typeMap[type];
     return (
       <MtButton>
-        <AntButton className={className} type={antdType} style={style} size={size} disabled={disabled} onClick={onClick} >
+        <AntButton {...this.props} type={antdType}>
           {children}
         </AntButton>
       </MtButton>
