@@ -17,7 +17,6 @@ exports[`ConfirmBox matches default snapshot 1`] = `
         className="ant-btn ant-btn-link"
         disabled={false}
         onClick={[Function]}
-        style={undefined}
         type="button"
       >
         <span>
@@ -32,7 +31,6 @@ exports[`ConfirmBox matches default snapshot 1`] = `
         className="ant-btn ant-btn-primary"
         disabled={false}
         onClick={[Function]}
-        style={undefined}
         type="button"
       >
         <span>

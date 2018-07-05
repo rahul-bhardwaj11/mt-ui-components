@@ -83,7 +83,7 @@ class Menu extends Component {
     options: PropTypes.array.isRequired,
     onClick: PropTypes.func,
     mode: PropTypes.string,
-    prefixCls: PropTypes.any
+    prefixCls: PropTypes.string
   };
 
   onClick = ({ key }) => {
@@ -93,14 +93,18 @@ class Menu extends Component {
   };
 
   render() {
-    let { options, mode, prefixCls } = this.props;
+    let { options } = this.props;
     return (
       <MtMenu>
-        <AntMenu prefixCls={prefixCls} onClick={this.onClick} mode={mode}>
+        <AntMenu {...this.props} onClick={this.onClick}>
           {options.map(option => {
             return (
               <AntMenu.Item key={option.key}>
-                { (typeof option.content === "string") ? <StringToHTML content={option.content} /> : option.content }
+                {typeof option.content === 'string' ? (
+                  <StringToHTML content={option.content} />
+                ) : (
+                  option.content
+                )}
               </AntMenu.Item>
             );
           })}

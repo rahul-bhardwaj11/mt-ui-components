@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import AntAnchor from "antd/lib/anchor";
+import AntAnchor from 'antd/lib/anchor';
 import 'antd/lib/anchor/style/index.css';
 
 const MtAnchor = styled.span`
-  .ant-anchor-wrapper{
-    .ant-anchor{
-        display: inline-block;
+  .ant-anchor-wrapper {
+    .ant-anchor {
+      display: inline-block;
     }
-    .ant-anchor-ink{
-      &:before{
+    .ant-anchor-ink {
+      &:before {
         background-color: transparent;
       }
-
     }
-
   }
-`
+`;
 
 class Link extends Component {
   static propTypes = {
@@ -26,18 +24,14 @@ class Link extends Component {
     className: PropTypes.string
   };
 
-
   render() {
-    const {href, title ,className} = this.props;
-
-      return (
-        <MtAnchor>
-          <AntAnchor>
-            <AntAnchor.Link href={href} title={title} className={className}>
-            </AntAnchor.Link>
-          </AntAnchor>
-        </MtAnchor>
-    )
+    return (
+      <MtAnchor>
+        <AntAnchor>
+          <AntAnchor.Link {...this.props} />
+        </AntAnchor>
+      </MtAnchor>
+    );
   }
 }
 
