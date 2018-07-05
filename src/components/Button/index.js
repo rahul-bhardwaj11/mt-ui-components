@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import AntButton from 'antd/lib/button';
 import 'antd/lib/button/style/index.css';
 import styled from 'styled-components';
+import { LIGHT_BLUE, SILVER } from '../../colors';
 
 // export function truncate(width) {
 //   return `
@@ -19,8 +20,6 @@ import styled from 'styled-components';
 //     font-family: 'Open Sans', sans-serif;
 //   `;
 // }
-const LIGHT_BLUE = '#4D7CC7',
-  SILVER = '#BBB';
 
 const MtButton = styled.div`
   display: inline-block;

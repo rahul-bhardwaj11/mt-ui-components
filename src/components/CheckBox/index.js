@@ -5,9 +5,7 @@ import PropTypes from 'prop-types';
 import AntCheckbox from 'antd/lib/checkbox';
 import 'antd/lib/checkbox/style/index.css';
 import styled from 'styled-components';
-
-var DARK = '#2A2E36',
-  OUTER_SPACE = '#989CA6';
+import { DARK, OUTER_SPACE } from '../../colors';
 
 const MtCheckbox = styled.div`
   .ant-checkbox-wrapper {

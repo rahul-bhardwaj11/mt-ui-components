@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import AntTag from 'antd/lib/tag';
 import 'antd/lib/tag/style/index.css';
 import styled from 'styled-components';
-
-var TAG_HOVER_TEXT_COLOR = '#4A90E2';
+import { TAG_HOVER_TEXT_COLOR } from '../../colors';
 
 const MtTag = styled.div`
   display: inline-block;

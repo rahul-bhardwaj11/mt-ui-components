@@ -1,11 +1,9 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import AntInput from "antd/lib/input";
-import "antd/lib/input/style/index.css";
-import styled from "styled-components";
-
-const SILVER = "#BBB",
-  DISABLE = "#E8E8E8";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import AntInput from 'antd/lib/input';
+import 'antd/lib/input/style/index.css';
+import styled from 'styled-components';
+import { SILVER, DISABLE } from '../../colors';
 
 const MtInput = styled.div`
   .ant-input {
