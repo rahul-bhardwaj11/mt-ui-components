@@ -10,7 +10,7 @@ class Select extends Component {
     options: PropTypes.any.isRequired,
     onChange: PropTypes.func,
     style: PropTypes.object,
-    defaultValue: PropTypes.string
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   };
 
   static defaultProps = {
