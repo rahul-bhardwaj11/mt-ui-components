@@ -1,15 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TextArea matches default snapshot 1`] = `
-<div
-  className="sc-bdVaJa itdAMi"
->
-  <textarea
-    className="ant-input"
-    onChange={[Function]}
-    onKeyDown={[Function]}
-    placeholder="Enter the scenario description. Example: Record a video directly on MindTickle or upload a pre-recorded video."
-    style={Object {}}
-  />
-</div>
+<textarea
+  className="ant-input"
+  onChange={[Function]}
+  onKeyDown={[Function]}
+  placeholder="Enter the scenario description. Example: Record a video directly on MindTickle or upload a pre-recorded video."
+  style={Object {}}
+/>
 `;

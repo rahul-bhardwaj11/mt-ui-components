@@ -2,13 +2,13 @@
 
 exports[`GroupButtonDropdown matches default snapshot 1`] = `
 <div
-  className="sc-htpNat kVqczi"
+  className="sc-htpNat cvEUIa"
 >
   <div
-    className="sc-bwzfXH kmDeSt"
+    className="sc-bwzfXH bczFIo"
   >
     <button
-      className="ant-btn ant-btn-primary"
+      className="ant-btn eeee ant-btn-primary"
       disabled={false}
       onClick={[Function]}
       style={
@@ -47,7 +47,7 @@ exports[`GroupButtonDropdown matches default snapshot 1`] = `
       }
     >
       <div
-        className="sc-bwzfXH kmDeSt"
+        className="sc-bwzfXH bczFIo"
       >
         <button
           className="ant-btn ant-btn-primary"

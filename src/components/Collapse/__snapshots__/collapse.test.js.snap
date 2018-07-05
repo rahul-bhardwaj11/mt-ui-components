@@ -6,7 +6,7 @@ exports[`Collapse matches  default snapshot 1`] = `
 >
   <div
     className="ant-collapse"
-    role="tablist"
+    role={null}
     style={undefined}
   >
     <div
@@ -19,7 +19,7 @@ exports[`Collapse matches  default snapshot 1`] = `
         className="ant-collapse-header"
         onClick={[Function]}
         onKeyPress={[Function]}
-        role="tab"
+        role="button"
         tabIndex={0}
       >
         <i
@@ -29,7 +29,7 @@ exports[`Collapse matches  default snapshot 1`] = `
       </div>
       <div
         className="ant-collapse-content ant-collapse-content-active"
-        role="tabpanel"
+        role={null}
       >
         <div
           className="ant-collapse-content-box"
@@ -48,7 +48,7 @@ exports[`Collapse matches  default snapshot 1`] = `
         className="ant-collapse-header"
         onClick={[Function]}
         onKeyPress={[Function]}
-        role="tab"
+        role="button"
         tabIndex={0}
       >
         <i
@@ -67,7 +67,7 @@ exports[`Collapse matches  default snapshot 1`] = `
         className="ant-collapse-header"
         onClick={[Function]}
         onKeyPress={[Function]}
-        role="tab"
+        role="button"
         tabIndex={0}
       >
         <i

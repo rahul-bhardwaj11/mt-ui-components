@@ -13,7 +13,7 @@ exports[`Select matches default snapshot 1`] = `
   onTouchStart={[Function]}
   style={
     Object {
-      "width": 120,
+      "minWidth": 120,
     }
   }
 >

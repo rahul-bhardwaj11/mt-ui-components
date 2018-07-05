@@ -2,7 +2,7 @@
 
 exports[`Input matches default snapshot 1`] = `
 <div
-  className="sc-bdVaJa vmxVr"
+  className="sc-bdVaJa gEilJX"
 >
   <input
     className="ant-input"

@@ -34,13 +34,8 @@ class Dropdown extends Component {
     } else {
       overlay = options;
     }
-<<<<<<< HEAD
-    if (type === "button") {
-      children = <Button >{ label || 'Button'}</Button>;
-=======
     if (type === 'button') {
       children = <Button>{label || 'Button'}</Button>;
->>>>>>> adding test cases
     }
     return (
       <AntDropdown

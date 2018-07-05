@@ -2,7 +2,7 @@
 
 exports[`CheckBox matches the snapshot 1`] = `
 <div
-  className="sc-bdVaJa ioUHrQ"
+  className="sc-bdVaJa lbPrtE"
 >
   <label
     className="ant-checkbox-wrapper"
