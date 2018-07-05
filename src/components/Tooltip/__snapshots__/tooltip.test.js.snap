@@ -2,7 +2,7 @@
 
 exports[`Tooltip matches default snapshot 1`] = `
 <div
-  className="sc-bdVaJa itdAMi"
+  className="sc-bdVaJa gBghzs"
 >
   <span
     onBlur={undefined}

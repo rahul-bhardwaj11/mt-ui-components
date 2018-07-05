@@ -4,8 +4,7 @@ import AntMenu from 'antd/lib/menu';
 import 'antd/lib/menu/style/index.css';
 import StringToHTML from '../StringToHTML';
 import styled from 'styled-components';
-
-const LIGHT_BLUE = '#4A90E2';
+import { LIGHT_BLUE } from '../../colors';
 
 const MtMenu = styled.div`
   .ant-select-dropdown-menu-item {

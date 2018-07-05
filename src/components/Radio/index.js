@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import AntRadio from 'antd/lib/radio';
 import 'antd/lib/radio/style/index.css';
 import styled from 'styled-components';
-
-const INDIGO = '#4D7CC7';
+import { INDIGO } from '../../colors';
 
 const MtRadio = styled.div`
   .ant-radio-inner:after {
