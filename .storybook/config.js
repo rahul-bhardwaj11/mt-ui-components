@@ -20,10 +20,10 @@ addDecorator(story => (
   </div>
 ));
 
-const req = require.context("../src/components", true, /.stories.js$/);
+const req = require.context("../src", true, /.stories.js$/);
 
 function loadStories() {
-  require("../src/components/Introduction/introduction.stories");
+  require("../src/Introduction/introduction.stories");
   req.keys().forEach(filename => {
     if (filename.indexOf("introduction.stories") > -1) {
       return;

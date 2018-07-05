@@ -31,7 +31,7 @@ VERSION=$(npm --no-git-tag-version version $RELEASE | sed 's/v//')
 success "VERSION: "$VERSION;
 success "TAG: "$TAG
 
-npm run build && npm publish --tag $TAG
+npm run build:prod && npm publish --tag $TAG
 
 git add package.json
 git commit -m "release: $VERSION"

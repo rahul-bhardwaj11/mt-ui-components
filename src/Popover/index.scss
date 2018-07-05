@@ -1,0 +1,14 @@
+:global {
+  .ant-popover-title {
+    border-bottom: 1px solid transparent;
+    padding: 20px 20px 0px 20px;
+    font-size: 14px;
+  }
+  .ant-popover-inner-content {
+    text-align: right;
+    padding: 20px;
+    button {
+      margin-left: 15px;
+    }
+  }
+}

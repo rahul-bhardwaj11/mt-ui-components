@@ -10,10 +10,6 @@ const path = require("path");
 const resolve = require("path").resolve;
 module.exports = {
   resolve: {
-    alias: {
-      styles: resolve(__dirname, "../src/styles"),
-      images: resolve(__dirname, "../src/images")
-    }
   },
   module: {
     rules: [
