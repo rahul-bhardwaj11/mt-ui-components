@@ -14,14 +14,7 @@ describe('Select', () => {
     expect(tree).toMatchSnapshot();
   });
   const changeSpy = jest.fn();
-  const select = shallow(
-    <Select
-      options={options}
-      onChange={changeSpy}
-      style={null}
-      defaultValue={null}
-    />
-  );
+  const select = shallow(<Select options={options} onChange={changeSpy} />);
   it('should handle click', () => {
     const stopPropagation = jest.fn();
     select.find('Select').simulate('click', { stopPropagation });

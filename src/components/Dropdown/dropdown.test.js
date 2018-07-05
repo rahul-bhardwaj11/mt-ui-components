@@ -5,54 +5,33 @@ import Dropdown from './index';
 
 describe('Dropdown', () => {
   const options = [
-    { key: "1", content: "First Item" },
-    { key: "2", content: "Second Item" },
-    { key: "3", content: "Third Item" }
+    { key: '1', content: 'First Item' },
+    { key: '2', content: 'Second Item' },
+    { key: '3', content: 'Third Item' }
   ];
-  it('matches default snapshot',()=>{
-    const tree =renderer.create(
-      <Dropdown
-        options = {options}
-      />
-    ).toJSON();
+  it('matches default snapshot', () => {
+    const tree = renderer.create(<Dropdown options={options} />).toJSON();
     expect(tree).toMatchSnapshot();
-  })
+  });
 
-  it('matches Button Dropdown snapshot',()=>{
-    const tree =renderer.create(
-      <Dropdown
-        options = {options}
-        type="button"
-        label={"button"}
-      />
-    ).toJSON();
+  it('matches Button Dropdown snapshot', () => {
+    const tree = renderer
+      .create(<Dropdown options={options} type="button" label={'button'} />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
-  })
+  });
 
-  it('matches Link Dropdown snapshot',()=>{
-    const tree =renderer.create(
-      <Dropdown
-        options = {options}
-        trigger={'click'}
-      />
-    ).toJSON();
+  it('matches Link Dropdown snapshot', () => {
+    const tree = renderer
+      .create(<Dropdown options={options} trigger={'click'} />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
-  })
+  });
 
-
-  it('should handle click',()=>{
+  it('should handle click', () => {
     const clickSpy = jest.fn();
-    const dropDown=shallow(
-      <Dropdown
-      options= {[{key: "1", content: "First Item"}]}
-      trigger = {null}
-      children = {null}
-      onClick = {clickSpy}
-      type = {null}
-      label = {null}
-      />,
-    );
+    const dropDown = shallow(<Dropdown options={options} onClick={clickSpy} />);
     dropDown.find('Dropdown').simulate('click');
     expect(clickSpy).toHaveBeenCalled();
-  })
+  });
 });

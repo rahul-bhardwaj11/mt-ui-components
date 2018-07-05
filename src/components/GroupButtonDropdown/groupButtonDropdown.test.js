@@ -22,7 +22,6 @@ describe('GroupButtonDropdown', () => {
         options={options}
         trigger="click"
         onClick={clickSpy}
-        label={null}
       />
     );
     groupButtonDropdown.find('Dropdown').simulate('click', { key: '1' });
