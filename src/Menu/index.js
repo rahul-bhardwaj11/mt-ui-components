@@ -11,70 +11,78 @@ const MtMenu = styled.div`
     background: ${LIGHT_BLUE};
     color: #fff;
   }
-}
-.ant-dropdown-menu-item{
-  background-color: #fff;
-  color: #989CA6;
-  padding: 0px 15px;
-  margin: 8px;
-  border-radius: 4px;
-  height: 32px;
-  line-height: 32px;
-}
-
-.ant-menu-horizontal
-{
-
-    & > .ant-menu-item{
-      &:hover{
-        color: #202A39;
+  .ant-select-dropdown {
+    background: ${LIGHT_BLUE};
+    color: #fff;
+  }
+  .ant-select-dropdown-menu {
+    background-color: #fff;
+    color: #888;
+    padding: 0px 5px;
+    margin: 8px;
+    border-radius: 4px;
+    height: 32px;
+    line-height: 32px;
+  }
+  .ant-dropdown-menu-item,
+  .ant-dropdown-menu-submenu-title {
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    &:hover {
+      background: #4a90e2;
+      color: #fff;
+    }
+  }
+  .ant-dropdown-menu-item {
+    background-color: #fff;
+    color: #989ca6;
+    padding: 0px 15px;
+    margin: 8px;
+    border-radius: 4px;
+    height: 32px;
+    line-height: 32px;
+  }
+  .ant-menu-horizontal {
+    & > .ant-menu-item {
+      &:hover {
+        color: #202a39;
       }
     }
-    & > .ant-menu-submenu{
-      &:hover{
-        color: #202A39;
+    & > .ant-menu-submenu {
+      &:hover {
+        color: #202a39;
       }
     }
-
-
-
-  & > .ant-menu-item-active,
-  & > .ant-menu-submenu-active,
-  & > .ant-menu-item-selected,
-  & > .ant-menu-submenu-selected {
+    & > .ant-menu-item-active,
+    & > .ant-menu-submenu-active,
+    & > .ant-menu-item-selected,
+    & > .ant-menu-submenu-selected {
       border-bottom: 3px solid ${LIGHT_BLUE};
       color: #202a39;
     }
   }
-
-
-.ant-menu-vertical {
-  & > .ant-menu-item{
-    color: #8E9194;
-
-    &:hover{
-      color: black;
+  .ant-menu-vertical {
+    & > .ant-menu-item {
+      color: #8e9194;
+      &:hover {
+        color: black;
+      }
     }
-
   }
-}
-
-
-.ant-menu-item{
-  font-size: 15px;
-  padding: 0px 8px;
-  color: #8E9194;
-  &:hover{
-    color: #fff
+  .ant-menu-item {
+    font-size: 15px;
+    padding: 0px 8px;
+    color: #8e9194;
+    &:hover {
+      color: #fff;
+    }
+    b {
+      font-weight: normal;
+    }
   }
-  b {
-    font-weight: normal;
+  .ant-dropdown-trigger {
+    font-size: 13px;
   }
-
-}
-.ant-dropdown-trigger{
-  font-size:13px;
-}
 `;
 
 class Menu extends Component {

@@ -9,6 +9,6 @@ const stories = storiesOf('Link', module);
 stories.addDecorator(withKnobs);
 
 stories.add(
-  'anchor link',
+  'Anchor link',
   withInfo('Basic usage Anchor link')(() => <Link title="link" href="#" />)
 );

@@ -9,11 +9,6 @@ class TextArea extends Component {
     placeholder: PropTypes.string
   };
 
-  static defaultProps = {
-    placeholder:
-      'Enter the scenario description. Example: Record a video directly on MindTickle or upload a pre-recorded video.'
-  };
-
   render() {
     return <AntTextArea {...this.props} />;
   }

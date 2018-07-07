@@ -8,7 +8,6 @@ const MtSwitch = styled.div`
   .ant-switch-checked {
     background-color: #4a90e2;
   }
-
   .ant-switch {
     min-width: 36px;
     height: 20px;
@@ -19,7 +18,6 @@ const MtSwitch = styled.div`
       margin-left: 0px;
     }
   }
-
   .ant-switch-checked {
     &:after {
       width: 14px;

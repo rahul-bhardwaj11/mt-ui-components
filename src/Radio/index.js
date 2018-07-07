@@ -9,7 +9,6 @@ const MtRadio = styled.div`
   .ant-radio-inner:after {
     background-color: white;
   }
-
   .ant-radio-checked {
     .ant-radio-inner {
       border-color: ${INDIGO};

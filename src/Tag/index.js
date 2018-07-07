@@ -7,7 +7,6 @@ import { TAG_HOVER_TEXT_COLOR } from '../colors';
 
 const MtTag = styled.div`
   display: inline-block;
-
   .ant-tag {
     color: rgba(0, 0, 0, 0.65);
     border-radius: 16px;
@@ -18,7 +17,6 @@ const MtTag = styled.div`
     height: 24px;
     padding: 0 15px;
     margin-bottom: 12px;
-
     &:hover {
       border: 1px solid #468ee5;
       border-radius: 16px;

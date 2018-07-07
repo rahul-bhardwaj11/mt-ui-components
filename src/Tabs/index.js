@@ -24,7 +24,6 @@ const MtTabs = styled.div`
         color: ${SHARK};
       }
     }
-
     .ant-tabs-tab-active {
       color: ${SHARK};
     }
@@ -33,6 +32,7 @@ const MtTabs = styled.div`
     padding: 0 10px;
   }
 `;
+
 class Tabs extends Component {
   static propTypes = {
     options: PropTypes.array.isRequired,

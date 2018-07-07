@@ -40,7 +40,7 @@ stories
     ))
   )
   .add(
-    'link button',
+    'Link button',
     withInfo('Adding type link to button')(() => (
       <Button type={text('type', 'link')}>{text('children', 'Submit')}</Button>
     ))

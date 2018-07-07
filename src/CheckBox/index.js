@@ -22,7 +22,6 @@ const MtCheckbox = styled.div`
     .ant-checkbox-checked + span {
       color: ${DARK};
     }
-
     span {
       color: ${OUTER_SPACE};
     }

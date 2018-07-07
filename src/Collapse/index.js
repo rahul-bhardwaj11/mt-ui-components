@@ -16,7 +16,6 @@ const MtCollapse = styled.div`
         border-radius: 0px;
       }
     }
-
     & > .ant-collapse-item {
       &:last-child {
         & > .ant-collapse-header {
@@ -25,7 +24,6 @@ const MtCollapse = styled.div`
       }
     }
   }
-
   .ant-collapse-header {
     font-weight: bold;
     background: #fff;

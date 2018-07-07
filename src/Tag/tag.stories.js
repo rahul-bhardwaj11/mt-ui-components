@@ -7,9 +7,7 @@ import { withKnobs, text } from '@storybook/addon-knobs';
 
 const stories = storiesOf('Tag', module);
 stories.addDecorator(withKnobs);
-function preventDefault(e) {
-  e.preventDefault();
-}
+
 stories
   .add(
     'Default tag',
@@ -18,26 +16,8 @@ stories
     ))
   )
   .add(
-    'Link tag',
-    withInfo('Basic usage of Link tag')(() => (
-      <Tag>
-        <a href="https://github.com/ant-design/ant-design/issues/1862">Link</a>
-      </Tag>
-    ))
-  )
-  .add(
-    'Close tag',
+    'Tag with close option',
     withInfo('Basic usage of tag with close option')(() => (
-      <Tag closable onClose={''}>
-        Tag Close
-      </Tag>
-    ))
-  )
-  .add(
-    'Prevent Tag',
-    withInfo('Basic usage of Prevent Tag')(() => (
-      <Tag closable onClose={preventDefault}>
-        Prevent Default
-      </Tag>
+      <Tag closable>Tag Close</Tag>
     ))
   );
