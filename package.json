@@ -113,26 +113,23 @@
     }
   },
   "dependencies": {
-    "antd": "^3.6.5",
-    "classnames": "^2.2.6",
+    "antd": "^3.5.2",
+    "classnames": "^2.2.5",
     "identity-obj-proxy": "^3.0.0",
     "install": "^0.11.2",
     "npm": "^6.1.0",
-    "prop-types": "^15.6.2",
-    "react": "16.2.0",
     "react-icons": "^2.2.3",
     "react-sortable-tree": "^2.2.0",
     "react-test-renderer": "^16.1.1",
     "react-tether": "^0.5.7",
-    "styled-components": "^3.3.3"
+    "styled-components": "^3.3.0",
+    "react": "16.2.0",
+    "prop-types": "^15.6.0"
   },
   "peerDependencies": {
-    "react": "^16.1.0",
-    "antd": "^3.5.2",
+    "react": "16.2.0",
     "classnames": "^2.2.5",
-    "prop-types": "^15.6.0",
-    "styled-components": "^3.3.0",
-    "react-sortable-tree": "^2.1.2"
+    "prop-types": "^15.6.0"
   },
   "publishConfig": {
     "registry": "http://verdaccio.ops.mindtickle.com"

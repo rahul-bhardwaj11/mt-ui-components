@@ -2,7 +2,7 @@
 
 exports[`Switch matches default snapshot 1`] = `
 <div
-  className="sc-bdVaJa hAOhIN"
+  className="sc-bdVaJa ePsiZ"
 >
   <span
     checked={true}

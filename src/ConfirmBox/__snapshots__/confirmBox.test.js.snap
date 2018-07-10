@@ -1,43 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConfirmBox matches default snapshot 1`] = `
-<div
-  className="sc-bwzfXH lixVAT"
->
-  <h2>
-    This is test title
-  </h2>
-  <div
-    className="actionButtons"
-  >
-    <div
-      className="sc-bdVaJa cIcqkd"
-    >
-      <button
-        className="ant-btn ant-btn-link"
-        disabled={false}
-        onClick={[Function]}
-        type="button"
-      >
-        <span>
-          Cancel
-        </span>
-      </button>
-    </div>
-    <div
-      className="sc-bdVaJa cIcqkd"
-    >
-      <button
-        className="ant-btn ant-btn-primary"
-        disabled={false}
-        onClick={[Function]}
-        type="button"
-      >
-        <span>
-          Delete
-        </span>
-      </button>
-    </div>
-  </div>
-</div>
+<span
+  onBlur={undefined}
+  onClick={[Function]}
+  onContextMenu={undefined}
+  onFocus={undefined}
+  onMouseDown={[Function]}
+  onMouseEnter={undefined}
+  onMouseLeave={undefined}
+  onTouchStart={[Function]}
+/>
 `;
