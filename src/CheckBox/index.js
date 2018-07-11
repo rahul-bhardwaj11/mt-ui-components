@@ -57,13 +57,7 @@ class CheckBox extends Component {
     const { label } = this.props;
     return (
       <MtCheckbox>
-        <AntCheckbox
-          checked={this.state.checked}
-          onChange={this.onChange}
-          onClick={event => {
-            event.stopPropagation();
-          }}
-        >
+        <AntCheckbox checked={this.state.checked} onChange={this.onChange}>
           {label}
         </AntCheckbox>
       </MtCheckbox>

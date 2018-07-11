@@ -4,8 +4,37 @@ import AntInput from 'antd/lib/input';
 import 'antd/lib/input/style/index.css';
 import styled from 'styled-components';
 import { SILVER, DISABLE } from '../colors';
+import classnames from 'classnames';
+
+const noop = () => undefined;
+
+const isString = value => {
+  return typeof value === 'string';
+};
 
 const MtInput = styled.div`
+  .counterStyle {
+    color: #696969;
+    font-size: 12px;
+    margin-left: 0;
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-left: none;
+    line-height: 20px;
+    float: left;
+  }
+  .displayN {
+    display: none;
+  }
+
+  .error {
+    font-size: 12px;
+    bottom: -24px;
+    left: 8px;
+    position: absolute;
+    color: #c63434;
+    font-weight: bold;
+  }
   .ant-input {
     border: 1px solid #ddd;
   }
@@ -36,18 +65,87 @@ const MtInput = styled.div`
 
 class Input extends Component {
   static propTypes = {
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    maxLength: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+    maxLengthClassName: PropTypes.string,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    type: PropTypes.oneOf(['text', 'number', 'password', 'file']),
+    errors: PropTypes.array
   };
 
+  static defaultProps = {
+    onChange: noop,
+    onFocus: noop,
+    errors: [],
+    type: 'text'
+  };
+
+  state = {};
+
+  handleValue = value => {
+    const trimmedValue = isString(value) ? value.trim() : value;
+    value = trimmedValue.length ? value : trimmedValue;
+    const { maxLength } = this.props;
+    if (maxLength) {
+      return maxLength <= value.length ? value : value.substring(0, maxLength);
+    }
+    return value;
+  };
+
+  onChange = event => {
+    const { onChange } = this.props;
+    const value = this.handleValue(event.target.value);
+    this.setState({ value });
+    onChange(event, value);
+  };
+
+  moveCaretAtEnd = e => {
+    var temp_value = e.target.value;
+    e.target.value = '';
+    e.target.value = temp_value;
+    this.props.onFocus(e);
+  };
+
+  componentWillMount() {
+    const { value = '' } = this.props;
+    this.setState({ value: this.handleValue(value) });
+  }
+
+  componentWillReceiveProps(newProps) {
+    const { value } = this.props;
+    let { value: newValue } = newProps;
+    if (newValue !== value) {
+      this.setState({ value: this.handleValue(newValue) });
+    }
+  }
+
   render() {
+    const { errors, maxLength, maxLengthClassName } = this.props;
+    const { value } = this.state;
     return (
       <MtInput>
         <AntInput
           {...this.props}
-          onClick={event => {
-            event.stopPropagation();
-          }}
+          onChange={this.onChange}
+          onFocus={this.moveCaretAtEnd}
         />
+        <div
+          key="maxLength"
+          className={classnames(
+            { ['counterStyle']: maxLength, displayN: !maxLength },
+            maxLengthClassName
+          )}
+        >
+          {maxLength && maxLength - value.length}
+        </div>
+        <div
+          key="error"
+          className={classnames(errors[0] ? 'error' : 'displayN')}
+        >
+          {errors[0]}
+        </div>
       </MtInput>
     );
   }
