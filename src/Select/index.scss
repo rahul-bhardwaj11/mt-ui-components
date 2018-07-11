@@ -16,23 +16,27 @@
     background-color: #fff;
     color: #888;
     margin: 5px;
-
     .ant-select-dropdown-menu-item {
-      background: #fff;
-      color: #989ca6;
-      border-radius: 4px;
-      padding: 5px 15px;
-      margin-bottom: 8px;
-      font-weight: normal;
 
-      &:hover {
-        background: #4a90e2;
-        color: #fff;
-        border-radius: 4px;
+      border-radius: 4px;
+      margin-bottom: 5px;
+      &:first-child{
+        background-color: #fff;
+      }
+      &:hover{
+          background-color: #4a90e2;
+          color: #fff;
+          border-radius: 4px;
       }
     }
   }
   .ant-select-selection-selected-value {
     font-weight: normal;
+  }
+  .ant-select-selection--multiple{
+    min-width:500px;
+  }
+  .ant-select-dropdown--multiple{
+    z-index: 999999;
   }
 }

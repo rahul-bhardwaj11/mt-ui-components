@@ -8,11 +8,11 @@ import { LIGHT_BLUE } from '../colors';
 
 const MtMenu = styled.div`
   .ant-select-dropdown-menu-item {
-    background: ${LIGHT_BLUE};
+    background-color: ${LIGHT_BLUE};
     color: #fff;
   }
   .ant-select-dropdown {
-    background: ${LIGHT_BLUE};
+    background-color: ${LIGHT_BLUE};
     color: #fff;
   }
   .ant-select-dropdown-menu {
@@ -24,12 +24,11 @@ const MtMenu = styled.div`
     height: 32px;
     line-height: 32px;
   }
-  .ant-dropdown-menu-item,
   .ant-dropdown-menu-submenu-title {
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
     &:hover {
-      background: #4a90e2;
+      background-color: #4a90e2;
       color: #fff;
     }
   }
@@ -41,6 +40,12 @@ const MtMenu = styled.div`
     border-radius: 4px;
     height: 32px;
     line-height: 32px;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    &:hover {
+      background-color: #4a90e2;
+      color: #fff;
+    }
   }
   .ant-menu-horizontal {
     & > .ant-menu-item {
