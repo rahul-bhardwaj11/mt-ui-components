@@ -2,7 +2,7 @@
 
 exports[`Button matches default props snapshot when type is default 1`] = `
 <div
-  className="sc-bdVaJa cIcqkd"
+  className="sc-bdVaJa eLfJwG"
 >
   <button
     className="ant-btn"
@@ -19,7 +19,7 @@ exports[`Button matches default props snapshot when type is default 1`] = `
 
 exports[`Button matches default props snapshot when type is primary 1`] = `
 <div
-  className="sc-bdVaJa cIcqkd"
+  className="sc-bdVaJa eLfJwG"
 >
   <button
     className="ant-btn ant-btn-primary"

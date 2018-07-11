@@ -5,7 +5,7 @@ exports[`GroupButtonDropdown matches default snapshot 1`] = `
   className="sc-htpNat cvEUIa"
 >
   <div
-    className="sc-bwzfXH bczFIo"
+    className="sc-bwzfXH cujgKv"
   >
     <button
       className="ant-btn eeee ant-btn-primary"
@@ -47,7 +47,7 @@ exports[`GroupButtonDropdown matches default snapshot 1`] = `
       }
     >
       <div
-        className="sc-bwzfXH bczFIo"
+        className="sc-bwzfXH cujgKv"
       >
         <button
           className="ant-btn ant-btn-primary"

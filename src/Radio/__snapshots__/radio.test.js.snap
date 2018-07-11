@@ -2,7 +2,7 @@
 
 exports[`Radio matches default snapshot 1`] = `
 <div
-  className="sc-bdVaJa hwXWsW"
+  className="sc-bdVaJa kNssj"
 >
   <label
     className="ant-radio-wrapper"
