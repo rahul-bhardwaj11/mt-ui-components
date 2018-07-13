@@ -9,15 +9,13 @@
 const path = require("path");
 const resolve = require("path").resolve;
 module.exports = {
-  resolve: {
-  },
+  resolve: {},
   module: {
     rules: [
       {
         test: /\.scss$/,
         loaders: [
-          "style-loader",
-          {
+          "style-loader", {
             loader: "css-loader",
             options: {
               modules: true,
@@ -27,10 +25,11 @@ module.exports = {
           "sass-loader"
         ],
         include: path.resolve(__dirname, "../")
-      },
-      {
+      }, {
         test: /\.css$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"],
+        loaders: [
+          "style-loader", "css-loader", "sass-loader"
+        ],
         include: path.resolve(__dirname, "../")
       },
       // {
@@ -50,30 +49,31 @@ module.exports = {
       {
         test: /\.jpg$/,
         use: "url-loader?limit=8192&name=[name].[ext]"
-      },
-      {
+      }, {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         use: "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff"
-      },
-      {
+      }, {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
         use: "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff"
-      },
-      {
+      }, {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         use: "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream"
-      },
-      {
+      }, {
         test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,
         use: "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream"
-      },
-      {
+      }, {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         use: "file?name=fonts/[name].[ext]"
-      },
-      {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        use: "url?name=images/[name].[ext]&limit=10000&mimetype=image/svg+xml"
+      }, {
+        test: /\.(png|jp(e*)g|svg|gif)$/,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              name: "images/[hash]-[name].[ext]"
+            }
+          }
+        ]
       }
     ]
   }

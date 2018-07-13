@@ -40,8 +40,15 @@ stories
     ))
   )
   .add(
+    'Text button',
+    withInfo('Adding type Text to button')(() => (
+      <Button type={text('type', 'text')}>{text('children', 'Submit')}</Button>
+    ))
+  )
+
+  .add(
     'Link button',
-    withInfo('Adding type link to button')(() => (
+    withInfo('Adding type Link to button for default blue')(() => (
       <Button type={text('type', 'link')}>{text('children', 'Submit')}</Button>
     ))
   );

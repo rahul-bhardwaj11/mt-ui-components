@@ -95,11 +95,15 @@ const MtButton = styled.div`
       color: #888;
       font-size: 12px;
       padding: 0px 12px;
-    }
-    &:hover {
-      border: 1px solid ${SILVER};
+
+      &:focus,
+      &.active {
+        border: 1px solid ${LIGHT_BLUE};
+        color: ${LIGHT_BLUE};
+      }
     }
     &:focus,
+    &:hover,
     &.active {
       border: 1px solid ${LIGHT_BLUE};
       color: ${LIGHT_BLUE};
@@ -144,23 +148,48 @@ const MtButton = styled.div`
     outline-style: none;
   }
   /* Dashed Button styles */
-  .ant-btn-link {
+  .ant-btn-text {
     border: 1px dashed transparent;
     background-color: transparent;
     font-size: 14px;
     height: 32px;
     padding: 0px 12px;
+    color: #989ca6;
+
+    &:hover,
+    &:focus {
+      border: 1px dashed transparent;
+      background-color: transparent;
+      color: #888;
+    }
     &.ant-btn-sm {
       color: #fff;
       font-size: 12px;
       padding: 0px 12px;
     }
-    &:hover {
-      ${'' /* color: red; */};
+  }
+  .ant-btn {
+    &.disabled {
+      color: ${SILVER};
     }
-    &:focus,
-    &.active {
-      ${'' /* color: red; */};
+  }
+  .ant-btn-clicked {
+    outline: none;
+    outline-style: none;
+  }
+
+  /* link Blue Button styles */
+  .ant-btn-link {
+    border: 1px solid ${LIGHT_BLUE};
+    background-color: #fff;
+    font-size: 14px;
+    height: 32px;
+    padding: 0px 12px;
+    color: ${LIGHT_BLUE};
+    &.ant-btn-sm {
+      color: #fff;
+      font-size: 12px;
+      padding: 0px 12px;
     }
   }
   .ant-btn {
@@ -181,13 +210,21 @@ const typeMap = {
   secondary: 'default',
   tertiary: 'dashed',
   pills: 'pills',
-  link: 'link'
+  link: 'link',
+  text: 'text'
 };
 
 class Button extends Component {
   static propTypes = {
     onClick: PropTypes.func,
-    type: PropTypes.oneOf(['primary', 'default', 'dashed', 'pills', 'link']),
+    type: PropTypes.oneOf([
+      'primary',
+      'default',
+      'dashed',
+      'pills',
+      'link',
+      'text'
+    ]),
     children: PropTypes.node,
     disabled: PropTypes.bool,
     size: PropTypes.string,
