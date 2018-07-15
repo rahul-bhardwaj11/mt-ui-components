@@ -10,8 +10,8 @@ stories.addDecorator(withKnobs);
 stories.add(
   'ConfirmBox',
   withInfo('Basic usage ConfirmBox')(() => (
-    <div>
-      <ConfirmBox title="This is test title" />
-    </div>
+    <ConfirmBox title="Are your sure you want to delete ?" placement="bottom">
+      <a href="#">Delete</a>
+    </ConfirmBox>
   ))
 );
