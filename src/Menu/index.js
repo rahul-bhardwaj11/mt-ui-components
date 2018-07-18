@@ -4,15 +4,15 @@ import AntMenu from 'antd/lib/menu';
 import 'antd/lib/menu/style/index.css';
 import StringToHTML from '../StringToHTML';
 import styled from 'styled-components';
-import { LIGHT_BLUE } from '../colors';
+import theme from '../theme';
 
 const MtMenu = styled.div`
   .ant-select-dropdown-menu-item {
-    background-color: ${LIGHT_BLUE};
+    background-color: ${theme.colors.LIGHT_BLUE};
     color: #fff;
   }
   .ant-select-dropdown {
-    background-color: ${LIGHT_BLUE};
+    background-color: ${theme.colors.LIGHT_BLUE};
     color: #fff;
   }
   .ant-select-dropdown-menu {
@@ -62,7 +62,7 @@ const MtMenu = styled.div`
     & > .ant-menu-submenu-active,
     & > .ant-menu-item-selected,
     & > .ant-menu-submenu-selected {
-      border-bottom: 3px solid ${LIGHT_BLUE};
+      border-bottom: 3px solid ${theme.colors.LIGHT_BLUE};
       color: #202a39;
     }
   }

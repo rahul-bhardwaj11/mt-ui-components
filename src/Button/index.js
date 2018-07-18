@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AntButton from 'antd/lib/button';
 import 'antd/lib/button/style/index.css';
 import styled from 'styled-components';
-import { LIGHT_BLUE, SILVER } from '../colors';
+import theme from '../theme';
 
 // export function truncate(width) {
 //   return `
@@ -35,12 +35,12 @@ const MtButton = styled.div`
       padding: 0px 12px;
     }
     &:hover {
-      border: 1px solid ${SILVER};
+      border: 1px solid ${theme.colors.SILVER};
     }
     &:focus,
     &.active {
-      border: 1px solid ${LIGHT_BLUE};
-      color: ${LIGHT_BLUE};
+      border: 1px solid ${theme.colors.LIGHT_BLUE};
+      color: ${theme.colors.LIGHT_BLUE};
     }
   }
   .ant-btn {
@@ -48,13 +48,13 @@ const MtButton = styled.div`
       border: 1px solid #e8e8e8;
       border-radius: 4px;
       background-color: #f8f8f8;
-      color: ${SILVER};
+      color: ${theme.colors.SILVER};
     }
   }
   /* Primary Button styles */
   .ant-btn-primary {
-    border: 1px solid ${LIGHT_BLUE};
-    background-color: ${LIGHT_BLUE};
+    border: 1px solid ${theme.colors.LIGHT_BLUE};
+    background-color: ${theme.colors.LIGHT_BLUE};
     color: #fff;
     font-size: 14px;
     height: 32px;
@@ -98,15 +98,15 @@ const MtButton = styled.div`
 
       &:focus,
       &.active {
-        border: 1px solid ${LIGHT_BLUE};
-        color: ${LIGHT_BLUE};
+        border: 1px solid ${theme.colors.LIGHT_BLUE};
+        color: ${theme.colors.LIGHT_BLUE};
       }
     }
     &:focus,
     &:hover,
     &.active {
-      border: 1px solid ${LIGHT_BLUE};
-      color: ${LIGHT_BLUE};
+      border: 1px solid ${theme.colors.LIGHT_BLUE};
+      color: ${theme.colors.LIGHT_BLUE};
     }
   }
   .ant-btn {
@@ -114,7 +114,7 @@ const MtButton = styled.div`
       border: 1px solid #e8e8e8;
       border-radius: 16px;
       background-color: #f8f8f8;
-      color: ${SILVER};
+      color: ${theme.colors.SILVER};
     }
   }
   /* Dashed Button styles */
@@ -140,7 +140,7 @@ const MtButton = styled.div`
   }
   .ant-btn {
     &.disabled {
-      color: ${SILVER};
+      color: ${theme.colors.SILVER};
     }
   }
   .ant-btn-clicked {
@@ -170,7 +170,7 @@ const MtButton = styled.div`
   }
   .ant-btn {
     &.disabled {
-      color: ${SILVER};
+      color: ${theme.colors.SILVER};
     }
   }
   .ant-btn-clicked {
@@ -180,12 +180,12 @@ const MtButton = styled.div`
 
   /* link Blue Button styles */
   .ant-btn-link {
-    border: 1px solid ${LIGHT_BLUE};
+    border: 1px solid ${theme.colors.LIGHT_BLUE};
     background-color: #fff;
     font-size: 14px;
     height: 32px;
     padding: 0px 12px;
-    color: ${LIGHT_BLUE};
+    color: ${theme.colors.LIGHT_BLUE};
     &.ant-btn-sm {
       color: #fff;
       font-size: 12px;
@@ -194,7 +194,7 @@ const MtButton = styled.div`
   }
   .ant-btn {
     &.disabled {
-      color: ${SILVER};
+      color: ${theme.colors.SILVER};
     }
   }
   .ant-btn-clicked {

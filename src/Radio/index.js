@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AntRadio from 'antd/lib/radio';
 import 'antd/lib/radio/style/index.css';
 import styled from 'styled-components';
-import { INDIGO } from '../colors';
+import theme from '../theme';
 
 const MtRadio = styled.div`
   .ant-radio-inner:after {
@@ -11,14 +11,14 @@ const MtRadio = styled.div`
   }
   .ant-radio-checked {
     .ant-radio-inner {
-      border-color: ${INDIGO};
-      background: ${INDIGO};
+      border-color: ${theme.colors.INDIGO};
+      background: ${theme.colors.INDIGO};
     }
   }
   .ant-radio-wrapper {
     &:hover {
       .ant-radio .ant-radio-inner {
-        border: 1px solid ${INDIGO};
+        border: 1px solid ${theme.colors.INDIGO};
       }
     }
   }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AntTabs from 'antd/lib/tabs';
 import 'antd/lib/tabs/style/index.css';
 import styled from 'styled-components';
-import { SHARK } from '../colors';
+import theme from '../theme';
 
 const MtTabs = styled.div`
   .ant-tabs-bar {
@@ -21,11 +21,11 @@ const MtTabs = styled.div`
   .ant-tabs-nav {
     .ant-tabs-tab {
       &:hover {
-        color: ${SHARK};
+        color: ${theme.colors.SHARK};
       }
     }
     .ant-tabs-tab-active {
-      color: ${SHARK};
+      color: ${theme.colors.SHARK};
     }
   }
   .ant-tabs-content > .ant-tabs-tabpane {

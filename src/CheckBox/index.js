@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import AntCheckbox from 'antd/lib/checkbox';
 import 'antd/lib/checkbox/style/index.css';
 import styled from 'styled-components';
-import { DARK, OUTER_SPACE } from '../colors';
+import theme from '../theme';
 
 const MtCheckbox = styled.div`
   .ant-checkbox-wrapper {
@@ -20,10 +20,10 @@ const MtCheckbox = styled.div`
       font-size: 12px;
     }
     .ant-checkbox-checked + span {
-      color: ${DARK};
+      color: ${theme.colors.DARK};
     }
     span {
-      color: ${OUTER_SPACE};
+      color: ${theme.colors.OUTER_SPACE};
     }
   }
 `;

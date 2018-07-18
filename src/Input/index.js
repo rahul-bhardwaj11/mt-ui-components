@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AntInput from 'antd/lib/input';
 import 'antd/lib/input/style/index.css';
 import styled from 'styled-components';
-import { SILVER, DISABLE } from '../colors';
+import theme from '../theme';
 import classnames from 'classnames';
 
 const noop = () => undefined;
@@ -40,22 +40,22 @@ const MtInput = styled.div`
   }
   .ant-input {
     &:hover {
-      border-color: ${SILVER};
+      border-color: ${theme.colors.SILVER};
     }
   }
   .ant-input {
     &:focus {
-      border-color: ${SILVER};
+      border-color: ${theme.colors.SILVER};
       outline: 0;
       box-shadow: 0 0 0 0px rgba(24, 144, 255, 0.2);
     }
   }
   .ant-input-disabled {
-    border-color: ${DISABLE};
+    border-color: ${theme.colors.DISABLE};
     background-color: #f8f8f8;
-    color: ${SILVER};
+    color: ${theme.colors.SILVER};
     &:hover {
-      border-color: ${DISABLE};
+      border-color: ${theme.colors.DISABLE};
     }
   }
   .ant-input-error {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AntTag from 'antd/lib/tag';
 import 'antd/lib/tag/style/index.css';
 import styled from 'styled-components';
-import { TAG_HOVER_TEXT_COLOR } from '../colors';
+import theme from '../theme';
 
 const MtTag = styled.div`
   display: inline-block;
@@ -21,11 +21,11 @@ const MtTag = styled.div`
       border: 1px solid #468ee5;
       border-radius: 16px;
       background-color: #e4effb;
-      color: ${TAG_HOVER_TEXT_COLOR};
+      color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
     }
     a {
       &:hover {
-        color: ${TAG_HOVER_TEXT_COLOR};
+        color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
       }
     }
   }
