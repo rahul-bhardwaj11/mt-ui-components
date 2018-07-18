@@ -23,8 +23,7 @@ import theme from '../theme';
 
 const MtButton = styled.div`
   display: inline-block;
-  .ant-btn {
-  }
+
   /* Default Button styles */
   .ant-btn-default {
     border: 1px solid #ddd;
