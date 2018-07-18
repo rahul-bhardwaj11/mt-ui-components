@@ -8,6 +8,10 @@
 
 const path = require("path");
 const resolve = require("path").resolve;
+var sass = require("node-sass");
+var sassUtils = require("node-sass-utils")(sass);
+const sassVars = require("../src/theme.js");
+
 module.exports = {
   resolve: {},
   module: {
@@ -15,21 +19,39 @@ module.exports = {
       {
         test: /\.scss$/,
         loaders: [
-          "style-loader", {
+          "style-loader",
+          {
             loader: "css-loader",
             options: {
               modules: true,
               localIdentName: "[folder]__[local]___[hash:base64:5]"
             }
           },
-          "sass-loader"
+          {
+            loader: "sass-loader",
+            options: {
+              modules: true,
+              localIdentName: "[folder]__[local]___[hash:base64:5]",
+              functions: {
+                "get($keys)": function(keys) {
+                  keys = keys.getValue().split(".");
+                  let result = sassVars;
+                  let i;
+                  for (i = 0; i < keys.length; i++) {
+                    result = result[keys[i]];
+                  }
+                  result = sassUtils.castToSass(result);
+                  return result;
+                }
+              }
+            }
+          }
         ],
         include: path.resolve(__dirname, "../")
-      }, {
+      },
+      {
         test: /\.css$/,
-        loaders: [
-          "style-loader", "css-loader", "sass-loader"
-        ],
+        loaders: ["style-loader", "css-loader", "sass-loader"],
         include: path.resolve(__dirname, "../")
       },
       // {
@@ -49,22 +71,32 @@ module.exports = {
       {
         test: /\.jpg$/,
         use: "url-loader?limit=8192&name=[name].[ext]"
-      }, {
+      },
+      {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-        use: "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff"
-      }, {
+        use:
+          "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff"
+      },
+      {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-        use: "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff"
-      }, {
+        use:
+          "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff"
+      },
+      {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        use: "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream"
-      }, {
+        use:
+          "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream"
+      },
+      {
         test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,
-        use: "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream"
-      }, {
+        use:
+          "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream"
+      },
+      {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         use: "file?name=fonts/[name].[ext]"
-      }, {
+      },
+      {
         test: /\.(png|jp(e*)g|svg|gif)$/,
         use: [
           {

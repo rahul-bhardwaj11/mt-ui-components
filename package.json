@@ -73,6 +73,7 @@
     "jsdom": "^9.9.1",
     "lint-staged": "^5.0.0",
     "node-sass": "^4.9.0",
+    "node-sass-utils": "^1.1.2",
     "pre-commit": "^1.2.2",
     "prettier": "^1.13.7",
     "react-addons-test-utils": "^15.6.2",
