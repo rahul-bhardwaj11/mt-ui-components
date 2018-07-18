@@ -1,4 +1,4 @@
-export default {
+const theme = {
   base: '16px',
   spacing: '1rem',
   colors: {
@@ -19,3 +19,4 @@ export default {
     lg: '75em' /* 1200px */
   }
 };
+module.exports = theme;
