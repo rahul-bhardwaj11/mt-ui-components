@@ -1,0 +1,65 @@
+:global {
+  .mtModal {
+    .ant-modal-header {
+      border-bottom: 0px;
+      padding: 24px 32px 0px 32px;
+      .ant-modal-title {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 26px;
+        color: #2a2e36;
+      }
+    }
+    .ant-modal-body {
+      padding: 8px 32px 24px 32px;
+    }
+    .ant-modal-close-x {
+      font-size: 20px;
+    }
+    .ant-modal-footer {
+      padding: 16px;
+      background: #f5f6f7;
+      border-top: 0px;
+      .ant-btn {
+        border: 1px dashed transparent;
+        background-color: transparent;
+        font-size: 14px;
+        height: 32px;
+        padding: 0px 12px;
+        color: #989ca6;
+        min-width: 75px;
+        &.ant-btn-primary {
+          border: 1px solid #4d7cc7;
+          background-color: #4d7cc7;
+          color: #fff;
+          font-size: 14px;
+          height: 32px;
+          padding: 0px 12px;
+          &.ant-btn-sm {
+            color: #fff;
+            font-size: 12px;
+            padding: 0px 12px;
+          }
+          &:hover {
+            border: 1px solid #588ce0;
+            background: #588ce0;
+            color: #fff;
+          }
+          &:focus,
+          &.active {
+            border: 1px solid #446cad;
+            background: #446cad;
+            color: #fff;
+          }
+        }
+
+        &:hover,
+        &:focus {
+          border: 1px dashed transparent;
+          background-color: transparent;
+          color: #888;
+        }
+      }
+    }
+  }
+}
