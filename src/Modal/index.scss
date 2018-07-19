@@ -1,3 +1,4 @@
+@import '../mixin.scss';
 :global {
   .mtModal {
     .ant-modal-header {
@@ -21,42 +22,28 @@
       background: #f5f6f7;
       border-top: 0px;
       .ant-btn {
-        border: 1px dashed transparent;
-        background-color: transparent;
-        font-size: 14px;
-        height: 32px;
-        padding: 0px 12px;
+        @include textBtn;
+        @extend %button-shared;
         color: #989ca6;
         min-width: 75px;
+
         &.ant-btn-primary {
-          border: 1px solid #4d7cc7;
-          background-color: #4d7cc7;
+          @include primaryBtn;
+          @extend %button-shared;
           color: #fff;
-          font-size: 14px;
-          height: 32px;
-          padding: 0px 12px;
-          &.ant-btn-sm {
-            color: #fff;
-            font-size: 12px;
-            padding: 0px 12px;
-          }
           &:hover {
-            border: 1px solid #588ce0;
-            background: #588ce0;
+            @include primaryBtnHover;
             color: #fff;
           }
           &:focus,
           &.active {
-            border: 1px solid #446cad;
-            background: #446cad;
+            @include primaryBtnHover;
             color: #fff;
           }
         }
-
         &:hover,
         &:focus {
-          border: 1px dashed transparent;
-          background-color: transparent;
+          @include textBtn;
           color: #888;
         }
       }

@@ -19,8 +19,8 @@
     "build-storybook": "build-storybook -o ./build",
     "precommit": "lint-staged",
     "prettier": "prettier --single-quote --write",
-    "lint": "./node_modules/.bin/eslint src/**",
-    "lint:watch": "./node_modules/.bin/esw src/** -w"
+    "lint": "./node_modules/.bin/eslint src/**/*.js",
+    "lint:watch": "./node_modules/.bin/esw src/**/*.js -w"
   },
   "files": [
     "lib",

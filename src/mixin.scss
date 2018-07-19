@@ -1,0 +1,89 @@
+%button-shared {
+  font-size: 14px;
+  height: 32px;
+  padding: 0px 12px;
+}
+@mixin primaryBtn() {
+  border: 1px solid get('colors.LIGHT_BLUE');
+  background-color: get('colors.LIGHT_BLUE');
+}
+@mixin primaryBtnHover() {
+  border: 1px solid get('colors.LIGHT_BLUE_HOVER');
+  background-color: get('colors.LIGHT_BLUE_HOVER');
+}
+@mixin textBtn() {
+  border: 1px dashed transparent;
+  background-color: transparent;
+}
+
+@mixin fontStack($fontSize: '14px', $fontWeight: '600', $lineHeight: '22px') {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+}
+
+@mixin programHeader() {
+  color: get('colors.DARK');
+  @include fontStack(24px, 600, 22px);
+}
+
+@mixin modalTitle() {
+  font-size: 20px;
+  color: get('colors.DARK');
+  font-weight: 600px;
+}
+@mixin mainNavigation() {
+  font-size: 15px;
+  color: get('colors.DARK');
+  font-weight: 600px;
+}
+@mixin unActiveLink() {
+  font-size: 15px;
+  color: get('colors.UN_ACTIVE_COLOR');
+  font-weight: 600px;
+}
+@mixin activeLink() {
+  font-size: 14px;
+  color: get('colors.LIGHT_BLUE');
+  font-weight: 600px;
+}
+@mixin blackLink() {
+  font-size: 14px;
+  color: get('colors.DARK');
+  font-weight: 600px;
+}
+@mixin greyLink() {
+  font-size: 14px;
+  color: get('colors.OUTER_SPACE');
+  font-weight: 600px;
+}
+@mixin disablePlaceHolder() {
+  font-size: 14px;
+  color: get('colors.SILVER');
+  font-weight: 600px;
+}
+@mixin smallLink() {
+  font-size: 12px;
+  color: get('colors.DARK');
+  font-weight: 600px;
+}
+@mixin bigNumbers() {
+  font-size: 12px;
+  color: get('colors.DARK');
+  font-weight: 600px;
+}
+@mixin smallNumbers() {
+  font-size: 12px;
+  color: get('colors.DARK');
+  font-weight: 600px;
+}
+@mixin textParagraph() {
+  font-size: 12px;
+  color: get('colors.DARK');
+  font-weight: 600px;
+}
+@mixin smallLightText() {
+  font-size: 12px;
+  color: get('colors.DARK');
+  font-weight: 600px;
+}

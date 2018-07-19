@@ -5,22 +5,6 @@ import 'antd/lib/button/style/index.css';
 import styled from 'styled-components';
 import theme from '../theme';
 
-// export function truncate(width) {
-//   return `
-//     width: ${width};
-//     white-space: nowrap;
-//     overflow: hidden;
-//     text-overflow: ellipsis;
-//   `;
-// }
-// export function fsatck(fontsize, fontweight) {
-//   return `
-//     font-size: ${fontsize};
-//     font-weight: ${fontweight};
-//     font-family: 'Open Sans', sans-serif;
-//   `;
-// }
-
 const MtButton = styled.div`
   display: inline-block;
 
@@ -29,7 +13,8 @@ const MtButton = styled.div`
     border: 1px solid #ddd;
     color: #6f7583;
     height: 32px;
-    padding: 0px 12px;
+    padding: 0px 32px;
+    font-size: 14px;
     &.ant-btn-sm {
       color: #888;
       font-size: 12px;
@@ -59,7 +44,7 @@ const MtButton = styled.div`
     color: #fff;
     font-size: 14px;
     height: 32px;
-    padding: 0px 12px;
+    padding: 0px 32px;
     &.ant-btn-sm {
       color: #fff;
       font-size: 12px;
@@ -125,7 +110,7 @@ const MtButton = styled.div`
     color: #989ca6;
     font-size: 14px;
     height: 32px;
-    padding: 0px 12px;
+    padding: 0px 32px;
     &.ant-btn-sm {
       color: #fff;
       font-size: 12px;
@@ -154,7 +139,7 @@ const MtButton = styled.div`
     background-color: transparent;
     font-size: 14px;
     height: 32px;
-    padding: 0px 12px;
+    padding: 0px 32px;
     color: #989ca6;
 
     &:hover,
@@ -185,7 +170,7 @@ const MtButton = styled.div`
     background-color: #fff;
     font-size: 14px;
     height: 32px;
-    padding: 0px 12px;
+    padding: 0px 32px;
     color: ${theme.colors.LIGHT_BLUE};
     &.ant-btn-sm {
       color: #fff;
