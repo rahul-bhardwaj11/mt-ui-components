@@ -3,15 +3,23 @@ const theme = {
   spacing: '1rem',
   colors: {
     LIGHT_BLUE: '#4D7CC7',
-    LIGHT_BLUE_HOVER: '#588CE0',
+    JODHPUR: '#588CE0',
     SILVER: '#BBB',
-    DARK: '#2A2E36',
+    DARK_OUTER_SPACE: '#606369',
     OUTER_SPACE: '#989CA6',
     DISABLE: '#E8E8E8',
     INDIGO: '#4D7CC7',
     SHARK: '#2A2E36',
+    NEPTUNE: '#446CAD',
+    TROPICAL_BLUE: '#E4EFFB',
     TAG_HOVER_TEXT_COLOR: '#4A90E2',
-    UN_ACTIVE_COLOR: '#202A39'
+    CONGRESS_BLUE: '#202A39',
+    MANATEE: '#868BA7',
+    GREY: '#888',
+    ALTO: '#DDD',
+    PEARL: '#E8EAED',
+    PORCELAIN: '#F5F6F7',
+    IVORY: '#F9F9FA'
   },
   typography: {},
   breakpoints: {

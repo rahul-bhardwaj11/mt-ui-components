@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-//import style from './index.scss';
 import AntCheckbox from 'antd/lib/checkbox';
 import 'antd/lib/checkbox/style/index.css';
 import styled from 'styled-components';
 import theme from '../theme';
 
 const MtCheckbox = styled.div`
+  display: inline-block;
+  vertical-align: middle;
   .ant-checkbox-wrapper {
-    font-weight: 500;
+    font-weight: normal;
     display: inherit;
     .ant-checkbox {
-      float: left;
+      display: inline-block;
+      vertical-align: middle;
     }
     .ant-checkbox + span {
-      float: left;
+      display: inline-block;
+      vertical-align: top;
       min-width: 125px;
-      font-size: 12px;
+      font-size: 14px;
     }
     .ant-checkbox-checked + span {
       color: ${theme.colors.DARK};
