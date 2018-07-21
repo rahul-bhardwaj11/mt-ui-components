@@ -4,28 +4,53 @@ import AntTreeSelect from 'antd/lib/tree-select';
 import 'antd/lib/tree-select/style/index.css';
 import './index.scss';
 
-const AntTreeNode = AntTreeSelect.TreeNode;
+//const AntTreeNode = AntTreeSelect.TreeNode;
 
 class TreeSelect extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      treeData: props.treeData,
+      searchValue: ''
+    };
+  }
+
+  static defaultProps = {
+    treeData: []
+  };
+
   static propTypes = {
-    options: PropTypes.any.isRequired,
-    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    treeData: PropTypes.array.isRequired,
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    onSearchInputChange: PropTypes.func
+  };
+
+  onSearch = value => {
+    let { onSearchInputChange } = this.props;
+    onSearchInputChange(value).then(treeData => {
+      this.setState({
+        treeData,
+        searchValue: value
+      });
+    });
+  };
+
+  onChange = value => {
+    this.setState({ value });
   };
 
   render() {
-    let { options } = this.props;
+    let { treeData, searchValue, value } = this.state;
     return (
-      <AntTreeSelect {...this.props} showSearch style={{ width: 200 }}>
-        {options.map((option, index) => {
-          return (
-            <AntTreeNode
-              value={option.value}
-              title={option.title}
-              key={index}
-            />
-          );
-        })}
-      </AntTreeSelect>
+      <AntTreeSelect
+        showSearch={true}
+        searchValue={searchValue}
+        style={{ width: 200 }}
+        onSearch={this.onSearch}
+        value={value}
+        treeData={treeData}
+        onChange={this.onChange}
+      />
     );
   }
 }
