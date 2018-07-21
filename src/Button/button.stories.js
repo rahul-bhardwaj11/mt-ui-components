@@ -51,4 +51,11 @@ stories
     withInfo('Adding type Link to button for default blue')(() => (
       <Button type={text('type', 'link')}>{text('children', 'Submit')}</Button>
     ))
+  )
+
+  .add(
+    'Edit button',
+    withInfo('Edit type button')(() => (
+      <Button type={text('type', 'edit')}>{text('children', 'Submit')}</Button>
+    ))
   );

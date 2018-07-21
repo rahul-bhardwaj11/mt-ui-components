@@ -4,6 +4,7 @@ import AntButton from 'antd/lib/button';
 import 'antd/lib/button/style/index.css';
 import styled from 'styled-components';
 import theme from '../theme';
+import Icon from '../Icon';
 
 const MtButton = styled.div`
   display: inline-block;
@@ -197,7 +198,8 @@ const typeMap = {
   tertiary: 'dashed',
   pills: 'pills',
   link: 'link',
-  text: 'text'
+  text: 'text',
+  edit: 'default'
 };
 
 class Button extends Component {
@@ -209,7 +211,8 @@ class Button extends Component {
       'dashed',
       'pills',
       'link',
-      'text'
+      'text',
+      'edit'
     ]),
     children: PropTypes.node,
     disabled: PropTypes.bool,
@@ -231,6 +234,7 @@ class Button extends Component {
       <MtButton>
         <AntButton {...this.props} type={antdType}>
           {children}
+          {type === 'edit' && <Icon type="edit" />}
         </AntButton>
       </MtButton>
     );

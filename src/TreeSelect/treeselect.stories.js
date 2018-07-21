@@ -29,8 +29,8 @@ stories.add(
           { value: '4', title: 'Mission' },
           { value: '5', title: 'Mission' }
         ];
+        /* eslint-disable */
         return new Promise((resolve, reject) => {
-          // eslint-disable-line
           setTimeout(() => {
             resolve(options);
           }, 1000);
