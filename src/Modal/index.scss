@@ -1,0 +1,52 @@
+@import '../mixin.scss';
+:global {
+  .mtModal {
+    .ant-modal-header {
+      border-bottom: 0px;
+      padding: 24px 32px 0px 32px;
+      .ant-modal-title {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 26px;
+        color: #2a2e36;
+      }
+    }
+    .ant-modal-body {
+      padding: 8px 32px 24px 32px;
+    }
+    .ant-modal-close-x {
+      font-size: 20px;
+    }
+    .ant-modal-footer {
+      padding: 16px;
+      background: #f5f6f7;
+      border-top: 0px;
+      .ant-btn {
+        @include textBtn;
+        @extend %button;
+        color: #989ca6;
+        min-width: 75px;
+
+        &.ant-btn-primary {
+          @include primaryBtn;
+          @extend %button;
+          color: #fff;
+          &:hover {
+            @include primaryBtnHover;
+            color: #fff;
+          }
+          &:focus,
+          &.active {
+            @include primaryBtnHover;
+            color: #fff;
+          }
+        }
+        &:hover,
+        &:focus {
+          @include textBtn;
+          color: #888;
+        }
+      }
+    }
+  }
+}

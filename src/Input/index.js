@@ -36,7 +36,7 @@ const MtInput = styled.div`
     font-weight: bold;
   }
   .ant-input {
-    border: 1px solid #ddd;
+    border: 1px solid ${theme.colors.ALTO};
   }
   .ant-input {
     &:hover {

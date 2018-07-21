@@ -4,17 +4,50 @@
       outline: none;
     }
   }
-  .ant-select-focused {
-    .ant-select-selection {
+
+  .ant-select-selection {
+    &.ant-select-selection--single {
+      border: 1px solid get('colors.ALTO');
+      &:hover {
+        border: 1px solid get('colors.SILVER');
+      }
       &:focus,
       &:active {
         box-shadow: none;
+        border: 1px solid get('colors.SILVER');
+      }
+      &.disabled {
+        background-color: #f8f8f8;
+        border: 1px solid #e8e8e8;
+      }
+    }
+    .ant-select-open {
+      .ant-select-selection {
+        border: 1px solid get('colors.SILVER');
       }
     }
   }
+
+  .ant-select-open {
+    .ant-select-selection {
+      &.ant-select-selection--multiple {
+        border: 1px solid transparent;
+        outline: none;
+        &:hover,
+        &:focus,
+        &:active {
+          border: 0px;
+          border-color: transparent;
+          outline: none;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+
   .ant-select-dropdown-menu {
     background-color: #fff;
-    color: #888;
+    color: get('colors.GREY');
     margin: 5px;
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
@@ -35,7 +68,7 @@
   .ant-select-selection--multiple {
     width: 688px;
     padding: 5px;
-    border: 0;
+    border: 0px;
     &:focus {
       border-color: transparent;
       box-shadow: none;
@@ -44,7 +77,7 @@
       & > ul {
         & > .ant-select-selection__choice {
           border-radius: 14px;
-          border: 1px solid #dddddd;
+          border: 1px solid get('colors.ALTO');
           border-radius: 16px;
           background-color: #f5f6f7;
           color: #989ca6;

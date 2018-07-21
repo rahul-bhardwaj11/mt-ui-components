@@ -5,30 +5,16 @@ import 'antd/lib/button/style/index.css';
 import styled from 'styled-components';
 import theme from '../theme';
 
-// export function truncate(width) {
-//   return `
-//     width: ${width};
-//     white-space: nowrap;
-//     overflow: hidden;
-//     text-overflow: ellipsis;
-//   `;
-// }
-// export function fsatck(fontsize, fontweight) {
-//   return `
-//     font-size: ${fontsize};
-//     font-weight: ${fontweight};
-//     font-family: 'Open Sans', sans-serif;
-//   `;
-// }
-
 const MtButton = styled.div`
   display: inline-block;
+
   /* Default Button styles */
   .ant-btn-default {
-    border: 1px solid #ddd;
+    border: 1px solid ${theme.colors.ALTO};
     color: #6f7583;
     height: 32px;
-    padding: 0px 12px;
+    padding: 0px 32px;
+    font-size: 14px;
     &.ant-btn-sm {
       color: #888;
       font-size: 12px;
@@ -58,7 +44,7 @@ const MtButton = styled.div`
     color: #fff;
     font-size: 14px;
     height: 32px;
-    padding: 0px 12px;
+    padding: 0px 32px;
     &.ant-btn-sm {
       color: #fff;
       font-size: 12px;
@@ -70,8 +56,8 @@ const MtButton = styled.div`
     }
     &:focus,
     &.active {
-      border: 1px solid #446cad;
-      background: #446cad;
+      border: 1px solid ${theme.colors.NEPTUNE};
+      background: ${theme.colors.NEPTUNE};
       color: #fff;
     }
   }
@@ -85,7 +71,7 @@ const MtButton = styled.div`
   }
   /* Pills Button styles */
   .ant-btn-pills {
-    border: 1px solid #ddd;
+    border: 1px solid ${theme.colors.ALTO};
     color: #6f7583;
     height: 24px;
     padding: 0px 12px;
@@ -119,12 +105,12 @@ const MtButton = styled.div`
   }
   /* Dashed Button styles */
   .ant-btn-dashed {
-    border: 1px dashed #ddd;
+    border: 1px dashed ${theme.colors.ALTO};
     background-color: rgba(255, 255, 255, 0);
     color: #989ca6;
     font-size: 14px;
     height: 32px;
-    padding: 0px 12px;
+    padding: 0px 32px;
     &.ant-btn-sm {
       color: #fff;
       font-size: 12px;
@@ -153,7 +139,7 @@ const MtButton = styled.div`
     background-color: transparent;
     font-size: 14px;
     height: 32px;
-    padding: 0px 12px;
+    padding: 0px 32px;
     color: #989ca6;
 
     &:hover,
@@ -184,7 +170,7 @@ const MtButton = styled.div`
     background-color: #fff;
     font-size: 14px;
     height: 32px;
-    padding: 0px 12px;
+    padding: 0px 32px;
     color: ${theme.colors.LIGHT_BLUE};
     &.ant-btn-sm {
       color: #fff;
