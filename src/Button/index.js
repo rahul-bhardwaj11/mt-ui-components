@@ -11,33 +11,75 @@ const MtButton = styled.div`
 
   /* Default Button styles */
   .ant-btn-default {
-    border: 1px solid ${theme.colors.ALTO};
-    color: #6f7583;
-    height: 32px;
-    padding: 0px 32px;
-    font-size: 14px;
-    &.ant-btn-sm {
-      color: #888;
-      font-size: 12px;
-      padding: 0px 12px;
+       border: 1px solid ${theme.colors.ALTO};
+       color: #6f7583;
+       height: 32px;
+       padding: 0px 32px;
+       font-size: 14px;
+       &.ant-btn-sm {
+         color: ${theme.colors.GREY};
+         font-size: 12px;
+         padding: 0px 12px;
+       }
+       &:hover {
+         border: 1px solid ${theme.colors.SILVER};
+       }
+       &:focus,
+       &.active {
+         border: 1px solid ${theme.colors.LIGHT_BLUE};
+         color: ${theme.colors.LIGHT_BLUE};DISABLE
+       }
+     }
+     .ant-btn {
+       &.disabled {
+         border: 1px solid ${theme.colors.DISABLE};
+         border-radius: 4px;
+         background-color: ${theme.colors.DISABLE_INNER_SPACE};
+         color: ${theme.colors.SILVER};
+       }
+     }
+    /* edit Button styles */
+     .ant-btn-edit {
+            border: 1px solid ${theme.colors.ALTO};
+            color: ${theme.colors.SILVER};
+            height: 32px;
+            padding: 0px 12px;
+            font-size: 14px;
+
+
+            &.ant-btn-sm {
+              color: ${theme.colors.SILVER};
+              font-size: 12px;
+              padding: 0px 12px;
+            }
+            &:hover {
+              border: 1px solid ${theme.colors.ALTO};
+              color: ${theme.colors.SILVER};
+
+
+              span{
+                color: ${theme.colors.SILVER};
+               }
+            }
+            &:focus,
+            &.active {
+              border: 1px solid ${theme.colors.ALTO};
+              color: ${theme.colors.SILVER};
+              span
+              {
+                color: ${theme.colors.SILVER};
+              }
+            }
+          }
+          .ant-btn {
+            &.disabled {
+             border: 1px solid ${theme.colors.DISABLE};
+             border-radius: 4px;
+             background-color: ${theme.colors.DISABLE_INNER_SPACE};
+             color: ${theme.colors.SILVER};
+            }
     }
-    &:hover {
-      border: 1px solid ${theme.colors.SILVER};
-    }
-    &:focus,
-    &.active {
-      border: 1px solid ${theme.colors.LIGHT_BLUE};
-      color: ${theme.colors.LIGHT_BLUE};
-    }
-  }
-  .ant-btn {
-    &.disabled {
-      border: 1px solid #e8e8e8;
-      border-radius: 4px;
-      background-color: #f8f8f8;
-      color: ${theme.colors.SILVER};
-    }
-  }
+
   /* Primary Button styles */
   .ant-btn-primary {
     border: 1px solid ${theme.colors.LIGHT_BLUE};
@@ -185,8 +227,11 @@ const MtButton = styled.div`
     }
   }
   .ant-btn-clicked {
-    outline: none;
+
     outline-style: none;
+  }
+  .editIcon{
+    padding:3px;
   }
 `;
 
@@ -199,7 +244,7 @@ const typeMap = {
   pills: 'pills',
   link: 'link',
   text: 'text',
-  edit: 'default'
+  edit: 'edit'
 };
 
 class Button extends Component {
@@ -234,7 +279,7 @@ class Button extends Component {
       <MtButton>
         <AntButton {...this.props} type={antdType}>
           {children}
-          {type === 'edit' && <Icon type="edit" />}
+          {type === 'edit' && <Icon type="edit" className="editIcon" />}
         </AntButton>
       </MtButton>
     );
