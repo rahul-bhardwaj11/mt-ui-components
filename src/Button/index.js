@@ -11,74 +11,71 @@ const MtButton = styled.div`
 
   /* Default Button styles */
   .ant-btn-default {
-       border: 1px solid ${theme.colors.ALTO};
-       color: #6f7583;
-       height: 32px;
-       padding: 0px 32px;
-       font-size: 14px;
-       &.ant-btn-sm {
-         color: ${theme.colors.GREY};
-         font-size: 12px;
-         padding: 0px 12px;
-       }
-       &:hover {
-         border: 1px solid ${theme.colors.SILVER};
-       }
-       &:focus,
-       &.active {
-         border: 1px solid ${theme.colors.LIGHT_BLUE};
-         color: ${theme.colors.LIGHT_BLUE};DISABLE
-       }
-     }
-     .ant-btn {
-       &.disabled {
-         border: 1px solid ${theme.colors.DISABLE};
-         border-radius: 4px;
-         background-color: ${theme.colors.DISABLE_INNER_SPACE};
-         color: ${theme.colors.SILVER};
-       }
-     }
-    /* edit Button styles */
-     .ant-btn-edit {
-            border: 1px solid ${theme.colors.ALTO};
-            color: ${theme.colors.SILVER};
-            height: 32px;
-            padding: 0px 12px;
-            font-size: 14px;
-
-
-            &.ant-btn-sm {
-              color: ${theme.colors.SILVER};
-              font-size: 12px;
-              padding: 0px 12px;
-            }
-            &:hover {
-              border: 1px solid ${theme.colors.ALTO};
-              color: ${theme.colors.SILVER};
-
-
-              span{
-                color: ${theme.colors.SILVER};
-               }
-            }
-            &:focus,
-            &.active {
-              border: 1px solid ${theme.colors.ALTO};
-              color: ${theme.colors.SILVER};
-              span
-              {
-                color: ${theme.colors.SILVER};
-              }
-            }
-          }
-          .ant-btn {
-            &.disabled {
-             border: 1px solid ${theme.colors.DISABLE};
-             border-radius: 4px;
-             background-color: ${theme.colors.DISABLE_INNER_SPACE};
-             color: ${theme.colors.SILVER};
-            }
+    border: 1px solid ${theme.colors.ALTO};
+    color: #6f7583;
+    height: 32px;
+    padding: 0px 32px;
+    font-size: 14px;
+    &.ant-btn-sm {
+      color: ${theme.colors.GREY};
+      font-size: 12px;
+      padding: 0px 12px;
     }
+    &:hover {
+      border: 1px solid ${theme.colors.SILVER};
+    }
+    &:focus,
+    &.active {
+      border: 1px solid ${theme.colors.LIGHT_BLUE};
+      color: ${theme.colors.LIGHT_BLUE};
+    }
+  }
+  .ant-btn {
+    &.disabled {
+      border: 1px solid ${theme.colors.DISABLE};
+      border-radius: 4px;
+      background-color: ${theme.colors.DISABLE_INNER_SPACE};
+      color: ${theme.colors.SILVER};
+    }
+  }
+  /* edit Button styles */
+  .ant-btn-edit {
+    border: 1px solid ${theme.colors.ALTO};
+    color: ${theme.colors.SILVER};
+    height: 32px;
+    padding: 0px 12px;
+    font-size: 14px;
+
+    &.ant-btn-sm {
+      color: ${theme.colors.SILVER};
+      font-size: 12px;
+      padding: 0px 12px;
+    }
+    &:hover {
+      border: 1px solid ${theme.colors.ALTO};
+      color: ${theme.colors.SILVER};
+
+      span {
+        color: ${theme.colors.SILVER};
+      }
+    }
+    &:focus,
+    &.active {
+      border: 1px solid ${theme.colors.ALTO};
+      color: ${theme.colors.SILVER};
+      span {
+        color: ${theme.colors.SILVER};
+      }
+    }
+  }
+  .ant-btn {
+    &.disabled {
+      border: 1px solid ${theme.colors.DISABLE};
+      border-radius: 4px;
+      background-color: ${theme.colors.DISABLE_INNER_SPACE};
+      color: ${theme.colors.SILVER};
+    }
+  }
 
   /* Primary Button styles */
   .ant-btn-primary {
@@ -227,11 +224,10 @@ const MtButton = styled.div`
     }
   }
   .ant-btn-clicked {
-
     outline-style: none;
   }
-  .editIcon{
-    padding:3px;
+  .editIcon {
+    padding: 3px;
   }
 `;
 
