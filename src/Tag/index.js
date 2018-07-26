@@ -12,7 +12,7 @@ const MtTag = styled.div`
     border-radius: 16px;
     font-size: 12px;
     background: #f6f7f9;
-    color: #606369;
+    color: ${theme.colors.DARK_OUTER_SPACE};
     line-height: 24px;
     height: 24px;
     padding: 0 15px;

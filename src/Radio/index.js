@@ -16,10 +16,23 @@ const MtRadio = styled.div`
     }
   }
   .ant-radio-wrapper {
+    span.ant-radio + * {
+      color: ${theme.colors.SILVER};
+    }
     &:hover {
-      .ant-radio .ant-radio-inner {
-        border: 1px solid ${theme.colors.INDIGO};
+      span.ant-radio + * {
+        color: ${theme.colors.OUTER_SPACE};
       }
+      .ant-radio {
+        .ant-radio-inner {
+          border: 1px solid ${theme.colors.OUTER_SPACE};
+        }
+      }
+    }
+  }
+  .ant-radio-wrapper-checked {
+    span.ant-radio + * {
+      color: ${theme.colors.SHARK};
     }
   }
 `;
