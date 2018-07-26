@@ -13,7 +13,11 @@ var sassUtils = require("node-sass-utils")(sass);
 const sassVars = require("../src/theme.js");
 
 module.exports = {
-  resolve: {},
+  resolve: {
+    alias: {
+      fonts: resolve(__dirname, "../src/styles/fonts")
+    }
+  },
   module: {
     rules: [
       {
@@ -54,48 +58,6 @@ module.exports = {
         loaders: ["style-loader", "css-loader", "sass-loader"],
         include: path.resolve(__dirname, "../")
       },
-      // {
-      //   test: /\.js?$/,
-      //   exclude: /node_modules/,
-      //   loader: "babel-loader",
-      //   options: {
-      //     presets: ["env", "react", "es2015", "stage-0"],
-      //     plugins: [
-      //       "add-module-exports",
-      //       "transform-es2015-modules-umd",
-      //       "transform-remove-strict-mode",
-      //       "transform-decorators-legacy"
-      //     ]
-      //   }
-      // },
-      {
-        test: /\.jpg$/,
-        use: "url-loader?limit=8192&name=[name].[ext]"
-      },
-      {
-        test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-        use:
-          "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff"
-      },
-      {
-        test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-        use:
-          "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff"
-      },
-      {
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        use:
-          "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream"
-      },
-      {
-        test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,
-        use:
-          "url?name=fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream"
-      },
-      {
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        use: "file?name=fonts/[name].[ext]"
-      },
       {
         test: /\.(png|jp(e*)g|svg|gif)$/,
         use: [
@@ -103,6 +65,17 @@ module.exports = {
             loader: "url-loader",
             options: {
               name: "images/[hash]-[name].[ext]"
+            }
+          }
+        ]
+      },
+      {
+          test: /\.(woff|woff2|eot|svg|ttf)$/,
+          use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "fonts/[hash]-[name].[ext]"
             }
           }
         ]
