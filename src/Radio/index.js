@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AntRadio from 'antd/lib/radio';
 import 'antd/lib/radio/style/index.css';
 import styled from 'styled-components';
-import theme from '../theme';
+import theme from '../styles/theme';
 
 const MtRadio = styled.div`
   .ant-radio-inner:after {

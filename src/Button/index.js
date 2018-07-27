@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AntButton from 'antd/lib/button';
 import 'antd/lib/button/style/index.css';
 import styled from 'styled-components';
-import theme from '../theme';
+import theme from '../styles/theme';
 import Icon from '../Icon';
 
 const MtButton = styled.div`

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AntTable from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
 import styled from 'styled-components';
-import theme from '../theme';
+import theme from '../styles/theme';
 
 const MtTable = styled.div`
   
@@ -14,10 +14,10 @@ const MtTable = styled.div`
 
   .ant-table-thead{
     & > tr{
+      color: ${theme.colors.DARK_OUTER_SPACE};
       & > th{
         background-color:white;
         border-bottom:0px;
-
         span{
         }
       }
@@ -26,26 +26,28 @@ const MtTable = styled.div`
 
   .ant-table-tbody{
     & > tr{
-
+      color: ${theme.colors.DARK_OUTER_SPACE};
     td{
       border-bottom:1px solid ${theme.colors.PEARL};
+      padding:16px !important;
     }
     &:last-child{
       td{
         border-bottom:0px;
+        }
+      }
     }
-   }
   }
+
   .ant-table-tbody{
     & > tr{
       &:hover{
         & > td{
-          background:#ddd;
+          background: ${theme.colors.PORCELAIN};
           cursor:pointer;
       }
     }
  }
-
 `;
 
 class Table extends Component {
