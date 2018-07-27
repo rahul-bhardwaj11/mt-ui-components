@@ -22,7 +22,8 @@ class TreeSelect extends Component {
   static propTypes = {
     treeData: PropTypes.array.isRequired,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onSearchInputChange: PropTypes.func
+    onSearchInputChange: PropTypes.func,
+    className: PropTypes.string
   };
 
   onSearch = value => {
@@ -45,11 +46,11 @@ class TreeSelect extends Component {
       <AntTreeSelect
         showSearch={true}
         searchValue={searchValue}
-        style={{ width: 200 }}
         onSearch={this.onSearch}
         value={value}
         treeData={treeData}
         onChange={this.onChange}
+        className={this.props.className}
       />
     );
   }
