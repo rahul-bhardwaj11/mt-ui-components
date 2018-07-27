@@ -109,9 +109,9 @@ class Menu extends Component {
     return (
       <MtMenu>
         <AntMenu {...this.props} onClick={this.onClick}>
-          {options.map(option => {
+          {options.map((option, index) => {
             return (
-              <AntMenu.Item key={option.key}>
+              <AntMenu.Item key={option.key || index}>
                 {typeof option.content === 'string' ? (
                   <StringToHTML content={option.content} />
                 ) : (
