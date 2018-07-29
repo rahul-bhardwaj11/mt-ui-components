@@ -15,11 +15,34 @@ $ npm i
 ### Usage
 
 To use it inside your project
-```bash
+```
 $ npm i git+https://github.com/MindTickle/mt-ui-components.git#master --save
-```bash
-Ensure that all peerDependencies are also installed.
+```
+#### Note: Ensure that all peerDependencies are installed.
 
+If you are using webpack bundler inside your project, make sure following config is added to your sass-loader option.
+This is needed to use JS variable inside scss files
+```
+var sassUtils = require("node-sass-utils")(sass);
+const sassVars = require(<mt-ui-component_node_moduleDir> + "/lib/theme.js");
+{
+            loader: "sass-loader",
+            options: {
+              functions: {
+                "get($keys)": function(keys) {
+                  keys = keys.getValue().split(".");
+                  let result = sassVars;
+                  let i;
+                  for (i = 0; i < keys.length; i++) {
+                    result = result[keys[i]];
+                  }
+                  result = sassUtils.castToSass(result);
+                  return result;
+                }
+              }
+            }
+          }
+```
 ```jsx
 import React from 'react';
 import Button from '@mindtickle/mt-ui-components/lib/Button';
@@ -34,9 +57,8 @@ const MyComponent = () =>
 ## Deployment
 
 This project follows branch wise release. Just run following command from the branch you want ot build and commit/publish the artifacts.
-
+```
 $ npm run build:prod
-
 
 ```
 ### Deploying storybook
