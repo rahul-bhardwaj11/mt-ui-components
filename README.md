@@ -20,24 +20,28 @@ $ npm i git+https://github.com/MindTickle/mt-ui-components.git#master --save
 ```
 #### Note: Ensure that all peerDependencies are installed.
 
-If you are using webpack bundler inside your project, make sure following config is added to your node-sass option.
+If you are using webpack bundler inside your project, make sure following config is added to your sass-loader option.
 This is needed to use JS variable inside scss files
 ```
 var sassUtils = require("node-sass-utils")(sass);
 const sassVars = require(<mt-ui-component_node_moduleDir> + "/lib/theme.js");
-
-functions: {
-        "get($keys)": function(keys) {
-          keys = keys.getValue().split(".");
-          let result = sassVars;
-          let i;
-          for (i = 0; i < keys.length; i++) {
-            result = result[keys[i]];
+{
+            loader: "sass-loader",
+            options: {
+              functions: {
+                "get($keys)": function(keys) {
+                  keys = keys.getValue().split(".");
+                  let result = sassVars;
+                  let i;
+                  for (i = 0; i < keys.length; i++) {
+                    result = result[keys[i]];
+                  }
+                  result = sassUtils.castToSass(result);
+                  return result;
+                }
+              }
+            }
           }
-          result = sassUtils.castToSass(result);
-          return result;
-        }
-      }
 ```
 ```jsx
 import React from 'react';
