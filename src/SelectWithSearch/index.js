@@ -163,7 +163,7 @@ class SelectWithAsyncSearch extends Component {
     return new Promise(resolve => {
       let offset = prevOptions.length;
       promiseOption({ search, offset, pageSize }).then(options => {
-        resolve({ options, hasMore: true });
+        resolve({ options, hasMore: options.length === pageSize });
       }, {});
     });
   };

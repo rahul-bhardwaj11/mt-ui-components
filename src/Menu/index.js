@@ -92,9 +92,10 @@ const MtMenu = styled.div`
 
 class Menu extends Component {
   static propTypes = {
-    options: PropTypes.array.isRequired,
+    options: PropTypes.array,
     onClick: PropTypes.func,
     mode: PropTypes.string,
+    children: PropTypes.node,
     prefixCls: PropTypes.string
   };
 
@@ -105,24 +106,30 @@ class Menu extends Component {
   };
 
   render() {
-    let { options } = this.props;
+    let { options, children } = this.props;
     return (
       <MtMenu>
         <AntMenu {...this.props} onClick={this.onClick}>
-          {options.map((option, index) => {
-            return (
-              <AntMenu.Item key={option.key || index}>
-                {typeof option.content === 'string' ? (
-                  <StringToHTML content={option.content} />
-                ) : (
-                  option.content
-                )}
-              </AntMenu.Item>
-            );
-          })}
+          {!options && children}
+          {options &&
+            options.map((option, index) => {
+              return (
+                <AntMenu.Item key={option.key || index}>
+                  {typeof option.content === 'string' ? (
+                    <StringToHTML content={option.content} />
+                  ) : (
+                    option.content
+                  )}
+                </AntMenu.Item>
+              );
+            })}
         </AntMenu>
       </MtMenu>
     );
   }
 }
+
+Menu.ItemGroup = AntMenu.ItemGroup;
+Menu.SubMenu = AntMenu.SubMenu;
+Menu.Item = AntMenu.Item;
 export default Menu;

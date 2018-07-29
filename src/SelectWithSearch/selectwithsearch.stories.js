@@ -9,12 +9,13 @@ import { withKnobs } from '@storybook/addon-knobs';
 const stories = storiesOf('SelectWithSearch', module);
 stories.addDecorator(withKnobs);
 
-function getOptions(offset = 0, pageSize = 10) {
+function getOptions(search, offset = 0, pageSize = 10) {
   let options = [];
   for (let i = offset; i < offset + pageSize; ++i) {
     options.push({
       value: i + 1,
       meta: 'i',
+      search,
       label: `Option ${i + 1}`,
       content: `Option ${i + 1}`
     });
@@ -60,6 +61,7 @@ stories.add(
   withInfo('Usage of the Infinite Select')(() => (
     <SelectWithSearch
       async
+      isClearable
       promiseOption={promiseOption}
       onSelect={onChange}
       placeholder={'Search People'}
