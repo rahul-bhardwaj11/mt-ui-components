@@ -15,10 +15,10 @@ $ npm i
 ### Usage
 
 To use it inside your project
-```bash
+```
 $ npm i git+https://github.com/MindTickle/mt-ui-components.git#master --save
-```bash
-Ensure that all peerDependencies are also installed.
+```
+#### Note: Ensure that all peerDependencies are installed.
 
 ```jsx
 import React from 'react';
