@@ -9,19 +9,16 @@
 
 ### Installation
 ```bash
-$ npm config set @mindtickle:registry http://verdaccio.ops.mindtickle.com
-$ npm i @mindtickle/mt-ui-components
+$ npm i 
 ```
 
-### Install dependencies
-Ensure packages are installed with correct version numbers by running:
-```sh
-  (
-    export PKG=@mindtickle/mt-ui-components;
-    npm info "$PKG" peerDependencies --json | command sed 's/[\{\},]//g ; s/: /@/g; s/ *//g' | xargs npm install "$PKG"
-  )
-```
 ### Usage
+
+To use it inside your project
+```bash
+$ npm i git+https://github.com/MindTickle/mt-ui-components.git#master --save
+```bash
+Ensure that all peerDependencies are also installed.
 
 ```jsx
 import React from 'react';
@@ -36,18 +33,9 @@ const MyComponent = () =>
 
 ## Deployment
 
-This project follows semantic versioning.We release patch versions for bugfixes, minor versions for new features, and major versions for any breaking changes
+This project follows branch wise release. Just run following command from the branch you want ot build and commit/publish the artifacts.
 
-```bash
-$ npm run deploy major
-$ npm run deploy minor
-$ npm run deploy patch
-```
-```
-Additionaly, you can tag your release to some prelease label as well
-$ npm run deploy patch alpha
-$ npm run deploy patch beta
-$ npm run deploy prerelease alpha
+$ npm run build:prod
 
 
 ```
@@ -60,6 +48,11 @@ $ npm run deploy:sb
 ### Running storybook locally
 ```
 $ npm run start
+```
+
+### Build component locally
+```
+$ npm run build:watch
 ```
 
 ### Local Development
