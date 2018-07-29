@@ -34,7 +34,7 @@ const MyComponent = () =>
 ## Deployment
 
 This project follows branch wise release. Just run following command from the branch you want ot build and commit/publish the artifacts.
-
+```
 $ npm run build:prod
 
 
