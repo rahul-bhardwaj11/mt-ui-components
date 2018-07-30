@@ -12,9 +12,124 @@
     font-family: 'Open Sans', sans-serif;
     outline: none;
   }
-  .box_wrapper {
-    border-radius: 8px;
-    background-color: #ffffff;
+  .pointer {
+    cursor: pointer;
+  }
+  .displayN {
+    display: none;
+  }
+  .displayIM {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .pos_rel {
+    position: relative;
+  }
+  .pos_abs {
+    position: absolute;
+  }
+  .floatL {
+    float: left;
+  }
+  .floatR {
+    float: right;
+  }
+
+  .link {
+    color: get('colors.INDIGO');
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 13px;
+    margin: 0px 2px;
+    &:hover {
+      color: get('colors.LIGHT_BLUE');
+    }
+  }
+  .rightTab {
+    margin-left: 260px;
+    background: #f7f7f7;
+    padding: 50px 50px 0 50px;
+    height: calc(100vh - 181px);
+    overflow: auto;
+  }
+  .rightTabEp {
+    margin-left: 250px;
+    background: #f7f7f7;
+    height: calc(100vh - 336px);
+    overflow-y: auto;
+  }
+  .boxStyle {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    background: White;
+  }
+  .divider {
+    height: 20px;
+    width: 1px;
+    background: #aaa;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .centerDiv {
+    @include centerDiv;
+    position: absolute;
+  }
+  .center_100_Percent {
+    width: 100%;
+    text-align: center;
+  }
+  .modal_footerWrapper {
+    padding: 20px 0px;
+    border-top: 1px solid #ddd;
+    position: fixed;
+    left: 0px;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    text-align: center;
+  }
+  .clearfix {
+    @include clearfix;
+  }
+
+  .boxWrapper {
+    background: #fff;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+  }
+  .arrowDropdown {
+    font-size: 0px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid #6f7583;
+    border-radius: 2px;
+    position: initial;
+    cursor: pointer;
+  }
+
+  // func for css  margin
+
+  @for $m from 1 through 10 {
+    @each $key in L, R, T, B {
+      @if $key == L {
+        .margin#{$key}#{$m * 5} {
+          margin-left: 5px * $m;
+        }
+      } @else if $key == R {
+        .margin#{$key}#{$m * 5} {
+          margin-right: 5px * $m;
+        }
+      } @else if $key == T {
+        .margin#{$key}#{$m * 5} {
+          margin-top: 5px * $m;
+        }
+      } @else {
+        .margin#{$key}#{$m * 5} {
+          margin-bottom: 5px * $m;
+        }
+      }
+    }
   }
 }
