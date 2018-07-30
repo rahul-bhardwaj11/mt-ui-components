@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import AntCheckbox from 'antd/lib/checkbox';
 import 'antd/lib/checkbox/style/index.css';
 import styled from 'styled-components';
-import theme from '../theme';
+import theme from '../styles/theme';
 
 const MtCheckbox = styled.div`
   display: inline-block;

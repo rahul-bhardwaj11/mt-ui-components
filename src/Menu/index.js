@@ -4,7 +4,7 @@ import AntMenu from 'antd/lib/menu';
 import 'antd/lib/menu/style/index.css';
 import StringToHTML from '../StringToHTML';
 import styled from 'styled-components';
-import theme from '../theme';
+import theme from '../styles/theme';
 
 const MtMenu = styled.div`
   .ant-select-dropdown-menu-item {
