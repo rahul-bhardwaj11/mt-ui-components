@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AntInput from 'antd/lib/input';
 import 'antd/lib/input/style/index.css';
 import styled from 'styled-components';
-import theme from '../theme';
+import theme from '../styles/theme';
 import classnames from 'classnames';
 
 const noop = () => undefined;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AntTag from 'antd/lib/tag';
 import 'antd/lib/tag/style/index.css';
 import styled from 'styled-components';
-import theme from '../theme';
+import theme from '../styles/theme';
 
 const MtTag = styled.div`
   display: inline-block;

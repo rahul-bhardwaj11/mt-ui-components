@@ -10,7 +10,7 @@ const path = require("path");
 const resolve = require("path").resolve;
 var sass = require("node-sass");
 var sassUtils = require("node-sass-utils")(sass);
-const sassVars = require("../src/theme.js");
+const sassVars = require("../src/styles/theme.js");
 
 module.exports = {
   resolve: {
