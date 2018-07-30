@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import 'antd/lib/dropdown/style/css';
 import AntSelect from 'antd/lib/select';
 import 'antd/lib/select/style/index.css';
-import './index.scss';
+import '../styles/override.scss';
 import StringToHTML from '../StringToHTML';
 
 const Option = AntSelect.Option;

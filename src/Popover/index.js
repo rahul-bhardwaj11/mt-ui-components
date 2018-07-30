@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import PropTypes from 'prop-types';
 import AntPopover from 'antd/lib/popover';
 import 'antd/lib/popover/style/index.css';
-import './index.scss';
+import '../styles/override.scss';
 
 class Popover extends Component {
   static propTypes = {};

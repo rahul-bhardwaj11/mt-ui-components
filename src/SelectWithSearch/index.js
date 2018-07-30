@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 //import Button from '../Button';
 import Select from 'react-select';
 //import AsyncSelect from "react-select/lib/Async";
-import './index.scss';
 //import { Icon } from 'antd';
 
 const initialCache = {
