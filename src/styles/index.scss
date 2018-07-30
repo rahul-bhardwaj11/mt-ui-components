@@ -132,4 +132,26 @@
       }
     }
   }
+
+  @for $p from 1 through 10 {
+    @each $key in L, R, T, B {
+      @if $key == L {
+        .padding#{$key}#{$p * 5} {
+          padding-left: 5px * $p;
+        }
+      } @else if $key == R {
+        .padding#{$key}#{$p * 5} {
+          padding-right: 5px * $p;
+        }
+      } @else if $key == T {
+        .padding#{$key}#{$p * 5} {
+          padding-top: 5px * $p;
+        }
+      } @else {
+        .padding#{$key}#{$p * 5} {
+          padding-bottom: 5px * $p;
+        }
+      }
+    }
+  }
 }
