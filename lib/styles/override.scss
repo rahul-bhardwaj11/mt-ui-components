@@ -1,7 +1,12 @@
+/*
+ This file would contains all css which oveeride any global css.
+ This should be avoided as much as can.Same things should get achieved through styled component
+*/
+
 @import '../styles/index.scss';
 :global {
   /* ant popover global override */
-   .ant-popover-title {
+  .ant-popover-title {
     border-bottom: 1px solid transparent;
     padding: 20px 20px 0px 20px;
     font-size: 14px;
@@ -14,7 +19,7 @@
     }
   }
 
-    .ant-select {
+  .ant-select {
     &.ant-select-enabled {
       outline: none;
     }
