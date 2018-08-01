@@ -1,3 +1,4 @@
+// button ----------//
 %button {
   font-size: 14px;
   height: 32px;
@@ -14,12 +15,6 @@
 @mixin textBtn() {
   border: 1px dashed transparent;
   background-color: transparent;
-}
-
-@clearfix {
-  content: '';
-  display: table;
-  clear: both;
 }
 
 // headings ----------//
@@ -64,53 +59,54 @@
   @include fontStack(14px, 600, get('colors.SILVER'), 20px);
 }
 
+// body text ----------//
+
+@mixin blackText() {
+  @include fontStack(14px, normal, get('colors.SHARK'), 20px);
+}
+@mixin darkText() {
+  @include fontStack(14px, normal, get('colors.DARK_OUTER_SPACE'), 20px);
+}
+@mixin greyText() {
+  @include fontStack(14px, normal, get('colors.OUTER_SPACE'), 20px);
+}
+@mixin placeholderText() {
+  @include fontStack(14px, normal, get('colors.SILVER'), 20px);
+}
+
+
 // small links ----------//
 @mixin smallBlackLink() {
-  @include fontStack(12px, 600, get('colors.SHARK'), 16px);
+  @include fontStack(12px, normal, get('colors.SHARK'), 16px);
 }
 
 @mixin smallDarkLink() {
-  @include fontStack(12px, 600, get('colors.DARK_OUTER_SPACE'), 16px);
+  @include fontStack(12px, normal, get('colors.DARK_OUTER_SPACE'), 16px);
 }
 
 @mixin smallGreyLink() {
-  @include fontStack(12px, 600, get('colors.OUTER_SPACE'), 16px);
+  @include fontStack(12px, normal, get('colors.OUTER_SPACE'), 16px);
 }
 @mixin smallInactiveLink() {
-  @include fontStack(12px, 600, get('colors.SILVER'), 16px);
+  @include fontStack(12px, normal, get('colors.SILVER'), 16px);
 }
 
 // labels ----------//
 @mixin smallBlackText() {
-  @include fontStack(12px, 600, get('colors.OUTER_SPACE'), 16px);
+  @include fontStack(11px, 600, get('colors.OUTER_SPACE'), 16px);
   text-transform: uppercase;
-}
-
-// body text ----------//
-
-@mixin blackText() {
-  @include fontStack(14px, 600, get('colors.SHARK'), 20px);
-}
-@mixin darkText() {
-  @include fontStack(14px, 600, get('colors.DARK_OUTER_SPACE'), 20px);
-}
-@mixin greyText() {
-  @include fontStack(14px, 600, get('colors.OUTER_SPACE'), 20px);
-}
-@mixin placeholderText() {
-  @include fontStack(14px, 600, get('colors.SILVER'), 20px);
 }
 
 // number ----------//
 
 @mixin bigNumber() {
-  @include fontStack(24px, 600, get('colors.SHARK'), 32px);
+  @include fontStack(24px, bold, get('colors.SHARK'), 32px);
 }
 @mixin mediumNumber() {
-  @include fontStack(20px, 600, get('colors.DARK_OUTER_SPACE'), 28px);
+  @include fontStack(20px, bold, get('colors.DARK_OUTER_SPACE'), 28px);
 }
 @mixin smallNumber() {
-  @include fontStack(13px, 600, get('colors.DARK_OUTER_SPACE'), 20px);
+  @include fontStack(13px, normal, get('colors.DARK_OUTER_SPACE'), 20px);
 }
 
 // z-index ----------//
@@ -139,23 +135,7 @@ $z-index: (
   z-index: z-index($key);
 }
 
-@import 'variableColor.scss';
-@mixin fontStack_13 {
-  font-size: 13px;
-}
-@mixin fontStack_14 {
-  font-size: 14px;
-}
-@mixin fontStack_16 {
-  font-size: 16px;
-}
-@mixin fontStack_18 {
-  font-size: 18px;
-}
-
-@mixin borer_DD {
-  border: 1px solid #ddd;
-}
+// z-index scss end here----------//
 
 @mixin truncate($truncation-boundary) {
   max-width: $truncation-boundary;
@@ -163,6 +143,8 @@ $z-index: (
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+
 @mixin displayIB {
   display: inline-block;
   vertical-align: middle;
@@ -170,61 +152,6 @@ $z-index: (
 @mixin displayTableCell {
   display: table-cell;
   vertical-align: middle;
-}
-@mixin displayT {
-  display: table;
-  height: 100%;
-  width: 100%;
-}
-@mixin socialButton {
-  border: 1px solid transparent;
-  height: 34px;
-  color: $color-white;
-  border-radius: 2px;
-  line-height: 34px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-@mixin padding($top, $right, $bottom, $left) {
-  padding-top: $top;
-  padding-right: $right;
-  padding-bottom: $bottom;
-  padding-left: $left;
-}
-// @mixin infoHover($width, $right, $left) {
-//   width: $width;
-//   right: $right;
-//   left: $left;
-// }
-//Margin mixin
-@mixin margin($top, $right, $bottom, $left) {
-  margin-top: $top;
-  margin-right: $right;
-  margin-bottom: $bottom;
-  margin-left: $left;
-}
-@mixin borderRadius($radius) {
-  -webkit-border-radius: $radius;
-  -moz-border-radius: $radius;
-  -ms-border-radius: $radius;
-  border-radius: $radius;
-}
-@mixin lineHeight($height) {
-  line-height: $height;
-}
-// buttons
-@mixin buttonstyle {
-  line-height: 28px;
-  cursor: pointer;
-}
-@mixin border($top, $right, $bottom, $left, $color, $solid) {
-  border-top: $top;
-  border-right: $right;
-  border-bottom: $bottom;
-  border-left: $left;
-  border-color: $color;
-  border-style: $solid;
 }
 @function calc-percent($target, $container) {
   @return ($target / $container) * 100%;

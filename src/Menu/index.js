@@ -4,7 +4,7 @@ import AntMenu from 'antd/lib/menu';
 import 'antd/lib/menu/style/index.css';
 import StringToHTML from '../StringToHTML';
 import styled from 'styled-components';
-import theme from '../styles/theme';
+import theme, { truncate } from '../styles/theme';
 
 const MtMenu = styled.div`
   .ant-select-dropdown-menu-item {
@@ -88,6 +88,51 @@ const MtMenu = styled.div`
   .ant-dropdown-trigger {
     font-size: 13px;
   }
+
+  & {
+    .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+      text-align: left;
+      padding-left: 0px !important;
+      color: #989ca6;
+      text-transform: uppercase;
+      font-size: 11px;
+      line-height: 16px;
+      height: auto;
+      .ant-menu-submenu-arrow {
+        display: none;
+      }
+    }
+  }
+  & {
+    .ant-menu-sub.ant-menu-inline > .ant-menu-item {
+      padding-left: 0px !important;
+      float: left;
+      text-align: left;
+      height: auto;
+      line-height: 20px;
+      margin: 0px;
+      font-size: 12px;
+    }
+  }
+
+  .ant-anchor-link {
+    padding: 6px 0 6px 0px;
+    line-height: 1;
+    display: list-item;
+    margin-left: 17px;
+    list-style-type: disc;
+    color: ${theme.colors.LIGHT_BLUE};
+
+    a {
+      color: ${theme.colors.LIGHT_BLUE};
+      font-size: 12px;
+      ${truncate('250px')};
+    }
+  }
+
+  .ant-menu-inline {
+    border-right: 0px;
+  }
 `;
 
 class Menu extends Component {
@@ -96,7 +141,8 @@ class Menu extends Component {
     onClick: PropTypes.func,
     mode: PropTypes.string,
     children: PropTypes.node,
-    prefixCls: PropTypes.string
+    prefixCls: PropTypes.string,
+    itemStyle: PropTypes.object
   };
 
   onClick = ({ key }) => {
@@ -104,9 +150,12 @@ class Menu extends Component {
       this.props.onClick(key);
     }
   };
+  static defaultProps = {
+    style: { paddingLeft: '0px' }
+  };
 
   render() {
-    let { options, children } = this.props;
+    let { options, children, itemStyle } = this.props;
     return (
       <MtMenu>
         <AntMenu {...this.props} onClick={this.onClick}>
@@ -114,7 +163,7 @@ class Menu extends Component {
           {options &&
             options.map((option, index) => {
               return (
-                <AntMenu.Item key={option.key || index}>
+                <AntMenu.Item key={option.key || index} style={itemStyle}>
                   {typeof option.content === 'string' ? (
                     <StringToHTML content={option.content} />
                   ) : (

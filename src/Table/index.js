@@ -52,7 +52,7 @@ const MtTable = styled.div`
 
 class Table extends Component {
   static propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node
   };
 
   render() {

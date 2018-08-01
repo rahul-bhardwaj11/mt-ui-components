@@ -29,4 +29,13 @@ const theme = {
     lg: '75em' /* 1200px */
   }
 };
-module.exports = theme;
+export function truncate(width) {
+  return `
+    width: ${width};
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  `;
+}
+
+export default theme;
