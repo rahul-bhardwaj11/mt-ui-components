@@ -4,6 +4,57 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 //import AsyncSelect from "react-select/lib/Async";
 //import { Icon } from 'antd';
+import styled from 'styled-components';
+
+const SelectBox = styled.div`
+  .mt-react-select__single-value {
+    padding-left: 30px;
+    background-image: url('./assets/search.svg');
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+    background-size: 13px;
+  }
+  .mt-react-select__menu-list {
+    padding: 8px;
+  }
+  .mt-react-select__control {
+    border: 1px solid #dddddd;
+  }
+  .mt-react-select__control--is-focused {
+    box-shadow: none;
+    border: 1px solid #bbbbbb;
+  }
+  .mt-react-select__control--is-focused:hover {
+    border: 1px solid #bbbbbb;
+  }
+  .mt-react-select__option {
+    border-radius: 4px;
+    padding: 6px 20px 8px 16px;
+    color: #989ca6;
+    height: 32px;
+  }
+  .mt-react-select__option:hover {
+    background-color: #4d7cc7;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  .mt-react-select__option--is-selected {
+    background-color: #ffffff;
+    color: #989ca6;
+  }
+  .mt-react-select__option--is-focused {
+    background-color: transparent;
+  }
+  .mt-react-select__input {
+    padding-left: 30px;
+  }
+  .mt-react-select__placeholder {
+    padding-left: 30px;
+  }
+  .mt-react-select__indicators {
+    display: none;
+  }
+`;
 
 const initialCache = {
   options: [],
@@ -147,17 +198,19 @@ class AsyncSelect extends Component {
     const { search, optionsCache } = this.state;
     const currentOptions = optionsCache[search] || initialCache;
     return (
-      <div>
+      <SelectBox>
         <Select
           {...this.props}
+          classNamePrefix={'mt-react-select'}
           onInputChange={this.onInputChange}
           isLoading={currentOptions.isLoading}
           options={currentOptions.options}
           onMenuOpen={this.onMenuOpen}
           autoload={false}
           onMenuScrollToBottom={this.onMenuScrollToBottom}
+          placeholder={'Search'}
         />
-      </div>
+      </SelectBox>
     );
   }
 }
@@ -172,7 +225,11 @@ class SelectWithSearch extends Component {
     if (async) {
       return <AsyncSelect {...this.props} />;
     }
-    return <Select {...this.props} />;
+    return (
+      <SelectBox>
+        <Select {...this.props} classNamePrefix={'mt-react-select'} />
+      </SelectBox>
+    );
   }
 }
 
