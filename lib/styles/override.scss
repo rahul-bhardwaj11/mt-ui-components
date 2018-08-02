@@ -18,11 +18,8 @@
       margin-left: 15px;
     }
   }
-
-  .ant-select {
-    &.ant-select-enabled {
-      outline: none;
-    }
+  .ant-popover-arrow {
+    display: none;
   }
   /* ant select global override */
   .ant-select-selection {
