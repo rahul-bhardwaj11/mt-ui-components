@@ -109,8 +109,8 @@ const MtButton = styled.div`
       color: #fff;
     }
   }
-  /* Pills Button styles */
-  .ant-btn-pills {
+  /* pillsDefault Button styles */
+  .ant-btn-pillsDefault {
     border: 1px solid ${theme.colors.ALTO};
     color: #6f7583;
     height: 24px;
@@ -118,7 +118,7 @@ const MtButton = styled.div`
     font-size: 11px;
     border-radius: 16px;
     &.ant-btn-sm {
-      color: #888;
+      color: ${theme.colors.GREY};
       font-size: 12px;
       padding: 0px 12px;
 
@@ -137,9 +137,44 @@ const MtButton = styled.div`
   }
   .ant-btn {
     &.disabled {
-      border: 1px solid #e8e8e8;
+      border: 1px solid ${theme.colors.DISABLE};
       border-radius: 16px;
-      background-color: #f8f8f8;
+      background-color: ${theme.colors.DISABLE};
+      color: ${theme.colors.SILVER};
+    }
+  }
+
+  /* pillsPrimary Button styles */
+  .ant-btn-pillsPrimary {
+    border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
+    color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+    height: 24px;
+    padding: 0px 12px;
+    font-size: 11px;
+    border-radius: 16px;
+    &.ant-btn-sm {
+      color: ${theme.colors.GREY};
+      font-size: 12px;
+      padding: 0px 12px;
+
+      &:focus,
+      &.active {
+        border: 1px solid ${theme.colors.LIGHT_BLUE};
+        color: ${theme.colors.LIGHT_BLUE};
+      }
+    }
+    &:focus,
+    &:hover,
+    &.active {
+      border: 1px solid ${theme.colors.LIGHT_BLUE};
+      color: ${theme.colors.LIGHT_BLUE};
+    }
+  }
+  .ant-btn {
+    &.disabled {
+      border: 1px solid ${theme.colors.DISABLE};
+      border-radius: 16px;
+      background-color: ${theme.colors.DISABLE};
       color: ${theme.colors.SILVER};
     }
   }
@@ -147,7 +182,7 @@ const MtButton = styled.div`
   .ant-btn-dashed {
     border: 1px dashed ${theme.colors.ALTO};
     background-color: rgba(255, 255, 255, 0);
-    color: #989ca6;
+    color: ${theme.colors.OUTER_SPACE};
     font-size: 14px;
     height: 32px;
     padding: 0px 32px;
@@ -157,11 +192,11 @@ const MtButton = styled.div`
       padding: 0px 12px;
     }
     &:hover {
-      color: #2a2e36;
+      color: ${theme.colors.SHARK};
     }
     &:focus,
     &.active {
-      color: #2a2e36;
+      color: ${theme.colors.SHARK};
     }
   }
   .ant-btn {
@@ -180,13 +215,13 @@ const MtButton = styled.div`
     font-size: 14px;
     height: 32px;
     padding: 0px 32px;
-    color: #989ca6;
+    color: ${theme.colors.OUTER_SPACE};
 
     &:hover,
     &:focus {
       border: 1px dashed transparent;
       background-color: transparent;
-      color: #888;
+      color: ${theme.colors.GREY};
     }
     &.ant-btn-sm {
       color: #fff;
@@ -238,6 +273,8 @@ const typeMap = {
   secondary: 'default',
   tertiary: 'dashed',
   pills: 'pills',
+  pillsDefault: 'pillsDefault',
+  pillsPrimary: 'pillsPrimary',
   link: 'link',
   text: 'text',
   edit: 'edit'
@@ -251,6 +288,8 @@ class Button extends Component {
       'default',
       'dashed',
       'pills',
+      'pillsDefault',
+      'pillsPrimary',
       'link',
       'text',
       'edit'
