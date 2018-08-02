@@ -102,9 +102,12 @@
   @include fontStack(24px, bold, get('colors.SHARK'), 32px);
 }
 @mixin mediumNumber() {
-  @include fontStack(20px, bold, get('colors.DARK_OUTER_SPACE'), 28px);
+  @include fontStack(20px, bold, get('colors.SHARK'), 28px);
 }
 @mixin smallNumber() {
+  @include fontStack(20px, bold, get('colors.DARK_OUTER_SPACE'), 28px);
+}
+@mixin smallestNumber() {
   @include fontStack(13px, normal, get('colors.DARK_OUTER_SPACE'), 20px);
 }
 
