@@ -42,20 +42,20 @@ const colourOptions = [
 //   });
 // };
 
-const filterColors = (inputValue: string) =>
+const filterColors = search =>
   colourOptions.filter(i =>
-    i.label.toLowerCase().includes(inputValue.toLowerCase())
+    i.label.toLowerCase().includes(search.toLowerCase())
   );
 
-const promiseOptions = inputValue =>
+const promiseOption = ({ search }) =>
   new Promise(resolve => {
     setTimeout(() => {
-      resolve(filterColors(inputValue));
+      resolve(filterColors(search));
     }, 1000);
   });
 
 stories.add(
-  'SelectWithSearch',
+  'Sync Select',
   withInfo('Basic usage of the SelectWithSearch')(() => (
     <SelectWithSearch
       defaultValue={colourOptions[2]}
@@ -67,12 +67,11 @@ stories.add(
 
 stories.add(
   'Async Select',
-  withInfo('Usage of the Infinite Select')(() => (
+  withInfo('Usage of the Async Infinite Select')(() => (
     <SelectWithSearch
       async
-      cacheOptions
-      defaultOptions
-      loadOptions={promiseOptions}
+      promiseOption={promiseOption}
+      defaultValue={colourOptions[2]}
     />
   ))
 );

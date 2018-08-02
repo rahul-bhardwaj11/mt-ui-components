@@ -10,9 +10,8 @@
     "test": "jest --verbose ",
     "test:update": "jest -u",
     "prebuild": "rimraf ./lib",
-    "build:dev": "babel src --out-dir lib --copy-files --ignore test,*.stories.js --source-maps true && npm run lint:watch",
     "build:prod": "babel src --out-dir lib --copy-files --ignore test,*.stories.js --source-maps true && npm run test && npm run lint",
-    "build:watch": "npm run build:dev -- -w",
+    "build:watch": "babel src --out-dir lib --copy-files --ignore test,*.stories.js --source-maps true -w & npm run lint:watch -w",
     "postbuild": "node utils/generateModulesList.js",
     "deploy:sb": "npm run build-storybook && gh-pages -m 'update storybook' -d ./build",
     "deploy": "sh ./deploy.sh",
@@ -82,7 +81,8 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.8",
     "webpack": "^3.12.0",
-    "wix-storybook-utils": "^1.0.85"
+    "wix-storybook-utils": "^1.0.85",
+    "styled-components": "^3.3.3"
   },
   "pre-commit": "precommit",
   "lint-staged": {
@@ -113,6 +113,8 @@
   },
   "dependencies": {
     "node-sass-utils": "^1.1.2",
+    "nanoid": "^1.0.2",
+    "react-copy-to-clipboard": "^5.0.1",
     "antd": "^3.6.5",
     "classnames": "^2.2.6",
     "identity-obj-proxy": "^3.0.0",
@@ -125,8 +127,7 @@
     "react-select": "^2.0.0",
     "react-sortable-tree": "^2.2.0",
     "react-test-renderer": "^16.1.1",
-    "react-tether": "^0.5.7",
-    "styled-components": "^3.3.3"
+    "react-tether": "^0.5.7"
   },
   "peerDependencies": {
     "react": "^16.1.0",

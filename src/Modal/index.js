@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AntModal from 'antd/lib/modal';
 import 'antd/lib/modal/style/index.css';
-import './index.scss';
+import '../styles/override.scss';
 
 const MODAL_WIDTH_MAP = {
   small: 500,

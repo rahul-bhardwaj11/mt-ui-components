@@ -85,7 +85,8 @@ class Input extends Component {
   state = {};
 
   handleValue = value => {
-    const trimmedValue = isString(value) ? value.trim() : value;
+    let trimmedValue = isString(value) ? value.trim() : value;
+    trimmedValue = trimmedValue || '';
     value = trimmedValue.length ? value : trimmedValue;
     const { maxLength } = this.props;
     if (maxLength) {
