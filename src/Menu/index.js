@@ -4,9 +4,12 @@ import AntMenu from 'antd/lib/menu';
 import 'antd/lib/menu/style/index.css';
 import StringToHTML from '../StringToHTML';
 import styled from 'styled-components';
-import theme, { truncate } from '../styles/theme';
+import theme from '../styles/theme';
 
 const MtMenu = styled.div`
+  .ant-anchor-wrapper {
+    overflow: hidden;
+  }
   .ant-select-dropdown-menu-item {
     background-color: ${theme.colors.LIGHT_BLUE};
     color: #fff;
@@ -126,7 +129,7 @@ const MtMenu = styled.div`
     a {
       color: ${theme.colors.LIGHT_BLUE};
       font-size: 12px;
-      ${truncate('250px')};
+      ${theme.mixins.truncate('250px')};
     }
   }
 

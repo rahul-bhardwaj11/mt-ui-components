@@ -74,7 +74,6 @@
   @include fontStack(14px, normal, get('colors.SILVER'), 20px);
 }
 
-
 // small links ----------//
 @mixin smallBlackLink() {
   @include fontStack(12px, normal, get('colors.SHARK'), 16px);
@@ -143,7 +142,6 @@ $z-index: (
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 
 @mixin displayIB {
   display: inline-block;
