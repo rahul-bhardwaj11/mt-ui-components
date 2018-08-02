@@ -1,6 +1,3 @@
-/* eslint-disable */
-// import React, { Component } from "react";
-// import PropTypes from "prop-types";
 import styled from 'styled-components';
 
 function boxShadowWithLevel(level) {
@@ -16,6 +13,9 @@ function boxShadowWithLevel(level) {
     case 3:
       boxShadow = `0 2px 4px 0 rgba(0, 0, 0, 0.08)`;
       break;
+    case 4:
+      boxShadow = `0 2px 4px 0 rgba(0, 0, 0, 1)`;
+      break;
     default:
       boxShadow = 'none';
   }
@@ -23,8 +23,11 @@ function boxShadowWithLevel(level) {
   return boxShadow;
 }
 
-export const Elevation = styled.div`
-	background: #fff;
-    border-radius: 8px;
-    box-shadow: {props => boxShadowWithLevel(props.level)};
+const Elevation = styled.div`
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: ${props => boxShadowWithLevel(props.level)};
+  padding: 10px;
 `;
+
+export default Elevation;
