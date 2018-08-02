@@ -81,8 +81,8 @@ class Table extends Component {
   static propTypes = {
     children: PropTypes.node,
     actionBar: PropTypes.shape({
-      countText: PropTypes.string,
-      actionItem: PropTypes.node
+      countText: PropTypes.string.isRequired,
+      actionItem: PropTypes.arrayOf(PropTypes.node)
     }),
     onChange: PropTypes.func,
     rowSelection: PropTypes.object
@@ -100,31 +100,28 @@ class Table extends Component {
     }));
     onChange && onChange(selectedRowKeys, selectedRows);
   };
-  addRowSelection = columns => {
-    return columns.unshift({
-      title: <input type="checkbox" />,
-      dataIndex: 'key',
-      key: 'check',
-      render: (...args) => {
-        return <span>{args[2] + 1}</span>;
-      }
-    });
-  };
 
   render() {
-    let {
-      rowSelection: rowSelectionFromParent,
-      actionBar,
-      onChange: onChangeListener
-    } = this.props;
-    let { showActionBar } = this.state;
-    const antProps =
-      rowSelectionFromParent || typeof onChangeListener === 'function'
-        ? { ...this.props, rowSelection: { onChange: this.onChange } }
-        : { ...this.props };
+    let { rowSelection, actionBar, onChange, children } = this.props;
+    let { showActionBar, showMultiSelect } = this.state;
+    /**
+     * Check if rowSelection props is been passed, If yes override the onChange property of it.
+     * Also if onChange prop is passed and the rowSelection is not available, create a new rowSelection object with onChange method.
+     */
+    const updatedRowSelection = rowSelection
+      ? { ...rowSelection, onChange: this.onChange }
+      : onChange
+        ? { onChange: this.onChange }
+        : null;
+    const antProps = updatedRowSelection
+      ? {
+          ...this.props,
+          rowSelection: updatedRowSelection
+        }
+      : { ...this.props };
     return (
-      <MtTable showMultiSelect={this.state.showMultiSelect}>
-        <AntTable {...antProps}>{this.props.children}</AntTable>
+      <MtTable showMultiSelect={showMultiSelect}>
+        <AntTable {...antProps}>{children}</AntTable>
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}

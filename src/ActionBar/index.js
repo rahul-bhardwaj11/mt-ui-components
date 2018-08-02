@@ -33,7 +33,7 @@ const ActionBar = ({ children, countText }) => {
 };
 
 ActionBar.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.arrayOf(PropTypes.node),
   countText: PropTypes.string.isRequired
 };
 
