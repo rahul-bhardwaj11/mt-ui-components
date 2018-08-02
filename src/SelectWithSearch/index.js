@@ -215,7 +215,6 @@ class AsyncSelect extends Component {
           onMenuOpen={this.onMenuOpen}
           autoload={false}
           onMenuScrollToBottom={this.onMenuScrollToBottom}
-          placeholder={'Search'}
         />
       </SelectBox>
     );
@@ -225,8 +224,14 @@ class AsyncSelect extends Component {
 class SelectWithSearch extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),
-    async: PropTypes.bool
+    async: PropTypes.bool,
+    placeholder: PropTypes.string
   };
+
+  static defaultProps = {
+    placeholder: 'Search'
+  };
+
   render() {
     let { async } = this.props;
     if (async) {
@@ -234,11 +239,7 @@ class SelectWithSearch extends Component {
     }
     return (
       <SelectBox>
-        <Select
-          {...this.props}
-          placeholder={'Search'}
-          classNamePrefix={'mt-react-select'}
-        />
+        <Select {...this.props} classNamePrefix={'mt-react-select'} />
       </SelectBox>
     );
   }
