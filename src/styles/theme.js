@@ -1,3 +1,5 @@
+const mixins = require('./mixins');
+
 const theme = {
   base: '16px',
   spacing: '1rem',
@@ -21,6 +23,7 @@ const theme = {
     PORCELAIN: '#F5F6F7',
     IVORY: '#F9F9FA'
   },
+  mixins: mixins,
   typography: {},
   breakpoints: {
     xs: '0em' /* 0px */,
@@ -29,4 +32,5 @@ const theme = {
     lg: '75em' /* 1200px */
   }
 };
+
 module.exports = theme;
