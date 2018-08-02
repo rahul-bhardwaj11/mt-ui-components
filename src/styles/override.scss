@@ -18,9 +18,6 @@
       margin-left: 15px;
     }
   }
-  .ant-popover-arrow {
-    display: none;
-  }
   /* ant select global override */
   .ant-select-selection {
     &.ant-select-selection--single {
@@ -170,6 +167,42 @@
           @include textBtn;
           color: #888;
         }
+      }
+    }
+  }
+
+  .ant-popover-message-title {
+    padding-left: 0px;
+    @include blackLink;
+  }
+  .ant-popover-message > .anticon {
+    display: none;
+  }
+  .ant-popover-buttons {
+    .ant-btn {
+      @include textBtn;
+      @extend %button;
+      color: #989ca6;
+      min-width: 75px;
+
+      &.ant-btn-primary {
+        @include primaryBtn;
+        @extend %button;
+        color: #fff;
+        &:hover {
+          @include primaryBtnHover;
+          color: #fff;
+        }
+        &:focus,
+        &.active {
+          @include primaryBtnHover;
+          color: #fff;
+        }
+      }
+      &:hover,
+      &:focus {
+        @include textBtn;
+        color: #888;
       }
     }
   }

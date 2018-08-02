@@ -136,13 +136,6 @@ $z-index: (
 
 // z-index scss end here----------//
 
-@mixin truncate($truncation-boundary) {
-  max-width: $truncation-boundary;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 @mixin displayIB {
   display: inline-block;
   vertical-align: middle;
