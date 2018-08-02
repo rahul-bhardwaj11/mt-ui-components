@@ -34,9 +34,19 @@ stories
     ))
   )
   .add(
-    'Pills button',
+    'Pills button default',
     withInfo('Adding type tertiary to button')(() => (
-      <Button type={text('type', 'pills')}>{text('children', 'Submit')}</Button>
+      <Button type={text('type', 'pillsDefault')}>
+        {text('children', 'Submit')}
+      </Button>
+    ))
+  )
+  .add(
+    'Pills button primary',
+    withInfo('Adding type tertiary to button')(() => (
+      <Button type={text('type', 'pillsPrimary')}>
+        {text('children', 'Submit')}
+      </Button>
     ))
   )
   .add(
