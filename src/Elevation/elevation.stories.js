@@ -11,6 +11,6 @@ stories.addDecorator(withKnobs);
 stories.add(
   'Elevation',
   withInfo('Basic usage Elevation')(() => (
-    <Elevation level={4}>Hello All</Elevation>
+    <Elevation level={1}>Hello All</Elevation>
   ))
 );
