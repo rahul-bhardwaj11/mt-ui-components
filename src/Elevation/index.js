@@ -19,7 +19,6 @@ function boxShadowWithLevel(level) {
     default:
       boxShadow = 'none';
   }
-
   return boxShadow;
 }
 
@@ -30,4 +29,12 @@ const Elevation = styled.div`
   padding: 10px;
 `;
 
+// function button(type){
+//   let button;
+
+//   switch (type) {
+//     case 1:
+
+//   }
+// }
 export default Elevation;
