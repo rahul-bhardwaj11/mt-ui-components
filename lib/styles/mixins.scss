@@ -89,6 +89,9 @@
 @mixin smallInactiveLink() {
   @include fontStack(12px, normal, get('colors.SILVER'), 16px);
 }
+@mixin smallActiveLink() {
+  @include fontStack(12px, normal, get('colors.INDIGO'), 16px);
+}
 
 // labels ----------//
 @mixin smallBlackText() {
@@ -115,19 +118,6 @@
 
 $z-index: (
   getSupport: 99986,
-  scroller: 99987,
-  treeCheckbox: 99988,
-  accordian: 99989,
-  dropdown: 99990,
-  absolute: 99991,
-  errorPageStyle: 99992,
-  buildFadeBg: 99993,
-  checklistArea: 99994,
-  dropdownMenu: 99995,
-  popover: 99996,
-  modal: 99997,
-  toast: 99998,
-  loader: 99999
 );
 @function z-index($key) {
   @return map-get($z-index, $key);
