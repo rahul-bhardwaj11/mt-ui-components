@@ -25,9 +25,7 @@ function boxShadowWithLevel(level) {
 
 const Elevation = styled.div`
   border: ${props =>
-    props.level1
-      ? '1px solid #E7E8EC'
-      : 'border: 1px solid rgba(205,210,217,0.5)'};
+    props.level1 ? '1px solid #E7E8EC' : '1px solid rgba(205,210,217,0.5)'};
   border-radius: 4px;
   background-color: #ffffff;
   box-shadow: ${props => boxShadowWithLevel(props.level)};
