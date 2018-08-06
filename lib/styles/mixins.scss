@@ -117,12 +117,11 @@
 // z-index ----------//
 
 $z-index: (
-  getSupport: 99986,
+  getSupport: 99986
 );
 @function z-index($key) {
   @return map-get($z-index, $key);
 }
-
 @mixin z-index($key) {
   z-index: z-index($key);
 }

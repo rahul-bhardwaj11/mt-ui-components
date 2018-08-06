@@ -31,7 +31,7 @@ const MtMenu = styled.div`
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
     &:hover {
-      background-color: #4a90e2;
+      background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
       color: #fff;
     }
   }
@@ -46,7 +46,7 @@ const MtMenu = styled.div`
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
     &:hover {
-      background-color: #4a90e2;
+      background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
       color: #fff;
     }
   }
@@ -71,6 +71,12 @@ const MtMenu = styled.div`
   .ant-menu-vertical {
     & > .ant-menu-item {
       color: #8e9194;
+      padding: 0px;
+      margin: 0px;
+      line-height: 20px;
+      height: 20px;
+
+      text-align: left;
       &:hover {
         color: black;
       }
@@ -137,8 +143,8 @@ const MtMenu = styled.div`
       ${theme.mixins.truncate('250px')};
     }
   }
-
-  .ant-menu-inline {
+  .ant-menu-inline,
+  .ant-menu-light {
     border-right: 0px;
   }
 `;
