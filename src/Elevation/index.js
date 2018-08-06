@@ -29,7 +29,6 @@ const Elevation = styled.div`
   border-radius: 4px;
   background-color: #ffffff;
   box-shadow: ${props => boxShadowWithLevel(props.level)};
-  padding: 10px;
 `;
 
 export default Elevation;
