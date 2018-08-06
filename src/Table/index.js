@@ -16,6 +16,8 @@ import styled from 'styled-components';
 
 const MtTable = styled.div`
   background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 
   .ant-table {
     color: #606369;
@@ -27,9 +29,6 @@ const MtTable = styled.div`
     .ant-table-body {
       tr {
         th {
-          height: 17px;
-          font-size: 12px;
-          line-height: 17px;
           padding: 16px 24px !important;
           background-color: white;
           border-top: none;
@@ -46,12 +45,15 @@ const MtTable = styled.div`
           }
         }
         td {
-          height: 22px;
-          font-size: 14px;
-          line-height: 22px;
           padding: 12px 24px !important;
           background-color: white;
           border-bottom: 1px solid #e8eaed;
+
+          &:first-child {
+            width: 0px !important;
+            padding: 0px 0px 0px 8px !important;
+            border-bottom: none;
+          }
 
           &:first-child {
             width: 0px !important;
