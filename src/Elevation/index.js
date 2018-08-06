@@ -19,7 +19,6 @@ function boxShadowWithLevel(level) {
     default:
       boxShadow = '0 2px 4px 0 rgba(0,0,0,0.08)';
   }
-
   return boxShadow;
 }
 
@@ -31,4 +30,12 @@ const Elevation = styled.div`
   box-shadow: ${props => boxShadowWithLevel(props.level)};
 `;
 
+// function button(type){
+//   let button;
+
+//   switch (type) {
+//     case 1:
+
+//   }
+// }
 export default Elevation;

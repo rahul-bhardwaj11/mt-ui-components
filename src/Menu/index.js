@@ -53,20 +53,19 @@ const MtMenu = styled.div`
   .ant-menu-horizontal {
     & > .ant-menu-item {
       &:hover {
-        color: #202a39;
+        color: ${theme.colors.CONGRESS_BLUE};
       }
     }
     & > .ant-menu-submenu {
       &:hover {
-        color: #202a39;
+        color: ${theme.colors.CONGRESS_BLUE};
       }
     }
     & > .ant-menu-item-active,
     & > .ant-menu-submenu-active,
     & > .ant-menu-item-selected,
     & > .ant-menu-submenu-selected {
-      border-bottom: 3px solid ${theme.colors.LIGHT_BLUE};
-      color: #202a39;
+      color: ${theme.colors.CONGRESS_BLUE};
     }
   }
   .ant-menu-vertical {
@@ -79,8 +78,8 @@ const MtMenu = styled.div`
   }
   .ant-menu-item {
     font-size: 15px;
-    padding: 0px 8px;
     color: #8e9194;
+    padding: 0px 8px;
     &:hover {
       color: #fff;
     }
@@ -96,11 +95,17 @@ const MtMenu = styled.div`
     .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
       text-align: left;
       padding-left: 0px !important;
-      color: #989ca6;
-      text-transform: uppercase;
       font-size: 11px;
-      line-height: 16px;
+      text-transform: uppercase;
       height: auto;
+      line-height: 16px;
+      margin: 0px 0px 8px 0px;
+      color: ${theme.colors.OUTER_SPACE};
+
+      &:hover {
+        color: ${theme.colors.OUTER_SPACE};
+      }
+
       .ant-menu-submenu-arrow {
         display: none;
       }
