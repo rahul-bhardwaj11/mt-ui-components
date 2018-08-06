@@ -4,49 +4,68 @@ import AntTable from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
 import styled from 'styled-components';
 
-const MtHeader = styled.div`
-  border-radius: 8px;
-  color: #2a2e36;
-  font-family: 'Open Sans';
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
-  padding: 24px 24px 8px 24px;
-  background-color: #ffffff;
-`;
+// const MtHeader = styled.div`
+//   border-radius: 8px;
+//   color: #2a2e36;
+//   font-size: 14px;
+//   font-weight: 600;
+//   line-height: 20px;
+//   padding: 32px 32px 8px 32px;
+//   background-color: #ffffff;
+// `;
 
 const MtTable = styled.div`
-  border-radius: 8px;
   background-color: #ffffff;
+  border-radius: 8px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-  margin: 24px 40px;
+
   .ant-table {
     color: #606369;
     font-family: 'Open Sans';
-    &.ant-table-middle {
-      padding: 0px 8px;
-    }
+
     &.ant-table-small {
       border: 0px;
     }
     .ant-table-body {
       tr {
         th {
-          height: 17px;
-          width: 200px;
-          font-size: 12px;
-          line-height: 17px;
-          padding: 24px !important;
+          padding: 16px 24px !important;
           background-color: white;
           border-top: none;
+          border-bottom: 1px solid #e8eaed;
+
+          &:first-child {
+            width: 0px !important;
+            padding: 0px 0px 0px 8px !important;
+          }
+
+          &:last-child {
+            width: 0px !important;
+            padding: 0px 0px 0px 8px !important;
+          }
         }
         td {
-          height: 22px;
-          width: 200px;
-          font-size: 14px;
-          line-height: 22px;
-          padding: 21px 24px !important;
+          padding: 12px 24px !important;
           background-color: white;
+          border-bottom: 1px solid #e8eaed;
+
+          &:first-child {
+            width: 0px !important;
+            padding: 0px 0px 0px 8px !important;
+            border-bottom: none;
+          }
+
+          &:first-child {
+            width: 0px !important;
+            padding: 0px 0px 0px 8px !important;
+            border-bottom: none;
+          }
+
+          &:last-child {
+            width: 0px !important;
+            padding: 0px 0px 0px 8px !important;
+            border-bottom: none;
+          }
         }
       }
       tr:hover {
@@ -67,16 +86,22 @@ const MtTable = styled.div`
 class Table extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    headerText: PropTypes.string
+    headerText: PropTypes.string,
+    columns: PropTypes.array
   };
 
   render() {
+    const columns = this.props.columns;
+    const emptyColumnFirst = { title: '', dataIndex: 'emptyFirst' };
+    const emptyColumnlast = { title: '', dataIndex: 'emptyLast' };
+
+    columns.unshift(emptyColumnFirst);
+    columns.push(emptyColumnlast);
+
     return (
       <MtTable>
-        <MtHeader>{this.props.headerText}</MtHeader>
-        <AntTable {...this.props} pagination={false}>
-          {this.props.children}
-        </AntTable>
+        {/* <MtHeader>{this.props.headerText}</MtHeader> */}
+        <AntTable {...this.props}>{this.props.children}</AntTable>
       </MtTable>
     );
   }
