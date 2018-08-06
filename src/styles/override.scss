@@ -7,21 +7,21 @@
 :global {
   /* ant popover global override */
   .ant-popover-title {
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid transparent !important;
     padding: 20px 20px 0px 20px;
     font-size: 14px;
+  }
+  .ant-popover-inner {
+    border: 1px solid rgba(205, 210, 217, 0.5);
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08);
   }
   .ant-popover-inner-content {
     text-align: right;
     padding: 20px;
     button {
       margin-left: 15px;
-    }
-  }
-
-  .ant-select {
-    &.ant-select-enabled {
-      outline: none;
     }
   }
   /* ant select global override */
@@ -173,6 +173,42 @@
           @include textBtn;
           color: #888;
         }
+      }
+    }
+  }
+
+  .ant-popover-message-title {
+    padding-left: 0px;
+    @include blackLink;
+  }
+  .ant-popover-message > .anticon {
+    display: none;
+  }
+  .ant-popover-buttons {
+    .ant-btn {
+      @include textBtn;
+      @extend %button;
+      color: #989ca6;
+      min-width: 75px;
+
+      &.ant-btn-primary {
+        @include primaryBtn;
+        @extend %button;
+        color: #fff;
+        &:hover {
+          @include primaryBtnHover;
+          color: #fff;
+        }
+        &:focus,
+        &.active {
+          @include primaryBtnHover;
+          color: #fff;
+        }
+      }
+      &:hover,
+      &:focus {
+        @include textBtn;
+        color: #888;
       }
     }
   }

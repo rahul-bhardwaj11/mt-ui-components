@@ -7,6 +7,9 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const MtMenu = styled.div`
+  .ant-anchor-wrapper {
+    overflow: hidden;
+  }
   .ant-select-dropdown-menu-item {
     background-color: ${theme.colors.LIGHT_BLUE};
     color: #fff;
@@ -50,20 +53,19 @@ const MtMenu = styled.div`
   .ant-menu-horizontal {
     & > .ant-menu-item {
       &:hover {
-        color: #202a39;
+        color: ${theme.colors.CONGRESS_BLUE};
       }
     }
     & > .ant-menu-submenu {
       &:hover {
-        color: #202a39;
+        color: ${theme.colors.CONGRESS_BLUE};
       }
     }
     & > .ant-menu-item-active,
     & > .ant-menu-submenu-active,
     & > .ant-menu-item-selected,
     & > .ant-menu-submenu-selected {
-      border-bottom: 3px solid ${theme.colors.LIGHT_BLUE};
-      color: #202a39;
+      color: ${theme.colors.CONGRESS_BLUE};
     }
   }
   .ant-menu-vertical {
@@ -76,8 +78,8 @@ const MtMenu = styled.div`
   }
   .ant-menu-item {
     font-size: 15px;
-    padding: 0px 8px;
     color: #8e9194;
+    padding: 0px 8px;
     &:hover {
       color: #fff;
     }
@@ -88,6 +90,57 @@ const MtMenu = styled.div`
   .ant-dropdown-trigger {
     font-size: 13px;
   }
+
+  & {
+    .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+      text-align: left;
+      padding-left: 0px !important;
+      font-size: 11px;
+      text-transform: uppercase;
+      height: auto;
+      line-height: 16px;
+      margin: 0px 0px 8px 0px;
+      color: ${theme.colors.OUTER_SPACE};
+
+      &:hover {
+        color: ${theme.colors.OUTER_SPACE};
+      }
+
+      .ant-menu-submenu-arrow {
+        display: none;
+      }
+    }
+  }
+  & {
+    .ant-menu-sub.ant-menu-inline > .ant-menu-item {
+      padding-left: 0px !important;
+      float: left;
+      text-align: left;
+      height: auto;
+      line-height: 20px;
+      margin: 0px;
+      font-size: 12px;
+    }
+  }
+
+  .ant-anchor-link {
+    padding: 6px 0 6px 0px;
+    line-height: 1;
+    display: list-item;
+    margin-left: 17px;
+    list-style-type: disc;
+    color: ${theme.colors.LIGHT_BLUE};
+
+    a {
+      color: ${theme.colors.LIGHT_BLUE};
+      font-size: 12px;
+      ${theme.mixins.truncate('250px')};
+    }
+  }
+
+  .ant-menu-inline {
+    border-right: 0px;
+  }
 `;
 
 class Menu extends Component {
@@ -96,7 +149,8 @@ class Menu extends Component {
     onClick: PropTypes.func,
     mode: PropTypes.string,
     children: PropTypes.node,
-    prefixCls: PropTypes.string
+    prefixCls: PropTypes.string,
+    itemStyle: PropTypes.object
   };
 
   onClick = ({ key }) => {
@@ -104,9 +158,12 @@ class Menu extends Component {
       this.props.onClick(key);
     }
   };
+  static defaultProps = {
+    style: { paddingLeft: '0px' }
+  };
 
   render() {
-    let { options, children } = this.props;
+    let { options, children, itemStyle } = this.props;
     return (
       <MtMenu>
         <AntMenu {...this.props} onClick={this.onClick}>
@@ -114,7 +171,7 @@ class Menu extends Component {
           {options &&
             options.map((option, index) => {
               return (
-                <AntMenu.Item key={option.key || index}>
+                <AntMenu.Item key={option.key || index} style={itemStyle}>
                   {typeof option.content === 'string' ? (
                     <StringToHTML content={option.content} />
                   ) : (

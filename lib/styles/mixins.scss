@@ -59,72 +59,65 @@
   @include fontStack(14px, 600, get('colors.SILVER'), 20px);
 }
 
+// body text ----------//
+
+@mixin blackText() {
+  @include fontStack(14px, normal, get('colors.SHARK'), 20px);
+}
+@mixin darkText() {
+  @include fontStack(14px, normal, get('colors.DARK_OUTER_SPACE'), 20px);
+}
+@mixin greyText() {
+  @include fontStack(14px, normal, get('colors.OUTER_SPACE'), 20px);
+}
+@mixin placeholderText() {
+  @include fontStack(14px, normal, get('colors.SILVER'), 20px);
+}
+
 // small links ----------//
 @mixin smallBlackLink() {
-  @include fontStack(12px, 600, get('colors.SHARK'), 16px);
+  @include fontStack(12px, normal, get('colors.SHARK'), 16px);
 }
 
 @mixin smallDarkLink() {
-  @include fontStack(12px, 600, get('colors.DARK_OUTER_SPACE'), 16px);
+  @include fontStack(12px, normal, get('colors.DARK_OUTER_SPACE'), 16px);
 }
 
 @mixin smallGreyLink() {
-  @include fontStack(12px, 600, get('colors.OUTER_SPACE'), 16px);
+  @include fontStack(12px, normal, get('colors.OUTER_SPACE'), 16px);
 }
 @mixin smallInactiveLink() {
-  @include fontStack(12px, 600, get('colors.SILVER'), 16px);
+  @include fontStack(12px, normal, get('colors.SILVER'), 16px);
+}
+@mixin smallActiveLink() {
+  @include fontStack(12px, normal, get('colors.INDIGO'), 16px);
 }
 
 // labels ----------//
 @mixin smallBlackText() {
-  @include fontStack(12px, 600, get('colors.OUTER_SPACE'), 16px);
+  @include fontStack(11px, 600, get('colors.OUTER_SPACE'), 16px);
   text-transform: uppercase;
-}
-
-// body text ----------//
-
-@mixin blackText() {
-  @include fontStack(14px, 600, get('colors.SHARK'), 20px);
-}
-@mixin darkText() {
-  @include fontStack(14px, 600, get('colors.DARK_OUTER_SPACE'), 20px);
-}
-@mixin greyText() {
-  @include fontStack(14px, 600, get('colors.OUTER_SPACE'), 20px);
-}
-@mixin placeholderText() {
-  @include fontStack(14px, 600, get('colors.SILVER'), 20px);
 }
 
 // number ----------//
 
 @mixin bigNumber() {
-  @include fontStack(24px, 600, get('colors.SHARK'), 32px);
+  @include fontStack(24px, bold, get('colors.SHARK'), 32px);
 }
 @mixin mediumNumber() {
-  @include fontStack(20px, 600, get('colors.DARK_OUTER_SPACE'), 28px);
+  @include fontStack(20px, bold, get('colors.SHARK'), 28px);
 }
 @mixin smallNumber() {
-  @include fontStack(13px, 600, get('colors.DARK_OUTER_SPACE'), 20px);
+  @include fontStack(20px, bold, get('colors.DARK_OUTER_SPACE'), 28px);
+}
+@mixin smallestNumber() {
+  @include fontStack(13px, normal, get('colors.DARK_OUTER_SPACE'), 20px);
 }
 
 // z-index ----------//
 
 $z-index: (
-  getSupport: 99986,
-  scroller: 99987,
-  treeCheckbox: 99988,
-  accordian: 99989,
-  dropdown: 99990,
-  absolute: 99991,
-  errorPageStyle: 99992,
-  buildFadeBg: 99993,
-  checklistArea: 99994,
-  dropdownMenu: 99995,
-  popover: 99996,
-  modal: 99997,
-  toast: 99998,
-  loader: 99999
+  getSupport: 99986
 );
 @function z-index($key) {
   @return map-get($z-index, $key);
@@ -135,13 +128,6 @@ $z-index: (
 }
 
 // z-index scss end here----------//
-
-@mixin truncate($truncation-boundary) {
-  max-width: $truncation-boundary;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 
 @mixin displayIB {
   display: inline-block;
