@@ -82,7 +82,12 @@ class Input extends Component {
     type: 'text'
   };
 
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: this.handleValue(this.props.value)
+    };
+  }
 
   handleValue = value => {
     let trimmedValue = isString(value) ? value.trim() : value;
@@ -129,6 +134,7 @@ class Input extends Component {
       <MtInput>
         <AntInput
           {...this.props}
+          value={value}
           onChange={this.onChange}
           onFocus={this.moveCaretAtEnd}
         />
