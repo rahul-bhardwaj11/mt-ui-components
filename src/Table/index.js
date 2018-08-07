@@ -17,74 +17,83 @@ const MtTable = styled.div`
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   counter-reset: rowNumber;
 
-  .ant-table-thead {
-    & > tr {
-      color: ${theme.colors.DARK_OUTER_SPACE};
-      & > th {
-        background-color: white;
-        border-bottom: 1px solid ${theme.colors.PEARL};
-        padding: 16px 0px 16px 24px !important;
-      }
-      .emptyRow {
-        padding: 0px !important;
-        width: 8px;
+
+  .ant-table-middle > .ant-table-content > .ant-table-body > table {
+    .ant-table-thead {
+      & > tr {
+        color: ${theme.colors.DARK_OUTER_SPACE};
+        & > th {
+          background-color: white;
+          border-bottom: 1px solid ${theme.colors.PEARL};
+          padding: 16px 0px 16px 24px;
+        }
+        .emptyRow {
+          padding: 0px;
+          width: 8px;
+        }
       }
     }
-  }
-  .ant-table-row {
-    counter-increment: rowNumber;
-    &:hover {
+
+    .ant-table-row {
+      counter-increment: rowNumber;
+      &:hover {
+        .ant-table-selection-column {
+          ${props =>
+            !props.showMultiSelect &&
+            `&:before {
+            visibility: hidden;
+          }
+          & > span {
+            visibility: visible;
+          }`};
+        }
+      }
+    }
+
+    .ant-table-tbody {
       .ant-table-selection-column {
         ${props =>
           !props.showMultiSelect &&
           `&:before {
-          visibility: hidden;
+          content: counter(rowNumber);
+          margin-left: 5px;
+          position: absolute;
+          color: ${theme.colors.OUTER_SPACE};
+          font-size: 12px;
         }
         & > span {
-          visibility: visible;
+          visibility: hidden;
         }`};
       }
-    }
-  }
-  .ant-table-tbody {
-    .ant-table-selection-column {
-      ${props =>
-        !props.showMultiSelect &&
-        `&:before {
-        content: counter(rowNumber);
-        margin-left: 5px;
-        position: absolute;
-        color: ${theme.colors.OUTER_SPACE};
-        font-size: 12px;
-      }
-      & > span {
-        visibility: hidden;
-      }`};
-    }
-    & > tr {
-      color: ${theme.colors.DARK_OUTER_SPACE};
-      td {
-        border-bottom: 1px solid ${theme.colors.PEARL};
-        padding: 0px !important;
-      }
-      .emptyRow {
-        padding: 0px !important;
-        width: 8px;
-        border-bottom: none !important;
-      }
-      &:last-child {
+      & > tr {
+        color: ${theme.colors.DARK_OUTER_SPACE};
         td {
-          border-bottom: 0px;
+          border-bottom: 1px solid ${theme.colors.PEARL};
+          padding: 0px;
+        }
+        .emptyRow {
+          padding: 0px;
+          width: 8px;
+          border-bottom: none;
+        }
+        &:last-child {
+          td {
+            border-bottom: 0px;
+          }
+        }
+        &:hover {
+          & > td {
+            background: ${theme.colors.PORCELAIN};
+            cursor: pointer;
+          }
+        }
+        &:active {
+          & > td {
+            background: ${theme.colors.TROPICAL_BLUE};
+            cursor: pointer;
+          }
         }
       }
-      &:hover {
-        & > td {
-          background: ${theme.colors.PORCELAIN};
-          cursor: pointer;
-        }
-      }
-    }
-  }
 `;
 
 class Table extends Component {
@@ -167,12 +176,14 @@ class Table extends Component {
         };
     return (
       <MtTable showMultiSelect={showMultiSelect}>
-        <AntTable {...antProps}>{children}</AntTable>
-        {showActionBar && (
-          <ActionBar {...actionBar}>
-            {actionBar ? actionBar.actionItem : false}
-          </ActionBar>
-        )}
+        <div className="tableContainer">
+          <AntTable {...antProps}>{children}</AntTable>
+          {showActionBar && (
+            <ActionBar {...actionBar}>
+              {actionBar ? actionBar.actionItem : false}
+            </ActionBar>
+          )}
+        </div>
       </MtTable>
     );
   }
