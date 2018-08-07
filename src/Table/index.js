@@ -104,7 +104,10 @@ class Table extends Component {
   };
 
   onChange = (selectedRowKeys, selectedRows) => {
-    let { actionBar, onChange } = this.props;
+    let {
+      actionBar,
+      rowSelection: { onChange }
+    } = this.props;
     this.setState(() => ({
       showActionBar: actionBar && selectedRows.length > 0,
       showMultiSelect: actionBar && selectedRows.length > 0
@@ -113,7 +116,7 @@ class Table extends Component {
   };
 
   render() {
-    let { rowSelection, actionBar, onChange, children } = this.props;
+    let { rowSelection, actionBar, children } = this.props;
     let { showActionBar, showMultiSelect } = this.state;
 
     const renderContent = function(lastColumn) {
@@ -150,9 +153,8 @@ class Table extends Component {
      */
     const updatedRowSelection = rowSelection
       ? { ...rowSelection, onChange: this.onChange }
-      : onChange
-        ? { onChange: this.onChange }
-        : null;
+      : null;
+
     const antProps = updatedRowSelection
       ? {
           ...this.props,
@@ -165,9 +167,7 @@ class Table extends Component {
         };
     return (
       <MtTable showMultiSelect={showMultiSelect}>
-        <AntTable {...antProps} columns={columns}>
-          {children}
-        </AntTable>
+        <AntTable {...antProps}>{children}</AntTable>
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}
