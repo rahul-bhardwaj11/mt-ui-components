@@ -1,5 +1,5 @@
 // button ----------//
-%button {
+@mixin button {
   font-size: 14px;
   height: 32px;
   padding: 0px 12px;

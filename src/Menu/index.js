@@ -4,6 +4,7 @@ import AntMenu from 'antd/lib/menu';
 import 'antd/lib/menu/style/index.css';
 import StringToHTML from '../StringToHTML';
 import styled from 'styled-components';
+import mixins from '../styles/mixins';
 import theme from '../styles/theme';
 
 const MtMenu = styled.div`
@@ -140,7 +141,7 @@ const MtMenu = styled.div`
     a {
       color: ${theme.colors.LIGHT_BLUE};
       font-size: 12px;
-      ${theme.mixins.truncate('250px')};
+      ${mixins.truncate('250px')};
     }
   }
   .ant-menu-inline,

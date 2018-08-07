@@ -4,6 +4,7 @@ import AntButton from 'antd/lib/button';
 import 'antd/lib/button/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import mixins from '../styles/mixins.js';
 import Icon from '../Icon';
 
 const MtButton = styled.div`
@@ -13,9 +14,7 @@ const MtButton = styled.div`
   .ant-btn-default {
     border: 1px solid ${theme.colors.ALTO};
     color: #6f7583;
-    height: 32px;
-    padding: 0px 32px;
-    font-size: 14px;
+    ${mixins.h1()};
     &.ant-btn-sm {
       color: ${theme.colors.GREY};
       font-size: 12px;
