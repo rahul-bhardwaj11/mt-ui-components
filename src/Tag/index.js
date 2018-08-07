@@ -45,4 +45,5 @@ class Tag extends Component {
     );
   }
 }
+Tag.CheckableTag = AntTag.CheckableTag;
 export default Tag;
