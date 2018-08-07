@@ -3,46 +3,64 @@ import PropTypes from 'prop-types';
 import AntTable from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
 import styled from 'styled-components';
-
-// const MtHeader = styled.div`
-//   border-radius: 8px;
-//   color: #2a2e36;
-//   font-size: 14px;
-//   font-weight: 600;
-//   line-height: 20px;
-//   padding: 32px 32px 8px 32px;
-//   background-color: #ffffff;
-// `;
+import theme from '../styles/theme';
+import ActionBar from '../ActionBar';
 
 const MtTable = styled.div`
+  border-radius: 8px;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-
-  .ant-table {
-    color: #606369;
-    font-family: 'Open Sans';
-
-    &.ant-table-small {
-      border: 0px;
+  padding: 15px 8px;
+  counter-reset: rowNumber;
+  .ant-table-thead {
+    & > tr {
+      color: ${theme.colors.DARK_OUTER_SPACE};
+      & > th {
+        background-color: white;
+        border-bottom: 0px;
+      }
     }
-    .ant-table-body {
-      tr {
-        th {
-          padding: 16px 24px !important;
-          background-color: white;
-          border-top: none;
-          border-bottom: 1px solid #e8eaed;
-
-          &:first-child {
-            width: 0px !important;
-            padding: 0px 0px 0px 8px !important;
-          }
-
-          &:last-child {
-            width: 0px !important;
-            padding: 0px 0px 0px 8px !important;
-          }
+  }
+  .ant-table-row {
+    counter-increment: rowNumber;
+    &:hover {
+      .ant-table-selection-column {
+        ${props =>
+          !props.showMultiSelect &&
+          `&:before {
+          visibility: hidden;
+        }
+        & > span {
+          visibility: visible;
+        }`};
+      }
+    }
+  }
+  .ant-table-tbody {
+    .ant-table-selection-column {
+      ${props =>
+        !props.showMultiSelect &&
+        `&:before {
+        content: counter(rowNumber);
+        margin-left: 5px;
+        position: absolute;
+        color: ${theme.colors.OUTER_SPACE};
+        font-size: 12px;
+      }
+      & > span {
+        visibility: hidden;
+      }`};
+    }
+    & > tr {
+      color: ${theme.colors.DARK_OUTER_SPACE};
+      td {
+        border-bottom: 1px solid ${theme.colors.PEARL};
+        padding: 16px !important;
+      }
+      &:last-child {
+        td {
+          border-bottom: 0px;
         }
         td {
           padding: 12px 24px !important;
@@ -61,22 +79,12 @@ const MtTable = styled.div`
             border-bottom: none;
           }
 
-          &:last-child {
-            width: 0px !important;
-            padding: 0px 0px 0px 8px !important;
-            border-bottom: none;
-          }
-        }
-      }
-      tr:hover {
+  .ant-table-tbody {
+    & > tr {
+      &:hover {
         & > td {
-          background: #ddd;
+          background: ${theme.colors.PORCELAIN};
           cursor: pointer;
-        }
-      }
-      tr:last-child {
-        td {
-          border-bottom: 0px !important;
         }
       }
     }
@@ -85,23 +93,54 @@ const MtTable = styled.div`
 
 class Table extends Component {
   static propTypes = {
-    children: PropTypes.node.isRequired,
-    headerText: PropTypes.string,
-    columns: PropTypes.array
+    children: PropTypes.node,
+    actionBar: PropTypes.shape({
+      countText: PropTypes.string.isRequired,
+      actionItem: PropTypes.arrayOf(PropTypes.node)
+    }),
+    onChange: PropTypes.func,
+    rowSelection: PropTypes.object
+  };
+  state = {
+    showActionBar: false,
+    showMultiSelect: false
+  };
+
+  onChange = (selectedRowKeys, selectedRows) => {
+    let { actionBar, onChange } = this.props;
+    this.setState(() => ({
+      showActionBar: actionBar && selectedRows.length > 0,
+      showMultiSelect: actionBar && selectedRows.length > 0
+    }));
+    onChange && onChange(selectedRowKeys, selectedRows);
   };
 
   render() {
-    const columns = this.props.columns;
-    const emptyColumnFirst = { title: '', dataIndex: 'emptyFirst' };
-    const emptyColumnlast = { title: '', dataIndex: 'emptyLast' };
-
-    columns.unshift(emptyColumnFirst);
-    columns.push(emptyColumnlast);
-
+    let { rowSelection, actionBar, onChange, children } = this.props;
+    let { showActionBar, showMultiSelect } = this.state;
+    /**
+     * Check if rowSelection props is been passed, If yes override the onChange property of it.
+     * Also if onChange prop is passed and the rowSelection is not available, create a new rowSelection object with onChange method.
+     */
+    const updatedRowSelection = rowSelection
+      ? { ...rowSelection, onChange: this.onChange }
+      : onChange
+        ? { onChange: this.onChange }
+        : null;
+    const antProps = updatedRowSelection
+      ? {
+          ...this.props,
+          rowSelection: updatedRowSelection
+        }
+      : { ...this.props };
     return (
-      <MtTable>
-        {/* <MtHeader>{this.props.headerText}</MtHeader> */}
-        <AntTable {...this.props}>{this.props.children}</AntTable>
+      <MtTable showMultiSelect={showMultiSelect}>
+        <AntTable {...antProps}>{children}</AntTable>
+        {showActionBar && (
+          <ActionBar {...actionBar}>
+            {actionBar ? actionBar.actionItem : false}
+          </ActionBar>
+        )}
       </MtTable>
     );
   }
