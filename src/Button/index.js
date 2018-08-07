@@ -14,7 +14,7 @@ const MtButton = styled.div`
     border: 1px solid ${theme.colors.ALTO};
     color: #6f7583;
     height: 32px;
-    padding: 0px 12px;
+    padding: 0px 32px;
     font-size: 14px;
     &.ant-btn-sm {
       color: ${theme.colors.GREY};
