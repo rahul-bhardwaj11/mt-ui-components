@@ -6,19 +6,29 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 import ActionBar from '../ActionBar';
 
+const TdWrapper = styled.div`
+  padding: ${props => (props.last ? '12px 24px 12px' : '12px 0px 12px 24px')};
+  margin: 0px;
+`;
+
 const MtTable = styled.div`
   border-radius: 8px;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-  padding: 15px 8px;
   counter-reset: rowNumber;
+
   .ant-table-thead {
     & > tr {
       color: ${theme.colors.DARK_OUTER_SPACE};
       & > th {
         background-color: white;
-        border-bottom: 0px;
+        border-bottom: 1px solid ${theme.colors.PEARL};
+        padding: 16px 0px 16px 24px !important;
+      }
+      .emptyRow {
+        padding: 0px !important;
+        width: 8px;
       }
     }
   }
@@ -56,31 +66,18 @@ const MtTable = styled.div`
       color: ${theme.colors.DARK_OUTER_SPACE};
       td {
         border-bottom: 1px solid ${theme.colors.PEARL};
-        padding: 16px !important;
+        padding: 0px !important;
+      }
+      .emptyRow {
+        padding: 0px !important;
+        width: 8px;
+        border-bottom: none !important;
       }
       &:last-child {
         td {
           border-bottom: 0px;
         }
-        td {
-          padding: 12px 24px !important;
-          background-color: white;
-          border-bottom: 1px solid #e8eaed;
-
-          &:first-child {
-            width: 0px !important;
-            padding: 0px 0px 0px 8px !important;
-            border-bottom: none;
-          }
-
-          &:first-child {
-            width: 0px !important;
-            padding: 0px 0px 0px 8px !important;
-            border-bottom: none;
-          }
-
-  .ant-table-tbody {
-    & > tr {
+      }
       &:hover {
         & > td {
           background: ${theme.colors.PORCELAIN};
@@ -99,7 +96,8 @@ class Table extends Component {
       actionItem: PropTypes.arrayOf(PropTypes.node)
     }),
     onChange: PropTypes.func,
-    rowSelection: PropTypes.object
+    rowSelection: PropTypes.object,
+    columns: PropTypes.array
   };
   state = {
     showActionBar: false,
@@ -122,6 +120,39 @@ class Table extends Component {
     let { rowSelection, actionBar, children } = this.props;
     let { showActionBar, showMultiSelect } = this.state;
 
+    const renderContent = function(lastColumn) {
+      if (lastColumn) {
+        return value => {
+          return {
+            children: <TdWrapper last>{value}</TdWrapper>
+          };
+        };
+      }
+      return value => {
+        return {
+          children: <TdWrapper>{value}</TdWrapper>
+        };
+      };
+    };
+
+    this.props.columns.forEach((tableCell, index) => {
+      tableCell.render =
+        index === this.props.columns.length - 1
+          ? renderContent(true)
+          : renderContent(false);
+    });
+
+    const columns = [
+      { title: '', dataIndex: 'emptyFirst', className: 'emptyRow' },
+      ...this.props.columns,
+      { title: '', dataIndex: 'emptyLast', className: 'emptyRow' }
+    ];
+
+    /**
+     * Check if rowSelection props is been passed, If yes override the onChange property of it.
+     * Also if onChange prop is passed and the rowSelection is not available, create a new rowSelection object with onChange method.
+     */
+
     const updatedRowSelection = rowSelection
       ? { ...rowSelection, onChange: this.onChange }
       : null;
@@ -129,13 +160,19 @@ class Table extends Component {
     const antProps = updatedRowSelection
       ? {
           ...this.props,
-          rowSelection: updatedRowSelection
+          rowSelection: updatedRowSelection,
+          columns: columns
         }
-      : { ...this.props };
+      : {
+          ...this.props,
+          columns: columns
+        };
 
     return (
       <MtTable showMultiSelect={showMultiSelect}>
-        <AntTable {...antProps}>{children}</AntTable>
+        <AntTable {...antProps} columns={columns}>
+          {children}
+        </AntTable>
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}
