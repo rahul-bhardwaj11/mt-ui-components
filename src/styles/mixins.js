@@ -102,6 +102,13 @@ const mixins = {
       color: theme.colors.SILVER,
       lineHeight: '20px'
     }),
+  deleteLink: () =>
+    mixins.fontStack({
+      fontSize: '14px',
+      fontWeight: 600,
+      color: theme.colors.BITTERSWEET,
+      lineHeight: '20px'
+    }),
 
   // body text ----------//
 
