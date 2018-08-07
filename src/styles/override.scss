@@ -150,13 +150,13 @@
       border-top: 0px;
       .ant-btn {
         @include textBtn;
-        @extend %button;
+        @include button;
         color: #989ca6;
         min-width: 75px;
 
         &.ant-btn-primary {
           @include primaryBtn;
-          @extend %button;
+          @include button;
           color: #fff;
           &:hover {
             @include primaryBtnHover;
@@ -187,13 +187,13 @@
   .ant-popover-buttons {
     .ant-btn {
       @include textBtn;
-      @extend %button;
+      @include button;
       color: #989ca6;
       min-width: 75px;
 
       &.ant-btn-primary {
         @include primaryBtn;
-        @extend %button;
+        @include button;
         color: #fff;
         &:hover {
           @include primaryBtnHover;

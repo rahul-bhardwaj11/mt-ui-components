@@ -91,8 +91,8 @@ const MtButton = styled.div`
       padding: 0px 12px;
     }
     &:hover {
-      border: 1px solid #588ce0;
-      background: #588ce0;
+      border: 1px solid ${theme.colors.JODHPUR};
+      background: ${theme.colors.JODHPUR};
     }
     &:focus,
     &.active {

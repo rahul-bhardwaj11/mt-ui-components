@@ -1,5 +1,3 @@
-const mixins = require('./mixins');
-
 const theme = {
   base: '16px',
   spacing: '1rem',
@@ -21,9 +19,18 @@ const theme = {
     ALTO: '#DDD',
     PEARL: '#E8EAED',
     PORCELAIN: '#F5F6F7',
-    IVORY: '#F9F9FA'
+    IVORY: '#F9F9FA',
+    BITTERSWEET: '#FF6969',
+    KOROMIKO: '#FFC168',
+    SALMON: '#FF9169',
+    ELSALVA: '#9013FE',
+    ATHENSGRAY: '#565656',
+    TARA: '#D7F4DE',
+    SAZERAC: '#FFF3E1',
+    PEACH_CREAM: '#FFE9E1',
+    PIPPIN: '#FFE1E1',
+    FROG: '#E9D0FF'
   },
-  mixins: mixins,
   typography: {},
   breakpoints: {
     xs: '0em' /* 0px */,

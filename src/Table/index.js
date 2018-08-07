@@ -93,7 +93,10 @@ class Table extends Component {
   };
 
   onChange = (selectedRowKeys, selectedRows) => {
-    let { actionBar, onChange } = this.props;
+    let {
+      actionBar,
+      rowSelection: { onChange }
+    } = this.props;
     this.setState(() => ({
       showActionBar: actionBar && selectedRows.length > 0,
       showMultiSelect: actionBar && selectedRows.length > 0
@@ -102,23 +105,20 @@ class Table extends Component {
   };
 
   render() {
-    let { rowSelection, actionBar, onChange, children } = this.props;
+    let { rowSelection, actionBar, children } = this.props;
     let { showActionBar, showMultiSelect } = this.state;
-    /**
-     * Check if rowSelection props is been passed, If yes override the onChange property of it.
-     * Also if onChange prop is passed and the rowSelection is not available, create a new rowSelection object with onChange method.
-     */
+
     const updatedRowSelection = rowSelection
       ? { ...rowSelection, onChange: this.onChange }
-      : onChange
-        ? { onChange: this.onChange }
-        : null;
+      : null;
+
     const antProps = updatedRowSelection
       ? {
           ...this.props,
           rowSelection: updatedRowSelection
         }
       : { ...this.props };
+
     return (
       <MtTable showMultiSelect={showMultiSelect}>
         <AntTable {...antProps}>{children}</AntTable>
