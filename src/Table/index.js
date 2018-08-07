@@ -55,6 +55,7 @@ const MtTable = styled.div`
       color: ${theme.colors.DARK_OUTER_SPACE};
       td {
         border-bottom: 1px solid ${theme.colors.PEARL};
+        padding: 16px !important;
       }
       &:last-child {
         td {
