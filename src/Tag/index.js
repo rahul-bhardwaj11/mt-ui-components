@@ -8,24 +8,55 @@ import theme from '../styles/theme';
 const MtTag = styled.div`
   display: inline-block;
   .ant-tag {
-    color: rgba(0, 0, 0, 0.65);
-    border-radius: 16px;
+    color: ${theme.colors.OUTER_SPACE};
     font-size: 12px;
-    background: #f6f7f9;
-    color: ${theme.colors.DARK_OUTER_SPACE};
     line-height: 24px;
+    border-radius: 16px;
+    background: #fff;
     height: 24px;
     padding: 0 15px;
     margin-bottom: 12px;
     &:hover {
-      border: 1px solid #468ee5;
+      border: 1px solid ${theme.colors.SILVER};
       border-radius: 16px;
-      background-color: #e4effb;
+      background: #fff;
+      color: ${theme.colors.OUTER_SPACE};
+      .anticon-cross {
+        color: ${theme.colors.OUTER_SPACE};
+      }
+    }
+  }
+  .ant-tag-has-color {
+    color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+    border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
+    background: #fff;
+    &:hover {
+      border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
+      border-radius: 16px;
+      background-color: ${theme.colors.TROPICAL_BLUE};
       color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
     }
-    a {
-      &:hover {
-        color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+  }
+  .ant-tag-blue {
+    border: 1px solid ${theme.colors.ALTO};
+    border-radius: 16px;
+    background-color: ${theme.colors.PORCELAIN};
+    .anticon-cross {
+      color: ${theme.colors.SILVER};
+    }
+    &:hover {
+      border: 1px solid ${theme.colors.SILVER};
+      background-color: ${theme.colors.PORCELAIN};
+      .anticon-cross {
+        color: ${theme.colors.SILVER};
+      }
+    }
+    &:active {
+      color: ${theme.colors.DARK_OUTER_SPACE};
+      border: 1px solid ${theme.colors.SILVER};
+      background-color: ${theme.colors.PORCELAIN};
+      .anticon-cross {
+        color: ${theme.colors.DARK_OUTER_SPACE};
       }
     }
   }
@@ -45,5 +76,6 @@ class Tag extends Component {
     );
   }
 }
+
 Tag.CheckableTag = AntTag.CheckableTag;
 export default Tag;

@@ -212,4 +212,37 @@
       }
     }
   }
+
+    .ant-tag-checkable:not(.ant-tag-checkable-checked){
+      border-radius: 16px;
+      background: #fff;
+      color: get("colors.DARK_OUTER_SPACE");
+      border: 1px solid get("colors.ALTO");
+      line-height: 24px;
+      height: 24px;
+      padding: 0 15px;
+      margin-bottom: 10px;
+      &:hover {
+        border: 1px solid get("colors.TAG_HOVER_TEXT_COLOR");
+        border-radius: 16px;
+        background-color: get("colors.TROPICAL_BLUE");
+        color: get("colors.TAG_HOVER_TEXT_COLOR");
+    }
+  }
+  .ant-tag{
+    &.ant-tag-checkable{
+      &.ant-tag-checkable-checked{
+        line-height: 24px;
+        height: 24px;
+        padding: 0 15px;
+        margin-bottom: 10px;
+        border: 1px solid #468ee5;
+        border-radius: 16px;
+        background-color: #e4effb;
+        color: get("colors.TAG_HOVER_TEXT_COLOR");
+        
+        
+    }
+  }
+}
 }
