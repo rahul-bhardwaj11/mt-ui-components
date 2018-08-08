@@ -18,42 +18,41 @@ const MtTable = styled.div`
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   counter-reset: rowNumber;
 
-
-  .ant-table-fixed-header .ant-table-scroll {
-
-  }
-
-  // .ant-table-fixed-header .ant-table-scroll .ant-table-header {
-  //   padding: 0px;
-  // }
   .emptyRow {
     padding: 0px;
     width: 8px;
   }
-
-  .ant-table-thead > tr > th {
-    padding: 16px 0px 16px 24px;
-    &:first-child, &:last-child{
-      padding: 0px 0px 0px 8px;
-    }
-  }
-  
+    
   .ant-table-tbody > tr > td {
     padding: 0px;
   }
 
-  // .ant-table-fixed-header > .ant-table-content > .ant-table-fixed-left > .ant-table-header > table > tr {
-  //   th {
-  //     padding: 0px;
-  //   }
-  // }
-  // .ant-table-fixed-header > .ant-table-content > .ant-table-fixed-right > table > tr ,
-  // .ant-table-fixed-header > .ant-table-content > .ant-table-scroll > table > tr {
-  //   th, td {
-  //     padding: 0px;
-  //   }
-  // }
-  
+  .ant-table-fixed-header > .ant-table-content > .ant-table-scroll > .ant-table-header > table {
+    .ant-table-thead > tr > th {
+      padding: 16px 0px 16px 24px;
+      &:first-child{
+        padding: 0px 0px 0px 8px;
+      }
+    }
+  }
+
+  .ant-table-fixed-header > .ant-table-content > .ant-table-fixed-left > .ant-table-header > table {
+    .ant-table-thead > tr > th {
+      padding: 16px 0px 16px 24px;
+      &:first-child{
+        padding: 0px 0px 0px 8px;
+      }
+    }
+  }
+  .ant-table-fixed-header > .ant-table-content > .ant-table-fixed-right > .ant-table-header > table {
+    .ant-table-thead > tr > th {
+      padding: 16px 0px 16px 24px;
+      &:last-child{
+        padding: 0px 0px 0px 8px;
+      }
+    }
+  }
+
   .ant-table-middle > .ant-table-content > .ant-table-body > table,
   .ant-table-small > .ant-table-content > .ant-table-body > table {
     padding: 0px;
@@ -143,7 +142,8 @@ class Table extends Component {
     }),
     onChange: PropTypes.func,
     rowSelection: PropTypes.object,
-    columns: PropTypes.array
+    columns: PropTypes.array,
+    size: PropTypes.string
   };
   state = {
     showActionBar: false,
@@ -200,18 +200,17 @@ class Table extends Component {
       {
         title: '',
         dataIndex: 'emptyFirst',
-        className: 'emptyRow'
-        //fixed: this.props.size ? false : 'left'
+        className: 'emptyRow',
+        fixed: this.props.size ? false : 'left'
       },
       ...this.props.columns,
       {
         title: '',
         dataIndex: 'emptyLast',
-        className: 'emptyRow'
-        //fixed: this.props.size ? false : 'right'
+        className: 'emptyRow',
+        fixed: this.props.size ? false : 'right'
       }
     ];
-    //console.log(columns);
 
     /**
      * Check if rowSelection props is been passed, If yes override the onChange property of it.
