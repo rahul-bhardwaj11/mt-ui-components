@@ -5,29 +5,9 @@ import Tag from './index';
 import { withInfo } from '@storybook/addon-info';
 import { withKnobs, text } from '@storybook/addon-knobs';
 
-const CheckableTag = Tag.CheckableTag;
+// const CheckableTag = Tag.CheckableTag;
 const stories = storiesOf('Tag', module);
 stories.addDecorator(withKnobs);
-
-class SelectedTag extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      checked: true
-    };
-  }
-  handleChange = checked => {
-    this.setState({ checked });
-  };
-
-  render() {
-    return (
-      <CheckableTag checked={this.state.checked} onChange={this.handleChange}>
-        {text('children', 'tag')}
-      </CheckableTag>
-    );
-  }
-}
 
 stories
   .add(
@@ -37,18 +17,48 @@ stories
     ))
   )
   .add(
-    'Selected tag',
-    withInfo('Basic usage of the Selected tag')(() => <SelectedTag />)
+    'Applied tag',
+    withInfo('Basic usage of the Default tag with applied')(() => (
+      <Tag applied={true}>{text('children', 'tag')}</Tag>
+    ))
   )
   .add(
-    'Closeable Tag ',
-    withInfo('Basic usage of tag with close option')(() => (
-      <Tag closable color="blue">
-        Tag Close
+    'Add tag',
+    withInfo('Basic usage of the Default tag add')(() => (
+      <Tag type="add">{text('children', 'tag')}</Tag>
+    ))
+  )
+  .add(
+    'Added tag',
+    withInfo('Basic usage of the Default tag added')(() => (
+      <Tag type="added">{text('children', 'tag')}</Tag>
+    ))
+  )
+  .add(
+    'Selection tag',
+    withInfo('Basic usage of the Default tag selection')(() => (
+      <Tag type="selection">{text('children', 'tag')}</Tag>
+    ))
+  )
+  .add(
+    'Selected tag',
+    withInfo('Basic usage of the Default tag selected')(() => (
+      <Tag checkable>{text('children', 'tag')}</Tag>
+    ))
+  )
+  .add(
+    'Action tag',
+    withInfo('Basic usage of the Default tag action')(() => (
+      <Tag action={true} type="action">
+        {text('children', 'tag')}
       </Tag>
     ))
   )
   .add(
-    'Active tags',
-    withInfo('Basic usage of the active tag')(() => <Tag color>Active</Tag>)
+    'Disabled tag',
+    withInfo('Basic usage of the Default tag Disabled')(() => (
+      <Tag disabled={true} type="disabled">
+        {text('children', 'tag')}
+      </Tag>
+    ))
   );
