@@ -19,7 +19,44 @@ const MtTable = styled.div`
   counter-reset: rowNumber;
 
 
-  .ant-table-middle > .ant-table-content > .ant-table-body > table {
+  .ant-table-fixed-header .ant-table-scroll {
+
+  }
+
+  // .ant-table-fixed-header .ant-table-scroll .ant-table-header {
+  //   padding: 0px;
+  // }
+  .emptyRow {
+    padding: 0px;
+    width: 8px;
+  }
+
+  .ant-table-thead > tr > th {
+    padding: 16px 0px 16px 24px;
+    &:first-child, &:last-child{
+      padding: 0px 0px 0px 8px;
+    }
+  }
+  
+  .ant-table-tbody > tr > td {
+    padding: 0px;
+  }
+
+  // .ant-table-fixed-header > .ant-table-content > .ant-table-fixed-left > .ant-table-header > table > tr {
+  //   th {
+  //     padding: 0px;
+  //   }
+  // }
+  // .ant-table-fixed-header > .ant-table-content > .ant-table-fixed-right > table > tr ,
+  // .ant-table-fixed-header > .ant-table-content > .ant-table-scroll > table > tr {
+  //   th, td {
+  //     padding: 0px;
+  //   }
+  // }
+  
+  .ant-table-middle > .ant-table-content > .ant-table-body > table,
+  .ant-table-small > .ant-table-content > .ant-table-body > table {
+    padding: 0px;
     .ant-table-thead {
       & > tr {
         color: ${theme.colors.DARK_OUTER_SPACE};
@@ -145,17 +182,36 @@ class Table extends Component {
     };
 
     this.props.columns.forEach((tableCell, index) => {
-      tableCell.render =
-        index === this.props.columns.length - 1
-          ? renderContent(true)
-          : renderContent(false);
+      if (!tableCell.render) {
+        tableCell.render =
+          index === this.props.columns.length - 1
+            ? renderContent(true)
+            : renderContent(false);
+      }
+      // else{
+      //   const tdContent = tableCell.render();
+      //   tableCell.render = () => {
+      //       return (<TdWrapper last>{tdContent}</TdWrapper>);
+      //   }
+      // }
     });
 
     const columns = [
-      { title: '', dataIndex: 'emptyFirst', className: 'emptyRow' },
+      {
+        title: '',
+        dataIndex: 'emptyFirst',
+        className: 'emptyRow'
+        //fixed: this.props.size ? false : 'left'
+      },
       ...this.props.columns,
-      { title: '', dataIndex: 'emptyLast', className: 'emptyRow' }
+      {
+        title: '',
+        dataIndex: 'emptyLast',
+        className: 'emptyRow'
+        //fixed: this.props.size ? false : 'right'
+      }
     ];
+    //console.log(columns);
 
     /**
      * Check if rowSelection props is been passed, If yes override the onChange property of it.
