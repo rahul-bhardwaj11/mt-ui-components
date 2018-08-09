@@ -25,19 +25,19 @@ stories
   .add(
     'Add tag',
     withInfo('Basic usage of the Default tag add')(() => (
-      <Tag type="add">{text('children', 'tag')}</Tag>
+      <Tag type="add">{text('children', 'Add')}</Tag>
     ))
   )
   .add(
     'Added tag',
     withInfo('Basic usage of the Default tag added')(() => (
-      <Tag type="added">{text('children', 'tag')}</Tag>
+      <Tag type="added">{text('children', 'Cancel')}</Tag>
     ))
   )
   .add(
     'Selection tag',
     withInfo('Basic usage of the Default tag selection')(() => (
-      <Tag type="selection">{text('children', 'tag')}</Tag>
+      <Tag type="selection">{text('children', 'Tick')}</Tag>
     ))
   )
   .add(
