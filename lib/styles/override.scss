@@ -178,7 +178,7 @@
   }
 
   .ant-popover-message-title {
-    padding-left: 0px;
+    padding-left: 0px !important;
     @include blackLink;
   }
   .ant-popover-message > .anticon {
@@ -212,4 +212,6 @@
       }
     }
   }
+
+  
 }

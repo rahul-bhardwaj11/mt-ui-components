@@ -200,6 +200,7 @@
       }
     }
   }
+  // func for css  padding
 
   @for $p from 1 through 10 {
     @each $key in L, R, T, B {

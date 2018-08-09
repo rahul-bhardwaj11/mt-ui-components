@@ -272,9 +272,6 @@ const typeMap = {
   primary: 'primary',
   secondary: 'default',
   tertiary: 'dashed',
-  pills: 'pills',
-  pillsDefault: 'pillsDefault',
-  pillsPrimary: 'pillsPrimary',
   link: 'link',
   text: 'text',
   edit: 'edit'
@@ -287,9 +284,6 @@ class Button extends Component {
       'primary',
       'default',
       'dashed',
-      'pills',
-      'pillsDefault',
-      'pillsPrimary',
       'link',
       'text',
       'edit'
