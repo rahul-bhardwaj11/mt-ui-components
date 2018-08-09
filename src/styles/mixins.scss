@@ -19,10 +19,10 @@
 
 // headings ----------//
 @mixin fontStack(
-  $fontSize: '14px',
+  $fontSize: '13px',
   $fontWeight: '600',
   $color: '#2A2E36',
-  $lineHeight: '22px'
+  $lineHeight: '18px'
 ) {
   font-size: $fontSize;
   font-weight: $fontWeight;
@@ -81,11 +81,9 @@
 @mixin smallBlackLink() {
   @include fontStack(12px, normal, get('colors.SHARK'), 16px);
 }
-
 @mixin smallDarkLink() {
   @include fontStack(12px, normal, get('colors.DARK_OUTER_SPACE'), 16px);
 }
-
 @mixin smallGreyLink() {
   @include fontStack(12px, normal, get('colors.OUTER_SPACE'), 16px);
 }

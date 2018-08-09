@@ -12,15 +12,15 @@ const mixins = {
     background-color: ${theme.colors.LIGHT_BLUE};
   `,
 
-  // primaryBtnHover: () => `
-  //   border: 1px solid get('colors.JODHPUR');
-  //   background-color: get('colors.JODHPUR');
-  // `,
+  primaryBtnHover: () => `
+    border: 1px solid get('colors.JODHPUR');
+    background-color: get('colors.JODHPUR');
+  `,
 
-  // textBtn: () => `
-  //   border: 1px dashed transparent;
-  //   background-color: transparent;
-  // `,
+  textBtn: () => `
+    border: 1px dashed transparent;
+    background-color: transparent;
+  `,
 
   fontStack: ({
     fontSize = '14px',
