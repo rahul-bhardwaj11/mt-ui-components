@@ -9,20 +9,12 @@ import Select from '../Select';
 
 const stories = storiesOf('Table', module);
 stories.addDecorator(withKnobs);
+const { Column } = Table;
 
 const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'columnFirst'
-  },
-  {
-    title: ' ',
-    dataIndex: 'columnSecond'
-  },
-  {
-    title: ' ',
-    dataIndex: 'columnThird'
-  }
+  <Column key="columnFirst" title={'column1'} dataIndex={'columnFirst'} />,
+  <Column key="columnSecond" title={'column2'} dataIndex={'columnSecond'} />,
+  <Column key="columnThird" title={'column3'} dataIndex={'columnThird'} />
 ];
 const options = [
   { key: '1', content: 'First Item' },
@@ -128,22 +120,54 @@ stories
     'Table Small',
     withInfo('Adding Table small')(() => (
       <Table
-        columns={columns}
+        rowSelection={{}}
         dataSource={data}
         size="small"
         pagination={false}
-      />
+        actionBar={{
+          countText: 'hahahaa',
+          actionItem: ['<div>kakakja</div>']
+        }}
+      >
+        {columns}{' '}
+      </Table>
+    ))
+  )
+  .add(
+    'Table Custom padding',
+    withInfo('Adding Table small')(() => (
+      <Table
+        rowSelection={{}}
+        dataSource={data}
+        size="small"
+        pagination={false}
+        headerCellPadding={{
+          pTop: '10px',
+          pRight: '0',
+          pBottom: '10px',
+          pLeft: '30px'
+        }}
+        contentCellPadding={{
+          pTop: '20px',
+          pRight: '0',
+          pBottom: '20px',
+          pLeft: '40px'
+        }}
+        actionBar={{
+          countText: 'hahahaa',
+          actionItem: ['<div>kakakja</div>']
+        }}
+      >
+        {columns}{' '}
+      </Table>
     ))
   )
   .add(
     'Table Middle',
     withInfo('Adding Table middle')(() => (
-      <Table
-        columns={columns}
-        dataSource={data}
-        size="middle"
-        pagination={false}
-      />
+      <Table dataSource={data} size="middle" pagination={false}>
+        {columns}
+      </Table>
     ))
   )
 

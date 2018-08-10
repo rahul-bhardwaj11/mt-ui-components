@@ -25,17 +25,12 @@ function boxShadowWithLevel(level) {
 const Elevation = styled.div`
   border: ${props =>
     props.level1 ? '1px solid #E7E8EC' : '1px solid rgba(205,210,217,0.5)'};
-  border-radius: 4px;
+  border-radius: ${({ borderRadius = '4px' }) => borderRadius};
   background-color: #ffffff;
+  box-sizing: border-box;
   box-shadow: ${props => boxShadowWithLevel(props.level)};
+  padding: ${({ wrapperPadding }) => wrapperPadding};
+  width: ${({ wrapperWidth }) => wrapperWidth};
 `;
 
-// function button(type){
-//   let button;
-
-//   switch (type) {
-//     case 1:
-
-//   }
-// }
 export default Elevation;
