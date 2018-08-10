@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import PropTypes from 'prop-types';
 
 function boxShadowWithLevel(level) {
   let boxShadow;
@@ -29,8 +30,15 @@ const Elevation = styled.div`
   background-color: #ffffff;
   box-sizing: border-box;
   box-shadow: ${props => boxShadowWithLevel(props.level)};
-  padding: ${({ wrapperPadding }) => wrapperPadding};
-  width: ${({ wrapperWidth }) => wrapperWidth};
+  padding: ${({ padding }) => padding};
+  width: ${({ width }) => width};
 `;
+
+Elevation.propTypes = {
+  width: PropTypes.string,
+  padding: PropTypes.string,
+  borderRadius: PropTypes.string,
+  level: PropTypes.number
+};
 
 export default Elevation;

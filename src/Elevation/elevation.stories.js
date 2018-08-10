@@ -11,7 +11,7 @@ stories.addDecorator(withKnobs);
 stories.add(
   'Elevation',
   withInfo('Basic usage Elevation')(() => (
-    <Elevation wrapperPadding="100px" wrapperWidth="400px" level={1}>
+    <Elevation padding="100px" width="400px" level={1}>
       Hello All
     </Elevation>
   ))
