@@ -78,7 +78,7 @@ const MtTable = styled.div`
             return `${pTop} ${pRight} ${pBottom}  ${pLeft}`;
           }};
           &:last-child {
-            ${props => {
+            padding: ${props => {
               let {
                 contentCellPadding: {
                   pTop,
@@ -108,10 +108,10 @@ const MtTable = styled.div`
                 pLeft
               } = DEFAULT_TD_PADDING
             } = props;
-            return `${pTop} ${pRight} ${pBottom}  ${pLeft}`;
+            return `${pTop} ${pRight} ${pBottom} ${pLeft}`;
           }};
           &:last-child {
-            ${props => {
+            padding: ${props => {
               let {
                 contentCellPadding: {
                   pTop,
@@ -119,7 +119,7 @@ const MtTable = styled.div`
                   pLeft
                 } = DEFAULT_TD_PADDING
               } = props;
-              return `${pTop} ${pLeft} ${pBottom}  ${pLeft}`;
+              return `${pTop} ${pLeft} ${pBottom} ${pLeft}`;
             }};
           }
         }
@@ -171,10 +171,10 @@ const MtTable = styled.div`
                 pLeft
               } = DEFAULT_TD_PADDING
             } = props;
-            return `${pTop} ${pRight} ${pBottom}  ${pLeft}`;
+            return `${pTop} ${pRight} ${pBottom} ${pLeft}`;
           }};
           &:last-child {
-            ${props => {
+            padding: ${props => {
               let {
                 contentCellPadding: {
                   pTop,
@@ -182,7 +182,7 @@ const MtTable = styled.div`
                   pLeft
                 } = DEFAULT_TD_PADDING
               } = props;
-              return `${pTop} ${pLeft} ${pBottom}  ${pLeft}`;
+              return `${pTop} ${pLeft} ${pBottom} ${pLeft}`;
             }};
           }
         }

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../styles/theme';
 
 function boxShadowWithLevel(level) {
   let boxShadow;
@@ -23,8 +24,7 @@ function boxShadowWithLevel(level) {
 }
 
 const Elevation = styled.div`
-  border: ${props =>
-    props.level1 ? '1px solid #E7E8EC' : '1px solid rgba(205,210,217,0.5)'};
+  border: ${theme.colors.PEARL};
   border-radius: ${({ borderRadius = '4px' }) => borderRadius};
   background-color: #ffffff;
   box-sizing: border-box;
