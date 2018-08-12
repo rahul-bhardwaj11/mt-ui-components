@@ -1,11 +1,9 @@
 import React from 'react';
-
 import { storiesOf } from '@storybook/react';
 import Tag from './index';
 import { withInfo } from '@storybook/addon-info';
 import { withKnobs, text } from '@storybook/addon-knobs';
 
-// const CheckableTag = Tag.CheckableTag;
 const stories = storiesOf('Tag', module);
 stories.addDecorator(withKnobs);
 
@@ -49,16 +47,12 @@ stories
   .add(
     'Action tag',
     withInfo('Basic usage of the Default tag action')(() => (
-      <Tag action={true} type="action">
-        {text('children', 'tag')}
-      </Tag>
+      <Tag type="action">{text('children', 'tag')}</Tag>
     ))
   )
   .add(
     'Disabled tag',
     withInfo('Basic usage of the Default tag Disabled')(() => (
-      <Tag disabled={true} type="disabled">
-        {text('children', 'tag')}
-      </Tag>
+      <Tag disabled={true}>{text('children', 'tag')}</Tag>
     ))
   );
