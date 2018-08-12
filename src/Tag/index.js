@@ -4,7 +4,10 @@ import AntTag from 'antd/lib/tag';
 import 'antd/lib/tag/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
-import Icon from '../Icon';
+import add from './assests/add.svg';
+import tick from './assests/tick.svg';
+import cancel from './assests/cancel.svg';
+// import Icon from '../Icon';
 
 const DefaultTag = styled.div`
   display: inline-block;
@@ -40,7 +43,7 @@ const DefaultTag = styled.div`
     margin-bottom: 10px;
     border: 1px solid #468ee5;
     border-radius: 16px;
-    background-color: #e4effb;
+    background-color: ${theme.colors.TROPICAL_BLUE};
     color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
   }
   .ant-tag {
@@ -63,13 +66,22 @@ const DefaultTag = styled.div`
       }
     }
   }
+  .tagIcons {
+    margin-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    img {
+      vertical-align: middle;
+      margin-top: -4px;
+    }
+  }
 `;
 
 const ActionTag = styled.div`
   .ant-tag {
     border-radius: 16px;
-    color: #4d7cc7;
-    border: 1px solid #4d7cc7;
+    color: ${theme.colors.INDIGO};
+    border: 1px solid ${theme.colors.INDIGO};
     background-color: #ffffff;
     font-size: 12px;
     line-height: 24px;
@@ -82,9 +94,9 @@ const ActionTag = styled.div`
 const AppliedTag = styled.div`
   .ant-tag {
     border-radius: 16px;
-    color: #4d7cc7;
-    border: 1px solid #4d7cc7;
-    background-color: #e4effb;
+    color: ${theme.colors.INDIGO};
+    border: 1px solid ${theme.colors.INDIGO};
+    background-color: ${theme.colors.TROPICAL_BLUE};
     font-size: 12px;
     line-height: 24px;
     border-radius: 16px;
@@ -97,8 +109,8 @@ const AppliedTag = styled.div`
 const DisabledTag = styled.div`
   .ant-tag {
     border-radius: 16px;
-    color: #bbbbbb;
-    border: 1px solid #e8eaed;
+    color: ${theme.colors.SILVER};
+    border: 1px solid ${theme.colors.PEARL};
     background-color: #ffffff;
     font-size: 12px;
     line-height: 24px;
@@ -195,7 +207,10 @@ class Tag extends Component {
           <WrappedTag>
             <AntTagComponent>
               {children}
-              <Icon type="edit" className="editIcon" />
+              <span className="tagIcons">
+                <img src={add} width="10" className="img" />
+              </span>
+              {/* <Icon type="edit" className="editIcon" /> */}
             </AntTagComponent>
           </WrappedTag>
         );
@@ -205,7 +220,10 @@ class Tag extends Component {
           <WrappedTag>
             <AntTagComponent {...this.props}>
               {children}
-              <Icon type="cross" />
+              <span className="tagIcons">
+                <img src={cancel} width="8" />
+              </span>
+              {/* <Icon type="cross" /> */}
             </AntTagComponent>
           </WrappedTag>
         );
@@ -215,7 +233,10 @@ class Tag extends Component {
           <WrappedTag>
             <AntTagComponent {...this.props}>
               {children}
-              <Icon type="tick" />
+              <span className="tagIcons">
+                <img src={tick} width="10" />
+              </span>
+              {/* <Icon type="tick" /> */}
             </AntTagComponent>
           </WrappedTag>
         );

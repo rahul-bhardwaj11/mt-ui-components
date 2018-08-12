@@ -6,7 +6,6 @@ import { boolean, withKnobs, text } from '@storybook/addon-knobs';
 
 const stories = storiesOf('CheckBox', module);
 stories.addDecorator(withKnobs);
-
 stories
   .add(
     'Default CheckBox',
