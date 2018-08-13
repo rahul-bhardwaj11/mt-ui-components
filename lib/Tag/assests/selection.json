@@ -1,0 +1,126 @@
+{
+  "IcoMoonType": "selection",
+  "icons": [
+    {
+      "icon": {
+        "paths": [
+          "M455.094 455.111v-398.222c0-31.419 25.47-56.889 56.889-56.889s56.889 25.47 56.889 56.889v398.222h398.239c31.419 0 56.889 25.47 56.889 56.889s-25.47 56.889-56.889 56.889h-398.239v398.222c0 31.419-25.47 56.889-56.889 56.889s-56.889-25.47-56.889-56.889v-398.222h-398.205c-31.419 0-56.889-25.47-56.889-56.889s25.47-56.889 56.889-56.889h398.205z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "add"
+        ]
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 99,
+        "id": 2,
+        "name": "add",
+        "prevSize": 32,
+        "code": 59648
+      },
+      "setIdx": 0,
+      "setId": 0,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M408.56 512l-387.137-387.137c-28.564-28.564-28.564-74.876 0-103.44s74.876-28.564 103.44 0l387.137 387.137 387.137-387.137c28.564-28.564 74.876-28.564 103.44 0s28.564 74.876 0 103.44l-387.137 387.137 387.137 387.137c28.564 28.564 28.564 74.876 0 103.44s-74.876 28.564-103.44 0l-387.137-387.137-387.137 387.137c-28.564 28.564-74.876 28.564-103.44 0s-28.564-74.876 0-103.44l387.137-387.137z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "cancel"
+        ]
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 100,
+        "id": 1,
+        "name": "cancel",
+        "prevSize": 32,
+        "code": 59649
+      },
+      "setIdx": 0,
+      "setId": 0,
+      "iconIdx": 1
+    },
+    {
+      "icon": {
+        "paths": [
+          "M476.613 829.827l659.888-804.239c24.755-30.171 68.905-34.247 98.612-9.105s33.72 69.982 8.965 100.153l-700.166 853.327c-22.907 27.918-62.854 33.802-92.626 13.644l-420.099-284.442c-32.175-21.785-40.869-65.935-19.419-98.613s64.921-41.507 97.096-19.723l367.751 248.998z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "width": 1260,
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "tick"
+        ]
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 101,
+        "id": 0,
+        "name": "tick",
+        "prevSize": 32,
+        "code": 59650
+      },
+      "setIdx": 0,
+      "setId": 0,
+      "iconIdx": 2
+    }
+  ],
+  "height": 1024,
+  "metadata": {
+    "name": "icomoon"
+  },
+  "preferences": {
+    "showGlyphs": true,
+    "showQuickUse": true,
+    "showQuickUse2": true,
+    "showSVGs": true,
+    "fontPref": {
+      "prefix": "icon-",
+      "metadata": {
+        "fontFamily": "icomoon"
+      },
+      "metrics": {
+        "emSize": 1024,
+        "baseline": 6.25,
+        "whitespace": 50
+      },
+      "embed": false
+    },
+    "imagePref": {
+      "prefix": "icon-",
+      "png": true,
+      "useClassSelector": true,
+      "color": 0,
+      "bgColor": 16777215,
+      "classSelector": ".icon"
+    },
+    "historySize": 50,
+    "showCodes": true,
+    "gridSize": 16
+  }
+}
