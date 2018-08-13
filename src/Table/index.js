@@ -4,73 +4,199 @@ import AntTable from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import mixins from '../styles/mixins.js';
 import ActionBar from '../ActionBar';
 
+const DEFAULT_TH_PADDING = {
+  pTop: '16px',
+  pRight: '0',
+  pBottom: '16px',
+  pLeft: '24px'
+};
+
+const DEFAULT_TD_PADDING = {
+  pTop: '12px',
+  pRight: '0',
+  pBottom: '12px',
+  pLeft: '24px'
+};
+
 const MtTable = styled.div`
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-  padding: 15px 8px;
   counter-reset: rowNumber;
-  .ant-table-thead {
-    & > tr {
-      color: ${theme.colors.DARK_OUTER_SPACE};
-      & > th {
-        background-color: white;
-        border-bottom: 0px;
+
+  .ant-table-default > .ant-table-content > .ant-table-body > table,
+  .ant-table-middle > .ant-table-content > .ant-table-body > table,
+  .ant-table-small > .ant-table-content > .ant-table-body > table,
+  .ant-table-default
+    > .ant-table-content
+    > .ant-table-scroll
+    > .ant-table-header
+    > .ant-table-fixed,
+  .ant-table-default
+    > .ant-table-content
+    > .ant-table-scroll
+    > .ant-table-body
+    > .ant-table-fixed,
+  .ant-table-default
+    > .ant-table-content
+    > .ant-table-fixed-left
+    > .ant-table-header
+    > .ant-table-fixed,
+  .ant-table-default
+    > .ant-table-content
+    > .ant-table-fixed-left
+    > .ant-table-body
+    > .ant-table-fixed,
+  .ant-table-default
+    > .ant-table-content
+    > .ant-table-fixed-right
+    > .ant-table-header
+    > .ant-table-fixed,
+  .ant-table-default
+    > .ant-table-content
+    > .ant-table-fixed-right
+    > .ant-table-body
+    > .ant-table-fixed {
+    padding: 0px;
+    .ant-table-thead {
+      & > tr {
+        color: ${theme.colors.DARK_OUTER_SPACE};
+        & > th {
+          ${mixins.smallDarkLink()};
+          background-color: white;
+          border-bottom: 1px solid ${theme.colors.ALTO};
+          padding: ${props => {
+            debugger; //eslint-disable-line
+            let {
+              contentCellPadding: {
+                pTop,
+                pRight,
+                pBottom,
+                pLeft
+              } = DEFAULT_TH_PADDING
+            } = props;
+            return `${pTop} ${pRight} ${pBottom}  ${pLeft}`;
+          }};
+          &:last-child {
+            padding: ${props => {
+              let {
+                contentCellPadding: {
+                  pTop,
+                  pBottom,
+                  pLeft
+                } = DEFAULT_TH_PADDING
+              } = props;
+              return `${pTop} ${pLeft} ${pBottom}  ${pLeft}`;
+            }};
+          }
+        }
       }
     }
-  }
-  .ant-table-row {
-    counter-increment: rowNumber;
-    &:hover {
+    .ant-table-tbody {
+      & > tr {
+        color: ${theme.colors.DARK_OUTER_SPACE};
+        & > td {
+          ${mixins.blackText()};
+          background-color: white;
+          border-bottom: 1px solid ${theme.colors.PEARL};
+          padding: ${props => {
+            let {
+              contentCellPadding: {
+                pTop,
+                pRight,
+                pBottom,
+                pLeft
+              } = DEFAULT_TD_PADDING
+            } = props;
+            return `${pTop} ${pRight} ${pBottom} ${pLeft}`;
+          }};
+          &:last-child {
+            padding: ${props => {
+              let {
+                contentCellPadding: {
+                  pTop,
+                  pBottom,
+                  pLeft
+                } = DEFAULT_TD_PADDING
+              } = props;
+              return `${pTop} ${pLeft} ${pBottom} ${pLeft}`;
+            }};
+          }
+        }
+      }
+    }
+
+    .ant-table-row {
+      counter-increment: rowNumber;
+      &:hover {
+        .ant-table-selection-column {
+          ${props =>
+            !props.showMultiSelect &&
+            `&:before {
+            visibility: hidden;
+          }
+          & > span {
+            visibility: visible;
+          }`};
+        }
+      }
+    }
+
+    .ant-table-tbody {
       .ant-table-selection-column {
         ${props =>
           !props.showMultiSelect &&
           `&:before {
-          visibility: hidden;
+          content: counter(rowNumber);
+          margin-left: 5px;
+          position: absolute;
+          color: ${theme.colors.OUTER_SPACE};
+          font-size: 12px;
         }
         & > span {
-          visibility: visible;
+          visibility: hidden;
         }`};
       }
-    }
-  }
-  .ant-table-tbody {
-    .ant-table-selection-column {
-      ${props =>
-        !props.showMultiSelect &&
-        `&:before {
-        content: counter(rowNumber);
-        margin-left: 5px;
-        position: absolute;
-        color: ${theme.colors.OUTER_SPACE};
-        font-size: 12px;
-      }
-      & > span {
-        visibility: hidden;
-      }`};
-    }
-    & > tr {
-      color: ${theme.colors.DARK_OUTER_SPACE};
-      td {
-        border-bottom: 1px solid ${theme.colors.PEARL};
-        padding: 16px !important;
-      }
-      &:last-child {
+      & > tr {
+        color: ${theme.colors.DARK_OUTER_SPACE};
         td {
-          border-bottom: 0px;
+          ${mixins.blackText()};
+          border-bottom: 1px solid ${theme.colors.PEARL};
+          padding: ${props => {
+            let {
+              contentCellPadding: {
+                pTop,
+                pRight,
+                pBottom,
+                pLeft
+              } = DEFAULT_TD_PADDING
+            } = props;
+            return `${pTop} ${pRight} ${pBottom} ${pLeft}`;
+          }};
+          &:last-child {
+            padding: ${props => {
+              let {
+                contentCellPadding: {
+                  pTop,
+                  pBottom,
+                  pLeft
+                } = DEFAULT_TD_PADDING
+              } = props;
+              return `${pTop} ${pLeft} ${pBottom} ${pLeft}`;
+            }};
+          }
         }
-      }
-    }
-  }
-
-  .ant-table-tbody {
-    & > tr {
-      &:hover {
-        & > td {
-          background: ${theme.colors.PORCELAIN};
-          cursor: pointer;
+        &:hover {
+          & > td {
+            background: ${theme.colors.PORCELAIN};
+            cursor: pointer;
+          }
+        }
+        &:active {
+          & > td {
+            background: ${theme.colors.TROPICAL_BLUE};
+            cursor: pointer;
+          }
         }
       }
     }
@@ -85,7 +211,9 @@ class Table extends Component {
       actionItem: PropTypes.arrayOf(PropTypes.node)
     }),
     onChange: PropTypes.func,
-    rowSelection: PropTypes.object
+    rowSelection: PropTypes.object,
+    columns: PropTypes.array,
+    size: PropTypes.string
   };
   state = {
     showActionBar: false,
@@ -106,8 +234,13 @@ class Table extends Component {
 
   render() {
     let { rowSelection, actionBar, children } = this.props;
+
     let { showActionBar, showMultiSelect } = this.state;
 
+    /**
+     * Check if rowSelection props is been passed, If yes override the onChange property of it.
+     * Also if onChange prop is passed and the rowSelection is not available, create a new rowSelection object with onChange method.
+     */
     const updatedRowSelection = rowSelection
       ? { ...rowSelection, onChange: this.onChange }
       : null;
@@ -117,10 +250,11 @@ class Table extends Component {
           ...this.props,
           rowSelection: updatedRowSelection
         }
-      : { ...this.props };
-
+      : {
+          ...this.props
+        };
     return (
-      <MtTable showMultiSelect={showMultiSelect}>
+      <MtTable showMultiSelect={showMultiSelect} {...this.props}>
         <AntTable {...antProps}>{children}</AntTable>
         {showActionBar && (
           <ActionBar {...actionBar}>
@@ -131,4 +265,5 @@ class Table extends Component {
     );
   }
 }
+Table.Column = AntTable.Column;
 export default Table;

@@ -43,16 +43,18 @@ const DefaultTag = styled.div`
     margin-bottom: 10px;
     border: 1px solid #468ee5;
     border-radius: 16px;
-    background-color: ${theme.colors.TROPICAL_BLUE};
-    color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+    //background-color: ${theme.colors.TROPICAL_BLUE};
+    //color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
   }
   .ant-tag {
     &.ant-tag-checkable {
       &.ant-tag-checkable-checked {
         border-radius: 16px;
         background: #fff;
-        color: ${theme.colors.OUTER_SPACE};
+        //color: ${theme.colors.OUTER_SPACE};
         border: 1px solid ${theme.colors.ALTO};
+        background-color: ${theme.colors.TROPICAL_BLUE};
+        color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
         line-height: 24px;
         height: 24px;
         padding: 0 15px;
@@ -127,28 +129,26 @@ const TYPES = {
   ADDED: 'added',
   SELECTED: 'selected',
   SELECTION: 'selection',
-  APPLIED: 'applied',
-  ACTION: 'action',
-  DISABLED: 'disabled'
+  ACTION: 'action'
 };
 
-class CheckableTag extends Component {
-  state = { checked: true };
+// class CheckableTag extends Component {
+//   state = { checked: true };
 
-  handleChange = checked => {
-    this.setState({ checked });
-  };
+//   handleChange = checked => {
+//     this.setState({ checked });
+//   };
 
-  render() {
-    return (
-      <AntTag.CheckableTag
-        {...this.props}
-        checked={this.state.checked}
-        onChange={this.handleChange}
-      />
-    );
-  }
-}
+//   render() {
+//     return (
+//       <AntTag.CheckableTag
+//         {...this.props}
+//         checked={this.state.checked}
+//         onChange={this.handleChange}
+//       />
+//     );
+//   }
+// }
 
 // class AntTagComponent extends Component {
 //   static propTypes = {
@@ -169,21 +169,26 @@ class Tag extends Component {
     children: PropTypes.node,
     type: PropTypes.string,
     applied: PropTypes.bool,
-    action: PropTypes.bool,
     disabled: PropTypes.bool,
-    checkable: PropTypes.bool
+    checkable: PropTypes.bool,
+    onClick: PropTypes.func
   };
 
   static defaultProps = {
-    type: TYPES.default
+    type: TYPES.default,
+    onClick: () => {}
+  };
+
+  onClick = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.props.onClick(e);
   };
 
   getWrappedTag = () => {
-    let { applied, action, disabled } = this.props;
+    let { applied, disabled } = this.props;
     if (applied) {
       return AppliedTag;
-    } else if (action) {
-      return ActionTag;
     } else if (disabled) {
       return DisabledTag;
     }
@@ -192,20 +197,21 @@ class Tag extends Component {
   render() {
     let { children, type, checkable } = this.props;
     let TagComponent;
-    let AntTagComponent = checkable ? CheckableTag : AntTag;
+    let AntTagComponent = checkable ? AntTag.CheckableTag : AntTag;
     let WrappedTag = this.getWrappedTag();
+    let mergedProps = { ...this.props, onClick: this.onClick };
     switch (type) {
       case TYPES.DEFAULT:
         TagComponent = (
-          <WrappedTag>
-            <AntTagComponent>{children}</AntTagComponent>
+          <WrappedTag {...mergedProps}>
+            <AntTagComponent {...mergedProps}>{children}</AntTagComponent>
           </WrappedTag>
         );
         break;
       case TYPES.ADD:
         TagComponent = (
-          <WrappedTag>
-            <AntTagComponent>
+          <WrappedTag {...mergedProps}>
+            <AntTagComponent {...mergedProps}>
               {children}
               <span className="tagIcons">
                 <img src={add} width="10" className="img" />
@@ -217,8 +223,8 @@ class Tag extends Component {
         break;
       case TYPES.ADDED:
         TagComponent = (
-          <WrappedTag>
-            <AntTagComponent {...this.props}>
+          <WrappedTag {...mergedProps}>
+            <AntTagComponent {...mergedProps}>
               {children}
               <span className="tagIcons">
                 <img src={cancel} width="8" />
@@ -230,8 +236,8 @@ class Tag extends Component {
         break;
       case TYPES.SELECTION:
         TagComponent = (
-          <WrappedTag>
-            <AntTagComponent {...this.props}>
+          <WrappedTag {...mergedProps}>
+            <AntTagComponent {...mergedProps}>
               {children}
               <span className="tagIcons">
                 <img src={tick} width="10" />
@@ -243,22 +249,17 @@ class Tag extends Component {
         break;
       case TYPES.SELECTED:
         TagComponent = (
-          <WrappedTag>
-            <AntTagComponent {...this.props}>{children}</AntTagComponent>
+          <WrappedTag {...mergedProps}>
+            <AntTagComponent {...mergedProps}>{children}</AntTagComponent>
           </WrappedTag>
         );
         break;
       case TYPES.ACTION:
         TagComponent = (
-          <WrappedTag>
-            <AntTagComponent {...this.props}>{children}</AntTagComponent>
-          </WrappedTag>
-        );
-        break;
-      case TYPES.DISABLED:
-        TagComponent = (
-          <WrappedTag>
-            <AntTagComponent {...this.props}>{children}</AntTagComponent>
+          <WrappedTag {...mergedProps}>
+            <ActionTag {...mergedProps}>
+              <AntTagComponent {...mergedProps}>{children}</AntTagComponent>
+            </ActionTag>
           </WrappedTag>
         );
         break;
