@@ -18,7 +18,7 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08);
   }
   .ant-popover-inner-content {
-    text-align: right;
+    text-align: left;
     padding: 20px;
     button {
       margin-left: 15px;
@@ -178,7 +178,7 @@
   }
 
   .ant-popover-message-title {
-    padding-left: 0px;
+    padding-left: 0px !important;
     @include blackLink;
   }
   .ant-popover-message > .anticon {
