@@ -95,7 +95,7 @@ const MtTable = styled.div`
       & > tr {
         color: ${theme.colors.DARK_OUTER_SPACE};
         & > td {
-          ${mixins.blackText()};
+          ${mixins.darkText()};
           background-color: white;
           border-bottom: 1px solid ${theme.colors.PEARL};
           padding: ${props => {
@@ -159,7 +159,7 @@ const MtTable = styled.div`
       & > tr {
         color: ${theme.colors.DARK_OUTER_SPACE};
         td {
-          ${mixins.blackText()};
+          ${mixins.darkText()};
           border-bottom: 1px solid ${theme.colors.PEARL};
           padding: ${props => {
             let {
@@ -185,6 +185,18 @@ const MtTable = styled.div`
             }};
           }
         }
+        &.ant-table-row-selected {
+          & > td {
+            background: ${theme.colors.TROPICAL_BLUE};
+            cursor: pointer;
+          }
+          &:hover {
+            & > td {
+              background: ${theme.colors.TROPICAL_BLUE};
+              cursor: pointer;
+            }
+          }
+        }
         &:hover {
           & > td {
             background: ${theme.colors.PORCELAIN};
@@ -199,6 +211,47 @@ const MtTable = styled.div`
         }
       }
     }
+  }
+
+  .ant-table-thead > tr > th.ant-table-selection-column,
+  .ant-table-tbody > tr > td.ant-table-selection-column {
+    min-width: auto;
+    width: auto;
+  }
+
+  .ant-checkbox-wrapper {
+    & .ant-checkbox > .ant-checkbox-inner {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      &:after {
+        left: 3.5px;
+        top: 1.2px;
+      }
+    }
+    & > .ant-checkbox-checked {
+      & > .ant-checkbox-inner {
+        background-color: ${theme.colors.LIGHT_BLUE};
+        border-color: ${theme.colors.LIGHT_BLUE};
+        &:after {
+          left: 3.5px;
+          top: 1.2px;
+        }
+      }
+    }
+    & > .ant-checkbox-indeterminate {
+      & > .ant-checkbox-inner {
+        background-color: ${theme.colors.LIGHT_BLUE};
+        border-color: ${theme.colors.LIGHT_BLUE};
+        &:after {
+          left: 1.5px;
+          top: 5px;
+        }
+      }
+    }
+  }
+  .gutterSpace {
+    height: 74px;
   }
 `;
 
@@ -272,6 +325,7 @@ class Table extends Component {
     return (
       <MtTable showMultiSelect={showMultiSelect} {...this.styleProps}>
         <AntTable {...antProps}>{children}</AntTable>
+        {showActionBar && <div className={'gutterSpace'} />}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}
