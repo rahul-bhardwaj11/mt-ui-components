@@ -22,6 +22,21 @@ const MtCheckbox = styled.div`
       min-width: 125px;
       font-size: 14px;
     }
+    .ant-checkbox-inner {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      &:after {
+        left: 3.5px;
+        top: 1.2px;
+      }
+    }
+    .ant-checkbox-checked {
+      & > .ant-checkbox-inner {
+        background-color: ${theme.colors.LIGHT_BLUE};
+        border-color: ${theme.colors.LIGHT_BLUE};
+      }
+    }
     .ant-checkbox-checked + span {
       color: ${theme.colors.DARK};
     }

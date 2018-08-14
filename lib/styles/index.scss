@@ -45,19 +45,13 @@
       color: get('colors.LIGHT_BLUE');
     }
   }
-  .rightTab {
-    margin-left: 260px;
-    background: #f7f7f7;
-    padding: 50px 50px 0 50px;
-    height: calc(100vh - 181px);
-    overflow: auto;
-  }
-  .rightTabEp {
-    margin-left: 250px;
-    background: #f7f7f7;
-    height: calc(100vh - 336px);
-    overflow-y: auto;
-  }
+  // .rightTab {
+  //   margin-left: 260px;
+  //   background: #f7f7f7;
+  //   padding: 50px 50px 0 50px;
+  //   height: calc(100vh - 181px);
+  //   overflow: auto;
+  // }
   .boxStyle {
     border: 1px solid #ddd;
     padding: 12px 15px;

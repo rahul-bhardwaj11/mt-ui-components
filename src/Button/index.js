@@ -6,6 +6,24 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 import Icon from '../Icon';
 
+const BUTTON_TYPES = {
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary',
+  TERTIARY: 'tertiary',
+  LINK: 'link',
+  TEXT: 'text',
+  EDIT: 'edit'
+};
+
+const ANTD_BUTTON_TYPE_MAP = {
+  [BUTTON_TYPES.PRIMARY]: 'primary',
+  [BUTTON_TYPES.SECONDARY]: 'default',
+  [BUTTON_TYPES.TERTIARY]: 'dashed',
+  [BUTTON_TYPES.LINK]: 'link',
+  [BUTTON_TYPES.TEXT]: 'text',
+  [BUTTON_TYPES.EDIT]: 'edit'
+};
+
 const MtButton = styled.div`
   display: inline-block;
 
@@ -109,67 +127,6 @@ const MtButton = styled.div`
       color: #fff;
     }
   }
-  /* pillsDefault Button styles */
-  .ant-btn-pillsDefault {
-    border: 1px solid ${theme.colors.ALTO};
-    color: #6f7583;
-    height: 24px;
-    padding: 0px 12px;
-    font-size: 11px;
-    border-radius: 16px;
-    &.ant-btn-sm {
-      color: ${theme.colors.GREY};
-      font-size: 12px;
-      padding: 0px 12px;
-
-      &:focus,
-      &.active {
-        border: 1px solid ${theme.colors.LIGHT_BLUE};
-        color: ${theme.colors.LIGHT_BLUE};
-      }
-    }
-    &:focus,
-    &:hover,
-    &.active {
-      border: 1px solid ${theme.colors.LIGHT_BLUE};
-      color: ${theme.colors.LIGHT_BLUE};
-    }
-  }
-  .ant-btn {
-    &.disabled {
-      border: 1px solid ${theme.colors.DISABLE};
-      border-radius: 16px;
-      background-color: ${theme.colors.DISABLE};
-      color: ${theme.colors.SILVER};
-    }
-  }
-
-  /* pillsPrimary Button styles */
-  .ant-btn-pillsPrimary {
-    border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
-    color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
-    height: 24px;
-    padding: 0px 12px;
-    font-size: 11px;
-    border-radius: 16px;
-    &.ant-btn-sm {
-      color: ${theme.colors.GREY};
-      font-size: 12px;
-      padding: 0px 12px;
-
-      &:focus,
-      &.active {
-        border: 1px solid ${theme.colors.LIGHT_BLUE};
-        color: ${theme.colors.LIGHT_BLUE};
-      }
-    }
-    &:focus,
-    &:hover,
-    &.active {
-      border: 1px solid ${theme.colors.LIGHT_BLUE};
-      color: ${theme.colors.LIGHT_BLUE};
-    }
-  }
   .ant-btn {
     &.disabled {
       border: 1px solid ${theme.colors.DISABLE};
@@ -208,7 +165,7 @@ const MtButton = styled.div`
     outline: none;
     outline-style: none;
   }
-  /* Dashed Button styles */
+  /* Text Button styles */
   .ant-btn-text {
     border: 1px dashed transparent;
     background-color: transparent;
@@ -216,12 +173,23 @@ const MtButton = styled.div`
     height: 32px;
     padding: 0px 32px;
     color: ${theme.colors.OUTER_SPACE};
+    ${props =>
+      props.active
+        ? `color: ${theme.colors.INDIGO};
+      background-color: ${theme.colors.TROPICAL_BLUE}`
+        : null};
+    ${props => (props.disabled ? `color: ${theme.colors.OUTER_SPACE}` : null)};
 
     &:hover,
-    &:focus {
+    &:focus,
+    &:active {
       border: 1px dashed transparent;
-      background-color: transparent;
-      color: ${theme.colors.GREY};
+      ${props =>
+        props.active
+          ? `color: ${theme.colors.INDIGO};
+        background-color: ${theme.colors.TROPICAL_BLUE}`
+          : `background-color: transparent;
+          color: ${theme.colors.OUTER_SPACE};`};
     }
     &.ant-btn-sm {
       color: #fff;
@@ -268,45 +236,30 @@ const MtButton = styled.div`
 
 const noop = () => undefined;
 
-const typeMap = {
-  primary: 'primary',
-  secondary: 'default',
-  tertiary: 'dashed',
-  link: 'link',
-  text: 'text',
-  edit: 'edit'
-};
-
 class Button extends Component {
   static propTypes = {
     onClick: PropTypes.func,
-    type: PropTypes.oneOf([
-      'primary',
-      'default',
-      'dashed',
-      'link',
-      'text',
-      'edit'
-    ]),
+    type: PropTypes.oneOf(BUTTON_TYPES),
     children: PropTypes.node,
     disabled: PropTypes.bool,
     size: PropTypes.string,
     style: PropTypes.object,
-    className: PropTypes.string
+    className: PropTypes.string,
+    active: PropTypes.bool
   };
   static defaultProps = {
     onClick: noop,
     children: 'Submit',
     disabled: false,
-    type: 'primary'
+    type: BUTTON_TYPES.PRIMARY
   };
 
   render() {
     const { children, type } = this.props;
-    let antdType = typeMap[type];
+    let antdType = ANTD_BUTTON_TYPE_MAP[type];
     return (
-      <MtButton>
-        <AntButton {...this.props} type={antdType}>
+      <MtButton {...this.props}>
+        <AntButton type={antdType} {...this.props}>
           {children}
           {type === 'edit' && <Icon type="edit" className="editIcon" />}
         </AntButton>

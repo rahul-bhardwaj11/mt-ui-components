@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SortableTree from 'react-sortable-tree';
 import PropTypes from 'prop-types';
 import 'react-sortable-tree/style.css';
+import TreeNode from './TreeNode';
 
 class Tree extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class Tree extends Component {
     onChange: PropTypes.func,
     onMoveNode: PropTypes.func,
     canDrag: PropTypes.func,
-    canDrop: PropTypes.func
+    canDrop: PropTypes.func,
+    treeNodeRenderer: PropTypes.func
   };
 
   render() {
@@ -26,4 +28,5 @@ class Tree extends Component {
     );
   }
 }
+Tree.TreeNode = TreeNode;
 export default Tree;
