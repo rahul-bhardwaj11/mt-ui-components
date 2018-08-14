@@ -66,7 +66,6 @@ const MtTable = styled.div`
           background-color: white;
           border-bottom: 1px solid ${theme.colors.ALTO};
           padding: ${props => {
-            debugger; //eslint-disable-line
             let {
               contentCellPadding: {
                 pTop,
@@ -201,6 +200,9 @@ const MtTable = styled.div`
       }
     }
   }
+  .gutterSpace {
+    height: 66px;
+  }
 `;
 
 class Table extends Component {
@@ -256,6 +258,7 @@ class Table extends Component {
     return (
       <MtTable showMultiSelect={showMultiSelect} {...this.props}>
         <AntTable {...antProps}>{children}</AntTable>
+        {showActionBar && <div className={'gutterSpace'} />}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}

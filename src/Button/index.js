@@ -165,7 +165,7 @@ const MtButton = styled.div`
     outline: none;
     outline-style: none;
   }
-  /* Dashed Button styles */
+  /* Text Button styles */
   .ant-btn-text {
     border: 1px dashed transparent;
     background-color: transparent;
@@ -173,12 +173,23 @@ const MtButton = styled.div`
     height: 32px;
     padding: 0px 32px;
     color: ${theme.colors.OUTER_SPACE};
+    ${props =>
+      props.active
+        ? `color: ${theme.colors.INDIGO};
+      background-color: ${theme.colors.TROPICAL_BLUE}`
+        : null};
+    ${props => (props.disabled ? `color: ${theme.colors.OUTER_SPACE}` : null)};
 
     &:hover,
-    &:focus {
+    &:focus,
+    &:active {
       border: 1px dashed transparent;
-      background-color: transparent;
-      color: ${theme.colors.GREY};
+      ${props =>
+        props.active
+          ? `color: ${theme.colors.INDIGO};
+        background-color: ${theme.colors.TROPICAL_BLUE}`
+          : `background-color: transparent;
+          color: ${theme.colors.OUTER_SPACE};`};
     }
     &.ant-btn-sm {
       color: #fff;
@@ -247,7 +258,7 @@ class Button extends Component {
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
     return (
       <MtButton {...this.props}>
-        <AntButton type={antdType}>
+        <AntButton type={antdType} {...this.props}>
           {children}
           {type === 'edit' && <Icon type="edit" className="editIcon" />}
         </AntButton>
