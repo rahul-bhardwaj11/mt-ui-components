@@ -66,7 +66,6 @@ const MtTable = styled.div`
           background-color: white;
           border-bottom: 1px solid ${theme.colors.ALTO};
           padding: ${props => {
-            debugger; //eslint-disable-line
             let {
               contentCellPadding: {
                 pTop,
