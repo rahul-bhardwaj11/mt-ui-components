@@ -265,11 +265,28 @@ class Table extends Component {
     onChange: PropTypes.func,
     rowSelection: PropTypes.object,
     columns: PropTypes.array,
-    size: PropTypes.string
+    size: PropTypes.string,
+    headerCellPadding: PropTypes.shape({
+      pTop: PropTypes.string,
+      pRight: PropTypes.string,
+      pBottom: PropTypes.string,
+      pLeft: PropTypes.string
+    }),
+    contentCellPadding: PropTypes.shape({
+      pTop: PropTypes.string,
+      pRight: PropTypes.string,
+      pBottom: PropTypes.string,
+      pLeft: PropTypes.string
+    })
   };
   state = {
     showActionBar: false,
     showMultiSelect: false
+  };
+
+  styleProps = {
+    contentCellPadding: this.props.contentCellPadding,
+    headerCellPadding: this.props.headerCellPadding
   };
 
   onChange = (selectedRowKeys, selectedRows) => {
@@ -306,7 +323,7 @@ class Table extends Component {
           ...this.props
         };
     return (
-      <MtTable showMultiSelect={showMultiSelect} {...this.props}>
+      <MtTable showMultiSelect={showMultiSelect} {...this.styleProps}>
         <AntTable {...antProps}>{children}</AntTable>
         {showActionBar && <div className={'gutterSpace'} />}
         {showActionBar && (
