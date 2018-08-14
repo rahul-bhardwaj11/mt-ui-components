@@ -36,7 +36,9 @@ stories
   .add(
     'Text button',
     withInfo('Adding type Text to button')(() => (
-      <Button type={text('type', 'text')}>{text('children', 'Submit')}</Button>
+      <Button active={true} type={text('type', 'text')}>
+        {text('children', 'Submit')}
+      </Button>
     ))
   )
 
