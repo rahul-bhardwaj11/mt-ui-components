@@ -66,7 +66,6 @@ const MtTable = styled.div`
           background-color: white;
           border-bottom: 1px solid ${theme.colors.ALTO};
           padding: ${props => {
-            debugger; //eslint-disable-line
             let {
               contentCellPadding: {
                 pTop,
@@ -213,11 +212,28 @@ class Table extends Component {
     onChange: PropTypes.func,
     rowSelection: PropTypes.object,
     columns: PropTypes.array,
-    size: PropTypes.string
+    size: PropTypes.string,
+    headerCellPadding: PropTypes.shape({
+      pTop: PropTypes.string,
+      pRight: PropTypes.string,
+      pBottom: PropTypes.string,
+      pLeft: PropTypes.string
+    }),
+    contentCellPadding: PropTypes.shape({
+      pTop: PropTypes.string,
+      pRight: PropTypes.string,
+      pBottom: PropTypes.string,
+      pLeft: PropTypes.string
+    })
   };
   state = {
     showActionBar: false,
     showMultiSelect: false
+  };
+
+  styleProps = {
+    contentCellPadding: this.props.contentCellPadding,
+    headerCellPadding: this.props.headerCellPadding
   };
 
   onChange = (selectedRowKeys, selectedRows) => {
@@ -254,7 +270,7 @@ class Table extends Component {
           ...this.props
         };
     return (
-      <MtTable showMultiSelect={showMultiSelect} {...this.props}>
+      <MtTable showMultiSelect={showMultiSelect} {...this.styleProps}>
         <AntTable {...antProps}>{children}</AntTable>
         {showActionBar && (
           <ActionBar {...actionBar}>
