@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Button from './index';
 import { withInfo } from '@storybook/addon-info';
-import { text, withKnobs } from '@storybook/addon-knobs';
+import { text, withKnobs, number } from '@storybook/addon-knobs';
 
 const stories = storiesOf('Button', module);
 stories.addDecorator(withKnobs);
@@ -36,7 +36,7 @@ stories
   .add(
     'Text button',
     withInfo('Adding type Text to button')(() => (
-      <Button active={true} type={text('type', 'text')}>
+      <Button active={number('active', 0)} type={text('type', 'text')}>
         {text('children', 'Submit')}
       </Button>
     ))

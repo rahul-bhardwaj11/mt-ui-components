@@ -244,7 +244,8 @@ class Button extends Component {
     disabled: PropTypes.bool,
     size: PropTypes.string,
     style: PropTypes.object,
-    className: PropTypes.string
+    className: PropTypes.string,
+    active: PropTypes.bool
   };
   static defaultProps = {
     onClick: noop,
