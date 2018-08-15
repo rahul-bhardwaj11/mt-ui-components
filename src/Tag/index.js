@@ -179,12 +179,6 @@ class Tag extends Component {
     onClick: () => {}
   };
 
-  onClick = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    this.props.onClick(e);
-  };
-
   getWrappedTag = () => {
     let { applied, disabled } = this.props;
     if (applied) {
@@ -199,19 +193,18 @@ class Tag extends Component {
     let TagComponent;
     let AntTagComponent = checkable ? AntTag.CheckableTag : AntTag;
     let WrappedTag = this.getWrappedTag();
-    let mergedProps = { ...this.props, onClick: this.onClick };
     switch (type) {
       case TYPES.DEFAULT:
         TagComponent = (
-          <WrappedTag {...mergedProps}>
-            <AntTagComponent {...mergedProps}>{children}</AntTagComponent>
+          <WrappedTag {...this.props}>
+            <AntTagComponent {...this.props}>{children}</AntTagComponent>
           </WrappedTag>
         );
         break;
       case TYPES.ADD:
         TagComponent = (
-          <WrappedTag {...mergedProps}>
-            <AntTagComponent {...mergedProps}>
+          <WrappedTag {...this.props}>
+            <AntTagComponent {...this.props}>
               {children}
               <span className="tagIcons">
                 <img src={add} width="10" className="img" />
@@ -223,8 +216,8 @@ class Tag extends Component {
         break;
       case TYPES.ADDED:
         TagComponent = (
-          <WrappedTag {...mergedProps}>
-            <AntTagComponent {...mergedProps}>
+          <WrappedTag {...this.props}>
+            <AntTagComponent {...this.props}>
               {children}
               <span className="tagIcons">
                 <img src={cancel} width="8" />
@@ -236,8 +229,8 @@ class Tag extends Component {
         break;
       case TYPES.SELECTION:
         TagComponent = (
-          <WrappedTag {...mergedProps}>
-            <AntTagComponent {...mergedProps}>
+          <WrappedTag {...this.props}>
+            <AntTagComponent {...this.props}>
               {children}
               <span className="tagIcons">
                 <img src={tick} width="10" />
@@ -249,16 +242,16 @@ class Tag extends Component {
         break;
       case TYPES.SELECTED:
         TagComponent = (
-          <WrappedTag {...mergedProps}>
-            <AntTagComponent {...mergedProps}>{children}</AntTagComponent>
+          <WrappedTag {...this.props}>
+            <AntTagComponent {...this.props}>{children}</AntTagComponent>
           </WrappedTag>
         );
         break;
       case TYPES.ACTION:
         TagComponent = (
-          <WrappedTag {...mergedProps}>
-            <ActionTag {...mergedProps}>
-              <AntTagComponent {...mergedProps}>{children}</AntTagComponent>
+          <WrappedTag {...this.props}>
+            <ActionTag {...this.props}>
+              <AntTagComponent {...this.props}>{children}</AntTagComponent>
             </ActionTag>
           </WrappedTag>
         );
