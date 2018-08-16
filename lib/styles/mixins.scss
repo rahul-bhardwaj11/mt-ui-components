@@ -170,3 +170,10 @@ $z-index: (
   filter: progid:DXImageTransform.Microsoft.Alpha(opacity=#{$opacity*100});
   opacity: $opacity;
 }
+
+@mixin truncate($width) {
+  width: $width;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
