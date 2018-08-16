@@ -20,7 +20,7 @@ stories
   .add(
     'Secondary button',
     withInfo('Adding type secondary to button')(() => (
-      <Button type={text('type', 'secondary')} size="small">
+      <Button type={text('type', 'secondary')}>
         {text('children', 'Submit')}
       </Button>
     ))
@@ -36,9 +36,7 @@ stories
   .add(
     'Text button',
     withInfo('Adding type Text to button')(() => (
-      <Button type={text('type', 'text')} style={{ color: 'red' }}>
-        {text('children', 'Submit')}
-      </Button>
+      <Button type={text('type', 'text')}>{text('children', 'Submit')}</Button>
     ))
   )
 
