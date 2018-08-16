@@ -21,27 +21,6 @@ const colourOptions = [
   { value: 'silver', label: 'Silver', color: '#666666' }
 ];
 
-// const CustomMenu = obj => {
-//   let { options, isLoading } = obj;
-//   if (isLoading) {
-//     return <div>Loading...</div>;
-//   } else if (!options.length) {
-//     return <div>No content found</div>;
-//   }
-//   return <Menu options={options} />;
-// };
-
-//function onChange() {}
-
-// const promiseOption = ({ search, offset, pageSize }) => {
-//   //console.log('Fetching for ', offset, pageSize, search);
-//   return new Promise(resolve => {
-//     setTimeout(() => {
-//       resolve(getOptions(search, offset, pageSize));
-//     }, 1000);
-//   });
-// };
-
 const filterColors = search =>
   colourOptions.filter(i =>
     i.label.toLowerCase().includes(search.toLowerCase())

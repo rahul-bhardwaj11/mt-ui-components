@@ -132,14 +132,11 @@
       border-bottom: 0px;
       padding: 24px 32px 0px 32px;
       .ant-modal-title {
-        font-size: 20px;
-        font-weight: 600;
-        line-height: 26px;
-        color: #2a2e36;
+        @include mediumNumber;
       }
     }
     .ant-modal-body {
-      padding: 8px 32px 24px 32px;
+      padding: 0px;
     }
     .ant-modal-close-x {
       font-size: 20px;

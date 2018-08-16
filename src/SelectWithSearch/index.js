@@ -24,6 +24,7 @@ const SelectBox = styled.div`
   }
   .mt-react-select__control {
     border: 1px solid ${theme.colors.ALTO};
+    width: ${({ width = 'auto' }) => width};
   }
   .mt-react-select__control--is-focused {
     box-shadow: none;
@@ -74,7 +75,8 @@ class AsyncSelect extends Component {
     promiseOption: PropTypes.func,
     cacheUniq: PropTypes.any,
     pageSize: PropTypes.number,
-    options: PropTypes.array
+    options: PropTypes.array,
+    width: PropTypes.string
   };
 
   static defaultProps = {
@@ -205,7 +207,7 @@ class AsyncSelect extends Component {
     const { search, optionsCache } = this.state;
     const currentOptions = optionsCache[search] || initialCache;
     return (
-      <SelectBox>
+      <SelectBox width={this.props.width}>
         <Select
           {...this.props}
           classNamePrefix={'mt-react-select'}
@@ -226,7 +228,7 @@ class SelectWithSearch extends Component {
     options: PropTypes.arrayOf(PropTypes.object),
     async: PropTypes.bool,
     placeholder: PropTypes.string,
-    style: PropTypes.object
+    width: PropTypes.string
   };
 
   static defaultProps = {
@@ -234,12 +236,16 @@ class SelectWithSearch extends Component {
   };
 
   render() {
-    let { async, style } = this.props;
+    let { async, width } = this.props;
     if (async) {
-      return <AsyncSelect {...this.props} />;
+      return (
+        <SelectBox {...this.props} width={width}>
+          <AsyncSelect {...this.props} />
+        </SelectBox>
+      );
     }
     return (
-      <SelectBox style={style}>
+      <SelectBox {...this.props} width={width}>
         <Select {...this.props} classNamePrefix={'mt-react-select'} />
       </SelectBox>
     );
