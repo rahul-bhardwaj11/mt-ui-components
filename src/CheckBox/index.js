@@ -22,6 +22,21 @@ const MtCheckbox = styled.div`
       min-width: 125px;
       font-size: 14px;
     }
+    .ant-checkbox-inner {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      &:after {
+        left: 3.5px;
+        top: 1.2px;
+      }
+    }
+    .ant-checkbox-checked {
+      & > .ant-checkbox-inner {
+        background-color: ${theme.colors.LIGHT_BLUE};
+        border-color: ${theme.colors.LIGHT_BLUE};
+      }
+    }
     .ant-checkbox-checked + span {
       color: ${theme.colors.DARK};
     }
@@ -36,7 +51,8 @@ class CheckBox extends Component {
     label: PropTypes.string,
     checked: PropTypes.bool,
     onClick: PropTypes.func,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    indeterminate: PropTypes.bool
   };
 
   state = {
@@ -57,10 +73,14 @@ class CheckBox extends Component {
   }
 
   render() {
-    const { label } = this.props;
+    const { label, indeterminate } = this.props;
     return (
       <MtCheckbox>
-        <AntCheckbox checked={this.state.checked} onChange={this.onChange}>
+        <AntCheckbox
+          checked={this.state.checked}
+          onChange={this.onChange}
+          indeterminate={indeterminate}
+        >
           {label}
         </AntCheckbox>
       </MtCheckbox>

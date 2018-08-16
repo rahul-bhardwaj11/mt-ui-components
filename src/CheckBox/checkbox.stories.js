@@ -18,4 +18,10 @@ stories
     withInfo('Checked checkbox')(() => (
       <CheckBox checked={boolean('checked', true)} label="Checkbox" />
     ))
+  )
+  .add(
+    'Indeterminate CheckBox',
+    withInfo('Checked checkbox')(() => (
+      <CheckBox checked={boolean('checked', true)} indeterminate={true} />
+    ))
   );

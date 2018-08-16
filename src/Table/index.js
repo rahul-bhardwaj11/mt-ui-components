@@ -45,7 +45,8 @@ const MtTable = styled.div`
   .ant-table-default
     > .ant-table-content
     > .ant-table-fixed-left
-    > .ant-table-body
+    > .ant-table-body-outer
+    > .ant-table-body-inner
     > .ant-table-fixed,
   .ant-table-default
     > .ant-table-content
@@ -55,7 +56,8 @@ const MtTable = styled.div`
   .ant-table-default
     > .ant-table-content
     > .ant-table-fixed-right
-    > .ant-table-body
+    > .ant-table-body-outer
+    > .ant-table-body-inner
     > .ant-table-fixed {
     padding: 0px;
     .ant-table-thead {
@@ -66,7 +68,6 @@ const MtTable = styled.div`
           background-color: white;
           border-bottom: 1px solid ${theme.colors.ALTO};
           padding: ${props => {
-            debugger; //eslint-disable-line
             let {
               contentCellPadding: {
                 pTop,
@@ -96,7 +97,7 @@ const MtTable = styled.div`
       & > tr {
         color: ${theme.colors.DARK_OUTER_SPACE};
         & > td {
-          ${mixins.blackText()};
+          ${mixins.darkText()};
           background-color: white;
           border-bottom: 1px solid ${theme.colors.PEARL};
           padding: ${props => {
@@ -160,7 +161,7 @@ const MtTable = styled.div`
       & > tr {
         color: ${theme.colors.DARK_OUTER_SPACE};
         td {
-          ${mixins.blackText()};
+          ${mixins.darkText()};
           border-bottom: 1px solid ${theme.colors.PEARL};
           padding: ${props => {
             let {
@@ -186,6 +187,18 @@ const MtTable = styled.div`
             }};
           }
         }
+        &.ant-table-row-selected {
+          & > td {
+            background: ${theme.colors.TROPICAL_BLUE};
+            cursor: pointer;
+          }
+          &:hover {
+            & > td {
+              background: ${theme.colors.TROPICAL_BLUE};
+              cursor: pointer;
+            }
+          }
+        }
         &:hover {
           & > td {
             background: ${theme.colors.PORCELAIN};
@@ -201,6 +214,47 @@ const MtTable = styled.div`
       }
     }
   }
+
+  .ant-table-thead > tr > th.ant-table-selection-column,
+  .ant-table-tbody > tr > td.ant-table-selection-column {
+    min-width: auto;
+    width: auto;
+  }
+
+  .ant-checkbox-wrapper {
+    & .ant-checkbox > .ant-checkbox-inner {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      &:after {
+        left: 3.5px;
+        top: 1.2px;
+      }
+    }
+    & > .ant-checkbox-checked {
+      & > .ant-checkbox-inner {
+        background-color: ${theme.colors.LIGHT_BLUE};
+        border-color: ${theme.colors.LIGHT_BLUE};
+        &:after {
+          left: 3.5px;
+          top: 1.2px;
+        }
+      }
+    }
+    & > .ant-checkbox-indeterminate {
+      & > .ant-checkbox-inner {
+        background-color: ${theme.colors.LIGHT_BLUE};
+        border-color: ${theme.colors.LIGHT_BLUE};
+        &:after {
+          left: 1.5px;
+          top: 5px;
+        }
+      }
+    }
+  }
+  .gutterSpace {
+    height: 74px;
+  }
 `;
 
 class Table extends Component {
@@ -213,11 +267,28 @@ class Table extends Component {
     onChange: PropTypes.func,
     rowSelection: PropTypes.object,
     columns: PropTypes.array,
-    size: PropTypes.string
+    size: PropTypes.string,
+    headerCellPadding: PropTypes.shape({
+      pTop: PropTypes.string,
+      pRight: PropTypes.string,
+      pBottom: PropTypes.string,
+      pLeft: PropTypes.string
+    }),
+    contentCellPadding: PropTypes.shape({
+      pTop: PropTypes.string,
+      pRight: PropTypes.string,
+      pBottom: PropTypes.string,
+      pLeft: PropTypes.string
+    })
   };
   state = {
     showActionBar: false,
     showMultiSelect: false
+  };
+
+  styleProps = {
+    contentCellPadding: this.props.contentCellPadding,
+    headerCellPadding: this.props.headerCellPadding
   };
 
   onChange = (selectedRowKeys, selectedRows) => {
@@ -254,8 +325,9 @@ class Table extends Component {
           ...this.props
         };
     return (
-      <MtTable showMultiSelect={showMultiSelect} {...this.props}>
+      <MtTable showMultiSelect={showMultiSelect} {...this.styleProps}>
         <AntTable {...antProps}>{children}</AntTable>
+        {showActionBar && <div className={'gutterSpace'} />}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}
