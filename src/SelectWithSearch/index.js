@@ -226,7 +226,6 @@ class SelectWithSearch extends Component {
     options: PropTypes.arrayOf(PropTypes.object),
     async: PropTypes.bool,
     placeholder: PropTypes.string
-    // width: PropTypes.string
   };
 
   static defaultProps = {
