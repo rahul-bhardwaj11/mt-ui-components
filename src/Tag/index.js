@@ -41,18 +41,18 @@ const DefaultTag = styled.div`
     height: 24px;
     padding: 0 15px;
     margin-bottom: 10px;
-    border: 1px solid #468ee5;
+    border: 1px solid ${theme.colors.ALTO};
     border-radius: 16px;
-    //background-color: ${theme.colors.TROPICAL_BLUE};
-    //color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+    &:hover {
+      color: #989ca6;
+    }
   }
   .ant-tag {
     &.ant-tag-checkable {
       &.ant-tag-checkable-checked {
         border-radius: 16px;
         background: #fff;
-        //color: ${theme.colors.OUTER_SPACE};
-        border: 1px solid ${theme.colors.ALTO};
+        border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
         background-color: ${theme.colors.TROPICAL_BLUE};
         color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
         line-height: 24px;

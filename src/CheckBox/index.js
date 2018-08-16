@@ -36,7 +36,8 @@ class CheckBox extends Component {
     label: PropTypes.string,
     checked: PropTypes.bool,
     onClick: PropTypes.func,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    indeterminate: PropTypes.bool
   };
 
   state = {
@@ -57,10 +58,14 @@ class CheckBox extends Component {
   }
 
   render() {
-    const { label } = this.props;
+    const { label, indeterminate } = this.props;
     return (
       <MtCheckbox>
-        <AntCheckbox checked={this.state.checked} onChange={this.onChange}>
+        <AntCheckbox
+          checked={this.state.checked}
+          onChange={this.onChange}
+          indeterminate={indeterminate}
+        >
           {label}
         </AntCheckbox>
       </MtCheckbox>
