@@ -207,18 +207,16 @@ class AsyncSelect extends Component {
     const { search, optionsCache } = this.state;
     const currentOptions = optionsCache[search] || initialCache;
     return (
-      <SelectBox width={this.props.width}>
-        <Select
-          {...this.props}
-          classNamePrefix={'mt-react-select'}
-          onInputChange={this.onInputChange}
-          isLoading={currentOptions.isLoading}
-          options={currentOptions.options}
-          onMenuOpen={this.onMenuOpen}
-          autoload={false}
-          onMenuScrollToBottom={this.onMenuScrollToBottom}
-        />
-      </SelectBox>
+      <Select
+        {...this.props}
+        classNamePrefix={'mt-react-select'}
+        onInputChange={this.onInputChange}
+        isLoading={currentOptions.isLoading}
+        options={currentOptions.options}
+        onMenuOpen={this.onMenuOpen}
+        autoload={false}
+        onMenuScrollToBottom={this.onMenuScrollToBottom}
+      />
     );
   }
 }
@@ -227,8 +225,8 @@ class SelectWithSearch extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),
     async: PropTypes.bool,
-    placeholder: PropTypes.string,
-    width: PropTypes.string
+    placeholder: PropTypes.string
+    // width: PropTypes.string
   };
 
   static defaultProps = {
@@ -236,16 +234,16 @@ class SelectWithSearch extends Component {
   };
 
   render() {
-    let { async, width } = this.props;
+    let { async } = this.props;
     if (async) {
       return (
-        <SelectBox {...this.props} width={width}>
+        <SelectBox {...this.props}>
           <AsyncSelect {...this.props} />
         </SelectBox>
       );
     }
     return (
-      <SelectBox {...this.props} width={width}>
+      <SelectBox {...this.props}>
         <Select {...this.props} classNamePrefix={'mt-react-select'} />
       </SelectBox>
     );
