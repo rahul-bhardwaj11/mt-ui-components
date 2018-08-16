@@ -45,7 +45,8 @@ const MtTable = styled.div`
   .ant-table-default
     > .ant-table-content
     > .ant-table-fixed-left
-    > .ant-table-body
+    > .ant-table-body-outer
+    > .ant-table-body-inner
     > .ant-table-fixed,
   .ant-table-default
     > .ant-table-content
@@ -55,7 +56,8 @@ const MtTable = styled.div`
   .ant-table-default
     > .ant-table-content
     > .ant-table-fixed-right
-    > .ant-table-body
+    > .ant-table-body-outer
+    > .ant-table-body-inner
     > .ant-table-fixed {
     padding: 0px;
     .ant-table-thead {
