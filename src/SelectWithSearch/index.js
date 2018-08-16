@@ -35,11 +35,11 @@ const SelectBox = styled.div`
   .mt-react-select__option {
     border-radius: 4px;
     padding: 6px 20px 8px 16px;
-    color: #989ca6;
+    color: ${theme.colors.OUTER_SPACE};
     height: 32px;
   }
   // .mt-react-select__option:hover{
-  //   background-color: ${theme.colors.LIGHT_BLUE};
+  //   background-color: ${theme.colors.INDIGO};
   //   color: #ffffff;
   //   cursor: pointer;
   // }
@@ -48,7 +48,7 @@ const SelectBox = styled.div`
     color: ${theme.colors.OUTER_SPACE};
   }
   .mt-react-select__option--is-focused {
-    background-color:  ${theme.colors.LIGHT_BLUE};
+    background-color:  ${theme.colors.INDIGO};
     color: #ffffff;
     cursor: pointer;
   }

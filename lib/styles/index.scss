@@ -42,7 +42,7 @@
     font-size: 13px;
     margin: 0px 2px;
     &:hover {
-      color: get('colors.LIGHT_BLUE');
+      color: get('colors.INDIGO');
     }
   }
   // .rightTab {
@@ -53,7 +53,7 @@
   //   overflow: auto;
   // }
   .boxStyle {
-    border: 1px solid #ddd;
+    border: 1px solid get("colors.ALTO");
     padding: 12px 15px;
     background: White;
   }
@@ -74,7 +74,7 @@
   }
   .modal_footerWrapper {
     padding: 20px 0px;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid get("colors.ALTO");
     position: fixed;
     left: 0px;
     bottom: 0;
@@ -105,7 +105,7 @@
 
   .arrow_R {
     position: absolute;
-    z-index: 9;
+    z-index: 1;
 
     &:after {
       bottom: 0px;

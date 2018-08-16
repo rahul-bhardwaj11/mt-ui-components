@@ -44,7 +44,7 @@ const DefaultTag = styled.div`
     border: 1px solid ${theme.colors.ALTO};
     border-radius: 16px;
     &:hover {
-      color: #989ca6;
+      color: ${theme.colors.OUTER_SPACE};
     }
   }
   .ant-tag {
