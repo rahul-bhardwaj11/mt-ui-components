@@ -12,7 +12,8 @@ const BUTTON_TYPES = {
   TERTIARY: 'tertiary',
   LINK: 'link',
   TEXT: 'text',
-  EDIT: 'edit'
+  EDIT: 'edit',
+  DISABLED: 'disabled'
 };
 
 const ANTD_BUTTON_TYPE_MAP = {
@@ -21,7 +22,8 @@ const ANTD_BUTTON_TYPE_MAP = {
   [BUTTON_TYPES.TERTIARY]: 'dashed',
   [BUTTON_TYPES.LINK]: 'link',
   [BUTTON_TYPES.TEXT]: 'text',
-  [BUTTON_TYPES.EDIT]: 'edit'
+  [BUTTON_TYPES.EDIT]: 'edit',
+  [BUTTON_TYPES.DISABLED]: 'disabled'
 };
 
 const MtButton = styled.div`
@@ -52,8 +54,8 @@ const MtButton = styled.div`
     &.disabled {
       border: 1px solid ${theme.colors.DISABLE};
       border-radius: 4px;
-      background-color: ${theme.colors.DISABLE_INNER_SPACE};
-      color: ${theme.colors.SILVER};
+      color: #fff;
+      background: ${theme.colors.ALTO};
     }
   }
   /* edit Button styles */
@@ -90,8 +92,8 @@ const MtButton = styled.div`
     &.disabled {
       border: 1px solid ${theme.colors.DISABLE};
       border-radius: 4px;
-      background-color: ${theme.colors.DISABLE_INNER_SPACE};
-      color: ${theme.colors.SILVER};
+      background-color: ${theme.colors.ALTO};
+      color: #fff;
     }
   }
 
@@ -121,18 +123,17 @@ const MtButton = styled.div`
   }
   .ant-btn {
     &.disabled {
-      border: 1px solid #ced2db;
-      border-radius: 4px;
-      background-color: #ced2db;
+      border: 1px solid ${theme.colors.ALTO};
+      background-color: ${theme.colors.ALTO};
       color: #fff;
+      border-radius: 4px;
     }
   }
   .ant-btn {
     &.disabled {
-      border: 1px solid ${theme.colors.DISABLE};
-      border-radius: 16px;
-      background-color: ${theme.colors.DISABLE};
-      color: ${theme.colors.SILVER};
+      border: 1px solid ${theme.colors.ALTO};
+      background-color: ${theme.colors.ALTO};
+      color: #fff;
     }
   }
   /* Dashed Button styles */
@@ -158,7 +159,9 @@ const MtButton = styled.div`
   }
   .ant-btn {
     &.disabled {
-      color: ${theme.colors.SILVER};
+      border: 1px solid ${theme.colors.ALTO};
+      background-color: ${theme.colors.ALTO};
+      color: #fff;
     }
   }
   .ant-btn-clicked {
@@ -199,7 +202,9 @@ const MtButton = styled.div`
   }
   .ant-btn {
     &.disabled {
-      color: ${theme.colors.SILVER};
+      border: 1px solid ${theme.colors.ALTO};
+      background-color: ${theme.colors.ALTO};
+      color: #fff;
     }
   }
   .ant-btn-clicked {
@@ -223,7 +228,9 @@ const MtButton = styled.div`
   }
   .ant-btn {
     &.disabled {
-      color: ${theme.colors.SILVER};
+      border: 1px solid ${theme.colors.ALTO};
+      background-color: ${theme.colors.ALTO};
+      color: #fff;
     }
   }
   .ant-btn-clicked {
@@ -255,11 +262,11 @@ class Button extends Component {
   };
 
   render() {
-    const { children, type } = this.props;
+    const { children, type, style } = this.props;
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
     return (
-      <MtButton {...this.props}>
-        <AntButton type={antdType} {...this.props}>
+      <MtButton>
+        <AntButton {...this.props} type={antdType} style={style}>
           {children}
           {type === 'edit' && <Icon type="edit" className="editIcon" />}
         </AntButton>

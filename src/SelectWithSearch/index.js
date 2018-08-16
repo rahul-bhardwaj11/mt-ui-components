@@ -225,7 +225,8 @@ class SelectWithSearch extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),
     async: PropTypes.bool,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    style: PropTypes.object
   };
 
   static defaultProps = {
@@ -233,12 +234,12 @@ class SelectWithSearch extends Component {
   };
 
   render() {
-    let { async } = this.props;
+    let { async, style } = this.props;
     if (async) {
       return <AsyncSelect {...this.props} />;
     }
     return (
-      <SelectBox>
+      <SelectBox style={style}>
         <Select {...this.props} classNamePrefix={'mt-react-select'} />
       </SelectBox>
     );
