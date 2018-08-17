@@ -252,9 +252,6 @@ const MtTable = styled.div`
       }
     }
   }
-  .gutterSpace {
-    height: 74px;
-  }
 `;
 
 class Table extends Component {
@@ -327,7 +324,6 @@ class Table extends Component {
     return (
       <MtTable showMultiSelect={showMultiSelect} {...this.styleProps}>
         <AntTable {...antProps}>{children}</AntTable>
-        {showActionBar && <div className={'gutterSpace'} />}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}
