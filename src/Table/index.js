@@ -45,7 +45,8 @@ const MtTable = styled.div`
   .ant-table-default
     > .ant-table-content
     > .ant-table-fixed-left
-    > .ant-table-body
+    > .ant-table-body-outer
+    > .ant-table-body-inner
     > .ant-table-fixed,
   .ant-table-default
     > .ant-table-content
@@ -55,7 +56,8 @@ const MtTable = styled.div`
   .ant-table-default
     > .ant-table-content
     > .ant-table-fixed-right
-    > .ant-table-body
+    > .ant-table-body-outer
+    > .ant-table-body-inner
     > .ant-table-fixed {
     padding: 0px;
     .ant-table-thead {
@@ -231,8 +233,8 @@ const MtTable = styled.div`
     }
     & > .ant-checkbox-checked {
       & > .ant-checkbox-inner {
-        background-color: ${theme.colors.LIGHT_BLUE};
-        border-color: ${theme.colors.LIGHT_BLUE};
+        background-color: ${theme.colors.INDIGO};
+        border-color: ${theme.colors.INDIGO};
         &:after {
           left: 3.5px;
           top: 1.2px;
@@ -241,8 +243,8 @@ const MtTable = styled.div`
     }
     & > .ant-checkbox-indeterminate {
       & > .ant-checkbox-inner {
-        background-color: ${theme.colors.LIGHT_BLUE};
-        border-color: ${theme.colors.LIGHT_BLUE};
+        background-color: ${theme.colors.INDIGO};
+        border-color: ${theme.colors.INDIGO};
         &:after {
           left: 1.5px;
           top: 5px;
