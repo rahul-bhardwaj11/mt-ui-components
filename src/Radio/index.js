@@ -21,7 +21,7 @@ const MtRadio = styled.div`
     }
     &:hover {
       span.ant-radio + * {
-        color: ${theme.colors.OUTER_SPACE};
+        color: ${theme.colors.SHARK};
       }
       .ant-radio {
         .ant-radio-inner {

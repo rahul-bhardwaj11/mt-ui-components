@@ -4,10 +4,7 @@ import AntTag from 'antd/lib/tag';
 import 'antd/lib/tag/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
-import add from './assests/add.svg';
-import tick from './assests/tick.svg';
-import cancel from './assests/cancel.svg';
-// import Icon from '../Icon';
+import Icon from '../Icon';
 
 const DefaultTag = styled.div`
   display: inline-block;
@@ -68,14 +65,9 @@ const DefaultTag = styled.div`
       }
     }
   }
-  .tagIcons {
-    margin-left: 5px;
-    display: inline-block;
-    vertical-align: middle;
-    img {
-      vertical-align: middle;
-      margin-top: -4px;
-    }
+  .tagIcon {
+    font-size: 10px;
+    margin-left: 8px;
   }
 `;
 
@@ -132,38 +124,6 @@ const TYPES = {
   ACTION: 'action'
 };
 
-// class CheckableTag extends Component {
-//   state = { checked: true };
-
-//   handleChange = checked => {
-//     this.setState({ checked });
-//   };
-
-//   render() {
-//     return (
-//       <AntTag.CheckableTag
-//         {...this.props}
-//         checked={this.state.checked}
-//         onChange={this.handleChange}
-//       />
-//     );
-//   }
-// }
-
-// class AntTagComponent extends Component {
-//   static propTypes = {
-//     children: PropTypes.node,
-//     checkable: PropTypes.bool
-//   };
-//   render() {
-//     let { checkable , children} = this.props;
-//     let Component = (checkable) ? CheckableTag : AntTag;
-//     return (
-//         <Component {...this.props} >{children}</Component>
-//     );
-//   }
-// }
-
 class Tag extends Component {
   static propTypes = {
     children: PropTypes.node,
@@ -206,10 +166,7 @@ class Tag extends Component {
           <WrappedTag {...this.props}>
             <AntTagComponent {...this.props}>
               {children}
-              <span className="tagIcons">
-                <img src={add} width="10" className="img" />
-              </span>
-              {/* <Icon type="edit" className="editIcon" /> */}
+              <Icon type="edit" className="tagIcon" />
             </AntTagComponent>
           </WrappedTag>
         );
@@ -219,10 +176,7 @@ class Tag extends Component {
           <WrappedTag {...this.props}>
             <AntTagComponent {...this.props}>
               {children}
-              <span className="tagIcons">
-                <img src={cancel} width="8" />
-              </span>
-              {/* <Icon type="cross" /> */}
+              <Icon type="cross" className="tagIcon" />
             </AntTagComponent>
           </WrappedTag>
         );
@@ -232,10 +186,7 @@ class Tag extends Component {
           <WrappedTag {...this.props}>
             <AntTagComponent {...this.props}>
               {children}
-              <span className="tagIcons">
-                <img src={tick} width="10" />
-              </span>
-              {/* <Icon type="tick" /> */}
+              <Icon type="tick" className="tagIcon" />
             </AntTagComponent>
           </WrappedTag>
         );
