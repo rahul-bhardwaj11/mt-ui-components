@@ -171,8 +171,8 @@ $z-index: (
   opacity: $opacity;
 }
 
-@mixin truncate($width) {
-  width: $width;
+@mixin truncate($maxWidth) {
+  max-width: $maxWidth;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
