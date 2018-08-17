@@ -16,7 +16,7 @@ $ npm i
 
 To use it inside your project
 ```
-$ npm i git+https://github.com/MindTickle/mt-ui-components.git#master --save
+$ npm i git+ssh://github.com/MindTickle/mt-ui-components.git#master --save
 ```
 #### Note: Ensure that all peerDependencies are installed.
 

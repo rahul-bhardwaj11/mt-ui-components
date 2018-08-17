@@ -45,7 +45,8 @@ const MtTable = styled.div`
   .ant-table-default
     > .ant-table-content
     > .ant-table-fixed-left
-    > .ant-table-body
+    > .ant-table-body-outer
+    > .ant-table-body-inner
     > .ant-table-fixed,
   .ant-table-default
     > .ant-table-content
@@ -55,7 +56,8 @@ const MtTable = styled.div`
   .ant-table-default
     > .ant-table-content
     > .ant-table-fixed-right
-    > .ant-table-body
+    > .ant-table-body-outer
+    > .ant-table-body-inner
     > .ant-table-fixed {
     padding: 0px;
     .ant-table-thead {
@@ -250,9 +252,6 @@ const MtTable = styled.div`
       }
     }
   }
-  .gutterSpace {
-    height: 74px;
-  }
 `;
 
 class Table extends Component {
@@ -325,7 +324,6 @@ class Table extends Component {
     return (
       <MtTable showMultiSelect={showMultiSelect} {...this.styleProps}>
         <AntTable {...antProps}>{children}</AntTable>
-        {showActionBar && <div className={'gutterSpace'} />}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}
