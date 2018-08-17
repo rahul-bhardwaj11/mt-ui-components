@@ -24,7 +24,7 @@ class Modal extends Component {
     let { children, type } = this.props;
     let width = MODAL_WIDTH_MAP[type];
     return (
-      <AntModal {...this.props} className="mtModal" width={width}>
+      <AntModal {...this.props} width={width}>
         {children}
       </AntModal>
     );
