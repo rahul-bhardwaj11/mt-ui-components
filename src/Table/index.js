@@ -199,6 +199,18 @@ const MtTable = styled.div`
             }
           }
         }
+        &.ant-table-row-hover {
+          & > td {
+            background: ${theme.colors.PORCELAIN};
+            cursor: pointer;
+          }
+          &:hover {
+            & > td {
+              background: ${theme.colors.PORCELAIN};
+              cursor: pointer;
+            }
+          }
+        }
         &:hover {
           & > td {
             background: ${theme.colors.PORCELAIN};
