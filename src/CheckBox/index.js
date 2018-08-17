@@ -47,11 +47,12 @@ class CheckBox extends Component {
     event.stopPropagation();
     const isChecked = !this.state.checked;
     this.setState({ checked: isChecked });
-    this.props.onChange(isChecked);
+    if (this.props.onChange) this.props.onChange(isChecked);
   };
 
   componentWillReceiveProps(nextProps) {
-    if (typeof nextProps.checked !== 'undefined') {
+    let { checked } = this.state;
+    if (checked !== nextProps.checked) {
       this.setState({ checked: nextProps.checked });
     }
   }

@@ -66,12 +66,52 @@ stories.add(
 );
 
 stories.add(
+  'Sync MultiSelect',
+  withInfo('Basic usage of the SelectWithSearch')(() => (
+    <SelectWithSearch
+      defaultValue={colourOptions[2]}
+      label="Select..."
+      options={colourOptions}
+      onChange={() => {}}
+      isMulti
+    />
+  ))
+);
+
+stories.add(
+  'Sync MultiSelect with initially Button',
+  withInfo('Basic usage of the SelectWithSearch')(() => (
+    <SelectWithSearch
+      defaultValue={colourOptions[2]}
+      label="Select..."
+      options={colourOptions}
+      onChange={() => {}}
+      isMulti
+      initialType="button"
+    />
+  ))
+);
+
+stories.add(
   'Async Select',
   withInfo('Usage of the Async Infinite Select')(() => (
     <SelectWithSearch
       async
       promiseOption={promiseOption}
       defaultValue={colourOptions[2]}
+    />
+  ))
+);
+
+stories.add(
+  'Async MultiSelect',
+  withInfo('Usage of the Async Infinite Select')(() => (
+    <SelectWithSearch
+      async
+      promiseOption={promiseOption}
+      defaultValue={colourOptions[2]}
+      isMulti
+      //initialType='button'
     />
   ))
 );
