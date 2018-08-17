@@ -12,15 +12,15 @@ const mixins = {
     background-color: ${theme.colors.LIGHT_BLUE};
   `,
 
-  // primaryBtnHover: () => `
-  //   border: 1px solid get('colors.JODHPUR');
-  //   background-color: get('colors.JODHPUR');
-  // `,
+  primaryBtnHover: () => `
+    border: 1px solid get('colors.JODHPUR');
+    background-color: get('colors.JODHPUR');
+  `,
 
-  // textBtn: () => `
-  //   border: 1px dashed transparent;
-  //   background-color: transparent;
-  // `,
+  textBtn: () => `
+    border: 1px dashed transparent;
+    background-color: transparent;
+  `,
 
   fontStack: ({
     fontSize = '14px',
@@ -100,6 +100,13 @@ const mixins = {
       fontSize: '14px',
       fontWeight: 600,
       color: theme.colors.SILVER,
+      lineHeight: '20px'
+    }),
+  deleteLink: () =>
+    mixins.fontStack({
+      fontSize: '14px',
+      fontWeight: 600,
+      color: theme.colors.BITTERSWEET,
       lineHeight: '20px'
     }),
 

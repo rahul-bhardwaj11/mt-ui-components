@@ -19,10 +19,10 @@
 
 // headings ----------//
 @mixin fontStack(
-  $fontSize: '14px',
+  $fontSize: '13px',
   $fontWeight: '600',
   $color: '#2A2E36',
-  $lineHeight: '22px'
+  $lineHeight: '18px'
 ) {
   font-size: $fontSize;
   font-weight: $fontWeight;
@@ -58,6 +58,9 @@
 @mixin inactiveLink() {
   @include fontStack(14px, 600, get('colors.SILVER'), 20px);
 }
+@mixin deleteLink() {
+  @include fontStack(14px, 600, get('colors.BITTERSWEET'), 20px);
+}
 
 // body text ----------//
 
@@ -78,11 +81,9 @@
 @mixin smallBlackLink() {
   @include fontStack(12px, normal, get('colors.SHARK'), 16px);
 }
-
 @mixin smallDarkLink() {
   @include fontStack(12px, normal, get('colors.DARK_OUTER_SPACE'), 16px);
 }
-
 @mixin smallGreyLink() {
   @include fontStack(12px, normal, get('colors.OUTER_SPACE'), 16px);
 }
@@ -168,4 +169,11 @@ $z-index: (
   filter: alpha(opacity=$opacity * 100);
   filter: progid:DXImageTransform.Microsoft.Alpha(opacity=#{$opacity*100});
   opacity: $opacity;
+}
+
+@mixin truncate($width) {
+  width: $width;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

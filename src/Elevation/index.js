@@ -1,40 +1,44 @@
 import styled from 'styled-components';
+import theme from '../styles/theme';
+import PropTypes from 'prop-types';
 
 function boxShadowWithLevel(level) {
   let boxShadow;
 
   switch (level) {
     case 1:
-      boxShadow = 'none';
+      boxShadow = '0 2px 4px 0 rgba(0,0,0,0.08)';
       break;
     case 2:
-      boxShadow = `0 2px 4px 0 rgba(0, 0, 0, 0.08)`;
+      boxShadow = `0 4px 8px 0 rgba(0,0,0,0.08)`;
       break;
     case 3:
-      boxShadow = `0 2px 4px 0 rgba(0, 0, 0, 0.08)`;
+      boxShadow = `0 8px 16px 0 rgba(0,0,0,0.1)`;
       break;
     case 4:
-      boxShadow = `0 2px 4px 0 rgba(0, 0, 0, 1)`;
+      boxShadow = `0 16px 32px 0 rgba(0,0,0,0.12)`;
       break;
     default:
-      boxShadow = 'none';
+      boxShadow = '0 2px 4px 0 rgba(0,0,0,0.08)';
   }
   return boxShadow;
 }
 
 const Elevation = styled.div`
-  background: #fff;
-  border-radius: 8px;
+  border: ${theme.colors.PEARL};
+  border-radius: ${({ borderRadius = '4px' }) => borderRadius};
+  background-color: #ffffff;
+  box-sizing: border-box;
   box-shadow: ${props => boxShadowWithLevel(props.level)};
-  padding: 10px;
+  padding: ${({ padding }) => padding};
+  width: ${({ width }) => width};
 `;
 
-// function button(type){
-//   let button;
+Elevation.propTypes = {
+  width: PropTypes.string,
+  padding: PropTypes.string,
+  borderRadius: PropTypes.string,
+  level: PropTypes.number
+};
 
-//   switch (type) {
-//     case 1:
-
-//   }
-// }
 export default Elevation;

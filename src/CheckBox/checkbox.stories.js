@@ -6,7 +6,6 @@ import { boolean, withKnobs, text } from '@storybook/addon-knobs';
 
 const stories = storiesOf('CheckBox', module);
 stories.addDecorator(withKnobs);
-
 stories
   .add(
     'Default CheckBox',
@@ -19,4 +18,8 @@ stories
     withInfo('Checked checkbox')(() => (
       <CheckBox checked={boolean('checked', true)} label="Checkbox" />
     ))
+  )
+  .add(
+    'Indeterminate CheckBox',
+    withInfo('Indeterminate checkbox')(() => <CheckBox indeterminate={true} />)
   );

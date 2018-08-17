@@ -25,6 +25,7 @@ const SelectBox = styled.div`
   }
   .mt-react-select__control {
     border: 1px solid ${theme.colors.ALTO};
+    width: ${({ width = 'auto' }) => width};
   }
   .mt-react-select__control--is-focused {
     box-shadow: none;
