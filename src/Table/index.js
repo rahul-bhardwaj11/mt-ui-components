@@ -232,8 +232,8 @@ const MtTable = styled.div`
     }
     & > .ant-checkbox-checked {
       & > .ant-checkbox-inner {
-        background-color: ${theme.colors.LIGHT_BLUE};
-        border-color: ${theme.colors.LIGHT_BLUE};
+        background-color: ${theme.colors.INDIGO};
+        border-color: ${theme.colors.INDIGO};
         &:after {
           left: 3.5px;
           top: 1.2px;
@@ -242,8 +242,8 @@ const MtTable = styled.div`
     }
     & > .ant-checkbox-indeterminate {
       & > .ant-checkbox-inner {
-        background-color: ${theme.colors.LIGHT_BLUE};
-        border-color: ${theme.colors.LIGHT_BLUE};
+        background-color: ${theme.colors.INDIGO};
+        border-color: ${theme.colors.INDIGO};
         &:after {
           left: 1.5px;
           top: 5px;
