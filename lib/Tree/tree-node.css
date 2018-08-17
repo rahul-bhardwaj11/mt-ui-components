@@ -76,7 +76,7 @@
 .rst__rowContents {
   position: relative;
   height: 100%;
-  border: solid #bbb 1px;
+  border: solid get("colors.SILVER") 1px;
   border-left: none;
   box-shadow: 0 2px 2px -2px;
   padding: 0 5px 0 10px;
@@ -91,17 +91,17 @@
 
 .rst__rtl.rst__rowContents {
   border-right: none;
-  border-left: solid #bbb 1px;
+  border-left: solid get("colors.SILVER") 1px;
   padding: 0 10px 0 5px;
 }
 
 .rst__rowContentsDragDisabled {
-  border-left: solid #bbb 1px;
+  border-left: solid get("colors.SILVER") 1px;
 }
 
 .rst__rtl.rst__rowContentsDragDisabled {
-  border-right: solid #bbb 1px;
-  border-left: solid #bbb 1px;
+  border-right: solid get("colors.SILVER") 1px;
+  border-left: solid get("colors.SILVER") 1px;
 }
 
 .rst__rowLabel {

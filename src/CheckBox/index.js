@@ -33,8 +33,8 @@ const MtCheckbox = styled.div`
     }
     .ant-checkbox-checked {
       & > .ant-checkbox-inner {
-        background-color: ${theme.colors.LIGHT_BLUE};
-        border-color: ${theme.colors.LIGHT_BLUE};
+        background-color: ${theme.colors.INDIGO};
+        border-color: ${theme.colors.INDIGO};
       }
     }
     .ant-checkbox-checked + span {
