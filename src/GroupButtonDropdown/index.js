@@ -35,32 +35,27 @@ class GroupButtonDropdown extends Component {
   };
 
   static defaultProps = {
-    trigger: 'click'
-  };
-
-  onClick = key => {
-    if (this.props.onClick) {
-      this.props.onClick(key);
-    }
+    trigger: 'click',
+    onClick: () => {}
   };
 
   render() {
-    let { label } = this.props;
+    let { label, onClick, ...rest } = this.props;
     return (
       <MtGroupDropdown>
         <Button
-          className="eeee"
           style={{
             display: 'inline-block',
             padding: '0px 10px',
             borderBottomRightRadius: 0,
             borderTopRightRadius: 0
           }}
+          onClick={onClick}
         >
           {label}
         </Button>
 
-        <Dropdown {...this.props} onClick={this.onClick}>
+        <Dropdown {...rest}>
           <div style={{ display: 'inline-block' }}>
             <Button
               style={{
