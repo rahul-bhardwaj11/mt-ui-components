@@ -23,7 +23,6 @@ const DEFAULT_TD_PADDING = {
 
 const MtTable = styled.div`
   counter-reset: rowNumber;
-
   .ant-table-default > .ant-table-content > .ant-table-body > table,
   .ant-table-middle > .ant-table-content > .ant-table-body > table,
   .ant-table-small > .ant-table-content > .ant-table-body > table,
@@ -288,18 +287,89 @@ class Table extends Component {
       pRight: PropTypes.string,
       pBottom: PropTypes.string,
       pLeft: PropTypes.string
-    })
+    }),
+    fetchData: PropTypes.func,
+    infiniteScroll: PropTypes.bool,
+    threshold: PropTypes.number,
+    windowScroll: PropTypes.bool,
+    hasMore: PropTypes.bool,
+    loading: PropTypes.bool,
+    scroll: PropTypes.object
+  };
+  static defaultProps = {
+    infiniteScroll: false,
+    threshold: 0.9,
+    windowScroll: false
   };
   state = {
     showActionBar: false,
     showMultiSelect: false
   };
-
+  scrollElement = null;
   styleProps = {
     contentCellPadding: this.props.contentCellPadding,
     headerCellPadding: this.props.headerCellPadding
   };
+  fetch = () => {
+    const { loading, fetchData } = this.props;
+    if (!loading && fetchData) {
+      fetchData();
+    }
+  };
+  onScroll = () => {
+    const {
+      hasMore,
+      threshold,
+      infiniteScroll,
+      windowScroll,
+      scroll
+    } = this.props;
+    const body = document.body,
+      html = document.documentElement;
+    const height = windowScroll
+      ? Math.max(
+          body.scrollHeight,
+          body.offsetHeight,
+          html.clientHeight,
+          html.scrollHeight,
+          html.offsetHeight
+        )
+      : Math.max(
+          this.scrollElement.scrollHeight,
+          this.scrollElement.clientHeight
+        );
 
+    const innerHeight = windowScroll
+      ? window.innerHeight + window.scrollY
+      : scroll.y + this.scrollElement.scrollTop;
+
+    if (innerHeight >= height * threshold) {
+      if (infiniteScroll && hasMore) {
+        this.fetch();
+      } else {
+        window.removeEventListener('scroll', this.onScroll, false);
+      }
+    }
+  };
+
+  componentDidMount() {
+    const { infiniteScroll, windowScroll } = this.props;
+    if (infiniteScroll) {
+      this.scrollElement = windowScroll
+        ? window
+        : document.getElementsByClassName('ant-table-body')[0];
+      if (this.scrollElement) {
+        this.scrollElement.addEventListener('scroll', this.onScroll, false);
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    const { infiniteScroll } = this.props;
+    if (infiniteScroll && this.scrollElement) {
+      this.scrollElement.removeEventListener('scroll', this.onScroll, false);
+    }
+  }
   onChange = (selectedRowKeys, selectedRows) => {
     let {
       actionBar,
@@ -314,7 +384,6 @@ class Table extends Component {
 
   render() {
     let { rowSelection, actionBar, children } = this.props;
-
     let { showActionBar, showMultiSelect } = this.state;
 
     /**
