@@ -265,7 +265,7 @@ class Button extends Component {
     const { children, type, style } = this.props;
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
     return (
-      <MtButton>
+      <MtButton {...this.props}>
         <AntButton {...this.props} type={antdType} style={style}>
           {children}
           {type === 'edit' && <Icon type="edit" className="editIcon" />}

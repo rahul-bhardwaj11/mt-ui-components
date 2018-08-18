@@ -2,8 +2,8 @@
  This file would contains all css which oveeride any global css.
  This should be avoided as much as can.Same things should get achieved through styled component
 */
-
 @import '../styles/index.scss';
+
 :global {
   /* ant popover global override */
   .ant-popover-title {
@@ -38,7 +38,7 @@
       }
       &.disabled {
         background-color: #f8f8f8;
-        border: 1px solid get('colors.DISABLE');
+        border: 1px solid #e8e8e8;
       }
     }
     .ant-select-open {
@@ -76,7 +76,7 @@
         background-color: #fff;
       }
       &:hover {
-        background-color: get("colors.TAG_HOVER_TEXT_COLOR");
+        background-color: #4a90e2;
         color: #fff;
         border-radius: 4px;
       }
@@ -99,8 +99,8 @@
           border-radius: 14px;
           border: 1px solid get('colors.ALTO');
           border-radius: 16px;
-          background-color: get("colors.PORCELAIN");
-          color: get("colors.OUTER_SPACE");
+          background-color: #f5f6f7;
+          color: #989ca6;
           font-size: 12px;
           .ant-select-selection__choice__content {
             margin-right: 5px;
@@ -115,7 +115,7 @@
             }
           }
           .ant-select-selection__choice__remove {
-            color: get("colors.OUTER_SPACE");
+            color: #989ca6;
             font-size: 16px;
           }
         }
@@ -127,65 +127,29 @@
   }
 
   /* ant select modal override */
-  .mtModal {
-    .ant-modal-header {
-      border-bottom: 0px;
-      padding: 24px 32px 0px 32px;
-      .ant-modal-title {
-        @include mediumNumber;
-      }
+
+  .ant-modal-body {
+    padding: 24px 32px;
+  }
+  .ant-modal-header {
+    border-bottom: 0px;
+    padding: 24px 32px 0px 32px;
+    .ant-modal-title {
+      @include h2;
     }
-    .ant-modal-body {
-      padding: 0px;
-    }
-    .ant-modal-close-x {
-      font-size: 20px;
-    }
-    .ant-modal-footer {
-      padding: 16px;
-      background: get("colors.PORCELAIN");
+  }
+  .ant-modal-close-x {
+    font-size: 20px;
+  }
+  
+  .ant-modal-footer {
+    padding: 16px;
+      background: get('colors.PORCELAIN');
       border-top: 0px;
       .ant-btn {
         @include textBtn;
         @include button;
-        color: get("colors.OUTER_SPACE");
-        min-width: 75px;
-
-        &.ant-btn-primary {
-          @include primaryBtn;
-          @include button;
-          color: #fff;
-          &:hover {
-            @include primaryBtnHover;
-            color: #fff;
-          }
-          &:focus,
-          &.active {
-            @include primaryBtnHover;
-            color: #fff;
-          }
-        }
-        &:hover,
-        &:focus {
-          @include textBtn;
-          color: get("colors.GREY");
-        }
-      }
-    }
-  }
-
-  .ant-popover-message-title {
-    padding-left: 0px !important;
-    @include blackLink;
-  }
-  .ant-popover-message > .anticon {
-    display: none;
-  }
-  .ant-popover-buttons {
-    .ant-btn {
-      @include textBtn;
-      @include button;
-      color: get("colors.OUTER_SPACE");
+        color: get('colors.OUTER_SPACE');
       min-width: 75px;
 
       &.ant-btn-primary {
@@ -205,8 +169,56 @@
       &:hover,
       &:focus {
         @include textBtn;
-        color: get("colors.GREY");
+        color: get('colors.GREY');
+      }
+    }
+  }
+
+
+
+
+  .ant-popover-message-title {
+    padding-left: 0px !important;
+    @include blackLink;
+  }
+  .ant-popover-message > .anticon {
+    display: none;
+  }
+  .ant-popover-buttons {
+    .ant-btn {
+      @include textBtn;
+      @include button;
+      color: #989ca6;
+      min-width: 75px;
+
+      &.ant-btn-primary {
+        @include primaryBtn;
+        @include button;
+        color: #fff;
+        &:hover {
+          @include primaryBtnHover;
+          color: #fff;
+        }
+        &:focus,
+        &.active {
+          @include primaryBtnHover;
+          color: #fff;
+        }
+      }
+      &:hover,
+      &:focus {
+        @include textBtn;
+        color: #888;
       }
     }
   }
 }
+
+
+
+
+
+
+
+
+
