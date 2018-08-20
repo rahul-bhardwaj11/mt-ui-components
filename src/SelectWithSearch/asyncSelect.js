@@ -49,7 +49,8 @@ export default class AsyncSelect extends Component {
       showSelectedValues: true,
       menuIsOpen: false,
       showButton: false,
-      showInput: false
+      showInput: false,
+      inputValue: ''
     };
   }
 
@@ -63,10 +64,13 @@ export default class AsyncSelect extends Component {
     }
   }
 
-  onInputChange = search => {
-    this.setState({
-      search
-    });
+  onInputChange = (search, event) => {
+    if (event.action == 'input-change') {
+      this.setState({
+        inputValue: search,
+        search
+      });
+    }
 
     const { optionsCache } = this.state;
 
@@ -215,7 +219,7 @@ export default class AsyncSelect extends Component {
     const selectedValues = selectedItems.map(selectedItem => {
       return selectedItem.value;
     });
-    if (this.props.onChange) this.props.onChange(selectedValues);
+    this.props.onChange(selectedValues);
     if (this.props.isButton) {
       this.toggleButton();
     }
@@ -224,6 +228,7 @@ export default class AsyncSelect extends Component {
       menuIsOpen: false,
       showSelectedValues: true,
       showInput: false,
+      inputValue: '',
       optionsCache: {
         ...prevState.optionsCache,
         '': {
@@ -264,14 +269,6 @@ export default class AsyncSelect extends Component {
     ) : null;
   };
 
-  valueContainer = ({ children, ...props }) => {
-    return (
-      <div onClick={this.onInputClick} {...props}>
-        {children}
-      </div>
-    );
-  };
-
   buildMenu = props => {
     const { selectedItems } = this.state;
     return (
@@ -304,6 +301,7 @@ export default class AsyncSelect extends Component {
       </div>
     );
   };
+
   getButtonText = () => {
     const { selectedItems } = this.state;
     const { buttonLabel } = this.props;
@@ -323,11 +321,12 @@ export default class AsyncSelect extends Component {
       showSelectedValues,
       menuIsOpen,
       showButton,
-      showInput
+      showInput,
+      inputValue
     } = this.state;
     const { isMulti } = this.props;
     const currentOptions = optionsCache[search] || initialCache;
-    const multiProps = isMulti
+    const selectProps = isMulti
       ? {
           onChange: this.onCheckboxClick,
           hideSelectedOptions: false,
@@ -343,7 +342,8 @@ export default class AsyncSelect extends Component {
           menuIsOpen: menuIsOpen,
           isSearchable: showInput,
           autoFocus: showInput,
-          onBlur: this.onDone
+          onBlur: this.onDone,
+          inputValue: inputValue
         }
       : {};
 
@@ -365,7 +365,7 @@ export default class AsyncSelect extends Component {
         onMenuOpen={this.onMenuOpen}
         autoload={false}
         onMenuScrollToBottom={this.onMenuScrollToBottom}
-        {...multiProps}
+        {...selectProps}
       />
     );
   }

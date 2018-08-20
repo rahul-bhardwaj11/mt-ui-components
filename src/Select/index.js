@@ -31,7 +31,7 @@ class Select extends Component {
       >
         {options.map((option, index) => {
           return (
-            <Option key={index} value={option.key}>
+            <Option key={`select-${index}`} value={option.key}>
               {typeof option.content === 'string' ? (
                 <StringToHTML content={option.content} />
               ) : (
