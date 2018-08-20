@@ -141,6 +141,7 @@
   .ant-modal-close-x {
     font-size: 20px;
   }
+
   .ant-modal-footer {
     padding: 16px;
     background: get('colors.PORCELAIN');
@@ -150,7 +151,7 @@
       @include button;
       color: get('colors.OUTER_SPACE');
       min-width: 75px;
-      
+
       &.ant-btn-primary {
         @include primaryBtn;
         @include button;

@@ -12,6 +12,8 @@ const MtCheckbox = styled.div`
   .ant-checkbox-wrapper {
     .ant-checkbox-indeterminate {
       .ant-checkbox-inner {
+        background-color: ${theme.colors.INDIGO};
+        border-color: ${theme.colors.INDIGO};
         &:after {
           transform: rotate(180deg) scale(1);
           left: 1.5px;
