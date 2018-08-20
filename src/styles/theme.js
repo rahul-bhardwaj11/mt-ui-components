@@ -2,7 +2,6 @@ const theme = {
   base: '16px',
   spacing: '1rem',
   colors: {
-    LIGHT_BLUE: '#4D7CC7',
     JODHPUR: '#588CE0',
     SILVER: '#BBB',
     DARK_OUTER_SPACE: '#606369',

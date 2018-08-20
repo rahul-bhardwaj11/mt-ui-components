@@ -6,6 +6,8 @@ import 'antd/lib/checkbox/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 
+const noop = () => undefined;
+
 const MtCheckbox = styled.div`
   display: inline-block;
   vertical-align: middle;
@@ -33,8 +35,8 @@ const MtCheckbox = styled.div`
     }
     .ant-checkbox-checked {
       & > .ant-checkbox-inner {
-        background-color: ${theme.colors.LIGHT_BLUE};
-        border-color: ${theme.colors.LIGHT_BLUE};
+        background-color: ${theme.colors.INDIGO};
+        border-color: ${theme.colors.INDIGO};
       }
     }
     .ant-checkbox-checked + span {
@@ -55,6 +57,10 @@ class CheckBox extends Component {
     indeterminate: PropTypes.bool
   };
 
+  static defaultProps = {
+    onChange: noop
+  };
+
   state = {
     checked: this.props.checked
   };
@@ -63,7 +69,7 @@ class CheckBox extends Component {
     event.stopPropagation();
     const isChecked = !this.state.checked;
     this.setState({ checked: isChecked });
-    if (this.props.onChange) this.props.onChange(isChecked);
+    this.props.onChange(isChecked);
   };
 
   componentWillReceiveProps(nextProps) {

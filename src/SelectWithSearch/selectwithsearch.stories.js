@@ -40,6 +40,7 @@ stories.add(
       defaultValue={colourOptions[2]}
       label="Select..."
       options={colourOptions}
+      onChange={() => {}}
     />
   ))
 );
@@ -66,7 +67,7 @@ stories.add(
       options={colourOptions}
       onChange={() => {}}
       isMulti
-      initialType="button"
+      isButton={true}
     />
   ))
 );
@@ -78,6 +79,7 @@ stories.add(
       async
       promiseOption={promiseOption}
       defaultValue={colourOptions[2]}
+      onChange={() => {}}
     />
   ))
 );
@@ -90,7 +92,8 @@ stories.add(
       promiseOption={promiseOption}
       defaultValue={colourOptions[2]}
       isMulti
-      //initialType='button'
+      onChange={() => {}}
+      //isButton={true}
     />
   ))
 );

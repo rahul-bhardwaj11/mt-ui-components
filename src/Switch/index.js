@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import AntSwitch from 'antd/lib/switch';
 import 'antd/lib/switch/style/index.css';
 import styled from 'styled-components';
+import theme from '../styles/theme';
 
 const MtSwitch = styled.div`
   .ant-switch-checked {
-    background-color: #4a90e2;
+    background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
   }
   .ant-switch {
     min-width: 36px;

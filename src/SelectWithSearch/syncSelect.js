@@ -12,13 +12,12 @@ export default class SyncSelect extends Component {
     defaultValue: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     isMulti: PropTypes.bool,
     onChange: PropTypes.func,
-    initialType: PropTypes.string,
-    filterLabel: PropTypes.string
+    isButton: PropTypes.bool,
+    buttonLabel: PropTypes.string
   };
 
   static defaultProps = {
-    initialType: 'select',
-    filterLabel: 'filter',
+    buttonLabel: 'filter',
     onChange: noop
   };
 
@@ -32,8 +31,8 @@ export default class SyncSelect extends Component {
   };
 
   componentWillMount() {
-    const { defaultValue, initialType, options } = this.props;
-    if (initialType == 'button') {
+    const { defaultValue, isButton, options } = this.props;
+    if (isButton) {
       this.setState({ showButton: true });
     }
     const selectedItems = [];
@@ -62,7 +61,14 @@ export default class SyncSelect extends Component {
   };
 
   onCheckboxClick = data => {
-    if (data) this.setState({ selectedItems: data });
+    const selectedItems = [...this.state.selectedItems];
+    let index = selectedItems.indexOf(data);
+    if (index < 0) {
+      selectedItems.push(data);
+    } else {
+      selectedItems.splice(index, 1);
+    }
+    this.setState({ selectedItems });
   };
 
   onClearAll = () => {
@@ -76,7 +82,7 @@ export default class SyncSelect extends Component {
       return selectedItem.value;
     });
     this.props.onChange(selectedValues);
-    if (this.props.initialType == 'button') {
+    if (this.props.isButton) {
       this.toggleButton();
     }
     const sortedOptions = this.__sortOptions(selectedItems, options);
@@ -102,18 +108,18 @@ export default class SyncSelect extends Component {
     const { selectedItems } = this.state;
     if (data.value == selectedItems[0].value)
       return (
-        <div>{`${data.value}${
+        <div>{`${data.label}${
           selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
         }`}</div>
       );
     return null;
   };
 
-  optionWithCheckBox = ({ innerProps, isDisabled, data }) => {
+  optionWithCheckBox = ({ isDisabled, data }) => {
     const { selectedItems } = this.state;
     return !isDisabled ? (
-      <div onClick={innerProps.onClick}>
-        <CheckBox checked={selectedItems.indexOf(data) > -1 ? true : false} />
+      <div onClick={() => this.onCheckboxClick(data)}>
+        <CheckBox checked={selectedItems.indexOf(data) > -1} />
         {data.label}
       </div>
     ) : null;
@@ -136,9 +142,9 @@ export default class SyncSelect extends Component {
           <Button type="primary" onClick={this.onClearAll}>
             {'Clear All'}
           </Button>
-          <Button type="primary" onClick={this.onDone}>{`Done${
-            selectedItems.length ? `+${selectedItems.length}` : ''
-          }`}</Button>
+          <Button type="primary" onClick={this.onDone}>
+            {`Done${selectedItems.length ? `(${selectedItems.length})` : ''}`}
+          </Button>
         </components.Menu>
       </div>
     );
@@ -148,24 +154,27 @@ export default class SyncSelect extends Component {
     return (
       <div
         onClick={() => {
-          this.setState(prevState => ({
-            menuIsOpen: !prevState.menuIsOpen,
+          this.setState({
+            menuIsOpen: true,
             showInput: true,
             showSelectedValues: false
-          }));
+          });
         }}
       >
         <components.Control {...arg} />
       </div>
     );
   };
+
   getButtonText = () => {
     const { selectedItems } = this.state;
-    const { filterLabel } = this.props;
-    if (selectedItems.length) {
-      return `${filterLabel}.${selectedItems.length}`;
+    const { buttonLabel } = this.props;
+    const selectedItemsLength = selectedItems.length;
+    if (selectedItemsLength) {
+      if (selectedItemsLength == 1) return `${selectedItems[0].label}`;
+      return `${buttonLabel}.${selectedItems.length}`;
     }
-    return filterLabel;
+    return buttonLabel;
   };
 
   render() {
@@ -178,6 +187,26 @@ export default class SyncSelect extends Component {
       showButton,
       showInput
     } = this.state;
+    const multiProps = isMulti
+      ? {
+          onChange: this.onCheckboxClick,
+          hideSelectedOptions: false,
+          components: {
+            Option: this.optionWithCheckBox,
+            MultiValueContainer: this.handleDisplayValue,
+            Menu: this.buildMenu,
+            Control: this.handleControl
+          },
+          value: selectedItems,
+          closeMenuOnSelect: false,
+          controlShouldRenderValue: showSelectedValues,
+          menuIsOpen: menuIsOpen,
+          isSearchable: showInput,
+          autoFocus: showInput,
+          onBlur: this.onDone
+        }
+      : {};
+
     if (showButton) {
       return (
         <Button onClick={this.toggleButton} type="primary">
@@ -185,35 +214,12 @@ export default class SyncSelect extends Component {
         </Button>
       );
     }
-    if (isMulti) {
-      return (
-        <Select
-          {...this.props}
-          autofocus={true}
-          options={options}
-          classNamePrefix={'mt-react-select'}
-          onChange={this.onCheckboxClick}
-          hideSelectedOptions={false}
-          components={{
-            Option: this.optionWithCheckBox,
-            MultiValueContainer: this.handleDisplayValue,
-            Menu: this.buildMenu,
-            Control: this.handleControl
-          }}
-          value={selectedItems}
-          closeMenuOnSelect={false}
-          controlShouldRenderValue={showSelectedValues}
-          menuIsOpen={menuIsOpen}
-          isSearchable={showInput}
-          autoFocus={showInput}
-        />
-      );
-    }
     return (
       <Select
         {...this.props}
         options={options}
         classNamePrefix={'mt-react-select'}
+        {...multiProps}
       />
     );
   }
