@@ -103,7 +103,6 @@
   border-right: solid 1px get('colors.SILVER');
   border-left: solid 1px get('colors.SILVER');
 }
-
 .rst__rowLabel {
   flex: 0 1 auto;
   padding-right: 20px;
