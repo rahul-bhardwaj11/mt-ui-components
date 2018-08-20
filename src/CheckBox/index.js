@@ -16,6 +16,8 @@ const MtCheckbox = styled.div`
           transform: rotate(180deg) scale(1);
           left: 1.5px;
           top: 4.5px;
+          width: 8px;
+          height: 2px;
         }
       }
     }
