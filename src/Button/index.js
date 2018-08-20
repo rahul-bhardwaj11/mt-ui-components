@@ -27,7 +27,7 @@ const ANTD_BUTTON_TYPE_MAP = {
 };
 
 const MtButton = styled.div`
-  display: inline-block;
+  float: left;
 
   /* Default Button styles */
   .ant-btn-default {
