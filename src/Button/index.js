@@ -34,7 +34,7 @@ const MtButton = styled.div`
     border: 1px solid ${theme.colors.ALTO};
     color: #6f7583;
     height: 32px;
-    padding: 0px 32px;
+    padding: ${props => (props.size === 'medium' ? '0px 16px' : '0px 32px')};
     font-size: 14px;
     &.ant-btn-sm {
       color: ${theme.colors.GREY};
@@ -104,7 +104,7 @@ const MtButton = styled.div`
     color: #fff;
     font-size: 14px;
     height: 32px;
-    padding: 0px 32px;
+    padding: ${props => (props.size === 'medium' ? '0px 16px' : '0px 32px')};
     &.ant-btn-sm {
       color: #fff;
       font-size: 12px;
@@ -262,10 +262,10 @@ class Button extends Component {
   };
 
   render() {
-    const { children, type, style, active, disabled } = this.props;
+    const { children, type, style, active, disabled, size } = this.props;
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
     return (
-      <MtButton active={active} disabled={disabled}>
+      <MtButton active={active} disabled={disabled} size={size}>
         <AntButton {...this.props} type={antdType} style={style}>
           {children}
           {type === 'edit' && <Icon type="edit" className="editIcon" />}
