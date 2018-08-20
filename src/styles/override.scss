@@ -2,7 +2,7 @@
  This file would contains all css which oveeride any global css.
  This should be avoided as much as can.Same things should get achieved through styled component
 */
-@import '../styles/index.scss';
+@import './index.scss';
 
 :global {
   /* ant popover global override */
@@ -173,7 +173,6 @@
       }
     }
   }
-
   .ant-popover-message-title {
     padding-left: 0px !important;
     @include blackLink;
