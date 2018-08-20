@@ -10,6 +10,21 @@ const MtCheckbox = styled.div`
   display: inline-block;
   vertical-align: middle;
   .ant-checkbox-wrapper {
+    .ant-checkbox-indeterminate {
+      .ant-checkbox-inner {
+        background-color: ${theme.colors.INDIGO};
+        border-color: ${theme.colors.INDIGO};
+        &:after {
+          transform: rotate(180deg) scale(1);
+          left: 1.5px;
+          top: 4.5px;
+          width: 8px;
+          height: 2px;
+        }
+      }
+    }
+  }
+  .ant-checkbox-wrapper {
     font-weight: normal;
     display: inherit;
     .ant-checkbox {
