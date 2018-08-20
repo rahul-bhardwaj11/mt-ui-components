@@ -17,7 +17,7 @@ class Select extends Component {
   };
 
   static defaultProps = {
-    style: { minWidth: 120 }
+    style: { minWidth: 125 }
   };
 
   render() {
