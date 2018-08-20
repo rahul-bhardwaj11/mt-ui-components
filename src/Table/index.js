@@ -144,6 +144,7 @@ const MtTable = styled.div`
     }
 
     .ant-table-tbody {
+      counter-reset: rowNumber;
       .ant-table-selection-column {
         ${props =>
           !props.showMultiSelect &&
@@ -334,7 +335,11 @@ class Table extends Component {
           ...this.props
         };
     return (
-      <MtTable showMultiSelect={showMultiSelect} {...this.styleProps}>
+      <MtTable
+        counter={1}
+        showMultiSelect={showMultiSelect}
+        {...this.styleProps}
+      >
         <AntTable {...antProps}>{children}</AntTable>
         {showActionBar && (
           <ActionBar {...actionBar}>
