@@ -143,6 +143,7 @@ const MtTable = styled.div`
     }
 
     .ant-table-tbody {
+      counter-reset: rowNumber;
       .ant-table-selection-column {
         ${props =>
           !props.showMultiSelect &&
