@@ -2,30 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import 'antd/lib/button/style/index.css';
 import styled from 'styled-components';
-import theme from '../styles/theme';
+import mixins from '../styles/mixins.js';
 
 const MtActionBar = styled.div`
   position: fixed;
   max-width: 100vw;
   bottom: 0;
-  width: 1248px;
+  width: ${({ width = '1248px' }) => width};
   left: 0;
   right: 0;
   margin: auto;
   background-color: white;
-  padding: 1.5em 0;
+  padding: 16px 24px;
   box-shadow: 0 -1px 0 0 #e7e8ec, 0 -2px 4px 0 rgba(0, 0, 0, 0.08);
   .countText {
-    padding: 0 2em;
-    color: ${theme.colors.SHARK};
-    font-size: 14px;
-    font-weight: 600;
+    ${mixins.blackLink()};
   }
 `;
 
-const ActionBar = ({ children, countText }) => {
+const ActionBar = ({ children, countText, style }) => {
   return (
-    <MtActionBar>
+    <MtActionBar {...style}>
       <span className="countText">{countText}</span>
       {children}
     </MtActionBar>
@@ -34,7 +31,8 @@ const ActionBar = ({ children, countText }) => {
 
 ActionBar.propTypes = {
   children: PropTypes.arrayOf(PropTypes.node),
-  countText: PropTypes.string.isRequired
+  countText: PropTypes.string.isRequired,
+  style: PropTypes.object
 };
 
 export default ActionBar;
