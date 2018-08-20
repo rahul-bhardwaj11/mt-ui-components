@@ -12,7 +12,7 @@ stories
   .add(
     'Primary button',
     withInfo('Adding type primary to button')(() => (
-      <Button type={text('type', 'primary')} size={text('size', 'large')}>
+      <Button type={text('type', 'primary')} size={text('size', '')}>
         {text('children', 'Submit')}
       </Button>
     ))
