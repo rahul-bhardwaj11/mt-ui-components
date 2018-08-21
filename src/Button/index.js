@@ -196,7 +196,7 @@ const MtButton = styled.div`
           ? `color: ${theme.colors.INDIGO};
         background-color: ${theme.colors.TROPICAL_BLUE}`
           : `background-color: transparent;
-          color: ${theme.colors.OUTER_SPACE};`};
+          color: ${theme.colors.INDIGO};`};
     }
     &.ant-btn-sm {
       color: #fff;
