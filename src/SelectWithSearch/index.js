@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 //import { Icon } from 'antd';
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import mixins from '../styles/mixins.js';
 import AsyncSelect from './asyncSelect';
 import SyncSelect from './syncSelect';
 import mixin from '../styles/mixins';
@@ -13,7 +14,7 @@ const SelectBox = styled.div`
     padding-left: 30px;
   }
   .mt-react-select__value-container::before {
-    content: url('./assets/search.svg');
+    content: url('./assets/search.svg')
     padding-left: 5px;
     padding-top: 5px;
     position: absolute;
@@ -82,7 +83,6 @@ const SelectBox = styled.div`
     margin-right: 2px;
     padding-left: 30px;
   }
-
 .componentWrapper {
   ${mixin.clearfix()};
 }
@@ -106,8 +106,6 @@ const SelectBox = styled.div`
 .checkboxWrapper {
   margin-bottom: 5px;
 }
-
-
 `;
 
 class SelectWithSearch extends Component {
