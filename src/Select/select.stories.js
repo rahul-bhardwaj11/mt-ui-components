@@ -15,15 +15,19 @@ const options = [
 ];
 
 stories
-.add(
-  'Default Select',
-  withInfo('Basic usage of the Select')(() => (
-    <Select options={object('options', options)} defaultValue="Select" />
-  ))
-)
-.add(
-  'Multiple Select',
-  withInfo('Basic usage of the Multiple Select')(() => (
-    <Select options={object('options', options)} defaultValue="Select" mode="multiple"/>
-  ))
-);
+  .add(
+    'Default Select',
+    withInfo('Basic usage of the Select')(() => (
+      <Select options={object('options', options)} defaultValue="Select" />
+    ))
+  )
+  .add(
+    'Multiple Select',
+    withInfo('Basic usage of the Multiple Select')(() => (
+      <Select
+        options={object('options', options)}
+        defaultValue="Select"
+        mode="multiple"
+      />
+    ))
+  );

@@ -6,6 +6,8 @@ import 'antd/lib/checkbox/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 
+const noop = () => undefined;
+
 const MtCheckbox = styled.div`
   display: inline-block;
   vertical-align: middle;
@@ -70,6 +72,10 @@ class CheckBox extends Component {
     indeterminate: PropTypes.bool
   };
 
+  static defaultProps = {
+    onChange: noop
+  };
+
   state = {
     checked: this.props.checked
   };
@@ -82,7 +88,8 @@ class CheckBox extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (typeof nextProps.checked !== 'undefined') {
+    let { checked } = this.state;
+    if (checked !== nextProps.checked) {
       this.setState({ checked: nextProps.checked });
     }
   }
