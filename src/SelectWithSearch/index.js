@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 //import { Icon } from 'antd';
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import mixins from '../styles/mixins.js';
 import AsyncSelect from './asyncSelect';
 import SyncSelect from './syncSelect';
 
@@ -81,6 +82,9 @@ const SelectBox = styled.div`
     margin-left: 2px;
     margin-right: 2px;
   }
+  .dataLabel {
+    ${mixins.displayIB()};
+    }
 `;
 
 class SelectWithSearch extends Component {
