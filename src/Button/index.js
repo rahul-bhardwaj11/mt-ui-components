@@ -26,15 +26,19 @@ const ANTD_BUTTON_TYPE_MAP = {
   [BUTTON_TYPES.DISABLED]: 'disabled'
 };
 
-const MtButton = styled.div`
-  display: inline-block;
+const ANTD_BUTTON_SIZE_PADDING = {
+  large: '0px 32px',
+  medium: '0px 24px',
+  small: '0px 12px'
+};
 
+const MtButton = styled.div`
   /* Default Button styles */
   .ant-btn-default {
     border: 1px solid ${theme.colors.ALTO};
     color: #6f7583;
     height: 32px;
-    padding: 0px 32px;
+    padding: ${props => ANTD_BUTTON_SIZE_PADDING[props.size]};
     font-size: 14px;
     &.ant-btn-sm {
       color: ${theme.colors.GREY};
@@ -104,7 +108,7 @@ const MtButton = styled.div`
     color: #fff;
     font-size: 14px;
     height: 32px;
-    padding: 0px 32px;
+    padding: ${props => ANTD_BUTTON_SIZE_PADDING[props.size]};
     &.ant-btn-sm {
       color: #fff;
       font-size: 12px;
@@ -258,14 +262,15 @@ class Button extends Component {
     onClick: noop,
     children: 'Submit',
     disabled: false,
-    type: BUTTON_TYPES.PRIMARY
+    type: BUTTON_TYPES.PRIMARY,
+    size: 'large'
   };
 
   render() {
-    const { children, type, style, active, disabled } = this.props;
+    const { children, type, style, active, disabled, size } = this.props;
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
     return (
-      <MtButton active={active} disabled={disabled}>
+      <MtButton active={active} disabled={disabled} size={size}>
         <AntButton {...this.props} type={antdType} style={style}>
           {children}
           {type === 'edit' && <Icon type="edit" className="editIcon" />}
