@@ -7,6 +7,7 @@ import theme from '../styles/theme';
 import mixins from '../styles/mixins.js';
 import AsyncSelect from './asyncSelect';
 import SyncSelect from './syncSelect';
+import mixin from '../styles/mixins';
 
 const SelectBox = styled.div`
   .mt-react-select__single-value {
@@ -80,10 +81,31 @@ const SelectBox = styled.div`
   .selectedItem {
     margin-left: 2px;
     margin-right: 2px;
+    padding-left: 30px;
   }
-  .dataLabel {
-    ${mixins.displayIB()};
-    }
+.componentWrapper {
+  ${mixin.clearfix()};
+}
+
+.buttonWrapperL {
+  float: left;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+.buttonWrapperR {
+  float: right;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+.dataLabel {
+  ${mixin.displayIB()};
+}
+
+.checkboxWrapper {
+  margin-bottom: 5px;
+}
 `;
 
 class SelectWithSearch extends Component {
