@@ -99,7 +99,6 @@ const SelectBox = styled.div`
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
   }
-
 .componentWrapper {
   ${mixin.clearfix()};
 }
@@ -123,8 +122,6 @@ const SelectBox = styled.div`
 .checkboxWrapper {
   margin-bottom: 5px;
 }
-
-
 `;
 
 class SelectWithSearch extends Component {

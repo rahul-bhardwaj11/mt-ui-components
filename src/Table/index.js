@@ -11,14 +11,14 @@ const DEFAULT_TH_PADDING = {
   pTop: '16px',
   pRight: '0',
   pBottom: '16px',
-  pLeft: '24px'
+  pLeft: '32px'
 };
 
 const DEFAULT_TD_PADDING = {
   pTop: '12px',
   pRight: '0',
   pBottom: '12px',
-  pLeft: '24px'
+  pLeft: '32px'
 };
 
 const MtTable = styled.div`
@@ -143,6 +143,7 @@ const MtTable = styled.div`
     }
 
     .ant-table-tbody {
+      counter-reset: rowNumber;
       .ant-table-selection-column {
         ${props =>
           !props.showMultiSelect &&
