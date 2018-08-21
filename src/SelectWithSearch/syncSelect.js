@@ -108,7 +108,7 @@ export default class SyncSelect extends Component {
     const { selectedItems } = this.state;
     if (data.value == selectedItems[0].value)
       return (
-        <div>{`${data.label}${
+        <div className="selectedItem paddingL30">{`${data.label}${
           selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
         }`}</div>
       );
@@ -118,9 +118,9 @@ export default class SyncSelect extends Component {
   optionWithCheckBox = ({ isDisabled, data }) => {
     const { selectedItems } = this.state;
     return !isDisabled ? (
-      <div onClick={() => this.onCheckboxClick(data)}>
+      <div onClick={() => this.onCheckboxClick(data)} className="marginB5">
         <CheckBox checked={selectedItems.indexOf(data) > -1} />
-        {data.label}
+        <span className="dataLabel">{data.label}</span>
       </div>
     ) : null;
   };
@@ -139,12 +139,20 @@ export default class SyncSelect extends Component {
       <div>
         <components.Menu {...props}>
           {props.children}
-          <Button type="primary" onClick={this.onClearAll}>
-            {'Clear All'}
-          </Button>
-          <Button type="primary" onClick={this.onDone}>
-            {`Done${selectedItems.length ? `(${selectedItems.length})` : ''}`}
-          </Button>
+          <div className="clearfix paddingB15 paddingT15">
+            <div className="floatL">
+              <Button type="text" onClick={this.onClearAll}>
+                {'Clear All'}
+              </Button>
+            </div>
+            <div className="floatR">
+              <Button type="text" onClick={this.onDone}>
+                {`Done${
+                  selectedItems.length ? `(${selectedItems.length})` : ''
+                }`}
+              </Button>
+            </div>
+          </div>
         </components.Menu>
       </div>
     );
