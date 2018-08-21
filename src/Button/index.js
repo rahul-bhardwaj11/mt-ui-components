@@ -16,6 +16,12 @@ const BUTTON_TYPES = {
   DISABLED: 'disabled'
 };
 
+const BUTTON_SIZES = {
+  LARGE: 'large',
+  SMALL: 'small',
+  MEDIUM: 'medium'
+};
+
 const ANTD_BUTTON_TYPE_MAP = {
   [BUTTON_TYPES.PRIMARY]: 'primary',
   [BUTTON_TYPES.SECONDARY]: 'default',
@@ -27,9 +33,9 @@ const ANTD_BUTTON_TYPE_MAP = {
 };
 
 const ANTD_BUTTON_SIZE_PADDING = {
-  large: '0px 32px',
-  medium: '0px 24px',
-  small: '0px 12px'
+  [BUTTON_SIZES.LARGE]: '0px 32px',
+  [BUTTON_SIZES.MEDIUM]: '0px 24px',
+  [BUTTON_SIZES.SMALL]: '0px 12px'
 };
 
 const MtButton = styled.div`
@@ -248,10 +254,10 @@ const noop = () => undefined;
 class Button extends Component {
   static propTypes = {
     onClick: PropTypes.func,
-    type: PropTypes.oneOf(BUTTON_TYPES),
+    type: PropTypes.oneOf(Object.values(BUTTON_TYPES)),
     children: PropTypes.node,
     disabled: PropTypes.bool,
-    size: PropTypes.string,
+    size: PropTypes.oneOf(Object.values(BUTTON_SIZES)),
     style: PropTypes.object,
     className: PropTypes.string,
     active: PropTypes.bool

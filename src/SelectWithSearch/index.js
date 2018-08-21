@@ -4,21 +4,32 @@ import PropTypes from 'prop-types';
 //import { Icon } from 'antd';
 import styled from 'styled-components';
 import theme from '../styles/theme';
-import mixins from '../styles/mixins.js';
 import AsyncSelect from './asyncSelect';
 import SyncSelect from './syncSelect';
 import mixin from '../styles/mixins';
+import searchIcon from './assets/search.svg';
 
 const SelectBox = styled.div`
   .mt-react-select__single-value {
     padding-left: 30px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
   }
-  .mt-react-select__value-container::before {
-    content: url('./assets/search.svg')
+  
+  .mt-react-select__value-container{
+    &:before {
+    content: '';
+    background: url('${searchIcon}') no-repeat 10px 5px;
+    height: 25px;
+    width: 30px;
     padding-left: 5px;
     padding-top: 5px;
     position: absolute;
     opacity: 0.6;
+  }
   }
   .mt-react-select__menu-list {
     padding: 8px;
@@ -82,6 +93,11 @@ const SelectBox = styled.div`
     margin-left: 2px;
     margin-right: 2px;
     padding-left: 30px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
   }
 .componentWrapper {
   ${mixin.clearfix()};
@@ -122,18 +138,15 @@ class SelectWithSearch extends Component {
 
   render() {
     let { async } = this.props;
+    let SelectComponent = SyncSelect;
     if (async) {
-      return (
-        <SelectBox>
-          <AsyncSelect {...this.props} />
-        </SelectBox>
-      );
-    } else
-      return (
-        <SelectBox>
-          <SyncSelect {...this.props} />
-        </SelectBox>
-      );
+      SelectComponent = AsyncSelect;
+    }
+    return (
+      <SelectBox>
+        <SelectComponent {...this.props} />
+      </SelectBox>
+    );
   }
 }
 
