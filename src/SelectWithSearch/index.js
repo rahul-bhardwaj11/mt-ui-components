@@ -79,18 +79,15 @@ class SelectWithSearch extends Component {
 
   render() {
     let { async } = this.props;
+    let SelectComponent = SyncSelect;
     if (async) {
-      return (
-        <SelectBox>
-          <AsyncSelect {...this.props} />
-        </SelectBox>
-      );
-    } else
-      return (
-        <SelectBox>
-          <SyncSelect {...this.props} />
-        </SelectBox>
-      );
+      SelectComponent = AsyncSelect;
+    }
+    return (
+      <SelectBox>
+        <SelectComponent {...this.props} />
+      </SelectBox>
+    );
   }
 }
 
