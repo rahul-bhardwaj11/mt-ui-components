@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../src/Layout/index.js"],"names":["AntLayout"],"mappings":";;;;;;AAAA;;;;AACA;;;;kBAGeA,gB","file":"index.js","sourcesContent":["import AntLayout from 'antd/lib/layout';\nimport 'antd/lib/layout/style/index.css';\n\n\nexport default AntLayout;\n"]}
+{"version":3,"sources":["../../src/Layout/index.js"],"names":["AntLayout"],"mappings":";;;;;;AAAA;;;;AACA;;;;kBAEeA,gB","file":"index.js","sourcesContent":["import AntLayout from 'antd/lib/layout';\nimport 'antd/lib/layout/style/index.css';\n\nexport default AntLayout;\n"]}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AntTable from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
+import 'antd/lib/checkbox/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins.js';
@@ -160,6 +161,12 @@ const MtTable = styled.div`
       }
       & > tr {
         color: ${theme.colors.DARK_OUTER_SPACE};
+        &:focus-within {
+          & > td {
+            background: ${theme.colors.PORCELAIN};
+            cursor: pointer;
+          }
+        }
         td {
           ${mixins.darkText()};
           border-bottom: 1px solid ${theme.colors.PEARL};
@@ -214,12 +221,6 @@ const MtTable = styled.div`
         &:hover {
           & > td {
             background: ${theme.colors.PORCELAIN};
-            cursor: pointer;
-          }
-        }
-        &:active {
-          & > td {
-            background: ${theme.colors.TROPICAL_BLUE};
             cursor: pointer;
           }
         }
