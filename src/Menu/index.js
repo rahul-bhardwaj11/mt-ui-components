@@ -32,7 +32,7 @@ const MtMenu = styled.div`
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
     &:hover {
-      background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+      background-color: ${theme.colors.INDIGO};
       color: #fff;
     }
   }
@@ -40,14 +40,14 @@ const MtMenu = styled.div`
     background-color: #fff;
     color: ${theme.colors.OUTER_SPACE};
     padding: 0px 15px;
-    margin: 8px;
+    margin: 4px 8px;
     border-radius: 4px;
     height: 32px;
     line-height: 32px;
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
     &:hover {
-      background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+      background-color: ${theme.colors.INDIGO};
       color: #fff;
     }
   }
