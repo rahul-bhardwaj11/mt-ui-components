@@ -8,7 +8,7 @@ import Icon from '../Icon';
 
 const BUTTON_TYPES = {
   PRIMARY: 'primary',
-  SECONDARY: 'default',
+  SECONDARY: 'secondary',
   TERTIARY: 'tertiary',
   LINK: 'link',
   TEXT: 'text',
