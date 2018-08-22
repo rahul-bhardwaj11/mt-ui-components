@@ -52,6 +52,7 @@ const MtButton = styled.div`
       padding: 0px 12px;
     }
     &:hover {
+      color: ${theme.colors.DARK_OUTER_SPACE};
       border: 1px solid ${theme.colors.SILVER};
     }
     &:focus,
