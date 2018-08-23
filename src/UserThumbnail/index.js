@@ -19,7 +19,7 @@ const MtUserThumbnail = styled.div`
   .content {
     display: inline-block;
     vertical-align: bottom;
-    margin-left: 10px;
+    margin-left: 16px;
     .name {
       ${mixin.blackText()};
       line-height: 22px;
@@ -37,7 +37,8 @@ class UserThumbnail extends Component {
     imgUrl: PropTypes.string,
     shape: PropTypes.oneOf(['circle', 'square']),
     size: PropTypes.string,
-    icon: PropTypes.string
+    icon: PropTypes.string,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -47,16 +48,11 @@ class UserThumbnail extends Component {
   };
 
   render() {
-    const { name, email, imgUrl, shape, size, icon } = this.props;
-    const avatarComponent = imgUrl ? (
-      <Avatar shape={shape} size={size} src={imgUrl} />
-    ) : (
-      <Avatar shape={shape} size={size} icon={icon} />
-    );
+    const { name, email } = this.props;
 
     return (
       <MtUserThumbnail>
-        {avatarComponent}
+        <Avatar {...this.props} />
         {(name || email) && (
           <div className="content">
             {name && <div className={'name'}>{name}</div>}
