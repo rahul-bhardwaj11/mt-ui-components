@@ -27,10 +27,11 @@ export default class SyncSelect extends Component {
     showSelectedValues: true,
     menuIsOpen: false,
     showButton: false,
-    showInput: false
+    showInput: false,
+    inputValue: ''
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const { defaultValue, isButton, options } = this.props;
     if (isButton) {
       this.setState({ showButton: true });
@@ -47,6 +48,14 @@ export default class SyncSelect extends Component {
     }
     const sortedOptions = this.__sortOptions(selectedItems, options);
     this.setState({ selectedItems, options: sortedOptions });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.options != nextProps.options) {
+      this.setState({
+        options: nextProps.options
+      });
+    }
   }
 
   __sortOptions = (selectedItems, options) => {
@@ -90,7 +99,8 @@ export default class SyncSelect extends Component {
       options: sortedOptions,
       menuIsOpen: false,
       showInput: false,
-      showSelectedValues: true
+      showSelectedValues: true,
+      inputValue: ''
     };
     this.setState({ ...newState });
   };
@@ -126,14 +136,6 @@ export default class SyncSelect extends Component {
         <span className="dataLabel">{data.label}</span>
       </div>
     ) : null;
-  };
-
-  valueContainer = ({ children, ...props }) => {
-    return (
-      <div onClick={this.onInputClick} {...props}>
-        {children}
-      </div>
-    );
   };
 
   buildMenu = props => {
@@ -173,6 +175,10 @@ export default class SyncSelect extends Component {
     );
   };
 
+  onInputChange = (input, event) => {
+    if (event.action == 'input-change') this.setState({ inputValue: input });
+  };
+
   getButtonText = () => {
     const { selectedItems } = this.state;
     const { buttonLabel } = this.props;
@@ -192,9 +198,10 @@ export default class SyncSelect extends Component {
       showSelectedValues,
       menuIsOpen,
       showButton,
-      showInput
+      showInput,
+      inputValue
     } = this.state;
-    const multiProps = isMulti
+    const selectProps = isMulti
       ? {
           onChange: this.onCheckboxClick,
           hideSelectedOptions: false,
@@ -210,7 +217,9 @@ export default class SyncSelect extends Component {
           menuIsOpen: menuIsOpen,
           isSearchable: showInput,
           autoFocus: showInput,
-          onBlur: this.onDone
+          onBlur: this.onDone,
+          inputValue: inputValue,
+          onInputChange: this.onInputChange
         }
       : {};
 
@@ -226,7 +235,7 @@ export default class SyncSelect extends Component {
         {...this.props}
         options={options}
         classNamePrefix={'mt-react-select'}
-        {...multiProps}
+        {...selectProps}
       />
     );
   }
