@@ -8,14 +8,6 @@ import mixin from '../styles/mixins';
 const MtUserThumbnail = styled.div`
   display: inline-block;
 
-  .ant-avatar-sm {
-    width: 27px;
-    height: 27px;
-    line-height: 27px;
-    border-radius: 50%;
-    border: 1.5px solid #ffffff;
-  }
-
   .content {
     display: inline-block;
     vertical-align: bottom;
@@ -34,7 +26,7 @@ class UserThumbnail extends Component {
   static propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
-    imgUrl: PropTypes.string,
+    src: PropTypes.string,
     shape: PropTypes.oneOf(['circle', 'square']),
     size: PropTypes.string,
     icon: PropTypes.string,

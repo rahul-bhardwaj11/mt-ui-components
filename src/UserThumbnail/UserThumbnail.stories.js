@@ -22,7 +22,7 @@ stories
         name={text('name', 'MindTickle')}
         email={text('email', 'mind@tickle.com')}
         src={text(
-          'imgUrl',
+          'src',
           'https://scontent-bom1-1.xx.fbcdn.net/v/t1.0-9/16196015_10154888128487744_6901111466535510271_n.png?_nc_cat=0&oh=b5d3d05354c7f787e565411601b526c0&oe=5C077FE9'
         )}
         size={text('size', 'large')}
