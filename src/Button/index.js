@@ -8,7 +8,7 @@ import Icon from '../Icon';
 
 const BUTTON_TYPES = {
   PRIMARY: 'primary',
-  SECONDARY: 'default',
+  SECONDARY: 'secondary',
   TERTIARY: 'tertiary',
   LINK: 'link',
   TEXT: 'text',
@@ -51,8 +51,12 @@ const MtButton = styled.div`
       font-size: 12px;
       padding: 0px 12px;
     }
-    &:hover,
-    &:focus,
+    <<<<<<< head &:hover,
+    ======= &:hover {
+      color: ${theme.colors.DARK_OUTER_SPACE};
+      border: 1px solid ${theme.colors.SILVER};
+    }
+    >>>>>>>759d001cc579702bbf9b1c97a1471956e44690a3 &:focus,
     &.active {
       border: 1px solid ${theme.colors.INDIGO};
       color: ${theme.colors.INDIGO};

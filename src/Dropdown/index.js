@@ -14,11 +14,13 @@ class Dropdown extends Component {
     onClick: PropTypes.func,
     type: PropTypes.string,
     label: PropTypes.string,
-    getPopupContainer: PropTypes.func
+    getPopupContainer: PropTypes.func,
+    placement: PropTypes.string
   };
 
   static defaultProps = {
-    trigger: 'hover'
+    trigger: 'hover',
+    placement: 'bottomRight'
   };
 
   onClick = key => {
@@ -35,7 +37,8 @@ class Dropdown extends Component {
       type,
       label,
       onClick,
-      getPopupContainer
+      getPopupContainer,
+      placement
     } = this.props;
     let overlay;
     if (options instanceof Array) {
@@ -53,6 +56,7 @@ class Dropdown extends Component {
         prefixCls={'ant-dropdown'}
         onClick={onClick}
         getPopupContainer={getPopupContainer}
+        placement={placement}
       >
         <div> {children} </div>
       </AntDropdown>
