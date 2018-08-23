@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AntTable from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
+import 'antd/lib/checkbox/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins.js';
@@ -11,14 +12,14 @@ const DEFAULT_TH_PADDING = {
   pTop: '16px',
   pRight: '0',
   pBottom: '16px',
-  pLeft: '24px'
+  pLeft: '32px'
 };
 
 const DEFAULT_TD_PADDING = {
   pTop: '12px',
   pRight: '0',
   pBottom: '12px',
-  pLeft: '24px'
+  pLeft: '32px'
 };
 
 const MtTable = styled.div`
@@ -143,6 +144,7 @@ const MtTable = styled.div`
     }
 
     .ant-table-tbody {
+      counter-reset: rowNumber;
       .ant-table-selection-column {
         ${props =>
           !props.showMultiSelect &&
@@ -159,6 +161,12 @@ const MtTable = styled.div`
       }
       & > tr {
         color: ${theme.colors.DARK_OUTER_SPACE};
+        &:focus-within {
+          & > td {
+            background: ${theme.colors.PORCELAIN};
+            cursor: pointer;
+          }
+        }
         td {
           ${mixins.darkText()};
           border-bottom: 1px solid ${theme.colors.PEARL};
@@ -213,12 +221,6 @@ const MtTable = styled.div`
         &:hover {
           & > td {
             background: ${theme.colors.PORCELAIN};
-            cursor: pointer;
-          }
-        }
-        &:active {
-          & > td {
-            background: ${theme.colors.TROPICAL_BLUE};
             cursor: pointer;
           }
         }

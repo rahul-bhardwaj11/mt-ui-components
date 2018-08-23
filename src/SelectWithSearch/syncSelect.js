@@ -50,15 +50,6 @@ export default class SyncSelect extends Component {
     this.setState({ selectedItems, options: sortedOptions });
   }
 
-  // componentDidUpdate(oldProps) {
-  //   const { options } = this.props;
-
-  //   if (oldProps.options !== options) {
-  //     this.setState({
-  //       options
-  //     });
-  //   }
-  // }
   componentWillReceiveProps(nextProps) {
     if (this.props.options != nextProps.options) {
       this.setState({
@@ -127,7 +118,7 @@ export default class SyncSelect extends Component {
     const { selectedItems } = this.state;
     if (data.value == selectedItems[0].value)
       return (
-        <div>{`${data.label}${
+        <div className="selectedItem">{`${data.label}${
           selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
         }`}</div>
       );
@@ -137,9 +128,12 @@ export default class SyncSelect extends Component {
   optionWithCheckBox = ({ isDisabled, data }) => {
     const { selectedItems } = this.state;
     return !isDisabled ? (
-      <div onClick={() => this.onCheckboxClick(data)}>
+      <div
+        onClick={() => this.onCheckboxClick(data)}
+        className="checkboxWrapper"
+      >
         <CheckBox checked={selectedItems.indexOf(data) > -1} />
-        {data.label}
+        <span className="dataLabel">{data.label}</span>
       </div>
     ) : null;
   };
@@ -147,17 +141,21 @@ export default class SyncSelect extends Component {
   buildMenu = props => {
     const { selectedItems } = this.state;
     return (
-      <div>
-        <components.Menu {...props}>
-          {props.children}
-          <Button type="primary" onClick={this.onClearAll}>
-            {'Clear All'}
-          </Button>
-          <Button type="primary" onClick={this.onDone}>
-            {`Done${selectedItems.length ? `(${selectedItems.length})` : ''}`}
-          </Button>
-        </components.Menu>
-      </div>
+      <components.Menu {...props}>
+        {props.children}
+        <div className="componentWrapper">
+          <div className="buttonWrapperL">
+            <Button type="text" onClick={this.onClearAll}>
+              {'Clear All'}
+            </Button>
+          </div>
+          <div className="buttonWrapperR">
+            <Button type="text" onClick={this.onDone}>
+              {`Done${selectedItems.length ? `(${selectedItems.length})` : ''}`}
+            </Button>
+          </div>
+        </div>
+      </components.Menu>
     );
   };
 

@@ -16,6 +16,12 @@ const BUTTON_TYPES = {
   DISABLED: 'disabled'
 };
 
+const BUTTON_SIZES = {
+  LARGE: 'large',
+  SMALL: 'small',
+  MEDIUM: 'medium'
+};
+
 const ANTD_BUTTON_TYPE_MAP = {
   [BUTTON_TYPES.PRIMARY]: 'primary',
   [BUTTON_TYPES.SECONDARY]: 'default',
@@ -26,15 +32,19 @@ const ANTD_BUTTON_TYPE_MAP = {
   [BUTTON_TYPES.DISABLED]: 'disabled'
 };
 
-const MtButton = styled.div`
-  display: inline-block;
+const ANTD_BUTTON_SIZE_PADDING = {
+  [BUTTON_SIZES.LARGE]: '0px 32px',
+  [BUTTON_SIZES.MEDIUM]: '0px 24px',
+  [BUTTON_SIZES.SMALL]: '0px 12px'
+};
 
+const MtButton = styled.div`
   /* Default Button styles */
   .ant-btn-default {
     border: 1px solid ${theme.colors.ALTO};
     color: #6f7583;
     height: 32px;
-    padding: 0px 32px;
+    padding: ${props => ANTD_BUTTON_SIZE_PADDING[props.size]};
     font-size: 14px;
     &.ant-btn-sm {
       color: ${theme.colors.GREY};
@@ -42,6 +52,7 @@ const MtButton = styled.div`
       padding: 0px 12px;
     }
     &:hover {
+      color: ${theme.colors.DARK_OUTER_SPACE};
       border: 1px solid ${theme.colors.SILVER};
     }
     &:focus,
@@ -104,7 +115,7 @@ const MtButton = styled.div`
     color: #fff;
     font-size: 14px;
     height: 32px;
-    padding: 0px 32px;
+    padding: ${props => ANTD_BUTTON_SIZE_PADDING[props.size]};
     &.ant-btn-sm {
       color: #fff;
       font-size: 12px;
@@ -192,7 +203,7 @@ const MtButton = styled.div`
           ? `color: ${theme.colors.INDIGO};
         background-color: ${theme.colors.TROPICAL_BLUE}`
           : `background-color: transparent;
-          color: ${theme.colors.OUTER_SPACE};`};
+          color: ${theme.colors.INDIGO};`};
     }
     &.ant-btn-sm {
       color: #fff;
@@ -246,10 +257,10 @@ const noop = () => undefined;
 class Button extends Component {
   static propTypes = {
     onClick: PropTypes.func,
-    type: PropTypes.oneOf(BUTTON_TYPES),
+    type: PropTypes.oneOf(Object.values(BUTTON_TYPES)),
     children: PropTypes.node,
     disabled: PropTypes.bool,
-    size: PropTypes.string,
+    size: PropTypes.oneOf(Object.values(BUTTON_SIZES)),
     style: PropTypes.object,
     className: PropTypes.string,
     active: PropTypes.bool
@@ -258,14 +269,15 @@ class Button extends Component {
     onClick: noop,
     children: 'Submit',
     disabled: false,
-    type: BUTTON_TYPES.PRIMARY
+    type: BUTTON_TYPES.PRIMARY,
+    size: 'large'
   };
 
   render() {
-    const { children, type, style, active, disabled } = this.props;
+    const { children, type, style, active, disabled, size } = this.props;
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
     return (
-      <MtButton active={active} disabled={disabled}>
+      <MtButton active={active} disabled={disabled} size={size}>
         <AntButton {...this.props} type={antdType} style={style}>
           {children}
           {type === 'edit' && <Icon type="edit" className="editIcon" />}
