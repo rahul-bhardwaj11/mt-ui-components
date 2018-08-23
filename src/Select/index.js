@@ -29,9 +29,9 @@ class Select extends Component {
           event.stopPropagation();
         }}
       >
-        {options.map((option, index) => {
+        {options.map(option => {
           return (
-            <Option key={`select-${index}`} value={option.key}>
+            <Option key={option.key} value={option.key}>
               {typeof option.content === 'string' ? (
                 <StringToHTML content={option.content} />
               ) : (
