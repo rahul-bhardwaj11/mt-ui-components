@@ -16,7 +16,15 @@ const DefaultTag = styled.div`
     border-radius: 16px;
     height: 24px;
     padding: 0 15px;
-    margin: ${({ margin = '0px 5px 12px 0px' }) => margin};
+    margin: ${props => {
+      let {
+        marginTop = '0px',
+        marginRight = '5px',
+        marginBottom = '12px',
+        marginLeft = '0px'
+      } = props.margin;
+      return `${marginTop} ${marginRight} ${marginBottom} ${marginLeft}`;
+    }};
 
     &:hover {
       border: 1px solid ${theme.colors.SILVER};
