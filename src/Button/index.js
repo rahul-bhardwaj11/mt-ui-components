@@ -51,12 +51,10 @@ const MtButton = styled.div`
       font-size: 12px;
       padding: 0px 12px;
     }
-    <<<<<<< head &:hover,
-    ======= &:hover {
+    &:hover {
       color: ${theme.colors.DARK_OUTER_SPACE};
       border: 1px solid ${theme.colors.SILVER};
     }
-    >>>>>>>759d001cc579702bbf9b1c97a1471956e44690a3 &:focus,
     &.active {
       border: 1px solid ${theme.colors.INDIGO};
       color: ${theme.colors.INDIGO};
