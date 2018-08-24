@@ -11,7 +11,7 @@ stories
   .add(
     'Default tag',
     withInfo('Basic usage of the Default tag')(() => (
-      <Tag>{text('children', 'tag')}</Tag>
+      <Tag margin="20px 20px 20px 20px">{text('children', 'tag')}</Tag>
     ))
   )
   .add(
