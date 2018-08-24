@@ -34,8 +34,7 @@ class UserThumbnail extends Component {
 
   static defaultProps = {
     shape: 'circle',
-    size: 'large',
-    icon: 'user'
+    size: 'large'
   };
 
   render() {
@@ -43,7 +42,7 @@ class UserThumbnail extends Component {
 
     return (
       <MtUserThumbnail>
-        <Avatar {...this.props} />
+        <Avatar {...this.props}>HB</Avatar>
         {(name || email) && (
           <div className="content">
             {name && <div className={'name'}>{name}</div>}
