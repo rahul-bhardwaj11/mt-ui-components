@@ -16,7 +16,16 @@ const DefaultTag = styled.div`
     border-radius: 16px;
     height: 24px;
     padding: 0 15px;
-    margin-bottom: 12px;
+    margin: ${props => {
+      let {
+        marginTop = '0px',
+        marginRight = '5px',
+        marginBottom = '12px',
+        marginLeft = '0px'
+      } = props.margin;
+      return `${marginTop} ${marginRight} ${marginBottom} ${marginLeft}`;
+    }};
+
     &:hover {
       border: 1px solid ${theme.colors.SILVER};
       border-radius: 16px;
@@ -131,6 +140,7 @@ class Tag extends Component {
     applied: PropTypes.bool,
     disabled: PropTypes.bool,
     checkable: PropTypes.bool,
+    padding: PropTypes.string,
     onClick: PropTypes.func
   };
 
