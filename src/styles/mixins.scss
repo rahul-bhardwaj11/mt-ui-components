@@ -70,6 +70,9 @@
 @mixin darkText() {
   @include fontStack(14px, normal, get('colors.DARK_OUTER_SPACE'), 20px);
 }
+@mixin darkSmText() {
+  @include fontStack(14px, 600, get('colors.DARK_OUTER_SPACE'), 20px);
+}
 @mixin greyText() {
   @include fontStack(14px, normal, get('colors.OUTER_SPACE'), 20px);
 }
