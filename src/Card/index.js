@@ -5,12 +5,14 @@ import 'antd/lib/card/style/index.css';
 import styled from 'styled-components';
 
 const MtCard = styled.div`
-  .ant-card-body {
-    padding: 24px;
-  }
-  .ant-card-bordered {
-    border: 1px solid transparent;
-    border-radius: 8px;
+  .ant-card {
+    .ant-card-body {
+      padding: 24px;
+    }
+    .ant-card-bordered {
+      border: 1px solid transparent;
+      border-radius: 8px;
+    }
   }
 `;
 
