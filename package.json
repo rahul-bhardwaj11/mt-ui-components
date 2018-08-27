@@ -114,22 +114,24 @@
     }
   },
   "dependencies": {
-    "node-sass-utils": "^1.1.2",
-    "nanoid": "^1.0.2",
-    "react-copy-to-clipboard": "^5.0.1",
     "antd": "^3.6.5",
     "classnames": "^2.2.6",
     "identity-obj-proxy": "^3.0.0",
     "install": "^0.11.2",
+    "nanoid": "^1.0.2",
+    "node-sass-utils": "^1.1.2",
     "npm": "^6.1.0",
     "prop-types": "^15.6.2",
     "react": "16.2.0",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.0.0",
     "react-icons": "^2.2.3",
+    "react-intl": "^2.4.0",
     "react-select": "^2.0.0",
     "react-sortable-tree": "^2.2.0",
     "react-test-renderer": "^16.1.1",
-    "react-tether": "^0.5.7"
+    "react-tether": "^0.5.7",
+    "react-truncate": "^2.4.0"
   },
   "peerDependencies": {
     "react": "^16.1.0",

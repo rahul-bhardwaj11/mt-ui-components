@@ -56,7 +56,6 @@ const MtButton = styled.span`
       color: ${theme.colors.DARK_OUTER_SPACE};
       border: 1px solid ${theme.colors.SILVER};
     }
-    &:focus,
     &.active {
       border: 1px solid ${theme.colors.INDIGO};
       color: ${theme.colors.INDIGO};
@@ -68,6 +67,45 @@ const MtButton = styled.span`
       border-radius: 4px;
       color: #fff;
       background: ${theme.colors.ALTO};
+    }
+  }
+  /* Primary Button styles */
+  .ant-btn-primary {
+    border: 1px solid ${theme.colors.INDIGO};
+    background-color: ${theme.colors.INDIGO};
+    color: #fff;
+    font-size: 14px;
+    height: 32px;
+    padding: ${props => ANTD_BUTTON_SIZE_PADDING[props.size]};
+    &.ant-btn-sm {
+      color: #fff;
+      font-size: 12px;
+      padding: 0px 12px;
+    }
+    &:hover {
+      border: 1px solid ${theme.colors.JODHPUR};
+      background: ${theme.colors.JODHPUR};
+    }
+    &:focus,
+    &.active {
+      border: 1px solid ${theme.colors.NEPTUNE};
+      background: ${theme.colors.NEPTUNE};
+      color: #fff;
+    }
+  }
+  .ant-btn {
+    &.disabled {
+      border: 1px solid ${theme.colors.ALTO};
+      background-color: ${theme.colors.ALTO};
+      color: #fff;
+      border-radius: 4px;
+    }
+  }
+  .ant-btn {
+    &.disabled {
+      border: 1px solid ${theme.colors.ALTO};
+      background-color: ${theme.colors.ALTO};
+      color: #fff;
     }
   }
   /* edit Button styles */
@@ -109,45 +147,6 @@ const MtButton = styled.span`
     }
   }
 
-  /* Primary Button styles */
-  .ant-btn-primary {
-    border: 1px solid ${theme.colors.INDIGO};
-    background-color: ${theme.colors.INDIGO};
-    color: #fff;
-    font-size: 14px;
-    height: 32px;
-    padding: ${props => ANTD_BUTTON_SIZE_PADDING[props.size]};
-    &.ant-btn-sm {
-      color: #fff;
-      font-size: 12px;
-      padding: 0px 12px;
-    }
-    &:hover {
-      border: 1px solid ${theme.colors.JODHPUR};
-      background: ${theme.colors.JODHPUR};
-    }
-    &:focus,
-    &.active {
-      border: 1px solid ${theme.colors.NEPTUNE};
-      background: ${theme.colors.NEPTUNE};
-      color: #fff;
-    }
-  }
-  .ant-btn {
-    &.disabled {
-      border: 1px solid ${theme.colors.ALTO};
-      background-color: ${theme.colors.ALTO};
-      color: #fff;
-      border-radius: 4px;
-    }
-  }
-  .ant-btn {
-    &.disabled {
-      border: 1px solid ${theme.colors.ALTO};
-      background-color: ${theme.colors.ALTO};
-      color: #fff;
-    }
-  }
   /* Dashed Button styles */
   .ant-btn-dashed {
     border: 1px dashed ${theme.colors.ALTO};
