@@ -10,7 +10,7 @@ const MtUserThumbnail = styled.div`
 
   .content {
     display: inline-block;
-    vertical-align: bottom;
+    vertical-align: middle;
     margin-left: 16px;
     .name {
       ${mixin.blackText()};
@@ -37,13 +37,22 @@ class UserThumbnail extends Component {
     size: 'large'
   };
 
+  getInitials = name => {
+    var initials = name.match(/\b\w/g) || [];
+    initials = (
+      (initials.shift() || '') + (initials.pop() || '')
+    ).toUpperCase();
+    return initials;
+  };
+
   render() {
     const { name, email } = this.props;
-
+    let mtProps = Object.assign({}, this.props);
+    mtProps = !name ? Object.assign(mtProps, { icon: 'user' }) : mtProps;
     return (
       <MtUserThumbnail>
-        <Avatar {...this.props}>HB</Avatar>
-        {(name || email) && (
+        <Avatar {...mtProps}>{name && this.getInitials(name)}</Avatar>
+        {email && (
           <div className="content">
             {name && <div className={'name'}>{name}</div>}
             {email && <div className={'email'}>{email}</div>}
@@ -53,5 +62,7 @@ class UserThumbnail extends Component {
     );
   }
 }
+
+export { Avatar };
 
 export default UserThumbnail;
