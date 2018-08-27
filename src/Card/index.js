@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AntCard from 'antd/lib/card';
-import 'antd/lib/card/style/index.css';
 import styled from 'styled-components';
+import 'antd/lib/card/style/index.css';
 
 const MtCard = styled.div`
-  .ant-card {
+  .ant-card-bordered {
+    background: #fff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    border: transparent;
+  }
+  .ant-card-wider-padding {
     .ant-card-body {
       padding: 24px;
     }
-    .ant-card-bordered {
-      border: 1px solid transparent;
-      border-radius: 8px;
-    }
   }
 `;
-
 class Card extends Component {
   static propTypes = {
     children: PropTypes.node
