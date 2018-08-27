@@ -148,7 +148,7 @@ const MtMenu = styled.div`
   .ant-menu-light {
     border-right: 0px;
   }
-  .cautiousAction {
+  .cautious {
     color: ${theme.colors.BITTERSWEET};
     &:hover {
       background-color: ${theme.colors.BITTERSWEET};
@@ -172,10 +172,6 @@ class Menu extends Component {
       this.props.onClick(key);
     }
   };
-  // getStyle = (red, style) => {
-  //     return red ? {color:'red'}: style;
-  // };
-
   static defaultProps = {
     style: { paddingLeft: '0px' }
   };
@@ -192,9 +188,8 @@ class Menu extends Component {
                 <AntMenu.Item
                   key={option.key || index}
                   style={itemStyle}
-                  className={option.cautiousAction ? 'cautiousAction' : ''}
+                  className={option.cautious ? 'cautious' : ''}
                 >
-                  {/* <AntMenu.Item key={option.key || index} style={this.getStyle(option.red, itemStyle)}> */}
                   {typeof option.content === 'string' ? (
                     <StringToHTML content={option.content} />
                   ) : (

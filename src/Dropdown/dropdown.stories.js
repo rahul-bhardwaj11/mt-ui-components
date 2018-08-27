@@ -12,7 +12,7 @@ stories.addDecorator(withKnobs);
 const options = [
   { key: '1', content: 'First Item' },
   { key: '2', content: 'Second Item' },
-  { key: '3', content: 'Third Item', cautiousAction: true }
+  { key: '3', content: 'Third Item', cautious: true }
 ];
 
 stories

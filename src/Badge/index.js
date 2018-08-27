@@ -7,12 +7,14 @@ import theme from '../styles/theme';
 
 const BADGE_TYPES = {
   SUCCESS: 'success',
-  ERROR: 'error'
+  ERROR: 'error',
+  WARNING: 'warning'
 };
 
-const BADGE_TYPE_MAP = {
+const BADGE_COLOR_TYPE_MAP = {
   [BADGE_TYPES.SUCCESS]: `${theme.colors.PASTEL_GREEN}`,
-  [BADGE_TYPES.ERROR]: `${theme.colors.BITTERSWEET}`
+  [BADGE_TYPES.ERROR]: `${theme.colors.BITTERSWEET}`,
+  [BADGE_TYPES.WARNING]: `${theme.colors.KOROMIKO}`
 };
 
 const MtBadge = styled.span`
@@ -21,7 +23,7 @@ const MtBadge = styled.span`
     right: -3px;
     height: 10px;
     width: 10px;
-    background-color: ${props => BADGE_TYPE_MAP[props.type]};
+    background-color: ${props => BADGE_COLOR_TYPE_MAP[props.type]};
     position: absolute;
     z-index: 0;
     box-shadow: none;
@@ -31,7 +33,7 @@ const MtBadge = styled.span`
 class Badge extends Component {
   static propTypes = {
     children: PropTypes.node,
-    type: PropTypes.oneOf(Object.values(BADGE_TYPES))
+    type: PropTypes.oneOf(Object.values(BADGE_TYPES)).isRequired
   };
 
   render() {
