@@ -38,8 +38,9 @@ const ANTD_BUTTON_SIZE_PADDING = {
   [BUTTON_SIZES.SMALL]: '0px 12px'
 };
 
-const MtButton = styled.div`
+const MtButton = styled.span`
   /* Default Button styles */
+
   .ant-btn-default {
     border: 1px solid ${theme.colors.ALTO};
     color: #6f7583;
