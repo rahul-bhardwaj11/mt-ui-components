@@ -8,18 +8,10 @@ import mixin from '../styles/mixins';
 const MtUserThumbnail = styled.div`
   display: inline-block;
 
-  .ant-avatar-sm {
-    width: 27px;
-    height: 27px;
-    line-height: 27px;
-    border-radius: 50%;
-    border: 1.5px solid #ffffff;
-  }
-
   .content {
     display: inline-block;
-    vertical-align: bottom;
-    margin-left: 10px;
+    vertical-align: middle;
+    margin-left: 16px;
     .name {
       ${mixin.blackText()};
       line-height: 22px;
@@ -34,7 +26,7 @@ class UserThumbnail extends Component {
   static propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
-    imgUrl: PropTypes.string,
+    src: PropTypes.string,
     shape: PropTypes.oneOf(['circle', 'square']),
     size: PropTypes.string,
     icon: PropTypes.string
@@ -42,22 +34,25 @@ class UserThumbnail extends Component {
 
   static defaultProps = {
     shape: 'circle',
-    size: 'large',
-    icon: 'user'
+    size: 'large'
+  };
+
+  getInitials = name => {
+    var initials = name.match(/\b\w/g) || [];
+    initials = (
+      (initials.shift() || '') + (initials.pop() || '')
+    ).toUpperCase();
+    return initials;
   };
 
   render() {
-    const { name, email, imgUrl, shape, size, icon } = this.props;
-    const avatarComponent = imgUrl ? (
-      <Avatar shape={shape} size={size} src={imgUrl} />
-    ) : (
-      <Avatar shape={shape} size={size} icon={icon} />
-    );
-
+    const { name, email } = this.props;
+    let mtProps = Object.assign({}, this.props);
+    mtProps = !name ? Object.assign(mtProps, { icon: 'user' }) : mtProps;
     return (
       <MtUserThumbnail>
-        {avatarComponent}
-        {(name || email) && (
+        <Avatar {...mtProps}>{name && this.getInitials(name)}</Avatar>
+        {email && (
           <div className="content">
             {name && <div className={'name'}>{name}</div>}
             {email && <div className={'email'}>{email}</div>}
@@ -67,5 +62,7 @@ class UserThumbnail extends Component {
     );
   }
 }
+
+export { Avatar };
 
 export default UserThumbnail;
