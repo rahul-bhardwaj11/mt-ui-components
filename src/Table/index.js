@@ -372,6 +372,14 @@ class Table extends Component {
       this.scrollElement.removeEventListener('scroll', this.onScroll, false);
     }
   }
+
+  componentWillReceiveProps(nextProps) {
+    const { rowSelection: { selectedRowKeys } = {} } = nextProps;
+    this.setState({
+      showActionBar: selectedRowKeys && selectedRowKeys.length > 0
+    });
+  }
+
   onChange = (selectedRowKeys, selectedRows) => {
     let {
       actionBar,
