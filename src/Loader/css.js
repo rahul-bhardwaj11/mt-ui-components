@@ -25,7 +25,7 @@ const StyledLoader = styled.div`
   }
   &.smallPageLoadingScreen,
   &.fullPageloadingScreen {
-    padding: 2%;
+    //padding: 2%;
     //@include z-index(loader);
     &.loader {
       text-align: center;
