@@ -374,10 +374,10 @@ class Table extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { rowSelection: { selectedRowKeys = [] } = {} } = nextProps;
-    if (!selectedRowKeys.length) {
-      this.setState({ showActionBar: false });
-    }
+    const { rowSelection: { selectedRowKeys } = {} } = nextProps;
+    this.setState({
+      showActionBar: selectedRowKeys && selectedRowKeys.length > 0
+    });
   }
 
   onChange = (selectedRowKeys, selectedRows) => {
