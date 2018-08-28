@@ -146,7 +146,7 @@ const DisabledTag = styled(ButtonWrapper)`
 `;
 
 const TYPES = {
-  DEAFULT: 'default',
+  DEFAULT: 'default',
   ADD: 'add',
   ADDED: 'added',
   SELECTED: 'selected',
