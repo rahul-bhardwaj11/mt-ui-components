@@ -6,6 +6,23 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 import Icon from '../Icon';
 
+const DEFAULT_MARGIN = {
+  marginTop: '0px',
+  marginRight: '5px',
+  marginBottom: '12px',
+  marginLeft: '0px'
+};
+
+const getMargin = props => {
+  let {
+    marginTop = '0px',
+    marginRight = '5px',
+    marginBottom = '12px',
+    marginLeft = '0px'
+  } = props.margin;
+  return `${marginTop} ${marginRight} ${marginBottom} ${marginLeft}`;
+};
+
 const DefaultTag = styled.div`
   display: inline-block;
   .ant-tag {
@@ -16,15 +33,7 @@ const DefaultTag = styled.div`
     border-radius: 16px;
     height: 24px;
     padding: 0 15px;
-    margin: ${props => {
-      let {
-        marginTop = '0px',
-        marginRight = '5px',
-        marginBottom = '12px',
-        marginLeft = '0px'
-      } = props.margin;
-      return `${marginTop} ${marginRight} ${marginBottom} ${marginLeft}`;
-    }};
+    margin: ${props => getMargin(props)};
 
     &:hover {
       border: 1px solid ${theme.colors.SILVER};
@@ -91,7 +100,7 @@ const ActionTag = styled.div`
     border-radius: 16px;
     height: 24px;
     padding: 0 15px;
-    margin-bottom: 12px;
+    margin: ${props => getMargin(props)};
   }
 `;
 const AppliedTag = styled.div`
@@ -105,7 +114,7 @@ const AppliedTag = styled.div`
     border-radius: 16px;
     height: 24px;
     padding: 0 15px;
-    margin-bottom: 12px;
+    margin: ${props => getMargin(props)};
   }
 `;
 
@@ -120,7 +129,7 @@ const DisabledTag = styled.div`
     border-radius: 16px;
     height: 24px;
     padding: 0 15px;
-    margin-bottom: 12px;
+    margin: ${props => getMargin(props)};
   }
 `;
 
@@ -141,12 +150,23 @@ class Tag extends Component {
     disabled: PropTypes.bool,
     checkable: PropTypes.bool,
     padding: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    margin: PropTypes.shape({
+      marginTop: PropTypes.string,
+      marginRight: PropTypes.string,
+      marginBottom: PropTypes.string,
+      marginLeft: PropTypes.string
+    })
   };
 
   static defaultProps = {
     type: TYPES.default,
-    onClick: () => {}
+    onClick: () => {},
+    margin: DEFAULT_MARGIN
+  };
+
+  styleProps = {
+    margin: this.props.margin
   };
 
   getWrappedTag = () => {
@@ -166,14 +186,14 @@ class Tag extends Component {
     switch (type) {
       case TYPES.DEFAULT:
         TagComponent = (
-          <WrappedTag {...this.props}>
+          <WrappedTag {...this.props} {...this.styleProps}>
             <AntTagComponent {...this.props}>{children}</AntTagComponent>
           </WrappedTag>
         );
         break;
       case TYPES.ADD:
         TagComponent = (
-          <WrappedTag {...this.props}>
+          <WrappedTag {...this.props} {...this.styleProps}>
             <AntTagComponent {...this.props}>
               {children}
               <Icon type="edit" className="tagIcon" />
@@ -183,7 +203,7 @@ class Tag extends Component {
         break;
       case TYPES.ADDED:
         TagComponent = (
-          <WrappedTag {...this.props}>
+          <WrappedTag {...this.props} {...this.styleProps}>
             <AntTagComponent {...this.props}>
               {children}
               <Icon type="cross" className="tagIcon" />
@@ -193,7 +213,7 @@ class Tag extends Component {
         break;
       case TYPES.SELECTION:
         TagComponent = (
-          <WrappedTag {...this.props}>
+          <WrappedTag {...this.props} {...this.styleProps}>
             <AntTagComponent {...this.props}>
               {children}
               <Icon type="tick" className="tagIcon" />
@@ -203,14 +223,14 @@ class Tag extends Component {
         break;
       case TYPES.SELECTED:
         TagComponent = (
-          <WrappedTag {...this.props}>
+          <WrappedTag {...this.props} {...this.styleProps}>
             <AntTagComponent {...this.props}>{children}</AntTagComponent>
           </WrappedTag>
         );
         break;
       case TYPES.ACTION:
         TagComponent = (
-          <WrappedTag {...this.props}>
+          <WrappedTag {...this.props} {...this.styleProps}>
             <ActionTag {...this.props}>
               <AntTagComponent {...this.props}>{children}</AntTagComponent>
             </ActionTag>
