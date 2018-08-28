@@ -16,8 +16,71 @@ const getMargin = props => {
   return `${marginTop} ${marginRight} ${marginBottom} ${marginLeft}`;
 };
 
-const DefaultTag = styled.div`
+const ButtonWrapper = styled.button`
   display: inline-block;
+  margin: ${props => getMargin(props)};
+  border: none;
+  background: transparent;
+  border-radius: 16px;
+`;
+
+const DefaultTag = styled(ButtonWrapper)`
+  ${props =>
+    props.type === 'default'
+      ? `
+    &:focus {
+      .ant-tag {
+        border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
+        color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+      }
+    }
+    &:hover {
+      .ant-tag {
+        border: 1px solid ${theme.colors.SILVER};
+        color: ${theme.colors.OUTER_SPACE};
+      }
+      .anticon-cross {
+        color: ${theme.colors.OUTER_SPACE};
+      }
+    }
+  `
+      : ``} ${props =>
+    props.checkable
+      ? `
+      margin-bottom: 10px;
+      .ant-tag-checkable:not(.ant-tag-checkable-checked) {
+        line-height: 24px;
+        height: 24px;
+        padding: 0 15px;
+        border: 1px solid ${theme.colors.ALTO};
+        border-radius: 16px;
+        &:hover {
+          color: ${theme.colors.OUTER_SPACE};
+        }
+      }
+      .ant-tag {
+        &.ant-tag-checkable {
+          &.ant-tag-checkable-checked {
+            border-radius: 16px;
+            background: #fff;
+            border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
+            background-color: ${theme.colors.TROPICAL_BLUE};
+            color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+            line-height: 24px;
+            height: 24px;
+            padding: 0 15px;
+            &:hover {
+              border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
+              border-radius: 16px;
+              background-color: ${theme.colors.TROPICAL_BLUE};
+              color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+            }
+          }
+        }
+      }
+      `
+      : ``}
+  
   .ant-tag {
     color: ${theme.colors.OUTER_SPACE};
     background: #fff;
@@ -26,17 +89,7 @@ const DefaultTag = styled.div`
     border-radius: 16px;
     height: 24px;
     padding: 0 15px;
-    margin: ${props => getMargin(props)};
-
-    &:hover {
-      border: 1px solid ${theme.colors.SILVER};
-      border-radius: 16px;
-      background: #fff;
-      color: ${theme.colors.OUTER_SPACE};
-      .anticon-cross {
-        color: ${theme.colors.OUTER_SPACE};
-      }
-    }
+    margin: 0px;
     &:active {
       border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
       border-radius: 16px;
@@ -44,45 +97,14 @@ const DefaultTag = styled.div`
       color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
     }
   }
-  .ant-tag-checkable:not(.ant-tag-checkable-checked) {
-    line-height: 24px;
-    height: 24px;
-    padding: 0 15px;
-    margin-bottom: 10px;
-    border: 1px solid ${theme.colors.ALTO};
-    border-radius: 16px;
-    &:hover {
-      color: ${theme.colors.OUTER_SPACE};
-    }
-  }
-  .ant-tag {
-    &.ant-tag-checkable {
-      &.ant-tag-checkable-checked {
-        border-radius: 16px;
-        background: #fff;
-        border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
-        background-color: ${theme.colors.TROPICAL_BLUE};
-        color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
-        line-height: 24px;
-        height: 24px;
-        padding: 0 15px;
-        margin-bottom: 10px;
-        &:hover {
-          border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
-          border-radius: 16px;
-          background-color: ${theme.colors.TROPICAL_BLUE};
-          color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
-        }
-      }
-    }
-  }
+
   .tagIcon {
     font-size: 10px;
     margin-left: 8px;
   }
 `;
 
-const ActionTag = styled.div`
+const ActionTag = styled(ButtonWrapper)`
   .ant-tag {
     border-radius: 16px;
     color: ${theme.colors.INDIGO};
@@ -93,10 +115,9 @@ const ActionTag = styled.div`
     border-radius: 16px;
     height: 24px;
     padding: 0 15px;
-    margin: ${props => getMargin(props)};
   }
 `;
-const AppliedTag = styled.div`
+const AppliedTag = styled(ButtonWrapper)`
   .ant-tag {
     border-radius: 16px;
     color: ${theme.colors.INDIGO};
@@ -107,11 +128,10 @@ const AppliedTag = styled.div`
     border-radius: 16px;
     height: 24px;
     padding: 0 15px;
-    margin: ${props => getMargin(props)};
   }
 `;
 
-const DisabledTag = styled.div`
+const DisabledTag = styled(ButtonWrapper)`
   .ant-tag {
     border-radius: 16px;
     color: ${theme.colors.SILVER};
@@ -122,7 +142,6 @@ const DisabledTag = styled.div`
     border-radius: 16px;
     height: 24px;
     padding: 0 15px;
-    margin: ${props => getMargin(props)};
   }
 `;
 
@@ -153,7 +172,7 @@ class Tag extends Component {
   };
 
   static defaultProps = {
-    type: TYPES.default,
+    type: TYPES.DEFAULT,
     onClick: () => {},
     margin: {}
   };
