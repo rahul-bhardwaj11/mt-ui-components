@@ -6,13 +6,6 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 import Icon from '../Icon';
 
-const DEFAULT_MARGIN = {
-  marginTop: '0px',
-  marginRight: '5px',
-  marginBottom: '12px',
-  marginLeft: '0px'
-};
-
 const getMargin = props => {
   let {
     marginTop = '0px',
@@ -162,7 +155,7 @@ class Tag extends Component {
   static defaultProps = {
     type: TYPES.default,
     onClick: () => {},
-    margin: DEFAULT_MARGIN
+    margin: {}
   };
 
   styleProps = {
