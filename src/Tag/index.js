@@ -22,68 +22,9 @@ const ButtonWrapper = styled.button`
   border: none;
   background: transparent;
   border-radius: 16px;
-`;
-
-const DefaultTag = styled(ButtonWrapper)`
-  ${props =>
-    props.type === 'default'
-      ? `
-    &:focus {
-      .ant-tag {
-        border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
-        color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
-      }
-    }
-    &:hover {
-      .ant-tag {
-        border: 1px solid ${theme.colors.SILVER};
-        color: ${theme.colors.OUTER_SPACE};
-      }
-      .anticon-cross {
-        color: ${theme.colors.OUTER_SPACE};
-      }
-    }
-  `
-      : ``} ${props =>
-    props.checkable
-      ? `
-      margin-bottom: 10px;
-      .ant-tag-checkable:not(.ant-tag-checkable-checked) {
-        line-height: 24px;
-        height: 24px;
-        padding: 0 15px;
-        border: 1px solid ${theme.colors.ALTO};
-        border-radius: 16px;
-        &:hover {
-          color: ${theme.colors.OUTER_SPACE};
-        }
-      }
-      .ant-tag {
-        &.ant-tag-checkable {
-          &.ant-tag-checkable-checked {
-            border-radius: 16px;
-            background: #fff;
-            border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
-            background-color: ${theme.colors.TROPICAL_BLUE};
-            color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
-            line-height: 24px;
-            height: 24px;
-            padding: 0 15px;
-            &:hover {
-              border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
-              border-radius: 16px;
-              background-color: ${theme.colors.TROPICAL_BLUE};
-              color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
-            }
-          }
-        }
-      }
-      `
-      : ``}
-  
   .ant-tag {
-    color: ${theme.colors.OUTER_SPACE};
     background: #fff;
+    color: ${theme.colors.OUTER_SPACE};
     font-size: 12px;
     line-height: 24px;
     border-radius: 16px;
@@ -92,12 +33,28 @@ const DefaultTag = styled(ButtonWrapper)`
     margin: 0px;
     &:active {
       border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
-      border-radius: 16px;
       background-color: ${theme.colors.TROPICAL_BLUE};
       color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
     }
   }
+`;
 
+const DefaultTag = styled(ButtonWrapper)`
+  &:focus {
+    .ant-tag {
+      border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
+      color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+    }
+  }
+  &:hover {
+    .ant-tag {
+      border: 1px solid ${theme.colors.SILVER};
+      color: ${theme.colors.OUTER_SPACE};
+    }
+    .anticon-cross {
+      color: ${theme.colors.OUTER_SPACE};
+    }
+  }
   .tagIcon {
     font-size: 10px;
     margin-left: 8px;
@@ -106,47 +63,49 @@ const DefaultTag = styled(ButtonWrapper)`
 
 const ActionTag = styled(ButtonWrapper)`
   .ant-tag {
-    border-radius: 16px;
     color: ${theme.colors.INDIGO};
     border: 1px solid ${theme.colors.INDIGO};
-    background-color: #ffffff;
-    font-size: 12px;
-    line-height: 24px;
-    border-radius: 16px;
-    height: 24px;
-    padding: 0 15px;
   }
 `;
 const AppliedTag = styled(ButtonWrapper)`
   .ant-tag {
-    border-radius: 16px;
     color: ${theme.colors.INDIGO};
     border: 1px solid ${theme.colors.INDIGO};
     background-color: ${theme.colors.TROPICAL_BLUE};
-    font-size: 12px;
-    line-height: 24px;
-    border-radius: 16px;
-    height: 24px;
-    padding: 0 15px;
   }
 `;
 
 const DisabledTag = styled(ButtonWrapper)`
   .ant-tag {
-    border-radius: 16px;
     color: ${theme.colors.SILVER};
     border: 1px solid ${theme.colors.PEARL};
-    background-color: #ffffff;
-    font-size: 12px;
-    line-height: 24px;
-    border-radius: 16px;
-    height: 24px;
-    padding: 0 15px;
+  }
+`;
+const CheckableWrappedTag = styled(ButtonWrapper)`
+  .ant-tag-checkable:not(.ant-tag-checkable-checked) {
+    border: 1px solid ${theme.colors.ALTO};
+    &:hover {
+      color: ${theme.colors.OUTER_SPACE};
+    }
+  }
+  .ant-tag {
+    &.ant-tag-checkable {
+      &.ant-tag-checkable-checked {
+        border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
+        background-color: ${theme.colors.TROPICAL_BLUE};
+        color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+        &:hover {
+          border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
+          background-color: ${theme.colors.TROPICAL_BLUE};
+          color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+        }
+      }
+    }
   }
 `;
 
 const TYPES = {
-  DEFAULT: 'default',
+  NORMAL: 'normal',
   ADD: 'add',
   ADDED: 'added',
   SELECTED: 'selected',
@@ -172,7 +131,7 @@ class Tag extends Component {
   };
 
   static defaultProps = {
-    type: TYPES.DEFAULT,
+    type: TYPES.NORMAL,
     onClick: () => {},
     margin: {}
   };
@@ -182,11 +141,13 @@ class Tag extends Component {
   };
 
   getWrappedTag = () => {
-    let { applied, disabled } = this.props;
+    let { applied, disabled, checkable } = this.props;
     if (applied) {
       return AppliedTag;
     } else if (disabled) {
       return DisabledTag;
+    } else if (checkable) {
+      return CheckableWrappedTag;
     }
     return DefaultTag;
   };
@@ -196,7 +157,7 @@ class Tag extends Component {
     let AntTagComponent = checkable ? AntTag.CheckableTag : AntTag;
     let WrappedTag = this.getWrappedTag();
     switch (type) {
-      case TYPES.DEFAULT:
+      case TYPES.NORMAL:
         TagComponent = (
           <WrappedTag {...this.props} {...this.styleProps}>
             <AntTagComponent {...this.props}>{children}</AntTagComponent>
