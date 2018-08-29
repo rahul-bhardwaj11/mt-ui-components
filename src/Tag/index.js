@@ -136,10 +136,6 @@ class Tag extends Component {
     margin: {}
   };
 
-  styleProps = {
-    margin: this.props.margin
-  };
-
   getWrappedTag = () => {
     let { applied, disabled, checkable } = this.props;
     if (applied) {
@@ -159,14 +155,14 @@ class Tag extends Component {
     switch (type) {
       case TYPES.NORMAL:
         TagComponent = (
-          <WrappedTag {...this.props} {...this.styleProps}>
+          <WrappedTag {...this.props}>
             <AntTagComponent {...this.props}>{children}</AntTagComponent>
           </WrappedTag>
         );
         break;
       case TYPES.ADD:
         TagComponent = (
-          <WrappedTag {...this.props} {...this.styleProps}>
+          <WrappedTag {...this.props}>
             <AntTagComponent {...this.props}>
               {children}
               <Icon type="edit" className="tagIcon" />
@@ -176,7 +172,7 @@ class Tag extends Component {
         break;
       case TYPES.ADDED:
         TagComponent = (
-          <WrappedTag {...this.props} {...this.styleProps}>
+          <WrappedTag {...this.props}>
             <AntTagComponent {...this.props}>
               {children}
               <Icon type="cross" className="tagIcon" />
@@ -186,7 +182,7 @@ class Tag extends Component {
         break;
       case TYPES.SELECTION:
         TagComponent = (
-          <WrappedTag {...this.props} {...this.styleProps}>
+          <WrappedTag {...this.props}>
             <AntTagComponent {...this.props}>
               {children}
               <Icon type="tick" className="tagIcon" />
@@ -196,14 +192,14 @@ class Tag extends Component {
         break;
       case TYPES.SELECTED:
         TagComponent = (
-          <WrappedTag {...this.props} {...this.styleProps}>
+          <WrappedTag {...this.props}>
             <AntTagComponent {...this.props}>{children}</AntTagComponent>
           </WrappedTag>
         );
         break;
       case TYPES.ACTION:
         TagComponent = (
-          <WrappedTag {...this.props} {...this.styleProps}>
+          <WrappedTag {...this.props}>
             <ActionTag {...this.props}>
               <AntTagComponent {...this.props}>{children}</AntTagComponent>
             </ActionTag>
