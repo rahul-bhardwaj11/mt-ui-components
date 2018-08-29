@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Truncate from 'react-truncate';
-import { FormattedMessage } from 'react-intl';
 
 class ReadMore extends Component {
   constructor() {
@@ -33,18 +32,18 @@ class ReadMore extends Component {
   }
 
   render() {
-    const { children, more, less, lines } = this.props;
+    const { children, moreText, lessText, lines } = this.props;
 
     const { expanded, truncated } = this.state;
 
     return (
-      <div style={{ 'font-family': 'Open sans' }}>
+      <div style={{ fontFamily: 'Open sans' }}>
         <Truncate
           lines={!expanded && lines}
           ellipsis={[
             <span key="3dot">...</span>,
             <div className="viewMore" key="view_more">
-              <a onClick={this.toggleLines}>{more}</a>
+              <a onClick={this.toggleLines}>{lessText}</a>
             </div>
           ]}
           onTruncate={this.handleTruncate}
@@ -54,7 +53,7 @@ class ReadMore extends Component {
         {!truncated &&
           expanded && (
             <span className="viewLess">
-              <a onClick={this.toggleLines}> {less}</a>
+              <a onClick={this.toggleLines}> {moreText}</a>
             </span>
           )}
       </div>
@@ -64,15 +63,15 @@ class ReadMore extends Component {
 
 ReadMore.defaultProps = {
   lines: 3,
-  more: <FormattedMessage id="RM_VIEW_MORE" />,
-  less: <FormattedMessage id="RM_VIEW_LESS" />
+  moreText: 'view more',
+  lessText: 'view less'
 };
 
 ReadMore.propTypes = {
   children: PropTypes.node.isRequired,
   lines: PropTypes.number,
-  more: PropTypes.node,
-  less: PropTypes.node
+  moreText: PropTypes.string,
+  lessText: PropTypes.string
 };
 
 export default ReadMore;
