@@ -126,7 +126,6 @@
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.0.0",
     "react-icons": "^2.2.3",
-    "react-intl": "^2.4.0",
     "react-select": "^2.0.0",
     "react-sortable-tree": "^2.2.0",
     "react-test-renderer": "^16.1.1",
