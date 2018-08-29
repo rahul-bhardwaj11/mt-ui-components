@@ -46,13 +46,13 @@ class UserThumbnail extends Component {
   };
 
   render() {
-    const { name, email } = this.props;
+    const { name, email, size } = this.props;
     let mtProps = Object.assign({}, this.props);
     mtProps = !name ? Object.assign(mtProps, { icon: 'user' }) : mtProps;
     return (
       <MtUserThumbnail>
         <Avatar {...mtProps}>{name && this.getInitials(name)}</Avatar>
-        {email && (
+        {size === 'large' && (
           <div className="content">
             {name && <div className={'name'}>{name}</div>}
             {email && <div className={'email'}>{email}</div>}
