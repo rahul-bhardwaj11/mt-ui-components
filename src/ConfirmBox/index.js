@@ -5,7 +5,8 @@ import 'antd/lib/popconfirm/style/css';
 
 class ConfirmBox extends Component {
   static propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
+    placement: PropTypes.string
   };
 
   render() {

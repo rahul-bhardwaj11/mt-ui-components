@@ -13,10 +13,11 @@ const MtActionBar = styled.div`
   right: 0;
   margin: auto;
   background-color: white;
-  padding: 16px 24px;
+  padding: 16px 32px;
   box-shadow: 0 -1px 0 0 #e7e8ec, 0 -2px 4px 0 rgba(0, 0, 0, 0.08);
   .countText {
     ${mixins.blackLink()};
+    margin-right: 29px;
   }
 `;
 
