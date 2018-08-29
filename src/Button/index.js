@@ -56,6 +56,8 @@ const MtButton = styled.span`
       color: ${theme.colors.DARK_OUTER_SPACE};
       border: 1px solid ${theme.colors.SILVER};
     }
+    &:active,
+    &:focus,
     &.active {
       border: 1px solid ${theme.colors.INDIGO};
       color: ${theme.colors.INDIGO};
@@ -87,6 +89,7 @@ const MtButton = styled.span`
       background: ${theme.colors.JODHPUR};
     }
     &:focus,
+    &:active,
     &.active {
       border: 1px solid ${theme.colors.NEPTUNE};
       background: ${theme.colors.NEPTUNE};
@@ -130,6 +133,7 @@ const MtButton = styled.span`
       }
     }
     &:focus,
+    &:active,
     &.active {
       border: 1px solid ${theme.colors.ALTO};
       color: ${theme.colors.SILVER};
@@ -164,6 +168,7 @@ const MtButton = styled.span`
       color: ${theme.colors.SHARK};
     }
     &:focus,
+    &:active,
     &.active {
       color: ${theme.colors.SHARK};
     }
