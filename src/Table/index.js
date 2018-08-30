@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins.js';
 import ActionBar from '../ActionBar';
+import Loader from '../Loader';
 
 const DEFAULT_TH_PADDING = {
   pTop: '16px',
@@ -385,7 +386,13 @@ class Table extends Component {
   };
 
   render() {
-    let { rowSelection, actionBar, children } = this.props;
+    let {
+      rowSelection,
+      actionBar,
+      children,
+      loading,
+      infiniteScroll
+    } = this.props;
     let { showActionBar, showMultiSelect } = this.state;
 
     /**
@@ -407,6 +414,7 @@ class Table extends Component {
     return (
       <MtTable showMultiSelect={showMultiSelect} {...this.styleProps}>
         <AntTable {...antProps}>{children}</AntTable>
+        {infiniteScroll && loading && <Loader size="sizeXSmall" />}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}
