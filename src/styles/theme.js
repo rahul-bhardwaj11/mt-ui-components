@@ -28,7 +28,8 @@ const theme = {
     SAZERAC: '#FFF3E1',
     PEACH_CREAM: '#FFE9E1',
     PIPPIN: '#FFE1E1',
-    FROG: '#E9D0FF'
+    FROG: '#E9D0FF',
+    PASTEL_GREEN: '#35C759'
   },
   typography: {},
   breakpoints: {
