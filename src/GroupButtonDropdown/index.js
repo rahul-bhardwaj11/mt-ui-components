@@ -56,7 +56,7 @@ class GroupButtonDropdown extends Component {
         </Button>
 
         <Dropdown {...rest}>
-          <div style={{ display: 'inline-block' }}>
+          <div>
             <Button
               style={{
                 padding: '0px 10px',

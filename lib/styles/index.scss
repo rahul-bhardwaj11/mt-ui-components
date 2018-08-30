@@ -1,5 +1,6 @@
 @import 'mixins.scss';
 @import 'icons.scss';
+@import 'zindexPartial.scss';
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
 :global {
   * {
@@ -106,6 +107,7 @@
   .arrow_R {
     position: absolute;
     z-index: 1;
+    // @include getSupport;
 
     &:after {
       bottom: 0px;
