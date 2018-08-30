@@ -26,7 +26,7 @@ class Select extends Component {
   };
 
   render() {
-    let { options } = this.props;
+    let { options, style } = this.props;
 
     return (
       <MtWrapper
@@ -35,6 +35,7 @@ class Select extends Component {
             this.selectDropdownRef = el;
           }
         }}
+        style={style}
       >
         <AntSelect
           {...this.props}
