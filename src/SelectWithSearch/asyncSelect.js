@@ -300,14 +300,13 @@ export default class AsyncSelect extends Component {
   handleControl = arg => {
     return (
       <div
-        onMouseOver={() => {
+        onClick={() => {
           this.setState({
             menuIsOpen: true,
             showInput: true,
             showSelectedValues: false
           });
         }}
-        className="xxx"
       >
         <components.Control {...arg} />
       </div>
