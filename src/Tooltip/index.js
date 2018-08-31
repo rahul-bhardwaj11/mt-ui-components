@@ -11,7 +11,7 @@ const MtTooltip = styled.div`
 class Tooltip extends Component {
   static propTypes = {
     children: PropTypes.node,
-    title: PropTypes.string
+    title: PropTypes.oneOfType([PropTypes.node, PropTypes.string])
   };
 
   render() {

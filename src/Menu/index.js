@@ -148,6 +148,13 @@ const MtMenu = styled.div`
   .ant-menu-light {
     border-right: 0px;
   }
+  .cautious {
+    color: ${theme.colors.BITTERSWEET};
+    &:hover {
+      background-color: ${theme.colors.BITTERSWEET};
+      color: #fff;
+    }
+  }
 `;
 
 class Menu extends Component {
@@ -178,7 +185,11 @@ class Menu extends Component {
           {options &&
             options.map((option, index) => {
               return (
-                <AntMenu.Item key={option.key || index} style={itemStyle}>
+                <AntMenu.Item
+                  key={option.key || index}
+                  style={itemStyle}
+                  className={option.cautious ? 'cautious' : ''}
+                >
                   {typeof option.content === 'string' ? (
                     <StringToHTML content={option.content} />
                   ) : (

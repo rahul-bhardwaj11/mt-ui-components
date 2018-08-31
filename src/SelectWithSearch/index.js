@@ -10,6 +10,12 @@ import mixin from '../styles/mixins';
 import searchIcon from './assets/search.svg';
 
 const SelectBox = styled.div`
+  //  width: 0;
+  //  transition: width 2s;
+  //  &.active {
+  //    width: 100%;
+  //  }
+
   .mt-react-select__single-value {
     padding-left: 30px;
     position: absolute;
@@ -23,10 +29,9 @@ const SelectBox = styled.div`
     &:before {
     content: '';
     background: url('${searchIcon}') no-repeat 10px 5px;
-    height: 25px;
-    width: 30px;
-    padding-left: 5px;
-    padding-top: 5px;
+    height: 22px;
+    width: 24px;
+    background-size: 14px;
     position: absolute;
     opacity: 0.6;
   }
@@ -35,14 +40,21 @@ const SelectBox = styled.div`
     padding: 8px;
     color: ${theme.colors.OUTER_SPACE};   
   }
+
   .mt-react-select__control {
     border: 1px solid ${theme.colors.ALTO};
-    width: ${({ width = 'auto' }) => width};
+    width: ${({ width = '0px' }) => width};
+    transition: width .5s;
+    &.active {
+      width: 100%;
+    }
   }
+  
   .mt-react-select__control--is-focused {
     box-shadow: none;
     border: 1px solid ${theme.colors.SILVER};
   }
+
   .mt-react-select__control--is-focused:hover {
     border: 1px solid ${theme.colors.SILVER};
   }
@@ -57,6 +69,7 @@ const SelectBox = styled.div`
   //   color: #ffffff;
   //   cursor: pointer;
   // }
+
   .mt-react-select__option--is-selected {
     background-color: #ffffff;
     color: ${theme.colors.OUTER_SPACE};
@@ -82,7 +95,8 @@ const SelectBox = styled.div`
   }
 
   .mt-react-select__menu-list--is-multi {
-    padding: 19px 24px;  
+    padding: 19px 24px;
+     
   }
 
   .ant-btn-text {
@@ -101,18 +115,18 @@ const SelectBox = styled.div`
   }
 .componentWrapper {
   ${mixin.clearfix()};
+  width: 100%;
 }
 
 .buttonWrapperL {
   float: left;
-  padding-bottom: 15px;
-  padding-top: 15px;
+  width: 50%;
+  padding-bottom: 10px;
 }
 
 .buttonWrapperR {
   float: right;
-  padding-bottom: 15px;
-  padding-top: 15px;
+  padding-bottom: 10px;
 }
 
 .dataLabel {
@@ -121,6 +135,10 @@ const SelectBox = styled.div`
 
 .checkboxWrapper {
   margin-bottom: 5px;
+}
+
+.doneMarginR {
+  margin-left: 5px;
 }
 `;
 
