@@ -8,8 +8,29 @@ import AsyncSelect from './asyncSelect';
 import SyncSelect from './syncSelect';
 import mixin from '../styles/mixins';
 import searchIcon from './assets/search.svg';
+import classnames from 'classnames';
 
 const SelectBox = styled.div`
+  //  width: 0;
+  //  transition: width 2s;
+  //  &.active {
+  //    width: 100%;
+  //  }
+  &.buttonSelect {
+    .mt-react-select__control {
+      width: 0;
+      opacity: 0;
+      transition: width .85s, opacity 1s;
+    }
+
+    .activeSearch {
+      .mt-react-select__control {
+        width: 100%;
+        opacity: 1;
+
+      }
+    }
+  }
   .mt-react-select__single-value {
     padding-left: 0px;
     position: absolute;
@@ -22,8 +43,9 @@ const SelectBox = styled.div`
     &:before {
     content: '';
     display: none;
-    height: 25px;
-    width: 30px;
+    height: 22px;
+    width: 24px;
+    background-size: 14px;
     padding-left: 5px;
     padding-top: 5px;
     left: 0;
@@ -36,7 +58,9 @@ const SelectBox = styled.div`
     color: ${theme.colors.OUTER_SPACE};
   }
 
-  .activeSearch {
+  .selectBoxWrapper{
+    height: 32px;
+   .activeSearch {
     .mt-react-select__value-container{
       &:before {
           display: block;
@@ -53,6 +77,8 @@ const SelectBox = styled.div`
         padding-left: 20px;
       }
   }
+}
+
   .mt-react-select__clear-indicator{
     display: none;
   }
@@ -122,18 +148,18 @@ const SelectBox = styled.div`
   }
 .componentWrapper {
   ${mixin.clearfix()};
+  width: 100%;
 }
 
 .buttonWrapperL {
   float: left;
-  padding-bottom: 15px;
-  padding-top: 15px;
+  width: 50%;
+  padding-bottom: 10px;
 }
 
 .buttonWrapperR {
   float: right;
-  padding-bottom: 15px;
-  padding-top: 15px;
+  padding-bottom: 10px;
 }
 
 .dataLabel {
@@ -147,12 +173,26 @@ const SelectBox = styled.div`
 .activeInput {
   .icon-Cancel {
     display: inline-block;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    cursor: pointer;
   }
+}
+
+.mt-react-select__value-container:before {
+  height: 22px;
+  width: 26px;
 }
 
 .checkboxWrapper {
   margin-bottom: 5px;
 }
+.doneMarginR {
+  margin-left: 5px;
+}
+
+
 `;
 
 class SelectWithSearch extends Component {
@@ -161,20 +201,24 @@ class SelectWithSearch extends Component {
     async: PropTypes.bool,
     placeholder: PropTypes.string,
     isMulti: PropTypes.bool,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    isButton: PropTypes.bool
   };
   static defaultProps = {
     placeholder: 'Type here to Search'
   };
 
   render() {
-    let { async } = this.props;
+    let { async, isButton } = this.props;
     let SelectComponent = SyncSelect;
     if (async) {
       SelectComponent = AsyncSelect;
     }
+    let className = classnames({
+      buttonSelect: isButton
+    });
     return (
-      <SelectBox>
+      <SelectBox className={className}>
         <SelectComponent {...this.props} />
       </SelectBox>
     );
