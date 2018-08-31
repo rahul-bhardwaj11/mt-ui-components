@@ -152,17 +152,21 @@ class Tag extends Component {
     let TagComponent;
     let AntTagComponent = checkable ? AntTag.CheckableTag : AntTag;
     let WrappedTag = this.getWrappedTag();
+    let WrappedTagProps = {
+      ...this.props,
+      onClick: () => {}
+    };
     switch (type) {
       case TYPES.NORMAL:
         TagComponent = (
-          <WrappedTag {...this.props}>
+          <WrappedTag {...WrappedTagProps}>
             <AntTagComponent {...this.props}>{children}</AntTagComponent>
           </WrappedTag>
         );
         break;
       case TYPES.ADD:
         TagComponent = (
-          <WrappedTag {...this.props}>
+          <WrappedTag {...WrappedTagProps}>
             <AntTagComponent {...this.props}>
               {children}
               <Icon type="edit" className="tagIcon" />
@@ -172,7 +176,7 @@ class Tag extends Component {
         break;
       case TYPES.ADDED:
         TagComponent = (
-          <WrappedTag {...this.props}>
+          <WrappedTag {...WrappedTagProps}>
             <AntTagComponent {...this.props}>
               {children}
               <Icon type="cross" className="tagIcon" />
@@ -182,7 +186,7 @@ class Tag extends Component {
         break;
       case TYPES.SELECTION:
         TagComponent = (
-          <WrappedTag {...this.props}>
+          <WrappedTag {...WrappedTagProps}>
             <AntTagComponent {...this.props}>
               {children}
               <Icon type="tick" className="tagIcon" />
@@ -192,14 +196,14 @@ class Tag extends Component {
         break;
       case TYPES.SELECTED:
         TagComponent = (
-          <WrappedTag {...this.props}>
+          <WrappedTag {...WrappedTagProps}>
             <AntTagComponent {...this.props}>{children}</AntTagComponent>
           </WrappedTag>
         );
         break;
       case TYPES.ACTION:
         TagComponent = (
-          <WrappedTag {...this.props}>
+          <WrappedTag {...WrappedTagProps}>
             <ActionTag {...this.props}>
               <AntTagComponent {...this.props}>{children}</AntTagComponent>
             </ActionTag>
