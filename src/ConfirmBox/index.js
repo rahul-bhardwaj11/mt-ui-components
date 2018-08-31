@@ -5,12 +5,30 @@ import 'antd/lib/popconfirm/style/css';
 
 class ConfirmBox extends Component {
   static propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
+    placement: PropTypes.string
   };
 
   render() {
     let { children } = this.props;
-    return <AntPopconfirm {...this.props}>{children}</AntPopconfirm>;
+    return (
+      <div
+        ref={el => {
+          if (el) {
+            this.confirmDropdownRef = el;
+          }
+        }}
+      >
+        <AntPopconfirm
+          {...this.props}
+          getPopupContainer={() => {
+            return this.confirmDropdownRef;
+          }}
+        >
+          {children}
+        </AntPopconfirm>
+      </div>
+    );
   }
 }
 export default ConfirmBox;

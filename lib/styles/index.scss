@@ -106,6 +106,7 @@
   .arrow_R {
     position: absolute;
     z-index: 1;
+    // @include getSupport;
 
     &:after {
       bottom: 0px;

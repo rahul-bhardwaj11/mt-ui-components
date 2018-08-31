@@ -17,9 +17,9 @@ const BUTTON_TYPES = {
 };
 
 const BUTTON_SIZES = {
-  LARGE: 'large',
-  SMALL: 'small',
-  MEDIUM: 'medium'
+  large: 'large',
+  small: 'small',
+  medium: 'default'
 };
 
 const ANTD_BUTTON_TYPE_MAP = {
@@ -56,6 +56,8 @@ const MtButton = styled.span`
       color: ${theme.colors.DARK_OUTER_SPACE};
       border: 1px solid ${theme.colors.SILVER};
     }
+    &:active,
+    &:focus,
     &.active {
       border: 1px solid ${theme.colors.INDIGO};
       color: ${theme.colors.INDIGO};
@@ -87,6 +89,7 @@ const MtButton = styled.span`
       background: ${theme.colors.JODHPUR};
     }
     &:focus,
+    &:active,
     &.active {
       border: 1px solid ${theme.colors.NEPTUNE};
       background: ${theme.colors.NEPTUNE};
@@ -130,6 +133,7 @@ const MtButton = styled.span`
       }
     }
     &:focus,
+    &:active,
     &.active {
       border: 1px solid ${theme.colors.ALTO};
       color: ${theme.colors.SILVER};
@@ -164,6 +168,7 @@ const MtButton = styled.span`
       color: ${theme.colors.SHARK};
     }
     &:focus,
+    &:active,
     &.active {
       color: ${theme.colors.SHARK};
     }
@@ -260,7 +265,7 @@ class Button extends Component {
     type: PropTypes.oneOf(Object.values(BUTTON_TYPES)),
     children: PropTypes.node,
     disabled: PropTypes.bool,
-    size: PropTypes.oneOf(Object.values(BUTTON_SIZES)),
+    size: PropTypes.oneOf(Object.keys(BUTTON_SIZES)),
     style: PropTypes.object,
     className: PropTypes.string,
     active: PropTypes.bool
@@ -278,7 +283,12 @@ class Button extends Component {
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
     return (
       <MtButton active={active} disabled={disabled} size={size}>
-        <AntButton {...this.props} type={antdType} style={style}>
+        <AntButton
+          {...this.props}
+          type={antdType}
+          style={style}
+          size={BUTTON_SIZES[size]}
+        >
           {children}
           {type === 'edit' && <Icon type="edit" className="editIcon" />}
         </AntButton>
