@@ -118,7 +118,14 @@
 // z-index ----------//
 
 $z-index: (
-  getSupport: 99986
+  getSupport: 99986,
+  loader: 2,
+  scroller: 10,
+  dropdown: 20,
+  absolute: 30,
+  errorPageStyle: 31,
+  popover: 40,
+  modal: 50
 );
 @function z-index($key) {
   @return map-get($z-index, $key);
