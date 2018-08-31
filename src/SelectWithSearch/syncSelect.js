@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Select, { components } from 'react-select';
 import CheckBox from '../CheckBox';
 import Button from '../Button';
+import Icon from '../Icon';
 
 const noop = () => undefined;
 
@@ -46,19 +47,26 @@ export default class SyncSelect extends Component {
         selectedItems.push(defaultValue);
       }
     }
-    const sortedOptions = this.__sortOptions(selectedItems, options);
+    let sortedOptions = this.__sortOptions(options, selectedItems);
+    sortedOptions = this.normalizeOption(sortedOptions);
     this.setState({ selectedItems, options: sortedOptions });
   }
 
+  normalizeOption = sortedOptions => {
+    if (!this.props.isMulti) {
+      sortedOptions.unshift({ label: 'None', value: 'None' });
+    }
+    return sortedOptions;
+  };
   componentWillReceiveProps(nextProps) {
     if (this.props.options != nextProps.options) {
-      this.setState({
-        options: nextProps.options
-      });
+      let sortedOptions = this.__sortOptions(nextProps.options);
+      sortedOptions = this.normalizeOption(sortedOptions);
+      this.setState({ options: sortedOptions });
     }
   }
 
-  __sortOptions = (selectedItems, options) => {
+  __sortOptions = (options, selectedItems = []) => {
     const optionsToSort = options.filter(option => {
       return selectedItems.indexOf(option) < 0;
     });
@@ -94,7 +102,7 @@ export default class SyncSelect extends Component {
     if (this.props.isButton) {
       this.toggleButton();
     }
-    const sortedOptions = this.__sortOptions(selectedItems, options);
+    const sortedOptions = this.__sortOptions(options, selectedItems);
     const newState = {
       options: sortedOptions,
       menuIsOpen: false,
@@ -162,6 +170,7 @@ export default class SyncSelect extends Component {
   handleControl = arg => {
     return (
       <div
+        className={this.state.showInput ? 'activeSearch' : ''}
         onClick={() => {
           this.setState({
             menuIsOpen: true,
@@ -171,6 +180,18 @@ export default class SyncSelect extends Component {
         }}
       >
         <components.Control {...arg} />
+      </div>
+    );
+  };
+
+  handleInput = props => {
+    if (props.isHidden) {
+      return <components.Input {...props} />;
+    }
+    return (
+      <div className={props.value.length ? 'activeInput' : ''}>
+        <components.Input {...props} />
+        <Icon type="Cancel" onClick={() => this.setState({ inputValue: '' })} />
       </div>
     );
   };
@@ -209,7 +230,8 @@ export default class SyncSelect extends Component {
             Option: this.optionWithCheckBox,
             MultiValueContainer: this.handleDisplayValue,
             Menu: this.buildMenu,
-            Control: this.handleControl
+            Control: this.handleControl,
+            Input: this.handleInput
           },
           value: selectedItems,
           closeMenuOnSelect: false,
@@ -221,7 +243,17 @@ export default class SyncSelect extends Component {
           inputValue: inputValue,
           onInputChange: this.onInputChange
         }
-      : {};
+      : {
+          components: {
+            Control: this.handleControl,
+            Input: this.handleInput
+          },
+          onChange: value => {
+            this.setState({ showInput: false });
+            this.props.onChange(value);
+          },
+          onBlur: () => this.setState({ showInput: false })
+        };
 
     if (showButton) {
       return (

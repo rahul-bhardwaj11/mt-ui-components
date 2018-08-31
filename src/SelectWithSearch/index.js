@@ -11,29 +11,50 @@ import searchIcon from './assets/search.svg';
 
 const SelectBox = styled.div`
   .mt-react-select__single-value {
-    padding-left: 30px;
+    padding-left: 0px;
     position: absolute;
     top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
     transform: translateY(-50%);
   }
-  
+
   .mt-react-select__value-container{
+    padding-left: 12px;
     &:before {
     content: '';
-    background: url('${searchIcon}') no-repeat 10px 5px;
+    display: none;
     height: 25px;
     width: 30px;
     padding-left: 5px;
     padding-top: 5px;
+    left: 0;
     position: absolute;
     opacity: 0.6;
   }
   }
   .mt-react-select__menu-list {
     padding: 8px;
-    color: ${theme.colors.OUTER_SPACE};   
+    color: ${theme.colors.OUTER_SPACE};
+  }
+
+  .activeSearch {
+    .mt-react-select__value-container{
+      &:before {
+          display: block;
+          background: url('${searchIcon}') no-repeat 10px 5px;
+        }
+      }
+      .mt-react-select__single-value {
+        padding-left: 20px;
+      }
+      .mt-react-select__dropdown-indicator {
+        display: none;
+      }
+      .mt-react-select__placeholder {
+        padding-left: 20px;
+      }
+  }
+  .mt-react-select__clear-indicator{
+    display: none;
   }
   .mt-react-select__control {
     border: 1px solid ${theme.colors.ALTO};
@@ -66,14 +87,14 @@ const SelectBox = styled.div`
     color: #ffffff;
     cursor: pointer;
   }
+  .mt-react-select__indicator-separator {
+    display: none;
+  }
   .mt-react-select__input {
-    padding-left: 30px;
+    padding-left: 20px;
   }
   .mt-react-select__placeholder {
-    padding-left: 30px;
-  }
-  .mt-react-select__indicators {
-    display: none;
+    //padding-left: 20px;
   }
 
   .ant-checkbox-wrapper .ant-checkbox {
@@ -82,7 +103,7 @@ const SelectBox = styled.div`
   }
 
   .mt-react-select__menu-list--is-multi {
-    padding: 19px 24px;  
+    padding: 19px 24px;
   }
 
   .ant-btn-text {
@@ -92,7 +113,7 @@ const SelectBox = styled.div`
   .selectedItem {
     margin-left: 2px;
     margin-right: 2px;
-    padding-left: 30px;
+    //padding-left: 30px;
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -117,6 +138,16 @@ const SelectBox = styled.div`
 
 .dataLabel {
   ${mixin.displayIB()};
+}
+
+.icon-Cancel {
+  display: none;
+}
+
+.activeInput {
+  .icon-Cancel {
+    display: inline-block;
+  }
 }
 
 .checkboxWrapper {
