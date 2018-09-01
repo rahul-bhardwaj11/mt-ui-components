@@ -8,6 +8,14 @@ import { withKnobs, object } from '@storybook/addon-knobs';
 const stories = storiesOf('Collapse', module);
 stories.addDecorator(withKnobs);
 
+const customPanelStyle = {
+  background: '#f7f7f7',
+  borderRadius: 4,
+  marginBottom: 24,
+  border: 0,
+  overflow: 'hidden'
+};
+
 const options = [
   { header: 'This is panel header 1', content: ['First Item'] },
   { header: 'This is panel header 2', content: '<b>Second Item</b>' },
@@ -18,5 +26,14 @@ stories.add(
   'Default Collapse',
   withInfo('Basic usage of the Collapse')(() => (
     <Collapse options={object('options', options)} />
+  ))
+);
+stories.add(
+  'Custom Collapse',
+  withInfo('Basic usage of the Custom Collapse')(() => (
+    <Collapse
+      options={object('options', options)}
+      style={object('style', customPanelStyle)}
+    />
   ))
 );
