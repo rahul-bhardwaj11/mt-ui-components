@@ -33,7 +33,7 @@ stories.add(
   withInfo('Basic usage of the Custom Collapse')(() => (
     <Collapse
       options={object('options', options)}
-      style={object('style', customPanelStyle)}
+      panelStyle={object('panelStyle', customPanelStyle)}
     />
   ))
 );

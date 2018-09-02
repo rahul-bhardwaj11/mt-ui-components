@@ -70,11 +70,11 @@ class Collapse extends Component {
   static propTypes = {
     options: PropTypes.any.isRequired,
     accordion: PropTypes.bool,
-    style: PropTypes.object
+    panelStyle: PropTypes.object
   };
 
   render() {
-    let { options, style } = this.props;
+    let { options, panelStyle } = this.props;
     return (
       <MtCollapse>
         <AntCollapse {...this.props} defaultActiveKey={['0']}>
@@ -83,7 +83,7 @@ class Collapse extends Component {
               <AntCollapse.Panel
                 key={index}
                 header={option.header}
-                style={style}
+                style={panelStyle}
               >
                 {typeof option.content === 'string' ? (
                   <StringToHTML content={option.content} />
