@@ -38,6 +38,7 @@ const MtTable = styled.div`
     > .ant-table-scroll
     > .ant-table-body
     > .ant-table-fixed,
+  .ant-table-default > .ant-table-content > .ant-table-scroll > .ant-table-body,
   .ant-table-default
     > .ant-table-content
     > .ant-table-fixed-left
@@ -228,13 +229,11 @@ const MtTable = styled.div`
       }
     }
   }
-
   .ant-table-thead > tr > th.ant-table-selection-column,
   .ant-table-tbody > tr > td.ant-table-selection-column {
     min-width: auto;
     width: auto;
   }
-
   .ant-checkbox-wrapper {
     & .ant-checkbox > .ant-checkbox-inner {
       width: 14px;
