@@ -59,7 +59,7 @@ const SelectBox = styled.div`
   }
 
   .selectBoxWrapper{
-    height: 32px;
+    max-height: 32px;
    .activeSearch {
     .mt-react-select__value-container{
       &:before {

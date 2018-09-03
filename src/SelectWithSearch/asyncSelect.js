@@ -318,7 +318,7 @@ export default class AsyncSelect extends Component {
       <div className="selectBoxWrapper">
         <div
           className={this.state.showInput ? 'activeSearch' : ''}
-          onClick={() => {
+          onMouseOver={() => {
             this.setState({
               menuIsOpen: true,
               showInput: true,
