@@ -5,9 +5,6 @@ import Button from '../Button';
 import styled from 'styled-components';
 
 const MtGroupDropdown = styled.div`
-  div {
-    display: inline-block;
-  }
   .ant-dropdown-trigger {
     .ant-btn-primary {
       span {
