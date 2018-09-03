@@ -246,23 +246,12 @@ export default class AsyncSelect extends Component {
   };
 
   toggleButton = () => {
-    this.setState(prevState => {
-      let updatedState = {
-        showSelect: !prevState.showSelect,
-        menuIsOpen: !prevState.menuIsOpen,
-        showSelectedValues: !prevState.showSelectedValues
-      };
-      updatedState = !this.props.isButton
-        ? { showInput: !prevState.showInput }
-        : updatedState;
-      return updatedState;
-    });
-    setTimeout(() => {
-      this.props.isButton &&
-        this.setState({
-          showInput: !this.state.showInput
-        });
-    }, 0);
+    this.setState(prevState => ({
+      showSelect: !prevState.showSelect,
+      menuIsOpen: !prevState.menuIsOpen,
+      showSelectedValues: !prevState.showSelectedValues,
+      showInput: !prevState.showInput
+    }));
   };
 
   handleDisplayValue = ({ data }) => {

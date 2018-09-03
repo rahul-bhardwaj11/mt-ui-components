@@ -96,6 +96,11 @@ export default class SyncSelect extends Component {
   };
 
   onDone = () => {
+    // console.log(event.target);
+    // if (this.wrapperRef.contains(event.target)) {
+    //   console.log("find");
+    // }
+    // console.log(ref, e.target);
     const { selectedItems, options } = this.state;
     const { isButton, onChange } = this.props;
     const selectedValues = selectedItems.map(selectedItem => {
@@ -117,23 +122,17 @@ export default class SyncSelect extends Component {
   };
 
   toggleButton = () => {
-    this.setState(prevState => {
-      let updatedState = {
-        showSelect: !prevState.showSelect,
-        menuIsOpen: !prevState.menuIsOpen,
-        showSelectedValues: !prevState.showSelectedValues
-      };
-      updatedState = !this.props.isButton
-        ? { showInput: !prevState.showInput }
-        : updatedState;
-      return updatedState;
-    });
-    setTimeout(() => {
-      this.props.isButton &&
-        this.setState({
-          showInput: !this.state.showInput
-        });
-    }, 0);
+    // console.log(this.wrapperRef);
+    // console.log(event.target);
+    // if (this.wrapperRef == event.target) {
+    //   console.log("equal");
+    // }
+    this.setState(prevState => ({
+      showSelect: !prevState.showSelect,
+      menuIsOpen: !prevState.menuIsOpen,
+      showSelectedValues: !prevState.showSelectedValues,
+      showInput: !prevState.showInput
+    }));
   };
 
   handleDisplayValue = ({ data }) => {
@@ -285,7 +284,11 @@ export default class SyncSelect extends Component {
     return (
       <div>
         {isButton && (
-          <Button onClick={this.toggleButton} type="secondary">
+          <Button
+            type="secondary"
+            onClick={this.toggleButton}
+            ref={node => (this.wrapperRef = node)}
+          >
             {this.getButtonText()}
           </Button>
         )}
