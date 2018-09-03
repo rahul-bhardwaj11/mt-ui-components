@@ -96,11 +96,7 @@ export default class SyncSelect extends Component {
   };
 
   onDone = () => {
-    // console.log(event.target);
-    // if (this.wrapperRef.contains(event.target)) {
-    //   console.log("find");
-    // }
-    // console.log(ref, e.target);
+    this.blur = true;
     const { selectedItems, options } = this.state;
     const { isButton, onChange } = this.props;
     const selectedValues = selectedItems.map(selectedItem => {
@@ -122,11 +118,10 @@ export default class SyncSelect extends Component {
   };
 
   toggleButton = () => {
-    // console.log(this.wrapperRef);
-    // console.log(event.target);
-    // if (this.wrapperRef == event.target) {
-    //   console.log("equal");
-    // }
+    if (this.blur) {
+      this.blur = false;
+      return;
+    }
     this.setState(prevState => ({
       showSelect: !prevState.showSelect,
       menuIsOpen: !prevState.menuIsOpen,
@@ -284,11 +279,7 @@ export default class SyncSelect extends Component {
     return (
       <div>
         {isButton && (
-          <Button
-            type="secondary"
-            onClick={this.toggleButton}
-            ref={node => (this.wrapperRef = node)}
-          >
+          <Button type="secondary" onClick={this.toggleButton}>
             {this.getButtonText()}
           </Button>
         )}
