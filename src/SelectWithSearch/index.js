@@ -18,6 +18,10 @@ const SelectBox = styled.div`
   //  }
   &.buttonSelect {
     .mt-react-select__control {
+      // width: 74px;
+      // min-height: 32px;
+      // opacity: 1;
+      // transition: width 0.5s, opacity 1s;
       width: 0;
       opacity: 0;
       transition: width .85s, opacity 1s;
@@ -29,6 +33,13 @@ const SelectBox = styled.div`
         opacity: 1;
 
       }
+      .mt-react-select__placeholder{
+        opacity: 1;
+      }
+    }
+    .mt-react-select__placeholder{
+      opacity: 0;
+      transition: opacity 1s;
     }
   }
   .mt-react-select__single-value {
@@ -59,7 +70,7 @@ const SelectBox = styled.div`
   }
 
   .selectBoxWrapper{
-    height: 32px;
+    max-height: 32px;
    .activeSearch {
     .mt-react-select__value-container{
       &:before {
@@ -70,6 +81,8 @@ const SelectBox = styled.div`
       .mt-react-select__single-value {
         padding-left: 20px;
       }
+
+
       .mt-react-select__dropdown-indicator {
         display: none;
       }
@@ -139,7 +152,7 @@ const SelectBox = styled.div`
   .selectedItem {
     margin-left: 2px;
     margin-right: 2px;
-    //padding-left: 30px;
+    //padding-left: 20px;
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -191,8 +204,6 @@ const SelectBox = styled.div`
 .doneMarginR {
   margin-left: 5px;
 }
-
-
 `;
 
 class SelectWithSearch extends Component {

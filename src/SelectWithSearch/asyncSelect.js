@@ -22,7 +22,8 @@ export default class AsyncSelect extends Component {
     isMulti: PropTypes.bool,
     onChange: PropTypes.func,
     isButton: PropTypes.bool,
-    buttonLabel: PropTypes.string
+    buttonLabel: PropTypes.string,
+    placeholder: PropTypes.string
   };
 
   static defaultProps = {
@@ -49,7 +50,7 @@ export default class AsyncSelect extends Component {
       selectedItems: [],
       showSelectedValues: true,
       menuIsOpen: false,
-      showButton: false,
+      showSelect: true,
       showInput: false,
       inputValue: ''
     };
@@ -165,7 +166,7 @@ export default class AsyncSelect extends Component {
     const { optionsCache, search } = this.state;
     const currentOptions = optionsCache[search] || initialCache;
     if (isButton) {
-      this.setState({ showButton: true });
+      this.setState({ showSelect: false });
     }
     const selectedItems = [];
     if (defaultValue) {
@@ -238,7 +239,7 @@ export default class AsyncSelect extends Component {
         }
       };
       newState = isButton
-        ? Object.assign(newState, { showButton: true })
+        ? Object.assign(newState, { showSelect: false })
         : newState;
       return newState;
     });
@@ -247,7 +248,7 @@ export default class AsyncSelect extends Component {
   toggleButton = () => {
     this.setState(prevState => {
       let updatedState = {
-        showButton: !prevState.showButton,
+        showSelect: !prevState.showSelect,
         menuIsOpen: !prevState.menuIsOpen,
         showSelectedValues: !prevState.showSelectedValues
       };
@@ -273,6 +274,14 @@ export default class AsyncSelect extends Component {
         }`}</div>
       );
     return null;
+  };
+
+  handleSingleValue = ({ data }) => {
+    if (data.value == 'None')
+      return (
+        <div className="selectedSingleValue">{this.props.placeholder}</div>
+      );
+    return <div className="selectedSingleValue">{data.label}</div>;
   };
 
   optionWithCheckBox = ({ isDisabled, data }) => {
@@ -369,11 +378,11 @@ export default class AsyncSelect extends Component {
       selectedItems,
       showSelectedValues,
       menuIsOpen,
-      showButton,
+      showSelect,
       showInput,
       inputValue
     } = this.state;
-    const { isMulti } = this.props;
+    const { isMulti, isButton } = this.props;
     let currentOptions = optionsCache[search] || initialCache;
     const options = this.normalizeOption([...currentOptions.options]);
     const selectProps = isMulti
@@ -398,7 +407,8 @@ export default class AsyncSelect extends Component {
       : {
           components: {
             Control: this.handleControl,
-            Input: this.handleInput
+            Input: this.handleInput,
+            SingleValue: this.handleSingleValue
           },
           onChange: value => {
             this.setState({ showInput: false });
@@ -408,26 +418,27 @@ export default class AsyncSelect extends Component {
           backspaceRemovesValue: false
         };
 
-    if (showButton) {
-      return (
-        <Button onClick={this.toggleButton} type="primary">
-          {this.getButtonText()}
-        </Button>
-      );
-    }
-
     return (
-      <Select
-        {...this.props}
-        classNamePrefix={'mt-react-select'}
-        onInputChange={this.onInputChange}
-        isLoading={currentOptions.isLoading}
-        options={options}
-        onMenuOpen={this.onMenuOpen}
-        autoload={false}
-        onMenuScrollToBottom={this.onMenuScrollToBottom}
-        {...selectProps}
-      />
+      <div>
+        {isButton && (
+          <Button onClick={this.toggleButton} type="secondary">
+            {this.getButtonText()}
+          </Button>
+        )}
+        {showSelect && (
+          <Select
+            {...this.props}
+            classNamePrefix={'mt-react-select'}
+            onInputChange={this.onInputChange}
+            isLoading={currentOptions.isLoading}
+            options={options}
+            onMenuOpen={this.onMenuOpen}
+            autoload={false}
+            onMenuScrollToBottom={this.onMenuScrollToBottom}
+            {...selectProps}
+          />
+        )}
+      </div>
     );
   }
 }
