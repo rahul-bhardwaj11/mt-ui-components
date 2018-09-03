@@ -51,6 +51,17 @@ export default class SyncSelect extends Component {
     let sortedOptions = this.__sortOptions(options, selectedItems);
     sortedOptions = this.normalizeOption(sortedOptions);
     this.setState({ selectedItems, options: sortedOptions });
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  handleClickOutside = event => {
+    if (this.buttonRef && this.buttonRef.contains(event.target)) {
+      this.isBlurActive = false;
+    }
+  };
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   normalizeOption = sortedOptions => {
@@ -96,7 +107,7 @@ export default class SyncSelect extends Component {
   };
 
   onDone = () => {
-    this.blur = true;
+    this.isBlurActive = true;
     const { selectedItems, options } = this.state;
     const { isButton, onChange } = this.props;
     const selectedValues = selectedItems.map(selectedItem => {
@@ -118,8 +129,8 @@ export default class SyncSelect extends Component {
   };
 
   toggleButton = () => {
-    if (this.blur) {
-      this.blur = false;
+    if (this.isBlurActive) {
+      this.isBlurActive = false;
       return;
     }
     this.setState(prevState => ({
@@ -279,9 +290,17 @@ export default class SyncSelect extends Component {
     return (
       <div>
         {isButton && (
-          <Button type="secondary" onClick={this.toggleButton}>
-            {this.getButtonText()}
-          </Button>
+          <div
+            ref={e => {
+              if (e) {
+                this.buttonRef = e;
+              }
+            }}
+          >
+            <Button type="secondary" onClick={this.toggleButton}>
+              {this.getButtonText()}
+            </Button>
+          </div>
         )}
         {showSelect && (
           <Select
