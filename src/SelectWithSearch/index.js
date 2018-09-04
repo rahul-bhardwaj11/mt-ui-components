@@ -31,7 +31,7 @@ const SelectBox = styled.div`
   .mt-react-select__value-container{
     margin-left: 20px;
     overflow: hidden;
-    padding-left: 28px;
+    padding-left: 0px;
     margin-right: 20px;
     &:before {
       content: '';
@@ -75,7 +75,7 @@ const SelectBox = styled.div`
         position: absolute;
         opacity: 0.6;
         margin-left: 20px;
-        top: 11px;
+        top: 9px;
         background-position: 1px 0px;
       }
       &:after {
@@ -104,6 +104,7 @@ const SelectBox = styled.div`
       
       .mt-react-select__placeholder {
         margin-left: 0px;
+        padding-left: 28px;
       }
 
     }
