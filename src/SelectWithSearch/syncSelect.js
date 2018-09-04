@@ -26,7 +26,6 @@ export default class SyncSelect extends Component {
   state = {
     options: this.props.options,
     selectedItems: [],
-    showSelectedValues: true,
     menuIsOpen: false,
     showSelect: true,
     showInput: false,
@@ -119,7 +118,6 @@ export default class SyncSelect extends Component {
       options: sortedOptions,
       menuIsOpen: false,
       showInput: false,
-      showSelectedValues: true,
       inputValue: ''
     };
     newState = isButton
@@ -136,7 +134,6 @@ export default class SyncSelect extends Component {
     this.setState(prevState => ({
       showSelect: !prevState.showSelect,
       menuIsOpen: !prevState.menuIsOpen,
-      showSelectedValues: !prevState.showSelectedValues,
       showInput: !prevState.showInput
     }));
   };
@@ -153,10 +150,9 @@ export default class SyncSelect extends Component {
   };
 
   handleSingleValue = ({ data }) => {
+    const { placeholder } = this.props;
     if (data.value == 'None')
-      return (
-        <div className="selectedSingleValue">{this.props.placeholder}</div>
-      );
+      return <div className="selectedSingleValue">{placeholder}</div>;
     return <div className="selectedSingleValue">{data.label}</div>;
   };
 
@@ -203,8 +199,7 @@ export default class SyncSelect extends Component {
           onClick={() => {
             this.setState({
               menuIsOpen: true,
-              showInput: true,
-              showSelectedValues: false
+              showInput: true
             });
           }}
         >
@@ -246,7 +241,6 @@ export default class SyncSelect extends Component {
     const {
       options,
       selectedItems,
-      showSelectedValues,
       menuIsOpen,
       showSelect,
       showInput,
@@ -265,7 +259,7 @@ export default class SyncSelect extends Component {
           },
           value: selectedItems,
           closeMenuOnSelect: false,
-          controlShouldRenderValue: showSelectedValues,
+          controlShouldRenderValue: !showInput,
           menuIsOpen: menuIsOpen,
           isSearchable: showInput,
           autoFocus: showInput,
@@ -284,7 +278,8 @@ export default class SyncSelect extends Component {
             this.props.onChange(value);
           },
           onBlur: () => this.setState({ showInput: false }),
-          backspaceRemovesValue: false
+          backspaceRemovesValue: false,
+          controlShouldRenderValue: !showInput
         };
 
     return (
