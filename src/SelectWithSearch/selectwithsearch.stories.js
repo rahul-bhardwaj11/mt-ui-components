@@ -54,6 +54,16 @@ stories.add(
       options={colourOptions}
       onChange={() => {}}
       isMulti
+      // styles={{
+      //   control: () => ({
+      //     // none of react-selects styles are passed to <View />
+      //     width: 200,
+      //   }),
+      //   input: () => {{
+      //     maxWidth: '100%;
+      //   }}
+      // }
+      // }
     />
   ))
 );

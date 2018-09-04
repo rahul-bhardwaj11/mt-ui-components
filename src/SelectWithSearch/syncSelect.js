@@ -203,6 +203,10 @@ export default class SyncSelect extends Component {
           }}
         >
           <components.Control {...arg} />
+          <Icon
+            type="Cancel"
+            onClick={() => this.setState({ inputValue: '' })}
+          />
         </div>
       </div>
     );
@@ -215,7 +219,6 @@ export default class SyncSelect extends Component {
     return (
       <div className={props.value.length ? 'activeInput' : ''}>
         <components.Input {...props} />
-        <Icon type="Cancel" onClick={() => this.setState({ inputValue: '' })} />
       </div>
     );
   };
@@ -263,7 +266,8 @@ export default class SyncSelect extends Component {
           menuIsOpen: menuIsOpen,
           isSearchable: showInput,
           autoFocus: showInput,
-          onBlur: this.onDone,
+          autosize: false,
+          //   onBlur: this.onDone,
           inputValue: inputValue,
           onInputChange: this.onInputChange
         }
@@ -277,7 +281,7 @@ export default class SyncSelect extends Component {
             this.setState({ showInput: false });
             this.props.onChange(value);
           },
-          onBlur: () => this.setState({ showInput: false }),
+          //   onBlur: () => this.setState({ showInput: false }),
           backspaceRemovesValue: false
         };
 
