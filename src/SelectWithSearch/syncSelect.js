@@ -51,6 +51,17 @@ export default class SyncSelect extends Component {
     let sortedOptions = this.__sortOptions(options, selectedItems);
     sortedOptions = this.normalizeOption(sortedOptions);
     this.setState({ selectedItems, options: sortedOptions });
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  handleClickOutside = event => {
+    if (this.buttonRef && this.buttonRef.contains(event.target)) {
+      this.isBlurActive = false;
+    }
+  };
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   normalizeOption = sortedOptions => {
@@ -96,11 +107,7 @@ export default class SyncSelect extends Component {
   };
 
   onDone = () => {
-    // console.log(event.target);
-    // if (this.wrapperRef.contains(event.target)) {
-    //   console.log("find");
-    // }
-    // console.log(ref, e.target);
+    this.isBlurActive = true;
     const { selectedItems, options } = this.state;
     const { isButton, onChange } = this.props;
     const selectedValues = selectedItems.map(selectedItem => {
@@ -122,11 +129,10 @@ export default class SyncSelect extends Component {
   };
 
   toggleButton = () => {
-    // console.log(this.wrapperRef);
-    // console.log(event.target);
-    // if (this.wrapperRef == event.target) {
-    //   console.log("equal");
-    // }
+    if (this.isBlurActive) {
+      this.isBlurActive = false;
+      return;
+    }
     this.setState(prevState => ({
       showSelect: !prevState.showSelect,
       menuIsOpen: !prevState.menuIsOpen,
@@ -288,13 +294,17 @@ export default class SyncSelect extends Component {
     return (
       <div>
         {isButton && (
-          <Button
-            type="secondary"
-            onClick={this.toggleButton}
-            ref={node => (this.wrapperRef = node)}
+          <div
+            ref={e => {
+              if (e) {
+                this.buttonRef = e;
+              }
+            }}
           >
-            {this.getButtonText()}
-          </Button>
+            <Button type="secondary" onClick={this.toggleButton}>
+              {this.getButtonText()}
+            </Button>
+          </div>
         )}
         {showSelect && (
           <Select
