@@ -149,11 +149,13 @@ export default class SyncSelect extends Component {
     return null;
   };
 
-  handleSingleValue = ({ data }) => {
+  handleSingleValue = ({ data, ...props }) => {
     const { placeholder } = this.props;
-    if (data.value == 'None')
-      return <div className="selectedSingleValue">{placeholder}</div>;
-    return <div className="selectedSingleValue">{data.label}</div>;
+    return (
+      <components.SingleValue {...props}>
+        {data.value == 'None' ? placeholder : data.label}
+      </components.SingleValue>
+    );
   };
 
   optionWithCheckBox = ({ isDisabled, data }) => {
@@ -278,6 +280,7 @@ export default class SyncSelect extends Component {
             this.props.onChange(value);
           },
           onBlur: () => this.setState({ showInput: false }),
+          autoFocus: showInput,
           backspaceRemovesValue: false,
           controlShouldRenderValue: !showInput
         };
