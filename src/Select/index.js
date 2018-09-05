@@ -5,12 +5,23 @@ import AntSelect from 'antd/lib/select';
 import 'antd/lib/select/style/index.css';
 import '../styles/override.scss';
 import styled from 'styled-components';
+import selectArrowIcon from './assets/downFillcaret.svg';
 import StringToHTML from '../StringToHTML';
 
 const Option = AntSelect.Option;
 
 const MtWrapper = styled.div`
   display: inline-block;
+  .ant-select-arrow {
+    display: block;
+    background: url('${selectArrowIcon}') no-repeat 1px 4px;
+    background-size: 8px;
+    width: 9px;
+    height: 9px;
+    &::before {
+      content: '';
+    }  
+  }
 `;
 
 class Select extends Component {

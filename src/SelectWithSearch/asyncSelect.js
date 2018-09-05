@@ -271,9 +271,12 @@ export default class AsyncSelect extends Component {
     const { selectedItems } = this.state;
     if (data.value == selectedItems[0].value)
       return (
-        <div className="selectedItem">{`${data.label}${
-          selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
-        }`}</div>
+        <div className="selectedItem clearfix">
+          <span className="selectedItemLabel floatL">{`${data.label}`}</span>
+          <span className="floatL">{`${
+            selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
+          }`}</span>
+        </div>
       );
     return null;
   };
@@ -338,6 +341,7 @@ export default class AsyncSelect extends Component {
   };
 
   handleControl = arg => {
+    const { inputValue } = this.state;
     return (
       <div className="selectBoxWrapper">
         <div
@@ -350,19 +354,13 @@ export default class AsyncSelect extends Component {
           }}
         >
           <components.Control {...arg} />
+          <div className={inputValue.length ? 'activeInput' : ''}>
+            <Icon
+              type="cross"
+              onClick={() => this.setState({ inputValue: '' })}
+            />
+          </div>
         </div>
-      </div>
-    );
-  };
-
-  handleInput = props => {
-    if (props.isHidden) {
-      return <components.Input {...props} />;
-    }
-    return (
-      <div className={props.value.length ? 'activeInput' : ''}>
-        <components.Input {...props} />
-        <Icon type="Cancel" onClick={() => this.setState({ inputValue: '' })} />
       </div>
     );
   };
@@ -420,7 +418,6 @@ export default class AsyncSelect extends Component {
       : {
           components: {
             Control: this.handleControl,
-            Input: this.handleInput,
             SingleValue: this.handleSingleValue,
             Menu: this.buildMenu
           },

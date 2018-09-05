@@ -142,9 +142,12 @@ export default class SyncSelect extends Component {
     const { selectedItems } = this.state;
     if (data.value == selectedItems[0].value)
       return (
-        <div className="selectedItem">{`${data.label}${
-          selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
-        }`}</div>
+        <div className="selectedItem clearfix">
+          <span className="selectedItemLabel floatL">{`${data.label}`}</span>
+          <span className="floatL">{`${
+            selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
+          }`}</span>
+        </div>
       );
     return null;
   };
@@ -194,10 +197,11 @@ export default class SyncSelect extends Component {
   };
 
   handleControl = arg => {
+    const { inputValue, showInput } = this.state;
     return (
       <div className="selectBoxWrapper">
         <div
-          className={this.state.showInput ? 'activeSearch' : ''}
+          className={showInput ? 'activeSearch' : ''}
           onClick={() => {
             this.setState({
               menuIsOpen: true,
@@ -206,19 +210,13 @@ export default class SyncSelect extends Component {
           }}
         >
           <components.Control {...arg} />
+          <div className={inputValue.length ? 'activeInput' : ''}>
+            <Icon
+              type="cross"
+              onClick={() => this.setState({ inputValue: '' })}
+            />
+          </div>
         </div>
-      </div>
-    );
-  };
-
-  handleInput = props => {
-    if (props.isHidden) {
-      return <components.Input {...props} />;
-    }
-    return (
-      <div className={props.value.length ? 'activeInput' : ''}>
-        <components.Input {...props} />
-        <Icon type="Cancel" onClick={() => this.setState({ inputValue: '' })} />
       </div>
     );
   };
@@ -256,8 +254,7 @@ export default class SyncSelect extends Component {
             Option: this.optionWithCheckBox,
             MultiValueContainer: this.handleDisplayValue,
             Menu: this.buildMenu,
-            Control: this.handleControl,
-            Input: this.handleInput
+            Control: this.handleControl
           },
           value: selectedItems,
           closeMenuOnSelect: false,
@@ -265,6 +262,7 @@ export default class SyncSelect extends Component {
           menuIsOpen: menuIsOpen,
           isSearchable: showInput,
           autoFocus: showInput,
+          autosize: false,
           onBlur: this.onDone,
           inputValue: inputValue,
           onInputChange: this.onInputChange
@@ -272,7 +270,6 @@ export default class SyncSelect extends Component {
       : {
           components: {
             Control: this.handleControl,
-            Input: this.handleInput,
             SingleValue: this.handleSingleValue
           },
           onChange: value => {
@@ -282,6 +279,8 @@ export default class SyncSelect extends Component {
           onBlur: () => this.setState({ showInput: false }),
           autoFocus: showInput,
           backspaceRemovesValue: false,
+          inputValue: inputValue,
+          onInputChange: this.onInputChange,
           controlShouldRenderValue: !showInput
         };
 

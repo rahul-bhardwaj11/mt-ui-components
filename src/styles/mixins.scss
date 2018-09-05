@@ -121,9 +121,6 @@
 
 // z-index ----------//
 
-$z-index: (
-  getSupport: 99986
-);
 @function z-index($key) {
   @return map-get($z-index, $key);
 }
