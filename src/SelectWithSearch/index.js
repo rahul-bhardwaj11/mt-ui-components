@@ -4,24 +4,83 @@ import PropTypes from 'prop-types';
 //import { Icon } from 'antd';
 import styled from 'styled-components';
 import theme from '../styles/theme';
-
 import AsyncSelect from './asyncSelect';
 import SyncSelect from './syncSelect';
+import mixin from '../styles/mixins';
+import searchIcon from './assets/search.svg';
+import classnames from 'classnames';
 
 const SelectBox = styled.div`
-  .mt-react-select__single-value {
-    padding-left: 30px;
+  //  width: 0;
+  //  transition: width 2s;
+  //  &.active {
+  //    width: 100%;
+  //  }
+  &.buttonSelect {
+    .mt-react-select__control {
+      width: 0;
+      opacity: 0;
+      transition: width .85s, opacity 1s;
+    }
+
+    .activeSearch {
+      .mt-react-select__control {
+        width: 100%;
+        opacity: 1;
+
+      }
+    }
   }
-  .mt-react-select__value-container::before {
-   // content: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIxNnB4IiBoZWlnaHQ9IjE2cHgiIHZpZXdCb3g9IjAgMCAxNiAxNiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5zZWFyY2g8L3RpdGxlPiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4gICAgPGRlZnM+PC9kZWZzPiAgICA8ZyBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4gICAgICAgIDxnIGlkPSJEZXNrdG9wLUhEIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMzg1LjAwMDAwMCwgLTg0LjAwMDAwMCkiIGZpbGw9IiMwMDAwMDAiIGZpbGwtcnVsZT0ibm9uemVybyI+ICAgICAgICAgICAgPHBhdGggZD0iTTM5Ny4yMDY2NzIsOTQuOTcyNDQ5MyBMNDAwLjc0NDM4NCw5OC41MTAxNjE0IEM0MDEuMDg1MjA1LDk4Ljg1MDk4MjYgNDAxLjA4NTIwNSw5OS40MDM1NjI5IDQwMC43NDQzODQsOTkuNzQ0Mzg0MSBDNDAwLjQwMzU2MywxMDAuMDg1MjA1IDM5OS44NTA5ODMsMTAwLjA4NTIwNSAzOTkuNTEwMTYxLDk5Ljc0NDM4NDEgTDM5NS45NzI0NDksOTYuMjA2NjcyIEMzOTQuODIxNjczLDk3LjA5NTQ2OTcgMzkzLjM3ODY0OCw5Ny42MjQyNDI0IDM5MS44MTIxMjEsOTcuNjI0MjQyNCBDMzg4LjA0OTg5MSw5Ny42MjQyNDI0IDM4NSw5NC41NzQzNTE5IDM4NSw5MC44MTIxMjEyIEMzODUsODcuMDQ5ODkwNiAzODguMDQ5ODkxLDg0IDM5MS44MTIxMjEsODQgQzM5NS41NzQzNTIsODQgMzk4LjYyNDI0Miw4Ny4wNDk4OTA2IDM5OC42MjQyNDIsOTAuODEyMTIxMiBDMzk4LjYyNDI0Miw5Mi4zNzg2NDggMzk4LjA5NTQ3LDkzLjgyMTY3MzMgMzk3LjIwNjY3Miw5NC45NzI0NDkzIFogTTM5MS44MTIxMjEsOTUuODc4Nzg3OSBDMzk0LjYxMDM2NCw5NS44Nzg3ODc5IDM5Ni44Nzg3ODgsOTMuNjEwMzYzOSAzOTYuODc4Nzg4LDkwLjgxMjEyMTIgQzM5Ni44Nzg3ODgsODguMDEzODc4NSAzOTQuNjEwMzY0LDg1Ljc0NTQ1NDUgMzkxLjgxMjEyMSw4NS43NDU0NTQ1IEMzODkuMDEzODc4LDg1Ljc0NTQ1NDUgMzg2Ljc0NTQ1NSw4OC4wMTM4Nzg1IDM4Ni43NDU0NTUsOTAuODEyMTIxMiBDMzg2Ljc0NTQ1NSw5My42MTAzNjM5IDM4OS4wMTM4NzgsOTUuODc4Nzg3OSAzOTEuODEyMTIxLDk1Ljg3ODc4NzkgWiIgaWQ9InNlYXJjaCI+PC9wYXRoPiAgICAgICAgPC9nPiAgICA8L2c+PC9zdmc+);
-    //content: url('./assets/search.svg')
+  .mt-react-select__single-value {
+    padding-left: 0px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .mt-react-select__value-container{
+    padding-left: 12px;
+    &:before {
+    content: '';
+    display: none;
+    height: 22px;
+    width: 24px;
+    background-size: 14px;
     padding-left: 5px;
     padding-top: 5px;
+    left: 0;
     position: absolute;
     opacity: 0.6;
   }
+  }
   .mt-react-select__menu-list {
     padding: 8px;
+    color: ${theme.colors.OUTER_SPACE};
+  }
+
+  .selectBoxWrapper{
+    height: 32px;
+   .activeSearch {
+    .mt-react-select__value-container{
+      &:before {
+          display: block;
+          background: url('${searchIcon}') no-repeat 10px 5px;
+        }
+      }
+      .mt-react-select__single-value {
+        padding-left: 20px;
+      }
+      .mt-react-select__dropdown-indicator {
+        display: none;
+      }
+      .mt-react-select__placeholder {
+        padding-left: 20px;
+      }
+  }
+}
+
+  .mt-react-select__clear-indicator{
+    display: none;
   }
   .mt-react-select__control {
     border: 1px solid ${theme.colors.ALTO};
@@ -54,15 +113,86 @@ const SelectBox = styled.div`
     color: #ffffff;
     cursor: pointer;
   }
-  .mt-react-select__input {
-    padding-left: 5px;
-  }
-  .mt-react-select__placeholder {
-    padding-left: 30px;
-  }
-  .mt-react-select__indicators {
+  .mt-react-select__indicator-separator {
     display: none;
   }
+  .mt-react-select__input {
+    padding-left: 20px;
+  }
+  .mt-react-select__placeholder {
+    //padding-left: 20px;
+  }
+
+  .ant-checkbox-wrapper .ant-checkbox {
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  .mt-react-select__menu-list--is-multi {
+    padding: 19px 24px;
+  }
+
+  .ant-btn-text {
+    padding: 0px 24px;
+  }
+
+  .selectedItem {
+    margin-left: 2px;
+    margin-right: 2px;
+    //padding-left: 30px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+.componentWrapper {
+  ${mixin.clearfix()};
+  width: 100%;
+}
+
+.buttonWrapperL {
+  float: left;
+  width: 50%;
+  padding-bottom: 10px;
+}
+
+.buttonWrapperR {
+  float: right;
+  padding-bottom: 10px;
+}
+
+.dataLabel {
+  ${mixin.displayIB()};
+}
+
+.icon-Cancel {
+  display: none;
+}
+
+.activeInput {
+  .icon-Cancel {
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    cursor: pointer;
+  }
+}
+
+.mt-react-select__value-container:before {
+  height: 22px;
+  width: 26px;
+}
+
+.checkboxWrapper {
+  margin-bottom: 5px;
+}
+.doneMarginR {
+  margin-left: 5px;
+}
+
+
 `;
 
 class SelectWithSearch extends Component {
@@ -71,26 +201,27 @@ class SelectWithSearch extends Component {
     async: PropTypes.bool,
     placeholder: PropTypes.string,
     isMulti: PropTypes.bool,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    isButton: PropTypes.bool
   };
   static defaultProps = {
     placeholder: 'Type here to Search'
   };
 
   render() {
-    let { async } = this.props;
+    let { async, isButton } = this.props;
+    let SelectComponent = SyncSelect;
     if (async) {
-      return (
-        <SelectBox>
-          <AsyncSelect {...this.props} />
-        </SelectBox>
-      );
-    } else
-      return (
-        <SelectBox>
-          <SyncSelect {...this.props} />
-        </SelectBox>
-      );
+      SelectComponent = AsyncSelect;
+    }
+    let className = classnames({
+      buttonSelect: isButton
+    });
+    return (
+      <SelectBox className={className}>
+        <SelectComponent {...this.props} />
+      </SelectBox>
+    );
   }
 }
 

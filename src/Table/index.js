@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AntTable from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
+import 'antd/lib/checkbox/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins.js';
@@ -160,6 +161,12 @@ const MtTable = styled.div`
       }
       & > tr {
         color: ${theme.colors.DARK_OUTER_SPACE};
+        &:focus-within {
+          & > td {
+            background: ${theme.colors.PORCELAIN};
+            cursor: pointer;
+          }
+        }
         td {
           ${mixins.darkText()};
           border-bottom: 1px solid ${theme.colors.PEARL};
@@ -214,12 +221,6 @@ const MtTable = styled.div`
         &:hover {
           & > td {
             background: ${theme.colors.PORCELAIN};
-            cursor: pointer;
-          }
-        }
-        &:active {
-          & > td {
-            background: ${theme.colors.TROPICAL_BLUE};
             cursor: pointer;
           }
         }
@@ -295,7 +296,8 @@ class Table extends Component {
     windowScroll: PropTypes.bool,
     hasMore: PropTypes.bool,
     loading: PropTypes.bool,
-    scroll: PropTypes.object
+    scroll: PropTypes.object,
+    dataSource: PropTypes.array
   };
   static defaultProps = {
     infiniteScroll: false,
@@ -304,13 +306,16 @@ class Table extends Component {
   };
   state = {
     showActionBar: false,
-    showMultiSelect: false
+    showMultiSelect: false,
+    selectAll: false,
+    selectedRowKeys: []
   };
   scrollElement = null;
   styleProps = {
     contentCellPadding: this.props.contentCellPadding,
     headerCellPadding: this.props.headerCellPadding
   };
+  tableRef = null;
   fetch = () => {
     const { loading, fetchData } = this.props;
     if (!loading && fetchData) {
@@ -352,13 +357,12 @@ class Table extends Component {
       }
     }
   };
-
   componentDidMount() {
     const { infiniteScroll, windowScroll } = this.props;
-    if (infiniteScroll) {
+    if (infiniteScroll && this.tableRef) {
       this.scrollElement = windowScroll
         ? window
-        : document.getElementsByClassName('ant-table-body')[0];
+        : this.tableRef.getElementsByClassName('ant-table-body')[0];
       if (this.scrollElement) {
         this.scrollElement.addEventListener('scroll', this.onScroll, false);
       }
@@ -371,28 +375,42 @@ class Table extends Component {
       this.scrollElement.removeEventListener('scroll', this.onScroll, false);
     }
   }
+  componentWillReceiveProps() {
+    const { dataSource } = this.props;
+    const { selectAll, selectedRowKeys } = this.state;
+    if (selectAll && dataSource.length > selectedRowKeys.length) {
+      this.onChange(dataSource.map(v => v.key), dataSource);
+    }
+  }
   onChange = (selectedRowKeys, selectedRows) => {
     let {
+      dataSource,
       actionBar,
       rowSelection: { onChange }
     } = this.props;
     this.setState(() => ({
-      showActionBar: actionBar && selectedRows.length > 0,
-      showMultiSelect: actionBar && selectedRows.length > 0
+      showActionBar: actionBar && selectedRowKeys.length > 0,
+      showMultiSelect: selectedRowKeys.length > 0,
+      selectedRowKeys: selectedRowKeys,
+      selectAll: dataSource.length === selectedRowKeys.length
     }));
     onChange && onChange(selectedRowKeys, selectedRows);
   };
 
   render() {
     let { rowSelection, actionBar, children } = this.props;
-    let { showActionBar, showMultiSelect } = this.state;
+    let { showActionBar, showMultiSelect, selectedRowKeys } = this.state;
 
     /**
      * Check if rowSelection props is been passed, If yes override the onChange property of it.
      * Also if onChange prop is passed and the rowSelection is not available, create a new rowSelection object with onChange method.
      */
     const updatedRowSelection = rowSelection
-      ? { ...rowSelection, onChange: this.onChange }
+      ? {
+          ...rowSelection,
+          onChange: this.onChange,
+          selectedRowKeys
+        }
       : null;
 
     const antProps = updatedRowSelection
@@ -404,7 +422,11 @@ class Table extends Component {
           ...this.props
         };
     return (
-      <MtTable showMultiSelect={showMultiSelect} {...this.styleProps}>
+      <MtTable
+        innerRef={ele => (this.tableRef = ele)}
+        showMultiSelect={showMultiSelect}
+        {...this.styleProps}
+      >
         <AntTable {...antProps}>{children}</AntTable>
         {showActionBar && (
           <ActionBar {...actionBar}>

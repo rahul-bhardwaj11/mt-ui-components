@@ -4,7 +4,12 @@ import AntDropdown from 'antd/lib/dropdown';
 import Menu from '../Menu';
 import 'antd/lib/dropdown/style/index.css';
 import Button from 'antd/lib/button';
+import styled from 'styled-components';
 import 'antd/lib/button/style/index.css';
+
+const MtWrapper = styled.div`
+  display: inline-block;
+`;
 
 class Dropdown extends Component {
   static propTypes = {
@@ -14,11 +19,13 @@ class Dropdown extends Component {
     onClick: PropTypes.func,
     type: PropTypes.string,
     label: PropTypes.string,
-    getPopupContainer: PropTypes.func
+    getPopupContainer: PropTypes.func,
+    placement: PropTypes.string
   };
 
   static defaultProps = {
-    trigger: 'hover'
+    trigger: 'hover',
+    placement: 'bottomRight'
   };
 
   onClick = key => {
@@ -35,7 +42,7 @@ class Dropdown extends Component {
       type,
       label,
       onClick,
-      getPopupContainer
+      placement
     } = this.props;
     let overlay;
     if (options instanceof Array) {
@@ -46,16 +53,28 @@ class Dropdown extends Component {
     if (type === 'button') {
       children = <Button>{label || 'Button'}</Button>;
     }
+
     return (
-      <AntDropdown
-        overlay={overlay}
-        trigger={[trigger]}
-        prefixCls={'ant-dropdown'}
-        onClick={onClick}
-        getPopupContainer={getPopupContainer}
+      <MtWrapper
+        innerRef={el => {
+          if (el) {
+            this.dropdownRef = el;
+          }
+        }}
       >
-        <div> {children} </div>
-      </AntDropdown>
+        <AntDropdown
+          overlay={overlay}
+          trigger={[trigger]}
+          prefixCls={'ant-dropdown'}
+          onClick={onClick}
+          getPopupContainer={() => {
+            return this.dropdownRef;
+          }}
+          placement={placement}
+        >
+          <div> {children} </div>
+        </AntDropdown>
+      </MtWrapper>
     );
   }
 }

@@ -5,9 +5,6 @@ import Button from '../Button';
 import styled from 'styled-components';
 
 const MtGroupDropdown = styled.div`
-  div {
-    display: inline-block;
-  }
   .ant-dropdown-trigger {
     .ant-btn-primary {
       span {
@@ -56,7 +53,7 @@ class GroupButtonDropdown extends Component {
         </Button>
 
         <Dropdown {...rest}>
-          <div style={{ display: 'inline-block' }}>
+          <div>
             <Button
               style={{
                 padding: '0px 10px',
