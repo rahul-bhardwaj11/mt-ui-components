@@ -17,9 +17,9 @@ const BUTTON_TYPES = {
 };
 
 const BUTTON_SIZES = {
-  large: 'large',
-  small: 'small',
-  medium: 'default'
+  LARGE: 'large',
+  SMALL: 'small',
+  MEDIUM: 'default'
 };
 
 const ANTD_BUTTON_TYPE_MAP = {

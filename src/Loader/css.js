@@ -4,7 +4,7 @@ import theme from '../styles/theme';
 
 const StyledLoader = styled.div`
   &.fullPageloadingScreen {
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 100%;
     left: 0px;
