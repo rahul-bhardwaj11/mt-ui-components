@@ -271,18 +271,23 @@ export default class AsyncSelect extends Component {
     const { selectedItems } = this.state;
     if (data.value == selectedItems[0].value)
       return (
-        <div className="selectedItem">{`${data.label}${
-          selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
-        }`}</div>
+        <div className="selectedItem clearfix">
+          <span className="selectedItemLabel floatL">{`${data.label}`}</span>
+          <span className="floatL">{`${
+            selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
+          }`}</span>
+        </div>
       );
     return null;
   };
 
-  handleSingleValue = ({ data }) => {
+  handleSingleValue = ({ data, ...props }) => {
     const { placeholder } = this.props;
-    if (data.value == 'None')
-      return <div className="selectedSingleValue">{placeholder}</div>;
-    return <div className="selectedSingleValue">{data.label}</div>;
+    return (
+      <components.SingleValue {...props}>
+        {data.value == 'None' ? placeholder : data.label}
+      </components.SingleValue>
+    );
   };
 
   optionWithCheckBox = ({ isDisabled, data }) => {
@@ -300,7 +305,7 @@ export default class AsyncSelect extends Component {
 
   buildMenu = props => {
     const { selectedItems, search, optionsCache } = this.state;
-    const isLoading = optionsCache[search].isLoading;
+    const isLoading = optionsCache[search] && optionsCache[search].isLoading;
     const { isMulti } = this.props;
     let loaderStyle = {
       position: 'absolute',
@@ -310,7 +315,7 @@ export default class AsyncSelect extends Component {
     return (
       <components.Menu {...props}>
         {props.children}
-        {isLoading && (
+        {!!isLoading && (
           <Loader size={'sizeXSmall'} vCenter={false} style={loaderStyle} />
         )}
         {isMulti && (

@@ -142,19 +142,23 @@ export default class SyncSelect extends Component {
     const { selectedItems } = this.state;
     if (data.value == selectedItems[0].value)
       return (
-        <div className="selectedItem">
-          <span className="selectedItemLabel">{`${data.label}`}</span>
-          {`${selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''}`}
+        <div className="selectedItem clearfix">
+          <span className="selectedItemLabel floatL">{`${data.label}`}</span>
+          <span className="floatL">{`${
+            selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
+          }`}</span>
         </div>
       );
     return null;
   };
 
-  handleSingleValue = ({ data }) => {
+  handleSingleValue = ({ data, ...props }) => {
     const { placeholder } = this.props;
-    if (data.value == 'None')
-      return <div className="selectedSingleValue">{placeholder}</div>;
-    return <div className="selectedSingleValue">{data.label}</div>;
+    return (
+      <components.SingleValue {...props}>
+        {data.value == 'None' ? placeholder : data.label}
+      </components.SingleValue>
+    );
   };
 
   optionWithCheckBox = ({ isDisabled, data }) => {
@@ -272,7 +276,8 @@ export default class SyncSelect extends Component {
             this.setState({ showInput: false });
             this.props.onChange(value);
           },
-          // onBlur: () => this.setState({ showInput: false }),
+          onBlur: () => this.setState({ showInput: false }),
+          autoFocus: showInput,
           backspaceRemovesValue: false,
           inputValue: inputValue,
           onInputChange: this.onInputChange,

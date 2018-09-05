@@ -10,7 +10,6 @@ import mixin from '../styles/mixins';
 import searchIcon from './assets/search.svg';
 import arrowIcon from './assets/downFillcaret.svg';
 import classnames from 'classnames';
-//import cancel from './assets/cancel.svg';
 
 const SelectBox = styled.div`
 
@@ -63,15 +62,15 @@ const SelectBox = styled.div`
     }
 
     .activeInput {
-    .icon-cross {
-      display: inline-block;
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
-      margin-left: 10px;
-      font-size: 10px;
-      cursor: pointer;
-    }
+      .icon-cross {
+        display: inline-block;
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        margin-left: 10px;
+        font-size: 10px;
+        cursor: pointer;
+      }
   }
     .mt-react-select__control {
       &:before {
@@ -80,13 +79,13 @@ const SelectBox = styled.div`
         height: 18px;
         width: 19px;
         content: '';
-        background-size: 14px;
+        background-size: 13px;
         padding-top: 5px;
         left: 0;
         position: absolute;
         opacity: 0.6;
         margin-left: 15px;
-        top: 11px;
+        top: 10px;
         background-position: 1px 0px;
       }
     }
@@ -100,7 +99,6 @@ const SelectBox = styled.div`
       
       .mt-react-select__placeholder {
           margin-left: 4px;
-       // padding-left: 28px;
       }
 
     }
@@ -155,10 +153,6 @@ const SelectBox = styled.div`
   .mt-react-select__indicator-separator {
     display: none;
   }
- 
-  .mt-react-select__placeholder {
-    //padding-left: 20px;
-  }
 
   .ant-checkbox-wrapper .ant-checkbox {
     vertical-align: middle;
@@ -178,12 +172,15 @@ const SelectBox = styled.div`
     margin-right: 2px;
     font-size: 14px;
     color: ${theme.colors.DARK_OUTER_SPACE};
-    //padding-left: 20px;
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+    .selectedItemLabel{
+      ${mixin.truncate('100px')};
+    }
+    
   }
 .componentWrapper {
   ${mixin.clearfix()};
@@ -206,7 +203,6 @@ const SelectBox = styled.div`
 .dataLabel {
   ${mixin.displayIB()};
   ${mixin.greyText()};
-
 }
 
 .icon-cross {
@@ -222,6 +218,7 @@ const SelectBox = styled.div`
   margin-bottom: 5px;
   ${mixin.truncate('125px')};
 }
+
 .doneMarginR {
   margin-left: 5px;
 }
