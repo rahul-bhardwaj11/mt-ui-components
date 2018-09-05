@@ -10,6 +10,11 @@ const MtSlider = styled.div`
     border: 2px solid ${theme.colors.INDIGO};
     background-color: ${theme.colors.INDIGO};
     ${mixins.size('12px', '12px')};
+    &.ant-tooltip-open {
+      &:hover {
+        border: 2px solid ${theme.colors.INDIGO};
+      }
+    }
 
     &:hover {
       .ant-slider-handle:not(.ant-tooltip-open) {
@@ -26,12 +31,21 @@ const MtSlider = styled.div`
     background-color: ${theme.colors.INDIGO};
   }
 
-  .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {
-    background-color: ${theme.colors.INDIGO};
+  .ant-slider {
+    &:hover {
+      .ant-slider-handle:not(.ant-tooltip-open) {
+        background-color: ${theme.colors.INDIGO};
+        border: 2px solid ${theme.colors.INDIGO};
+      }
+    }
   }
-  .ant-slider:hover .ant-slider-track {
-    background-color: ${theme.colors.INDIGO};
-    border: 2px solid ${theme.colors.INDIGO};
+  .ant-slider {
+    &:hover {
+      .ant-slider-track {
+        background-color: ${theme.colors.INDIGO};
+        border: 2px solid ${theme.colors.INDIGO};
+      }
+    }
   }
 `;
 
