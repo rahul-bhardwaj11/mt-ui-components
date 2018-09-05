@@ -14,5 +14,9 @@ stories.addDecorator(withKnobs);
 
 stories.add(
   'Slider',
-  withInfo('Slider')(() => <Slider tipFormatter={formatter} />)
+  withInfo('Slider without tooltip')(() => <Slider tipFormatter={null} />)
+);
+stories.add(
+  'Slider tooltip',
+  withInfo('Slider with tooltip')(() => <Slider tipFormatter={formatter} />)
 );

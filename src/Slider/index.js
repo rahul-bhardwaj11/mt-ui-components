@@ -53,7 +53,7 @@ class Slider extends Component {
   render() {
     return (
       <MtSlider>
-        <AntSlider />
+        <AntSlider {...this.props} />
       </MtSlider>
     );
   }
