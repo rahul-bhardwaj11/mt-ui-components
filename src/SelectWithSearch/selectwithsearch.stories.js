@@ -46,6 +46,26 @@ stories.add(
 );
 
 stories.add(
+  'Sync Select with custom styles',
+  withInfo('Basic usage of the SelectWithSearch for custom style')(() => (
+    <SelectWithSearch
+      defaultValue={colourOptions[2]}
+      label="Select..."
+      options={colourOptions}
+      onChange={() => {}}
+      styles={{
+        option: base => {
+          return {
+            ...base,
+            background: '#ddd'
+          };
+        }
+      }}
+    />
+  ))
+);
+
+stories.add(
   'Sync MultiSelect',
   withInfo('Basic usage of the SelectWithSearch')(() => (
     <SelectWithSearch
@@ -103,7 +123,7 @@ stories.add(
       defaultValue={colourOptions[2]}
       isMulti
       onChange={() => {}}
-      //isButton={true}
+      isButton={true}
     />
   ))
 );

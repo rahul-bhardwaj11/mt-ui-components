@@ -10,7 +10,7 @@ import mixin from '../styles/mixins';
 import searchIcon from './assets/search.svg';
 import arrowIcon from './assets/downFillcaret.svg';
 import classnames from 'classnames';
-import cancel from './assets/cancel.svg';
+//import cancel from './assets/cancel.svg';
 
 const SelectBox = styled.div`
 
@@ -55,13 +55,24 @@ const SelectBox = styled.div`
     max-height: 32px;
     margin-top: 10px;
   .activeSearch {
-    // .icon-Cancel {
-    //   display: inline-block;
-    //   position: absolute;
-    //   right: 10px;
-    //   bottom: 10px;
-    //   cursor: pointer;
-    // }
+    .mt-react-select__value-container{
+      margin-left: 35px;
+    }
+    mt-react-select__input {
+      margin-left: -3px
+    }
+
+    .activeInput {
+    .icon-cross {
+      display: inline-block;
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      margin-left: 10px;
+      font-size: 10px;
+      cursor: pointer;
+    }
+  }
     .mt-react-select__control {
       &:before {
         display: block;
@@ -74,23 +85,8 @@ const SelectBox = styled.div`
         left: 0;
         position: absolute;
         opacity: 0.6;
-        margin-left: 20px;
-        top: 9px;
-        background-position: 1px 0px;
-      }
-      &:after {
-        display: block;
-        background: url('${cancel}') no-repeat 10px 5px;
-        height: 18px;
-        width: 19px;
-        content: '';
-        background-size: 10px;
-        padding-top: 5px;
-        right: 0;
-        position: absolute;
-        opacity: 0.6;
-        margin-left: 5px;
-        top: 10px;
+        margin-left: 15px;
+        top: 11px;
         background-position: 1px 0px;
       }
     }
@@ -103,8 +99,8 @@ const SelectBox = styled.div`
       }
       
       .mt-react-select__placeholder {
-        margin-left: 0px;
-        padding-left: 28px;
+          margin-left: 4px;
+       // padding-left: 28px;
       }
 
     }
@@ -159,9 +155,7 @@ const SelectBox = styled.div`
   .mt-react-select__indicator-separator {
     display: none;
   }
-  .mt-react-select__input {
-    //margin-left: 10px;
-  }
+ 
   .mt-react-select__placeholder {
     //padding-left: 20px;
   }
@@ -212,9 +206,10 @@ const SelectBox = styled.div`
 .dataLabel {
   ${mixin.displayIB()};
   ${mixin.greyText()};
+
 }
 
-.icon-Cancel {
+.icon-cross {
   display: none;
 }
 
@@ -225,6 +220,7 @@ const SelectBox = styled.div`
 
 .checkboxWrapper {
   margin-bottom: 5px;
+  ${mixin.truncate('125px')};
 }
 .doneMarginR {
   margin-left: 5px;

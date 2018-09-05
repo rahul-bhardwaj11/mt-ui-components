@@ -26,7 +26,6 @@ export default class SyncSelect extends Component {
   state = {
     options: this.props.options,
     selectedItems: [],
-    showSelectedValues: true,
     menuIsOpen: false,
     showSelect: true,
     showInput: false,
@@ -119,7 +118,6 @@ export default class SyncSelect extends Component {
       options: sortedOptions,
       menuIsOpen: false,
       showInput: false,
-      showSelectedValues: true,
       inputValue: ''
     };
     newState = isButton
@@ -136,7 +134,6 @@ export default class SyncSelect extends Component {
     this.setState(prevState => ({
       showSelect: !prevState.showSelect,
       menuIsOpen: !prevState.menuIsOpen,
-      showSelectedValues: !prevState.showSelectedValues,
       showInput: !prevState.showInput
     }));
   };
@@ -145,18 +142,18 @@ export default class SyncSelect extends Component {
     const { selectedItems } = this.state;
     if (data.value == selectedItems[0].value)
       return (
-        <div className="selectedItem">{`${data.label}${
-          selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
-        }`}</div>
+        <div className="selectedItem">
+          <span className="selectedItemLabel">{`${data.label}`}</span>
+          {`${selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''}`}
+        </div>
       );
     return null;
   };
 
   handleSingleValue = ({ data }) => {
+    const { placeholder } = this.props;
     if (data.value == 'None')
-      return (
-        <div className="selectedSingleValue">{this.props.placeholder}</div>
-      );
+      return <div className="selectedSingleValue">{placeholder}</div>;
     return <div className="selectedSingleValue">{data.label}</div>;
   };
 
@@ -196,35 +193,26 @@ export default class SyncSelect extends Component {
   };
 
   handleControl = arg => {
+    const { inputValue, showInput } = this.state;
     return (
       <div className="selectBoxWrapper">
         <div
-          className={this.state.showInput ? 'activeSearch' : ''}
+          className={showInput ? 'activeSearch' : ''}
           onClick={() => {
             this.setState({
               menuIsOpen: true,
-              showInput: true,
-              showSelectedValues: false
+              showInput: true
             });
           }}
         >
           <components.Control {...arg} />
-          <Icon
-            type="Cancel"
-            onClick={() => this.setState({ inputValue: '' })}
-          />
+          <div className={inputValue.length ? 'activeInput' : ''}>
+            <Icon
+              type="cross"
+              onClick={() => this.setState({ inputValue: '' })}
+            />
+          </div>
         </div>
-      </div>
-    );
-  };
-
-  handleInput = props => {
-    if (props.isHidden) {
-      return <components.Input {...props} />;
-    }
-    return (
-      <div className={props.value.length ? 'activeInput' : ''}>
-        <components.Input {...props} />
       </div>
     );
   };
@@ -249,7 +237,6 @@ export default class SyncSelect extends Component {
     const {
       options,
       selectedItems,
-      showSelectedValues,
       menuIsOpen,
       showSelect,
       showInput,
@@ -263,32 +250,33 @@ export default class SyncSelect extends Component {
             Option: this.optionWithCheckBox,
             MultiValueContainer: this.handleDisplayValue,
             Menu: this.buildMenu,
-            Control: this.handleControl,
-            Input: this.handleInput
+            Control: this.handleControl
           },
           value: selectedItems,
           closeMenuOnSelect: false,
-          controlShouldRenderValue: showSelectedValues,
+          controlShouldRenderValue: !showInput,
           menuIsOpen: menuIsOpen,
           isSearchable: showInput,
           autoFocus: showInput,
           autosize: false,
-          //   onBlur: this.onDone,
+          //  onBlur: this.onDone,
           inputValue: inputValue,
           onInputChange: this.onInputChange
         }
       : {
           components: {
             Control: this.handleControl,
-            Input: this.handleInput,
             SingleValue: this.handleSingleValue
           },
           onChange: value => {
             this.setState({ showInput: false });
             this.props.onChange(value);
           },
-          //   onBlur: () => this.setState({ showInput: false }),
-          backspaceRemovesValue: false
+          // onBlur: () => this.setState({ showInput: false }),
+          backspaceRemovesValue: false,
+          inputValue: inputValue,
+          onInputChange: this.onInputChange,
+          controlShouldRenderValue: !showInput
         };
 
     return (

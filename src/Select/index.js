@@ -29,7 +29,8 @@ class Select extends Component {
     options: PropTypes.any.isRequired,
     onChange: PropTypes.func,
     style: PropTypes.object,
-    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    title: PropTypes.string
   };
 
   static defaultProps = {
@@ -59,7 +60,11 @@ class Select extends Component {
         >
           {options.map(option => {
             return (
-              <Option key={option.key} value={option.key}>
+              <Option
+                key={option.key}
+                value={option.key}
+                title={this.props.title || option.title}
+              >
                 {typeof option.content === 'string' ? (
                   <StringToHTML content={option.content} />
                 ) : (
