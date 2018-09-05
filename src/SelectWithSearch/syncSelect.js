@@ -263,7 +263,7 @@ export default class SyncSelect extends Component {
           isSearchable: showInput,
           autoFocus: showInput,
           autosize: false,
-          //  onBlur: this.onDone,
+          onBlur: this.onDone,
           inputValue: inputValue,
           onInputChange: this.onInputChange
         }
