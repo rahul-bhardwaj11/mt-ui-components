@@ -9,6 +9,7 @@ const MtActionBar = styled.div`
   max-width: 100vw;
   bottom: 0;
   width: ${({ width = '1248px' }) => width};
+  z-index: ${({ zIndex }) => zIndex};
   left: 0;
   right: 0;
   margin: auto;
