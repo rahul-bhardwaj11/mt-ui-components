@@ -15,7 +15,8 @@ export default class SyncSelect extends Component {
     onChange: PropTypes.func,
     isButton: PropTypes.bool,
     buttonLabel: PropTypes.string,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    buttonSize: PropTypes.string
   };
 
   static defaultProps = {
@@ -161,12 +162,20 @@ export default class SyncSelect extends Component {
     );
   };
 
-  optionWithCheckBox = ({ isDisabled, data }) => {
+  optionWithCheckBox = params => {
+    const { isDisabled, data } = params;
     const { selectedItems } = this.state;
+    if (!this.props.isMulti)
+      return (
+        <div title={data.label}>
+          <components.Option {...params} />
+        </div>
+      );
     return !isDisabled ? (
       <div
         onClick={() => this.onCheckboxClick(data)}
         className="checkboxWrapper"
+        title={data.label}
       >
         <CheckBox checked={selectedItems.indexOf(data) > -1} />
         <span className="dataLabel">{data.label}</span>
@@ -237,7 +246,7 @@ export default class SyncSelect extends Component {
   };
 
   render() {
-    const { isMulti, isButton } = this.props;
+    const { isMulti, isButton, buttonSize } = this.props;
     const {
       options,
       selectedItems,
@@ -269,6 +278,7 @@ export default class SyncSelect extends Component {
         }
       : {
           components: {
+            Option: this.optionWithCheckBox,
             Control: this.handleControl,
             SingleValue: this.handleSingleValue
           },
@@ -294,7 +304,11 @@ export default class SyncSelect extends Component {
               }
             }}
           >
-            <Button type="secondary" onClick={this.toggleButton}>
+            <Button
+              type="secondary"
+              onClick={this.toggleButton}
+              size={buttonSize}
+            >
               {this.getButtonText()}
             </Button>
           </div>

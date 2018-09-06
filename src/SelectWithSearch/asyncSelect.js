@@ -24,7 +24,8 @@ export default class AsyncSelect extends Component {
     onChange: PropTypes.func,
     isButton: PropTypes.bool,
     buttonLabel: PropTypes.string,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    buttonSize: PropTypes.string
   };
 
   static defaultProps = {
@@ -290,12 +291,20 @@ export default class AsyncSelect extends Component {
     );
   };
 
-  optionWithCheckBox = ({ isDisabled, data }) => {
+  optionWithCheckBox = params => {
+    const { isDisabled, data } = params;
     const { selectedItems } = this.state;
+    if (!this.props.isMulti)
+      return (
+        <div title={data.label}>
+          <components.Option {...params} />
+        </div>
+      );
     return !isDisabled ? (
       <div
         onClick={() => this.onCheckboxClick(data)}
         className="checkboxWrapper"
+        title={data.label}
       >
         <CheckBox checked={selectedItems.indexOf(data) > -1 ? true : false} />
         <span className="dataLabel">{data.label}</span>
@@ -393,7 +402,7 @@ export default class AsyncSelect extends Component {
       showInput,
       inputValue
     } = this.state;
-    const { isMulti, isButton } = this.props;
+    const { isMulti, isButton, buttonSize } = this.props;
     let currentOptions = optionsCache[search] || initialCache;
     const options = this.normalizeOption([...currentOptions.options]);
     const selectProps = isMulti
@@ -417,6 +426,7 @@ export default class AsyncSelect extends Component {
         }
       : {
           components: {
+            Option: this.optionWithCheckBox,
             Control: this.handleControl,
             SingleValue: this.handleSingleValue,
             Menu: this.buildMenu
@@ -440,7 +450,11 @@ export default class AsyncSelect extends Component {
               }
             }}
           >
-            <Button type="secondary" onClick={this.toggleButton}>
+            <Button
+              type="secondary"
+              onClick={this.toggleButton}
+              size={buttonSize}
+            >
               {this.getButtonText()}
             </Button>
           </div>

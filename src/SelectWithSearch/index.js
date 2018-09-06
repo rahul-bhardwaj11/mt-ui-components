@@ -96,7 +96,7 @@ const SelectBox = styled.div`
       .mt-react-select__single-value {
         margin-left: 20px;
       }
-      
+
       .mt-react-select__placeholder {
           margin-left: 4px;
       }
@@ -107,7 +107,7 @@ const SelectBox = styled.div`
       display: block;
       background: url('${arrowIcon}') no-repeat 0px 7px;
       background-size: 8px;
-    
+
       svg {
         display: none;
       }
@@ -177,11 +177,17 @@ const SelectBox = styled.div`
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+    width: 100%;
+
     .selectedItemLabel{
-      ${mixin.truncate('100px')};
+      max-width: 85%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
     }
-    
   }
+
 .componentWrapper {
   ${mixin.clearfix()};
   width: 100%;
@@ -216,7 +222,7 @@ const SelectBox = styled.div`
 
 .checkboxWrapper {
   margin-bottom: 5px;
-  ${mixin.truncate('125px')};
+  ${() => mixin.truncate(`100%`)};
 }
 
 .doneMarginR {

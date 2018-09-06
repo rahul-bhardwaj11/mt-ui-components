@@ -9,7 +9,11 @@ const stories = storiesOf('SelectWithSearch', module);
 stories.addDecorator(withKnobs);
 
 const colourOptions = [
-  { value: 'ocean', label: 'Ocean', color: '#00B8D9' },
+  {
+    value: 'ocean',
+    label: 'Oceangfcfgcgscgfscfgscghghcfghsacfgcfgcsaccfcfcfascfgcfasgfhags',
+    color: '#00B8D9'
+  },
   { value: 'blue', label: 'Blue', color: '#0052CC', disabled: true },
   { value: 'purple', label: 'Purple', color: '#5243AA' },
   { value: 'red', label: 'Red', color: '#FF5630' },
@@ -59,7 +63,8 @@ stories.add(
             ...base,
             background: '#ddd'
           };
-        }
+        },
+        container: base => ({ ...base, maxWidth: '300px' })
       }}
     />
   ))
@@ -74,16 +79,6 @@ stories.add(
       options={colourOptions}
       onChange={() => {}}
       isMulti
-      // styles={{
-      //   control: () => ({
-      //     // none of react-selects styles are passed to <View />
-      //     width: 200,
-      //   }),
-      //   input: () => {{
-      //     maxWidth: '100%;
-      //   }}
-      // }
-      // }
     />
   ))
 );
