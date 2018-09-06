@@ -73,37 +73,29 @@ class Collapse extends Component {
     panelStyle: PropTypes.object
   };
 
-  static defaultprops = {
-    defaultActiveKey: ['0']
-  };
-
   render() {
-    let { options, panelStyle, children } = this.props;
+    let { options, panelStyle } = this.props;
     return (
       <MtCollapse>
-        <AntCollapse {...this.props}>
-          {(options &&
-            options.map((option, index) => {
-              return (
-                <AntCollapse.Panel
-                  key={index}
-                  header={option.header || option.title}
-                  style={panelStyle}
-                >
-                  {typeof option.content === 'string' ? (
-                    <StringToHTML content={option.content} />
-                  ) : (
-                    option.content
-                  )}
-                </AntCollapse.Panel>
-              );
-            })) ||
-            children}
+        <AntCollapse {...this.props} defaultActiveKey={['0']}>
+          {options.map((option, index) => {
+            return (
+              <AntCollapse.Panel
+                key={index}
+                header={option.header}
+                style={panelStyle}
+              >
+                {typeof option.content === 'string' ? (
+                  <StringToHTML content={option.content} />
+                ) : (
+                  option.content
+                )}
+              </AntCollapse.Panel>
+            );
+          })}
         </AntCollapse>
       </MtCollapse>
     );
   }
 }
-
-export const { Panel } = AntCollapse;
 export default Collapse;

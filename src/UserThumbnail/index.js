@@ -29,12 +29,14 @@ class UserThumbnail extends Component {
     src: PropTypes.string,
     shape: PropTypes.oneOf(['circle', 'square']),
     size: PropTypes.string,
-    icon: PropTypes.string
+    icon: PropTypes.string,
+    expanded: PropTypes.bool
   };
 
   static defaultProps = {
     shape: 'circle',
-    size: 'large'
+    size: 'large',
+    expanded: false
   };
 
   getInitials = name => {
@@ -46,13 +48,13 @@ class UserThumbnail extends Component {
   };
 
   render() {
-    const { name, email, size } = this.props;
+    const { name, email, expanded } = this.props;
     let mtProps = Object.assign({}, this.props);
     mtProps = !name ? Object.assign(mtProps, { icon: 'user' }) : mtProps;
     return (
       <MtUserThumbnail>
         <Avatar {...mtProps}>{name && this.getInitials(name)}</Avatar>
-        {size === 'large' && (
+        {expanded && (
           <div className="content">
             {name && <div className={'name'}>{name}</div>}
             {email && <div className={'email'}>{email}</div>}

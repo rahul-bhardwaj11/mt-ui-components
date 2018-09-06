@@ -9,6 +9,12 @@ import mixins from '../styles/mixins.js';
 import ActionBar from '../ActionBar';
 import Loader from '../Loader';
 
+const DEFAULT_LOADER_PROPS = {
+  type: 'Full',
+  size: 'sizeSmall',
+  style: { opacity: 0.5 }
+};
+
 const DEFAULT_TH_PADDING = {
   pTop: '16px',
   pRight: '0',
@@ -403,14 +409,23 @@ class Table extends Component {
     onChange && onChange(selectedRowKeys, selectedRows);
   };
 
+  getLoader = () => {
+    let { infiniteScroll } = this.props;
+    const loaderProps = infiniteScroll
+      ? {
+          ...DEFAULT_LOADER_PROPS,
+          size: 'sizeXSmall',
+          type: 'Small',
+          style: {
+            padding: '12px 0px'
+          }
+        }
+      : DEFAULT_LOADER_PROPS;
+    return <Loader {...loaderProps} />;
+  };
+
   render() {
-    let {
-      rowSelection,
-      actionBar,
-      children,
-      loading,
-      infiniteScroll
-    } = this.props;
+    let { rowSelection, actionBar, children, loading } = this.props;
     let { showActionBar, showMultiSelect, selectedRowKeys } = this.state;
 
     /**
@@ -440,7 +455,7 @@ class Table extends Component {
         {...this.styleProps}
       >
         <AntTable {...antProps}>{children}</AntTable>
-        {infiniteScroll && loading && <Loader size="sizeXSmall" />}
+        {loading && this.getLoader()}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}
