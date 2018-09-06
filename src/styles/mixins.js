@@ -78,7 +78,7 @@ const mixins = {
     mixins.fontStack({
       fontSize: '14px',
       fontWeight: 600,
-      color: theme.colors.LIGHT_BLUE,
+      color: theme.colors.INDIGO,
       lineHeight: '20px'
     }),
   blackLink: () =>
@@ -123,6 +123,13 @@ const mixins = {
     mixins.fontStack({
       fontSize: '14px',
       fontWeight: 'normal',
+      color: theme.colors.DARK_OUTER_SPACE,
+      lineHeight: '20px'
+    }),
+  darkSmText: () =>
+    mixins.fontStack({
+      fontSize: '14px',
+      fontWeight: '600',
       color: theme.colors.DARK_OUTER_SPACE,
       lineHeight: '20px'
     }),
@@ -233,11 +240,11 @@ const mixins = {
   //   z-index: z-index($key);
   // }
 
-  displayIB: () => `  
+  displayIB: () => `
   display: inline-block;
   vertical-align: middle;`,
 
-  displayTableCell: () => `  
+  displayTableCell: () => `
   display: table-cell;
   vertical-align: middle;`,
 
@@ -245,23 +252,27 @@ const mixins = {
   //   @return ($target / $container) * 100%;
   // }
 
-  clearfix: () => `  
+  clearfix: () => `
   &:after {
     content: '';
     display: table;
     clear: both;
   }`,
 
-  centerDiv: () => `  
+  centerDiv: () => `
   top: 50%;
   left: 50%;
   bottom: auto;
   right: auto;
   transform: translate(-50%, -50%);`,
 
-  size: (width, height) => `  
+  size: (width, height) => `
   width: ${width};
   height: ${height};`,
+
+  square: size => {
+    return mixins.size(size, size);
+  },
 
   opacity: (opacity = 0.5) => {
     return `

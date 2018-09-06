@@ -9,6 +9,7 @@ const MtCollapse = styled.div`
   .ant-collapse {
     border: 0px;
     border-radius: 0px;
+    background: transparent;
   }
   .ant-collapse {
     & > .ant-collapse-item {
@@ -69,17 +70,22 @@ const MtCollapse = styled.div`
 class Collapse extends Component {
   static propTypes = {
     options: PropTypes.any.isRequired,
-    accordion: PropTypes.bool
+    accordion: PropTypes.bool,
+    panelStyle: PropTypes.object
   };
 
   render() {
-    let { options } = this.props;
+    let { options, panelStyle } = this.props;
     return (
       <MtCollapse>
         <AntCollapse {...this.props} defaultActiveKey={['0']}>
           {options.map((option, index) => {
             return (
-              <AntCollapse.Panel key={index} header={option.header}>
+              <AntCollapse.Panel
+                key={index}
+                header={option.header}
+                style={panelStyle}
+              >
                 {typeof option.content === 'string' ? (
                   <StringToHTML content={option.content} />
                 ) : (

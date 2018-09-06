@@ -16,6 +16,12 @@ const BUTTON_TYPES = {
   DISABLED: 'disabled'
 };
 
+const BUTTON_SIZES = {
+  large: 'large',
+  small: 'small',
+  medium: 'default'
+};
+
 const ANTD_BUTTON_TYPE_MAP = {
   [BUTTON_TYPES.PRIMARY]: 'primary',
   [BUTTON_TYPES.SECONDARY]: 'default',
@@ -26,15 +32,20 @@ const ANTD_BUTTON_TYPE_MAP = {
   [BUTTON_TYPES.DISABLED]: 'disabled'
 };
 
-const MtButton = styled.div`
-  display: inline-block;
+const ANTD_BUTTON_SIZE_PADDING = {
+  [BUTTON_SIZES.LARGE]: '0px 32px',
+  [BUTTON_SIZES.MEDIUM]: '0px 24px',
+  [BUTTON_SIZES.SMALL]: '0px 12px'
+};
 
+const MtButton = styled.span`
   /* Default Button styles */
+
   .ant-btn-default {
     border: 1px solid ${theme.colors.ALTO};
     color: #6f7583;
     height: 32px;
-    padding: 0px 32px;
+    padding: ${props => ANTD_BUTTON_SIZE_PADDING[props.size]};
     font-size: 14px;
     &.ant-btn-sm {
       color: ${theme.colors.GREY};
@@ -42,12 +53,14 @@ const MtButton = styled.div`
       padding: 0px 12px;
     }
     &:hover {
+      color: ${theme.colors.DARK_OUTER_SPACE};
       border: 1px solid ${theme.colors.SILVER};
     }
+    &:active,
     &:focus,
     &.active {
-      border: 1px solid ${theme.colors.LIGHT_BLUE};
-      color: ${theme.colors.LIGHT_BLUE};
+      border: 1px solid ${theme.colors.INDIGO};
+      color: ${theme.colors.INDIGO};
     }
   }
   .ant-btn {
@@ -56,6 +69,46 @@ const MtButton = styled.div`
       border-radius: 4px;
       color: #fff;
       background: ${theme.colors.ALTO};
+    }
+  }
+  /* Primary Button styles */
+  .ant-btn-primary {
+    border: 1px solid ${theme.colors.INDIGO};
+    background-color: ${theme.colors.INDIGO};
+    color: #fff;
+    font-size: 14px;
+    height: 32px;
+    padding: ${props => ANTD_BUTTON_SIZE_PADDING[props.size]};
+    &.ant-btn-sm {
+      color: #fff;
+      font-size: 12px;
+      padding: 0px 12px;
+    }
+    &:hover {
+      border: 1px solid ${theme.colors.JODHPUR};
+      background: ${theme.colors.JODHPUR};
+    }
+    &:focus,
+    &:active,
+    &.active {
+      border: 1px solid ${theme.colors.NEPTUNE};
+      background: ${theme.colors.NEPTUNE};
+      color: #fff;
+    }
+  }
+  .ant-btn {
+    &.disabled {
+      border: 1px solid ${theme.colors.ALTO};
+      background-color: ${theme.colors.ALTO};
+      color: #fff;
+      border-radius: 4px;
+    }
+  }
+  .ant-btn {
+    &.disabled {
+      border: 1px solid ${theme.colors.ALTO};
+      background-color: ${theme.colors.ALTO};
+      color: #fff;
     }
   }
   /* edit Button styles */
@@ -80,6 +133,7 @@ const MtButton = styled.div`
       }
     }
     &:focus,
+    &:active,
     &.active {
       border: 1px solid ${theme.colors.ALTO};
       color: ${theme.colors.SILVER};
@@ -97,45 +151,6 @@ const MtButton = styled.div`
     }
   }
 
-  /* Primary Button styles */
-  .ant-btn-primary {
-    border: 1px solid ${theme.colors.LIGHT_BLUE};
-    background-color: ${theme.colors.LIGHT_BLUE};
-    color: #fff;
-    font-size: 14px;
-    height: 32px;
-    padding: 0px 32px;
-    &.ant-btn-sm {
-      color: #fff;
-      font-size: 12px;
-      padding: 0px 12px;
-    }
-    &:hover {
-      border: 1px solid ${theme.colors.JODHPUR};
-      background: ${theme.colors.JODHPUR};
-    }
-    &:focus,
-    &.active {
-      border: 1px solid ${theme.colors.NEPTUNE};
-      background: ${theme.colors.NEPTUNE};
-      color: #fff;
-    }
-  }
-  .ant-btn {
-    &.disabled {
-      border: 1px solid ${theme.colors.ALTO};
-      background-color: ${theme.colors.ALTO};
-      color: #fff;
-      border-radius: 4px;
-    }
-  }
-  .ant-btn {
-    &.disabled {
-      border: 1px solid ${theme.colors.ALTO};
-      background-color: ${theme.colors.ALTO};
-      color: #fff;
-    }
-  }
   /* Dashed Button styles */
   .ant-btn-dashed {
     border: 1px dashed ${theme.colors.ALTO};
@@ -153,6 +168,7 @@ const MtButton = styled.div`
       color: ${theme.colors.SHARK};
     }
     &:focus,
+    &:active,
     &.active {
       color: ${theme.colors.SHARK};
     }
@@ -192,7 +208,7 @@ const MtButton = styled.div`
           ? `color: ${theme.colors.INDIGO};
         background-color: ${theme.colors.TROPICAL_BLUE}`
           : `background-color: transparent;
-          color: ${theme.colors.OUTER_SPACE};`};
+          color: ${theme.colors.INDIGO};`};
     }
     &.ant-btn-sm {
       color: #fff;
@@ -214,12 +230,12 @@ const MtButton = styled.div`
 
   /* link Blue Button styles */
   .ant-btn-link {
-    border: 1px solid ${theme.colors.LIGHT_BLUE};
+    border: 1px solid ${theme.colors.INDIGO};
     background-color: #fff;
     font-size: 14px;
     height: 32px;
     padding: 0px 32px;
-    color: ${theme.colors.LIGHT_BLUE};
+    color: ${theme.colors.INDIGO};
     &.ant-btn-sm {
       color: #fff;
       font-size: 12px;
@@ -246,10 +262,10 @@ const noop = () => undefined;
 class Button extends Component {
   static propTypes = {
     onClick: PropTypes.func,
-    type: PropTypes.oneOf(BUTTON_TYPES),
+    type: PropTypes.oneOf(Object.values(BUTTON_TYPES)),
     children: PropTypes.node,
     disabled: PropTypes.bool,
-    size: PropTypes.string,
+    size: PropTypes.oneOf(Object.keys(BUTTON_SIZES)),
     style: PropTypes.object,
     className: PropTypes.string,
     active: PropTypes.bool
@@ -258,15 +274,21 @@ class Button extends Component {
     onClick: noop,
     children: 'Submit',
     disabled: false,
-    type: BUTTON_TYPES.PRIMARY
+    type: BUTTON_TYPES.PRIMARY,
+    size: 'large'
   };
 
   render() {
-    const { children, type, style } = this.props;
+    const { children, type, style, active, disabled, size } = this.props;
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
     return (
-      <MtButton>
-        <AntButton {...this.props} type={antdType} style={style}>
+      <MtButton active={active} disabled={disabled} size={size}>
+        <AntButton
+          {...this.props}
+          type={antdType}
+          style={style}
+          size={BUTTON_SIZES[size]}
+        >
           {children}
           {type === 'edit' && <Icon type="edit" className="editIcon" />}
         </AntButton>

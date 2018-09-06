@@ -12,16 +12,16 @@ const MtMenu = styled.div`
     overflow: hidden;
   }
   .ant-select-dropdown-menu-item {
-    background-color: ${theme.colors.LIGHT_BLUE};
+    background-color: ${theme.colors.INDIGO};
     color: #fff;
   }
   .ant-select-dropdown {
-    background-color: ${theme.colors.LIGHT_BLUE};
+    background-color: ${theme.colors.INDIGO};
     color: #fff;
   }
   .ant-select-dropdown-menu {
     background-color: #fff;
-    color: #888;
+    color: ${theme.colors.GREY};
     padding: 0px 5px;
     margin: 8px;
     border-radius: 4px;
@@ -32,22 +32,22 @@ const MtMenu = styled.div`
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
     &:hover {
-      background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+      background-color: ${theme.colors.INDIGO};
       color: #fff;
     }
   }
   .ant-dropdown-menu-item {
     background-color: #fff;
-    color: #989ca6;
+    color: ${theme.colors.OUTER_SPACE};
     padding: 0px 15px;
-    margin: 8px;
+    margin: 4px 8px;
     border-radius: 4px;
     height: 32px;
     line-height: 32px;
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
     &:hover {
-      background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+      background-color: ${theme.colors.INDIGO};
       color: #fff;
     }
   }
@@ -136,10 +136,10 @@ const MtMenu = styled.div`
     display: list-item;
     margin-left: 17px;
     list-style-type: disc;
-    color: ${theme.colors.LIGHT_BLUE};
+    color: ${theme.colors.INDIGO};
 
     a {
-      color: ${theme.colors.LIGHT_BLUE};
+      color: ${theme.colors.INDIGO};
       font-size: 12px;
       ${mixins.truncate('250px')};
     }
@@ -147,6 +147,13 @@ const MtMenu = styled.div`
   .ant-menu-inline,
   .ant-menu-light {
     border-right: 0px;
+  }
+  .cautious {
+    color: ${theme.colors.BITTERSWEET};
+    &:hover {
+      background-color: ${theme.colors.BITTERSWEET};
+      color: #fff;
+    }
   }
 `;
 
@@ -178,7 +185,11 @@ class Menu extends Component {
           {options &&
             options.map((option, index) => {
               return (
-                <AntMenu.Item key={option.key || index} style={itemStyle}>
+                <AntMenu.Item
+                  key={option.key || index}
+                  style={itemStyle}
+                  className={option.cautious ? 'cautious' : ''}
+                >
                   {typeof option.content === 'string' ? (
                     <StringToHTML content={option.content} />
                   ) : (

@@ -6,9 +6,26 @@ import 'antd/lib/checkbox/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 
+const noop = () => undefined;
+
 const MtCheckbox = styled.div`
   display: inline-block;
   vertical-align: middle;
+  .ant-checkbox-wrapper {
+    .ant-checkbox-indeterminate {
+      .ant-checkbox-inner {
+        background-color: ${theme.colors.INDIGO};
+        border-color: ${theme.colors.INDIGO};
+        &:after {
+          transform: rotate(180deg) scale(1);
+          left: 1.5px;
+          top: 4.5px;
+          width: 8px;
+          height: 2px;
+        }
+      }
+    }
+  }
   .ant-checkbox-wrapper {
     font-weight: normal;
     display: inherit;
@@ -33,8 +50,8 @@ const MtCheckbox = styled.div`
     }
     .ant-checkbox-checked {
       & > .ant-checkbox-inner {
-        background-color: ${theme.colors.LIGHT_BLUE};
-        border-color: ${theme.colors.LIGHT_BLUE};
+        background-color: ${theme.colors.INDIGO};
+        border-color: ${theme.colors.INDIGO};
       }
     }
     .ant-checkbox-checked + span {
@@ -55,6 +72,10 @@ class CheckBox extends Component {
     indeterminate: PropTypes.bool
   };
 
+  static defaultProps = {
+    onChange: noop
+  };
+
   state = {
     checked: this.props.checked
   };
@@ -67,7 +88,8 @@ class CheckBox extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (typeof nextProps.checked !== 'undefined') {
+    let { checked } = this.state;
+    if (checked !== nextProps.checked) {
       this.setState({ checked: nextProps.checked });
     }
   }

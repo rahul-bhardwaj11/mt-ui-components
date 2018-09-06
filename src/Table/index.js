@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AntTable from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
+import 'antd/lib/checkbox/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins.js';
@@ -11,19 +12,18 @@ const DEFAULT_TH_PADDING = {
   pTop: '16px',
   pRight: '0',
   pBottom: '16px',
-  pLeft: '24px'
+  pLeft: '32px'
 };
 
 const DEFAULT_TD_PADDING = {
   pTop: '12px',
   pRight: '0',
   pBottom: '12px',
-  pLeft: '24px'
+  pLeft: '32px'
 };
 
 const MtTable = styled.div`
   counter-reset: rowNumber;
-
   .ant-table-default > .ant-table-content > .ant-table-body > table,
   .ant-table-middle > .ant-table-content > .ant-table-body > table,
   .ant-table-small > .ant-table-content > .ant-table-body > table,
@@ -144,6 +144,7 @@ const MtTable = styled.div`
     }
 
     .ant-table-tbody {
+      counter-reset: rowNumber;
       .ant-table-selection-column {
         ${props =>
           !props.showMultiSelect &&
@@ -160,6 +161,12 @@ const MtTable = styled.div`
       }
       & > tr {
         color: ${theme.colors.DARK_OUTER_SPACE};
+        &:focus-within {
+          & > td {
+            background: ${theme.colors.PORCELAIN};
+            cursor: pointer;
+          }
+        }
         td {
           ${mixins.darkText()};
           border-bottom: 1px solid ${theme.colors.PEARL};
@@ -199,15 +206,21 @@ const MtTable = styled.div`
             }
           }
         }
-        &:hover {
+        &.ant-table-row-hover {
           & > td {
             background: ${theme.colors.PORCELAIN};
             cursor: pointer;
           }
+          &:hover {
+            & > td {
+              background: ${theme.colors.PORCELAIN};
+              cursor: pointer;
+            }
+          }
         }
-        &:active {
+        &:hover {
           & > td {
-            background: ${theme.colors.TROPICAL_BLUE};
+            background: ${theme.colors.PORCELAIN};
             cursor: pointer;
           }
         }
@@ -233,8 +246,8 @@ const MtTable = styled.div`
     }
     & > .ant-checkbox-checked {
       & > .ant-checkbox-inner {
-        background-color: ${theme.colors.LIGHT_BLUE};
-        border-color: ${theme.colors.LIGHT_BLUE};
+        background-color: ${theme.colors.INDIGO};
+        border-color: ${theme.colors.INDIGO};
         &:after {
           left: 3.5px;
           top: 1.2px;
@@ -243,8 +256,8 @@ const MtTable = styled.div`
     }
     & > .ant-checkbox-indeterminate {
       & > .ant-checkbox-inner {
-        background-color: ${theme.colors.LIGHT_BLUE};
-        border-color: ${theme.colors.LIGHT_BLUE};
+        background-color: ${theme.colors.INDIGO};
+        border-color: ${theme.colors.INDIGO};
         &:after {
           left: 1.5px;
           top: 5px;
@@ -276,41 +289,128 @@ class Table extends Component {
       pRight: PropTypes.string,
       pBottom: PropTypes.string,
       pLeft: PropTypes.string
-    })
+    }),
+    fetchData: PropTypes.func,
+    infiniteScroll: PropTypes.bool,
+    threshold: PropTypes.number,
+    windowScroll: PropTypes.bool,
+    hasMore: PropTypes.bool,
+    loading: PropTypes.bool,
+    scroll: PropTypes.object,
+    dataSource: PropTypes.array
+  };
+  static defaultProps = {
+    infiniteScroll: false,
+    threshold: 0.9,
+    windowScroll: false
   };
   state = {
     showActionBar: false,
-    showMultiSelect: false
+    showMultiSelect: false,
+    selectAll: false,
+    selectedRowKeys: []
   };
-
+  scrollElement = null;
   styleProps = {
     contentCellPadding: this.props.contentCellPadding,
     headerCellPadding: this.props.headerCellPadding
   };
+  tableRef = null;
+  fetch = () => {
+    const { loading, fetchData } = this.props;
+    if (!loading && fetchData) {
+      fetchData();
+    }
+  };
+  onScroll = () => {
+    const {
+      hasMore,
+      threshold,
+      infiniteScroll,
+      windowScroll,
+      scroll
+    } = this.props;
+    const body = document.body,
+      html = document.documentElement;
+    const height = windowScroll
+      ? Math.max(
+          body.scrollHeight,
+          body.offsetHeight,
+          html.clientHeight,
+          html.scrollHeight,
+          html.offsetHeight
+        )
+      : Math.max(
+          this.scrollElement.scrollHeight,
+          this.scrollElement.clientHeight
+        );
 
+    const innerHeight = windowScroll
+      ? window.innerHeight + window.scrollY
+      : scroll.y + this.scrollElement.scrollTop;
+
+    if (innerHeight >= height * threshold) {
+      if (infiniteScroll && hasMore) {
+        this.fetch();
+      } else {
+        window.removeEventListener('scroll', this.onScroll, false);
+      }
+    }
+  };
+  componentDidMount() {
+    const { infiniteScroll, windowScroll } = this.props;
+    if (infiniteScroll && this.tableRef) {
+      this.scrollElement = windowScroll
+        ? window
+        : this.tableRef.getElementsByClassName('ant-table-body')[0];
+      if (this.scrollElement) {
+        this.scrollElement.addEventListener('scroll', this.onScroll, false);
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    const { infiniteScroll } = this.props;
+    if (infiniteScroll && this.scrollElement) {
+      this.scrollElement.removeEventListener('scroll', this.onScroll, false);
+    }
+  }
+  componentWillReceiveProps() {
+    const { dataSource } = this.props;
+    const { selectAll, selectedRowKeys } = this.state;
+    if (selectAll && dataSource.length > selectedRowKeys.length) {
+      this.onChange(dataSource.map(v => v.key), dataSource);
+    }
+  }
   onChange = (selectedRowKeys, selectedRows) => {
     let {
+      dataSource,
       actionBar,
       rowSelection: { onChange }
     } = this.props;
     this.setState(() => ({
-      showActionBar: actionBar && selectedRows.length > 0,
-      showMultiSelect: actionBar && selectedRows.length > 0
+      showActionBar: actionBar && selectedRowKeys.length > 0,
+      showMultiSelect: selectedRowKeys.length > 0,
+      selectedRowKeys: selectedRowKeys,
+      selectAll: dataSource.length === selectedRowKeys.length
     }));
     onChange && onChange(selectedRowKeys, selectedRows);
   };
 
   render() {
     let { rowSelection, actionBar, children } = this.props;
-
-    let { showActionBar, showMultiSelect } = this.state;
+    let { showActionBar, showMultiSelect, selectedRowKeys } = this.state;
 
     /**
      * Check if rowSelection props is been passed, If yes override the onChange property of it.
      * Also if onChange prop is passed and the rowSelection is not available, create a new rowSelection object with onChange method.
      */
     const updatedRowSelection = rowSelection
-      ? { ...rowSelection, onChange: this.onChange }
+      ? {
+          ...rowSelection,
+          onChange: this.onChange,
+          selectedRowKeys
+        }
       : null;
 
     const antProps = updatedRowSelection
@@ -322,7 +422,11 @@ class Table extends Component {
           ...this.props
         };
     return (
-      <MtTable showMultiSelect={showMultiSelect} {...this.styleProps}>
+      <MtTable
+        innerRef={ele => (this.tableRef = ele)}
+        showMultiSelect={showMultiSelect}
+        {...this.styleProps}
+      >
         <AntTable {...antProps}>{children}</AntTable>
         {showActionBar && (
           <ActionBar {...actionBar}>

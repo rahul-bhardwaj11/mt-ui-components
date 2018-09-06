@@ -4,9 +4,14 @@ import 'antd/lib/dropdown/style/css';
 import AntSelect from 'antd/lib/select';
 import 'antd/lib/select/style/index.css';
 import '../styles/override.scss';
+import styled from 'styled-components';
 import StringToHTML from '../StringToHTML';
 
 const Option = AntSelect.Option;
+
+const MtWrapper = styled.div`
+  display: inline-block;
+`;
 
 class Select extends Component {
   static propTypes = {
@@ -17,30 +22,43 @@ class Select extends Component {
   };
 
   static defaultProps = {
-    style: { minWidth: 120 }
+    style: { minWidth: 125 }
   };
 
   render() {
-    let { options } = this.props;
+    let { options, style } = this.props;
+
     return (
-      <AntSelect
-        {...this.props}
-        onClick={event => {
-          event.stopPropagation();
+      <MtWrapper
+        innerRef={el => {
+          if (el) {
+            this.selectDropdownRef = el;
+          }
         }}
+        style={style}
       >
-        {options.map((option, index) => {
-          return (
-            <Option key={index} value={option.key}>
-              {typeof option.content === 'string' ? (
-                <StringToHTML content={option.content} />
-              ) : (
-                option.content
-              )}
-            </Option>
-          );
-        })}
-      </AntSelect>
+        <AntSelect
+          {...this.props}
+          onClick={event => {
+            event.stopPropagation();
+          }}
+          getPopupContainer={() => {
+            return this.selectDropdownRef;
+          }}
+        >
+          {options.map(option => {
+            return (
+              <Option key={option.key} value={option.key}>
+                {typeof option.content === 'string' ? (
+                  <StringToHTML content={option.content} />
+                ) : (
+                  option.content
+                )}
+              </Option>
+            );
+          })}
+        </AntSelect>
+      </MtWrapper>
     );
   }
 }

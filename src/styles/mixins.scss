@@ -5,8 +5,8 @@
   padding: 0px 12px;
 }
 @mixin primaryBtn() {
-  border: 1px solid get('colors.LIGHT_BLUE');
-  background-color: get('colors.LIGHT_BLUE');
+  border: 1px solid get('colors.INDIGO');
+  background-color: get('colors.INDIGO');
 }
 @mixin primaryBtnHover() {
   border: 1px solid get('colors.JODHPUR');
@@ -21,7 +21,7 @@
 @mixin fontStack(
   $fontSize: '13px',
   $fontWeight: '600',
-  $color: '#2A2E36',
+  $color: 'get("colors.SHARK")',
   $lineHeight: '18px'
 ) {
   font-size: $fontSize;
@@ -47,7 +47,7 @@
 
 // links ----------//
 @mixin actionLink() {
-  @include fontStack(14px, 600, get('colors.LIGHT_BLUE'), 20px);
+  @include fontStack(14px, 600, get('colors.INDIGO'), 20px);
 }
 @mixin blackLink() {
   @include fontStack(14px, 600, get('colors.SHARK'), 20px);
@@ -55,6 +55,7 @@
 @mixin greyLink() {
   @include fontStack(14px, 600, get('colors.OUTER_SPACE'), 20px);
 }
+
 @mixin inactiveLink() {
   @include fontStack(14px, 600, get('colors.SILVER'), 20px);
 }
@@ -69,6 +70,9 @@
 }
 @mixin darkText() {
   @include fontStack(14px, normal, get('colors.DARK_OUTER_SPACE'), 20px);
+}
+@mixin darkSmText() {
+  @include fontStack(14px, 600, get('colors.DARK_OUTER_SPACE'), 20px);
 }
 @mixin greyText() {
   @include fontStack(14px, normal, get('colors.OUTER_SPACE'), 20px);
@@ -171,8 +175,8 @@ $z-index: (
   opacity: $opacity;
 }
 
-@mixin truncate($width) {
-  width: $width;
+@mixin truncate($maxWidth) {
+  max-width: $maxWidth;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
