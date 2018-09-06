@@ -5,6 +5,7 @@ import 'antd/lib/modal/style/index.css';
 import '../styles/override.scss';
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import mixins from '../styles/mixins';
 
 const MtModal = styled(AntModal)`
   .ant-modal-content {
@@ -21,7 +22,6 @@ const MtModal = styled(AntModal)`
     .ant-modal-title {
       color: ${theme.colors.SHARK};
       font-size: 20px;
-      font-weight: 600;
       line-height: 27px;
     }
   }
@@ -42,29 +42,29 @@ const MtModal = styled(AntModal)`
     background: ${theme.colors.PORCELAIN};
     border-top: 0px;
     .ant-btn {
-      @include textBtn;
-      @include button;
+      ${mixins.textBtn()}
+      ${mixins.button()}
       color: ${theme.colors.OUTER_SPACE};
       min-width: 75px;
 
       &.ant-btn-primary {
-        @include primaryBtn;
-        @include button;
+        ${mixins.primaryBtn()}
+        ${mixins.button()}
         color: #fff;
         &:hover {
-          @include primaryBtnHover;
+          ${mixins.primaryBtnHover()}
           color: #fff;
         }
         &:focus,
         &.active {
-          @include primaryBtnHover;
+          ${mixins.primaryBtnHover()};       
           color: #fff;
         }
       }
       &:hover,
       &:focus {
-        @include textBtn;
-        color: get('colors.GREY');
+        ${mixins.textBtn()}
+        color: ${theme.colors.GREY}
       }
     }
   }
