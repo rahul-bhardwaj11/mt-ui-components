@@ -9,8 +9,7 @@ const stories = storiesOf('Collapse', module);
 stories.addDecorator(withKnobs);
 
 const customPanelStyle = {
-  background: '#f7f7f7',
-  borderRadius: 4,
+  borderRadius: 8,
   marginBottom: 24,
   border: 0,
   overflow: 'hidden'
