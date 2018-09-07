@@ -13,7 +13,7 @@
     "prebuild": "rimraf ./lib",
     "build:prod": "babel src --out-dir lib --copy-files --ignore test,*.stories.js --source-maps true && npm run test && npm run lint",
     "babel": "babel src --out-dir lib --copy-files --ignore test,*.stories.js --source-maps true",
-    "babel:watch": "babel src --out-dir lib --copy-files --ignore test,*.stories.js --source-maps true --watch",
+    "babel:watch": "babel src --out-dir lib --copy-files --ignore test,*.stories.js --watch",
     "build": "npm run babel && npm run lint",
     "postbuild": "node utils/generateModulesList.js",
     "deploy:sb": "npm run build-storybook && gh-pages -m 'update storybook' -d ./build",
