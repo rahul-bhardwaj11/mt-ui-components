@@ -5,25 +5,32 @@ import 'antd/lib/date-picker/style/index.css';
 import styled from 'styled-components';
 // import theme from '../styles/theme';
 
-const MtDatePicker = styled.div`
-  .ant-calendar-picker-input.ant-input {
-    padding: 6px 24px;
+const MtDatePicker = styled(AntDatePicker)`
+  &.datepicker {
+    .ant-calendar-picker-input.ant-input {
+      padding: 6px 24px;
+    }
+    .ant-calendar-picker-icon {
+      display: none;
+    }
   }
-  .ant-calendar-picker-icon {
-    display: none;
-  }
-
   .dropdown {
-    color: blue;
+    left: 1px;
+    top: 40px;
     border: 1px solid red;
+    &.ant-calendar-picker-container {
+      position: relative;
+      display: inline-block;
+      margin-top: 40px;
+    }
     .ant-calendar {
-      border: 1px solid red;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+      height: 248px;
+      width: 346px;
+      border-radius: 0px;
       .ant-calendar-panel {
-        border: 1px solid red;
         .ant-calendar-input-wrap {
-          border: 1px solid red;
           display: none;
-          height: 50px;
         }
       }
     }
@@ -34,19 +41,11 @@ class DatePicker extends Component {
   render() {
     return (
       <MtDatePicker
-        innerRef={el => {
-          if (el) {
-            this.dropdownRef = el;
-          }
-        }}
-      >
-        <AntDatePicker
-          {...this.props}
-          getCalendarContainer={() => {
+        {...this.props}
+        /* getCalendarContainer={() => {
             return this.dropdownRef;
-          }}
-        />
-      </MtDatePicker>
+          }}*/
+      />
     );
   }
 }
