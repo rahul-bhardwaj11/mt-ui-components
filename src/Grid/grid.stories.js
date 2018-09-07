@@ -12,13 +12,13 @@ stories.add(
   'Grid',
   withInfo('Adding Grid for responsive')(() => (
     <Row>
-      <Col xs={2} sm={4} md={6} lg={8} xl={10}>
+      <Col xs={2} sm={4} md={6} lg={8} xl={10} xxl={10}>
         Col
       </Col>
-      <Col xs={20} sm={16} md={12} lg={8} xl={10}>
+      <Col xs={20} sm={16} md={12} lg={8} xl={10} xxl={10}>
         Col
       </Col>
-      <Col xs={2} sm={4} md={6} lg={8} xl={0}>
+      <Col xs={2} sm={4} md={6} lg={8} xl={0} xxl={0}>
         Col
       </Col>
     </Row>

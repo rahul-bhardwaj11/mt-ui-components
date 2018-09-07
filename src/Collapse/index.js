@@ -9,6 +9,7 @@ const MtCollapse = styled.div`
   .ant-collapse {
     border: 0px;
     border-radius: 0px;
+    background: transparent;
   }
   .ant-collapse {
     & > .ant-collapse-item {
