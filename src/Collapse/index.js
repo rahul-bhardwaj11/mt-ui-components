@@ -77,11 +77,11 @@ class Collapse extends Component {
     let { options, panelStyle } = this.props;
     return (
       <MtCollapse>
-        <AntCollapse {...this.props} defaultActiveKey={['0']}>
+        <AntCollapse defaultActiveKey={['0']} {...this.props}>
           {options.map((option, index) => {
             return (
               <AntCollapse.Panel
-                key={index}
+                key={option.value || index}
                 header={option.header}
                 style={panelStyle}
               >
