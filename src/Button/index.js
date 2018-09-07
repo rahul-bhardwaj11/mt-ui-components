@@ -45,7 +45,6 @@ const MtButton = styled.span`
     white-space: nowrap;
     overflow: hidden;
     max-width: ${maxWidth => `${maxWidth}px`};
-    min-width: ${minWidth => `${minWidth}px`};
   }
   .ant-btn-default {
     border: 1px solid ${theme.colors.ALTO};
@@ -287,14 +286,13 @@ class Button extends Component {
   render() {
     const { children, type, style = {}, active, disabled, size } = this.props;
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
-    let { maxWidth, minWidth } = style;
+    let { maxWidth } = style;
     return (
       <MtButton
         active={active}
         disabled={disabled}
         size={size}
         maxWidth={maxWidth}
-        minWidth={minWidth}
       >
         <AntButton
           {...this.props}

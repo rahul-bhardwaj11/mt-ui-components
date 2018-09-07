@@ -202,7 +202,7 @@ class SelectWithSearch extends Component {
     onChange: PropTypes.func.isRequired,
     isButton: PropTypes.bool,
     buttonMaxWidth: PropTypes.number,
-    buttonMinWidth: PropTypes.number
+    buttonWidth: PropTypes.number
   };
   static defaultProps = {
     placeholder: 'Type here to Search'

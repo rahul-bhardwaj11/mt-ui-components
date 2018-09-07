@@ -69,7 +69,7 @@ stories.add(
       isMulti
       isButton={true}
       buttonMaxWidth={85}
-      buttonMinWidth={85}
+      buttonWidth={85}
     />
   ))
 );
