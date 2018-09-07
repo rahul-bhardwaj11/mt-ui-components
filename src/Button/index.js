@@ -46,7 +46,12 @@ const ANTD_BUTTON_SIZE_PADDING = {
 
 const MtButton = styled.span`
   /* Default Button styles */
-
+  .ant-btn {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: ${maxWidth => `${maxWidth}px`};
+  }
   .ant-btn-default {
     border: 1px solid ${theme.colors.ALTO};
     color: #6f7583;
@@ -285,10 +290,16 @@ class Button extends Component {
   };
 
   render() {
-    const { children, type, style, active, disabled, size } = this.props;
+    const { children, type, style = {}, active, disabled, size } = this.props;
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
+    let { maxWidth } = style;
     return (
-      <MtButton active={active} disabled={disabled} size={size}>
+      <MtButton
+        active={active}
+        disabled={disabled}
+        size={size}
+        maxWidth={maxWidth}
+      >
         <AntButton
           {...this.props}
           type={antdType}
