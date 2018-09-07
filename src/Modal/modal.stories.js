@@ -54,3 +54,10 @@ stories.add(
   'Default Modal',
   withInfo('Basic usage of the Modal')(() => <ModalStoryComponent />)
 );
+
+stories.add(
+  'Full page Modal',
+  withInfo('Basic usage of the Modal')(() => (
+    <ModalStoryComponent type={'full'} />
+  ))
+);

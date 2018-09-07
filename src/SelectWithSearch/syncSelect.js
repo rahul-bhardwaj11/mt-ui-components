@@ -14,7 +14,8 @@ export default class SyncSelect extends Component {
     isMulti: PropTypes.bool,
     onChange: PropTypes.func,
     isButton: PropTypes.bool,
-    buttonLabel: PropTypes.string
+    buttonLabel: PropTypes.string,
+    buttonMaxWidth: PropTypes.number
   };
 
   static defaultProps = {
@@ -227,7 +228,7 @@ export default class SyncSelect extends Component {
   };
 
   render() {
-    const { isMulti } = this.props;
+    const { isMulti, buttonMaxWidth } = this.props;
     const {
       options,
       selectedItems,
@@ -273,7 +274,11 @@ export default class SyncSelect extends Component {
 
     if (showButton) {
       return (
-        <Button onClick={this.toggleButton} type="primary">
+        <Button
+          onClick={this.toggleButton}
+          type="primary"
+          style={{ maxWidth: buttonMaxWidth }}
+        >
           {this.getButtonText()}
         </Button>
       );

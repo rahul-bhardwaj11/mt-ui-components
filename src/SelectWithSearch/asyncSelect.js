@@ -22,7 +22,8 @@ export default class AsyncSelect extends Component {
     isMulti: PropTypes.bool,
     onChange: PropTypes.func,
     isButton: PropTypes.bool,
-    buttonLabel: PropTypes.string
+    buttonLabel: PropTypes.string,
+    buttonMaxWidth: PropTypes.number
   };
 
   static defaultProps = {
@@ -373,7 +374,7 @@ export default class AsyncSelect extends Component {
       showInput,
       inputValue
     } = this.state;
-    const { isMulti } = this.props;
+    const { isMulti, buttonMaxWidth } = this.props;
     let currentOptions = optionsCache[search] || initialCache;
     const options = this.normalizeOption([...currentOptions.options]);
     const selectProps = isMulti
@@ -410,7 +411,11 @@ export default class AsyncSelect extends Component {
 
     if (showButton) {
       return (
-        <Button onClick={this.toggleButton} type="primary">
+        <Button
+          onClick={this.toggleButton}
+          type="primary"
+          style={{ maxWidth: buttonMaxWidth }}
+        >
           {this.getButtonText()}
         </Button>
       );
