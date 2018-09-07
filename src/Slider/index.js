@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AntSlider from 'antd/lib/slider';
 import styled from 'styled-components';
 import 'antd/lib/slider/style/index.css';
+import 'antd/lib/tooltip/style/index.css';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
 
@@ -22,6 +23,10 @@ const MtSlider = styled.div`
         border: 2px solid ${theme.colors.INDIGO};
       }
     }
+  }
+  .ant-slider-dot {
+    background: transparent;
+    border-color: transparent;
   }
   .ant-slider-rail {
     background: ${theme.colors.ALTO};
