@@ -17,9 +17,15 @@ const BUTTON_TYPES = {
 };
 
 const BUTTON_SIZES = {
-  large: 'large',
-  small: 'small',
-  medium: 'default'
+  LARGE: 'large',
+  SMALL: 'small',
+  MEDIUM: 'medium'
+};
+
+const ANT_BUTTON_SIZES_MAP = {
+  [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
+  [BUTTON_SIZES.MEDIUM]: 'default',
+  [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
 };
 
 const ANTD_BUTTON_TYPE_MAP = {
@@ -265,7 +271,7 @@ class Button extends Component {
     type: PropTypes.oneOf(Object.values(BUTTON_TYPES)),
     children: PropTypes.node,
     disabled: PropTypes.bool,
-    size: PropTypes.oneOf(Object.keys(BUTTON_SIZES)),
+    size: PropTypes.oneOf(Object.values(BUTTON_SIZES)),
     style: PropTypes.object,
     className: PropTypes.string,
     active: PropTypes.bool
@@ -287,7 +293,7 @@ class Button extends Component {
           {...this.props}
           type={antdType}
           style={style}
-          size={BUTTON_SIZES[size]}
+          size={ANT_BUTTON_SIZES_MAP[size] || ANT_BUTTON_SIZES_MAP.LARGE}
         >
           {children}
           {type === 'edit' && <Icon type="edit" className="editIcon" />}
