@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { storiesOf } from '@storybook/react';
 import Modal from './index';
 import Button from '../Button';
+import PropTypes from 'prop-types';
 import { withInfo } from '@storybook/addon-info';
 import { withKnobs } from '@storybook/addon-knobs';
 
@@ -10,7 +11,9 @@ stories.addDecorator(withKnobs);
 
 class ModalStoryComponent extends Component {
   state = { visible: false };
-
+  static propTypes = {
+    type: PropTypes.oneOf(['small', 'medium', 'large', 'full'])
+  };
   showModal = () => {
     this.setState({
       visible: true
@@ -40,6 +43,7 @@ class ModalStoryComponent extends Component {
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          type={this.props.type}
         >
           <p>Some contents...</p>
           <p>Some contents...</p>
@@ -58,6 +62,6 @@ stories.add(
 stories.add(
   'Full page Modal',
   withInfo('Basic usage of the Modal')(() => (
-    <ModalStoryComponent type={'full'} />
+    <ModalStoryComponent type="full" />
   ))
 );

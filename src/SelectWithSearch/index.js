@@ -191,8 +191,6 @@ const SelectBox = styled.div`
 .doneMarginR {
   margin-left: 5px;
 }
-
-
 `;
 
 class SelectWithSearch extends Component {
@@ -203,7 +201,8 @@ class SelectWithSearch extends Component {
     isMulti: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     isButton: PropTypes.bool,
-    buttonMaxWidth: PropTypes.number
+    buttonMaxWidth: PropTypes.number,
+    buttonMinWidth: PropTypes.number
   };
   static defaultProps = {
     placeholder: 'Type here to Search'
