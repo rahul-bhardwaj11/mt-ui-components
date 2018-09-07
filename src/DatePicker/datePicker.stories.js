@@ -11,6 +11,15 @@ stories.addDecorator(withKnobs);
 stories.add(
   'DatePicker',
   withInfo('Adding type primary to button')(() => (
-    <DatePicker fullscreen={false} />
+    <DatePicker
+      fullscreen={false}
+      showToday={false}
+      format={'LL'}
+      placeholder="Select date"
+      allowClear={false}
+      dropdownClassName={'dropdown'}
+      className={'datepicker'}
+      popupStyle={{ width: '100px', height: '100px' }}
+    />
   ))
 );
