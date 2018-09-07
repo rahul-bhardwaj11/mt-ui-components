@@ -17,9 +17,15 @@ const BUTTON_TYPES = {
 };
 
 const BUTTON_SIZES = {
-  large: 'large',
-  small: 'small',
-  medium: 'default'
+  LARGE: 'large',
+  SMALL: 'small',
+  MEDIUM: 'medium'
+};
+
+const ANT_BUTTON_SIZES_MAP = {
+  [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
+  [BUTTON_SIZES.MEDIUM]: 'default',
+  [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
 };
 
 const ANTD_BUTTON_TYPE_MAP = {
@@ -40,7 +46,12 @@ const ANTD_BUTTON_SIZE_PADDING = {
 
 const MtButton = styled.span`
   /* Default Button styles */
-
+  .ant-btn {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: ${maxWidth => `${maxWidth}px`};
+  }
   .ant-btn-default {
     border: 1px solid ${theme.colors.ALTO};
     color: #6f7583;
@@ -265,7 +276,7 @@ class Button extends Component {
     type: PropTypes.oneOf(Object.values(BUTTON_TYPES)),
     children: PropTypes.node,
     disabled: PropTypes.bool,
-    size: PropTypes.oneOf(Object.keys(BUTTON_SIZES)),
+    size: PropTypes.oneOf(Object.values(BUTTON_SIZES)),
     style: PropTypes.object,
     className: PropTypes.string,
     active: PropTypes.bool
@@ -279,15 +290,21 @@ class Button extends Component {
   };
 
   render() {
-    const { children, type, style, active, disabled, size } = this.props;
+    const { children, type, style = {}, active, disabled, size } = this.props;
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
+    let { maxWidth } = style;
     return (
-      <MtButton active={active} disabled={disabled} size={size}>
+      <MtButton
+        active={active}
+        disabled={disabled}
+        size={size}
+        maxWidth={maxWidth}
+      >
         <AntButton
           {...this.props}
           type={antdType}
           style={style}
-          size={BUTTON_SIZES[size]}
+          size={ANT_BUTTON_SIZES_MAP[size] || ANT_BUTTON_SIZES_MAP.LARGE}
         >
           {children}
           {type === 'edit' && <Icon type="edit" className="editIcon" />}
