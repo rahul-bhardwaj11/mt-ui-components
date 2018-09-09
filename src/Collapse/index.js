@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import AntCollapse from 'antd/lib/collapse';
-import 'antd/lib/collapse/style/index.css';
-import StringToHTML from '../StringToHTML';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import AntCollapse from "antd/lib/collapse";
+import "antd/lib/collapse/style/index.css";
+import StringToHTML from "../StringToHTML";
+import styled from "styled-components";
 
 const MtCollapse = styled.div`
   .ant-collapse {
@@ -55,7 +55,7 @@ const MtCollapse = styled.div`
   }
   .ant-collapse {
     & > .ant-collapse-item {
-      & > .ant-collapse-header[aria-expanded='true'] {
+      & > .ant-collapse-header[aria-expanded="true"] {
         .arrow {
           transform: rotate(-90deg);
           position: absolute;
@@ -78,15 +78,16 @@ class Collapse extends Component {
     let { options, panelStyle } = this.props;
     return (
       <MtCollapse>
-        <AntCollapse defaultActiveKey={['0']} {...this.props}>
+        <AntCollapse defaultActiveKey={["0"]} {...this.props}>
           {options.map((option, index) => {
             return (
               <AntCollapse.Panel
                 key={option.value || index}
                 header={option.header}
                 style={panelStyle}
+                className={option.className}
               >
-                {typeof option.content === 'string' ? (
+                {typeof option.content === "string" ? (
                   <StringToHTML content={option.content} />
                 ) : (
                   option.content
