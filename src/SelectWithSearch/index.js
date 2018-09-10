@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 //import AsyncSelect from "react-select/lib/Async";
 //import { Icon } from 'antd';
-import styled from 'styled-components';
-import theme from '../styles/theme';
-import AsyncSelect from './asyncSelect';
-import SyncSelect from './syncSelect';
-import mixin from '../styles/mixins';
-import searchIcon from './assets/search.svg';
-import arrowIcon from './assets/downFillcaret.svg';
-import classnames from 'classnames';
+import styled from "styled-components";
+import theme from "../styles/theme";
+import AsyncSelect from "./asyncSelect";
+import SyncSelect from "./syncSelect";
+import mixin from "../styles/mixins";
+import searchIcon from "./assets/search.svg";
+import arrowIcon from "./assets/downFillcaret.svg";
+import classnames from "classnames";
 
 const SelectBox = styled.div`
 
@@ -122,7 +122,7 @@ const SelectBox = styled.div`
   .mt-react-select__control {
     border: 1px solid ${theme.colors.ALTO};
     position: relative;
-    //width: ${({ width = 'auto' }) => width};
+    //width: ${({ width = "auto" }) => width};
   }
 
   .mt-react-select__control--is-focused {
@@ -228,7 +228,6 @@ const SelectBox = styled.div`
 .doneMarginR {
   margin-left: 5px;
 }
-
 `;
 
 class SelectWithSearch extends Component {
@@ -238,10 +237,12 @@ class SelectWithSearch extends Component {
     placeholder: PropTypes.string,
     isMulti: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
-    isButton: PropTypes.bool
+    isButton: PropTypes.bool,
+    buttonMaxWidth: PropTypes.number,
+    buttonWidth: PropTypes.number
   };
   static defaultProps = {
-    placeholder: 'Type here to Search'
+    placeholder: "Type here to Search"
   };
 
   render() {

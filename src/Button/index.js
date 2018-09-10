@@ -1,41 +1,47 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import AntButton from 'antd/lib/button';
-import 'antd/lib/button/style/index.css';
-import styled from 'styled-components';
-import theme from '../styles/theme';
-import Icon from '../Icon';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import AntButton from "antd/lib/button";
+import "antd/lib/button/style/index.css";
+import styled from "styled-components";
+import theme from "../styles/theme";
+import Icon from "../Icon";
 
 const BUTTON_TYPES = {
-  PRIMARY: 'primary',
-  SECONDARY: 'secondary',
-  TERTIARY: 'tertiary',
-  LINK: 'link',
-  TEXT: 'text',
-  EDIT: 'edit',
-  DISABLED: 'disabled'
+  PRIMARY: "primary",
+  SECONDARY: "secondary",
+  TERTIARY: "tertiary",
+  LINK: "link",
+  TEXT: "text",
+  EDIT: "edit",
+  DISABLED: "disabled"
 };
 
 const BUTTON_SIZES = {
-  large: 'large',
-  small: 'small',
-  medium: 'default'
+  LARGE: "large",
+  SMALL: "small",
+  MEDIUM: "medium"
+};
+
+const ANT_BUTTON_SIZES_MAP = {
+  [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
+  [BUTTON_SIZES.MEDIUM]: "default",
+  [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
 };
 
 const ANTD_BUTTON_TYPE_MAP = {
-  [BUTTON_TYPES.PRIMARY]: 'primary',
-  [BUTTON_TYPES.SECONDARY]: 'default',
-  [BUTTON_TYPES.TERTIARY]: 'dashed',
-  [BUTTON_TYPES.LINK]: 'link',
-  [BUTTON_TYPES.TEXT]: 'text',
-  [BUTTON_TYPES.EDIT]: 'edit',
-  [BUTTON_TYPES.DISABLED]: 'disabled'
+  [BUTTON_TYPES.PRIMARY]: "primary",
+  [BUTTON_TYPES.SECONDARY]: "default",
+  [BUTTON_TYPES.TERTIARY]: "dashed",
+  [BUTTON_TYPES.LINK]: "link",
+  [BUTTON_TYPES.TEXT]: "text",
+  [BUTTON_TYPES.EDIT]: "edit",
+  [BUTTON_TYPES.DISABLED]: "disabled"
 };
 
 const ANTD_BUTTON_SIZE_PADDING = {
-  [BUTTON_SIZES.LARGE]: '0px 32px',
-  [BUTTON_SIZES.MEDIUM]: '0px 24px',
-  [BUTTON_SIZES.SMALL]: '0px 12px'
+  [BUTTON_SIZES.LARGE]: "0px 32px",
+  [BUTTON_SIZES.MEDIUM]: "0px 24px",
+  [BUTTON_SIZES.SMALL]: "0px 12px"
 };
 
 const MtButton = styled.span`
@@ -271,17 +277,17 @@ class Button extends Component {
     type: PropTypes.oneOf(Object.values(BUTTON_TYPES)),
     children: PropTypes.node,
     disabled: PropTypes.bool,
-    size: PropTypes.oneOf(Object.keys(BUTTON_SIZES)),
+    size: PropTypes.oneOf(Object.values(BUTTON_SIZES)),
     style: PropTypes.object,
     className: PropTypes.string,
     active: PropTypes.bool
   };
   static defaultProps = {
     onClick: noop,
-    children: 'Submit',
+    children: "Submit",
     disabled: false,
     type: BUTTON_TYPES.PRIMARY,
-    size: 'large'
+    size: "large"
   };
 
   render() {
@@ -300,10 +306,10 @@ class Button extends Component {
           {...this.props}
           type={antdType}
           style={style}
-          size={BUTTON_SIZES[size]}
+          size={ANT_BUTTON_SIZES_MAP[size] || ANT_BUTTON_SIZES_MAP.LARGE}
         >
           {children}
-          {type === 'edit' && <Icon type="edit" className="editIcon" />}
+          {type === "edit" && <Icon type="edit" className="editIcon" />}
         </AntButton>
       </MtButton>
     );

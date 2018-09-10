@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import AntTag from 'antd/lib/tag';
-import 'antd/lib/tag/style/index.css';
-import styled from 'styled-components';
-import theme from '../styles/theme';
-import Icon from '../Icon';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import AntTag from "antd/lib/tag";
+import "antd/lib/tag/style/index.css";
+import styled from "styled-components";
+import theme from "../styles/theme";
+import Icon from "../Icon";
 
 const getMargin = props => {
   let {
-    marginTop = '0px',
-    marginRight = '5px',
-    marginBottom = '12px',
-    marginLeft = '0px'
+    marginTop = "0px",
+    marginRight = "5px",
+    marginBottom = "12px",
+    marginLeft = "0px"
   } = props.margin;
   return `${marginTop} ${marginRight} ${marginBottom} ${marginLeft}`;
 };
@@ -42,8 +42,8 @@ const ButtonWrapper = styled.button`
 const DefaultTag = styled(ButtonWrapper)`
   &:focus {
     .ant-tag {
-      border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
-      color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+      border: 1px solid ${theme.colors.INDIGO};
+      color: ${theme.colors.INDIGO};
     }
   }
   &:hover {
@@ -105,12 +105,12 @@ const CheckableWrappedTag = styled(ButtonWrapper)`
 `;
 
 const TYPES = {
-  NORMAL: 'normal',
-  ADD: 'add',
-  ADDED: 'added',
-  SELECTED: 'selected',
-  SELECTION: 'selection',
-  ACTION: 'action'
+  NORMAL: "normal",
+  ADD: "add",
+  ADDED: "added",
+  SELECTED: "selected",
+  SELECTION: "selection",
+  ACTION: "action"
 };
 
 class Tag extends Component {

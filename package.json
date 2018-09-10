@@ -11,9 +11,9 @@
     "test:update": "jest -u",
     "start": "concurrently  \"npm run story\" \"npm run babel:watch\" \"npm run lint:watch\" --kill-others --names 'storybook,babel,lint'",
     "prebuild": "rimraf ./lib",
-    "build:prod": "babel src --out-dir lib --copy-files --ignore test,*.stories.js --source-maps true && npm run test && npm run lint",
-    "babel": "babel src --out-dir lib --copy-files --ignore test,*.stories.js --source-maps true",
-    "babel:watch": "babel src --out-dir lib --copy-files --ignore test,*.stories.js --source-maps true --watch",
+    "build:prod": "babel src --out-dir lib --copy-files --ignore test,*.stories.js && npm run test && npm run lint",
+    "babel": "babel src --out-dir lib --copy-files --ignore test,*.stories.js",
+    "babel:watch": "BABEL_ENV=dev babel src --out-dir lib --copy-files --ignore test,*.stories.js --watch",
     "build": "npm run babel && npm run lint",
     "postbuild": "node utils/generateModulesList.js",
     "deploy:sb": "npm run build-storybook && gh-pages -m 'update storybook' -d ./build",
@@ -33,6 +33,10 @@
     "@storybook/addon-knobs": "^3.4.8",
     "@storybook/addon-links": "^3.4.8",
     "@storybook/addon-options": "^3.4.8",
+    "@storybook/addon-actions": "^3.4.8",
+    "@storybook/addons": "^3.4.8",
+    "@storybook/channels": "^3.4.8",
+    "@storybook/channel-postmessage": "^3.4.8",
     "@storybook/cli": "^3.4.8",
     "@storybook/react": "^3.4.8",
     "babel-cli": "^6.18.0",
@@ -74,7 +78,7 @@
     "jest": "^22.4.4",
     "jest-css-modules": "^1.1.0",
     "jsdom": "^9.9.1",
-    "lint-staged": "^5.0.0",
+    "lint-staged": "^7.0.0",
     "node-sass": "^4.9.0",
     "pre-commit": "^1.2.2",
     "prettier": "^1.13.7",
@@ -117,6 +121,7 @@
   },
   "dependencies": {
     "antd": "^3.6.5",
+    "babel-plugin-styled-components": "^1.6.3",
     "classnames": "^2.2.6",
     "identity-obj-proxy": "^3.0.0",
     "install": "^0.11.2",
@@ -135,7 +140,7 @@
     "react-truncate": "^2.4.0"
   },
   "peerDependencies": {
-    "react": "^16.1.0",
+    "react": "16.2.0",
     "react-dom": "^16.0.0",
     "styled-components": "^3.3.0"
   }

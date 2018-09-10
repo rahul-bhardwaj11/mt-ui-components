@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Avatar from 'antd/lib/avatar';
-import 'antd/lib/avatar/style/index.css';
-import mixin from '../styles/mixins';
+import styled from "styled-components";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Avatar from "antd/lib/avatar";
+import "antd/lib/avatar/style/index.css";
+import mixin from "../styles/mixins";
 
 const MtUserThumbnail = styled.div`
   display: inline-block;
@@ -27,35 +27,37 @@ class UserThumbnail extends Component {
     name: PropTypes.string,
     email: PropTypes.string,
     src: PropTypes.string,
-    shape: PropTypes.oneOf(['circle', 'square']),
+    shape: PropTypes.oneOf(["circle", "square"]),
     size: PropTypes.string,
-    icon: PropTypes.string
+    icon: PropTypes.string,
+    expanded: PropTypes.bool
   };
 
   static defaultProps = {
-    shape: 'circle',
-    size: 'large'
+    shape: "circle",
+    size: "large",
+    expanded: false
   };
 
   getInitials = name => {
     var initials = name.match(/\b\w/g) || [];
     initials = (
-      (initials.shift() || '') + (initials.pop() || '')
+      (initials.shift() || "") + (initials.pop() || "")
     ).toUpperCase();
     return initials;
   };
 
   render() {
-    const { name, email } = this.props;
+    const { name, email, expanded } = this.props;
     let mtProps = Object.assign({}, this.props);
-    mtProps = !name ? Object.assign(mtProps, { icon: 'user' }) : mtProps;
+    mtProps = !name ? Object.assign(mtProps, { icon: "user" }) : mtProps;
     return (
       <MtUserThumbnail>
         <Avatar {...mtProps}>{name && this.getInitials(name)}</Avatar>
-        {email && (
+        {expanded && (
           <div className="content">
-            {name && <div className={'name'}>{name}</div>}
-            {email && <div className={'email'}>{email}</div>}
+            {name && <div className={"name"}>{name}</div>}
+            {email && <div className={"email"}>{email}</div>}
           </div>
         )}
       </MtUserThumbnail>
