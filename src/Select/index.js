@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import "antd/lib/dropdown/style/css";
-import AntSelect from "antd/lib/select";
-import "antd/lib/select/style/index.css";
-import "../styles/override.scss";
-import styled from "styled-components";
-import StringToHTML from "../StringToHTML";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import 'antd/lib/dropdown/style/css';
+import AntSelect from 'antd/lib/select';
+import 'antd/lib/select/style/index.css';
+import '../styles/override.scss';
+import styled from 'styled-components';
+import StringToHTML from '../StringToHTML';
 
 const Option = AntSelect.Option;
 
@@ -49,7 +49,7 @@ class Select extends Component {
           {options.map(option => {
             return (
               <Option key={option.key} value={option.key}>
-                {typeof option.content === "string" ? (
+                {typeof option.content === 'string' ? (
                   <StringToHTML content={option.content} />
                 ) : (
                   option.content

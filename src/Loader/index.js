@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import classnames from "classnames";
-import StyledLoader from "./css.js";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import StyledLoader from './css.js';
 
 export const LOADING_SIZE = {
-  sizeBig: "big",
-  sizeXSmall: "xsmall",
-  sizeSmall: "small"
+  sizeBig: 'big',
+  sizeXSmall: 'xsmall',
+  sizeSmall: 'small'
 };
 
 export const LOADER_TYPE = {
-  Small: "smallPageLoadingScreen",
-  Full: "fullPageloadingScreen"
+  Small: 'smallPageLoadingScreen',
+  Full: 'fullPageloadingScreen'
 };
 
 class Loader extends Component {
@@ -24,8 +24,8 @@ class Loader extends Component {
     style: PropTypes.object
   };
   static defaultProps = {
-    type: "Small",
-    size: "sizeBig"
+    type: 'Small',
+    size: 'sizeBig'
   };
 
   render() {
@@ -38,9 +38,9 @@ class Loader extends Component {
     );
     return (
       <StyledLoader className={wrapperClasses} style={style}>
-        <div className={"loader"}>
-          <div className={"loadingHeading"}>{this.props.loadingMessage}</div>
-          <div className={classnames("spinner", LOADING_SIZE[size])}>
+        <div className={'loader'}>
+          <div className={'loadingHeading'}>{this.props.loadingMessage}</div>
+          <div className={classnames('spinner', LOADING_SIZE[size])}>
             <div />
             <div />
             <div />

@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 //import AsyncSelect from "react-select/lib/Async";
 //import { Icon } from 'antd';
-import styled from "styled-components";
-import theme from "../styles/theme";
-import AsyncSelect from "./asyncSelect";
-import SyncSelect from "./syncSelect";
-import mixin from "../styles/mixins";
-import searchIcon from "./assets/search.svg";
-import classnames from "classnames";
+import styled from 'styled-components';
+import theme from '../styles/theme';
+import AsyncSelect from './asyncSelect';
+import SyncSelect from './syncSelect';
+import mixin from '../styles/mixins';
+import searchIcon from './assets/search.svg';
+import classnames from 'classnames';
 
 const SelectBox = styled.div`
   //  width: 0;
@@ -84,7 +84,7 @@ const SelectBox = styled.div`
   }
   .mt-react-select__control {
     border: 1px solid ${theme.colors.ALTO};
-    width: ${({ width = "auto" }) => width};
+    width: ${({ width = 'auto' }) => width};
   }
   .mt-react-select__control--is-focused {
     box-shadow: none;
@@ -205,7 +205,7 @@ class SelectWithSearch extends Component {
     buttonWidth: PropTypes.number
   };
   static defaultProps = {
-    placeholder: "Type here to Search"
+    placeholder: 'Type here to Search'
   };
 
   render() {

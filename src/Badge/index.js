@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import AntBadge from "antd/lib/badge";
-import "antd/lib/badge/style/index.css";
-import styled from "styled-components";
-import theme from "../styles/theme";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import AntBadge from 'antd/lib/badge';
+import 'antd/lib/badge/style/index.css';
+import styled from 'styled-components';
+import theme from '../styles/theme';
 
 const BADGE_TYPES = {
-  SUCCESS: "success",
-  ERROR: "error",
-  WARNING: "warning"
+  SUCCESS: 'success',
+  ERROR: 'error',
+  WARNING: 'warning'
 };
 
 const BADGE_COLOR_TYPE_MAP = {

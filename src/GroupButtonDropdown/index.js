@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Dropdown from "../Dropdown";
-import Button from "../Button";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Dropdown from '../Dropdown';
+import Button from '../Button';
+import styled from 'styled-components';
 
 const MtGroupDropdown = styled.div`
   .ant-dropdown-trigger {
@@ -32,7 +32,7 @@ class GroupButtonDropdown extends Component {
   };
 
   static defaultProps = {
-    trigger: "click",
+    trigger: 'click',
     onClick: () => {}
   };
 
@@ -42,8 +42,8 @@ class GroupButtonDropdown extends Component {
       <MtGroupDropdown>
         <Button
           style={{
-            display: "inline-block",
-            padding: "0px 10px",
+            display: 'inline-block',
+            padding: '0px 10px',
             borderBottomRightRadius: 0,
             borderTopRightRadius: 0
           }}
@@ -56,10 +56,10 @@ class GroupButtonDropdown extends Component {
           <div>
             <Button
               style={{
-                padding: "0px 10px",
+                padding: '0px 10px',
                 borderBottomLeftRadius: 0,
                 borderTopLeftRadius: 0,
-                borderLeft: "1px solid"
+                borderLeft: '1px solid'
               }}
             >
               <span>&#9660;</span>

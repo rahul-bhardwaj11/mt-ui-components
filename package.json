@@ -20,7 +20,7 @@
     "deploy": "sh ./deploy.sh",
     "build-storybook": "build-storybook -o ./build",
     "precommit": "lint-staged",
-    "prettier": "prettier --single-quote --write src/**/*.js",
+    "prettier": "prettier --single-quote --write src/**/*.js lib/**/*.js",
     "lint": "./node_modules/.bin/eslint src/**/*.js ",
     "lint:watch": "./node_modules/.bin/esw src/**/*.js -w"
   },
@@ -95,7 +95,7 @@
   "pre-commit": "precommit",
   "lint-staged": {
     "src/{,**/}*.{js,jsx,json,css,scss}": [
-      "prettier --write",
+      "prettier --single-quote  --write",
       "git add"
     ],
     "src/{,**/}*.{js,jsx}": [

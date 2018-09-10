@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Truncate from "react-truncate";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Truncate from 'react-truncate';
 
 class ReadMore extends Component {
   constructor() {
@@ -37,7 +37,7 @@ class ReadMore extends Component {
     const { expanded, truncated } = this.state;
 
     return (
-      <div style={{ fontFamily: "Open sans" }}>
+      <div style={{ fontFamily: 'Open sans' }}>
         <Truncate
           lines={!expanded && lines}
           ellipsis={[
@@ -63,8 +63,8 @@ class ReadMore extends Component {
 
 ReadMore.defaultProps = {
   lines: 3,
-  moreText: "view more",
-  lessText: "view less"
+  moreText: 'view more',
+  lessText: 'view less'
 };
 
 ReadMore.propTypes = {

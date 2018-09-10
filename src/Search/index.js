@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { Input } from "antd";
-import "antd/lib/input/style/index.css";
-import styled from "styled-components";
-import theme from "../styles/theme";
+import React, { Component } from 'react';
+import { Input } from 'antd';
+import 'antd/lib/input/style/index.css';
+import styled from 'styled-components';
+import theme from '../styles/theme';
 
 const AntSearch = Input.Search;
 

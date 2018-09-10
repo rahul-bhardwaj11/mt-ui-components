@@ -1,14 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "antd/lib/button/style/index.css";
-import styled from "styled-components";
-import mixins from "../styles/mixins.js";
+import React from 'react';
+import PropTypes from 'prop-types';
+import 'antd/lib/button/style/index.css';
+import styled from 'styled-components';
+import mixins from '../styles/mixins.js';
 
 const MtActionBar = styled.div`
   position: fixed;
   max-width: 100vw;
   bottom: 0;
-  width: ${({ width = "1248px" }) => width};
+  width: ${({ width = '1248px' }) => width};
   z-index: ${({ zIndex }) => zIndex};
   left: 0;
   right: 0;

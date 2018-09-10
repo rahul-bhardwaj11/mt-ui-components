@@ -1,4 +1,4 @@
-const theme = require("./theme");
+const theme = require('./theme');
 
 const mixins = {
   // button ----------//
@@ -23,10 +23,10 @@ const mixins = {
   `,
 
   fontStack: ({
-    fontSize = "14px",
+    fontSize = '14px',
     fontWeight = 600,
-    color = "#2A2E36",
-    lineHeight = "22px"
+    color = '#2A2E36',
+    lineHeight = '22px'
   }) => {
     return `
     font-size: ${fontSize};
@@ -38,194 +38,194 @@ const mixins = {
 
   h1: () =>
     mixins.fontStack({
-      fontSize: "24px",
+      fontSize: '24px',
       fontWeight: 600,
       color: theme.colors.SHARK,
-      lineHeight: "32px"
+      lineHeight: '32px'
     }),
   h2: () =>
     mixins.fontStack({
-      fontSize: "20px",
+      fontSize: '20px',
       fontWeight: 600,
       color: theme.colors.SHARK,
-      lineHeight: "28px"
+      lineHeight: '28px'
     }),
   h2Placeholder: () =>
     mixins.fontStack({
-      fontSize: "20px",
+      fontSize: '20px',
       fontWeight: 600,
       color: theme.colors.SILVER,
-      lineHeight: "28px"
+      lineHeight: '28px'
     }),
   h3: () =>
     mixins.fontStack({
-      fontSize: "16px",
+      fontSize: '16px',
       fontWeight: 600,
       color: theme.colors.SHARK,
-      lineHeight: "24px"
+      lineHeight: '24px'
     }),
   h3Grey: () =>
     mixins.fontStack({
-      fontSize: "16px",
+      fontSize: '16px',
       fontWeight: 600,
       color: theme.colors.OUTER_SPACE,
-      lineHeight: "24px"
+      lineHeight: '24px'
     }),
 
   // links ----------//
 
   actionLink: () =>
     mixins.fontStack({
-      fontSize: "14px",
+      fontSize: '14px',
       fontWeight: 600,
       color: theme.colors.INDIGO,
-      lineHeight: "20px"
+      lineHeight: '20px'
     }),
   blackLink: () =>
     mixins.fontStack({
-      fontSize: "14px",
+      fontSize: '14px',
       fontWeight: 600,
       color: theme.colors.SHARK,
-      lineHeight: "20px"
+      lineHeight: '20px'
     }),
   greyLink: () =>
     mixins.fontStack({
-      fontSize: "14px",
+      fontSize: '14px',
       fontWeight: 600,
       color: theme.colors.OUTER_SPACE,
-      lineHeight: "20px"
+      lineHeight: '20px'
     }),
   inactiveLink: () =>
     mixins.fontStack({
-      fontSize: "14px",
+      fontSize: '14px',
       fontWeight: 600,
       color: theme.colors.SILVER,
-      lineHeight: "20px"
+      lineHeight: '20px'
     }),
   deleteLink: () =>
     mixins.fontStack({
-      fontSize: "14px",
+      fontSize: '14px',
       fontWeight: 600,
       color: theme.colors.BITTERSWEET,
-      lineHeight: "20px"
+      lineHeight: '20px'
     }),
 
   // body text ----------//
 
   blackText: () =>
     mixins.fontStack({
-      fontSize: "14px",
-      fontWeight: "normal",
+      fontSize: '14px',
+      fontWeight: 'normal',
       color: theme.colors.SHARK,
-      lineHeight: "20px"
+      lineHeight: '20px'
     }),
   darkText: () =>
     mixins.fontStack({
-      fontSize: "14px",
-      fontWeight: "normal",
+      fontSize: '14px',
+      fontWeight: 'normal',
       color: theme.colors.DARK_OUTER_SPACE,
-      lineHeight: "20px"
+      lineHeight: '20px'
     }),
   darkSmText: () =>
     mixins.fontStack({
-      fontSize: "14px",
-      fontWeight: "600",
+      fontSize: '14px',
+      fontWeight: '600',
       color: theme.colors.DARK_OUTER_SPACE,
-      lineHeight: "20px"
+      lineHeight: '20px'
     }),
   greyText: () =>
     mixins.fontStack({
-      fontSize: "14px",
-      fontWeight: "normal",
+      fontSize: '14px',
+      fontWeight: 'normal',
       color: theme.colors.OUTER_SPACE,
-      lineHeight: "20px"
+      lineHeight: '20px'
     }),
   placeholderText: () =>
     mixins.fontStack({
-      fontSize: "14px",
-      fontWeight: "normal",
+      fontSize: '14px',
+      fontWeight: 'normal',
       color: theme.colors.SILVER,
-      lineHeight: "20px"
+      lineHeight: '20px'
     }),
 
   // small links ----------//
 
   smallBlackLink: () =>
     mixins.fontStack({
-      fontSize: "12px",
-      fontWeight: "normal",
+      fontSize: '12px',
+      fontWeight: 'normal',
       color: theme.colors.SHARK,
-      lineHeight: "16px"
+      lineHeight: '16px'
     }),
   smallDarkLink: () =>
     mixins.fontStack({
-      fontSize: "12px",
-      fontWeight: "normal",
+      fontSize: '12px',
+      fontWeight: 'normal',
       color: theme.colors.DARK_OUTER_SPACE,
-      lineHeight: "16px"
+      lineHeight: '16px'
     }),
   smallGreyLink: () =>
     mixins.fontStack({
-      fontSize: "12px",
-      fontWeight: "normal",
+      fontSize: '12px',
+      fontWeight: 'normal',
       color: theme.colors.OUTER_SPACE,
-      lineHeight: "16px"
+      lineHeight: '16px'
     }),
   smallInactiveLink: () =>
     mixins.fontStack({
-      fontSize: "12px",
-      fontWeight: "normal",
+      fontSize: '12px',
+      fontWeight: 'normal',
       color: theme.colors.SILVER,
-      lineHeight: "16px"
+      lineHeight: '16px'
     }),
   smallActiveLink: () =>
     mixins.fontStack({
-      fontSize: "12px",
-      fontWeight: "normal",
+      fontSize: '12px',
+      fontWeight: 'normal',
       color: theme.colors.INDIGO,
-      lineHeight: "16px"
+      lineHeight: '16px'
     }),
 
   // labels ----------//
 
   smallBlackText: () =>
     mixins.fontStack({
-      fontSize: "11px",
+      fontSize: '11px',
       fontWeight: 600,
       color: theme.colors.OUTER_SPACE,
-      lineHeight: "16px",
-      "text-transform": "uppercase"
+      lineHeight: '16px',
+      'text-transform': 'uppercase'
     }),
 
   // number ----------//
 
   bigNumber: () =>
     mixins.fontStack({
-      fontSize: "24px",
-      fontWeight: "bold",
+      fontSize: '24px',
+      fontWeight: 'bold',
       color: theme.colors.SHARK,
-      lineHeight: "32px"
+      lineHeight: '32px'
     }),
   mediumNumber: () =>
     mixins.fontStack({
-      fontSize: "20px",
-      fontWeight: "bold",
+      fontSize: '20px',
+      fontWeight: 'bold',
       color: theme.colors.SHARK,
-      lineHeight: "28px"
+      lineHeight: '28px'
     }),
   smallNumber: () =>
     mixins.fontStack({
-      fontSize: "20px",
-      fontWeight: "bold",
+      fontSize: '20px',
+      fontWeight: 'bold',
       color: theme.colors.DARK_OUTER_SPACE,
-      lineHeight: "28px"
+      lineHeight: '28px'
     }),
   smallestNumber: () =>
     mixins.fontStack({
-      fontSize: "13px",
-      fontWeight: "bold",
+      fontSize: '13px',
+      fontWeight: 'bold',
       color: theme.colors.DARK_OUTER_SPACE,
-      lineHeight: "20px"
+      lineHeight: '20px'
     }),
 
   // z-index ----------//

@@ -1,33 +1,33 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import classnames from "classnames";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
-import Loader from "../Loader";
+import Loader from '../Loader';
 import {
   DEFAULT_HIDE_TIMER,
   ANIMATION_TRANSITION_DURATION,
   TOAST_REMOVE_TIME
-} from "./constants";
-import StyledToast from "./css";
+} from './constants';
+import StyledToast from './css';
 
-export const TOAST_TYPES = ["success", "warning", "error", "info", "loading"];
+export const TOAST_TYPES = ['success', 'warning', 'error', 'info', 'loading'];
 
 const ReloadBtn = () => {
   return (
     <div
-      className={classnames("floatR")}
+      className={classnames('floatR')}
       onClick={() => {
         window.location.href = window.location.href; // eslint-disable-line
       }}
     >
-      <span className={classnames("floatR", "toastReloadBtn")}>Reload</span>
+      <span className={classnames('floatR', 'toastReloadBtn')}>Reload</span>
     </div>
   );
 };
 
 const HideBtn = ({ hide }) => {
   return (
-    <div className={classnames("floatR", "link")} onClick={hide}>
+    <div className={classnames('floatR', 'link')} onClick={hide}>
       Hide
     </div>
   );
@@ -126,7 +126,7 @@ export default class Toast extends Component {
           {load && (
             <Loader
               size="sizeXSmall"
-              style={{ float: "left" }}
+              style={{ float: 'left' }}
               vCenter={false}
             />
           )}
