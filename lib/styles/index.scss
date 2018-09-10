@@ -1,6 +1,6 @@
-@import 'mixins.scss';
-@import 'icons.scss';
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
+@import "mixins.scss";
+@import "icons.scss";
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
 :global {
   * {
     padding: 0px;
@@ -9,7 +9,7 @@
   }
   body {
     background: #f2f2f2;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     outline: none;
   }
   .pointer {
@@ -45,18 +45,18 @@
   }
 
   .link {
-    color: get('colors.INDIGO');
+    color: get("colors.INDIGO");
     cursor: pointer;
     text-decoration: none;
     font-size: 13px;
     margin: 0px 2px;
     &:hover {
-      color: get('colors.INDIGO');
+      color: get("colors.INDIGO");
     }
   }
 
   .boxStyle {
-    border: 1px solid get('colors.ALTO');
+    border: 1px solid get("colors.ALTO");
     padding: 12px 15px;
     background: White;
   }
@@ -77,7 +77,7 @@
   }
   .modal_footerWrapper {
     padding: 20px 0px;
-    border-top: 1px solid get('colors.ALTO');
+    border-top: 1px solid get("colors.ALTO");
     position: fixed;
     left: 0px;
     bottom: 0;
@@ -109,12 +109,13 @@
   .arrow_R {
     position: absolute;
     z-index: 1;
+    // @include getSupport;
 
     &:after {
       bottom: 0px;
       left: -7px;
       border: solid transparent;
-      content: ' ';
+      content: " ";
       height: 0;
       width: 0;
       position: absolute;
@@ -128,7 +129,7 @@
       bottom: -1px;
       left: -9px;
       border: solid transparent;
-      content: ' ';
+      content: " ";
       height: 0;
       width: 0;
       position: absolute;
@@ -148,7 +149,7 @@
       bottom: 0px;
       left: -7px;
       border: solid transparent;
-      content: ' ';
+      content: " ";
       height: 0;
       width: 0;
       position: absolute;
@@ -162,7 +163,7 @@
       bottom: -0px;
       left: -8px;
       border: solid transparent;
-      content: ' ';
+      content: " ";
       height: 0;
       width: 0;
       position: absolute;

@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 class StringToHTML extends React.Component {
   static propTypes = {
-    content: PropTypes.any
+    content: PropTypes.string
   };
   render() {
     let { content } = this.props;

@@ -1,25 +1,32 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import AntTable from 'antd/lib/table';
-import 'antd/lib/table/style/index.css';
-import 'antd/lib/checkbox/style/index.css';
-import styled from 'styled-components';
-import theme from '../styles/theme';
-import mixins from '../styles/mixins.js';
-import ActionBar from '../ActionBar';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import AntTable from "antd/lib/table";
+import "antd/lib/table/style/index.css";
+import "antd/lib/checkbox/style/index.css";
+import styled from "styled-components";
+import theme from "../styles/theme";
+import mixins from "../styles/mixins.js";
+import ActionBar from "../ActionBar";
+import Loader from "../Loader";
+
+const DEFAULT_LOADER_PROPS = {
+  type: "Full",
+  size: "sizeSmall",
+  style: { opacity: 0.5 }
+};
 
 const DEFAULT_TH_PADDING = {
-  pTop: '16px',
-  pRight: '0',
-  pBottom: '16px',
-  pLeft: '32px'
+  pTop: "16px",
+  pRight: "0",
+  pBottom: "16px",
+  pLeft: "32px"
 };
 
 const DEFAULT_TD_PADDING = {
-  pTop: '12px',
-  pRight: '0',
-  pBottom: '12px',
-  pLeft: '32px'
+  pTop: "12px",
+  pRight: "0",
+  pBottom: "12px",
+  pLeft: "32px"
 };
 
 const MtTable = styled.div`
@@ -37,6 +44,11 @@ const MtTable = styled.div`
     > .ant-table-scroll
     > .ant-table-body
     > .ant-table-fixed,
+  .ant-table-default > .ant-table-content > .ant-table-scroll > .ant-table-body,
+  .ant-table-default
+    > .ant-table-content
+    > .ant-table-scroll
+    > .ant-table-header,
   .ant-table-default
     > .ant-table-content
     > .ant-table-fixed-left
@@ -59,7 +71,6 @@ const MtTable = styled.div`
     > .ant-table-body-outer
     > .ant-table-body-inner
     > .ant-table-fixed {
-    padding: 0px;
     .ant-table-thead {
       & > tr {
         color: ${theme.colors.DARK_OUTER_SPACE};
@@ -69,7 +80,7 @@ const MtTable = styled.div`
           border-bottom: 1px solid ${theme.colors.ALTO};
           padding: ${props => {
             let {
-              contentCellPadding: {
+              headerCellPadding: {
                 pTop,
                 pRight,
                 pBottom,
@@ -81,11 +92,7 @@ const MtTable = styled.div`
           &:last-child {
             padding: ${props => {
               let {
-                contentCellPadding: {
-                  pTop,
-                  pBottom,
-                  pLeft
-                } = DEFAULT_TH_PADDING
+                headerCellPadding: { pTop, pBottom, pLeft } = DEFAULT_TH_PADDING
               } = props;
               return `${pTop} ${pLeft} ${pBottom}  ${pLeft}`;
             }};
@@ -227,21 +234,22 @@ const MtTable = styled.div`
       }
     }
   }
-
   .ant-table-thead > tr > th.ant-table-selection-column,
   .ant-table-tbody > tr > td.ant-table-selection-column {
     min-width: auto;
-    width: auto;
   }
 
   .ant-checkbox-wrapper {
+    &:hover .ant-checkbox-inner {
+      border-color: ${theme.colors.INDIGO};
+    }
     & .ant-checkbox > .ant-checkbox-inner {
       width: 14px;
       height: 14px;
       border-radius: 3px;
       &:after {
-        left: 3.5px;
-        top: 1.2px;
+        left: 3px;
+        top: 1px;
       }
     }
     & > .ant-checkbox-checked {
@@ -249,20 +257,24 @@ const MtTable = styled.div`
         background-color: ${theme.colors.INDIGO};
         border-color: ${theme.colors.INDIGO};
         &:after {
-          left: 3.5px;
-          top: 1.2px;
+          left: 3px;
+          top: 1px;
         }
       }
     }
     & > .ant-checkbox-indeterminate {
       & > .ant-checkbox-inner {
-        background-color: ${theme.colors.INDIGO};
         border-color: ${theme.colors.INDIGO};
         &:after {
-          left: 1.5px;
-          top: 5px;
+          left: 6px;
+          top: 6px;
+          background-color: ${theme.colors.INDIGO};
         }
       }
+    }
+    .ant-checkbox:hover .ant-checkbox-inner,
+    .ant-checkbox-input:focus + .ant-checkbox-inner {
+      border-color: ${theme.colors.INDIGO};
     }
   }
 `;
@@ -296,7 +308,8 @@ class Table extends Component {
     windowScroll: PropTypes.bool,
     hasMore: PropTypes.bool,
     loading: PropTypes.bool,
-    scroll: PropTypes.object
+    scroll: PropTypes.object,
+    dataSource: PropTypes.array
   };
   static defaultProps = {
     infiniteScroll: false,
@@ -305,13 +318,16 @@ class Table extends Component {
   };
   state = {
     showActionBar: false,
-    showMultiSelect: false
+    showMultiSelect: false,
+    selectAll: false,
+    selectedRowKeys: []
   };
   scrollElement = null;
   styleProps = {
     contentCellPadding: this.props.contentCellPadding,
     headerCellPadding: this.props.headerCellPadding
   };
+  tableRef = null;
   fetch = () => {
     const { loading, fetchData } = this.props;
     if (!loading && fetchData) {
@@ -349,19 +365,18 @@ class Table extends Component {
       if (infiniteScroll && hasMore) {
         this.fetch();
       } else {
-        window.removeEventListener('scroll', this.onScroll, false);
+        window.removeEventListener("scroll", this.onScroll, false);
       }
     }
   };
-
   componentDidMount() {
     const { infiniteScroll, windowScroll } = this.props;
-    if (infiniteScroll) {
+    if (infiniteScroll && this.tableRef) {
       this.scrollElement = windowScroll
         ? window
-        : document.getElementsByClassName('ant-table-body')[0];
+        : this.tableRef.getElementsByClassName("ant-table-body")[0];
       if (this.scrollElement) {
-        this.scrollElement.addEventListener('scroll', this.onScroll, false);
+        this.scrollElement.addEventListener("scroll", this.onScroll, false);
       }
     }
   }
@@ -369,31 +384,60 @@ class Table extends Component {
   componentWillUnmount() {
     const { infiniteScroll } = this.props;
     if (infiniteScroll && this.scrollElement) {
-      this.scrollElement.removeEventListener('scroll', this.onScroll, false);
+      this.scrollElement.removeEventListener("scroll", this.onScroll, false);
+    }
+  }
+  componentWillReceiveProps() {
+    const { dataSource } = this.props;
+    const { selectAll, selectedRowKeys } = this.state;
+    if (selectAll && dataSource.length > selectedRowKeys.length) {
+      this.onChange(dataSource.map(v => v.key), dataSource);
     }
   }
   onChange = (selectedRowKeys, selectedRows) => {
     let {
+      dataSource,
       actionBar,
       rowSelection: { onChange }
     } = this.props;
     this.setState(() => ({
-      showActionBar: actionBar && selectedRows.length > 0,
-      showMultiSelect: actionBar && selectedRows.length > 0
+      showActionBar: actionBar && selectedRowKeys.length > 0,
+      showMultiSelect: selectedRowKeys.length > 0,
+      selectedRowKeys: selectedRowKeys,
+      selectAll: dataSource.length === selectedRowKeys.length
     }));
     onChange && onChange(selectedRowKeys, selectedRows);
   };
 
+  getLoader = () => {
+    let { infiniteScroll } = this.props;
+    const loaderProps = infiniteScroll
+      ? {
+          ...DEFAULT_LOADER_PROPS,
+          size: "sizeXSmall",
+          type: "Small",
+          style: {
+            padding: "12px 0px"
+          }
+        }
+      : DEFAULT_LOADER_PROPS;
+    return <Loader {...loaderProps} />;
+  };
+
   render() {
-    let { rowSelection, actionBar, children } = this.props;
-    let { showActionBar, showMultiSelect } = this.state;
+    let { rowSelection, actionBar, children, loading } = this.props;
+    let { showActionBar, showMultiSelect, selectedRowKeys } = this.state;
 
     /**
      * Check if rowSelection props is been passed, If yes override the onChange property of it.
      * Also if onChange prop is passed and the rowSelection is not available, create a new rowSelection object with onChange method.
      */
     const updatedRowSelection = rowSelection
-      ? { ...rowSelection, onChange: this.onChange }
+      ? {
+          ...rowSelection,
+          onChange: this.onChange,
+          selectedRowKeys
+        }
       : null;
 
     const antProps = updatedRowSelection
@@ -405,8 +449,13 @@ class Table extends Component {
           ...this.props
         };
     return (
-      <MtTable showMultiSelect={showMultiSelect} {...this.styleProps}>
+      <MtTable
+        innerRef={ele => (this.tableRef = ele)}
+        showMultiSelect={showMultiSelect}
+        {...this.styleProps}
+      >
         <AntTable {...antProps}>{children}</AntTable>
+        {loading && this.getLoader()}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}

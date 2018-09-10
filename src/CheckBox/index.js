@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import AntCheckbox from 'antd/lib/checkbox';
-import 'antd/lib/checkbox/style/index.css';
-import styled from 'styled-components';
-import theme from '../styles/theme';
+import AntCheckbox from "antd/lib/checkbox";
+import "antd/lib/checkbox/style/index.css";
+import styled from "styled-components";
+import theme from "../styles/theme";
 
 const noop = () => undefined;
 
@@ -69,6 +69,7 @@ class CheckBox extends Component {
     checked: PropTypes.bool,
     onClick: PropTypes.func,
     onChange: PropTypes.func,
+    disabled: PropTypes.bool,
     indeterminate: PropTypes.bool
   };
 
@@ -95,12 +96,13 @@ class CheckBox extends Component {
   }
 
   render() {
-    const { label, indeterminate } = this.props;
+    const { label, indeterminate, disabled } = this.props;
     return (
       <MtCheckbox>
         <AntCheckbox
           checked={this.state.checked}
           onChange={this.onChange}
+          disabled={disabled}
           indeterminate={indeterminate}
         >
           {label}

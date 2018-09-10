@@ -1,44 +1,70 @@
-import styled from 'styled-components';
-import React from 'react';
-import Icon from './../Icon';
-import PropTypes from 'prop-types';
-// import theme from "./../styles/theme";
-/**
- * To display user profile with name
- */
+import styled from "styled-components";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Avatar from "antd/lib/avatar";
+import "antd/lib/avatar/style/index.css";
+import mixin from "../styles/mixins";
 
 const MtUserThumbnail = styled.div`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  .userIcon {
-    ${props => props.imgUrl && `height: 100%;`};
-    color: #aaa;
-    margin-right: ${props => (props.name ? '10px' : '0')};
-    float: ${props => (props.name ? 'left' : 'none')};
-    ${props => props.imgUrl && `border-radius: 50%;`};
+  display: inline-block;
+
+  .content {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 16px;
+    .name {
+      ${mixin.blackText()};
+      line-height: 22px;
+    }
+    .email {
+      ${mixin.smallDarkLink()};
+      line-height: 17px;
+    }
   }
 `;
+class UserThumbnail extends Component {
+  static propTypes = {
+    name: PropTypes.string,
+    email: PropTypes.string,
+    src: PropTypes.string,
+    shape: PropTypes.oneOf(["circle", "square"]),
+    size: PropTypes.string,
+    icon: PropTypes.string,
+    expanded: PropTypes.bool
+  };
 
-const UserThumbnail = props => {
-  const { name, email, imgUrl } = props;
-  return (
-    <MtUserThumbnail {...props}>
-      {imgUrl ? (
-        <img className={'userIcon'} src={imgUrl} />
-      ) : (
-        <Icon type="userProfile" className={'userIcon'} />
-      )}
-      {name && <div>{name}</div>}
-      {email && <div>{email}</div>}
-    </MtUserThumbnail>
-  );
-};
+  static defaultProps = {
+    shape: "circle",
+    size: "large",
+    expanded: false
+  };
 
-UserThumbnail.propTypes = {
-  name: PropTypes.string,
-  email: PropTypes.string,
-  imgUrl: PropTypes.string
-};
+  getInitials = name => {
+    var initials = name.match(/\b\w/g) || [];
+    initials = (
+      (initials.shift() || "") + (initials.pop() || "")
+    ).toUpperCase();
+    return initials;
+  };
+
+  render() {
+    const { name, email, expanded } = this.props;
+    let mtProps = Object.assign({}, this.props);
+    mtProps = !name ? Object.assign(mtProps, { icon: "user" }) : mtProps;
+    return (
+      <MtUserThumbnail>
+        <Avatar {...mtProps}>{name && this.getInitials(name)}</Avatar>
+        {expanded && (
+          <div className="content">
+            {name && <div className={"name"}>{name}</div>}
+            {email && <div className={"email"}>{email}</div>}
+          </div>
+        )}
+      </MtUserThumbnail>
+    );
+  }
+}
+
+export { Avatar };
 
 export default UserThumbnail;

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import AntRadio from 'antd/lib/radio';
-import 'antd/lib/radio/style/index.css';
-import styled from 'styled-components';
-import theme from '../styles/theme';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import AntRadio from "antd/lib/radio";
+import "antd/lib/radio/style/index.css";
+import styled from "styled-components";
+import theme from "../styles/theme";
 
-const MtRadio = styled.div`
+const MtRadio = styled(AntRadio)`
   .ant-radio-inner:after {
     background-color: white;
   }
@@ -44,11 +44,7 @@ class Radio extends Component {
   };
   render() {
     let { children } = this.props;
-    return (
-      <MtRadio>
-        <AntRadio {...this.props}>{children}</AntRadio>
-      </MtRadio>
-    );
+    return <MtRadio {...this.props}>{children}</MtRadio>;
   }
 }
 Radio.Group = AntRadio.Group;

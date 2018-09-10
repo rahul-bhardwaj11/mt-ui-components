@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import AntMenu from 'antd/lib/menu';
-import 'antd/lib/menu/style/index.css';
-import StringToHTML from '../StringToHTML';
-import styled from 'styled-components';
-import mixins from '../styles/mixins';
-import theme from '../styles/theme';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import AntMenu from "antd/lib/menu";
+import "antd/lib/menu/style/index.css";
+import StringToHTML from "../StringToHTML";
+import styled from "styled-components";
+import mixins from "../styles/mixins";
+import theme from "../styles/theme";
 
 const MtMenu = styled.div`
   .ant-anchor-wrapper {
@@ -141,12 +141,19 @@ const MtMenu = styled.div`
     a {
       color: ${theme.colors.INDIGO};
       font-size: 12px;
-      ${mixins.truncate('250px')};
+      ${mixins.truncate("250px")};
     }
   }
   .ant-menu-inline,
   .ant-menu-light {
     border-right: 0px;
+  }
+  .cautious {
+    color: ${theme.colors.BITTERSWEET};
+    &:hover {
+      background-color: ${theme.colors.BITTERSWEET};
+      color: #fff;
+    }
   }
 `;
 
@@ -166,7 +173,7 @@ class Menu extends Component {
     }
   };
   static defaultProps = {
-    style: { paddingLeft: '0px' }
+    style: { paddingLeft: "0px" }
   };
 
   render() {
@@ -178,8 +185,12 @@ class Menu extends Component {
           {options &&
             options.map((option, index) => {
               return (
-                <AntMenu.Item key={option.key || index} style={itemStyle}>
-                  {typeof option.content === 'string' ? (
+                <AntMenu.Item
+                  key={option.key || index}
+                  style={itemStyle}
+                  className={option.cautious ? "cautious" : ""}
+                >
+                  {typeof option.content === "string" ? (
                     <StringToHTML content={option.content} />
                   ) : (
                     option.content
