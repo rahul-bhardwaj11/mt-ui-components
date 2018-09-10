@@ -9,7 +9,10 @@ stories
   .add(
     'UserThumbnail Small',
     withInfo('Adding type primary to button')(() => (
-      <UserThumbnail size={text('size', 'small')} shape={text('shape', 'circle')} />
+      <UserThumbnail
+        size={text('size', 'small')}
+        shape={text('shape', 'circle')}
+      />
     ))
   )
   .add(

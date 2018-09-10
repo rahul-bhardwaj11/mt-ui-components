@@ -110,7 +110,9 @@ export default class SyncSelect extends Component {
       showSelectedValues: true,
       inputValue: ''
     };
-    newState = isButton ? Object.assign(newState, { showButton: true }) : newState;
+    newState = isButton
+      ? Object.assign(newState, { showButton: true })
+      : newState;
     this.setState({ ...newState });
   };
 
@@ -121,7 +123,9 @@ export default class SyncSelect extends Component {
         menuIsOpen: !prevState.menuIsOpen,
         showSelectedValues: !prevState.showSelectedValues
       };
-      updatedState = !this.props.isButton ? { showInput: !prevState.showInput } : updatedState;
+      updatedState = !this.props.isButton
+        ? { showInput: !prevState.showInput }
+        : updatedState;
       return updatedState;
     });
     setTimeout(() => {
@@ -152,7 +156,10 @@ export default class SyncSelect extends Component {
         }}
         className="checkboxWrapper"
       >
-        <CheckBox disabled={data.disabled} checked={selectedItems.indexOf(data) > -1} />
+        <CheckBox
+          disabled={data.disabled}
+          checked={selectedItems.indexOf(data) > -1}
+        />
         <span className="dataLabel">{data.label}</span>
       </div>
     ) : null;

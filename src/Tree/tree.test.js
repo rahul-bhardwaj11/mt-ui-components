@@ -32,7 +32,9 @@ describe('Tree', () => {
       { title: '0-2', key: '0-2' }
     ];
     const onChange = jest.fn();
-    const tree = renderer.create(<Tree treeData={treeData} onChange={onChange} />).toJSON();
+    const tree = renderer
+      .create(<Tree treeData={treeData} onChange={onChange} />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

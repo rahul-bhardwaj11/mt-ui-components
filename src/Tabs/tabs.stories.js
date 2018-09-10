@@ -17,6 +17,9 @@ const panes = [
 stories.add(
   'Default Tabs',
   withInfo('Basic usage of the Tabs')(() => (
-    <Tabs options={object('options', panes)} activeKey={text('activeKey', '1')} />
+    <Tabs
+      options={object('options', panes)}
+      activeKey={text('activeKey', '1')}
+    />
   ))
 );

@@ -24,6 +24,10 @@ stories
   .add(
     'Multiple Select',
     withInfo('Basic usage of the Multiple Select')(() => (
-      <Select options={object('options', options)} defaultValue="Select" mode="multiple" />
+      <Select
+        options={object('options', options)}
+        defaultValue="Select"
+        mode="multiple"
+      />
     ))
   );

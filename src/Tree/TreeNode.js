@@ -45,7 +45,8 @@ class TreeNode extends Component {
           // |  +--+
           // |  |  |
           // +--+--+
-          lineClass = 'rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom';
+          lineClass =
+            'rst__lineHalfHorizontalRight rst__lineHalfVerticalBottom';
         } else if (i === scaffoldBlockCount - 1) {
           // Last scaffold block in the row, right before the row content
           // +--+--+
@@ -125,7 +126,11 @@ class TreeNode extends Component {
             // eslint-disable-next-line react/no-array-index-key
             key={i}
             style={style}
-            className={classnames('rst__absoluteLineBlock', highlightLineClass, rowDirectionClass)}
+            className={classnames(
+              'rst__absoluteLineBlock',
+              highlightLineClass,
+              rowDirectionClass
+            )}
           />
         );
       }
@@ -140,7 +145,10 @@ class TreeNode extends Component {
     }
 
     return connectDropTarget(
-      <div {...otherProps} className={classnames('rst__node', rowDirectionClass, className)}>
+      <div
+        {...otherProps}
+        className={classnames('rst__node', rowDirectionClass, className)}
+      >
         {scaffold}
 
         <div className="rst__nodeContent" style={style}>
@@ -187,7 +195,9 @@ TreeNode.propTypes = {
   // used in dndManager
   getPrevRow: PropTypes.func.isRequired,
   node: PropTypes.shape({}).isRequired,
-  path: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+  path: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
 
   // rtl support
   rowDirection: PropTypes.string,

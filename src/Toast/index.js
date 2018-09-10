@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import Loader from '../Loader';
-import { DEFAULT_HIDE_TIMER, ANIMATION_TRANSITION_DURATION, TOAST_REMOVE_TIME } from './constants';
+import {
+  DEFAULT_HIDE_TIMER,
+  ANIMATION_TRANSITION_DURATION,
+  TOAST_REMOVE_TIME
+} from './constants';
 import StyledToast from './css';
 
 export const TOAST_TYPES = ['success', 'warning', 'error', 'info', 'loading'];
@@ -119,7 +123,13 @@ export default class Toast extends Component {
     return (
       <StyledToast>
         <div className={this.getClasses()} style={this.style}>
-          {load && <Loader size="sizeXSmall" style={{ float: 'left' }} vCenter={false} />}
+          {load && (
+            <Loader
+              size="sizeXSmall"
+              style={{ float: 'left' }}
+              vCenter={false}
+            />
+          )}
           <span className="floatL">{message}</span>
           <span>{hideBtn && !freeze && <HideBtn hide={this.hideToast} />}</span>
           <span>{freeze && reloadBtn && <ReloadBtn />}</span>

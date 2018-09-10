@@ -10,12 +10,16 @@ describe('Menu', () => {
     { key: '3', content: 'Third Item' }
   ];
   it('matches default snapshot', () => {
-    const tree = renderer.create(<Menu options={options} mode="horizontal" />).toJSON();
+    const tree = renderer
+      .create(<Menu options={options} mode="horizontal" />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('matches Vertical Menu snapshot', () => {
-    const tree = renderer.create(<Menu options={options} mode="vertical" />).toJSON();
+    const tree = renderer
+      .create(<Menu options={options} mode="vertical" />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 

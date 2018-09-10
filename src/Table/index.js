@@ -39,9 +39,16 @@ const MtTable = styled.div`
     > .ant-table-scroll
     > .ant-table-header
     > .ant-table-fixed,
-  .ant-table-default > .ant-table-content > .ant-table-scroll > .ant-table-body > .ant-table-fixed,
+  .ant-table-default
+    > .ant-table-content
+    > .ant-table-scroll
+    > .ant-table-body
+    > .ant-table-fixed,
   .ant-table-default > .ant-table-content > .ant-table-scroll > .ant-table-body,
-  .ant-table-default > .ant-table-content > .ant-table-scroll > .ant-table-header,
+  .ant-table-default
+    > .ant-table-content
+    > .ant-table-scroll
+    > .ant-table-header,
   .ant-table-default
     > .ant-table-content
     > .ant-table-fixed-left
@@ -73,13 +80,20 @@ const MtTable = styled.div`
           border-bottom: 1px solid ${theme.colors.ALTO};
           padding: ${props => {
             let {
-              headerCellPadding: { pTop, pRight, pBottom, pLeft } = DEFAULT_TH_PADDING
+              headerCellPadding: {
+                pTop,
+                pRight,
+                pBottom,
+                pLeft
+              } = DEFAULT_TH_PADDING
             } = props;
             return `${pTop} ${pRight} ${pBottom}  ${pLeft}`;
           }};
           &:last-child {
             padding: ${props => {
-              let { headerCellPadding: { pTop, pBottom, pLeft } = DEFAULT_TH_PADDING } = props;
+              let {
+                headerCellPadding: { pTop, pBottom, pLeft } = DEFAULT_TH_PADDING
+              } = props;
               return `${pTop} ${pLeft} ${pBottom}  ${pLeft}`;
             }};
           }
@@ -95,13 +109,24 @@ const MtTable = styled.div`
           border-bottom: 1px solid ${theme.colors.PEARL};
           padding: ${props => {
             let {
-              contentCellPadding: { pTop, pRight, pBottom, pLeft } = DEFAULT_TD_PADDING
+              contentCellPadding: {
+                pTop,
+                pRight,
+                pBottom,
+                pLeft
+              } = DEFAULT_TD_PADDING
             } = props;
             return `${pTop} ${pRight} ${pBottom} ${pLeft}`;
           }};
           &:last-child {
             padding: ${props => {
-              let { contentCellPadding: { pTop, pBottom, pLeft } = DEFAULT_TD_PADDING } = props;
+              let {
+                contentCellPadding: {
+                  pTop,
+                  pBottom,
+                  pLeft
+                } = DEFAULT_TD_PADDING
+              } = props;
               return `${pTop} ${pLeft} ${pBottom} ${pLeft}`;
             }};
           }
@@ -153,13 +178,24 @@ const MtTable = styled.div`
           border-bottom: 1px solid ${theme.colors.PEARL};
           padding: ${props => {
             let {
-              contentCellPadding: { pTop, pRight, pBottom, pLeft } = DEFAULT_TD_PADDING
+              contentCellPadding: {
+                pTop,
+                pRight,
+                pBottom,
+                pLeft
+              } = DEFAULT_TD_PADDING
             } = props;
             return `${pTop} ${pRight} ${pBottom} ${pLeft}`;
           }};
           &:last-child {
             padding: ${props => {
-              let { contentCellPadding: { pTop, pBottom, pLeft } = DEFAULT_TD_PADDING } = props;
+              let {
+                contentCellPadding: {
+                  pTop,
+                  pBottom,
+                  pLeft
+                } = DEFAULT_TD_PADDING
+              } = props;
               return `${pTop} ${pLeft} ${pBottom} ${pLeft}`;
             }};
           }
@@ -293,7 +329,13 @@ class Table extends Component {
     }
   };
   onScroll = () => {
-    const { hasMore, threshold, infiniteScroll, windowScroll, scroll } = this.props;
+    const {
+      hasMore,
+      threshold,
+      infiniteScroll,
+      windowScroll,
+      scroll
+    } = this.props;
     const body = document.body,
       html = document.documentElement;
     const height = windowScroll
@@ -304,7 +346,10 @@ class Table extends Component {
           html.scrollHeight,
           html.offsetHeight
         )
-      : Math.max(this.scrollElement.scrollHeight, this.scrollElement.clientHeight);
+      : Math.max(
+          this.scrollElement.scrollHeight,
+          this.scrollElement.clientHeight
+        );
 
     const innerHeight = windowScroll
       ? window.innerHeight + window.scrollY
@@ -406,7 +451,9 @@ class Table extends Component {
         <AntTable {...antProps}>{children}</AntTable>
         {loading && this.getLoader()}
         {showActionBar && (
-          <ActionBar {...actionBar}>{actionBar ? actionBar.actionItem : false}</ActionBar>
+          <ActionBar {...actionBar}>
+            {actionBar ? actionBar.actionItem : false}
+          </ActionBar>
         )}
       </MtTable>
     );

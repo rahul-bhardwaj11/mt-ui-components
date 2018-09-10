@@ -5,7 +5,9 @@ import Input from './index';
 
 describe('Input', () => {
   it('matches default snapshot', () => {
-    const tree = renderer.create(<Input placeholder={'Placeholder'} />).toJSON();
+    const tree = renderer
+      .create(<Input placeholder={'Placeholder'} />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 

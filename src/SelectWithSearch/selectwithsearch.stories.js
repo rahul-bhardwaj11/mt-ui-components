@@ -22,7 +22,9 @@ const colourOptions = [
 ];
 
 const filterColors = search =>
-  colourOptions.filter(i => i.label.toLowerCase().includes(search.toLowerCase()));
+  colourOptions.filter(i =>
+    i.label.toLowerCase().includes(search.toLowerCase())
+  );
 
 const promiseOption = ({ search }) =>
   new Promise(resolve => {

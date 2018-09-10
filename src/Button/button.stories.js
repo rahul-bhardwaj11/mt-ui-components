@@ -28,7 +28,9 @@ stories
   .add(
     'Tertiary button',
     withInfo('Adding type tertiary to button')(() => (
-      <Button type={text('type', 'tertiary')}>{text('children', 'Submit')}</Button>
+      <Button type={text('type', 'tertiary')}>
+        {text('children', 'Submit')}
+      </Button>
     ))
   )
   .add(

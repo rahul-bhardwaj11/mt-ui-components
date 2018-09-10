@@ -36,4 +36,7 @@ const treeData = [
   { title: '0-2', key: '0-2' }
 ];
 
-stories.add('Tree', withInfo('Basic usage of the Tree')(() => <Tree treeData={treeData} />));
+stories.add(
+  'Tree',
+  withInfo('Basic usage of the Tree')(() => <Tree treeData={treeData} />)
+);

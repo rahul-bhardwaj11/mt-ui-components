@@ -23,7 +23,9 @@ const options = [
 
 stories.add(
   'Default Collapse',
-  withInfo('Basic usage of the Collapse')(() => <Collapse options={object('options', options)} />)
+  withInfo('Basic usage of the Collapse')(() => (
+    <Collapse options={object('options', options)} />
+  ))
 );
 stories.add(
   'Custom Collapse',

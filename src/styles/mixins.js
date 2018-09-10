@@ -22,7 +22,12 @@ const mixins = {
     background-color: transparent;
   `,
 
-  fontStack: ({ fontSize = '14px', fontWeight = 600, color = '#2A2E36', lineHeight = '22px' }) => {
+  fontStack: ({
+    fontSize = '14px',
+    fontWeight = 600,
+    color = '#2A2E36',
+    lineHeight = '22px'
+  }) => {
     return `
     font-size: ${fontSize};
     font-weight: ${fontWeight};

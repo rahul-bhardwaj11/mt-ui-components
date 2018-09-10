@@ -4,7 +4,9 @@ import ConfirmBox from './index';
 
 describe('ConfirmBox', () => {
   it('matches default snapshot', () => {
-    const tree = renderer.create(<ConfirmBox title="This is test title" />).toJSON();
+    const tree = renderer
+      .create(<ConfirmBox title="This is test title" />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

@@ -9,7 +9,9 @@ stories.addDecorator(withKnobs);
 stories
   .add(
     'Default CheckBox',
-    withInfo('Basic usage of the Checkbox')(() => <CheckBox label={text('label', 'Checkbox')} />)
+    withInfo('Basic usage of the Checkbox')(() => (
+      <CheckBox label={text('label', 'Checkbox')} />
+    ))
   )
   .add(
     'Checked CheckBox',
