@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/Grid/index.js"],"names":["Row","Col"],"mappings":";;;;;;;AAAA;;AACA;;QAESA,G;QAAKC,G","file":"index.js","sourcesContent":["import { Row, Col } from 'antd/lib/grid';\nimport 'antd/lib/grid/style/index.css';\n\nexport { Row, Col };\n"]}

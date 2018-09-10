@@ -1,4 +1,10 @@
 {
+  "env": {
+    "dev": {
+      "presets": ["env", "es2015", "stage-2", "react"],
+      "plugins": ["transform-react-require", "transform-runtime", "babel-plugin-styled-components"]
+    }
+  },
   "presets": ["env", "es2015", "stage-2", "react"],
-  "plugins": ["transform-react-require","transform-runtime"]
+  "plugins": ["transform-react-require", "transform-runtime"]
 }

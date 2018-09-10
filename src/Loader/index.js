@@ -21,38 +21,33 @@ class Loader extends Component {
     size: PropTypes.oneOf(Object.keys(LOADING_SIZE)),
     message: PropTypes.string,
     loadingMessage: PropTypes.string,
-    vCenter: PropTypes.bool,
     style: PropTypes.object
   };
   static defaultProps = {
     type: 'Small',
-    size: 'sizeBig',
-    vCenter: true
+    size: 'sizeBig'
   };
 
   render() {
-    const { className, message, size, type, vCenter, style } = this.props;
+    const { className, message, size, type, style } = this.props;
     const wrapperClasses = classnames(
       {
-        [LOADER_TYPE[type]]: true,
-        loader: true
+        [LOADER_TYPE[type]]: true
       },
       className
     );
     return (
       <StyledLoader className={wrapperClasses} style={style}>
-        <div className={'loadingHeading'}>{this.props.loadingMessage}</div>
-        <div
-          className={classnames('spinner', LOADING_SIZE[size], {
-            centerDiv: vCenter
-          })}
-        >
-          <div />
-          <div />
-          <div />
-          <div />
+        <div className={'loader'}>
+          <div className={'loadingHeading'}>{this.props.loadingMessage}</div>
+          <div className={classnames('spinner', LOADING_SIZE[size])}>
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+          <p>{message}</p>
         </div>
-        <p>{message}</p>
       </StyledLoader>
     );
   }

@@ -42,8 +42,8 @@ const ButtonWrapper = styled.button`
 const DefaultTag = styled(ButtonWrapper)`
   &:focus {
     .ant-tag {
-      border: 1px solid ${theme.colors.TAG_HOVER_TEXT_COLOR};
-      color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+      border: 1px solid ${theme.colors.INDIGO};
+      color: ${theme.colors.INDIGO};
     }
   }
   &:hover {
