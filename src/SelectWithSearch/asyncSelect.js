@@ -25,7 +25,8 @@ export default class AsyncSelect extends Component {
     isButton: PropTypes.bool,
     buttonLabel: PropTypes.string,
     placeholder: PropTypes.string,
-    buttonSize: PropTypes.string
+    buttonMaxWidth: PropTypes.number,
+    buttonMinWidth: PropTypes.number
   };
 
   static defaultProps = {
@@ -386,7 +387,12 @@ export default class AsyncSelect extends Component {
     const { buttonLabel } = this.props;
     const selectedItemsLength = selectedItems.length;
     if (selectedItemsLength) {
-      if (selectedItemsLength == 1) return `${selectedItems[0].label}`;
+      if (selectedItemsLength == 1)
+        return `${
+          selectedItems[0].label == 'None'
+            ? buttonLabel
+            : selectedItems[0].label
+        }`;
       return `${buttonLabel}.${selectedItems.length}`;
     }
     return buttonLabel;
@@ -402,7 +408,7 @@ export default class AsyncSelect extends Component {
       showInput,
       inputValue
     } = this.state;
-    const { isMulti, isButton, buttonSize } = this.props;
+    const { isMulti, isButton, buttonMaxWidth, buttonMinWidth } = this.props;
     let currentOptions = optionsCache[search] || initialCache;
     const options = this.normalizeOption([...currentOptions.options]);
     const selectProps = isMulti
@@ -431,13 +437,27 @@ export default class AsyncSelect extends Component {
             SingleValue: this.handleSingleValue,
             Menu: this.buildMenu
           },
-          onChange: value => {
-            this.setState({ showInput: false });
-            this.props.onChange(value);
+          onChange: data => {
+            this.setState({
+              showInput: false,
+              selectedItems: [data],
+              menuIsOpen: false,
+              showSelect: !isButton
+            });
+            this.props.onChange(data.value);
           },
-          onBlur: () => this.setState({ showInput: false }),
+          onBlur: () => {
+            this.isBlurActive = true;
+            this.setState({
+              showInput: false,
+              menuIsOpen: false,
+              showSelect: !isButton
+            });
+          },
+          autoFocus: showInput,
           backspaceRemovesValue: false,
-          controlShouldRenderValue: !showInput
+          controlShouldRenderValue: !showInput,
+          menuIsOpen: menuIsOpen
         };
 
     return (
@@ -453,7 +473,7 @@ export default class AsyncSelect extends Component {
             <Button
               type="secondary"
               onClick={this.toggleButton}
-              size={buttonSize}
+              style={{ maxWidth: buttonMaxWidth, minWidth: buttonMinWidth }}
             >
               {this.getButtonText()}
             </Button>

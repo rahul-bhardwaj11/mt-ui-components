@@ -16,7 +16,8 @@ export default class SyncSelect extends Component {
     isButton: PropTypes.bool,
     buttonLabel: PropTypes.string,
     placeholder: PropTypes.string,
-    buttonSize: PropTypes.string
+    buttonMaxWidth: PropTypes.number,
+    buttonMinWidth: PropTypes.number
   };
 
   static defaultProps = {
@@ -239,14 +240,19 @@ export default class SyncSelect extends Component {
     const { buttonLabel } = this.props;
     const selectedItemsLength = selectedItems.length;
     if (selectedItemsLength) {
-      if (selectedItemsLength == 1) return `${selectedItems[0].label}`;
+      if (selectedItemsLength == 1)
+        return `${
+          selectedItems[0].label == 'None'
+            ? buttonLabel
+            : selectedItems[0].label
+        }`;
       return `${buttonLabel}.${selectedItems.length}`;
     }
     return buttonLabel;
   };
 
   render() {
-    const { isMulti, isButton, buttonSize } = this.props;
+    const { isMulti, isButton, buttonMaxWidth, buttonMinWidth } = this.props;
     const {
       options,
       selectedItems,
@@ -282,16 +288,29 @@ export default class SyncSelect extends Component {
             Control: this.handleControl,
             SingleValue: this.handleSingleValue
           },
-          onChange: value => {
-            this.setState({ showInput: false });
-            this.props.onChange(value);
+          onChange: data => {
+            this.setState({
+              showInput: false,
+              selectedItems: [data],
+              menuIsOpen: false,
+              showSelect: !isButton
+            });
+            this.props.onChange(data.value);
           },
-          onBlur: () => this.setState({ showInput: false }),
+          onBlur: () => {
+            this.isBlurActive = true;
+            this.setState({
+              showInput: false,
+              menuIsOpen: false,
+              showSelect: !isButton
+            });
+          },
           autoFocus: showInput,
           backspaceRemovesValue: false,
           inputValue: inputValue,
           onInputChange: this.onInputChange,
-          controlShouldRenderValue: !showInput
+          controlShouldRenderValue: !showInput,
+          menuIsOpen: menuIsOpen
         };
 
     return (
@@ -307,7 +326,7 @@ export default class SyncSelect extends Component {
             <Button
               type="secondary"
               onClick={this.toggleButton}
-              size={buttonSize}
+              style={{ maxWidth: buttonMaxWidth, minWidth: buttonMinWidth }}
             >
               {this.getButtonText()}
             </Button>
