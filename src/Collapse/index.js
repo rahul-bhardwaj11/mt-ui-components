@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import AntCollapse from 'antd/lib/collapse';
-import 'antd/lib/collapse/style/index.css';
-import StringToHTML from '../StringToHTML';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import AntCollapse from "antd/lib/collapse";
+import "antd/lib/collapse/style/index.css";
+import StringToHTML from "../StringToHTML";
+import styled from "styled-components";
 
 const MtCollapse = styled.div`
   .ant-collapse {
@@ -29,13 +29,6 @@ const MtCollapse = styled.div`
     font-weight: bold;
     background: #fff;
   }
-  // .ant-collapse {
-  //   & > .ant-collapse-item {
-  //     & > .ant-collapse-header {
-  //       padding: 12px 12px 12px 15px;
-  //     }
-  //   }
-  // }
   .ant-collapse {
     & > .ant-collapse-item {
       & > .ant-collapse-header {
@@ -47,6 +40,7 @@ const MtCollapse = styled.div`
           border-right: 6px solid transparent;
           border-top: 7px solid #6f7583;
           border-radius: 2px;
+          margin-bottom: 20px;
           position: absolute;
           left: 91%;
         }
@@ -55,12 +49,11 @@ const MtCollapse = styled.div`
   }
   .ant-collapse {
     & > .ant-collapse-item {
-      & > .ant-collapse-header[aria-expanded='true'] {
+      & > .ant-collapse-header[aria-expanded="true"] {
         .arrow {
           transform: rotate(-90deg);
           position: absolute;
           left: 91%;
-          top: 43%;
         }
       }
     }
@@ -78,7 +71,7 @@ class Collapse extends Component {
     let { options, panelStyle } = this.props;
     return (
       <MtCollapse>
-        <AntCollapse defaultActiveKey={['0']} {...this.props}>
+        <AntCollapse defaultActiveKey={["0"]} {...this.props}>
           {options.map((option, index) => {
             return (
               <AntCollapse.Panel
@@ -86,7 +79,7 @@ class Collapse extends Component {
                 header={option.header}
                 style={panelStyle}
               >
-                {typeof option.content === 'string' ? (
+                {typeof option.content === "string" ? (
                   <StringToHTML content={option.content} />
                 ) : (
                   option.content
