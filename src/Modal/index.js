@@ -84,7 +84,7 @@ class Modal extends Component {
   };
 
   render() {
-    let { children, type } = this.props;
+    let { children, type, width } = this.props;
     let customProps = {
       ...this.props,
       width: MODAL_WIDTH_MAP[type],
@@ -93,7 +93,6 @@ class Modal extends Component {
         top: type === 'full' ? 0 : undefined
       }
     };
-    let width = MODAL_WIDTH_MAP[type];
     return (
       <MtModal {...customProps} width={width}>
         {children}
