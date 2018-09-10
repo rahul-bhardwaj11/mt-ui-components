@@ -19,12 +19,7 @@ class Tree extends Component {
 
   render() {
     return (
-      <SortableTree
-        {...this.props}
-        maxDepth={2}
-        scaffoldBlockPxWidth={10}
-        isVirtualized={false}
-      />
+      <SortableTree {...this.props} maxDepth={2} scaffoldBlockPxWidth={10} isVirtualized={false} />
     );
   }
 }

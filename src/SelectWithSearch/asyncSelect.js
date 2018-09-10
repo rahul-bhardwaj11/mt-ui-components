@@ -115,10 +115,7 @@ export default class AsyncSelect extends Component {
     try {
       const loadOptions = this.__loadOptions;
 
-      const { options, hasMore } = await loadOptions(
-        search,
-        currentOptions.options
-      );
+      const { options, hasMore } = await loadOptions(search, currentOptions.options);
 
       await this.setState(prevState => ({
         optionsCache: {
@@ -180,10 +177,7 @@ export default class AsyncSelect extends Component {
       }
     }
 
-    const arrangedOptions = this.__arrangeOptions(
-      selectedItems,
-      currentOptions.options
-    );
+    const arrangedOptions = this.__arrangeOptions(selectedItems, currentOptions.options);
     this.setState(prevState => ({
       selectedItems,
       optionsCache: {
@@ -239,9 +233,7 @@ export default class AsyncSelect extends Component {
           }
         }
       };
-      newState = isButton
-        ? Object.assign(newState, { showButton: true })
-        : newState;
+      newState = isButton ? Object.assign(newState, { showButton: true }) : newState;
       return newState;
     });
   };
@@ -253,9 +245,7 @@ export default class AsyncSelect extends Component {
         menuIsOpen: !prevState.menuIsOpen,
         showSelectedValues: !prevState.showSelectedValues
       };
-      updatedState = !this.props.isButton
-        ? { showInput: !prevState.showInput }
-        : updatedState;
+      updatedState = !this.props.isButton ? { showInput: !prevState.showInput } : updatedState;
       return updatedState;
     });
     setTimeout(() => {

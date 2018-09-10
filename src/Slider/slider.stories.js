@@ -18,9 +18,7 @@ stories.addDecorator(withKnobs);
 
 stories.add(
   'Slider',
-  withInfo('Slider without tooltip')(() => (
-    <Slider marks={marks} defaultValue={37} />
-  ))
+  withInfo('Slider without tooltip')(() => <Slider marks={marks} defaultValue={37} />)
 );
 stories.add(
   'Slider tooltip',

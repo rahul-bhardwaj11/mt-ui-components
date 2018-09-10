@@ -29,11 +29,7 @@ stories
   .add(
     'Button Dropdown',
     withInfo('Basic usage of the Dropdown')(() => (
-      <Dropdown
-        options={object('options', options)}
-        type="button"
-        label={'button'}
-      />
+      <Dropdown options={object('options', options)} type="button" label={'button'} />
     ))
   )
 

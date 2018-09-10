@@ -22,9 +22,7 @@ describe('Dropdown', () => {
   });
 
   it('matches Link Dropdown snapshot', () => {
-    const tree = renderer
-      .create(<Dropdown options={options} trigger={'click'} />)
-      .toJSON();
+    const tree = renderer.create(<Dropdown options={options} trigger={'click'} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 

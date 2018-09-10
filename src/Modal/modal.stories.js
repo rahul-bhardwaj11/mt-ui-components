@@ -54,10 +54,7 @@ class ModalStoryComponent extends Component {
   }
 }
 
-stories.add(
-  'Default Modal',
-  withInfo('Basic usage of the Modal')(() => <ModalStoryComponent />)
-);
+stories.add('Default Modal', withInfo('Basic usage of the Modal')(() => <ModalStoryComponent />));
 
 stories.add(
   'Full width Modal',

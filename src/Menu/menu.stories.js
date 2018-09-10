@@ -17,18 +17,12 @@ stories
   .add(
     'Default Menu',
     withInfo('Basic usage of the Menu')(() => (
-      <Menu
-        options={object('options', options)}
-        mode={text('mode', 'horizontal')}
-      />
+      <Menu options={object('options', options)} mode={text('mode', 'horizontal')} />
     ))
   )
   .add(
     'Vertical Menu',
     withInfo('Vertical Menu')(() => (
-      <Menu
-        options={object('options', options)}
-        mode={text('mode', 'vertical')}
-      />
+      <Menu options={object('options', options)} mode={text('mode', 'vertical')} />
     ))
   );

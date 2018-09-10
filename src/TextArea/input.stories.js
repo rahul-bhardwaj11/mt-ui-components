@@ -17,9 +17,7 @@ stories
   )
   .add(
     'TextArea with min and max rows',
-    withInfo(
-      'Basic usage Autosize height with minimum and maximum number of lines'
-    )(() => (
+    withInfo('Basic usage Autosize height with minimum and maximum number of lines')(() => (
       <TextArea
         placeholder={text('Placeholder')}
         autosize={{

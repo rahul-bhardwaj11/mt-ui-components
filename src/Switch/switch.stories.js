@@ -10,7 +10,5 @@ stories.addDecorator(withKnobs);
 
 stories.add(
   'Default Switch',
-  withInfo('Basic usage of the Switch')(() => (
-    <Switch checked={boolean('checked', true)} />
-  ))
+  withInfo('Basic usage of the Switch')(() => <Switch checked={boolean('checked', true)} />)
 );

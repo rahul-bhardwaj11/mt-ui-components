@@ -30,15 +30,7 @@ class Dropdown extends Component {
   };
 
   render() {
-    let {
-      options,
-      trigger,
-      children,
-      type,
-      label,
-      onSelect,
-      placement
-    } = this.props;
+    let { options, trigger, children, type, label, onSelect, placement } = this.props;
     let overlay;
     if (options instanceof Array) {
       overlay = <Menu options={options} onClick={onSelect} />;

@@ -34,19 +34,14 @@ stories
   .add(
     'Default GroupButtonDropdown',
     withInfo('Basic usage of the GroupButtonDropdown')(() => (
-      <GroupButtonDropdown
-        options={object('options', options)}
-        label={text('label', 'Add')}
-      />
+      <GroupButtonDropdown options={object('options', options)} label={text('label', 'Add')} />
     ))
   )
   .add(
     'GroupButtonDropdown with any HTML children',
     withInfo('GroupButtonDropdown with any HTML children')(() => (
       <GroupButtonDropdown
-        options={
-          <SomeReactComponent content="This is child component for dropdown" />
-        }
+        options={<SomeReactComponent content="This is child component for dropdown" />}
         label={text('label', 'Add')}
       />
     ))

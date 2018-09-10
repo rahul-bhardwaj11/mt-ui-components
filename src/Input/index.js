@@ -147,10 +147,7 @@ class Input extends Component {
         >
           {maxLength && maxLength - value.length}
         </div>
-        <div
-          key="error"
-          className={classnames(errors[0] ? 'error' : 'displayN')}
-        >
+        <div key="error" className={classnames(errors[0] ? 'error' : 'displayN')}>
           {errors[0]}
         </div>
       </MtInput>

@@ -41,27 +41,11 @@ const data = [
   },
   {
     key: '3',
-    columnFirst: (
-      <Select
-        options={options}
-        defaultValue="Select"
-        style={{ minWidth: '200px' }}
-      />
-    ),
-    columnSecond: (
-      <Select
-        options={options}
-        defaultValue="Select"
-        style={{ minWidth: '200px' }}
-      />
-    ),
+    columnFirst: <Select options={options} defaultValue="Select" style={{ minWidth: '200px' }} />,
+    columnSecond: <Select options={options} defaultValue="Select" style={{ minWidth: '200px' }} />,
     columnThird: (
       <div>
-        <Select
-          options={options}
-          defaultValue="Select"
-          style={{ minWidth: '200px' }}
-        />
+        <Select options={options} defaultValue="Select" style={{ minWidth: '200px' }} />
         <span> this is dummy text</span>
       </div>
     )

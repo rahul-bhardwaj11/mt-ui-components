@@ -10,19 +10,13 @@ describe('GroupButtonDropdown', () => {
     { key: '3', content: 'Third Item' }
   ];
   it('matches default snapshot', () => {
-    const tree = renderer
-      .create(<GroupButtonDropdown options={options} label="ADD" />)
-      .toJSON();
+    const tree = renderer.create(<GroupButtonDropdown options={options} label="ADD" />).toJSON();
     expect(tree).toMatchSnapshot();
   });
   it('should handle click', () => {
     const clickSpy = jest.fn();
     const groupButtonDropdown = shallow(
-      <GroupButtonDropdown
-        options={options}
-        trigger="click"
-        onClick={clickSpy}
-      />
+      <GroupButtonDropdown options={options} trigger="click" onClick={clickSpy} />
     );
     groupButtonDropdown.find('Dropdown').simulate('click', { key: '1' });
     expect(clickSpy).toHaveBeenCalled();
