@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Button from "../Button";
-import CheckBox from "../CheckBox";
-import Icon from "../Icon";
-import Select, { components } from "react-select";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Button from '../Button';
+import CheckBox from '../CheckBox';
+import Icon from '../Icon';
+import Select, { components } from 'react-select';
 
 const initialCache = {
   options: [],
@@ -31,14 +31,14 @@ export default class AsyncSelect extends Component {
     cacheUniq: null,
     pageSize: 10,
     isButton: false,
-    buttonLabel: "filter"
+    buttonLabel: 'filter'
   };
 
   constructor(props) {
     super(props);
     const initialOptionsCache = props.options
       ? {
-          "": {
+          '': {
             isLoading: false,
             options: props.options || [],
             hasMore: true
@@ -46,14 +46,14 @@ export default class AsyncSelect extends Component {
         }
       : {};
     this.state = {
-      search: "",
+      search: '',
       optionsCache: initialOptionsCache,
       selectedItems: [],
       showSelectedValues: true,
       menuIsOpen: false,
       showButton: false,
       showInput: false,
-      inputValue: ""
+      inputValue: ''
     };
   }
 
@@ -68,7 +68,7 @@ export default class AsyncSelect extends Component {
   }
 
   onInputChange = (search, event) => {
-    if (event.action == "input-change") {
+    if (event.action == 'input-change') {
       this.setState({
         inputValue: search,
         search
@@ -195,7 +195,7 @@ export default class AsyncSelect extends Component {
         }
       }
     }));
-    if (!optionsCache[""] || optionsCache[""].hasMore) {
+    if (!optionsCache[''] || optionsCache[''].hasMore) {
       await this.loadOptions();
     }
   };
@@ -219,7 +219,7 @@ export default class AsyncSelect extends Component {
   onDone = () => {
     const { selectedItems, optionsCache } = this.state;
     const { isButton, onChange } = this.props;
-    const options = optionsCache[""].options;
+    const options = optionsCache[''].options;
     const selectedValues = selectedItems.map(selectedItem => {
       return selectedItem.value;
     });
@@ -230,11 +230,11 @@ export default class AsyncSelect extends Component {
         menuIsOpen: false,
         showSelectedValues: true,
         showInput: false,
-        inputValue: "",
+        inputValue: '',
         optionsCache: {
           ...prevState.optionsCache,
-          "": {
-            ...prevState.optionsCache[""],
+          '': {
+            ...prevState.optionsCache[''],
             options: arrangedOptions
           }
         }
@@ -271,7 +271,7 @@ export default class AsyncSelect extends Component {
     if (data.value == selectedItems[0].value)
       return (
         <div className="selectedItem">{`${data.label}${
-          selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ""
+          selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
         }`}</div>
       );
     return null;
@@ -303,7 +303,7 @@ export default class AsyncSelect extends Component {
         <div className="componentWrapper">
           <div className="buttonWrapperL">
             <Button type="text" onClick={this.onClearAll}>
-              {"Clear All"}
+              {'Clear All'}
             </Button>
           </div>
 
@@ -311,7 +311,7 @@ export default class AsyncSelect extends Component {
             <Button type="text" onClick={this.onDone}>
               {`Done`}
               <span className="doneMarginR">
-                {selectedItems.length ? `(${selectedItems.length})` : ""}
+                {selectedItems.length ? `(${selectedItems.length})` : ''}
               </span>
             </Button>
           </div>
@@ -324,7 +324,7 @@ export default class AsyncSelect extends Component {
     return (
       <div className="selectBoxWrapper">
         <div
-          className={this.state.showInput ? "activeSearch" : ""}
+          className={this.state.showInput ? 'activeSearch' : ''}
           onClick={() => {
             this.setState({
               menuIsOpen: true,
@@ -344,16 +344,16 @@ export default class AsyncSelect extends Component {
       return <components.Input {...props} />;
     }
     return (
-      <div className={props.value.length ? "activeInput" : ""}>
+      <div className={props.value.length ? 'activeInput' : ''}>
         <components.Input {...props} />
-        <Icon type="Cancel" onClick={() => this.setState({ inputValue: "" })} />
+        <Icon type="Cancel" onClick={() => this.setState({ inputValue: '' })} />
       </div>
     );
   };
 
   normalizeOption = options => {
     if (!this.props.isMulti && !this.state.search.length) {
-      options.unshift({ label: "None", value: "None" });
+      options.unshift({ label: 'None', value: 'None' });
     }
     return options;
   };
@@ -430,7 +430,7 @@ export default class AsyncSelect extends Component {
     return (
       <Select
         {...this.props}
-        classNamePrefix={"mt-react-select"}
+        classNamePrefix={'mt-react-select'}
         onInputChange={this.onInputChange}
         isLoading={currentOptions.isLoading}
         options={options}
