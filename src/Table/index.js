@@ -171,7 +171,6 @@ const MtTable = styled.div`
         &:focus-within {
           & > td {
             background: ${theme.colors.PORCELAIN};
-            cursor: pointer;
           }
         }
         td {
@@ -204,31 +203,26 @@ const MtTable = styled.div`
         &.ant-table-row-selected {
           & > td {
             background: ${theme.colors.TROPICAL_BLUE};
-            cursor: pointer;
           }
           &:hover {
             & > td {
               background: ${theme.colors.TROPICAL_BLUE};
-              cursor: pointer;
             }
           }
         }
         &.ant-table-row-hover {
           & > td {
             background: ${theme.colors.PORCELAIN};
-            cursor: pointer;
           }
           &:hover {
             & > td {
               background: ${theme.colors.PORCELAIN};
-              cursor: pointer;
             }
           }
         }
         &:hover {
           & > td {
             background: ${theme.colors.PORCELAIN};
-            cursor: pointer;
           }
         }
       }
