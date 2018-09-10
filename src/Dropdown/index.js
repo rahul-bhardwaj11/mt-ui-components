@@ -16,7 +16,7 @@ class Dropdown extends Component {
     options: PropTypes.any.isRequired,
     trigger: PropTypes.string,
     children: PropTypes.node,
-    onClick: PropTypes.func,
+    onSelect: PropTypes.func,
     type: PropTypes.string,
     label: PropTypes.string,
     getPopupContainer: PropTypes.func,
@@ -25,13 +25,8 @@ class Dropdown extends Component {
 
   static defaultProps = {
     trigger: 'hover',
-    placement: 'bottomRight'
-  };
-
-  onClick = key => {
-    if (this.props.onClick) {
-      this.props.onClick(key);
-    }
+    placement: 'bottomRight',
+    onSelect: () => {}
   };
 
   render() {
@@ -41,12 +36,12 @@ class Dropdown extends Component {
       children,
       type,
       label,
-      onClick,
+      onSelect,
       placement
     } = this.props;
     let overlay;
     if (options instanceof Array) {
-      overlay = <Menu options={options} onClick={this.onClick} />;
+      overlay = <Menu options={options} onClick={onSelect} />;
     } else {
       overlay = options;
     }
@@ -66,7 +61,6 @@ class Dropdown extends Component {
           overlay={overlay}
           trigger={[trigger]}
           prefixCls={'ant-dropdown'}
-          onClick={onClick}
           getPopupContainer={() => {
             return this.dropdownRef;
           }}

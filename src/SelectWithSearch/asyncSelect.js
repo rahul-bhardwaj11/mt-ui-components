@@ -281,10 +281,15 @@ export default class AsyncSelect extends Component {
     const { selectedItems } = this.state;
     return !isDisabled ? (
       <div
-        onClick={() => this.onCheckboxClick(data)}
+        onClick={() => {
+          !data.disabled && this.onCheckboxClick(data);
+        }}
         className="checkboxWrapper"
       >
-        <CheckBox checked={selectedItems.indexOf(data) > -1 ? true : false} />
+        <CheckBox
+          disabled={data.disabled}
+          checked={selectedItems.indexOf(data) > -1 ? true : false}
+        />
         <span className="dataLabel">{data.label}</span>
       </div>
     ) : null;
