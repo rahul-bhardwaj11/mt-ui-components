@@ -34,6 +34,15 @@
   .floatR {
     float: right;
   }
+  .textAlignC {
+    text-align: center;
+  }
+  .textAlignL {
+    text-align: left;
+  }
+  .textAlignR {
+    text-align: right;
+  }
 
   .link {
     color: get('colors.INDIGO');
@@ -45,13 +54,7 @@
       color: get('colors.INDIGO');
     }
   }
-  // .rightTab {
-  //   margin-left: 260px;
-  //   background: #f7f7f7;
-  //   padding: 50px 50px 0 50px;
-  //   height: calc(100vh - 181px);
-  //   overflow: auto;
-  // }
+
   .boxStyle {
     border: 1px solid get('colors.ALTO');
     padding: 12px 15px;
@@ -173,46 +176,45 @@
 
   // func for css  margin
 
-  @for $m from 1 through 10 {
+  @for $m from 0 through 50 {
     @each $key in L, R, T, B {
       @if $key == L {
-        .margin#{$key}#{$m * 5} {
-          margin-left: 5px * $m;
+        .margin#{$key}#{$m + 1} {
+          margin-left: 1px + $m;
         }
       } @else if $key == R {
-        .margin#{$key}#{$m * 5} {
-          margin-right: 5px * $m;
+        .margin#{$key}#{$m + 1} {
+          margin-right: 1px + $m;
         }
       } @else if $key == T {
-        .margin#{$key}#{$m * 5} {
-          margin-top: 5px * $m;
+        .margin#{$key}#{$m + 1} {
+          margin-top: 1px + $m;
         }
       } @else {
-        .margin#{$key}#{$m * 5} {
-          margin-bottom: 5px * $m;
+        .margin#{$key}#{$m + 1} {
+          margin-bottom: 1px + $m;
         }
       }
     }
   }
   // func for css  padding
-
-  @for $p from 1 through 10 {
+  @for $p from 0 through 50 {
     @each $key in L, R, T, B {
       @if $key == L {
-        .padding#{$key}#{$p * 5} {
-          padding-left: 5px * $p;
+        .padding#{$key}#{$p + 1} {
+          padding-left: 1px + $p;
         }
       } @else if $key == R {
-        .padding#{$key}#{$p * 5} {
-          padding-right: 5px * $p;
+        .padding#{$key}#{$p + 1} {
+          padding-right: 1px + $p;
         }
       } @else if $key == T {
-        .padding#{$key}#{$p * 5} {
-          padding-top: 5px * $p;
+        .padding#{$key}#{$p + 1} {
+          padding-top: 1px + $p;
         }
       } @else {
-        .padding#{$key}#{$p * 5} {
-          padding-bottom: 5px * $p;
+        .padding#{$key}#{$p + 1} {
+          padding-bottom: 1px + $p;
         }
       }
     }
