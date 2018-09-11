@@ -195,13 +195,14 @@ const MtButton = styled.span`
     outline: none;
     outline-style: none;
   }
+
   /* Text Button styles */
   .ant-btn-text {
     border: 1px dashed transparent;
     background-color: transparent;
     font-size: 14px;
     height: 32px;
-    padding: 0px 32px;
+    padding: 0px 12px;
     color: ${theme.colors.OUTER_SPACE};
     ${props =>
       props.active
@@ -219,10 +220,10 @@ const MtButton = styled.span`
           ? `color: ${theme.colors.INDIGO};
         background-color: ${theme.colors.TROPICAL_BLUE}`
           : `background-color: transparent;
-          color: ${theme.colors.INDIGO};`};
+          color: ${theme.colors.INDIGO}`};
     }
     &.ant-btn-sm {
-      color: #fff;
+      color: ${theme.colors.OUTER_SPACE};
       font-size: 12px;
       padding: 0px 12px;
     }

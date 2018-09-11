@@ -44,6 +44,11 @@
     text-align: right;
   }
 
+  .ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
   .link {
     color: get('colors.INDIGO');
     cursor: pointer;
