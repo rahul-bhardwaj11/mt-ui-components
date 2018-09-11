@@ -29,13 +29,7 @@ const MtCollapse = styled.div`
     font-weight: bold;
     background: #fff;
   }
-  // .ant-collapse {
-  //   & > .ant-collapse-item {
-  //     & > .ant-collapse-header {
-  //       padding: 12px 12px 12px 15px;
-  //     }
-  //   }
-  // }
+
   .ant-collapse {
     & > .ant-collapse-item {
       & > .ant-collapse-header {
