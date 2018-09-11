@@ -11,6 +11,10 @@ const MtSlider = styled.div`
     border: 2px solid ${theme.colors.INDIGO};
     background-color: ${theme.colors.INDIGO};
     ${mixins.size('12px', '12px')};
+    &:focus {
+      box-shadow: 0 0 0 0 red;
+      border-color: 2px solid ${theme.colors.INDIGO};
+    }
     &.ant-tooltip-open {
       &:hover {
         border: 2px solid ${theme.colors.INDIGO};

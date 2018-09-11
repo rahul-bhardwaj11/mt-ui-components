@@ -70,7 +70,8 @@ class CheckBox extends Component {
     onClick: PropTypes.func,
     onChange: PropTypes.func,
     disabled: PropTypes.bool,
-    indeterminate: PropTypes.bool
+    indeterminate: PropTypes.bool,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -96,9 +97,9 @@ class CheckBox extends Component {
   }
 
   render() {
-    const { label, indeterminate, disabled } = this.props;
+    const { label, indeterminate, disabled, className } = this.props;
     return (
-      <MtCheckbox>
+      <MtCheckbox className={className}>
         <AntCheckbox
           checked={this.state.checked}
           onChange={this.onChange}
