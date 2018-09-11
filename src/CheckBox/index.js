@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import AntCheckbox from "antd/lib/checkbox";
-import "antd/lib/checkbox/style/index.css";
-import styled from "styled-components";
-import theme from "../styles/theme";
+import AntCheckbox from 'antd/lib/checkbox';
+import 'antd/lib/checkbox/style/index.css';
+import styled from 'styled-components';
+import theme from '../styles/theme';
 
 const noop = () => undefined;
 

@@ -1,24 +1,24 @@
-import React from "react";
-import { storiesOf } from "@storybook/react";
-import SelectWithSearch from "./index";
-import { withInfo } from "@storybook/addon-info";
-import { withKnobs } from "@storybook/addon-knobs";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import SelectWithSearch from './index';
+import { withInfo } from '@storybook/addon-info';
+import { withKnobs } from '@storybook/addon-knobs';
 //import Menu from '../Menu';
 
-const stories = storiesOf("SelectWithSearch", module);
+const stories = storiesOf('SelectWithSearch', module);
 stories.addDecorator(withKnobs);
 
 const colourOptions = [
-  { value: "ocean", label: "Ocean", color: "#00B8D9" },
-  { value: "blue", label: "Blue", color: "#0052CC", disabled: true },
-  { value: "purple", label: "Purple", color: "#5243AA", disabled: true },
-  { value: "red", label: "Red", color: "#FF5630" },
-  { value: "orange", label: "Orange", color: "#FF8B00" },
-  { value: "yellow", label: "Yellow", color: "#FFC400" },
-  { value: "green", label: "Green", color: "#36B37E" },
-  { value: "forest", label: "Forest", color: "#00875A" },
-  { value: "slate", label: "Slate", color: "#253858" },
-  { value: "silver", label: "Silver", color: "#666666" }
+  { value: 'ocean', label: 'Ocean', color: '#00B8D9' },
+  { value: 'blue', label: 'Blue', color: '#0052CC', disabled: true },
+  { value: 'purple', label: 'Purple', color: '#5243AA', disabled: true },
+  { value: 'red', label: 'Red', color: '#FF5630' },
+  { value: 'orange', label: 'Orange', color: '#FF8B00' },
+  { value: 'yellow', label: 'Yellow', color: '#FFC400' },
+  { value: 'green', label: 'Green', color: '#36B37E' },
+  { value: 'forest', label: 'Forest', color: '#00875A' },
+  { value: 'slate', label: 'Slate', color: '#253858' },
+  { value: 'silver', label: 'Silver', color: '#666666' }
 ];
 
 const filterColors = search =>
@@ -34,8 +34,8 @@ const promiseOption = ({ search }) =>
   });
 
 stories.add(
-  "Sync Select",
-  withInfo("Basic usage of the SelectWithSearch")(() => (
+  'Sync Select',
+  withInfo('Basic usage of the SelectWithSearch')(() => (
     <SelectWithSearch
       defaultValue={colourOptions[2]}
       label="Select..."
@@ -46,8 +46,8 @@ stories.add(
 );
 
 stories.add(
-  "Sync MultiSelect",
-  withInfo("Basic usage of the SelectWithSearch")(() => (
+  'Sync MultiSelect',
+  withInfo('Basic usage of the SelectWithSearch')(() => (
     <SelectWithSearch
       defaultValue={colourOptions[2]}
       label="Select..."
@@ -59,8 +59,8 @@ stories.add(
 );
 
 stories.add(
-  "Sync MultiSelect with initially Button",
-  withInfo("Basic usage of the SelectWithSearch")(() => (
+  'Sync MultiSelect with initially Button',
+  withInfo('Basic usage of the SelectWithSearch')(() => (
     <SelectWithSearch
       defaultValue={colourOptions[2]}
       label="Select..."
@@ -75,8 +75,8 @@ stories.add(
 );
 
 stories.add(
-  "Async Select",
-  withInfo("Usage of the Async Infinite Select")(() => (
+  'Async Select',
+  withInfo('Usage of the Async Infinite Select')(() => (
     <SelectWithSearch
       async
       promiseOption={promiseOption}
@@ -87,8 +87,8 @@ stories.add(
 );
 
 stories.add(
-  "Async MultiSelect",
-  withInfo("Usage of the Async Infinite Select")(() => (
+  'Async MultiSelect',
+  withInfo('Usage of the Async Infinite Select')(() => (
     <SelectWithSearch
       async
       promiseOption={promiseOption}

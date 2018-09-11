@@ -1,3 +1,4 @@
+
 {
   "name": "@mindtickle/mt-ui-components",
   "version": "0.0.13-0",
@@ -14,14 +15,14 @@
     "build:prod": "babel src --out-dir lib --copy-files --ignore test,*.stories.js && npm run test && npm run lint",
     "babel": "babel src --out-dir lib --copy-files --ignore test,*.stories.js",
     "babel:watch": "BABEL_ENV=dev babel src --out-dir lib --copy-files --ignore test,*.stories.js --watch",
-    "build": "npm run babel && npm run lint",
+    "build": "npm run babel && npm run lint && npm run prettier",
     "postbuild": "node utils/generateModulesList.js",
     "deploy:sb": "npm run build-storybook && gh-pages -m 'update storybook' -d ./build",
     "deploy": "sh ./deploy.sh",
     "build-storybook": "build-storybook -o ./build",
     "precommit": "lint-staged",
-    "prettier": "prettier --single-quote --write",
-    "lint": "./node_modules/.bin/eslint src/**/*.js",
+    "prettier": "prettier --single-quote --write src/**/*.{js,scss} lib/**/*.{js,scss}",
+    "lint": "./node_modules/.bin/eslint src/**/*.js ",
     "lint:watch": "./node_modules/.bin/esw src/**/*.js -w"
   },
   "files": [
@@ -95,7 +96,7 @@
   "pre-commit": "precommit",
   "lint-staged": {
     "src/{,**/}*.{js,jsx,json,css,scss}": [
-      "prettier --write",
+      "prettier --single-quote  --write",
       "git add"
     ],
     "src/{,**/}*.{js,jsx}": [
