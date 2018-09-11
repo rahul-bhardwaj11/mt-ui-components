@@ -223,7 +223,7 @@ const MtButton = styled.span`
           color: ${theme.colors.INDIGO}`};
     }
     &.ant-btn-sm {
-      color: ${theme.colors.INDIGO};
+      color: ${theme.colors.OUTER_SPACE};
       font-size: 12px;
       padding: 0px 12px;
     }
