@@ -57,7 +57,7 @@ const MtModal = styled(AntModal)`
         }
         &:focus,
         &.active {
-          ${mixins.primaryBtnHover()};       
+          ${mixins.primaryBtnHover()};
           color: #fff;
         }
       }
@@ -101,4 +101,5 @@ class Modal extends Component {
     );
   }
 }
+Modal.confirm = AntModal.confirm;
 export default Modal;
