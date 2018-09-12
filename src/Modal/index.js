@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import AntModal from "antd/lib/modal";
-import "antd/lib/modal/style/index.css";
-import "../styles/override.scss";
-import styled from "styled-components";
-import theme from "../styles/theme";
-import mixins from "../styles/mixins";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import AntModal from 'antd/lib/modal';
+import 'antd/lib/modal/style/index.css';
+import '../styles/override.scss';
+import styled from 'styled-components';
+import theme from '../styles/theme';
+import mixins from '../styles/mixins';
 
 const MtModal = styled(AntModal)`
   .ant-modal-content {
@@ -74,13 +74,13 @@ const MODAL_WIDTH_MAP = {
   small: 500,
   medium: 600,
   large: 800,
-  full: "100%"
+  full: '100%'
 };
 
 class Modal extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    type: PropTypes.oneOf(["small", "medium", "large", "full"])
+    type: PropTypes.oneOf(['small', 'medium', 'large', 'full'])
   };
 
   render() {
@@ -90,7 +90,7 @@ class Modal extends Component {
       width: MODAL_WIDTH_MAP[type],
       style: {
         ...this.props.style,
-        top: type === "full" ? 0 : undefined
+        top: type === 'full' ? 0 : undefined
       }
     };
     return (
