@@ -108,6 +108,7 @@ export default class SyncSelect extends Component {
   };
 
   onDone = () => {
+    //console.log("blur");
     this.isBlurActive = true;
     const { selectedItems, options } = this.state;
     const { isButton, onChange } = this.props;
@@ -174,16 +175,11 @@ export default class SyncSelect extends Component {
       );
     return !isDisabled ? (
       <div
-        onClick={() => {
-          !data.disabled && this.onCheckboxClick(data);
-        }}
+        onClick={() => this.onCheckboxClick(data)}
         className="checkboxWrapper"
         title={data.label}
       >
-        <CheckBox
-          disabled={data.disabled}
-          checked={selectedItems.indexOf(data) > -1}
-        />
+        <CheckBox checked={selectedItems.indexOf(data) > -1} />
         <span className="dataLabel">{data.label}</span>
       </div>
     ) : null;
@@ -315,7 +311,8 @@ export default class SyncSelect extends Component {
           inputValue: inputValue,
           onInputChange: this.onInputChange,
           controlShouldRenderValue: !showInput,
-          menuIsOpen: menuIsOpen
+          menuIsOpen: menuIsOpen,
+          value: "rahul"
         };
 
     return (

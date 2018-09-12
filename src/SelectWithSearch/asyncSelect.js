@@ -372,7 +372,10 @@ export default class AsyncSelect extends Component {
           <div className={inputValue.length ? "activeInput" : ""}>
             <Icon
               type="cross"
-              onClick={() => this.setState({ inputValue: "" })}
+              onClick={() => {
+                //  console.log("cross");
+                this.setState({ inputValue: "" });
+              }}
             />
           </div>
         </div>
