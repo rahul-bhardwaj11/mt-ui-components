@@ -66,7 +66,7 @@ class Dropdown extends Component {
           }}
           placement={placement}
         >
-          <div> {children} </div>
+          {children}
         </AntDropdown>
       </MtWrapper>
     );
