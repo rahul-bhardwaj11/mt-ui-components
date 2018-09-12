@@ -11,7 +11,7 @@ stories.addDecorator(withKnobs);
 const colourOptions = [
   { value: 'ocean', label: 'Ocean', color: '#00B8D9' },
   { value: 'blue', label: 'Blue', color: '#0052CC', disabled: true },
-  { value: 'purple', label: 'Purple', color: '#5243AA' },
+  { value: 'purple', label: 'Purple', color: '#5243AA', disabled: true },
   { value: 'red', label: 'Red', color: '#FF5630' },
   { value: 'orange', label: 'Orange', color: '#FF8B00' },
   { value: 'yellow', label: 'Yellow', color: '#FFC400' },
@@ -68,6 +68,8 @@ stories.add(
       onChange={() => {}}
       isMulti
       isButton={true}
+      buttonMaxWidth={85}
+      buttonWidth={85}
     />
   ))
 );

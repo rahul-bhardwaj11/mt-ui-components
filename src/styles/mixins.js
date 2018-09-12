@@ -8,13 +8,13 @@ const mixins = {
     padding: 0px 12px;
   `,
   primaryBtn: () => `
-    border: 1px solid ${theme.colors.LIGHT_BLUE};
-    background-color: ${theme.colors.LIGHT_BLUE};
+    border: 1px solid ${theme.colors.INDIGO};
+    background-color: ${theme.colors.INDIGO};
   `,
 
   primaryBtnHover: () => `
-    border: 1px solid get('colors.JODHPUR');
-    background-color: get('colors.JODHPUR');
+    border: 1px solid ${theme.colors.JODHPUR};
+    background-color: ${theme.colors.JODHPUR};
   `,
 
   textBtn: () => `

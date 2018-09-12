@@ -12,21 +12,8 @@ class ConfirmBox extends Component {
   render() {
     let { children } = this.props;
     return (
-      <div
-        ref={el => {
-          if (el) {
-            this.confirmDropdownRef = el;
-          }
-        }}
-      >
-        <AntPopconfirm
-          {...this.props}
-          getPopupContainer={() => {
-            return this.confirmDropdownRef;
-          }}
-        >
-          {children}
-        </AntPopconfirm>
+      <div>
+        <AntPopconfirm {...this.props}>{children}</AntPopconfirm>
       </div>
     );
   }

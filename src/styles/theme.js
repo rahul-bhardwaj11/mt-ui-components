@@ -29,7 +29,8 @@ const theme = {
     PEACH_CREAM: '#FFE9E1',
     PIPPIN: '#FFE1E1',
     FROG: '#E9D0FF',
-    PASTEL_GREEN: '#35C759'
+    PASTEL_GREEN: '#35C759',
+    ICON: '#888888'
   },
   typography: {},
   breakpoints: {

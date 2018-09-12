@@ -9,6 +9,7 @@ const MtCollapse = styled.div`
   .ant-collapse {
     border: 0px;
     border-radius: 0px;
+    background: transparent;
   }
   .ant-collapse {
     & > .ant-collapse-item {
@@ -28,13 +29,7 @@ const MtCollapse = styled.div`
     font-weight: bold;
     background: #fff;
   }
-  .ant-collapse {
-    & > .ant-collapse-item {
-      & > .ant-collapse-header {
-        padding: 12px 12px 12px 15px;
-      }
-    }
-  }
+
   .ant-collapse {
     & > .ant-collapse-item {
       & > .ant-collapse-header {
@@ -46,7 +41,6 @@ const MtCollapse = styled.div`
           border-right: 6px solid transparent;
           border-top: 7px solid #6f7583;
           border-radius: 2px;
-          margin-top: 20px;
           position: absolute;
           left: 91%;
         }
@@ -57,9 +51,10 @@ const MtCollapse = styled.div`
     & > .ant-collapse-item {
       & > .ant-collapse-header[aria-expanded='true'] {
         .arrow {
-          transform: rotate(270deg);
+          transform: rotate(-90deg);
           position: absolute;
           left: 91%;
+          top: 43%;
         }
       }
     }
@@ -77,13 +72,14 @@ class Collapse extends Component {
     let { options, panelStyle } = this.props;
     return (
       <MtCollapse>
-        <AntCollapse {...this.props} defaultActiveKey={['0']}>
+        <AntCollapse defaultActiveKey={['0']} {...this.props}>
           {options.map((option, index) => {
             return (
               <AntCollapse.Panel
-                key={index}
+                key={option.value || index}
                 header={option.header}
                 style={panelStyle}
+                className={option.className}
               >
                 {typeof option.content === 'string' ? (
                   <StringToHTML content={option.content} />
