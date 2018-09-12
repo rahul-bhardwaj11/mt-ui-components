@@ -381,12 +381,16 @@ class Table extends Component {
       this.scrollElement.removeEventListener('scroll', this.onScroll, false);
     }
   }
-  componentWillReceiveProps() {
-    const { dataSource } = this.props;
+  componentWillReceiveProps(nextProp) {
+    const { dataSource } = nextProp;
     const { selectAll, selectedRowKeys } = this.state;
-    if (selectAll && dataSource.length > selectedRowKeys.length) {
-      this.onChange(dataSource.map(v => v.key), dataSource);
+    let selectedRows = dataSource.filter(v => selectedRowKeys.includes(v.key));
+
+    if (selectAll && dataSource.length > selectedRows.length) {
+      selectedRows = dataSource;
     }
+    if (selectedRowKeys.length !== selectedRows.length)
+      this.onChange(selectedRows.map(row => row.key), selectedRows);
   }
   onChange = (selectedRowKeys, selectedRows) => {
     let {
