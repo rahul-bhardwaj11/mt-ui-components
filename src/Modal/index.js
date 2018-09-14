@@ -74,33 +74,31 @@ const MtModal = styled(AntModal)`
 const MODAL_WIDTH_MAP = {
   small: 500,
   medium: 600,
-  large: 800,
+  large: 720,
   full: '100%'
 };
 
 class Modal extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    className: PropTypes.string,
     type: PropTypes.oneOf(['small', 'medium', 'large', 'full'])
   };
 
+  static defaultProps = {
+    type: 'medium'
+  };
+
   render() {
-    let { children, type, className } = this.props;
+    let { children, type, width } = this.props;
     let customProps = {
       ...this.props,
-      width: MODAL_WIDTH_MAP[type],
+      width: width || MODAL_WIDTH_MAP[type],
       style: {
-        ...this.props.style,
-        top: type === 'full' ? 0 : undefined
+        top: type === 'full' ? 0 : undefined,
+        ...this.props.style
       }
     };
-    let width = MODAL_WIDTH_MAP[type];
-    return (
-      <MtModal {...customProps} width={width} className={className}>
-        {children}
-      </MtModal>
-    );
+    return <MtModal {...customProps}>{children}</MtModal>;
   }
 }
 Modal.confirm = AntModal.confirm;

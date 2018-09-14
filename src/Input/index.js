@@ -157,5 +157,46 @@ class Input extends Component {
     );
   }
 }
-Input.TextArea = AntInput.TextArea;
+
+class TextArea extends Component {
+  static propTypes = {
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    onChange: PropTypes.func
+  };
+
+  static defaultProps = {
+    onChange: noop
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: this.props.value
+    };
+  }
+
+  onChange = event => {
+    const { onChange } = this.props;
+    const value = event.target.value;
+    this.setState({ value });
+    onChange(event, value);
+  };
+
+  componentWillReceiveProps(newProps) {
+    const { value } = this.props;
+    let { value: newValue } = newProps;
+    if (newValue !== value) {
+      this.setState({ value: newValue });
+    }
+  }
+
+  render() {
+    const { value } = this.state;
+    return (
+      <Input.TextArea {...this.props} value={value} onChange={this.onChange} />
+    );
+  }
+}
+
+Input.TextArea = TextArea;
 export default Input;
