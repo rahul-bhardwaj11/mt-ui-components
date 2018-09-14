@@ -29,7 +29,6 @@ const MtCollapse = styled.div`
     font-weight: bold;
     background: #fff;
   }
-
   .ant-collapse {
     & > .ant-collapse-item {
       & > .ant-collapse-header {
@@ -41,6 +40,7 @@ const MtCollapse = styled.div`
           border-right: 6px solid transparent;
           border-top: 7px solid #6f7583;
           border-radius: 2px;
+          margin-bottom: 20px;
           position: absolute;
           left: 91%;
         }
@@ -54,7 +54,6 @@ const MtCollapse = styled.div`
           transform: rotate(-90deg);
           position: absolute;
           left: 91%;
-          top: 43%;
         }
       }
     }
