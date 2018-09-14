@@ -13,7 +13,7 @@ const MtModal = styled(AntModal)`
   }
   .ant-modal-body {
     padding: 24px 32px;
-    overflow: scroll;
+    overflow: auto;
   }
   .ant-modal-header {
     border-bottom: 0px;
@@ -68,6 +68,7 @@ const MtModal = styled(AntModal)`
       }
     }
   }
+
 `;
 
 const MODAL_WIDTH_MAP = {
@@ -80,11 +81,12 @@ const MODAL_WIDTH_MAP = {
 class Modal extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    className: PropTypes.string,
     type: PropTypes.oneOf(['small', 'medium', 'large', 'full'])
   };
 
   render() {
-    let { children, type } = this.props;
+    let { children, type, className } = this.props;
     let customProps = {
       ...this.props,
       width: MODAL_WIDTH_MAP[type],
@@ -95,7 +97,7 @@ class Modal extends Component {
     };
     let width = MODAL_WIDTH_MAP[type];
     return (
-      <MtModal {...customProps} width={width}>
+      <MtModal {...customProps} width={width} className={className}>
         {children}
       </MtModal>
     );

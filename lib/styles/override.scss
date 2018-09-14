@@ -171,4 +171,60 @@
     transition-duration: 0.35s;
     transition-timing-function: ease;
   }
+
+  // calendar css
+  .ant-calendar-today {
+    .ant-calendar-date {
+      background: get('colors.INDIGO');
+      border: 1px solid get('colors.INDIGO');
+      border-radius: 4px;
+      color: #fff;
+    }
+  }
+  .ant-calendar-footer {
+    display: none;
+  }
+  .ant-calendar-last-month-cell {
+    .ant-calendar-date {
+      color: get('colors.OUTER_SPACE');
+    }
+  }
+  .ant-calendar-date {
+    color: get('colors.DARK_OUTER_SPACE');
+    font-size: 12px;
+    font-weight: 600;
+
+    &:hover {
+      background: get('colors.INDIGO');
+      border: 1px solid get('colors.INDIGO');
+      border-radius: 4px;
+      color: #fff;
+    }
+  }
+  .ant-calendar-column-header-inner {
+    color: get('colors.OUTER_SPACE');
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .ant-calendar-next-month-btn-day .ant-calendar-date {
+    color: get('colors.OUTER_SPACE');
+  }
+  // calendar css
+
+  // confirm css
+  .ant-confirm-confirm .ant-confirm-body > .anticon {
+    display: none;
+  }
+  .ant-confirm-body .ant-confirm-content {
+    margin-left: 0px;
+  }
+  .ant-confirm .ant-confirm-btns button + button {
+    background: get('colors.INDIGO');
+    border: 1px solid get('colors.INDIGO');
+  }
+  .ant-confirm-body .ant-confirm-title {
+    @include blackLink;
+  }
+  // confirm css
 }

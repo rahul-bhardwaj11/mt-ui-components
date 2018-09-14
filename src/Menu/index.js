@@ -74,9 +74,6 @@ const MtMenu = styled.div`
       color: #8e9194;
       padding: 0px;
       margin: 0px;
-      line-height: 20px;
-      height: 20px;
-
       text-align: left;
       &:hover {
         color: black;
@@ -87,6 +84,7 @@ const MtMenu = styled.div`
     font-size: 15px;
     color: #8e9194;
     padding: 0px 8px;
+
     &:hover {
       color: #fff;
     }
@@ -123,8 +121,6 @@ const MtMenu = styled.div`
       padding-left: 0px !important;
       float: left;
       text-align: left;
-      height: auto;
-      line-height: 20px;
       margin: 0px;
       font-size: 12px;
     }
@@ -150,6 +146,10 @@ const MtMenu = styled.div`
   }
   .cautious {
     color: ${theme.colors.BITTERSWEET};
+    &:active {
+      background-color: ${theme.colors.BITTERSWEET};
+      color: #fff;
+    }
     &:hover {
       background-color: ${theme.colors.BITTERSWEET};
       color: #fff;

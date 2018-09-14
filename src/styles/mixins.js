@@ -26,13 +26,15 @@ const mixins = {
     fontSize = '14px',
     fontWeight = 600,
     color = '#2A2E36',
-    lineHeight = '22px'
+    lineHeight = '22px',
+    textTransform = 'inherit'
   }) => {
     return `
     font-size: ${fontSize};
     font-weight: ${fontWeight};
     color: ${color};
     line-height: ${lineHeight};
+    text-transform: ${textTransform};
   `;
   },
 
@@ -194,7 +196,7 @@ const mixins = {
       fontWeight: 600,
       color: theme.colors.OUTER_SPACE,
       lineHeight: '16px',
-      'text-transform': 'uppercase'
+      textTransform: 'uppercase'
     }),
 
   // number ----------//
