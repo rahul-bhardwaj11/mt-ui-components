@@ -167,13 +167,13 @@ class Menu extends Component {
     itemStyle: PropTypes.object
   };
 
-  onClick = ({ key }) => {
-    if (this.props.onClick) {
-      this.props.onClick(key);
-    }
-  };
   static defaultProps = {
-    style: { paddingLeft: '0px' }
+    style: { paddingLeft: '0px' },
+    onClick: () => {}
+  };
+
+  onClick = ({ key }) => {
+    this.props.onClick(key);
   };
 
   render() {
