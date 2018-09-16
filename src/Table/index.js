@@ -415,7 +415,8 @@ class Table extends Component {
           size: 'sizeXSmall',
           type: 'Small',
           style: {
-            padding: '12px 0px'
+            padding: '12px 0px',
+            backgroundColor: '#ffffff'
           }
         }
       : DEFAULT_LOADER_PROPS;

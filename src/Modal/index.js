@@ -42,14 +42,12 @@ const MtModal = styled(AntModal)`
     background: ${theme.colors.PORCELAIN};
     border-top: 0px;
     .ant-btn {
-      ${mixins.textBtn()}
-      ${mixins.button()}
+      ${mixins.textBtn()}      
       color: ${theme.colors.OUTER_SPACE};
       min-width: 75px;
 
       &.ant-btn-primary {
-        ${mixins.primaryBtn()}
-        ${mixins.button()}
+        ${mixins.primaryBtn()}        
         color: #fff;
         &:hover {
           ${mixins.primaryBtnHover()}
