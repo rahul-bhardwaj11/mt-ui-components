@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import AntCard from "antd/lib/card";
-import styled from "styled-components";
-import "antd/lib/card/style/index.css";
-import mixins from "../styles/mixins";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import AntCard from 'antd/lib/card';
+import styled from 'styled-components';
+import 'antd/lib/card/style/index.css';
+import mixins from '../styles/mixins';
 
 const MtCard = styled.div`
   .ant-card {
