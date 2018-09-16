@@ -1,16 +1,20 @@
-import React, { Component } from "react";
-import AntSlider from "antd/lib/slider";
-import styled from "styled-components";
-import "antd/lib/slider/style/index.css";
-import "antd/lib/tooltip/style/index.css";
-import theme from "../styles/theme";
-import mixins from "../styles/mixins";
+import React, { Component } from 'react';
+import AntSlider from 'antd/lib/slider';
+import styled from 'styled-components';
+import 'antd/lib/slider/style/index.css';
+import 'antd/lib/tooltip/style/index.css';
+import theme from '../styles/theme';
+import mixins from '../styles/mixins';
 
 const MtSlider = styled.div`
   .ant-slider-handle {
     border: 2px solid ${theme.colors.INDIGO};
     background-color: ${theme.colors.INDIGO};
-    ${mixins.size("12px", "12px")};
+    ${mixins.size('12px', '12px')};
+    &:focus {
+      box-shadow: 0 0 0 0 red;
+      border-color: 2px solid ${theme.colors.INDIGO};
+    }
     &.ant-tooltip-open {
       &:hover {
         border: 2px solid ${theme.colors.INDIGO};

@@ -1,32 +1,32 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import AntTable from "antd/lib/table";
-import "antd/lib/table/style/index.css";
-import "antd/lib/checkbox/style/index.css";
-import styled from "styled-components";
-import theme from "../styles/theme";
-import mixins from "../styles/mixins.js";
-import ActionBar from "../ActionBar";
-import Loader from "../Loader";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import AntTable from 'antd/lib/table';
+import 'antd/lib/table/style/index.css';
+import 'antd/lib/checkbox/style/index.css';
+import styled from 'styled-components';
+import theme from '../styles/theme';
+import mixins from '../styles/mixins.js';
+import ActionBar from '../ActionBar';
+import Loader from '../Loader';
 
 const DEFAULT_LOADER_PROPS = {
-  type: "Full",
-  size: "sizeSmall",
+  type: 'Full',
+  size: 'sizeSmall',
   style: { opacity: 0.5 }
 };
 
 const DEFAULT_TH_PADDING = {
-  pTop: "16px",
-  pRight: "0",
-  pBottom: "16px",
-  pLeft: "32px"
+  pTop: '16px',
+  pRight: '0',
+  pBottom: '16px',
+  pLeft: '32px'
 };
 
 const DEFAULT_TD_PADDING = {
-  pTop: "12px",
-  pRight: "0",
-  pBottom: "12px",
-  pLeft: "32px"
+  pTop: '12px',
+  pRight: '0',
+  pBottom: '12px',
+  pLeft: '32px'
 };
 
 const MtTable = styled.div`
@@ -171,7 +171,6 @@ const MtTable = styled.div`
         &:focus-within {
           & > td {
             background: ${theme.colors.PORCELAIN};
-            cursor: pointer;
           }
         }
         td {
@@ -204,31 +203,26 @@ const MtTable = styled.div`
         &.ant-table-row-selected {
           & > td {
             background: ${theme.colors.TROPICAL_BLUE};
-            cursor: pointer;
           }
           &:hover {
             & > td {
               background: ${theme.colors.TROPICAL_BLUE};
-              cursor: pointer;
             }
           }
         }
         &.ant-table-row-hover {
           & > td {
             background: ${theme.colors.PORCELAIN};
-            cursor: pointer;
           }
           &:hover {
             & > td {
               background: ${theme.colors.PORCELAIN};
-              cursor: pointer;
             }
           }
         }
         &:hover {
           & > td {
             background: ${theme.colors.PORCELAIN};
-            cursor: pointer;
           }
         }
       }
@@ -365,7 +359,7 @@ class Table extends Component {
       if (infiniteScroll && hasMore) {
         this.fetch();
       } else {
-        window.removeEventListener("scroll", this.onScroll, false);
+        window.removeEventListener('scroll', this.onScroll, false);
       }
     }
   };
@@ -374,9 +368,9 @@ class Table extends Component {
     if (infiniteScroll && this.tableRef) {
       this.scrollElement = windowScroll
         ? window
-        : this.tableRef.getElementsByClassName("ant-table-body")[0];
+        : this.tableRef.getElementsByClassName('ant-table-body')[0];
       if (this.scrollElement) {
-        this.scrollElement.addEventListener("scroll", this.onScroll, false);
+        this.scrollElement.addEventListener('scroll', this.onScroll, false);
       }
     }
   }
@@ -384,15 +378,19 @@ class Table extends Component {
   componentWillUnmount() {
     const { infiniteScroll } = this.props;
     if (infiniteScroll && this.scrollElement) {
-      this.scrollElement.removeEventListener("scroll", this.onScroll, false);
+      this.scrollElement.removeEventListener('scroll', this.onScroll, false);
     }
   }
-  componentWillReceiveProps() {
-    const { dataSource } = this.props;
+  componentWillReceiveProps(nextProp) {
+    const { dataSource } = nextProp;
     const { selectAll, selectedRowKeys } = this.state;
-    if (selectAll && dataSource.length > selectedRowKeys.length) {
-      this.onChange(dataSource.map(v => v.key), dataSource);
+    let selectedRows = dataSource.filter(v => selectedRowKeys.includes(v.key));
+
+    if (selectAll && dataSource.length > selectedRows.length) {
+      selectedRows = dataSource;
     }
+    if (selectedRowKeys.length !== selectedRows.length)
+      this.onChange(selectedRows.map(row => row.key), selectedRows);
   }
   onChange = (selectedRowKeys, selectedRows) => {
     let {
@@ -414,10 +412,10 @@ class Table extends Component {
     const loaderProps = infiniteScroll
       ? {
           ...DEFAULT_LOADER_PROPS,
-          size: "sizeXSmall",
-          type: "Small",
+          size: 'sizeXSmall',
+          type: 'Small',
           style: {
-            padding: "12px 0px"
+            padding: '12px 0px'
           }
         }
       : DEFAULT_LOADER_PROPS;
