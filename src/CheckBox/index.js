@@ -65,7 +65,7 @@ const MtCheckbox = styled.div`
 
 class CheckBox extends Component {
   static propTypes = {
-    label: PropTypes.string,
+    children: PropTypes.node,
     checked: PropTypes.bool,
     onClick: PropTypes.func,
     onChange: PropTypes.func,
@@ -97,7 +97,7 @@ class CheckBox extends Component {
   }
 
   render() {
-    const { label, indeterminate, disabled, className } = this.props;
+    const { children, indeterminate, disabled, className } = this.props;
     return (
       <MtCheckbox className={className}>
         <AntCheckbox
@@ -106,7 +106,7 @@ class CheckBox extends Component {
           disabled={disabled}
           indeterminate={indeterminate}
         >
-          {label}
+          {children}
         </AntCheckbox>
       </MtCheckbox>
     );
