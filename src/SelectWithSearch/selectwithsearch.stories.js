@@ -9,9 +9,13 @@ const stories = storiesOf('SelectWithSearch', module);
 stories.addDecorator(withKnobs);
 
 const colourOptions = [
-  { value: 'ocean', label: 'Ocean', color: '#00B8D9' },
+  {
+    value: 'ocean',
+    label: 'Oceangfcfgcgscgfscfgscghghcfghsacfgcfgcsaccfcfcfascfgcfasgfhags',
+    color: '#00B8D9'
+  },
   { value: 'blue', label: 'Blue', color: '#0052CC', disabled: true },
-  { value: 'purple', label: 'Purple', color: '#5243AA', disabled: true },
+  { value: 'purple', label: 'Purple', color: '#5243AA' },
   { value: 'red', label: 'Red', color: '#FF5630' },
   { value: 'orange', label: 'Orange', color: '#FF8B00' },
   { value: 'yellow', label: 'Yellow', color: '#FFC400' },
@@ -46,6 +50,40 @@ stories.add(
 );
 
 stories.add(
+  'Sync Select with Button',
+  withInfo('Basic usage of the SelectWithSearch')(() => (
+    <SelectWithSearch
+      defaultValue={colourOptions[2]}
+      label="Select..."
+      options={colourOptions}
+      onChange={() => {}}
+      isButton={true}
+    />
+  ))
+);
+
+stories.add(
+  'Sync Select with custom styles',
+  withInfo('Basic usage of the SelectWithSearch for custom style')(() => (
+    <SelectWithSearch
+      defaultValue={colourOptions[2]}
+      label="Select..."
+      options={colourOptions}
+      onChange={() => {}}
+      styles={{
+        option: base => {
+          return {
+            ...base,
+            background: '#ddd'
+          };
+        },
+        container: base => ({ ...base, maxWidth: '300px' })
+      }}
+    />
+  ))
+);
+
+stories.add(
   'Sync MultiSelect',
   withInfo('Basic usage of the SelectWithSearch')(() => (
     <SelectWithSearch
@@ -68,8 +106,8 @@ stories.add(
       onChange={() => {}}
       isMulti
       isButton={true}
-      buttonMaxWidth={85}
-      buttonWidth={85}
+      buttonMaxWidth={'110px'}
+      buttonMinWidth={'30px'}
     />
   ))
 );
@@ -95,7 +133,7 @@ stories.add(
       defaultValue={colourOptions[2]}
       isMulti
       onChange={() => {}}
-      //isButton={true}
+      isButton={true}
     />
   ))
 );
