@@ -7,7 +7,7 @@ const MTReadMore = styled.div`
   .viewMore,
   .viewLess {
     margin: 10px 0px;
-    display: inline-block;
+    display: block;
   }
 `;
 

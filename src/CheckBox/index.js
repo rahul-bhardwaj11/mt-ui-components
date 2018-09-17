@@ -22,6 +22,7 @@ const MtCheckbox = styled.div`
           top: 4.5px;
           width: 8px;
           height: 2px;
+          background-color: #fff;
         }
       }
     }
@@ -43,6 +44,7 @@ const MtCheckbox = styled.div`
       width: 14px;
       height: 14px;
       border-radius: 3px;
+      border: 1px solid ${theme.colors.INDIGO};
       &:after {
         left: 3.5px;
         top: 1.2px;
