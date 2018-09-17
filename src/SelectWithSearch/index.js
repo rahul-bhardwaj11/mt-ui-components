@@ -65,7 +65,7 @@ const SelectBox = styled.div`
         display: inline-block;
         position: absolute;
         right: 10px;
-        bottom: 10px;
+        bottom: 12px;
         margin-left: 10px;
         font-size: 10px;
         cursor: pointer;
