@@ -48,8 +48,9 @@ class UserThumbnail extends Component {
   };
 
   render() {
-    const { name, email, expanded } = this.props;
-    let mtProps = Object.assign({}, this.props);
+    const { expanded, ...rest } = this.props;
+    const { name, email } = rest;
+    let mtProps = Object.assign({}, rest);
     mtProps = !name ? Object.assign(mtProps, { icon: 'user' }) : mtProps;
     return (
       <MtUserThumbnail>
