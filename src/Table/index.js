@@ -309,7 +309,8 @@ class Table extends Component {
   static defaultProps = {
     infiniteScroll: false,
     threshold: 0.9,
-    windowScroll: false
+    windowScroll: false,
+    size: 'default'
   };
   state = {
     showActionBar: false,

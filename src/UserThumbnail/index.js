@@ -6,8 +6,6 @@ import 'antd/lib/avatar/style/index.css';
 import mixin from '../styles/mixins';
 
 const MtUserThumbnail = styled.div`
-  display: inline-block;
-
   .content {
     display: inline-block;
     vertical-align: middle;

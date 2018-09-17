@@ -19,10 +19,10 @@ const BADGE_COLOR_TYPE_MAP = {
   [BADGE_TYPES.DEFAULT]: `${theme.colors.SILVER}`
 };
 
-const MtBadge = styled.span`
+const MtBadge = styled(AntBadge)`
   .ant-badge-dot {
     top: -2px;
-    right: 7px;
+    right: -3px;
     height: 10px;
     width: 10px;
     background-color: ${props => BADGE_COLOR_TYPE_MAP[props.type]};
@@ -41,8 +41,8 @@ class Badge extends Component {
   render() {
     const { children, type } = this.props;
     return (
-      <MtBadge type={type}>
-        <AntBadge {...this.props}>{children}</AntBadge>
+      <MtBadge {...this.props} type={type}>
+        {children}
       </MtBadge>
     );
   }
