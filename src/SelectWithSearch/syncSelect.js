@@ -16,8 +16,8 @@ export default class SyncSelect extends Component {
     isButton: PropTypes.bool,
     buttonLabel: PropTypes.string,
     placeholder: PropTypes.string,
-    buttonMaxWidth: PropTypes.number,
-    buttonMinWidth: PropTypes.number
+    buttonMaxWidth: PropTypes.string,
+    buttonMinWidth: PropTypes.string
   };
 
   static defaultProps = {
@@ -111,7 +111,7 @@ export default class SyncSelect extends Component {
     this.setState({ selectedItems });
   };
 
-  getNewState = () => {
+  getNewStateAfterOnSelect = () => {
     const { isButton } = this.props;
     let newState = {
       menuIsOpen: false,
@@ -137,7 +137,7 @@ export default class SyncSelect extends Component {
     });
     onChange(selectedValues);
     const sortedOptions = this.__sortOptions(options, selectedItems);
-    let newState = this.getNewState();
+    let newState = this.getNewStateAfterOnSelect();
     newState.options = sortedOptions;
     this.setState({ ...newState });
   };
@@ -274,7 +274,7 @@ export default class SyncSelect extends Component {
 
   handleSingleOnSelect = data => {
     const { onChange } = this.props;
-    let newState = this.getNewState();
+    let newState = this.getNewStateAfterOnSelect();
     newState.selectedItems = [data];
     this.setState({ ...newState });
     onChange(data.value);
@@ -285,7 +285,7 @@ export default class SyncSelect extends Component {
       return;
     }
     this.isBlurActive = true;
-    const newState = this.getNewState();
+    const newState = this.getNewStateAfterOnSelect();
     this.setState({ ...newState });
   };
 
@@ -315,6 +315,7 @@ export default class SyncSelect extends Component {
           menuIsOpen: menuIsOpen,
           isSearchable: showInput,
           autoFocus: showInput,
+          isFocused: true,
           autosize: false,
           onBlur: this.handleMultiOnSelect,
           inputValue: inputValue,
@@ -329,6 +330,7 @@ export default class SyncSelect extends Component {
           onChange: this.handleSingleOnSelect,
           onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
+          isFocused: true,
           backspaceRemovesValue: false,
           inputValue: inputValue,
           onInputChange: this.onInputChange,

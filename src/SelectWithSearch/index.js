@@ -51,7 +51,6 @@ const SelectBox = styled.div`
   }
 
   .selectBoxWrapper{
-    max-height: 32px;
     margin-top: 10px;
   .activeSearch {
     .mt-react-select__value-container{
@@ -238,8 +237,8 @@ class SelectWithSearch extends Component {
     isMulti: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     isButton: PropTypes.bool,
-    buttonMaxWidth: PropTypes.number,
-    buttonWidth: PropTypes.number
+    buttonMaxWidth: PropTypes.string,
+    buttonWidth: PropTypes.string
   };
   static defaultProps = {
     placeholder: 'Type here to Search'

@@ -231,7 +231,7 @@ export default class AsyncSelect extends Component {
     this.setState({ selectedItems });
   };
 
-  getNewState = () => {
+  getNewStateAfterOnSelect = () => {
     const { isButton } = this.props;
     let newState = {
       menuIsOpen: false,
@@ -436,7 +436,7 @@ export default class AsyncSelect extends Component {
 
   handleSingleOnSelect = data => {
     const { onChange } = this.props;
-    let newState = this.getNewState();
+    let newState = this.getNewStateAfterOnSelect();
     newState.selectedItems = [data];
     this.setState({ ...newState });
     onChange(data.value);
@@ -447,7 +447,7 @@ export default class AsyncSelect extends Component {
       return;
     }
     this.isBlurActive = true;
-    const newState = this.getNewState();
+    const newState = this.getNewStateAfterOnSelect();
     this.setState({ ...newState });
   };
 

@@ -106,8 +106,8 @@ stories.add(
       onChange={() => {}}
       isMulti
       isButton={true}
-      //buttonMaxWidth={85}
-      //buttonMinWidth={30}
+      buttonMaxWidth={'110px'}
+      buttonMinWidth={'30px'}
     />
   ))
 );

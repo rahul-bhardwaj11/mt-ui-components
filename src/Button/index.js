@@ -50,8 +50,8 @@ const MtButton = styled.span`
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: ${maxWidth => `${maxWidth}px`};
-    min-width: ${minWidth => `${minWidth}px`};
+    max-width: ${maxWidth => `${maxWidth}`};
+    min-width: ${minWidth => `${minWidth}`};
   }
   .ant-btn-default {
     border: 1px solid ${theme.colors.ALTO};
