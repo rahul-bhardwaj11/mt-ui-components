@@ -8,13 +8,15 @@ import theme from '../styles/theme';
 const BADGE_TYPES = {
   SUCCESS: 'success',
   ERROR: 'error',
-  WARNING: 'warning'
+  WARNING: 'warning',
+  DEFAULT: 'default'
 };
 
 const BADGE_COLOR_TYPE_MAP = {
   [BADGE_TYPES.SUCCESS]: `${theme.colors.PASTEL_GREEN}`,
   [BADGE_TYPES.ERROR]: `${theme.colors.BITTERSWEET}`,
-  [BADGE_TYPES.WARNING]: `${theme.colors.KOROMIKO}`
+  [BADGE_TYPES.WARNING]: `${theme.colors.KOROMIKO}`,
+  [BADGE_TYPES.DEFAULT]: `${theme.colors.SILVER}`
 };
 
 const MtBadge = styled.span`
