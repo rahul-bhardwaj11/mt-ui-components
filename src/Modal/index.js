@@ -80,7 +80,9 @@ const MODAL_WIDTH_MAP = {
 class Modal extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    type: PropTypes.oneOf(['small', 'medium', 'large', 'full'])
+    type: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
+    style: PropTypes.object,
+    width: PropTypes.oneOf([PropTypes.number, PropTypes.string])
   };
 
   static defaultProps = {
