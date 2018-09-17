@@ -242,8 +242,8 @@ const MtTable = styled.div`
       height: 14px;
       border-radius: 3px;
       &:after {
-        left: 3px;
-        top: 1px;
+        left: 3.5px;
+        top: 1.2px;
       }
     }
     & > .ant-checkbox-checked {
@@ -251,21 +251,22 @@ const MtTable = styled.div`
         background-color: ${theme.colors.INDIGO};
         border-color: ${theme.colors.INDIGO};
         &:after {
-          left: 3px;
-          top: 1px;
+          left: 3.5px;
+          top: 1.2px;
         }
       }
     }
     & > .ant-checkbox-indeterminate {
       & > .ant-checkbox-inner {
         border-color: ${theme.colors.INDIGO};
+        background-color: ${theme.colors.INDIGO};
         &:after {
-          left: 6px;
-          top: 6px;
-          background-color: ${theme.colors.INDIGO};
+          left: 1.45px;
+          top: 5px;
         }
       }
     }
+
     .ant-checkbox:hover .ant-checkbox-inner,
     .ant-checkbox-input:focus + .ant-checkbox-inner {
       border-color: ${theme.colors.INDIGO};

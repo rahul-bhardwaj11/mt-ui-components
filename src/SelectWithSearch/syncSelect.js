@@ -15,8 +15,9 @@ export default class SyncSelect extends Component {
     onChange: PropTypes.func,
     isButton: PropTypes.bool,
     buttonLabel: PropTypes.string,
-    buttonMaxWidth: PropTypes.number,
-    buttonWidth: PropTypes.number
+    placeholder: PropTypes.string,
+    buttonMaxWidth: PropTypes.string,
+    buttonMinWidth: PropTypes.string
   };
 
   static defaultProps = {
@@ -27,9 +28,8 @@ export default class SyncSelect extends Component {
   state = {
     options: this.props.options,
     selectedItems: [],
-    showSelectedValues: true,
     menuIsOpen: false,
-    showButton: false,
+    showSelect: true,
     showInput: false,
     inputValue: ''
   };
@@ -37,7 +37,7 @@ export default class SyncSelect extends Component {
   componentDidMount() {
     const { defaultValue, isButton, options } = this.props;
     if (isButton) {
-      this.setState({ showButton: true });
+      this.setState({ showSelect: false });
     }
     const selectedItems = [];
     if (defaultValue) {
@@ -52,10 +52,26 @@ export default class SyncSelect extends Component {
     let sortedOptions = this.__sortOptions(options, selectedItems);
     sortedOptions = this.normalizeOption(sortedOptions);
     this.setState({ selectedItems, options: sortedOptions });
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  handleClickOutside = event => {
+    if (this.buttonRef && this.buttonRef.contains(event.target)) {
+      this.isBlurActive = false;
+    }
+    if (this.iconRef && this.iconRef.contains(event.target)) {
+      this.setState({ inputValue: '' });
+      this.isIconClicked = true;
+    }
+  };
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   normalizeOption = sortedOptions => {
-    if (!this.props.isMulti) {
+    const { isMulti } = this.props;
+    if (!isMulti) {
       sortedOptions.unshift({ label: 'None', value: 'None' });
     }
     return sortedOptions;
@@ -95,71 +111,88 @@ export default class SyncSelect extends Component {
     this.setState({ selectedItems });
   };
 
-  onDone = () => {
+  getNewStateAfterOnSelect = () => {
+    const { isButton } = this.props;
+    let newState = {
+      menuIsOpen: false,
+      showInput: false,
+      inputValue: ''
+    };
+    newState = isButton
+      ? Object.assign(newState, { showSelect: false })
+      : newState;
+    return newState;
+  };
+
+  handleMultiOnSelect = () => {
+    if (this.isIconClicked) {
+      this.isIconClicked = false;
+      return;
+    }
+    this.isBlurActive = true;
     const { selectedItems, options } = this.state;
-    const { isButton, onChange } = this.props;
+    const { onChange } = this.props;
     const selectedValues = selectedItems.map(selectedItem => {
       return selectedItem.value;
     });
     onChange(selectedValues);
     const sortedOptions = this.__sortOptions(options, selectedItems);
-    let newState = {
-      options: sortedOptions,
-      menuIsOpen: false,
-      showInput: false,
-      showSelectedValues: true,
-      inputValue: ''
-    };
-    newState = isButton
-      ? Object.assign(newState, { showButton: true })
-      : newState;
+    let newState = this.getNewStateAfterOnSelect();
+    newState.options = sortedOptions;
     this.setState({ ...newState });
   };
 
   toggleButton = () => {
-    this.setState(prevState => {
-      let updatedState = {
-        showButton: !prevState.showButton,
-        menuIsOpen: !prevState.menuIsOpen,
-        showSelectedValues: !prevState.showSelectedValues
-      };
-      updatedState = !this.props.isButton
-        ? { showInput: !prevState.showInput }
-        : updatedState;
-      return updatedState;
-    });
-    setTimeout(() => {
-      this.props.isButton &&
-        this.setState({
-          showInput: !this.state.showInput
-        });
-    }, 0);
+    if (this.isBlurActive) {
+      this.isBlurActive = false;
+      return;
+    }
+    this.setState(prevState => ({
+      showSelect: !prevState.showSelect,
+      menuIsOpen: !prevState.menuIsOpen,
+      showInput: !prevState.showInput
+    }));
   };
 
   handleDisplayValue = ({ data }) => {
     const { selectedItems } = this.state;
     if (data.value == selectedItems[0].value)
       return (
-        <div className="selectedItem">{`${data.label}${
-          selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
-        }`}</div>
+        <div className="selectedItem clearfix" key="dipslayValue">
+          <span className="selectedItemLabel floatL">{`${data.label}`}</span>
+          <span className="floatL">{`${
+            selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
+          }`}</span>
+        </div>
       );
     return null;
   };
 
-  optionWithCheckBox = ({ isDisabled, data }) => {
+  handleSingleValue = ({ data, ...props }) => {
+    const { placeholder } = this.props;
+    return (
+      <components.SingleValue {...props}>
+        {data.value == 'None' ? placeholder : data.label}
+      </components.SingleValue>
+    );
+  };
+
+  optionWithCheckBox = params => {
+    const { isDisabled, data } = params;
     const { selectedItems } = this.state;
+    if (!this.props.isMulti)
+      return (
+        <div title={data.label}>
+          <components.Option {...params} />
+        </div>
+      );
     return !isDisabled ? (
       <div
-        onClick={() => {
-          !data.disabled && this.onCheckboxClick(data);
-        }}
+        onClick={() => this.onCheckboxClick(data)}
         className="checkboxWrapper"
+        title={data.label}
       >
-        <CheckBox
-          disabled={data.disabled}
-          checked={selectedItems.indexOf(data) > -1}
-        />
+        <CheckBox checked={selectedItems.indexOf(data) > -1} />
         <span className="dataLabel">{data.label}</span>
       </div>
     ) : null;
@@ -177,7 +210,7 @@ export default class SyncSelect extends Component {
             </Button>
           </div>
           <div className="buttonWrapperR">
-            <Button type="text" onClick={this.onDone}>
+            <Button type="text" onClick={this.handleMultiOnSelect}>
               <span className="marginR5"> Done</span>
               {`${selectedItems.length ? `(${selectedItems.length})` : ''}`}
             </Button>
@@ -188,32 +221,33 @@ export default class SyncSelect extends Component {
   };
 
   handleControl = arg => {
+    const { inputValue, showInput } = this.state;
     return (
       <div className="selectBoxWrapper">
         <div
-          className={this.state.showInput ? 'activeSearch' : ''}
+          className={showInput ? 'activeSearch' : ''}
           onClick={() => {
             this.setState({
               menuIsOpen: true,
-              showInput: true,
-              showSelectedValues: false
+              showInput: true
             });
           }}
         >
           <components.Control {...arg} />
+          <div
+            className={inputValue.length ? 'activeInput' : ''}
+            ref={e => {
+              if (e) {
+                this.iconRef = e;
+              }
+            }}
+          >
+            <Icon
+              type="cross"
+              onClick={() => this.setState({ inputValue: '' })}
+            />
+          </div>
         </div>
-      </div>
-    );
-  };
-
-  handleInput = props => {
-    if (props.isHidden) {
-      return <components.Input {...props} />;
-    }
-    return (
-      <div className={props.value.length ? 'activeInput' : ''}>
-        <components.Input {...props} />
-        <Icon type="Cancel" onClick={() => this.setState({ inputValue: '' })} />
       </div>
     );
   };
@@ -227,20 +261,41 @@ export default class SyncSelect extends Component {
     const { buttonLabel } = this.props;
     const selectedItemsLength = selectedItems.length;
     if (selectedItemsLength) {
-      if (selectedItemsLength == 1) return `${selectedItems[0].label}`;
+      if (selectedItemsLength == 1)
+        return `${
+          selectedItems[0].label == 'None'
+            ? buttonLabel
+            : selectedItems[0].label
+        }`;
       return `${buttonLabel}.${selectedItems.length}`;
     }
     return buttonLabel;
   };
 
+  handleSingleOnSelect = data => {
+    const { onChange } = this.props;
+    let newState = this.getNewStateAfterOnSelect();
+    newState.selectedItems = [data];
+    this.setState({ ...newState });
+    onChange(data.value);
+  };
+  handleSingleOnBlur = () => {
+    if (this.isIconClicked) {
+      this.isIconClicked = false;
+      return;
+    }
+    this.isBlurActive = true;
+    const newState = this.getNewStateAfterOnSelect();
+    this.setState({ ...newState });
+  };
+
   render() {
-    const { isMulti, buttonMaxWidth, buttonWidth } = this.props;
+    const { isMulti, isButton, buttonMaxWidth, buttonMinWidth } = this.props;
     const {
       options,
       selectedItems,
-      showSelectedValues,
       menuIsOpen,
-      showButton,
+      showSelect,
       showInput,
       inputValue
     } = this.state;
@@ -252,50 +307,65 @@ export default class SyncSelect extends Component {
             Option: this.optionWithCheckBox,
             MultiValueContainer: this.handleDisplayValue,
             Menu: this.buildMenu,
-            Control: this.handleControl,
-            Input: this.handleInput
+            Control: this.handleControl
           },
           value: selectedItems,
           closeMenuOnSelect: false,
-          controlShouldRenderValue: showSelectedValues,
+          controlShouldRenderValue: !showInput,
           menuIsOpen: menuIsOpen,
           isSearchable: showInput,
           autoFocus: showInput,
-          onBlur: this.onDone,
+          isFocused: true,
+          autosize: false,
+          onBlur: this.handleMultiOnSelect,
           inputValue: inputValue,
           onInputChange: this.onInputChange
         }
       : {
           components: {
+            Option: this.optionWithCheckBox,
             Control: this.handleControl,
-            Input: this.handleInput
+            SingleValue: this.handleSingleValue
           },
-          onChange: value => {
-            this.setState({ showInput: false });
-            this.props.onChange(value);
-          },
-          onBlur: () => this.setState({ showInput: false }),
-          backspaceRemovesValue: false
+          onChange: this.handleSingleOnSelect,
+          onBlur: this.handleSingleOnBlur,
+          autoFocus: showInput,
+          isFocused: true,
+          backspaceRemovesValue: false,
+          inputValue: inputValue,
+          onInputChange: this.onInputChange,
+          controlShouldRenderValue: !menuIsOpen,
+          menuIsOpen: menuIsOpen
         };
 
-    if (showButton) {
-      return (
-        <Button
-          onClick={this.toggleButton}
-          type="primary"
-          style={{ maxWidth: buttonMaxWidth, width: buttonWidth }}
-        >
-          {this.getButtonText()}
-        </Button>
-      );
-    }
     return (
-      <Select
-        {...this.props}
-        options={options}
-        classNamePrefix={'mt-react-select'}
-        {...selectProps}
-      />
+      <div>
+        {isButton && (
+          <div
+            ref={e => {
+              if (e) {
+                this.buttonRef = e;
+              }
+            }}
+          >
+            <Button
+              type="secondary"
+              onClick={this.toggleButton}
+              style={{ maxWidth: buttonMaxWidth, minWidth: buttonMinWidth }}
+            >
+              {this.getButtonText()}
+            </Button>
+          </div>
+        )}
+        {showSelect && (
+          <Select
+            {...this.props}
+            options={options}
+            classNamePrefix={'mt-react-select'}
+            {...selectProps}
+          />
+        )}
+      </div>
     );
   }
 }
