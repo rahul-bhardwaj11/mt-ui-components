@@ -73,14 +73,15 @@ const MtButton = styled.span`
       border: 1px solid ${theme.colors.INDIGO};
       color: ${theme.colors.INDIGO};
     }
-    &:disabled {
+  }
+  .ant-btn {
+    &.disabled {
       border: 1px solid ${theme.colors.DISABLE};
       border-radius: 4px;
-      color: #bbb;
-      background: ${theme.colors.PORCELAIN};
+      color: #fff;
+      background: ${theme.colors.ALTO};
     }
   }
-
   /* Primary Button styles */
   .ant-btn-primary {
     border: 1px solid ${theme.colors.INDIGO};
@@ -105,14 +106,22 @@ const MtButton = styled.span`
       background: ${theme.colors.NEPTUNE};
       color: #fff;
     }
-    &:disabled {
+  }
+  .ant-btn {
+    &.disabled {
       border: 1px solid ${theme.colors.ALTO};
       background-color: ${theme.colors.ALTO};
       color: #fff;
       border-radius: 4px;
     }
   }
-
+  .ant-btn {
+    &.disabled {
+      border: 1px solid ${theme.colors.ALTO};
+      background-color: ${theme.colors.ALTO};
+      color: #fff;
+    }
+  }
   /* edit Button styles */
   .ant-btn-edit {
     border: 1px solid ${theme.colors.ALTO};
@@ -143,7 +152,9 @@ const MtButton = styled.span`
         color: ${theme.colors.SILVER};
       }
     }
-    &:disabled {
+  }
+  .ant-btn {
+    &.disabled {
       border: 1px solid ${theme.colors.DISABLE};
       border-radius: 4px;
       background-color: ${theme.colors.ALTO};
@@ -172,11 +183,12 @@ const MtButton = styled.span`
     &.active {
       color: ${theme.colors.SHARK};
     }
-    &:disabled {
-      border-radius: 4px;
-      border: 1px dashed ${theme.colors.ALTO};
-      background-color: #fff;
-      color: ${theme.colors.SILVER};
+  }
+  .ant-btn {
+    &.disabled {
+      border: 1px solid ${theme.colors.ALTO};
+      background-color: ${theme.colors.ALTO};
+      color: #fff;
     }
   }
   .ant-btn-clicked {
@@ -215,13 +227,14 @@ const MtButton = styled.span`
       font-size: 12px;
       padding: 0px 12px;
     }
-    &:disabled {
+  }
+  .ant-btn {
+    &.disabled {
       border: 1px solid ${theme.colors.ALTO};
       background-color: ${theme.colors.ALTO};
       color: #fff;
     }
   }
-
   .ant-btn-clicked {
     outline: none;
     outline-style: none;
@@ -240,7 +253,9 @@ const MtButton = styled.span`
       font-size: 12px;
       padding: 0px 12px;
     }
-    &:disabled {
+  }
+  .ant-btn {
+    &.disabled {
       border: 1px solid ${theme.colors.ALTO};
       background-color: ${theme.colors.ALTO};
       color: #fff;
