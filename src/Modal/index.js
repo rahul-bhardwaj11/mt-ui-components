@@ -58,6 +58,12 @@ const MtModal = styled(AntModal)`
           ${mixins.primaryBtnHover()};
           color: #fff;
         }
+        &:disabled {
+          border: 1px solid ${theme.colors.DISABLE};
+          border-radius: 4px;
+          color: #fff;
+          background: ${theme.colors.ALTO};
+        }
       }
       &:hover,
       &:focus {
