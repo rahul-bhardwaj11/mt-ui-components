@@ -265,13 +265,13 @@ const MtTable = styled.div`
 
     .ant-checkbox-indeterminate .ant-checkbox-inner:after {
       content: ' ';
-
       position: absolute;
       left: 50%;
       top: 50%;
       width: 9.14285714px;
-      height: 1.14285714px;
+      height: 2px;
       transform: translate(-50%, -50%) scale(1);
+      background-color: #ffffff;
     }
     .ant-checkbox-indeterminate.ant-checkbox-disabled
       .ant-checkbox-inner:after {
