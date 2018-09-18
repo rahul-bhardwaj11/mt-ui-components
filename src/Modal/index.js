@@ -6,6 +6,7 @@ import '../styles/override.scss';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
+import ReactDOM from 'react-dom';
 
 const MtModal = styled(AntModal)`
   .ant-modal-content {
@@ -63,12 +64,29 @@ const MtModal = styled(AntModal)`
       }
       &:hover,
       &:focus {
-        ${mixins.textBtn()}
+        ${mixins.textBtn()};
         color: ${theme.colors.GREY}
       }
     }
   }
 
+
+`;
+
+const MtConfirmModal = styled.div`
+  .ant-confirm-confirm .ant-confirm-body > .anticon {
+    display: none;
+  }
+  .ant-confirm-body .ant-confirm-content {
+    margin-left: 0px;
+  }
+  .ant-confirm .ant-confirm-btns button + button {
+    background: ${theme.colors.INDIGO};
+    border: 1px solid ${theme.colors.INDIGO};
+  }
+  .ant-confirm-body .ant-confirm-title {
+    ${mixins.blackLink()};
+  }
 `;
 
 const MODAL_WIDTH_MAP = {
@@ -88,6 +106,28 @@ class Modal extends Component {
     type: 'medium'
   };
 
+  static confirm = props => {
+    const containerEl = document.body.appendChild(
+      document.createElement('div')
+    );
+    let MountNode;
+    ReactDOM.render(
+      <MtConfirmModal innerRef={e => (MountNode = e)} />,
+      containerEl
+    );
+    let confirmModalProps = {
+      ...props,
+      getContainer: () => {
+        return MountNode;
+      },
+      onCancel: (...cancelProps) => {
+        document.body.removeChild(containerEl);
+        props.onCancel && props.onCancel(cancelProps);
+      }
+    };
+    AntModal.confirm(confirmModalProps);
+  };
+
   render() {
     let { children, type, width } = this.props;
     let customProps = {
@@ -101,5 +141,5 @@ class Modal extends Component {
     return <MtModal {...customProps}>{children}</MtModal>;
   }
 }
-Modal.confirm = AntModal.confirm;
+
 export default Modal;

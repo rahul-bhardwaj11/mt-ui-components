@@ -59,6 +59,12 @@
       color: get('colors.INDIGO');
     }
   }
+  .smallBlackText {
+    @include smallBlackText;
+  }
+  .blackLink {
+    @include blackLink;
+  }
 
   .boxStyle {
     border: 1px solid get('colors.ALTO');

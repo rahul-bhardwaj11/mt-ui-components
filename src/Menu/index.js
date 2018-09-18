@@ -99,7 +99,6 @@ const MtMenu = styled.div`
   & {
     .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
       text-align: left;
-      padding-left: 0px !important;
       font-size: 11px;
       text-transform: uppercase;
       height: auto;
@@ -118,7 +117,6 @@ const MtMenu = styled.div`
   }
   & {
     .ant-menu-sub.ant-menu-inline > .ant-menu-item {
-      padding-left: 0px !important;
       float: left;
       text-align: left;
       margin: 0px;
