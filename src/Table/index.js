@@ -241,6 +241,7 @@ const MtTable = styled.div`
       width: 14px;
       height: 14px;
       border-radius: 3px;
+      transition: none;
       &:after {
         left: 3.5px;
         top: 1.2px;
@@ -260,6 +261,7 @@ const MtTable = styled.div`
       & > .ant-checkbox-inner {
         border-color: ${theme.colors.INDIGO};
         background-color: ${theme.colors.INDIGO};
+        transition: none;
         &:after {
           left: 1.45px;
           top: 5px;
