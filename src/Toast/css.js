@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-
+import styled from "styled-components";
 const StyledToast = styled.div`
 
   .toast {
@@ -16,8 +15,8 @@ const StyledToast = styled.div`
     // visibility: hidden;
     transition: opacity;
     transition-timing-function: ease;
-    z-index: 99999;
-
+    z-index: z-index(toast);
+  
     .toastReloadBtn {
       line-height: 28px;
       padding: 0px 30px;
