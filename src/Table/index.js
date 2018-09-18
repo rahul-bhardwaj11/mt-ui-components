@@ -257,20 +257,28 @@ const MtTable = styled.div`
         }
       }
     }
-    & > .ant-checkbox-indeterminate {
-      & > .ant-checkbox-inner {
-        border-color: ${theme.colors.INDIGO};
-        background-color: ${theme.colors.INDIGO};
-        transition: none;
-        &:after {
-          left: 1.45px;
-          top: 5px;
-        }
-      }
-    }
 
     .ant-checkbox:hover .ant-checkbox-inner,
     .ant-checkbox-input:focus + .ant-checkbox-inner {
+      border-color: ${theme.colors.INDIGO};
+    }
+
+    .ant-checkbox-indeterminate .ant-checkbox-inner:after {
+      content: ' ';
+
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 9.14285714px;
+      height: 1.14285714px;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .ant-checkbox-indeterminate.ant-checkbox-disabled
+      .ant-checkbox-inner:after {
+      border-color: rgba(0, 0, 0, 0.25);
+    }
+    .ant-checkbox-indeterminate .ant-checkbox-inner {
+      background-color: ${theme.colors.INDIGO};
       border-color: ${theme.colors.INDIGO};
     }
   }
