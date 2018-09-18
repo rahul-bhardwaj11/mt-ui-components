@@ -120,7 +120,7 @@
     }
   },
   "dependencies": {
-    "antd": "^3.7.2",
+    "antd": "3.7.2",
     "babel-plugin-styled-components": "^1.6.3",
     "classnames": "^2.2.6",
     "identity-obj-proxy": "^3.0.0",
