@@ -6,24 +6,48 @@ import 'antd/lib/avatar/style/index.css';
 import mixin from '../styles/mixins';
 
 const MtUserThumbnail = styled.div`
-  .content {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 16px;
+  .userThumbnailAvatar {
+    float: left;
+  }
+  .userThumbnailInfo {
+    height: 40px;
+    margin-left: 56px;
+    padding-top: 2px;
+
     .name {
       ${mixin.blackText()};
-      line-height: 22px;
+      ${mixin.truncate()};
     }
-    .email {
+    .content {
       ${mixin.smallDarkLink()};
-      line-height: 17px;
+      ${mixin.truncate()};
     }
   }
 `;
+
+class UserThumbnailInfo extends Component {
+  static propTypes = {
+    title: PropTypes.string,
+    content: PropTypes.string,
+    className: PropTypes.string
+  };
+
+  render() {
+    const { className, title, content } = this.props;
+
+    return (
+      <div className={className}>
+        {title && <div className={'name'}>{title}</div>}
+        {content && <div className={'content'}>{content}</div>}
+      </div>
+    );
+  }
+}
+
 class UserThumbnail extends Component {
   static propTypes = {
-    name: PropTypes.string,
-    email: PropTypes.string,
+    title: PropTypes.string,
+    content: PropTypes.string,
     src: PropTypes.string,
     shape: PropTypes.oneOf(['circle', 'square']),
     size: PropTypes.string,
@@ -46,18 +70,24 @@ class UserThumbnail extends Component {
   };
 
   render() {
-    const { expanded, ...rest } = this.props;
-    const { name, email } = rest;
+    const { expanded, className, ...rest } = this.props;
+    const { title, content } = rest;
+
     let mtProps = Object.assign({}, rest);
-    mtProps = !name ? Object.assign(mtProps, { icon: 'user' }) : mtProps;
+    mtProps = !title ? Object.assign(mtProps, { icon: 'user' }) : mtProps;
+
+    let mtInfoProps = {
+      title: title,
+      content: content
+    };
+
     return (
-      <MtUserThumbnail>
-        <Avatar {...mtProps}>{name && this.getInitials(name)}</Avatar>
+      <MtUserThumbnail className={className}>
+        <Avatar className="userThumbnailAvatar" {...mtProps}>
+          {title && this.getInitials(title)}
+        </Avatar>
         {expanded && (
-          <div className="content">
-            {name && <div className={'name'}>{name}</div>}
-            {email && <div className={'email'}>{email}</div>}
-          </div>
+          <UserThumbnailInfo {...mtInfoProps} className="userThumbnailInfo" />
         )}
       </MtUserThumbnail>
     );
