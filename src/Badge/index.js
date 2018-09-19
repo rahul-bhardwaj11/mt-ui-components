@@ -21,14 +21,9 @@ const BADGE_COLOR_TYPE_MAP = {
 
 const MtBadge = styled(AntBadge)`
   .ant-badge-dot {
-    top: -2px;
-    right: -3px;
-    height: 10px;
-    width: 10px;
     background-color: ${props => BADGE_COLOR_TYPE_MAP[props.type]};
-    position: absolute;
-    z-index: 0;
     box-shadow: none;
+    z-index: 0;
   }
 `;
 
