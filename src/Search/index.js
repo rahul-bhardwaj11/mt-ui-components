@@ -29,6 +29,7 @@ const MtSearchInput = styled.span`
   }
   .ant-input {
     color: ${theme.colors.SHARK};
+    font-family: 'Open Sans', Arial, sans-serif;
     font-size: 12px;
     border: 1px solid ${theme.colors.ALTO};
     &:hover {
