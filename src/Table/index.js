@@ -319,7 +319,8 @@ class Table extends Component {
   static defaultProps = {
     infiniteScroll: false,
     threshold: 0.9,
-    windowScroll: false
+    windowScroll: false,
+    size: 'default'
   };
   state = {
     showActionBar: false,
@@ -426,7 +427,8 @@ class Table extends Component {
           size: 'sizeXSmall',
           type: 'Small',
           style: {
-            padding: '12px 0px'
+            padding: '12px 0px',
+            backgroundColor: '#ffffff'
           }
         }
       : DEFAULT_LOADER_PROPS;

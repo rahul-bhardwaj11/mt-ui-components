@@ -4,9 +4,7 @@ import styled from 'styled-components';
 import AntTooltip from 'antd/lib/tooltip';
 import 'antd/lib/tooltip/style/index.css';
 
-const MtTooltip = styled.div`
-  display: inline;
-`;
+const MtTooltip = styled(AntTooltip)``;
 
 class Tooltip extends Component {
   static propTypes = {
@@ -17,11 +15,7 @@ class Tooltip extends Component {
   render() {
     const { children } = this.props;
 
-    return (
-      <MtTooltip>
-        <AntTooltip {...this.props}>{children}</AntTooltip>
-      </MtTooltip>
-    );
+    return <MtTooltip {...this.props}>{children}</MtTooltip>;
   }
 }
 

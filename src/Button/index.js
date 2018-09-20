@@ -50,8 +50,8 @@ const MtButton = styled.span`
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: ${maxWidth => `${maxWidth}`};
-    min-width: ${minWidth => `${minWidth}`};
+    max-width: ${props => `${props.maxWidth}`};
+    min-width: ${props => `${props.minWidth}`};
   }
   .ant-btn-default {
     border: 1px solid ${theme.colors.ALTO};
@@ -76,7 +76,8 @@ const MtButton = styled.span`
     }
   }
   .ant-btn {
-    &.disabled {
+    &.disabled,
+    &:disabled {
       border: 1px solid ${theme.colors.DISABLE};
       border-radius: 4px;
       color: #fff;
@@ -117,7 +118,8 @@ const MtButton = styled.span`
     }
   }
   .ant-btn {
-    &.disabled {
+    &.disabled,
+    &:disabled {
       border: 1px solid ${theme.colors.ALTO};
       background-color: ${theme.colors.ALTO};
       color: #fff;
@@ -155,7 +157,8 @@ const MtButton = styled.span`
     }
   }
   .ant-btn {
-    &.disabled {
+    &.disabled,
+    &:disabled {
       border: 1px solid ${theme.colors.DISABLE};
       border-radius: 4px;
       background-color: ${theme.colors.ALTO};
@@ -186,7 +189,8 @@ const MtButton = styled.span`
     }
   }
   .ant-btn {
-    &.disabled {
+    &.disabled,
+    &:disabled {
       border: 1px solid ${theme.colors.ALTO};
       background-color: ${theme.colors.ALTO};
       color: #fff;
@@ -230,7 +234,8 @@ const MtButton = styled.span`
     }
   }
   .ant-btn {
-    &.disabled {
+    &.disabled,
+    &:disabled {
       border: 1px solid ${theme.colors.ALTO};
       background-color: ${theme.colors.ALTO};
       color: #fff;
@@ -256,7 +261,8 @@ const MtButton = styled.span`
     }
   }
   .ant-btn {
-    &.disabled {
+    &.disabled,
+    &:disabled {
       border: 1px solid ${theme.colors.ALTO};
       background-color: ${theme.colors.ALTO};
       color: #fff;
