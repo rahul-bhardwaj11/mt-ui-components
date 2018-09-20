@@ -28,6 +28,13 @@ const MtMenu = styled.div`
     height: 32px;
     line-height: 32px;
   }
+  .ant-dropdown-menu {
+    padding: 4px 0px;
+  }
+  .ant-dropdown-menu-item:first-child,
+  .ant-dropdown-menu-item:last-child {
+    border-radius: 4px;
+  }
   .ant-dropdown-menu-submenu-title {
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
