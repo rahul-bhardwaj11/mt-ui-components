@@ -42,14 +42,12 @@ const MtModal = styled(AntModal)`
     background: ${theme.colors.PORCELAIN};
     border-top: 0px;
     .ant-btn {
-      ${mixins.textBtn()}
-      ${mixins.button()}
+      ${mixins.textBtn()}      
       color: ${theme.colors.OUTER_SPACE};
       min-width: 75px;
 
       &.ant-btn-primary {
-        ${mixins.primaryBtn()}
-        ${mixins.button()}
+        ${mixins.primaryBtn()}        
         color: #fff;
         &:hover {
           ${mixins.primaryBtnHover()}
@@ -59,6 +57,12 @@ const MtModal = styled(AntModal)`
         &.active {
           ${mixins.primaryBtnHover()};
           color: #fff;
+        }
+        &:disabled {
+          border: 1px solid ${theme.colors.DISABLE};
+          border-radius: 4px;
+          color: #fff;
+          background: ${theme.colors.ALTO};
         }
       }
       &:hover,

@@ -333,7 +333,7 @@ export default class AsyncSelect extends Component {
       >
         <CheckBox
           disabled={data.disabled}
-          checked={selectedItems.indexOf(data) > -1 ? true : false}
+          checked={selectedItems.map(i => i.value).includes(data.value)}
         />
         <span className="dataLabel">{data.label}</span>
       </div>
