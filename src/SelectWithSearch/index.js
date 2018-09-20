@@ -8,28 +8,17 @@ import AsyncSelect from './asyncSelect';
 import SyncSelect from './syncSelect';
 import mixin from '../styles/mixins';
 import searchIcon from './assets/search.svg';
+import arrowIcon from './assets/downFillcaret.svg';
 import classnames from 'classnames';
 
 const SelectBox = styled.div`
-  //  width: 0;
-  //  transition: width 2s;
-  //  &.active {
-  //    width: 100%;
-  //  }
-  &.buttonSelect {
+
+ &.buttonSelect {
     .mt-react-select__control {
-      width: 0;
-      opacity: 0;
-      transition: width .85s, opacity 1s;
-    }
+       width: 100%;
+       min-height: 32px;
+     }
 
-    .activeSearch {
-      .mt-react-select__control {
-        width: 100%;
-        opacity: 1;
-
-      }
-    }
   }
   .mt-react-select__single-value {
     padding-left: 0px;
@@ -39,18 +28,21 @@ const SelectBox = styled.div`
   }
 
   .mt-react-select__value-container{
-    padding-left: 12px;
+    margin-left: 20px;
+    overflow: hidden;
+    padding-left: 0px;
+    margin-right: 20px;
     &:before {
-    content: '';
-    display: none;
-    height: 22px;
-    width: 24px;
-    background-size: 14px;
-    padding-left: 5px;
-    padding-top: 5px;
-    left: 0;
-    position: absolute;
-    opacity: 0.6;
+      content: '';
+      display: none;
+      height: 22px;
+      width: 24px;
+      background-size: 14px;
+      padding-left: 5px;
+      padding-top: 5px;
+      left: 0;
+      position: absolute;
+      opacity: 0.6;
   }
   }
   .mt-react-select__menu-list {
@@ -59,51 +51,95 @@ const SelectBox = styled.div`
   }
 
   .selectBoxWrapper{
-    height: 32px;
-   .activeSearch {
+    margin-top: 10px;
+  .activeSearch {
     .mt-react-select__value-container{
-      &:before {
-          display: block;
-          background: url('${searchIcon}') no-repeat 10px 5px;
-        }
-      }
-      .mt-react-select__single-value {
-        padding-left: 20px;
-      }
-      .mt-react-select__dropdown-indicator {
-        display: none;
-      }
-      .mt-react-select__placeholder {
-        padding-left: 20px;
+      margin-left: 35px;
+    }
+    mt-react-select__input {
+      margin-left: -3px
+    }
+
+    .activeInput {
+      .icon-cross {
+        display: inline-block;
+        position: absolute;
+        right: 10px;
+        bottom: 12px;
+        margin-left: 10px;
+        font-size: 10px;
+        cursor: pointer;
       }
   }
-}
+    .mt-react-select__control {
+      &:before {
+        display: block;
+        background: url('${searchIcon}') no-repeat 10px 5px;
+        height: 18px;
+        width: 19px;
+        content: '';
+        background-size: 13px;
+        padding-top: 5px;
+        left: 0;
+        position: absolute;
+        opacity: 0.6;
+        margin-left: 15px;
+        top: 10px;
+        background-position: 1px 0px;
+      }
+    }
+    .mt-react-select__dropdown-indicator {
+      display: none;
+      background-size: 8px;
+    }
+      .mt-react-select__single-value {
+        margin-left: 20px;
+      }
+
+      .mt-react-select__placeholder {
+          margin-left: 4px;
+      }
+
+    }
+
+    .mt-react-select__dropdown-indicator {
+      display: block;
+      background: url('${arrowIcon}') no-repeat 0px 7px;
+      background-size: 8px;
+
+      svg {
+        display: none;
+      }
+    }
+
+ }
 
   .mt-react-select__clear-indicator{
     display: none;
   }
+
   .mt-react-select__control {
     border: 1px solid ${theme.colors.ALTO};
-    width: ${({ width = 'auto' }) => width};
+    position: relative;
+    //width: ${({ width = 'auto' }) => width};
   }
+
   .mt-react-select__control--is-focused {
     box-shadow: none;
     border: 1px solid ${theme.colors.SILVER};
   }
+
   .mt-react-select__control--is-focused:hover {
     border: 1px solid ${theme.colors.SILVER};
   }
+
   .mt-react-select__option {
     border-radius: 4px;
     padding: 6px 20px 8px 16px;
     color: ${theme.colors.OUTER_SPACE};
     height: 32px;
   }
-  // .mt-react-select__option:hover{
-  //   background-color: ${theme.colors.INDIGO};
-  //   color: #ffffff;
-  //   cursor: pointer;
-  // }
+
   .mt-react-select__option--is-selected {
     background-color: #ffffff;
     color: ${theme.colors.OUTER_SPACE};
@@ -115,12 +151,6 @@ const SelectBox = styled.div`
   }
   .mt-react-select__indicator-separator {
     display: none;
-  }
-  .mt-react-select__input {
-    padding-left: 20px;
-  }
-  .mt-react-select__placeholder {
-    //padding-left: 20px;
   }
 
   .ant-checkbox-wrapper .ant-checkbox {
@@ -139,13 +169,24 @@ const SelectBox = styled.div`
   .selectedItem {
     margin-left: 2px;
     margin-right: 2px;
-    //padding-left: 30px;
+    font-size: 14px;
+    color: ${theme.colors.DARK_OUTER_SPACE};
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+    width: 100%;
+
+    .selectedItemLabel{
+      max-width: 85%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+    }
   }
+
 .componentWrapper {
   ${mixin.clearfix()};
   width: 100%;
@@ -158,26 +199,19 @@ const SelectBox = styled.div`
 }
 
 .buttonWrapperR {
+  width: 50%;
+  text-align: right;
   float: right;
   padding-bottom: 10px;
 }
 
 .dataLabel {
   ${mixin.displayIB()};
+  ${mixin.greyText()};
 }
 
-.icon-Cancel {
+.icon-cross {
   display: none;
-}
-
-.activeInput {
-  .icon-Cancel {
-    display: inline-block;
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    cursor: pointer;
-  }
 }
 
 .mt-react-select__value-container:before {
@@ -187,7 +221,9 @@ const SelectBox = styled.div`
 
 .checkboxWrapper {
   margin-bottom: 5px;
+  ${() => mixin.truncate(`100%`)};
 }
+
 .doneMarginR {
   margin-left: 5px;
 }
@@ -201,8 +237,8 @@ class SelectWithSearch extends Component {
     isMulti: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     isButton: PropTypes.bool,
-    buttonMaxWidth: PropTypes.number,
-    buttonWidth: PropTypes.number
+    buttonMaxWidth: PropTypes.string,
+    buttonWidth: PropTypes.string
   };
   static defaultProps = {
     placeholder: 'Type here to Search'
