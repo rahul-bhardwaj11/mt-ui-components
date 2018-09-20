@@ -192,7 +192,10 @@ export default class SyncSelect extends Component {
         className="checkboxWrapper"
         title={data.label}
       >
-        <CheckBox checked={selectedItems.indexOf(data) > -1} />
+        <CheckBox
+          disabled={data.disabled}
+          checked={selectedItems.map(i => i.value).includes(data.value)}
+        />
         <span className="dataLabel">{data.label}</span>
       </div>
     ) : null;
