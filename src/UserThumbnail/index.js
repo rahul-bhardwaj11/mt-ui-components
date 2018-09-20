@@ -11,8 +11,9 @@ const MtUserThumbnail = styled.div`
   }
   .userThumbnailInfo {
     height: 40px;
-    margin-left: 56px;
+    margin-left: 16px;
     padding-top: 2px;
+    float: left;
 
     .name {
       ${mixin.blackText()};
