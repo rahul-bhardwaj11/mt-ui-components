@@ -74,6 +74,11 @@ const MtModal = styled(AntModal)`
 `;
 
 const MtConfirmModal = styled.div`
+  .ant-confirm-btns {
+    display: ${({ showFooter = true }) => {
+      return showFooter ? 'block' : 'none';
+    }};
+  }
   .ant-confirm-confirm .ant-confirm-body > .anticon {
     display: none;
   }
@@ -109,12 +114,16 @@ class Modal extends Component {
   };
 
   static confirm = props => {
+    const { showFooter } = props;
     const containerEl = document.body.appendChild(
       document.createElement('div')
     );
     let MountNode;
     ReactDOM.render(
-      <MtConfirmModal innerRef={e => (MountNode = e)} />,
+      <MtConfirmModal
+        showFooter={showFooter}
+        innerRef={e => (MountNode = e)}
+      />,
       containerEl
     );
     let confirmModalProps = {
