@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-
+import ReactDOM from 'react-dom';
 import AntDatePicker from 'antd/lib/date-picker';
+import Icon from '../Icon';
 import 'antd/lib/date-picker/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
@@ -42,16 +43,59 @@ const StyledDatePicker = styled.div`
   }
 `;
 
+const StyleSelectCalendar = styled.span`
+  position: relative;
+
+  .ant-input {
+    &:hover {
+      border: 1px solid ${theme.colors.INDIGO};
+    }
+    &:focus {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+
+  .ant-calendar-picker-input {
+    z-index: 1;
+    background: transparent;
+    padding-right: 20px;
+  }
+  .ant-calendar-picker-icon,
+  .ant-calendar-picker-clear {
+    display: none;
+
+    &:hover {
+      display: none;
+    }
+  }
+  .customCalendarIcon {
+    position: absolute;
+    right: 7px;
+    top: 2px;
+  }
+`;
+
 class DatePicker extends Component {
+  constructor(props) {
+    super(props);
+    const mountOn = document.body.appendChild(document.createElement('div'));
+    ReactDOM.render(
+      <StyledDatePicker innerRef={e => (this.datePickerContainer = e)} />,
+      mountOn
+    );
+  }
   render() {
     return (
-      <React.Fragment>
-        <StyledDatePicker innerRef={e => (this.datePickerContainer = e)} />
-        <AntDatePicker
-          {...this.props}
-          getCalendarContainer={() => this.datePickerContainer}
-        />
-      </React.Fragment>
+      <StyleSelectCalendar>
+        <React.Fragment>
+          <AntDatePicker
+            {...this.props}
+            iconSource={this.timeIcon}
+            getCalendarContainer={() => this.datePickerContainer}
+          />
+          <Icon type="editSchedule" className="customCalendarIcon" />
+        </React.Fragment>
+      </StyleSelectCalendar>
     );
   }
 }
