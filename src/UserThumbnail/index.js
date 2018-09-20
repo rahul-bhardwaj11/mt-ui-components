@@ -76,7 +76,7 @@ class UserThumbnail extends Component {
     let mtProps = Object.assign({}, rest);
     mtProps = !title ? Object.assign(mtProps, { icon: 'user' }) : mtProps;
 
-    let mtInfoProps = {
+    const thumbnailInfoProps = {
       title: title,
       content: content
     };
@@ -87,7 +87,10 @@ class UserThumbnail extends Component {
           {title && this.getInitials(title)}
         </Avatar>
         {expanded && (
-          <UserThumbnailInfo {...mtInfoProps} className="userThumbnailInfo" />
+          <UserThumbnailInfo
+            {...thumbnailInfoProps}
+            className="userThumbnailInfo"
+          />
         )}
       </MtUserThumbnail>
     );
