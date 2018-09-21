@@ -12,21 +12,6 @@ const MtCheckbox = styled.div`
   display: inline-block;
   vertical-align: middle;
   .ant-checkbox-wrapper {
-// <<<<<<< HEAD
-//     .ant-checkbox-indeterminate {
-//       .ant-checkbox-inner {
-//         background-color: ${theme.colors.INDIGO};
-//         border-color: ${theme.colors.INDIGO};
-//         &:after {
-//           transform: rotate(180deg) scale(1);
-//           left: 1.5px;
-//           top: 4.5px;
-//           width: 8px;
-//           height: 2px;
-//           background-color: #fff;
-//         }
-//       }
-// =======
     .ant-checkbox:hover .ant-checkbox-inner,
     .ant-checkbox-input:focus + .ant-checkbox-inner {
       border-color: ${theme.colors.INDIGO};

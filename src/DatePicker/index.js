@@ -87,14 +87,12 @@ class DatePicker extends Component {
   render() {
     return (
       <StyleSelectCalendar>
-        <React.Fragment>
-          <AntDatePicker
-            {...this.props}
-            iconSource={this.timeIcon}
-            getCalendarContainer={() => this.datePickerContainer}
-          />
-          <Icon type="editSchedule" className="customCalendarIcon" />
-        </React.Fragment>
+        <AntDatePicker
+          {...this.props}
+          iconSource={this.timeIcon}
+          getCalendarContainer={() => this.datePickerContainer}
+        />
+        <Icon type="editSchedule" className="customCalendarIcon" />
       </StyleSelectCalendar>
     );
   }

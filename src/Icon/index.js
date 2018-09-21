@@ -19,20 +19,20 @@ export default class Icon extends Component {
   };
 
   render() {
-    const { type, className, onClick, gradient } = this.props;
-    let { style } = this.props;
+    const { type, onClick, gradient } = this.props;
+    let { style, className } = this.props;
     style = gradient ? { ...style, ...svgIcons[type] } : style;
+    className = gradient ? className : classnames(`icon-${type}`, className);
+    const iconProps = {
+      className,
+      style,
+      onClick
+    };
     return (
-      <span
-        className={classnames(
-          {
-            [`icon-${type}`]: !gradient
-          },
-          className
-        )}
-        style={style}
-        onClick={onClick}
-      />
+      <React.Fragment>
+        {gradient && <div {...iconProps} />}
+        {!gradient && <span {...iconProps} />}
+      </React.Fragment>
     );
   }
 }
