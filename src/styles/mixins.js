@@ -27,14 +27,14 @@ const mixins = {
     fontWeight = 600,
     color = '#2A2E36',
     lineHeight = '22px',
-    textTransform
+    textTransform = 'inherit'
   }) => {
     return `
     font-size: ${fontSize};
     font-weight: ${fontWeight};
     color: ${color};
     line-height: ${lineHeight};
-    text-transform: ${textTransform}
+    text-transform: ${textTransform};
   `;
   },
 
@@ -285,11 +285,11 @@ const mixins = {
 
   truncate: width => {
     return `
-          width: ${width};
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        `;
+        width: ${width};
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      `;
   }
 };
 

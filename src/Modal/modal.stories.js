@@ -53,6 +53,14 @@ class ModalStoryComponent extends Component {
     );
   }
 }
+function showConfirmModal(props) {
+  Modal.confirm({
+    centered: true,
+    content: 'This is content',
+    title: 'This is title',
+    ...props
+  });
+}
 
 stories.add(
   'Default Modal',
@@ -62,4 +70,27 @@ stories.add(
 stories.add(
   'Full width Modal',
   withInfo('Full width Modal')(() => <ModalStoryComponent type="full" />)
+);
+
+stories.add(
+  'Center confirmed Modal',
+  withInfo('confirmed Modal')(() => (
+    <Button onClick={showConfirmModal} type="primary">
+      Click
+    </Button>
+  ))
+);
+
+stories.add(
+  'Confirmed Modal without footer',
+  withInfo('Confirm Modal without footer')(() => (
+    <Button
+      onClick={() => {
+        showConfirmModal({ showFooter: false });
+      }}
+      type="primary"
+    >
+      Click
+    </Button>
+  ))
 );
