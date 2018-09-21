@@ -53,6 +53,7 @@ const MtCheckbox = styled.div`
       width: 14px;
       height: 14px;
       border-radius: 3px;
+      border: 1px solid ${theme.colors.INDIGO};
       &:after {
         left: 3.5px;
         top: 1.2px;

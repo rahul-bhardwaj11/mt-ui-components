@@ -300,6 +300,8 @@ class Button extends Component {
   render() {
     const { children, type, style = {}, active, disabled, size } = this.props;
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
+
+    let { className, ...rest } = this.props;
     let { maxWidth, minWidth } = style;
     return (
       <MtButton
@@ -307,10 +309,11 @@ class Button extends Component {
         disabled={disabled}
         size={size}
         maxWidth={maxWidth}
+        className={className}
         minWidth={minWidth}
       >
         <AntButton
-          {...this.props}
+          {...rest}
           type={antdType}
           style={style}
           size={ANT_BUTTON_SIZES_MAP[size] || ANT_BUTTON_SIZES_MAP.LARGE}
