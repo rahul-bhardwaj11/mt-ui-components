@@ -13,7 +13,6 @@ const MtModal = styled(AntModal)`
   .ant-modal-content {
     border-radius:8px;
   }
-
   .ant-modal-body {
     padding: 24px 32px;
     overflow: auto;
@@ -43,9 +42,12 @@ const MtModal = styled(AntModal)`
   }
 
   .ant-modal-footer {
-    padding: 21px 32px;
+    padding: 15px 32px 16px 32px;
     background: ${theme.colors.PORCELAIN};
-    border-top: 0px;
+    border-top: 1px solid ${theme.colors.ALTO};;
+    border-radius: 0 0 8px 8px;
+    margin-top: 15px;
+    
     .ant-btn {
       ${mixins.textBtn()}      
       color: ${theme.colors.OUTER_SPACE};
