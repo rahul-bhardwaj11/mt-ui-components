@@ -1,15 +1,17 @@
 @import 'mixins.scss';
 @import 'icons.scss';
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
+
 :global {
   * {
     padding: 0px;
     margin: 0px;
     outline: none;
   }
+
   body {
     background: #f2f2f2;
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: 'Open sans';
     outline: none;
   }
   .pointer {

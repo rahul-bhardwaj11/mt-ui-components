@@ -9,9 +9,11 @@ import mixins from '../styles/mixins';
 import ReactDOM from 'react-dom';
 
 const MtModal = styled(AntModal)`
+&.ant-modal{
   .ant-modal-content {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+    border-radius:8px;
   }
+
   .ant-modal-body {
     padding: 24px 32px;
     overflow: auto;
@@ -20,6 +22,8 @@ const MtModal = styled(AntModal)`
     border-bottom: 0px;
     padding: 24px 32px;
     font-size: 20px;
+    border-radius: 8px 8px 0 0;
+
     .ant-modal-title {
       color: ${theme.colors.SHARK};
       font-size: 20px;
@@ -73,11 +77,14 @@ const MtModal = styled(AntModal)`
       }
     }
   }
-
+}
 
 `;
 
 const MtConfirmModal = styled.div`
+  .ant-modal-content {
+    border-radius: 8px;
+  }
   .ant-confirm-btns {
     display: ${({ showFooter = true }) => {
       return showFooter ? 'block' : 'none';
