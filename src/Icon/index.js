@@ -14,7 +14,8 @@ export default class Icon extends Component {
   };
   static defaultProps = {
     onClick: noop,
-    gradient: false
+    gradient: false,
+    display: 'inline-block'
   };
 
   render() {
@@ -22,7 +23,7 @@ export default class Icon extends Component {
     let { style } = this.props;
     style = gradient ? { ...style, ...svgIcons[type] } : style;
     return (
-      <div
+      <span
         className={classnames(
           {
             [`icon-${type}`]: !gradient
