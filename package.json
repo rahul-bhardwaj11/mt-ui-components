@@ -129,9 +129,9 @@
     "node-sass-utils": "^1.1.2",
     "npm": "^6.1.0",
     "prop-types": "^15.6.2",
-    "react": "16.2.0",
+    "react": "16.3.0",
     "react-copy-to-clipboard": "^5.0.1",
-    "react-dom": "^16.0.0",
+    "react-dom": "16.3.0",
     "react-icons": "^2.2.3",
     "react-select": "^2.0.0",
     "react-sortable-tree": "^2.2.0",
@@ -140,8 +140,8 @@
     "react-truncate": "^2.4.0"
   },
   "peerDependencies": {
-    "react": "16.2.0",
-    "react-dom": "^16.0.0",
+    "react": "16.3.0",
+    "react-dom": "16.3.0",
     "styled-components": "^3.3.0"
   }
 }
