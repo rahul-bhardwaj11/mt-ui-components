@@ -40,6 +40,17 @@ const MtSearchInput = styled.span`
       box-shadow: none;
     }
   }
+  .ant-input-search > .ant-input-suffix > .ant-input-search-icon {
+    font-weight: 600;
+    color: ${theme.colors.ALTO};
+    cursor: default;
+  }
+  .ant-input-search:focus .ant-input-search-icon,
+  .ant-input-search:focus-within .ant-input-search-icon,
+  .ant-input-search:visited .ant-input-search-icon,
+  .ant-input-search:active .ant-input-search-icon {
+    color: ${theme.colors.GREY};
+  }
 `;
 
 class Search extends Component {
