@@ -4,14 +4,14 @@ const StyledToast = styled.div`
 
   .toast {
     width: 100%;
-    height: 50px;
+    //height: 50px;
     border-radius: 0px;
-    padding: 10px 20px;
-    line-height: 30px;
-    position: fixed;
+    padding: 5px 20px;
+    //line-height: 30px;
+    //position: fixed;
     font-size: 14px;
-    top: 0;
-    left: 0;
+    //top: 0;
+    //left: 0;
     opacity: 0;
     // visibility: hidden;
     transition: opacity;
