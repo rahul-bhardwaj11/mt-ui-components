@@ -10,6 +10,7 @@ import ReactDOM from 'react-dom';
 
 const MtModal = styled(AntModal)`
 &.ant-modal{
+  font-family: inherit;
   .ant-modal-content {
     border-radius:8px;
   }
@@ -79,11 +80,41 @@ const MtModal = styled(AntModal)`
       }
     }
   }
-}
 
+  @media (max-width: 576px){
+    margin: 0px;
+    top:0px;
+    height: 100vh;
+    background: #fff;
+
+    .ant-modal-header{
+      border-radius:0px;
+    }
+
+    .ant-modal-footer {
+      position: fixed;
+      bottom: 0px;
+      width: 100%;
+      border-radius: 0px;
+      z-index:1;
+  }
+  .ant-modal-content{
+    border-radius:0px;
+    box-shadow:0 0px 0px rgba(0, 0, 0, 0.15);
+  }  
+
+}
+}
+.ant-confirm-body > .anticon {
+  display: none;
+}
 `;
 
 const MtConfirmModal = styled.div`
+  .ant-confirm-body .ant-confirm-content {
+    margin-left: 0px;
+  }
+
   .ant-modal-content {
     border-radius: 8px;
   }
@@ -142,6 +173,7 @@ class Modal extends Component {
     let confirmModalProps = {
       ...props,
       getContainer: () => {
+        // console.log(MountNode);
         return MountNode;
       },
       onCancel: (...cancelProps) => {

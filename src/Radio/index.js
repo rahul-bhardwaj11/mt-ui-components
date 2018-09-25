@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const MtRadio = styled(AntRadio)`
+  font-family: inherit;
   .ant-radio-inner:after {
     background-color: white;
   }

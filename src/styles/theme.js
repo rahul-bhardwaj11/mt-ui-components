@@ -30,7 +30,8 @@ const theme = {
     PIPPIN: '#FFE1E1',
     FROG: '#E9D0FF',
     PASTEL_GREEN: '#35C759',
-    ICON: '#888888'
+    ICON: '#888888',
+    WHITE: '#fff'
   },
   typography: {},
   breakpoints: {

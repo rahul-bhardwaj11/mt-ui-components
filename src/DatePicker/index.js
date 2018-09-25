@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const StyledDatePicker = styled.div`
+  font-family: inherit;
   .ant-calendar-selected-day {
     .ant-calendar-date {
       background: ${theme.colors.INDIGO};

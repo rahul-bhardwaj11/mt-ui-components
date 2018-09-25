@@ -4,6 +4,36 @@
     {
       "icon": {
         "paths": [
+          "M285.756 158.916v706.141l60.173-60.193c18.174-18.18 47.645-18.185 65.825-0.011s18.186 47.645 0.012 65.825l-139.636 139.683c-18.179 18.184-47.658 18.184-65.836 0l-139.636-139.683c-18.174-18.18-18.169-47.651 0.011-65.825s47.651-18.169 65.825 0.011l60.173 60.193v-706.141l-60.179 60.178c-18.177 18.177-47.648 18.177-65.825 0s-18.177-47.648 0-65.825l139.636-139.636c18.177-18.177 47.648-18.177 65.825 0l139.636 139.636c18.177 18.177 18.177 47.648 0 65.825s-47.648 18.177-65.825 0l-60.178-60.178zM565.028 930.909c-25.706 0-46.545-20.839-46.545-46.545s20.839-46.545 46.545-46.545h512c25.706 0 46.545 20.839 46.545 46.545s-20.839 46.545-46.545 46.545h-512zM565.028 558.545c-25.706 0-46.545-20.839-46.545-46.545s20.839-46.545 46.545-46.545h512c25.706 0 46.545 20.839 46.545 46.545s-20.839 46.545-46.545 46.545h-512zM565.028 186.182c-25.706 0-46.545-20.839-46.545-46.545s20.839-46.545 46.545-46.545h512c25.706 0 46.545 20.839 46.545 46.545s-20.839 46.545-46.545 46.545h-512z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "width": 1152,
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "ReorderList"
+        ]
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 1238,
+        "id": 4,
+        "name": "reorderList",
+        "prevSize": 32,
+        "code": 59758
+      },
+      "setIdx": 0,
+      "setId": 1,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
           "M747.35 980.732c0 23.896-19.372 43.268-43.268 43.268s-43.268-19.372-43.268-43.268v-74.997c0-109.764-126.582-204.8-287.14-204.8s-287.14 95.036-287.14 204.8v74.997c0 23.896-19.372 43.268-43.268 43.268s-43.268-19.372-43.268-43.268v-74.997c0-163.824 169.837-291.335 373.675-291.335s373.675 127.512 373.675 291.335v74.997zM371.052 501.904c-140.989 0-255.672-112.135-255.672-250.952s114.683-250.952 255.672-250.952c140.989 0 255.672 112.135 255.672 250.952s-114.683 250.952-255.672 250.952zM371.052 415.369c93.627 0 169.137-73.832 169.137-164.417s-75.51-164.417-169.137-164.417c-93.627 0-169.137 73.832-169.137 164.417s75.51 164.417 169.137 164.417z"
         ],
         "attrs": [
@@ -29,7 +59,7 @@
       },
       "setIdx": 0,
       "setId": 1,
-      "iconIdx": 0
+      "iconIdx": 1
     },
     {
       "icon": {
@@ -59,7 +89,7 @@
       },
       "setIdx": 0,
       "setId": 1,
-      "iconIdx": 1
+      "iconIdx": 2
     },
     {
       "icon": {
@@ -89,7 +119,7 @@
       },
       "setIdx": 0,
       "setId": 1,
-      "iconIdx": 2
+      "iconIdx": 3
     },
     {
       "icon": {
@@ -118,7 +148,7 @@
       },
       "setIdx": 0,
       "setId": 1,
-      "iconIdx": 3
+      "iconIdx": 4
     },
     {
       "icon": {
@@ -132,8 +162,10 @@
           "google"
         ],
         "defaultCode": 59392,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 1,
         "order": 1127,
@@ -157,8 +189,10 @@
           "addComment"
         ],
         "defaultCode": 59648,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 2,
         "order": 1128,
@@ -183,8 +217,10 @@
           "collapseAll"
         ],
         "defaultCode": 59649,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 3,
         "order": 1129,
@@ -209,8 +245,10 @@
           "filter"
         ],
         "defaultCode": 59650,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 4,
         "order": 1130,
@@ -235,8 +273,10 @@
           "moreHorizontal"
         ],
         "defaultCode": 59651,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 5,
         "order": 1131,
@@ -261,8 +301,10 @@
           "moreVertical"
         ],
         "defaultCode": 59652,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 6,
         "order": 1132,
@@ -285,8 +327,10 @@
           "userProfile"
         ],
         "defaultCode": 59653,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 7,
         "order": 1133,
@@ -310,8 +354,10 @@
           "facebook"
         ],
         "defaultCode": 59654,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 8,
         "order": 1134,
@@ -335,8 +381,10 @@
           "googlePlus"
         ],
         "defaultCode": 59655,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 9,
         "order": 1135,
@@ -360,8 +408,10 @@
           "linkedIn"
         ],
         "defaultCode": 59656,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 10,
         "order": 1136,
@@ -385,8 +435,10 @@
           "twitter"
         ],
         "defaultCode": 59657,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 11,
         "order": 1137,
@@ -410,8 +462,10 @@
           "close"
         ],
         "defaultCode": 59658,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 12,
         "order": 1138,
@@ -435,8 +489,10 @@
           "checkboxOff"
         ],
         "defaultCode": 59659,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 13,
         "order": 1139,
@@ -460,8 +516,10 @@
           "checkboxOn"
         ],
         "defaultCode": 59660,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 14,
         "order": 1140,
@@ -486,8 +544,10 @@
           "attachment"
         ],
         "defaultCode": 59661,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 15,
         "order": 1141,
@@ -511,8 +571,10 @@
           "googleLogo"
         ],
         "defaultCode": 59662,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 16,
         "order": 1142,
@@ -537,8 +599,10 @@
           "series_outline"
         ],
         "defaultCode": 59663,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 17,
         "order": 1143,
@@ -562,8 +626,10 @@
           "help"
         ],
         "defaultCode": 59664,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 18,
         "order": 1144,
@@ -588,8 +654,10 @@
           "right_arrow_wide"
         ],
         "defaultCode": 59665,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 19,
         "order": 1145,
@@ -614,8 +682,10 @@
           "duplicate"
         ],
         "defaultCode": 59666,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 20,
         "order": 1146,
@@ -639,8 +709,10 @@
           "info"
         ],
         "defaultCode": 59667,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 21,
         "order": 1147,
@@ -664,8 +736,10 @@
           "todo"
         ],
         "defaultCode": 59668,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 22,
         "order": 1148,
@@ -689,8 +763,10 @@
           "search"
         ],
         "defaultCode": 59669,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 23,
         "order": 1149,
@@ -715,8 +791,10 @@
           "more_horizontal"
         ],
         "defaultCode": 59670,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 24,
         "order": 1150,
@@ -740,8 +818,10 @@
           "menu"
         ],
         "defaultCode": 59671,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 25,
         "order": 1151,
@@ -766,8 +846,10 @@
           "more_vertical"
         ],
         "defaultCode": 59672,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 26,
         "order": 1152,
@@ -792,8 +874,10 @@
           "tick"
         ],
         "defaultCode": 59673,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 27,
         "order": 1153,
@@ -817,8 +901,10 @@
           "cross"
         ],
         "defaultCode": 59674,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 28,
         "order": 1154,
@@ -843,8 +929,10 @@
           "delete"
         ],
         "defaultCode": 59675,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 29,
         "order": 1155,
@@ -868,8 +956,10 @@
           "move"
         ],
         "defaultCode": 59676,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 30,
         "order": 1156,
@@ -893,8 +983,10 @@
           "edit"
         ],
         "defaultCode": 59677,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 31,
         "order": 1157,
@@ -918,8 +1010,10 @@
           "Collapse"
         ],
         "defaultCode": 59678,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 32,
         "order": 1158,
@@ -943,8 +1037,10 @@
           "ES_Build"
         ],
         "defaultCode": 59679,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 33,
         "order": 1159,
@@ -969,8 +1065,10 @@
           "calender"
         ],
         "defaultCode": 59680,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 34,
         "order": 1160,
@@ -994,8 +1092,10 @@
           "Checklist_graphic"
         ],
         "defaultCode": 59681,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 35,
         "order": 1161,
@@ -1019,8 +1119,10 @@
           "sign_out"
         ],
         "defaultCode": 59682,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 36,
         "order": 1162,
@@ -1044,8 +1146,10 @@
           "Profile"
         ],
         "defaultCode": 59683,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 37,
         "order": 1163,
@@ -1070,8 +1174,10 @@
           "list"
         ],
         "defaultCode": 59684,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 38,
         "order": 1164,
@@ -1095,8 +1201,10 @@
           "underline"
         ],
         "defaultCode": 59685,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 39,
         "order": 1165,
@@ -1121,8 +1229,10 @@
           "italics"
         ],
         "defaultCode": 59686,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 40,
         "order": 1166,
@@ -1147,8 +1257,10 @@
           "right_arrow"
         ],
         "defaultCode": 59687,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 41,
         "order": 1167,
@@ -1173,8 +1285,10 @@
           "bold"
         ],
         "defaultCode": 59688,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 42,
         "order": 1168,
@@ -1199,8 +1313,10 @@
           "Learner"
         ],
         "defaultCode": 59689,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 43,
         "order": 1169,
@@ -1225,8 +1341,10 @@
           "Download"
         ],
         "defaultCode": 59690,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 44,
         "order": 1170,
@@ -1250,8 +1368,10 @@
           "Remind"
         ],
         "defaultCode": 59691,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 45,
         "order": 1171,
@@ -1275,8 +1395,10 @@
           "left_arrow"
         ],
         "defaultCode": 59692,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 46,
         "order": 1172,
@@ -1301,8 +1423,10 @@
           "Sort_Up"
         ],
         "defaultCode": 59693,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 47,
         "order": 1173,
@@ -1327,8 +1451,10 @@
           "Sort_Down"
         ],
         "defaultCode": 59694,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 48,
         "order": 1174,
@@ -1352,8 +1478,10 @@
           "Upload"
         ],
         "defaultCode": 59695,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 49,
         "order": 1175,
@@ -1377,8 +1505,10 @@
           "Analytics"
         ],
         "defaultCode": 59696,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 50,
         "order": 1176,
@@ -1402,8 +1532,10 @@
           "Export"
         ],
         "defaultCode": 59697,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 51,
         "order": 1177,
@@ -1427,8 +1559,10 @@
           "RadioButton_on"
         ],
         "defaultCode": 59698,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 52,
         "order": 1178,
@@ -1452,8 +1586,10 @@
           "RadioButton_off"
         ],
         "defaultCode": 59699,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 53,
         "order": 1179,
@@ -1477,8 +1613,10 @@
           "Comment"
         ],
         "defaultCode": 59700,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 54,
         "order": 1180,
@@ -1502,8 +1640,10 @@
           "left_triangle"
         ],
         "defaultCode": 59701,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 55,
         "order": 1181,
@@ -1527,8 +1667,10 @@
           "right_triangle"
         ],
         "defaultCode": 59702,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 56,
         "order": 1182,
@@ -1552,8 +1694,10 @@
           "down_triangle"
         ],
         "defaultCode": 59703,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 57,
         "order": 1183,
@@ -1577,8 +1721,10 @@
           "Checklist"
         ],
         "defaultCode": 59704,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 58,
         "order": 1184,
@@ -1602,8 +1748,10 @@
           "Cancel"
         ],
         "defaultCode": 59705,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 59,
         "order": 1185,
@@ -1627,8 +1775,10 @@
           "Confirm"
         ],
         "defaultCode": 59706,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 60,
         "order": 1186,
@@ -1652,8 +1802,10 @@
           "Plus"
         ],
         "defaultCode": 59707,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 61,
         "order": 1187,
@@ -1677,8 +1829,10 @@
           "Up_arrow"
         ],
         "defaultCode": 59708,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 62,
         "order": 1188,
@@ -1702,8 +1856,10 @@
           "Down_arrow"
         ],
         "defaultCode": 59709,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 63,
         "order": 1189,
@@ -1728,8 +1884,10 @@
           "first_live"
         ],
         "defaultCode": 59710,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 64,
         "order": 1190,
@@ -1753,8 +1911,10 @@
           "tag"
         ],
         "defaultCode": 59711,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 65,
         "order": 1191,
@@ -1778,8 +1938,10 @@
           "uniE93D"
         ],
         "defaultCode": 59712,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 66,
         "order": 1192,
@@ -1802,8 +1964,10 @@
           "uniE93E"
         ],
         "defaultCode": 59713,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 67,
         "order": 1193,
@@ -1826,8 +1990,10 @@
           "uniE93F"
         ],
         "defaultCode": 59714,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 68,
         "order": 1194,
@@ -1850,8 +2016,10 @@
           "right_arrow2"
         ],
         "defaultCode": 59715,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 69,
         "order": 1195,
@@ -1875,8 +2043,10 @@
           "add"
         ],
         "defaultCode": 59716,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 70,
         "order": 1196,
@@ -1899,8 +2069,10 @@
           "announcement"
         ],
         "defaultCode": 59717,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 71,
         "order": 1197,
@@ -1924,8 +2096,10 @@
           "attachement"
         ],
         "defaultCode": 59718,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 72,
         "order": 1198,
@@ -1949,8 +2123,10 @@
           "cancel"
         ],
         "defaultCode": 59719,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 73,
         "order": 1199,
@@ -1975,8 +2151,10 @@
           "delete2"
         ],
         "defaultCode": 59720,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 74,
         "order": 1200,
@@ -2000,8 +2178,10 @@
           "down_caret"
         ],
         "defaultCode": 59721,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 75,
         "order": 1201,
@@ -2025,8 +2205,10 @@
           "down_fillcaret"
         ],
         "defaultCode": 59722,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 76,
         "order": 1202,
@@ -2050,8 +2232,10 @@
           "drag"
         ],
         "defaultCode": 59723,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 77,
         "order": 1203,
@@ -2075,8 +2259,10 @@
           "duplicate2"
         ],
         "defaultCode": 59724,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 78,
         "order": 1204,
@@ -2100,8 +2286,10 @@
           "edit2"
         ],
         "defaultCode": 59725,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 79,
         "order": 1205,
@@ -2125,8 +2313,10 @@
           "help2"
         ],
         "defaultCode": 59726,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 80,
         "order": 1206,
@@ -2150,8 +2340,10 @@
           "info2"
         ],
         "defaultCode": 59727,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 81,
         "order": 1207,
@@ -2176,8 +2368,10 @@
           "left_caret"
         ],
         "defaultCode": 59728,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 82,
         "order": 1208,
@@ -2201,8 +2395,10 @@
           "left_fillcaret"
         ],
         "defaultCode": 59729,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 83,
         "order": 1209,
@@ -2226,8 +2422,10 @@
           "more_horizontal2"
         ],
         "defaultCode": 59730,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 84,
         "order": 1210,
@@ -2252,8 +2450,10 @@
           "more_vertical2"
         ],
         "defaultCode": 59731,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 85,
         "order": 1211,
@@ -2277,8 +2477,10 @@
           "move2"
         ],
         "defaultCode": 59732,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 86,
         "order": 1212,
@@ -2303,8 +2505,10 @@
           "right_caret"
         ],
         "defaultCode": 59733,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 87,
         "order": 1213,
@@ -2329,8 +2533,10 @@
           "right_fillcaret"
         ],
         "defaultCode": 59734,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 88,
         "order": 1214,
@@ -2354,8 +2560,10 @@
           "search2"
         ],
         "defaultCode": 59735,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 89,
         "order": 1215,
@@ -2380,8 +2588,10 @@
           "settings"
         ],
         "defaultCode": 59736,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 90,
         "order": 1216,
@@ -2405,8 +2615,10 @@
           "step_arrow"
         ],
         "defaultCode": 59737,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 91,
         "order": 1217,
@@ -2430,8 +2642,10 @@
           "swap"
         ],
         "defaultCode": 59738,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 92,
         "order": 1218,
@@ -2455,8 +2669,10 @@
           "tick2"
         ],
         "defaultCode": 59739,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 93,
         "order": 1219,
@@ -2481,8 +2697,10 @@
           "to_dos"
         ],
         "defaultCode": 59740,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 94,
         "order": 1220,
@@ -2506,8 +2724,10 @@
           "up_caret"
         ],
         "defaultCode": 59741,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 95,
         "order": 1221,
@@ -2531,8 +2751,10 @@
           "up_fillcaret"
         ],
         "defaultCode": 59742,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 96,
         "order": 1222,
@@ -2556,8 +2778,10 @@
           "add2"
         ],
         "defaultCode": 59743,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 97,
         "order": 1223,
@@ -2581,8 +2805,10 @@
           "uniE95D"
         ],
         "defaultCode": 59744,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 98,
         "order": 1224,
@@ -2606,8 +2832,10 @@
           "uniE95E"
         ],
         "defaultCode": 59745,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 99,
         "order": 1225,
@@ -2631,8 +2859,10 @@
           "uniE95F"
         ],
         "defaultCode": 59746,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 100,
         "order": 1226,
@@ -2657,8 +2887,10 @@
           "info_without_circle"
         ],
         "defaultCode": 59747,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 101,
         "order": 1227,
@@ -2683,8 +2915,10 @@
           "reviewApproved"
         ],
         "defaultCode": 59748,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 102,
         "order": 1228,
@@ -2709,8 +2943,10 @@
           "expandAll"
         ],
         "defaultCode": 59750,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 103,
         "order": 1229,
@@ -2734,8 +2970,10 @@
           "peak"
         ],
         "defaultCode": 59751,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 104,
         "order": 1230,
@@ -2759,8 +2997,10 @@
           "editSchedule"
         ],
         "defaultCode": 59752,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 105,
         "order": 1231,
@@ -2784,8 +3024,10 @@
           "Export1"
         ],
         "defaultCode": 59753,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 106,
         "order": 1232,
@@ -2809,8 +3051,10 @@
           "Reviewers"
         ],
         "defaultCode": 59754,
-        "grid": 0
+        "grid": 0,
+        "attrs": []
       },
+      "attrs": [],
       "properties": {
         "id": 107,
         "order": 1233,
