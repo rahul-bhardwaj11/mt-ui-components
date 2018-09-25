@@ -314,7 +314,8 @@ class Table extends Component {
     hasMore: PropTypes.bool,
     loading: PropTypes.bool,
     scroll: PropTypes.object,
-    dataSource: PropTypes.array
+    dataSource: PropTypes.array,
+    selectedRowKeys: PropTypes.array
   };
   static defaultProps = {
     infiniteScroll: false,
@@ -393,23 +394,9 @@ class Table extends Component {
       this.scrollElement.removeEventListener('scroll', this.onScroll, false);
     }
   }
-  componentWillReceiveProps(nextProp) {
-    const { dataSource } = nextProp;
-    const { selectAll, selectedRowKeys } = this.state;
-    let selectedRows = dataSource.filter(v => selectedRowKeys.includes(v.key));
 
-    if (selectAll && dataSource.length > selectedRows.length) {
-      selectedRows = dataSource;
-    }
-    if (selectedRowKeys.length !== selectedRows.length)
-      this.onChange(selectedRows.map(row => row.key), selectedRows);
-  }
   onChange = (selectedRowKeys, selectedRows) => {
-    let {
-      dataSource,
-      actionBar,
-      rowSelection: { onChange }
-    } = this.props;
+    let { dataSource, actionBar, rowSelection: { onChange } = {} } = this.props;
     this.setState(() => ({
       showActionBar: actionBar && selectedRowKeys.length > 0,
       showMultiSelect: selectedRowKeys.length > 0,
@@ -434,20 +421,42 @@ class Table extends Component {
       : DEFAULT_LOADER_PROPS;
     return <Loader {...loaderProps} />;
   };
-
+  componentDidUpdate() {
+    const { selectAll, selectedRowKeys } = this.state;
+    const { dataSource } = this.props;
+    if (selectAll && selectedRowKeys.length !== dataSource.length) {
+      this.onChange(dataSource.map(v => v.key), dataSource);
+    }
+  }
   render() {
-    let { rowSelection, actionBar, children, loading } = this.props;
-    let { showActionBar, showMultiSelect, selectedRowKeys } = this.state;
+    let {
+      rowSelection,
+      actionBar,
+      children,
+      loading,
+      dataSource,
+      selectedRowKeys: parentKeys
+    } = this.props;
+    let {
+      showActionBar,
+      showMultiSelect,
+      selectAll,
+      selectedRowKeys
+    } = this.state;
 
     /**
      * Check if rowSelection props is been passed, If yes override the onChange property of it.
      * Also if onChange prop is passed and the rowSelection is not available, create a new rowSelection object with onChange method.
      */
+    const newSelectedRowskey = selectAll
+      ? dataSource.map(v => v.key)
+      : parentKeys || selectedRowKeys;
+
     const updatedRowSelection = rowSelection
       ? {
           ...rowSelection,
           onChange: this.onChange,
-          selectedRowKeys
+          selectedRowKeys: newSelectedRowskey
         }
       : null;
 
