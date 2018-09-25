@@ -127,48 +127,4 @@
   }
 
   /* ant select modal override */
-
-  .ant-popover-message-title {
-    padding-left: 0px !important;
-    @include blackLink;
-  }
-  .ant-popover-message > .anticon {
-    display: none;
-  }
-  .ant-popover-buttons {
-    .ant-btn {
-      @include textBtn;
-      @include button;
-      color: #989ca6;
-      min-width: 75px;
-
-      &.ant-btn-primary {
-        @include primaryBtn;
-        @include button;
-        color: #fff;
-        &:hover {
-          @include primaryBtnHover;
-          color: #fff;
-        }
-        &:focus,
-        &.active {
-          @include primaryBtnHover;
-          color: #fff;
-        }
-      }
-      &:hover,
-      &:focus {
-        @include textBtn;
-        color: #888;
-      }
-    }
-  }
-  .collapsing {
-    position: relative;
-    height: 0px;
-    overflow: hidden;
-    transition-property: height, visibility;
-    transition-duration: 0.35s;
-    transition-timing-function: ease;
-  }
 }

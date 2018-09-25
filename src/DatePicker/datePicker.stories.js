@@ -13,7 +13,7 @@ stories.add(
   withInfo('Adding type primary to button')(() => (
     <DatePicker
       fullscreen={false}
-      onChange={(value, date) => (value, date)}
+      onChange={value => value}
       showToday={false}
     />
   ))

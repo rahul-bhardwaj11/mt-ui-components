@@ -7,6 +7,7 @@ import mixins from '../styles/mixins';
 
 const MtCard = styled.div`
   .ant-card {
+    font-family: inherit;
     border-radius: 8px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
     padding: 24px;
