@@ -97,6 +97,10 @@ const MtTable = styled.div`
               return `${pTop} ${pLeft} ${pBottom}  ${pLeft}`;
             }};
           }
+
+          .ant-table-column-sorter > .ant-table-column-sorter-down {
+            margin-top: 0;
+          }
         }
       }
     }

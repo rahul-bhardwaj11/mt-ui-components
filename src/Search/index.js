@@ -3,11 +3,13 @@ import { Input } from 'antd';
 import 'antd/lib/input/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import Icon from '../Icon';
 
 const AntSearch = Input.Search;
 
 const MtSearchInput = styled.span`
   .ant-input-affix-wrapper {
+    font-family: inherit;
     .ant-input:not(:last-child) {
       padding: 0px 0px 0px 30px;
     }
@@ -29,7 +31,7 @@ const MtSearchInput = styled.span`
   }
   .ant-input {
     color: ${theme.colors.SHARK};
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: inherit;
     font-size: 12px;
     border: 1px solid ${theme.colors.ALTO};
     &:hover {
@@ -41,23 +43,24 @@ const MtSearchInput = styled.span`
     }
   }
   .ant-input-search > .ant-input-suffix > .ant-input-search-icon {
-    font-weight: 600;
-    color: ${theme.colors.ALTO};
-    cursor: default;
+    display: none;
   }
-  .ant-input-search:focus .ant-input-search-icon,
-  .ant-input-search:focus-within .ant-input-search-icon,
-  .ant-input-search:visited .ant-input-search-icon,
-  .ant-input-search:active .ant-input-search-icon {
+  .icon-search {
+    color: ${theme.colors.ALTO};
+  }
+  .ant-input-search:focus .icon-search,
+  .ant-input-search:active .icon-search,
+  .ant-input-search:focus-within .icon-search {
     color: ${theme.colors.GREY};
   }
 `;
 
 class Search extends Component {
   render() {
+    const suffix = <Icon type="search" />;
     return (
       <MtSearchInput>
-        <AntSearch {...this.props} />
+        <AntSearch {...this.props} suffix={suffix} />
       </MtSearchInput>
     );
   }
