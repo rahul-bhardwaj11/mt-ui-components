@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import ReactDOM from 'react-dom';
 
 import Loader from '../Loader';
 import {
@@ -29,6 +30,23 @@ const HideBtn = ({ hide }) => {
   return (
     <div className={classnames('floatR', 'link')} onClick={hide}>
       Hide
+    </div>
+  );
+};
+
+const FreezeOverlay = () => {
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0,
+        background: 'rgba(0, 0, 0, 0.5)'
+      }}
+    >
+      lol{' '}
     </div>
   );
 };
@@ -77,6 +95,7 @@ export default class Toast extends Component {
   hideToast = () => {
     this.stopTimer();
     this.removeToast();
+    this.mountOn && ReactDOM.unmountComponentAtNode(this.mountOn);
   };
 
   startTimer = time => {
@@ -115,11 +134,16 @@ export default class Toast extends Component {
   }
 
   componentDidMount() {
+    const { freeze } = this.props;
     this.handleTimer(this.props);
+    if (freeze) {
+      this.mountOn = document.body.appendChild(document.createElement('div'));
+      ReactDOM.render(<FreezeOverlay />, this.mountOn);
+    }
   }
 
   render() {
-    const { message, hideBtn, freeze, reloadBtn, load } = this.props;
+    const { message, hideBtn, reloadBtn, freeze, load } = this.props;
     return (
       <StyledToast>
         <div className={this.getClasses()} style={this.style}>
@@ -134,7 +158,6 @@ export default class Toast extends Component {
           <span>{hideBtn && !freeze && <HideBtn hide={this.hideToast} />}</span>
           <span>{freeze && reloadBtn && <ReloadBtn />}</span>
         </div>
-        <div>{freeze && <div className="freezeScreen" />}</div>
       </StyledToast>
     );
   }

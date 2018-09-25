@@ -14,8 +14,7 @@ export default class Icon extends Component {
   };
   static defaultProps = {
     onClick: noop,
-    gradient: false,
-    display: 'inline-block'
+    gradient: false
   };
 
   render() {

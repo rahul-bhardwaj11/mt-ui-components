@@ -15,6 +15,7 @@ const theme = {
     CONGRESS_BLUE: '#202A39',
     MANATEE: '#868BA7',
     GREY: '#888',
+    DARK_GREY: '#666',
     ALTO: '#DDD',
     PEARL: '#E8EAED',
     PORCELAIN: '#F5F6F7',
