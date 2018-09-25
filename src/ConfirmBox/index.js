@@ -50,7 +50,11 @@ const StyledPopconfirm = styled.div`
 class ConfirmBox extends Component {
   static propTypes = {
     children: PropTypes.node,
-    placement: PropTypes.string
+    placement: PropTypes.string,
+    getPopupContainer: PropTypes.func
+  };
+  static defaultProps = {
+    getPopupContainer: () => this.confirmDropdownRef
   };
 
   render() {
