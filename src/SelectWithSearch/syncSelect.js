@@ -10,19 +10,28 @@ const noop = () => undefined;
 export default class SyncSelect extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),
-    defaultValue: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    defaultValue: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string)
+    ]),
     isMulti: PropTypes.bool,
     onChange: PropTypes.func,
     isButton: PropTypes.bool,
     buttonLabel: PropTypes.string,
     placeholder: PropTypes.string,
     buttonMaxWidth: PropTypes.string,
-    buttonMinWidth: PropTypes.string
+    buttonMinWidth: PropTypes.string,
+    sortOptions: PropTypes.bool,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string)
+    ])
   };
 
   static defaultProps = {
     buttonLabel: 'filter',
-    onChange: noop
+    onChange: noop,
+    sortOptions: true
   };
 
   state = {
@@ -35,25 +44,34 @@ export default class SyncSelect extends Component {
   };
 
   componentDidMount() {
-    const { defaultValue, isButton, options } = this.props;
+    const { defaultValue, isButton, options, value } = this.props;
     if (isButton) {
       this.setState({ showSelect: false });
     }
-    const selectedItems = [];
-    if (defaultValue) {
-      if (defaultValue.length) {
-        defaultValue.map(option => {
-          selectedItems.push(option);
-        });
-      } else {
-        selectedItems.push(defaultValue);
-      }
-    }
+    const newValue = value ? value : defaultValue;
+    const selectedItems = this.getSelectedItemsFromValue(newValue);
     let sortedOptions = this.__sortOptions(options, selectedItems);
     sortedOptions = this.normalizeOption(sortedOptions);
     this.setState({ selectedItems, options: sortedOptions });
     document.addEventListener('mousedown', this.handleClickOutside);
   }
+
+  getSelectedItemsFromValue = value => {
+    const { options } = this.props;
+    const selectedItems = [];
+    if (value) {
+      if (Array.isArray(value)) {
+        value.forEach(item => {
+          const option = options.filter(option => option.value == item);
+          selectedItems.push(...option);
+        });
+      } else {
+        const option = options.filter(option => option.value == value);
+        selectedItems.push(...option);
+      }
+    }
+    return selectedItems;
+  };
 
   handleClickOutside = event => {
     if (this.buttonRef && this.buttonRef.contains(event.target)) {
@@ -76,15 +94,35 @@ export default class SyncSelect extends Component {
     }
     return sortedOptions;
   };
+
+  isOptionsEqual = (prevOptions = [], newOptions = []) => {
+    if (prevOptions.length != newOptions.length) return true;
+    if (prevOptions.length) {
+      prevOptions.forEach((option, index) => {
+        if (option.value != newOptions[index].value) return true;
+      });
+    }
+    return false;
+  };
   componentWillReceiveProps(nextProps) {
-    if (this.props.options != nextProps.options) {
-      let sortedOptions = this.__sortOptions(nextProps.options);
+    const { options, value } = this.props;
+    if (
+      value != nextProps.value ||
+      !this.isOptionsEqual(options, nextProps.options)
+    ) {
+      let selectedItems = [];
+      if (value) {
+        selectedItems = this.getSelectedItemsFromValue(nextProps.value);
+      }
+      let sortedOptions = this.__sortOptions(nextProps.options, selectedItems);
       sortedOptions = this.normalizeOption(sortedOptions);
-      this.setState({ options: sortedOptions });
+      this.setState({ options: sortedOptions, selectedItems });
     }
   }
 
   __sortOptions = (options, selectedItems = []) => {
+    const { sortOptions } = this.props;
+    if (!sortOptions) return options;
     const optionsToSort = options.filter(option => {
       return selectedItems.indexOf(option) < 0;
     });
@@ -155,11 +193,17 @@ export default class SyncSelect extends Component {
   };
 
   handleDisplayValue = ({ data }) => {
-    const { selectedItems } = this.state;
-    if (data.value == selectedItems[0].value)
+    let { selectedItems } = this.state;
+    const { value } = this.props;
+    if (value) {
+      selectedItems = this.getSelectedItemsFromValue(value);
+    }
+    if (data.value == selectedItems[0].value || value)
       return (
         <div className="selectedItem clearfix" key="dipslayValue">
-          <span className="selectedItemLabel floatL">{`${data.label}`}</span>
+          <span className="selectedItemLabel floatL">{`${
+            selectedItems[0].label
+          }`}</span>
           <span className="floatL">{`${
             selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
           }`}</span>
@@ -168,11 +212,17 @@ export default class SyncSelect extends Component {
     return null;
   };
 
-  handleSingleValue = ({ data, ...props }) => {
-    const { placeholder } = this.props;
+  handleSingleValue = props => {
+    let { selectedItems } = this.state;
+    const { value, placeholder } = this.props;
+    if (value) {
+      selectedItems = this.getSelectedItemsFromValue(value);
+    }
     return (
       <components.SingleValue {...props}>
-        {data.value == 'None' ? placeholder : data.label}
+        {selectedItems[0].value == 'None'
+          ? placeholder
+          : selectedItems[0].label}
       </components.SingleValue>
     );
   };
@@ -257,8 +307,11 @@ export default class SyncSelect extends Component {
   };
 
   getButtonText = () => {
-    const { selectedItems } = this.state;
-    const { buttonLabel } = this.props;
+    const { buttonLabel, value } = this.props;
+    let { selectedItems } = this.state;
+    if (value) {
+      selectedItems = this.getSelectedItemsFromValue(value);
+    }
     const selectedItemsLength = selectedItems.length;
     if (selectedItemsLength) {
       if (selectedItemsLength == 1)
@@ -334,10 +387,10 @@ export default class SyncSelect extends Component {
           backspaceRemovesValue: false,
           inputValue: inputValue,
           onInputChange: this.onInputChange,
-          controlShouldRenderValue: !menuIsOpen,
-          menuIsOpen: menuIsOpen
+          controlShouldRenderValue: !showInput,
+          menuIsOpen: menuIsOpen,
+          value: selectedItems[0]
         };
-
     return (
       <div>
         {isButton && (
@@ -358,12 +411,14 @@ export default class SyncSelect extends Component {
           </div>
         )}
         {showSelect && (
-          <Select
-            {...this.props}
-            options={options}
-            classNamePrefix={'mt-react-select'}
-            {...selectProps}
-          />
+          <div style={{ position: 'absolute', width: '100%' }}>
+            <Select
+              {...this.props}
+              options={options}
+              classNamePrefix={'mt-react-select'}
+              {...selectProps}
+            />
+          </div>
         )}
       </div>
     );

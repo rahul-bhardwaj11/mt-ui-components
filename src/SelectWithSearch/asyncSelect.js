@@ -19,14 +19,22 @@ export default class AsyncSelect extends Component {
     pageSize: PropTypes.number,
     options: PropTypes.array,
     multiple: PropTypes.bool,
-    defaultValue: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    defaultValue: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string)
+    ]),
     isMulti: PropTypes.bool,
     onChange: PropTypes.func,
     isButton: PropTypes.bool,
     buttonLabel: PropTypes.string,
     placeholder: PropTypes.string,
     buttonMaxWidth: PropTypes.number,
-    buttonMinWidth: PropTypes.number
+    buttonMinWidth: PropTypes.number,
+    sortOptions: PropTypes.bool,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string)
+    ])
   };
 
   static defaultProps = {
@@ -146,6 +154,8 @@ export default class AsyncSelect extends Component {
   }
 
   __arrangeOptions = (selectedItems, options) => {
+    const { sortOptions } = this.props;
+    if (!sortOptions) return options;
     const optionsThatAreNotSelected = options.filter(option => {
       return selectedItems.indexOf(option) < 0;
     });
@@ -164,22 +174,14 @@ export default class AsyncSelect extends Component {
   };
 
   componentDidMount = async () => {
-    const { defaultValue, isButton } = this.props;
+    const { defaultValue, isButton, value } = this.props;
     const { optionsCache, search } = this.state;
     const currentOptions = optionsCache[search] || initialCache;
     if (isButton) {
       this.setState({ showSelect: false });
     }
-    const selectedItems = [];
-    if (defaultValue) {
-      if (defaultValue.length) {
-        defaultValue.map(option => {
-          selectedItems.push(option);
-        });
-      } else {
-        selectedItems.push(defaultValue);
-      }
-    }
+    const newValue = value ? value : defaultValue;
+    const selectedItems = this.getSelectedItemsFromValue(newValue);
 
     const arrangedOptions = this.__arrangeOptions(
       selectedItems,
@@ -201,6 +203,37 @@ export default class AsyncSelect extends Component {
     }
     document.addEventListener('mousedown', this.handleClickOutside);
   };
+
+  getSelectedItemsFromValue = value => {
+    const { search, optionsCache } = this.state;
+    const currentOptions = optionsCache[search] || initialCache;
+    const options = this.normalizeOption([...currentOptions.options]);
+    const selectedItems = [];
+    if (value) {
+      if (Array.isArray(value)) {
+        value.forEach(item => {
+          const option = options.filter(option => option.value == item);
+          selectedItems.push(...option);
+        });
+      } else {
+        const option = options.filter(option => option.value == value);
+        selectedItems.push(...option);
+      }
+    }
+    return selectedItems;
+  };
+
+  componentWillReceiveProps(nextProps) {
+    const { value } = this.props;
+    if (value != nextProps.value) {
+      let selectedItems = [];
+      if (value) {
+        selectedItems = this.getSelectedItemsFromValue(nextProps.value);
+      }
+      this.setState({ selectedItems });
+    }
+  }
+
   handleClickOutside = event => {
     if (this.buttonRef && this.buttonRef.contains(event.target)) {
       this.isBlurActive = false;
@@ -292,11 +325,17 @@ export default class AsyncSelect extends Component {
   };
 
   handleDisplayValue = ({ data }) => {
-    const { selectedItems } = this.state;
-    if (data.value == selectedItems[0].value)
+    let { selectedItems } = this.state;
+    const { value } = this.props;
+    if (value) {
+      selectedItems = this.getSelectedItemsFromValue(value);
+    }
+    if (data.value == selectedItems[0].value || value)
       return (
         <div className="selectedItem clearfix">
-          <span className="selectedItemLabel floatL">{`${data.label}`}</span>
+          <span className="selectedItemLabel floatL">{`${
+            selectedItems[0].label
+          }`}</span>
           <span className="floatL">{`${
             selectedItems.length > 1 ? `+${selectedItems.length - 1}` : ''
           }`}</span>
@@ -305,11 +344,17 @@ export default class AsyncSelect extends Component {
     return null;
   };
 
-  handleSingleValue = ({ data, ...props }) => {
-    const { placeholder } = this.props;
+  handleSingleValue = props => {
+    let { selectedItems } = this.state;
+    const { value, placeholder } = this.props;
+    if (value) {
+      selectedItems = this.getSelectedItemsFromValue(value);
+    }
     return (
       <components.SingleValue {...props}>
-        {data.value == 'None' ? placeholder : data.label}
+        {selectedItems[0].value == 'None'
+          ? placeholder
+          : selectedItems[0].label}
       </components.SingleValue>
     );
   };
@@ -419,8 +464,11 @@ export default class AsyncSelect extends Component {
   };
 
   getButtonText = () => {
-    const { selectedItems } = this.state;
-    const { buttonLabel } = this.props;
+    const { buttonLabel, value } = this.props;
+    let { selectedItems } = this.state;
+    if (value) {
+      selectedItems = this.getSelectedItemsFromValue(value);
+    }
     const selectedItemsLength = selectedItems.length;
     if (selectedItemsLength) {
       if (selectedItemsLength == 1)
@@ -496,7 +544,8 @@ export default class AsyncSelect extends Component {
           backspaceRemovesValue: false,
           controlShouldRenderValue: !showInput,
           menuIsOpen: menuIsOpen,
-          inputValue: inputValue
+          inputValue: inputValue,
+          value: selectedItems[0]
         };
 
     return (
@@ -519,16 +568,18 @@ export default class AsyncSelect extends Component {
           </div>
         )}
         {showSelect && (
-          <Select
-            {...this.props}
-            classNamePrefix={'mt-react-select'}
-            onInputChange={this.onInputChange}
-            options={options}
-            onMenuOpen={this.onMenuOpen}
-            autoload={false}
-            onMenuScrollToBottom={this.onMenuScrollToBottom}
-            {...selectProps}
-          />
+          <div style={{ position: 'absolute', width: '100%' }}>
+            <Select
+              {...this.props}
+              classNamePrefix={'mt-react-select'}
+              onInputChange={this.onInputChange}
+              options={options}
+              onMenuOpen={this.onMenuOpen}
+              autoload={false}
+              onMenuScrollToBottom={this.onMenuScrollToBottom}
+              {...selectProps}
+            />
+          </div>
         )}
       </div>
     );

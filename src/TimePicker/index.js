@@ -24,9 +24,18 @@ const getHoursAndMinutesFromTimeSlot = slot => {
   return { hour: hour, min: min };
 };
 
+const getTimeSlotFromTimeObject = (timeObject = {}) => {
+  const { hour = 0, min = 0 } = timeObject;
+  return 2 * hour + (min ? 1 : 0);
+};
+
 class TimePicker extends Component {
   static propTypes = {
-    onSelect: PropTypes.func.isRequired
+    onSelect: PropTypes.func.isRequired,
+    defaultValue: PropTypes.shape({
+      hour: PropTypes.number,
+      min: PropTypes.number
+    })
   };
   static defaultPropTypes = {
     onSelect: noop
@@ -35,12 +44,13 @@ class TimePicker extends Component {
     this.props.onSelect(getHoursAndMinutesFromTimeSlot(key));
   };
   render() {
+    const { defaultValue: timeObject } = this.props;
     return (
       <Select
         {...this.props}
         onSelect={this.onSelect}
         options={getTimeSelectOptions()}
-        defaultValue={0}
+        defaultValue={getTimeSlotFromTimeObject(timeObject)}
       />
     );
   }

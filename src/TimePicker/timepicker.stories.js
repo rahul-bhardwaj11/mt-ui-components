@@ -11,6 +11,6 @@ stories.addDecorator(withKnobs);
 stories.add(
   'TimePicker',
   withInfo('Basic Usage Of Timepicker')(() => (
-    <TimePicker onSelect={val => val} />
+    <TimePicker onSelect={val => val} defaultValue={{ hour: 22, min: 30 }} />
   ))
 );
