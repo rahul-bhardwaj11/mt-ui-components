@@ -11,7 +11,11 @@ import StringToHTML from '../StringToHTML';
 const Option = AntSelect.Option;
 
 const MtWrapper = styled.div`
+
   display: inline-block;
+  .ant-select, .ant-select-dropdown{
+    font-family: inherit;
+  }
   .ant-select-arrow {
     display: block;
     background: url('${selectArrowIcon}') no-repeat 1px 4px;
