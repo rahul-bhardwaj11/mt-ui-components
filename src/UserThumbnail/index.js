@@ -53,7 +53,8 @@ class UserThumbnail extends Component {
     shape: PropTypes.oneOf(['circle', 'square']),
     size: PropTypes.string,
     icon: PropTypes.string,
-    expanded: PropTypes.bool
+    expanded: PropTypes.bool,
+    className: PropTypes.string
   };
 
   static defaultProps = {
