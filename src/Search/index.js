@@ -58,7 +58,7 @@ const MtSearchInput = styled.span`
   }
   .icon-close {
     font-size: 10px;
-    font-weight: bold;
+    font-weight: 600;
     color: ${theme.colors.GREY};
     cursor: pointer;
   }
