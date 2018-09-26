@@ -73,6 +73,7 @@ const StyleSelectCalendar = styled.span`
     position: absolute;
     right: 7px;
     top: 2px;
+    color: ${theme.colors.OUTER_SPACE};
   }
 `;
 
