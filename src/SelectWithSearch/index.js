@@ -12,7 +12,7 @@ import arrowIcon from './assets/downFillcaret.svg';
 import classnames from 'classnames';
 
 const SelectBox = styled.div`
-
+  position: relative;
  &.buttonSelect {
     .mt-react-select__control {
        width: 100%;

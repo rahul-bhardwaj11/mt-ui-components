@@ -11,10 +11,6 @@ stories.addDecorator(withKnobs);
 stories.add(
   'DatePicker',
   withInfo('Adding type primary to button')(() => (
-    <DatePicker
-      fullscreen={false}
-      onChange={value => value}
-      showToday={false}
-    />
+    <DatePicker fullscreen={false} />
   ))
 );

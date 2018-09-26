@@ -113,8 +113,6 @@ class DatePicker extends Component {
       <StyleSelectCalendar>
         <AntDatePicker
           {...this.props}
-          showTime={false}
-          allowClear={false}
           value={this.state.date}
           onChange={this.onChange}
           iconSource={this.timeIcon}

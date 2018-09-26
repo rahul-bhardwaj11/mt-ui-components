@@ -17,6 +17,7 @@ export default class SyncSelect extends Component {
     isMulti: PropTypes.bool,
     onChange: PropTypes.func,
     isButton: PropTypes.bool,
+    isDisabled: PropTypes.bool,
     buttonLabel: PropTypes.string,
     placeholder: PropTypes.string,
     buttonMaxWidth: PropTypes.string,
@@ -96,13 +97,13 @@ export default class SyncSelect extends Component {
   };
 
   isOptionsEqual = (prevOptions = [], newOptions = []) => {
-    if (prevOptions.length != newOptions.length) return true;
+    if (prevOptions.length != newOptions.length) return false;
     if (prevOptions.length) {
       prevOptions.forEach((option, index) => {
-        if (option.value != newOptions[index].value) return true;
+        if (option.value != newOptions[index].value) return false;
       });
     }
-    return false;
+    return true;
   };
   componentWillReceiveProps(nextProps) {
     const { options, value } = this.props;
@@ -194,9 +195,12 @@ export default class SyncSelect extends Component {
 
   handleDisplayValue = ({ data }) => {
     let { selectedItems } = this.state;
-    const { value } = this.props;
+    const { value, placeholder } = this.props;
     if (value) {
       selectedItems = this.getSelectedItemsFromValue(value);
+    }
+    if (!selectedItems.length) {
+      selectedItems.push({ label: placeholder, value: 'None' });
     }
     if (data.value == selectedItems[0].value || value)
       return (
@@ -217,6 +221,9 @@ export default class SyncSelect extends Component {
     const { value, placeholder } = this.props;
     if (value) {
       selectedItems = this.getSelectedItemsFromValue(value);
+    }
+    if (!selectedItems.length) {
+      selectedItems.push({ label: placeholder, value: 'None' });
     }
     return (
       <components.SingleValue {...props}>
@@ -275,15 +282,17 @@ export default class SyncSelect extends Component {
 
   handleControl = arg => {
     const { inputValue, showInput } = this.state;
+    const { isDisabled } = this.props;
     return (
       <div className="selectBoxWrapper">
         <div
           className={showInput ? 'activeSearch' : ''}
           onClick={() => {
-            this.setState({
-              menuIsOpen: true,
-              showInput: true
-            });
+            !isDisabled &&
+              this.setState({
+                menuIsOpen: true,
+                showInput: true
+              });
           }}
         >
           <components.Control {...arg} />
@@ -395,7 +404,7 @@ export default class SyncSelect extends Component {
           value: selectedItems[0]
         };
     return (
-      <div>
+      <div style={{ position: 'absolute' }}>
         {isButton && (
           <div
             ref={e => {
@@ -414,14 +423,17 @@ export default class SyncSelect extends Component {
           </div>
         )}
         {showSelect && (
-          <div style={{ position: 'absolute', width: '100%' }}>
-            <Select
-              {...this.props}
-              options={options}
-              classNamePrefix={'mt-react-select'}
-              {...selectProps}
-            />
-          </div>
+          <Select
+            styles={{
+              container: () => ({
+                width: '200px'
+              })
+            }}
+            {...this.props}
+            options={options}
+            classNamePrefix={'mt-react-select'}
+            {...selectProps}
+          />
         )}
       </div>
     );

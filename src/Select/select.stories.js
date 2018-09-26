@@ -18,12 +18,7 @@ stories
   .add(
     'Default Select',
     withInfo('Basic usage of the Select')(() => (
-      <Select
-        options={object('options', options)}
-        value={'1'}
-        optionLabelProp={'title'}
-        title={'Rahul'}
-      />
+      <Select options={object('options', options)} defaultValue="Select" />
     ))
   )
   .add(

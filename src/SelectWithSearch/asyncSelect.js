@@ -26,6 +26,7 @@ export default class AsyncSelect extends Component {
     isMulti: PropTypes.bool,
     onChange: PropTypes.func,
     isButton: PropTypes.bool,
+    isDisabled: PropTypes.bool,
     buttonLabel: PropTypes.string,
     placeholder: PropTypes.string,
     buttonMaxWidth: PropTypes.number,
@@ -278,8 +279,8 @@ export default class AsyncSelect extends Component {
   };
 
   handleMultiOnSelect = () => {
-    if (this.isBlurActive) {
-      this.isBlurActive = false;
+    if (this.isIconClicked) {
+      this.isIconClicked = false;
       return;
     }
     this.isBlurActive = true;
@@ -326,9 +327,12 @@ export default class AsyncSelect extends Component {
 
   handleDisplayValue = ({ data }) => {
     let { selectedItems } = this.state;
-    const { value } = this.props;
+    const { value, placeholder } = this.props;
     if (value) {
       selectedItems = this.getSelectedItemsFromValue(value);
+    }
+    if (!selectedItems.length) {
+      selectedItems.push({ label: placeholder, value: 'None' });
     }
     if (data.value == selectedItems[0].value || value)
       return (
@@ -349,6 +353,9 @@ export default class AsyncSelect extends Component {
     const { value, placeholder } = this.props;
     if (value) {
       selectedItems = this.getSelectedItemsFromValue(value);
+    }
+    if (!selectedItems.length) {
+      selectedItems.push({ label: placeholder, value: 'None' });
     }
     return (
       <components.SingleValue {...props}>
@@ -424,15 +431,17 @@ export default class AsyncSelect extends Component {
 
   handleControl = arg => {
     const { inputValue } = this.state;
+    const { isDisabled } = this.props;
     return (
       <div className="selectBoxWrapper">
         <div
           className={this.state.showInput ? 'activeSearch' : ''}
           onClick={() => {
-            this.setState({
-              menuIsOpen: true,
-              showInput: true
-            });
+            !isDisabled &&
+              this.setState({
+                menuIsOpen: true,
+                showInput: true
+              });
           }}
         >
           <components.Control {...arg} />
@@ -528,6 +537,7 @@ export default class AsyncSelect extends Component {
           menuIsOpen: menuIsOpen,
           isSearchable: showInput,
           autoFocus: showInput,
+          isFocused: true,
           onBlur: this.handleMultiOnSelect,
           inputValue: inputValue
         }
@@ -549,7 +559,7 @@ export default class AsyncSelect extends Component {
         };
 
     return (
-      <div>
+      <div style={{ position: 'absolute' }}>
         {isButton && (
           <div
             ref={e => {
@@ -568,18 +578,21 @@ export default class AsyncSelect extends Component {
           </div>
         )}
         {showSelect && (
-          <div style={{ position: 'absolute', width: '100%' }}>
-            <Select
-              {...this.props}
-              classNamePrefix={'mt-react-select'}
-              onInputChange={this.onInputChange}
-              options={options}
-              onMenuOpen={this.onMenuOpen}
-              autoload={false}
-              onMenuScrollToBottom={this.onMenuScrollToBottom}
-              {...selectProps}
-            />
-          </div>
+          <Select
+            styles={{
+              container: () => ({
+                width: '200px'
+              })
+            }}
+            {...this.props}
+            classNamePrefix={'mt-react-select'}
+            onInputChange={this.onInputChange}
+            options={options}
+            onMenuOpen={this.onMenuOpen}
+            autoload={false}
+            onMenuScrollToBottom={this.onMenuScrollToBottom}
+            {...selectProps}
+          />
         )}
       </div>
     );
