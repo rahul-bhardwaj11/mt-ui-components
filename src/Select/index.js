@@ -24,6 +24,9 @@ const MtWrapper = styled.div`
     &::before {
       content: '';
     }  
+    svg{
+      display:none;
+    }
   }
   .ant-select-selection {
     &.ant-select-selection--single {
