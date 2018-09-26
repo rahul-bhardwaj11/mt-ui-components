@@ -40,20 +40,18 @@ const ANTD_BUTTON_TYPE_MAP = {
 
 const ANTD_BUTTON_SIZE_PADDING = {
   [BUTTON_SIZES.LARGE]: '0px 32px',
-  [BUTTON_SIZES.MEDIUM]: '0px 24px',
+  default: '0px 24px',
   [BUTTON_SIZES.SMALL]: '0px 12px'
 };
 
-const MtButton = styled.span`
+const MtButton = styled(AntButton)`
   /* Default Button styles */
-  .ant-btn {
+  &.ant-btn {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: ${props => `${props.maxWidth}`};
-    min-width: ${props => `${props.minWidth}`};
   }
-  .ant-btn-default {
+  &.ant-btn-default {
     border: 1px solid ${theme.colors.ALTO};
     color: #6f7583;
     height: 32px;
@@ -75,7 +73,7 @@ const MtButton = styled.span`
       color: ${theme.colors.INDIGO};
     }
   }
-  .ant-btn {
+  &.ant-btn {
     &.disabled,
     &:disabled {
       border: 1px solid ${theme.colors.DISABLE};
@@ -85,7 +83,7 @@ const MtButton = styled.span`
     }
   }
   /* Primary Button styles */
-  .ant-btn-primary {
+  &.ant-btn-primary {
     border: 1px solid ${theme.colors.INDIGO};
     background-color: ${theme.colors.INDIGO};
     color: #fff;
@@ -109,7 +107,7 @@ const MtButton = styled.span`
       color: #fff;
     }
   }
-  .ant-btn {
+  &.ant-btn {
     &.disabled {
       border: 1px solid ${theme.colors.ALTO};
       background-color: ${theme.colors.ALTO};
@@ -117,7 +115,7 @@ const MtButton = styled.span`
       border-radius: 4px;
     }
   }
-  .ant-btn {
+  &.ant-btn {
     &.disabled,
     &:disabled {
       border: 1px solid ${theme.colors.ALTO};
@@ -126,12 +124,12 @@ const MtButton = styled.span`
     }
   }
   /* edit Button styles */
-  .ant-btn-edit {
+  &.ant-btn-edit {
     border: 1px solid ${theme.colors.ALTO};
     color: ${theme.colors.SILVER};
     height: 32px;
-    padding: 0px 12px;
     font-size: 14px;
+    padding: ${props => ANTD_BUTTON_SIZE_PADDING[props.size]};
 
     &.ant-btn-sm {
       color: ${theme.colors.SILVER};
@@ -156,7 +154,7 @@ const MtButton = styled.span`
       }
     }
   }
-  .ant-btn {
+  &.ant-btn {
     &.disabled,
     &:disabled {
       border: 1px solid ${theme.colors.DISABLE};
@@ -167,13 +165,13 @@ const MtButton = styled.span`
   }
 
   /* Dashed Button styles */
-  .ant-btn-dashed {
+  &.ant-btn-dashed {
     border: 1px dashed ${theme.colors.ALTO};
     background-color: rgba(255, 255, 255, 0);
     color: ${theme.colors.OUTER_SPACE};
     font-size: 14px;
     height: 32px;
-    padding: 0px 32px;
+    padding: ${props => ANTD_BUTTON_SIZE_PADDING[props.size]};
     &.ant-btn-sm {
       color: #fff;
       font-size: 12px;
@@ -188,7 +186,7 @@ const MtButton = styled.span`
       color: ${theme.colors.SHARK};
     }
   }
-  .ant-btn {
+  &.ant-btn {
     &.disabled,
     &:disabled {
       border: 1px solid ${theme.colors.ALTO};
@@ -202,12 +200,12 @@ const MtButton = styled.span`
   }
 
   /* Text Button styles */
-  .ant-btn-text {
+  &.ant-btn-text {
     border: 1px dashed transparent;
     background-color: transparent;
     font-size: 14px;
     height: 32px;
-    padding: 0px 12px;
+    padding: ${props => ANTD_BUTTON_SIZE_PADDING[props.size]};
     color: ${theme.colors.OUTER_SPACE};
     ${props =>
       props.active
@@ -233,7 +231,7 @@ const MtButton = styled.span`
       padding: 0px 12px;
     }
   }
-  .ant-btn {
+  &.ant-btn {
     &.disabled,
     &:disabled {
       border: 1px solid ${theme.colors.ALTO};
@@ -241,18 +239,18 @@ const MtButton = styled.span`
       color: #fff;
     }
   }
-  .ant-btn-clicked {
+  &.ant-btn-clicked {
     outline: none;
     outline-style: none;
   }
 
   /* link Blue Button styles */
-  .ant-btn-link {
+  &.ant-btn-link {
     border: 1px solid ${theme.colors.INDIGO};
     background-color: #fff;
     font-size: 14px;
     height: 32px;
-    padding: 0px 32px;
+    padding: ${props => ANTD_BUTTON_SIZE_PADDING[props.size]};
     color: ${theme.colors.INDIGO};
     &.ant-btn-sm {
       color: #fff;
@@ -260,7 +258,7 @@ const MtButton = styled.span`
       padding: 0px 12px;
     }
   }
-  .ant-btn {
+  &.ant-btn {
     &.disabled,
     &:disabled {
       border: 1px solid ${theme.colors.ALTO};
@@ -268,7 +266,7 @@ const MtButton = styled.span`
       color: #fff;
     }
   }
-  .ant-btn-clicked {
+  &.ant-btn-clicked {
     outline-style: none;
   }
   .editIcon {
@@ -302,25 +300,18 @@ class Button extends Component {
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
 
     let { className, ...rest } = this.props;
-    let { maxWidth, minWidth } = style;
     return (
       <MtButton
+        {...rest}
         active={active}
         disabled={disabled}
-        size={size}
-        maxWidth={maxWidth}
         className={className}
-        minWidth={minWidth}
+        type={antdType}
+        style={style}
+        size={ANT_BUTTON_SIZES_MAP[size] || ANT_BUTTON_SIZES_MAP['large']}
       >
-        <AntButton
-          {...rest}
-          type={antdType}
-          style={style}
-          size={ANT_BUTTON_SIZES_MAP[size] || ANT_BUTTON_SIZES_MAP.LARGE}
-        >
-          {children}
-          {type === 'edit' && <Icon type="edit" className="editIcon" />}
-        </AntButton>
+        {children}
+        {type === 'edit' && <Icon type="edit" className="editIcon" />}
       </MtButton>
     );
   }
