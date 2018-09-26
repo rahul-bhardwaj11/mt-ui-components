@@ -1,5 +1,6 @@
 import outlookCalendarSvg from './assests/images/outlookCalendar.svg';
 import googleCalendar from './assests/images/googleCalendar.svg';
+
 export default {
   outlookCalendar: {
     background: `url(${outlookCalendarSvg})  no-repeat 0 0 / contain transparent`,

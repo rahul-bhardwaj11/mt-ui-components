@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const MtRadio = styled(AntRadio)`
-  font-family: inherit;
   .ant-radio-inner:after {
     background-color: white;
   }
@@ -17,6 +16,7 @@ const MtRadio = styled(AntRadio)`
     }
   }
   .ant-radio-wrapper {
+    font-family: inherit;
     &:hover {
       span.ant-radio + * {
         color: ${theme.colors.SHARK};
