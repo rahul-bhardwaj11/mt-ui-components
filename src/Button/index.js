@@ -46,7 +46,9 @@ const ANTD_BUTTON_SIZE_PADDING = {
 
 const MtButton = styled.span`
   /* Default Button styles */
+
   .ant-btn {
+    font-family: inherit;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

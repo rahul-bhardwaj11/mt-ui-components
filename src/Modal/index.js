@@ -10,6 +10,7 @@ import ReactDOM from 'react-dom';
 const MtModal = styled(AntModal)`
 &.ant-modal{
   font-family: inherit;
+
   .ant-modal-content {
     border-radius:8px;
   }
@@ -109,8 +110,16 @@ const MtModal = styled(AntModal)`
 `;
 
 const MtConfirmModal = styled.div`
-  .ant-confirm-body .ant-confirm-content {
-    margin-left: 0px;
+  .ant-modal {
+    font-family: inherit;
+  }
+
+  .ant-modal-body {
+  }
+  .ant-confirm-body {
+    .ant-confirm-content {
+      margin-left: 0px;
+    }
   }
 
   .ant-modal-content {
