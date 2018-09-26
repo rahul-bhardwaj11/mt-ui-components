@@ -97,6 +97,10 @@ const MtTable = styled.div`
               return `${pTop} ${pLeft} ${pBottom}  ${pLeft}`;
             }};
           }
+
+          .ant-table-column-sorter > .ant-table-column-sorter-down {
+            margin-top: 0;
+          }
         }
       }
     }
@@ -281,6 +285,18 @@ const MtTable = styled.div`
       background-color: ${theme.colors.INDIGO};
       border-color: ${theme.colors.INDIGO};
     }
+  }
+
+  .ant-table-column-sorter .anticon-caret-up,
+  .ant-table-column-sorter .anticon-caret-down {
+    color: ${theme.colors.ALTO};
+  }
+
+  .ant-table-column-sorter-up.on .anticon-caret-up,
+  .ant-table-column-sorter-down.on .anticon-caret-up,
+  .ant-table-column-sorter-up.on .anticon-caret-down,
+  .ant-table-column-sorter-down.on .anticon-caret-down {
+    color: ${theme.colors.GREY};
   }
 `;
 
