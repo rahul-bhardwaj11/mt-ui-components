@@ -62,7 +62,7 @@ const MtMenu = styled.div`
   .ant-menu-horizontal {
     & > .ant-menu-item {
       &:hover {
-        color: ${theme.colors.CONGRESS_BLUE};
+        color: ${theme.colors.PORCELAIN};
       }
     }
     & > .ant-menu-submenu {
