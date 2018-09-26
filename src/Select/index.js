@@ -5,7 +5,7 @@ import AntSelect from 'antd/lib/select';
 import 'antd/lib/select/style/index.css';
 import '../styles/override.scss';
 import styled from 'styled-components';
-import selectArrowIcon from './assets/downFillcaret.svg';
+import selectArrowIcon from '../styles/icons/downFillcaret.svg';
 import StringToHTML from '../StringToHTML';
 
 const Option = AntSelect.Option;
