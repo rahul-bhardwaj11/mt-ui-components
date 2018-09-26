@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AntModal from 'antd/lib/modal';
 import 'antd/lib/modal/style/index.css';
-import '../styles/override.scss';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
@@ -96,7 +95,6 @@ const MtModal = styled(AntModal)`
       bottom: 0px;
       width: 100%;
       border-radius: 0px;
-      z-index:1;
   }
   .ant-modal-content{
     border-radius:0px;
@@ -173,7 +171,6 @@ class Modal extends Component {
     let confirmModalProps = {
       ...props,
       getContainer: () => {
-        // console.log(MountNode);
         return MountNode;
       },
       onCancel: (...cancelProps) => {
