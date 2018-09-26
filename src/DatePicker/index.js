@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import AntDatePicker from 'antd/lib/date-picker';
 import Icon from '../Icon';
 import 'antd/lib/date-picker/style/index.css';
 import styled from 'styled-components';
+import moment from 'moment';
 import theme from '../styles/theme';
 
 const StyledDatePicker = styled.div`
@@ -75,7 +77,15 @@ const StyleSelectCalendar = styled.span`
   }
 `;
 
+const noop = () => undefined;
+
 class DatePicker extends Component {
+  static propTypes = {
+    value: PropTypes.number,
+    className: PropTypes.string,
+    onChange: PropTypes.func
+  };
+
   constructor(props) {
     super(props);
     const mountOn = document.body.appendChild(document.createElement('div'));
@@ -84,11 +94,27 @@ class DatePicker extends Component {
       mountOn
     );
   }
+
+  static defaultProps = {
+    onChange: noop
+  };
+
+  state = {
+    date: this.props.value ? moment(this.props.value) : undefined
+  };
+
+  onChange = date => {
+    this.setState({ date });
+    this.props.onChange(+date);
+  };
+
   render() {
     return (
       <StyleSelectCalendar>
         <AntDatePicker
           {...this.props}
+          value={this.state.date}
+          onChange={this.onChange}
           iconSource={this.timeIcon}
           getCalendarContainer={() => this.datePickerContainer}
         />
