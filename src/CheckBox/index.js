@@ -9,10 +9,8 @@ import mixins from '../styles/mixins';
 
 const noop = () => undefined;
 
-const MtCheckbox = styled.div`
-  display: inline-block;
-  vertical-align: middle;
-  .ant-checkbox-wrapper {
+const MtCheckbox = styled(AntCheckbox)`
+  &.ant-checkbox-wrapper {
     .ant-checkbox:hover .ant-checkbox-inner,
     .ant-checkbox-input:focus + .ant-checkbox-inner {
       border-color: ${theme.colors.INDIGO};
@@ -37,7 +35,7 @@ const MtCheckbox = styled.div`
       border-color: ${theme.colors.INDIGO};
     }
   }
-  .ant-checkbox-wrapper {
+  &.ant-checkbox-wrapper {
     font-weight: normal;
     display: inherit;
     &:hover {
@@ -113,23 +111,16 @@ class CheckBox extends Component {
   }
 
   render() {
-    const {
-      children,
-      indeterminate,
-      disabled,
-      className,
-      checked
-    } = this.props;
+    const { children, indeterminate, disabled, className } = this.props;
     return (
-      <MtCheckbox className={className} checked={checked}>
-        <AntCheckbox
-          checked={this.state.checked}
-          onChange={this.onChange}
-          disabled={disabled}
-          indeterminate={indeterminate}
-        >
-          {children}
-        </AntCheckbox>
+      <MtCheckbox
+        checked={this.state.checked}
+        onChange={this.onChange}
+        className={className}
+        disabled={disabled}
+        indeterminate={indeterminate}
+      >
+        {children}
       </MtCheckbox>
     );
   }

@@ -31,6 +31,18 @@ const DEFAULT_TD_PADDING = {
 
 const MtTable = styled.div`
   counter-reset: rowNumber;
+  position: relative;
+  margin-bottom: ${props => (props.showActionBar ? '60px' : '0px')};
+  .ant-table-default,
+  .ant-table-middle,
+  .ant-table-small {
+    .ant-table-content {
+      .ant-table-body > table {
+        padding-bottom: ${props => (props.infiniteScroll ? '54px' : '0px')};
+      }
+    }
+  }
+
   .ant-table-default > .ant-table-content > .ant-table-body > table,
   .ant-table-middle > .ant-table-content > .ant-table-body > table,
   .ant-table-small > .ant-table-content > .ant-table-body > table,
@@ -97,9 +109,20 @@ const MtTable = styled.div`
               return `${pTop} ${pLeft} ${pBottom}  ${pLeft}`;
             }};
           }
-
+          &:hover {
+            &.ant-table-column-has-filters .ant-table-column-sorter {
+              visibility: visible;
+            }
+          }
+          &.ant-table-column-has-filters .ant-table-column-sorter {
+            visibility: hidden;
+          }
           .ant-table-column-sorter > .ant-table-column-sorter-down {
             margin-top: 0;
+          }
+          &.ant-table-column-has-filters.ant-table-column-sort
+            .ant-table-column-sorter {
+            visibility: visible;
           }
         }
       }
@@ -431,7 +454,11 @@ class Table extends Component {
           type: 'Small',
           style: {
             padding: '12px 0px',
-            backgroundColor: '#ffffff'
+            backgroundColor: '#ffffff',
+            position: 'absolute',
+            width: '100%',
+            bottom: '0',
+            borderRadius: '8px;'
           }
         }
       : DEFAULT_LOADER_PROPS;
@@ -451,6 +478,7 @@ class Table extends Component {
       children,
       loading,
       dataSource,
+      infiniteScroll,
       selectedRowKeys: parentKeys
     } = this.props;
     let {
@@ -489,6 +517,8 @@ class Table extends Component {
         innerRef={ele => (this.tableRef = ele)}
         showMultiSelect={showMultiSelect}
         {...this.styleProps}
+        infiniteScroll={infiniteScroll}
+        showActionBar={showActionBar}
       >
         <AntTable {...antProps}>{children}</AntTable>
         {loading && this.getLoader()}

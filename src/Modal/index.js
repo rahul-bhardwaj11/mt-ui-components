@@ -119,7 +119,7 @@ class Modal extends Component {
     children: PropTypes.node.isRequired,
     type: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
     style: PropTypes.object,
-    width: PropTypes.oneOf([PropTypes.number, PropTypes.string])
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
 
   static defaultProps = {
