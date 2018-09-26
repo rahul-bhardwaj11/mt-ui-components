@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Input } from 'antd';
 import 'antd/lib/input/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import Icon from '../Icon';
 
-const AntSearch = Input.Search;
-
 const MtSearchInput = styled.span`
   .ant-input-affix-wrapper {
     font-family: inherit;
     .ant-input:not(:last-child) {
-      padding: 0px 0px 0px 30px;
+      padding: 0px 30px 0px 30px;
     }
   }
   .ant-input-search:not(.ant-input-search-small) {
@@ -42,25 +41,68 @@ const MtSearchInput = styled.span`
       box-shadow: none;
     }
   }
-  .ant-input-search > .ant-input-suffix > .ant-input-search-icon {
+  .ant-input-search > .ant-input-prefix > .ant-input-search-icon {
     display: none;
   }
   .icon-search {
+    font-size: 12px;
     color: ${theme.colors.ALTO};
   }
-  .ant-input-search:focus .icon-search,
-  .ant-input-search:active .icon-search,
-  .ant-input-search:focus-within .icon-search {
+  .ant-input-affix-wrapper:focus .icon-search,
+  .ant-input-affix-wrapper:active .icon-search,
+  .ant-input-affix-wrapper:focus-within .icon-search {
     color: ${theme.colors.GREY};
+  }
+  .ant-input-affix-wrapper .ant-input-suffix {
+    top: 17px;
+  }
+  .icon-close {
+    font-size: 10px;
+    font-weight: bold;
+    color: ${theme.colors.GREY};
+    cursor: pointer;
   }
 `;
 
 class Search extends Component {
+  static propTypes = {
+    onSearch: PropTypes.func.isRequired,
+    onChange: PropTypes.func
+  };
+
+  state = {
+    query: ''
+  };
+
+  handleClear = () => {
+    this.setState({ query: '' });
+    this.props.onSearch('');
+  };
+
+  handleChange = event => {
+    const query = event.target.value;
+    const { onChange } = this.props;
+    this.setState({ query });
+    onChange && onChange(event);
+  };
+
+  handleSearch = event => {
+    this.props.onSearch(event.target.value);
+  };
+
   render() {
-    const suffix = <Icon type="search" />;
+    const { query } = this.state;
+    const inputProps = {
+      ...this.props,
+      onChange: this.handleChange,
+      onPressEnter: this.handleSearch,
+      prefix: <Icon type="search" />,
+      suffix: query && <Icon type="close" onClick={this.handleClear} />,
+      value: query
+    };
     return (
       <MtSearchInput>
-        <AntSearch {...this.props} suffix={suffix} />
+        <Input {...inputProps} />
       </MtSearchInput>
     );
   }
