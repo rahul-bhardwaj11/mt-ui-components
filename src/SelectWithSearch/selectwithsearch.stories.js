@@ -7,7 +7,6 @@ import { withKnobs } from '@storybook/addon-knobs';
 
 const stories = storiesOf('SelectWithSearch', module);
 stories.addDecorator(withKnobs);
-
 const colourOptions = [
   {
     value: 'ocean',
@@ -41,7 +40,7 @@ stories.add(
   'Sync Select',
   withInfo('Basic usage of the SelectWithSearch')(() => (
     <SelectWithSearch
-      defaultValue={colourOptions[2]}
+      defaultValue={colourOptions[2].value}
       label="Select..."
       options={colourOptions}
       onChange={() => {}}
@@ -53,7 +52,7 @@ stories.add(
   'Sync Select with Button',
   withInfo('Basic usage of the SelectWithSearch')(() => (
     <SelectWithSearch
-      defaultValue={colourOptions[2]}
+      defaultValue={colourOptions[2].value}
       label="Select..."
       options={colourOptions}
       onChange={() => {}}
@@ -66,7 +65,7 @@ stories.add(
   'Sync Select with custom styles',
   withInfo('Basic usage of the SelectWithSearch for custom style')(() => (
     <SelectWithSearch
-      defaultValue={colourOptions[2]}
+      defaultValue={colourOptions[2].value}
       label="Select..."
       options={colourOptions}
       onChange={() => {}}
@@ -87,11 +86,12 @@ stories.add(
   'Sync MultiSelect',
   withInfo('Basic usage of the SelectWithSearch')(() => (
     <SelectWithSearch
-      defaultValue={colourOptions[2]}
+      defaultValue={colourOptions[2].value}
       label="Select..."
       options={colourOptions}
       onChange={() => {}}
       isMulti
+      sortOptions={false}
     />
   ))
 );
@@ -99,16 +99,18 @@ stories.add(
 stories.add(
   'Sync MultiSelect with initially Button',
   withInfo('Basic usage of the SelectWithSearch')(() => (
-    <SelectWithSearch
-      defaultValue={colourOptions[2]}
-      label="Select..."
-      options={colourOptions}
-      onChange={() => {}}
-      isMulti
-      isButton={true}
-      buttonMaxWidth={'110px'}
-      buttonMinWidth={'30px'}
-    />
+    <div>
+      <SelectWithSearch
+        defaultValue={colourOptions[2].value}
+        label="Select..."
+        options={colourOptions}
+        onChange={() => {}}
+        isMulti
+        isButton={true}
+        buttonMaxWidth={'110px'}
+        buttonMinWidth={'30px'}
+      />
+    </div>
   ))
 );
 
@@ -118,7 +120,7 @@ stories.add(
     <SelectWithSearch
       async
       promiseOption={promiseOption}
-      defaultValue={colourOptions[2]}
+      defaultValue={colourOptions[2].value}
       onChange={() => {}}
     />
   ))
@@ -130,10 +132,10 @@ stories.add(
     <SelectWithSearch
       async
       promiseOption={promiseOption}
-      defaultValue={colourOptions[2]}
+      defaultValue={colourOptions[2].value}
       isMulti
       onChange={() => {}}
-      isButton={true}
+      //isButton={true}
     />
   ))
 );
