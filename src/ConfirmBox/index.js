@@ -58,10 +58,10 @@ class ConfirmBox extends Component {
     let { children } = this.props;
     return (
       <React.Fragment>
-        <StyledPopconfirm innerRef={e => (this.datePickerContainer = e)} />
+        <StyledPopconfirm innerRef={e => (this.confirmBoxRef = e)} />
         <AntPopconfirm
           {...this.props}
-          getPopupContainer={() => this.datePickerContainer}
+          getPopupContainer={() => this.confirmBoxRef}
         >
           {children}
         </AntPopconfirm>
