@@ -7,8 +7,8 @@ import theme from '../styles/theme';
 import AsyncSelect from './asyncSelect';
 import SyncSelect from './syncSelect';
 import mixin from '../styles/mixins';
-import searchIcon from './assets/search.svg';
-import arrowIcon from './assets/downFillcaret.svg';
+import searchIcon from '../styles/icons/search.svg';
+import arrowIcon from '../styles/icons/downFillcaret.svg';
 import classnames from 'classnames';
 
 const SelectBox = styled.div`

@@ -9,6 +9,7 @@ import moment from 'moment';
 import theme from '../styles/theme';
 
 const StyledDatePicker = styled.div`
+  font-family: inherit;
   .ant-calendar-selected-day {
     .ant-calendar-date {
       background: ${theme.colors.INDIGO};
@@ -74,6 +75,7 @@ const StyleSelectCalendar = styled.span`
     position: absolute;
     right: 7px;
     top: 2px;
+    color: ${theme.colors.OUTER_SPACE};
   }
 `;
 

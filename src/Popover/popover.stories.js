@@ -10,7 +10,11 @@ stories.addDecorator(withKnobs);
 stories.add(
   'Popover',
   withInfo('Basic usage popover')(() => (
-    <Popover title="This is sample title" trigger="hover">
+    <Popover
+      title="This is sample title"
+      trigger="hover"
+      placement="leftBottom"
+    >
       hover me
     </Popover>
   ))

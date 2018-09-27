@@ -8,6 +8,7 @@ import mixins from '../styles/mixins';
 import theme from '../styles/theme';
 
 const MtMenu = styled.div`
+  font-family: inherit;
   .ant-anchor-wrapper {
     overflow: hidden;
   }

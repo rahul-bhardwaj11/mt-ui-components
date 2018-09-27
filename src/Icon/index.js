@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import svgIcons from './svgIcons';
+import '../styles/icons.scss';
 
 const noop = () => undefined;
 export default class Icon extends Component {

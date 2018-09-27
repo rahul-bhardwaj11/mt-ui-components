@@ -23,7 +23,8 @@ const ButtonWrapper = styled.button`
   background: transparent;
   border-radius: 16px;
   .ant-tag {
-    background: #fff;
+    background: ${theme.colors.WHITE};
+    font-family: inherit;
     color: ${theme.colors.OUTER_SPACE};
     font-size: 12px;
     line-height: 22px;
