@@ -142,8 +142,7 @@ class Table extends Component {
             backgroundColor: '#ffffff',
             position: 'absolute',
             width: '100%',
-            bottom: '0',
-            borderRadius: '8px;'
+            bottom: '0'
           }
         }
       : DEFAULT_LOADER_PROPS;
