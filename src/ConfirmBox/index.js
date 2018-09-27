@@ -7,6 +7,7 @@ import theme from '../styles/theme';
 import mixins from '../styles/mixins';
 
 const StyledPopconfirm = styled.div`
+  font-family: inherit;
   .ant-popover-message-title {
     ${mixins.blackLink()};
     padding-left: 0px;
