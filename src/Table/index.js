@@ -6,7 +6,7 @@ import 'antd/lib/checkbox/style/index.css';
 
 import ActionBar from '../ActionBar';
 import Loader from '../Loader';
-import MtTable, { DEFAULT_LOADER_PROPS } from './index.style';
+import MtTable, { DEFAULT_LOADER_PROPS } from './style';
 
 class Table extends Component {
   static propTypes = {
