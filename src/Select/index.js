@@ -11,7 +11,7 @@ const Option = AntSelect.Option;
 
 const MtWrapper = styled.div`
   display: inline-block;
-  
+
   .ant-select, .ant-select-dropdown{
     font-family: inherit;
   }
@@ -23,7 +23,7 @@ const MtWrapper = styled.div`
     height: 9px;
     &::before {
       content: '';
-    }  
+    }
     svg{
       display:none;
     }
@@ -156,6 +156,7 @@ class Select extends Component {
         style={style}
       >
         <AntSelect
+          dropdownClassName="selectDropdownStyle"
           {...this.props}
           onClick={event => {
             event.stopPropagation();
