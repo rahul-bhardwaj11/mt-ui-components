@@ -20,7 +20,17 @@ const MtWrapper = styled.div`
     height: 9px;
     &::before {
       content: '';
-    }  
+    }
+  }
+  .selectDropdownStyle {
+    .ant-select-dropdown-menu-item {
+      div {
+        width: 95%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
   }
 `;
 
@@ -50,6 +60,7 @@ class Select extends Component {
         style={style}
       >
         <AntSelect
+          dropdownClassName="selectDropdownStyle"
           {...this.props}
           onClick={event => {
             event.stopPropagation();

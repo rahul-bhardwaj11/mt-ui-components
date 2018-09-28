@@ -100,6 +100,7 @@ stories.add(
   'Sync MultiSelect with initially Button',
   withInfo('Basic usage of the SelectWithSearch')(() => (
     <div>
+      <div>wqbjhqwqw</div>
       <SelectWithSearch
         defaultValue={colourOptions[2].value}
         label="Select..."
@@ -110,6 +111,7 @@ stories.add(
         buttonMaxWidth={'110px'}
         buttonMinWidth={'30px'}
       />
+      <div>ssbasjhasjhas</div>
     </div>
   ))
 );

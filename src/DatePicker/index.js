@@ -47,7 +47,6 @@ const StyledDatePicker = styled.div`
 
 const StyleSelectCalendar = styled.span`
   position: relative;
-
   .ant-input {
     &:hover {
       border: 1px solid ${theme.colors.INDIGO};
