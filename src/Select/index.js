@@ -12,6 +12,17 @@ const Option = AntSelect.Option;
 const MtWrapper = styled.div`
   display: inline-block;
 
+  .selectDropdownStyle {
+    .ant-select-dropdown-menu-item {
+     div {
+         width: 95%;
+         text-overflow: ellipsis;
+         overflow: hidden;
+         white-space: nowrap;
+       }
+     }
+   }
+
   .ant-select, .ant-select-dropdown{
     font-family: inherit;
   }
@@ -87,6 +98,12 @@ const MtWrapper = styled.div`
   }
   .ant-select-selection-selected-value {
     font-weight: normal;
+    div {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
+    }
   }
   .ant-select-selection--multiple {
     width: 688px;
@@ -156,7 +173,6 @@ class Select extends Component {
         style={style}
       >
         <AntSelect
-          dropdownClassName="selectDropdownStyle"
           {...this.props}
           onClick={event => {
             event.stopPropagation();
@@ -164,6 +180,7 @@ class Select extends Component {
           getPopupContainer={() => {
             return this.selectDropdownRef;
           }}
+          dropdownClassName="selectDropdownStyle"
         >
           {options.map(option => {
             return (
