@@ -55,36 +55,36 @@ class ConfirmBox extends Component {
     placement: PropTypes.string,
     getPopupContainer: PropTypes.func
   };
-  datePickerContainer = null;
+  confirmContainer = null;
+  element = null;
   constructor(p) {
     super(p);
-    this.el = document.createElement('div');
+    this.element = document.createElement('div');
   }
 
   componentDidMount() {
-    document.body.appendChild(this.el);
+    document.body.appendChild(this.element);
   }
 
   componentWillUnmount() {
-    document.body.removeChild(this.el);
+    document.body.removeChild(this.element);
   }
 
   render() {
     let { children } = this.props;
-    const n = this.props.getPopupContainer && this.props.getPopupContainer();
+    const container =
+      this.props.getPopupContainer && this.props.getPopupContainer();
 
     return (
       <React.Fragment>
         {ReactDOM.createPortal(
-          <StyledPopconfirm
-            innerRef={e => e && (this.datePickerContainer = e)}
-          />,
-          n || this.el
+          <StyledPopconfirm innerRef={e => e && (this.confirmContainer = e)} />,
+          container || this.element
         )}
         <AntPopconfirm
           {...this.props}
           getPopupContainer={() => {
-            return this.datePickerContainer;
+            return this.confirmContainer;
           }}
         >
           {children}
