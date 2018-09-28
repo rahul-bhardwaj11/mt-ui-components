@@ -69,7 +69,9 @@ class Search extends Component {
     onSearch: PropTypes.func.isRequired,
     onChange: PropTypes.func
   };
-
+  static defaultProps = {
+    onSearch: () => {}
+  };
   state = {
     query: ''
   };
