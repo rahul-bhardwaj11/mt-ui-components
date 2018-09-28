@@ -92,6 +92,7 @@ class DatePicker extends Component {
         <AntDatePicker
           {...this.props}
           iconSource={this.timeIcon}
+          showToday={false}
           getCalendarContainer={() => this.datePickerContainer}
         />
         <Icon type="editSchedule" className="customCalendarIcon" />

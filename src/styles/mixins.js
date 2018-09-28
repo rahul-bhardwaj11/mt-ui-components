@@ -112,6 +112,10 @@ const mixins = {
       lineHeight: '20px'
     }),
 
+  error: () => ({
+    color: theme.colors.BITTERSWEET
+  }),
+
   // body text ----------//
 
   blackText: () =>

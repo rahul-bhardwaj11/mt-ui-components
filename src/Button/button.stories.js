@@ -48,10 +48,13 @@ stories
       <Button type={text('type', 'link')}>{text('children', 'Submit')}</Button>
     ))
   )
-
   .add(
     'Edit button',
     withInfo('Edit type button')(() => (
       <Button type={text('type', 'edit')}>{text('children', 'Submit')}</Button>
     ))
+  )
+  .add(
+    'Loading button',
+    withInfo('Loading type button')(() => <Button type="secondary" loading />)
   );

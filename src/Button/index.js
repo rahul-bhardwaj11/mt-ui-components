@@ -5,6 +5,7 @@ import 'antd/lib/button/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import Icon from '../Icon';
+import Loader from '../Loader';
 
 const BUTTON_TYPES = {
   PRIMARY: 'primary',
@@ -13,7 +14,8 @@ const BUTTON_TYPES = {
   LINK: 'link',
   TEXT: 'text',
   EDIT: 'edit',
-  DISABLED: 'disabled'
+  DISABLED: 'disabled',
+  LOADING: 'loading'
 };
 
 const BUTTON_SIZES = {
@@ -35,7 +37,8 @@ const ANTD_BUTTON_TYPE_MAP = {
   [BUTTON_TYPES.LINK]: 'link',
   [BUTTON_TYPES.TEXT]: 'text',
   [BUTTON_TYPES.EDIT]: 'edit',
-  [BUTTON_TYPES.DISABLED]: 'disabled'
+  [BUTTON_TYPES.DISABLED]: 'disabled',
+  [BUTTON_TYPES.LOADING]: 'loading'
 };
 
 const ANTD_BUTTON_SIZE_PADDING = {
@@ -276,6 +279,23 @@ const MtButton = styled.span`
   .editIcon {
     padding: 3px;
   }
+  /* loading Button styles */
+
+  .ant-btn.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {
+    .anticon {
+      display: none;
+    }
+  }
+  .ant-btn.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {
+    padding: 0 52px;
+  }
+  .ant-btn {
+    & > .anticon {
+      & + span {
+        display: none;
+      }
+    }
+  }
 `;
 
 const noop = () => undefined;
@@ -300,7 +320,15 @@ class Button extends Component {
   };
 
   render() {
-    const { children, type, style = {}, active, disabled, size } = this.props;
+    const {
+      children,
+      type,
+      style = {},
+      active,
+      disabled,
+      size,
+      loading
+    } = this.props;
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
 
     let { className, ...rest } = this.props;
@@ -320,7 +348,7 @@ class Button extends Component {
           style={style}
           size={ANT_BUTTON_SIZES_MAP[size] || ANT_BUTTON_SIZES_MAP.LARGE}
         >
-          {children}
+          {loading ? <Loader size="sizeXSmall" /> : children}
           {type === 'edit' && <Icon type="edit" className="editIcon" />}
         </AntButton>
       </MtButton>
