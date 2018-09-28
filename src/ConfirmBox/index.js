@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import AntPopconfirm from 'antd/lib/popconfirm';
 import 'antd/lib/popconfirm/style/css';
@@ -54,18 +55,37 @@ class ConfirmBox extends Component {
     placement: PropTypes.string,
     getPopupContainer: PropTypes.func
   };
-  static defaultProps = {
-    getPopupContainer: () => this.confirmDropdownRef
-  };
+  confirmContainer = null;
+  element = null;
+  constructor(p) {
+    super(p);
+    this.element = document.createElement('div');
+  }
+
+  componentDidMount() {
+    document.body.appendChild(this.element);
+  }
+
+  componentWillUnmount() {
+    document.body.removeChild(this.element);
+  }
 
   render() {
     let { children } = this.props;
+    const container =
+      this.props.getPopupContainer && this.props.getPopupContainer();
+
     return (
       <React.Fragment>
-        <StyledPopconfirm innerRef={e => (this.confirmBoxRef = e)} />
+        {ReactDOM.createPortal(
+          <StyledPopconfirm innerRef={e => e && (this.confirmContainer = e)} />,
+          container || this.element
+        )}
         <AntPopconfirm
           {...this.props}
-          getPopupContainer={() => this.confirmBoxRef}
+          getPopupContainer={() => {
+            return this.confirmContainer;
+          }}
         >
           {children}
         </AntPopconfirm>

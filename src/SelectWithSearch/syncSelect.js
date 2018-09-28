@@ -404,7 +404,7 @@ export default class SyncSelect extends Component {
           value: selectedItems[0]
         };
     return (
-      <div style={{ position: 'absolute' }}>
+      <div>
         {isButton && (
           <div
             ref={e => {
@@ -426,7 +426,8 @@ export default class SyncSelect extends Component {
           <Select
             styles={{
               container: () => ({
-                width: '200px'
+                width: '200px',
+                position: 'absolute'
               })
             }}
             {...this.props}

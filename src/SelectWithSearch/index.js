@@ -179,7 +179,7 @@ const SelectBox = styled.div`
     width: 100%;
 
     .selectedItemLabel{
-      max-width: 85%;
+      max-width: calc(100% - 23px);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
