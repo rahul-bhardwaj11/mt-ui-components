@@ -7,6 +7,7 @@ import theme from '../styles/theme';
 import mixins from '../styles/mixins';
 
 const StyledPopconfirm = styled.div`
+  font-family: inherit;
   .ant-popover-message-title {
     ${mixins.blackLink()};
     padding-left: 0px;
@@ -57,10 +58,10 @@ class ConfirmBox extends Component {
     let { children } = this.props;
     return (
       <React.Fragment>
-        <StyledPopconfirm innerRef={e => (this.datePickerContainer = e)} />
+        <StyledPopconfirm innerRef={e => (this.confirmBoxRef = e)} />
         <AntPopconfirm
           {...this.props}
-          getPopupContainer={() => this.datePickerContainer}
+          getPopupContainer={() => this.confirmBoxRef}
         >
           {children}
         </AntPopconfirm>

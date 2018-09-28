@@ -4,6 +4,7 @@ import AntCard from 'antd/lib/card';
 import styled from 'styled-components';
 import 'antd/lib/card/style/index.css';
 import mixins from '../styles/mixins';
+import theme from '../styles/theme';
 
 const MtCard = styled.div`
   .ant-card {
@@ -25,7 +26,7 @@ const MtCard = styled.div`
     }
   }
   .ant-card-bordered {
-    background: #fff;
+    background: ${theme.colors.WHITE};
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
     border-radius: 8px;
     border: transparent;
