@@ -6,6 +6,7 @@ import 'antd/lib/select/style/index.css';
 import styled from 'styled-components';
 import selectArrowIcon from '../styles/icons/downFillcaret.svg';
 import StringToHTML from '../StringToHTML';
+import classnames from 'classnames';
 
 const Option = AntSelect.Option;
 
@@ -153,7 +154,8 @@ class Select extends Component {
     onChange: PropTypes.func,
     style: PropTypes.object,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    title: PropTypes.string
+    title: PropTypes.string,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -180,7 +182,10 @@ class Select extends Component {
           getPopupContainer={() => {
             return this.selectDropdownRef;
           }}
-          dropdownClassName="selectDropdownStyle"
+          dropdownClassName={classnames(
+            'selectDropdownStyle',
+            this.props.className
+          )}
         >
           {options.map(option => {
             return (
