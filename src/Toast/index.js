@@ -21,7 +21,9 @@ const ReloadBtn = () => {
         window.location.href = window.location.href; // eslint-disable-line
       }}
     >
-      <span className={classnames('floatR', 'toastReloadBtn')}>Reload</span>
+      <span className={classnames('floatR', 'marginL8', 'toastReloadBtn')}>
+        Reload
+      </span>
     </div>
   );
 };
@@ -43,7 +45,8 @@ const FreezeOverlay = () => {
         right: 0,
         left: 0,
         bottom: 0,
-        background: 'rgba(0, 0, 0, 0.5)'
+        background: 'rgba(0, 0, 0, 0.5)',
+        zIndex: 1
       }}
     >
       lol{' '}
@@ -70,7 +73,7 @@ export default class Toast extends Component {
   static defaultProps = {
     timeout: DEFAULT_HIDE_TIMER,
     autoHide: true,
-    hideBtn: true,
+    hideBtn: false,
     freeze: false,
     load: false
   };
@@ -154,10 +157,10 @@ export default class Toast extends Component {
               vCenter={false}
             />
           )}
-          <span className="floatL">{message}</span>
-          <span>{hideBtn && !freeze && <HideBtn hide={this.hideToast} />}</span>
-          <span>{freeze && reloadBtn && <ReloadBtn />}</span>
+          <span className="toastMessage">{message}</span>
         </div>
+        <span>{hideBtn && !freeze && <HideBtn hide={this.hideToast} />}</span>
+        <span>{freeze && reloadBtn && <ReloadBtn />}</span>
       </StyledToast>
     );
   }
