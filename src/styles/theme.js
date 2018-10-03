@@ -15,6 +15,7 @@ const theme = {
     CONGRESS_BLUE: '#202A39',
     MANATEE: '#868BA7',
     GREY: '#888',
+    DARK_GREY: '#666',
     ALTO: '#DDD',
     PEARL: '#E8EAED',
     PORCELAIN: '#F5F6F7',
@@ -30,7 +31,8 @@ const theme = {
     PIPPIN: '#FFE1E1',
     FROG: '#E9D0FF',
     PASTEL_GREEN: '#35C759',
-    ICON: '#888888'
+    ICON: '#888888',
+    WHITE: '#fff'
   },
   typography: {},
   breakpoints: {

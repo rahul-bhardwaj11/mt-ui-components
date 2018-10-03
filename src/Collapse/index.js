@@ -4,9 +4,11 @@ import AntCollapse from 'antd/lib/collapse';
 import 'antd/lib/collapse/style/index.css';
 import StringToHTML from '../StringToHTML';
 import styled from 'styled-components';
+import theme from '../styles/theme';
 
 const MtCollapse = styled.div`
   .ant-collapse {
+    font-family: inherit;
     border: 0px;
     border-radius: 0px;
     background: transparent;
@@ -27,7 +29,7 @@ const MtCollapse = styled.div`
   }
   .ant-collapse-header {
     font-weight: bold;
-    background: #fff;
+    background: ${theme.colors.WHITE};
   }
   .ant-collapse {
     & > .ant-collapse-item {

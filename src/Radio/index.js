@@ -15,10 +15,8 @@ const MtRadio = styled(AntRadio)`
       background: ${theme.colors.INDIGO};
     }
   }
-  .ant-radio-wrapper {
-    span.ant-radio + * {
-      color: ${theme.colors.SILVER};
-    }
+  &.ant-radio-wrapper {
+    font-family: inherit;
     &:hover {
       span.ant-radio + * {
         color: ${theme.colors.SHARK};
@@ -34,6 +32,9 @@ const MtRadio = styled(AntRadio)`
     span.ant-radio + * {
       color: ${theme.colors.SHARK};
     }
+  }
+  span.ant-radio + * {
+    color: ${theme.colors.SILVER};
   }
 `;
 

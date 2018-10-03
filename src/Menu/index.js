@@ -8,6 +8,7 @@ import mixins from '../styles/mixins';
 import theme from '../styles/theme';
 
 const MtMenu = styled.div`
+  font-family: inherit;
   .ant-anchor-wrapper {
     overflow: hidden;
   }
@@ -27,6 +28,13 @@ const MtMenu = styled.div`
     border-radius: 4px;
     height: 32px;
     line-height: 32px;
+  }
+  .ant-dropdown-menu {
+    padding: 4px 0px;
+  }
+  .ant-dropdown-menu-item:first-child,
+  .ant-dropdown-menu-item:last-child {
+    border-radius: 4px;
   }
   .ant-dropdown-menu-submenu-title {
     -webkit-transition: all 0.2s;
@@ -74,9 +82,6 @@ const MtMenu = styled.div`
       color: #8e9194;
       padding: 0px;
       margin: 0px;
-      line-height: 20px;
-      height: 20px;
-
       text-align: left;
       &:hover {
         color: black;
@@ -87,6 +92,7 @@ const MtMenu = styled.div`
     font-size: 15px;
     color: #8e9194;
     padding: 0px 8px;
+
     &:hover {
       color: #fff;
     }
@@ -101,7 +107,6 @@ const MtMenu = styled.div`
   & {
     .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
       text-align: left;
-      padding-left: 0px !important;
       font-size: 11px;
       text-transform: uppercase;
       height: auto;
@@ -120,11 +125,8 @@ const MtMenu = styled.div`
   }
   & {
     .ant-menu-sub.ant-menu-inline > .ant-menu-item {
-      padding-left: 0px !important;
       float: left;
       text-align: left;
-      height: auto;
-      line-height: 20px;
       margin: 0px;
       font-size: 12px;
     }
@@ -150,6 +152,10 @@ const MtMenu = styled.div`
   }
   .cautious {
     color: ${theme.colors.BITTERSWEET};
+    &:active {
+      background-color: ${theme.colors.BITTERSWEET};
+      color: #fff;
+    }
     &:hover {
       background-color: ${theme.colors.BITTERSWEET};
       color: #fff;
