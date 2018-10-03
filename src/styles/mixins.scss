@@ -69,7 +69,7 @@
   @include fontStack(12px, normal, get('colors.WHITE'), 17px);
 }
 
-@mixin whiteText() {
+@mixin whiteBoldText() {
   @include fontStack(14px, 600, get('colors.WHITE'), 20px);
 }
 
