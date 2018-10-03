@@ -35,7 +35,7 @@ const MtButton = styled(AntButton)`
         font-size: 12px;
         padding: 0px 12px;
       }
-      &:not([disabled]):hover {
+      &:hover {
         color: ${theme.colors.DARK_OUTER_SPACE};
         border: 1px solid ${theme.colors.SILVER};
       }
@@ -46,7 +46,9 @@ const MtButton = styled(AntButton)`
         color: ${theme.colors.INDIGO};
       }
       &.disabled,
-      &:disabled {
+      &:disabled,
+      &[disabled]:hover {
+        border: 1px solid ${theme.colors.DISABLE};
         background-color: ${theme.colors.PORCELAIN};
         color: ${theme.colors.SILVER};
       }
@@ -61,10 +63,7 @@ const MtButton = styled(AntButton)`
         font-size: 12px;
         padding: 0px 12px;
       }
-      &:not([disabled]):hover {
-        border: 1px solid ${theme.colors.JODHPUR};
-        background: ${theme.colors.JODHPUR};
-      }
+      &:hover,
       &:focus,
       &:active,
       &.active {
@@ -73,8 +72,11 @@ const MtButton = styled(AntButton)`
         color: #fff;
       }
       &.disabled,
-      &:disabled {
+      &:disabled,
+      &[disabled]:hover {
         border: 1px solid ${theme.colors.ALTO};
+        background: ${theme.colors.ALTO};
+        color: ${theme.colors.WHITE};
       }
     }
 
@@ -87,13 +89,7 @@ const MtButton = styled(AntButton)`
         font-size: 12px;
         padding: 0px 12px;
       }
-      &:not([disabled]):hover {
-        border: 1px solid ${theme.colors.ALTO};
-        color: ${theme.colors.SILVER};
-        span {
-          color: ${theme.colors.SILVER};
-        }
-      }
+      &:hover,
       &:focus,
       &:active,
       &.active {
@@ -104,9 +100,11 @@ const MtButton = styled(AntButton)`
         }
       }
       &.disabled,
-      &:disabled {
+      &:disabled,
+      &[disabled]:hover {
         background-color: ${theme.colors.PORCELAIN};
         color: ${theme.colors.SILVER};
+        border: 1px solid ${theme.colors.DISABLE};
       }
     }
 
@@ -126,7 +124,8 @@ const MtButton = styled(AntButton)`
         color: ${theme.colors.SHARK};
       }
       &.disabled,
-      &:disabled {
+      &:disabled,
+      &[disabled]:hover {
         border: 1px dashed ${theme.colors.ALTO};
         background-color: ${theme.colors.WHITE};
         color: ${theme.colors.SILVER};
@@ -146,7 +145,7 @@ const MtButton = styled(AntButton)`
       ${props =>
         props.disabled ? `color: ${theme.colors.OUTER_SPACE}` : null};
 
-      &:not([disabled]):hover,
+      &:hover,
       &:focus,
       &:active {
         border: 1px dashed transparent;
@@ -162,7 +161,8 @@ const MtButton = styled(AntButton)`
         padding: 0px 12px;
       }
       &.disabled,
-      &:disabled {
+      &:disabled,
+      &[disabled]:hover {
         border: 1px solid transparent;
         background-color: ${theme.colors.WHITE};
         color: ${theme.colors.SILVER};
@@ -182,13 +182,14 @@ const MtButton = styled(AntButton)`
       &:disabled {
         background-color: ${theme.colors.WHITE};
         color: ${theme.colors.SILVER};
+        border: 1px solid ${theme.colors.DISABLE};
       }
     }
 
     &.disabled,
     &:disabled {
       border: 1px solid ${theme.colors.DISABLE};
-      color: #fff;
+      color: ${theme.colors.WHITE};
       background: ${theme.colors.ALTO};
     }
   }
