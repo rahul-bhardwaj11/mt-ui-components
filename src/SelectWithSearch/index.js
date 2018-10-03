@@ -12,7 +12,7 @@ import arrowIcon from '../styles/icons/downFillcaret.svg';
 import classnames from 'classnames';
 
 const SelectBox = styled.div`
-
+  position: relative;
  &.buttonSelect {
     .mt-react-select__control {
        width: 100%;
@@ -179,7 +179,7 @@ const SelectBox = styled.div`
     width: 100%;
 
     .selectedItemLabel{
-      max-width: 85%;
+      max-width: calc(100% - 23px);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

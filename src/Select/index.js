@@ -6,12 +6,24 @@ import 'antd/lib/select/style/index.css';
 import styled from 'styled-components';
 import selectArrowIcon from '../styles/icons/downFillcaret.svg';
 import StringToHTML from '../StringToHTML';
+import classnames from 'classnames';
 
 const Option = AntSelect.Option;
 
 const MtWrapper = styled.div`
   display: inline-block;
-  
+
+  .selectDropdownStyle {
+    .ant-select-dropdown-menu-item {
+     div {
+         width: 95%;
+         text-overflow: ellipsis;
+         overflow: hidden;
+         white-space: nowrap;
+       }
+     }
+   }
+
   .ant-select, .ant-select-dropdown{
     font-family: inherit;
   }
@@ -23,7 +35,7 @@ const MtWrapper = styled.div`
     height: 9px;
     &::before {
       content: '';
-    }  
+    }
     svg{
       display:none;
     }
@@ -87,6 +99,12 @@ const MtWrapper = styled.div`
   }
   .ant-select-selection-selected-value {
     font-weight: normal;
+    div {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
+    }
   }
   .ant-select-selection--multiple {
     width: 688px;
@@ -136,7 +154,8 @@ class Select extends Component {
     onChange: PropTypes.func,
     style: PropTypes.object,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    title: PropTypes.string
+    title: PropTypes.string,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -163,6 +182,10 @@ class Select extends Component {
           getPopupContainer={() => {
             return this.selectDropdownRef;
           }}
+          dropdownClassName={classnames(
+            'selectDropdownStyle',
+            this.props.className
+          )}
         >
           {options.map(option => {
             return (

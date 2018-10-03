@@ -12,11 +12,24 @@ const styles = {
   width: '200px'
 };
 
-stories.add(
-  'Default Input',
-  withInfo('Basic usage of the Input')(() => (
-    <div style={styles}>
-      <Input placeholder={text('Placeholder', 'Placeholder')} />
-    </div>
-  ))
-);
+stories
+  .add(
+    'Default Input',
+    withInfo('Basic usage of the Input')(() => (
+      <div style={styles}>
+        <Input placeholder={text('Placeholder', 'Placeholder')} />
+      </div>
+    ))
+  )
+  .add(
+    'Input with Numeric value',
+    withInfo('Basic usage of the Input')(() => (
+      <div style={styles}>
+        <Input
+          placeholder={text('Placeholder', 'Placeholder')}
+          type="number"
+          max={5}
+        />
+      </div>
+    ))
+  );
