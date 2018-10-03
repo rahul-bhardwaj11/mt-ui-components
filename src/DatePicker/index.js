@@ -117,6 +117,7 @@ class DatePicker extends Component {
           value={this.state.date}
           onChange={this.onChange}
           iconSource={this.timeIcon}
+          showToday={false}
           getCalendarContainer={() => this.datePickerContainer}
         />
         <Icon type="editSchedule" className="customCalendarIcon" />

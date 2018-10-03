@@ -538,7 +538,6 @@ export default class AsyncSelect extends Component {
           isSearchable: showInput,
           autoFocus: showInput,
           isFocused: true,
-          onBlur: this.handleMultiOnSelect,
           inputValue: inputValue
         }
       : {
@@ -549,7 +548,6 @@ export default class AsyncSelect extends Component {
             Menu: this.buildMenu
           },
           onChange: this.handleSingleOnSelect,
-          onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
           backspaceRemovesValue: false,
           controlShouldRenderValue: !showInput,
@@ -559,7 +557,7 @@ export default class AsyncSelect extends Component {
         };
 
     return (
-      <div style={{ position: 'absolute' }}>
+      <div>
         {isButton && (
           <div
             ref={e => {
@@ -580,9 +578,10 @@ export default class AsyncSelect extends Component {
         {showSelect && (
           <Select
             styles={{
-              container: () => ({
-                width: '200px',
-                position: 'absolute'
+              container: base => ({
+                ...base,
+                width: '210px',
+                position: isButton ? 'absolute' : 'inherit'
               })
             }}
             {...this.props}

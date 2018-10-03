@@ -133,7 +133,7 @@ stories.add(
       defaultValue={colourOptions[2].value}
       isMulti
       onChange={() => {}}
-      //isButton={true}
+      isButton={true}
     />
   ))
 );

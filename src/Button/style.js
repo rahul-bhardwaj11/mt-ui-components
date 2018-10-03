@@ -200,6 +200,24 @@ const MtButton = styled(AntButton)`
   .editIcon {
     padding: 3px;
   }
+
+  /* loading Button styles */
+
+  .ant-btn.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {
+    .anticon {
+      display: none;
+    }
+  }
+  .ant-btn.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {
+    padding: 0 52px;
+  }
+  .ant-btn {
+    & > .anticon {
+      & + span {
+        display: none;
+      }
+    }
+  }
 `;
 
 export default MtButton;

@@ -62,6 +62,9 @@
 @mixin deleteLink() {
   @include fontStack(14px, 600, get('colors.BITTERSWEET'), 20px);
 }
+@mixin error() {
+  color: get('colors.BITTERSWEET');
+}
 
 // body text ----------//
 
