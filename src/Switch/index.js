@@ -24,7 +24,7 @@ const MtSwitch = styled.div`
       width: 14px;
       height: 14px;
       top: 2px;
-      margin-left: -16px;
+      margin-left: -2px;
     }
   }
 `;

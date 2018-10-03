@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Loader from '../Loader';
-
 import Icon from '../Icon';
 import MtButton, { BUTTON_SIZES } from './style';
 
@@ -73,7 +72,7 @@ class Button extends Component {
         size={ANT_BUTTON_SIZES_MAP[size] || ANT_BUTTON_SIZES_MAP['large']}
       >
         {loading ? <Loader size="sizeXSmall" /> : children}
-        {children}
+
         {type === 'edit' && <Icon type="edit" className="editIcon" />}
       </MtButton>
     );

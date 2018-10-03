@@ -37,7 +37,6 @@ const MtCheckbox = styled(AntCheckbox)`
   }
   &.ant-checkbox-wrapper {
     font-weight: normal;
-    display: inherit;
     &:hover {
       .ant-checkbox-inner {
         border-color: ${theme.colors.INDIGO};

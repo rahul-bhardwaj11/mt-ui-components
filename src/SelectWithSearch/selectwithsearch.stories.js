@@ -127,13 +127,16 @@ stories.add(
 stories.add(
   'Async MultiSelect',
   withInfo('Usage of the Async Infinite Select')(() => (
-    <SelectWithSearch
-      async
-      promiseOption={promiseOption}
-      defaultValue={colourOptions[2].value}
-      isMulti
-      onChange={() => {}}
-      //isButton={true}
-    />
+    <React.Fragment>
+      <SelectWithSearch
+        async
+        promiseOption={promiseOption}
+        defaultValue={colourOptions[2].value}
+        isMulti
+        onChange={() => {}}
+        isButton={true}
+      />
+      <div>hello</div>
+    </React.Fragment>
   ))
 );

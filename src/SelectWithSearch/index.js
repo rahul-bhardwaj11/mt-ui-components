@@ -13,10 +13,15 @@ import classnames from 'classnames';
 
 const SelectBox = styled.div`
   position: relative;
+
+  .mt-react-select__control {
+    min-height: 32px;
+  }
+
+  min-height: 32px;
  &.buttonSelect {
     .mt-react-select__control {
        width: 100%;
-       min-height: 32px;
      }
 
   }
@@ -51,7 +56,7 @@ const SelectBox = styled.div`
   }
 
   .selectBoxWrapper{
-    margin-top: 10px;
+    // margin-top: 10px; removed by ekta
   .activeSearch {
     .mt-react-select__value-container{
       margin-left: 35px;
@@ -72,6 +77,8 @@ const SelectBox = styled.div`
       }
   }
     .mt-react-select__control {
+      min-height: 32px;
+      
       &:before {
         display: block;
         background: url('${searchIcon}') no-repeat 10px 5px;
@@ -121,7 +128,6 @@ const SelectBox = styled.div`
   .mt-react-select__control {
     border: 1px solid ${theme.colors.ALTO};
     position: relative;
-    //width: ${({ width = 'auto' }) => width};
   }
 
   .mt-react-select__control--is-focused {
