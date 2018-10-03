@@ -66,12 +66,15 @@ const MtSearchInput = styled.span`
 
 class Search extends Component {
   static propTypes = {
+    value: PropTypes.string,
     onSearch: PropTypes.func.isRequired,
     onChange: PropTypes.func
   };
-
+  static defaultProps = {
+    onSearch: () => {}
+  };
   state = {
-    query: ''
+    query: this.props.value || ''
   };
 
   handleClear = () => {
@@ -81,14 +84,22 @@ class Search extends Component {
 
   handleChange = event => {
     const query = event.target.value;
-    const { onChange } = this.props;
+    const { onSearch } = this.props;
     this.setState({ query });
-    onChange && onChange(event);
+    onSearch(query);
   };
 
   handleSearch = event => {
     this.props.onSearch(event.target.value);
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.state.query) {
+      this.setState({
+        query: nextProps.value
+      });
+    }
+  }
 
   render() {
     const { query } = this.state;

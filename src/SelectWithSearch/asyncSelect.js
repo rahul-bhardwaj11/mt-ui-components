@@ -581,7 +581,8 @@ export default class AsyncSelect extends Component {
           <Select
             styles={{
               container: () => ({
-                width: '200px'
+                width: '200px',
+                position: 'absolute'
               })
             }}
             {...this.props}
