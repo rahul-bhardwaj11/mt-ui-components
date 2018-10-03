@@ -118,6 +118,22 @@ const mixins = {
 
   // body text ----------//
 
+  whiteText: () =>
+    mixins.fontStack({
+      fontSize: '12px',
+      fontWeight: 'normal',
+      color: theme.colors.WHITE,
+      lineHeight: '17px'
+    }),
+
+  whiteBoldText: () =>
+    mixins.fontStack({
+      fontSize: '14px',
+      fontWeight: '600',
+      color: theme.colors.WHITE,
+      lineHeight: '20px'
+    }),
+
   blackText: () =>
     mixins.fontStack({
       fontSize: '14px',
