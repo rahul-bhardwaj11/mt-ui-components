@@ -68,7 +68,7 @@ export default class Toast extends Component {
   static defaultProps = {
     timeout: DEFAULT_HIDE_TIMER,
     autoHide: true,
-    hideBtn: false,
+    hideBtn: true,
     freeze: false,
     load: false
   };
