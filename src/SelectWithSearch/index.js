@@ -55,8 +55,7 @@ const SelectBox = styled.div`
     color: ${theme.colors.OUTER_SPACE};
   }
 
-  .selectBoxWrapper{
-    // margin-top: 10px; removed by ekta
+  .selectBoxWrapper{ekta
   .activeSearch {
     .mt-react-select__value-container{
       margin-left: 35px;
