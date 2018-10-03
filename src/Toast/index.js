@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import ReactDOM from 'react-dom';
-
-import Loader from '../Loader';
 import {
   DEFAULT_HIDE_TIMER,
   ANIMATION_TRANSITION_DURATION,
@@ -48,9 +46,7 @@ const FreezeOverlay = () => {
         background: 'rgba(0, 0, 0, 0.5)',
         zIndex: 1
       }}
-    >
-      lol{' '}
-    </div>
+    />
   );
 };
 
@@ -64,7 +60,6 @@ export default class Toast extends Component {
     type: PropTypes.oneOf(TOAST_TYPES),
     hideBtn: PropTypes.bool,
     reloadBtn: PropTypes.bool,
-    load: PropTypes.bool,
     freeze: PropTypes.bool,
     autoHide: PropTypes.bool,
     timeout: PropTypes.number,
@@ -146,17 +141,10 @@ export default class Toast extends Component {
   }
 
   render() {
-    const { message, hideBtn, reloadBtn, freeze, load } = this.props;
+    const { message, hideBtn, reloadBtn, freeze } = this.props;
     return (
       <StyledToast>
         <div className={this.getClasses()} style={this.style}>
-          {load && (
-            <Loader
-              size="sizeXSmall"
-              style={{ float: 'left' }}
-              vCenter={false}
-            />
-          )}
           <span className="toastMessage">{message}</span>
         </div>
         <span>{hideBtn && !freeze && <HideBtn hide={this.hideToast} />}</span>
