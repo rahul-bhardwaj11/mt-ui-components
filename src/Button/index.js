@@ -39,7 +39,8 @@ class Button extends Component {
     size: PropTypes.oneOf(Object.values(BUTTON_SIZES)),
     style: PropTypes.object,
     className: PropTypes.string,
-    active: PropTypes.bool
+    active: PropTypes.bool,
+    loading: PropTypes.bool
   };
   static defaultProps = {
     onClick: noop,
