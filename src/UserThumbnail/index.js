@@ -11,9 +11,8 @@ const MtUserThumbnail = styled.div`
   }
   .userThumbnailInfo {
     height: 40px;
-    margin-left: 16px;
-    padding-top: 2px;
-    float: left;
+    margin-left: 56px;
+    cursor: default;
 
     .name {
       ${mixin.blackText()};
@@ -23,6 +22,18 @@ const MtUserThumbnail = styled.div`
       ${mixin.smallDarkLink()};
       ${mixin.truncate()};
     }
+  }
+`;
+
+const ThumbnailInfoWrapper = styled.div`
+  display: table;
+  table-layout: fixed;
+  height: 40px;
+  width: 100%;
+  .info {
+    vertical-align: middle;
+    display: table-cell;
+    width: 100%;
   }
 `;
 
@@ -38,8 +49,12 @@ class UserThumbnailInfo extends Component {
 
     return (
       <div className={className}>
-        {title && <div className={'name'}>{title}</div>}
-        {content && <div className={'content'}>{content}</div>}
+        <ThumbnailInfoWrapper>
+          <div className="info">
+            {title && <div className={'name'}>{title}</div>}
+            {content && <div className={'content'}>{content}</div>}
+          </div>
+        </ThumbnailInfoWrapper>
       </div>
     );
   }
