@@ -27,6 +27,7 @@ const StyledToast = styled.div`
     }
   }
   .toastReloadBtn {
+    ${mixins.darkText()};
     padding: 6px 24px 7px 24px;
     border-radius: 4px;
     cursor: pointer;
