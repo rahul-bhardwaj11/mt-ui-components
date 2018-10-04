@@ -13,18 +13,35 @@ import classnames from 'classnames';
 
 const SelectBox = styled.div`
   position: relative;
- &.buttonSelect {
+  min-height: 32px;
+  .mt-react-select__control {
+    min-height: auto;
+  }
+  
+  &.buttonSelect {
     .mt-react-select__control {
        width: 100%;
-       min-height: 32px;
      }
-
   }
   .mt-react-select__single-value {
     padding-left: 0px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+  }
+
+  .mt-react-select__single-value + div {
+    margin: 0px 2px;
+    line-height: 22px;
+  }
+
+  .mt-react-select__placeholder + div {
+    margin: 0px 2px;
+    line-height: 22px;
+  }
+
+  .mt-react-select__value-container--is-multi {
+    line-height: 26px;
   }
 
   .mt-react-select__value-container{
@@ -51,7 +68,6 @@ const SelectBox = styled.div`
   }
 
   .selectBoxWrapper{
-    margin-top: 10px;
   .activeSearch {
     .mt-react-select__value-container{
       margin-left: 35px;
@@ -71,7 +87,7 @@ const SelectBox = styled.div`
         cursor: pointer;
       }
   }
-    .mt-react-select__control {
+    .mt-react-select__control {    
       &:before {
         display: block;
         background: url('${searchIcon}') no-repeat 10px 5px;
@@ -94,12 +110,12 @@ const SelectBox = styled.div`
     }
       .mt-react-select__single-value {
         margin-left: 20px;
+        line-height: 26px;
       }
 
       .mt-react-select__placeholder {
           margin-left: 4px;
       }
-
     }
 
     .mt-react-select__dropdown-indicator {
@@ -121,7 +137,6 @@ const SelectBox = styled.div`
   .mt-react-select__control {
     border: 1px solid ${theme.colors.ALTO};
     position: relative;
-    //width: ${({ width = 'auto' }) => width};
   }
 
   .mt-react-select__control--is-focused {

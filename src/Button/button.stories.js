@@ -78,7 +78,6 @@ stories
       </Button>
     ))
   )
-
   .add(
     'Edit button',
     withInfo('Edit type button')(() => (
@@ -90,4 +89,8 @@ stories
         {text('children', 'Submit')}
       </Button>
     ))
+  )
+  .add(
+    'Loading button',
+    withInfo('Loading type button')(() => <Button type="secondary" loading />)
   );
