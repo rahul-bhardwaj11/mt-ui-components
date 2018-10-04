@@ -25,9 +25,7 @@ const MtModal = styled(AntModal)`
     border-radius: 8px 8px 0 0;
 
     .ant-modal-title {
-      color: ${theme.colors.SHARK};
-      font-size: 20px;
-      line-height: 27px;
+      ${mixins.h2()};
     }
   }
   .ant-modal-close {
@@ -36,12 +34,11 @@ const MtModal = styled(AntModal)`
     margin: 24px 32px;
   }
   .ant-modal-close-x {
-    font-size: 20px;
+    ${mixins.h2()};
     line-height: 27px;
     height: 20px;
     width: 20px;
   }
-
   .ant-modal-footer {
     padding: 15px 32px 16px 32px;
     background: ${theme.colors.PORCELAIN};
@@ -56,27 +53,27 @@ const MtModal = styled(AntModal)`
 
       &.ant-btn-primary {
         ${mixins.primaryBtn()}        
-        color: #fff;
+        color: ${theme.colors.WHITE};
         &:hover {
           ${mixins.primaryBtnHover()}
-          color: #fff;
+          color: ${theme.colors.WHITE};
         }
         &:focus,
         &.active {
           ${mixins.primaryBtnHover()};
-          color: #fff;
+          color: ${theme.colors.WHITE};
         }
         &:disabled {
           border: 1px solid ${theme.colors.DISABLE};
           border-radius: 4px;
-          color: #fff;
+          color: ${theme.colors.WHITE};
           background: ${theme.colors.ALTO};
         }
       }
       &:hover,
       &:focus {
         ${mixins.textBtn()};
-        color: ${theme.colors.GREY}
+        color: ${theme.colors.GREY};
       }
     }
   }
@@ -85,7 +82,7 @@ const MtModal = styled(AntModal)`
     margin: 0px;
     top:0px;
     height: 100vh;
-    background: #fff;
+    background: ${theme.colors.WHITE};
 
     .ant-modal-header{
       border-radius:0px;
