@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Truncate from 'react-truncate';
+import mixins from '../styles/mixins';
 
 const MTReadMore = styled.div`
   .viewMore,
   .viewLess {
     margin: 10px 0px;
     display: block;
+    ${mixins.actionLink()};
   }
 `;
 

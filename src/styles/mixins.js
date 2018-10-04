@@ -5,7 +5,7 @@ const mixins = {
   button: () => `
     font-size: 14px;
     height: 32px;
-    padding: 0px 12px;
+    font-weight: 500;
   `,
   primaryBtn: () => `
     border: 1px solid ${theme.colors.INDIGO};
@@ -111,6 +111,10 @@ const mixins = {
       color: theme.colors.BITTERSWEET,
       lineHeight: '20px'
     }),
+
+  error: () => ({
+    color: theme.colors.BITTERSWEET
+  }),
 
   // body text ----------//
 

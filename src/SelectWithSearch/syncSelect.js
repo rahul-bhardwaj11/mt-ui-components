@@ -382,7 +382,6 @@ export default class SyncSelect extends Component {
           autoFocus: showInput,
           isFocused: true,
           autosize: false,
-          onBlur: this.handleMultiOnSelect,
           inputValue: inputValue,
           onInputChange: this.onInputChange
         }
@@ -393,7 +392,6 @@ export default class SyncSelect extends Component {
             SingleValue: this.handleSingleValue
           },
           onChange: this.handleSingleOnSelect,
-          onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
           isFocused: true,
           backspaceRemovesValue: false,
@@ -404,7 +402,7 @@ export default class SyncSelect extends Component {
           value: selectedItems[0]
         };
     return (
-      <div style={{ position: 'absolute' }}>
+      <div>
         {isButton && (
           <div
             ref={e => {
@@ -425,8 +423,10 @@ export default class SyncSelect extends Component {
         {showSelect && (
           <Select
             styles={{
-              container: () => ({
-                width: '200px'
+              container: base => ({
+                ...base,
+                width: '210px',
+                position: isButton ? 'absolute' : 'inherit'
               })
             }}
             {...this.props}

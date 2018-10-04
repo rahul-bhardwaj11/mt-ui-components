@@ -99,18 +99,16 @@ stories.add(
 stories.add(
   'Sync MultiSelect with initially Button',
   withInfo('Basic usage of the SelectWithSearch')(() => (
-    <div>
-      <SelectWithSearch
-        defaultValue={colourOptions[2].value}
-        label="Select..."
-        options={colourOptions}
-        onChange={() => {}}
-        isMulti
-        isButton={true}
-        buttonMaxWidth={'110px'}
-        buttonMinWidth={'30px'}
-      />
-    </div>
+    <SelectWithSearch
+      defaultValue={colourOptions[2].value}
+      label="Select..."
+      options={colourOptions}
+      onChange={() => {}}
+      isMulti
+      isButton={true}
+      buttonMaxWidth={'110px'}
+      buttonMinWidth={'30px'}
+    />
   ))
 );
 
@@ -135,7 +133,7 @@ stories.add(
       defaultValue={colourOptions[2].value}
       isMulti
       onChange={() => {}}
-      //isButton={true}
+      isButton={true}
     />
   ))
 );

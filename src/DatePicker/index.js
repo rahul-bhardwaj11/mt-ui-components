@@ -48,7 +48,6 @@ const StyledDatePicker = styled.div`
 
 const StyleSelectCalendar = styled.span`
   position: relative;
-
   .ant-input {
     &:hover {
       border: 1px solid ${theme.colors.INDIGO};
@@ -118,6 +117,7 @@ class DatePicker extends Component {
           value={this.state.date}
           onChange={this.onChange}
           iconSource={this.timeIcon}
+          showToday={false}
           getCalendarContainer={() => this.datePickerContainer}
         />
         <Icon type="editSchedule" className="customCalendarIcon" />

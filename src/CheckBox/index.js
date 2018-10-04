@@ -5,13 +5,12 @@ import AntCheckbox from 'antd/lib/checkbox';
 import 'antd/lib/checkbox/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import mixins from '../styles/mixins';
 
 const noop = () => undefined;
 
-const MtCheckbox = styled.div`
-  display: inline-block;
-  vertical-align: middle;
-  .ant-checkbox-wrapper {
+const MtCheckbox = styled(AntCheckbox)`
+  &.ant-checkbox-wrapper {
     .ant-checkbox:hover .ant-checkbox-inner,
     .ant-checkbox-input:focus + .ant-checkbox-inner {
       border-color: ${theme.colors.INDIGO};
@@ -36,24 +35,26 @@ const MtCheckbox = styled.div`
       border-color: ${theme.colors.INDIGO};
     }
   }
-  .ant-checkbox-wrapper {
+  &.ant-checkbox-wrapper {
     font-weight: normal;
-    display: inherit;
+    &:hover {
+      .ant-checkbox-inner {
+        border-color: ${theme.colors.INDIGO};
+      }
+    }
     .ant-checkbox {
       display: inline-block;
       vertical-align: middle;
     }
     .ant-checkbox + span {
       display: inline-block;
-      vertical-align: top;
       min-width: 125px;
-      font-size: 14px;
     }
     .ant-checkbox-inner {
       width: 14px;
       height: 14px;
       border-radius: 3px;
-      border: 1px solid ${theme.colors.INDIGO};
+      border: 1px solid ${theme.colors.ALTO};
       &:after {
         left: 3.5px;
         top: 1.2px;
@@ -66,7 +67,8 @@ const MtCheckbox = styled.div`
       }
     }
     .ant-checkbox-checked + span {
-      color: ${theme.colors.DARK};
+      ${props =>
+        props.checked ? `${mixins.blackLink()}` : `${mixins.greyText()}`};
     }
     span {
       color: ${theme.colors.OUTER_SPACE};
@@ -110,15 +112,14 @@ class CheckBox extends Component {
   render() {
     const { children, indeterminate, disabled, className } = this.props;
     return (
-      <MtCheckbox className={className}>
-        <AntCheckbox
-          checked={this.state.checked}
-          onChange={this.onChange}
-          disabled={disabled}
-          indeterminate={indeterminate}
-        >
-          {children}
-        </AntCheckbox>
+      <MtCheckbox
+        checked={this.state.checked}
+        onChange={this.onChange}
+        className={className}
+        disabled={disabled}
+        indeterminate={indeterminate}
+      >
+        {children}
       </MtCheckbox>
     );
   }
