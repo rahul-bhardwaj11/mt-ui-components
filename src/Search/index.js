@@ -94,7 +94,7 @@ class Search extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.state.query) {
+    if (nextProps.value && nextProps.value !== this.state.query) {
       this.setState({
         query: nextProps.value
       });
@@ -103,8 +103,9 @@ class Search extends Component {
 
   render() {
     const { query } = this.state;
+    const { onSearch, ...rest } = this.props; //eslint-disable-line
     const inputProps = {
-      ...this.props,
+      ...rest,
       onChange: this.handleChange,
       onPressEnter: this.handleSearch,
       prefix: <Icon type="search" />,
