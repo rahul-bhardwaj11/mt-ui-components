@@ -94,7 +94,10 @@ class Search extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value && nextProps.value !== this.state.query) {
+    if (
+      typeof nextProps.value !== 'undefined' &&
+      nextProps.value !== this.state.query
+    ) {
       this.setState({
         query: nextProps.value
       });
