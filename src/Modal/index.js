@@ -15,7 +15,7 @@ const MtModal = styled(AntModal)`
     border-radius:8px;
   }
   .ant-modal-body {
-    padding: 24px 32px;
+    padding: 0px 32px;
     overflow: auto;
   }
   .ant-modal-header {
