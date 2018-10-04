@@ -123,7 +123,7 @@ const mixins = {
       fontSize: '12px',
       fontWeight: 'normal',
       color: theme.colors.WHITE,
-      lineHeight: '17px'
+      lineHeight: '16px'
     }),
 
   whiteBoldText: () =>
