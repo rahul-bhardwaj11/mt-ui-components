@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Truncate from 'react-truncate';
+import mixins from '../styles/mixins';
+
+const MTReadMore = styled.div`
+  .viewMore,
+  .viewLess {
+    margin: 10px 0px;
+    display: block;
+    ${mixins.actionLink()};
+  }
+`;
 
 class ReadMore extends Component {
   constructor() {
@@ -37,7 +48,7 @@ class ReadMore extends Component {
     const { expanded, truncated } = this.state;
 
     return (
-      <div style={{ fontFamily: 'Open sans' }}>
+      <MTReadMore>
         <Truncate
           lines={!expanded && lines}
           ellipsis={[
@@ -56,15 +67,15 @@ class ReadMore extends Component {
               <a onClick={this.toggleLines}> {moreText}</a>
             </span>
           )}
-      </div>
+      </MTReadMore>
     );
   }
 }
 
 ReadMore.defaultProps = {
   lines: 3,
-  moreText: 'view more',
-  lessText: 'view less'
+  moreText: 'Read More',
+  lessText: 'Read Less'
 };
 
 ReadMore.propTypes = {

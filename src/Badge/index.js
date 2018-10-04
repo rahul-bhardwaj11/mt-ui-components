@@ -8,25 +8,22 @@ import theme from '../styles/theme';
 const BADGE_TYPES = {
   SUCCESS: 'success',
   ERROR: 'error',
-  WARNING: 'warning'
+  WARNING: 'warning',
+  DEFAULT: 'default'
 };
 
 const BADGE_COLOR_TYPE_MAP = {
   [BADGE_TYPES.SUCCESS]: `${theme.colors.PASTEL_GREEN}`,
   [BADGE_TYPES.ERROR]: `${theme.colors.BITTERSWEET}`,
-  [BADGE_TYPES.WARNING]: `${theme.colors.KOROMIKO}`
+  [BADGE_TYPES.WARNING]: `${theme.colors.KOROMIKO}`,
+  [BADGE_TYPES.DEFAULT]: `${theme.colors.SILVER}`
 };
 
-const MtBadge = styled.span`
+const MtBadge = styled(AntBadge)`
   .ant-badge-dot {
-    top: -2px;
-    right: 7px;
-    height: 10px;
-    width: 10px;
     background-color: ${props => BADGE_COLOR_TYPE_MAP[props.type]};
-    position: absolute;
-    z-index: 0;
     box-shadow: none;
+    z-index: 0;
   }
 `;
 
@@ -39,8 +36,8 @@ class Badge extends Component {
   render() {
     const { children, type } = this.props;
     return (
-      <MtBadge type={type}>
-        <AntBadge {...this.props}>{children}</AntBadge>
+      <MtBadge {...this.props} type={type}>
+        {children}
       </MtBadge>
     );
   }

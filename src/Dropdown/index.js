@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import AntDropdown from "antd/lib/dropdown";
-import Menu from "../Menu";
-import "antd/lib/dropdown/style/index.css";
-import Button from "antd/lib/button";
-import styled from "styled-components";
-import "antd/lib/button/style/index.css";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import AntDropdown from 'antd/lib/dropdown';
+import Menu from '../Menu';
+import 'antd/lib/dropdown/style/index.css';
+import Button from 'antd/lib/button';
+import styled from 'styled-components';
+import 'antd/lib/button/style/index.css';
 
 const MtWrapper = styled.div`
   display: inline-block;
@@ -24,8 +24,8 @@ class Dropdown extends Component {
   };
 
   static defaultProps = {
-    trigger: "hover",
-    placement: "bottomRight",
+    trigger: 'hover',
+    placement: 'bottomRight',
     onSelect: () => {}
   };
 
@@ -45,8 +45,8 @@ class Dropdown extends Component {
     } else {
       overlay = options;
     }
-    if (type === "button") {
-      children = <Button>{label || "Button"}</Button>;
+    if (type === 'button') {
+      children = <Button>{label || 'Button'}</Button>;
     }
 
     return (
@@ -60,13 +60,13 @@ class Dropdown extends Component {
         <AntDropdown
           overlay={overlay}
           trigger={[trigger]}
-          prefixCls={"ant-dropdown"}
+          prefixCls={'ant-dropdown'}
           getPopupContainer={() => {
             return this.dropdownRef;
           }}
           placement={placement}
         >
-          <div> {children} </div>
+          {children}
         </AntDropdown>
       </MtWrapper>
     );

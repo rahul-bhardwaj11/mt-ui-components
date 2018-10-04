@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
-import Loader from '../Loader';
+import ReactDOM from 'react-dom';
 import {
   DEFAULT_HIDE_TIMER,
   ANIMATION_TRANSITION_DURATION,
@@ -20,7 +19,9 @@ const ReloadBtn = () => {
         window.location.href = window.location.href; // eslint-disable-line
       }}
     >
-      <span className={classnames('floatR', 'toastReloadBtn')}>Reload</span>
+      <span className={classnames('floatR', 'marginL8', 'toastReloadBtn')}>
+        Reload
+      </span>
     </div>
   );
 };
@@ -30,6 +31,22 @@ const HideBtn = ({ hide }) => {
     <div className={classnames('floatR', 'link')} onClick={hide}>
       Hide
     </div>
+  );
+};
+
+const FreezeOverlay = () => {
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0,
+        background: 'rgba(0, 0, 0, 0.5)',
+        zIndex: 1
+      }}
+    />
   );
 };
 
@@ -43,7 +60,6 @@ export default class Toast extends Component {
     type: PropTypes.oneOf(TOAST_TYPES),
     hideBtn: PropTypes.bool,
     reloadBtn: PropTypes.bool,
-    load: PropTypes.bool,
     freeze: PropTypes.bool,
     autoHide: PropTypes.bool,
     timeout: PropTypes.number,
@@ -77,6 +93,7 @@ export default class Toast extends Component {
   hideToast = () => {
     this.stopTimer();
     this.removeToast();
+    this.mountOn && ReactDOM.unmountComponentAtNode(this.mountOn);
   };
 
   startTimer = time => {
@@ -115,26 +132,23 @@ export default class Toast extends Component {
   }
 
   componentDidMount() {
+    const { freeze } = this.props;
     this.handleTimer(this.props);
+    if (freeze) {
+      this.mountOn = document.body.appendChild(document.createElement('div'));
+      ReactDOM.render(<FreezeOverlay />, this.mountOn);
+    }
   }
 
   render() {
-    const { message, hideBtn, freeze, reloadBtn, load } = this.props;
+    const { message, hideBtn, reloadBtn, freeze } = this.props;
     return (
       <StyledToast>
         <div className={this.getClasses()} style={this.style}>
-          {load && (
-            <Loader
-              size="sizeXSmall"
-              style={{ float: 'left' }}
-              vCenter={false}
-            />
-          )}
-          <span className="floatL">{message}</span>
-          <span>{hideBtn && !freeze && <HideBtn hide={this.hideToast} />}</span>
-          <span>{freeze && reloadBtn && <ReloadBtn />}</span>
+          <span className="toastMessage">{message}</span>
         </div>
-        <div>{freeze && <div className="freezeScreen" />}</div>
+        <span>{hideBtn && !freeze && <HideBtn hide={this.hideToast} />}</span>
+        <span>{freeze && reloadBtn && <ReloadBtn />}</span>
       </StyledToast>
     );
   }

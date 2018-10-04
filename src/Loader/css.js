@@ -10,6 +10,7 @@ const StyledLoader = styled.div`
     left: 0px;
     top: 0px;
     background: #fff;
+    z-index: 1;
 
     & .loader {
       position: absolute;
@@ -22,7 +23,12 @@ const StyledLoader = styled.div`
   &.smallPageLoadingScreen,
   &.fullPageloadingScreen {
     //padding: 2%;
+<<<<<<< HEAD
     z-index: z-index(loader);
+=======
+    //@include z-index(loader);
+    z-index: 1;
+>>>>>>> ebc79d918199d9f406f15732bb676870b779aa24
     & .loader {
       text-align: center;
       p {

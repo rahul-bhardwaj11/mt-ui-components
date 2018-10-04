@@ -5,7 +5,7 @@ const mixins = {
   button: () => `
     font-size: 14px;
     height: 32px;
-    padding: 0px 12px;
+    font-weight: 500;
   `,
   primaryBtn: () => `
     border: 1px solid ${theme.colors.INDIGO};
@@ -26,13 +26,15 @@ const mixins = {
     fontSize = '14px',
     fontWeight = 600,
     color = '#2A2E36',
-    lineHeight = '22px'
+    lineHeight = '22px',
+    textTransform = 'inherit'
   }) => {
     return `
     font-size: ${fontSize};
     font-weight: ${fontWeight};
     color: ${color};
     line-height: ${lineHeight};
+    text-transform: ${textTransform};
   `;
   },
 
@@ -110,7 +112,27 @@ const mixins = {
       lineHeight: '20px'
     }),
 
+  error: () => ({
+    color: theme.colors.BITTERSWEET
+  }),
+
   // body text ----------//
+
+  whiteText: () =>
+    mixins.fontStack({
+      fontSize: '12px',
+      fontWeight: 'normal',
+      color: theme.colors.WHITE,
+      lineHeight: '16px'
+    }),
+
+  whiteBoldText: () =>
+    mixins.fontStack({
+      fontSize: '14px',
+      fontWeight: '600',
+      color: theme.colors.WHITE,
+      lineHeight: '20px'
+    }),
 
   blackText: () =>
     mixins.fontStack({
@@ -194,7 +216,7 @@ const mixins = {
       fontWeight: 600,
       color: theme.colors.OUTER_SPACE,
       lineHeight: '16px',
-      'text-transform': 'uppercase'
+      textTransform: 'uppercase'
     }),
 
   // number ----------//
@@ -283,11 +305,11 @@ const mixins = {
 
   truncate: width => {
     return `
-          width: ${width};
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        `;
+        width: ${width};
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      `;
   }
 };
 

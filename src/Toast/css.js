@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 import styled from "styled-components";
+=======
+import styled from 'styled-components';
+import theme from '../styles/theme';
+import mixins from '../styles/mixins';
+>>>>>>> ebc79d918199d9f406f15732bb676870b779aa24
 const StyledToast = styled.div`
-
   .toast {
+<<<<<<< HEAD
     width: 100%;
     height: 50px;
     border-radius: 0px;
@@ -29,76 +35,39 @@ const StyledToast = styled.div`
     &.show {
       opacity: 1;
     }
+=======
+    border-radius: 4px;
+    text-align: center;
+    padding: 7px 24px 8px 24px;
+>>>>>>> ebc79d918199d9f406f15732bb676870b779aa24
     &.toast-info {
-      color: #000;
-      background-color: #a7cfef;
+      background-color: #5dc778;
     }
     &.toast-success {
-      color: #16b22c;
-      background-color: #dbf4df;
+      background-color: #5dc778;
     }
     &.toast-warning {
-      color: #b30707;
-      background-color: #fae8e8;
+      background-color: ${theme.colors.BITTERSWEET};
     }
     &.toast-error {
-      color: #b30707;
-      background-color: #fae8e8;
+      background-color: ${theme.colors.BITTERSWEET};
+      float: left;
+    }
+    &.toast-loading {
+      background-color: ${theme.colors.SHARK};
+    }
+    .toastMessage {
+      ${mixins.whiteText()};
     }
   }
-
-  @-webkit-keyframes fadein {
-    from {
-      top: -30px;
-      opacity: 0;
-    }
-    to {
-      top: 0px;
-      opacity: 1;
-    }
+  .toastReloadBtn {
+    ${mixins.darkText()};
+    padding: 6px 24px 7px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid ${theme.colors.WHITE};
+    background-color: ${theme.colors.WHITE};
   }
-
-  @keyframes fadein {
-    from {
-      top: -30px;
-      opacity: 0;
-    }
-    to {
-      top: 0;
-      opacity: 1;
-    }
-  }
-
-  @-webkit-keyframes fadeout {
-    from {
-      top: 0px;
-      opacity: 1;
-    }
-    to {
-      top: -30px;
-      opacity: 0;
-    }
-  }
-
-  @keyframes fadeout {
-    from {
-      top: 0;
-      opacity: 1;
-    }
-    to {
-      top: -30px;
-      opacity: 0;
-    }
-  }
-  .freezeScreen {
-    width: 100%;
-    height: calc(100vh - 50px);
-    background: rgba(0, 0, 0, 0.5);
-    top: 50px;
-    left: 0;
-    position: absolute;
-    z-index: 100;
-  }
-}
 `;
+
 export default StyledToast;

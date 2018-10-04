@@ -23,10 +23,11 @@ const ButtonWrapper = styled.button`
   background: transparent;
   border-radius: 16px;
   .ant-tag {
-    background: #fff;
+    background: ${theme.colors.WHITE};
+    font-family: inherit;
     color: ${theme.colors.OUTER_SPACE};
     font-size: 12px;
-    line-height: 24px;
+    line-height: 22px;
     border-radius: 16px;
     height: 24px;
     padding: 0 15px;

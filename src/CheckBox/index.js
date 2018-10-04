@@ -1,48 +1,60 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import AntCheckbox from "antd/lib/checkbox";
-import "antd/lib/checkbox/style/index.css";
-import styled from "styled-components";
-import theme from "../styles/theme";
+import AntCheckbox from 'antd/lib/checkbox';
+import 'antd/lib/checkbox/style/index.css';
+import styled from 'styled-components';
+import theme from '../styles/theme';
+import mixins from '../styles/mixins';
 
 const noop = () => undefined;
 
-const MtCheckbox = styled.div`
-  display: inline-block;
-  vertical-align: middle;
-  .ant-checkbox-wrapper {
-    .ant-checkbox-indeterminate {
-      .ant-checkbox-inner {
-        background-color: ${theme.colors.INDIGO};
-        border-color: ${theme.colors.INDIGO};
-        &:after {
-          transform: rotate(180deg) scale(1);
-          left: 1.5px;
-          top: 4.5px;
-          width: 8px;
-          height: 2px;
-        }
-      }
+const MtCheckbox = styled(AntCheckbox)`
+  &.ant-checkbox-wrapper {
+    .ant-checkbox:hover .ant-checkbox-inner,
+    .ant-checkbox-input:focus + .ant-checkbox-inner {
+      border-color: ${theme.colors.INDIGO};
+    }
+
+    .ant-checkbox-indeterminate .ant-checkbox-inner:after {
+      content: ' ';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 9.14285714px;
+      height: 2px;
+      transform: translate(-50%, -50%) scale(1);
+      background-color: #ffffff;
+    }
+    .ant-checkbox-indeterminate.ant-checkbox-disabled
+      .ant-checkbox-inner:after {
+      border-color: rgba(0, 0, 0, 0.25);
+    }
+    .ant-checkbox-indeterminate .ant-checkbox-inner {
+      background-color: ${theme.colors.INDIGO};
+      border-color: ${theme.colors.INDIGO};
     }
   }
-  .ant-checkbox-wrapper {
+  &.ant-checkbox-wrapper {
     font-weight: normal;
-    display: inherit;
+    &:hover {
+      .ant-checkbox-inner {
+        border-color: ${theme.colors.INDIGO};
+      }
+    }
     .ant-checkbox {
       display: inline-block;
       vertical-align: middle;
     }
     .ant-checkbox + span {
       display: inline-block;
-      vertical-align: top;
       min-width: 125px;
-      font-size: 14px;
     }
     .ant-checkbox-inner {
       width: 14px;
       height: 14px;
       border-radius: 3px;
+      border: 1px solid ${theme.colors.ALTO};
       &:after {
         left: 3.5px;
         top: 1.2px;
@@ -55,7 +67,8 @@ const MtCheckbox = styled.div`
       }
     }
     .ant-checkbox-checked + span {
-      color: ${theme.colors.DARK};
+      ${props =>
+        props.checked ? `${mixins.blackLink()}` : `${mixins.greyText()}`};
     }
     span {
       color: ${theme.colors.OUTER_SPACE};
@@ -65,12 +78,13 @@ const MtCheckbox = styled.div`
 
 class CheckBox extends Component {
   static propTypes = {
-    label: PropTypes.string,
+    children: PropTypes.node,
     checked: PropTypes.bool,
     onClick: PropTypes.func,
     onChange: PropTypes.func,
     disabled: PropTypes.bool,
-    indeterminate: PropTypes.bool
+    indeterminate: PropTypes.bool,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -96,17 +110,16 @@ class CheckBox extends Component {
   }
 
   render() {
-    const { label, indeterminate, disabled } = this.props;
+    const { children, indeterminate, disabled, className } = this.props;
     return (
-      <MtCheckbox>
-        <AntCheckbox
-          checked={this.state.checked}
-          onChange={this.onChange}
-          disabled={disabled}
-          indeterminate={indeterminate}
-        >
-          {label}
-        </AntCheckbox>
+      <MtCheckbox
+        checked={this.state.checked}
+        onChange={this.onChange}
+        className={className}
+        disabled={disabled}
+        indeterminate={indeterminate}
+      >
+        {children}
       </MtCheckbox>
     );
   }

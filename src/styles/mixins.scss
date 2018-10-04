@@ -2,7 +2,7 @@
 @mixin button {
   font-size: 14px;
   height: 32px;
-  padding: 0px 12px;
+  font-weight: 500;
 }
 @mixin primaryBtn() {
   border: 1px solid get("colors.INDIGO");
@@ -62,8 +62,19 @@
 @mixin deleteLink() {
   @include fontStack(14px, 600, get("colors.BITTERSWEET"), 20px);
 }
+@mixin error() {
+  color: get('colors.BITTERSWEET');
+}
 
 // body text ----------//
+
+@mixin whiteText() {
+  @include fontStack(12px, normal, get('colors.WHITE'), 16px);
+}
+
+@mixin whiteBoldText() {
+  @include fontStack(14px, 600, get('colors.WHITE'), 20px);
+}
 
 @mixin blackText() {
   @include fontStack(14px, normal, get("colors.SHARK"), 20px);
