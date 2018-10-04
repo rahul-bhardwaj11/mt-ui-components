@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Loader from '../Loader';
 import Icon from '../Icon';
 import MtButton, { BUTTON_SIZES } from './style';
 
@@ -38,7 +39,8 @@ class Button extends Component {
     size: PropTypes.oneOf(Object.values(BUTTON_SIZES)),
     style: PropTypes.object,
     className: PropTypes.string,
-    active: PropTypes.bool
+    active: PropTypes.bool,
+    loading: PropTypes.bool
   };
   static defaultProps = {
     onClick: noop,
@@ -49,7 +51,15 @@ class Button extends Component {
   };
 
   render() {
-    const { children, type, style = {}, active, disabled, size } = this.props;
+    const {
+      children,
+      type,
+      style = {},
+      active,
+      disabled,
+      size,
+      loading
+    } = this.props;
     let antdType = ANTD_BUTTON_TYPE_MAP[type];
     let { className, ...rest } = this.props;
     return (
@@ -62,7 +72,8 @@ class Button extends Component {
         style={style}
         size={ANT_BUTTON_SIZES_MAP[size] || ANT_BUTTON_SIZES_MAP['large']}
       >
-        {children}
+        {loading ? <Loader size="sizeXSmall" /> : children}
+
         {type === 'edit' && <Icon type="edit" className="editIcon" />}
       </MtButton>
     );

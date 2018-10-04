@@ -4,10 +4,13 @@ import AntCarousel from 'antd/lib/carousel';
 import 'antd/lib/carousel/style/index.css';
 import leftArrow from '../styles/icons/leftCaret.svg';
 import rightArrow from '../styles/icons/rightCaret.svg';
+import PropTypes from 'prop-types';
 
 const MtCarousel = styled(AntCarousel)`
-padding: 2em;
-
+padding: 0 2em;
+.slick-initialized .slick-slide{
+  margin-right:20px;
+}
 .slick-next:before, .slick-prev:before {
   color: #000;
 }
@@ -86,11 +89,19 @@ h3 {
     display:none;
   }
 }
-
+.slick-slide{
+  ${props => `padding-right: ${props.style.paddingRight}`};
+}
 
 `;
 
 class Carousel extends Component {
+  static propTypes = {
+    style: PropTypes.object
+  };
+  static defaultProps = {
+    style: {}
+  };
   render() {
     return <MtCarousel {...this.props} arrows={true} dots={false} />;
   }

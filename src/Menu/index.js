@@ -60,6 +60,7 @@ const MtMenu = styled.div`
     }
   }
   .ant-menu-horizontal {
+    line-height: normal;
     & > .ant-menu-item {
       &:hover {
         color: ${theme.colors.CONGRESS_BLUE};
