@@ -12,7 +12,6 @@ const Option = AntSelect.Option;
 
 const MtWrapper = styled.div`
   display: inline-block;
-
   .selectDropdownStyle {
     .ant-select-dropdown-menu-item {
      div {

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-//import AsyncSelect from "react-select/lib/Async";
-//import { Icon } from 'antd';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import AsyncSelect from './asyncSelect';
@@ -16,6 +14,7 @@ const SelectBox = styled.div`
   min-height: 32px;
   .mt-react-select__control {
     min-height: auto;
+    background: ${theme.colors.WHITE}; 
   }
 
   &.buttonSelect {
@@ -61,15 +60,17 @@ const SelectBox = styled.div`
       left: 0;
       position: absolute;
       opacity: 0.6;
-  }
+    }
   }
   .mt-react-select__menu-list {
     padding: 8px;
     color: ${theme.colors.OUTER_SPACE};
   }
-
+  
   .selectBoxWrapper{
     margin-top: 10px;
+    position: relative;
+    z-index: 1;
   .activeSearch {
     .mt-react-select__value-container{
       margin-left: 35px;
@@ -129,7 +130,6 @@ const SelectBox = styled.div`
         display: none;
       }
     }
-
  }
 
   .mt-react-select__clear-indicator{
@@ -155,6 +155,10 @@ const SelectBox = styled.div`
     padding: 6px 20px 8px 16px;
     color: ${theme.colors.OUTER_SPACE};
     height: 32px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .mt-react-select__option--is-selected {
@@ -163,7 +167,7 @@ const SelectBox = styled.div`
   }
   .mt-react-select__option--is-focused {
     background-color:  ${theme.colors.INDIGO};
-    color: #ffffff;
+    color: ${theme.colors.WHITE}; 
     cursor: pointer;
   }
   .mt-react-select__indicator-separator {
@@ -179,10 +183,6 @@ const SelectBox = styled.div`
     padding: 19px 24px;
   }
 
-  .ant-btn-text {
-    padding: 0px 24px;
-  }
-
   .selectedItem {
     margin-left: 2px;
     margin-right: 2px;
@@ -190,8 +190,6 @@ const SelectBox = styled.div`
     color: ${theme.colors.DARK_OUTER_SPACE};
     position: absolute;
     top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     width: 100%;
 
@@ -200,7 +198,6 @@ const SelectBox = styled.div`
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-
     }
   }
 
@@ -244,8 +241,8 @@ const SelectBox = styled.div`
 .doneMarginR {
   margin-left: 5px;
 }
-`;
 
+`;
 class SelectWithSearch extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),

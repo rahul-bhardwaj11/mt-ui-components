@@ -401,7 +401,7 @@ export default class SyncSelect extends Component {
           value: selectedItems[0]
         };
     return (
-      <div>
+      <React.Fragment>
         {isButton && (
           <div
             ref={e => {
@@ -413,7 +413,12 @@ export default class SyncSelect extends Component {
             <Button
               type="secondary"
               onClick={this.toggleButton}
-              style={{ maxWidth: buttonMaxWidth, minWidth: buttonMinWidth }}
+              style={{
+                maxWidth: buttonMaxWidth,
+                minWidth: buttonMinWidth,
+                fontSize: 14
+              }}
+              size="small"
             >
               {this.getButtonText()}
             </Button>
@@ -434,7 +439,7 @@ export default class SyncSelect extends Component {
             {...selectProps}
           />
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }
