@@ -143,7 +143,7 @@ $z-index: (
   POPOVER: 9940
 );
 
-@function zIndex($key) {
+@function z-index($key) {
   @return map-get($z-index, $key);
 }
 
