@@ -17,8 +17,11 @@ export const LOADER_TYPE = {
 class Loader extends Component {
   static propTypes = {
     className: PropTypes.string,
+    /** The type of the loader */
     type: PropTypes.oneOf(Object.keys(LOADER_TYPE)),
+    /** The size of the loader */
     size: PropTypes.oneOf(Object.keys(LOADING_SIZE)),
+    /** Message to be displayed */
     message: PropTypes.string,
     loadingMessage: PropTypes.string,
     style: PropTypes.object
