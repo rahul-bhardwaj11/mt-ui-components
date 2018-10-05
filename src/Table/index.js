@@ -39,17 +39,18 @@ class Table extends Component {
     loading: PropTypes.bool,
     scroll: PropTypes.object,
     dataSource: PropTypes.array,
-    selectedRowKeys: PropTypes.array
+    selectedRowKeys: PropTypes.array,
+    isMultiSelect: PropTypes.bool
   };
   static defaultProps = {
     infiniteScroll: false,
     threshold: 0.9,
     windowScroll: false,
-    size: 'default'
+    size: 'default',
+    isMultiSelect: true
   };
   state = {
     showActionBar: false,
-    showMultiSelect: false,
     selectAll: false,
     selectedRowKeys: []
   };
@@ -123,7 +124,6 @@ class Table extends Component {
     let { dataSource, actionBar, rowSelection: { onChange } = {} } = this.props;
     this.setState(() => ({
       showActionBar: actionBar && selectedRowKeys.length > 0,
-      showMultiSelect: selectedRowKeys.length > 0,
       selectedRowKeys: selectedRowKeys,
       selectAll: dataSource.length === selectedRowKeys.length
     }));
@@ -163,14 +163,10 @@ class Table extends Component {
       loading,
       dataSource,
       infiniteScroll,
-      selectedRowKeys: parentKeys
+      selectedRowKeys: parentKeys,
+      isMultiSelect
     } = this.props;
-    let {
-      showActionBar,
-      showMultiSelect,
-      selectAll,
-      selectedRowKeys
-    } = this.state;
+    let { showActionBar, selectAll, selectedRowKeys } = this.state;
 
     /**
      * Check if rowSelection props is been passed, If yes override the onChange property of it.
@@ -180,7 +176,7 @@ class Table extends Component {
       ? dataSource.map(v => v.key)
       : parentKeys || selectedRowKeys;
 
-    const updatedRowSelection = rowSelection
+    let updatedRowSelection = rowSelection
       ? {
           ...rowSelection,
           onChange: this.onChange,
@@ -188,18 +184,26 @@ class Table extends Component {
         }
       : null;
 
-    const antProps = updatedRowSelection
-      ? {
-          ...this.props,
-          rowSelection: updatedRowSelection
-        }
-      : {
-          ...this.props
-        };
+    const antProps =
+      updatedRowSelection && isMultiSelect
+        ? {
+            ...this.props,
+            rowSelection: updatedRowSelection
+          }
+        : {
+            ...this.props,
+            rowSelection: null,
+            onRow: record => ({
+              onClick: () => this.onChange([record.key], [record]),
+              className: newSelectedRowskey.some(v => v === record.key)
+                ? 'ant-table-row-selected'
+                : ''
+            })
+          };
     return (
       <MtTable
         innerRef={ele => (this.tableRef = ele)}
-        showMultiSelect={showMultiSelect}
+        showMultiSelect={newSelectedRowskey.length > 0}
         {...this.styleProps}
         infiniteScroll={infiniteScroll}
         showActionBar={showActionBar}
