@@ -10,12 +10,12 @@ import ReactDOM from 'react-dom';
 const MtModal = styled(AntModal)`
 &.ant-modal{
   font-family: inherit;
-
+  z-index: ${mixins.zIndex.MODAL};
   .ant-modal-content {
     border-radius:8px;
   }
   .ant-modal-body {
-    padding: 24px 32px;
+    padding: 0px 32px;
     overflow: auto;
   }
   .ant-modal-header {

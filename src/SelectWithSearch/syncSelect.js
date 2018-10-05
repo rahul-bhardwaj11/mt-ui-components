@@ -171,10 +171,7 @@ export default class SyncSelect extends Component {
     this.isBlurActive = true;
     const { selectedItems, options } = this.state;
     const { onChange } = this.props;
-    const selectedValues = selectedItems.map(selectedItem => {
-      return selectedItem.value;
-    });
-    onChange(selectedValues);
+    onChange(selectedItems);
     const sortedOptions = this.__sortOptions(options, selectedItems);
     let newState = this.getNewStateAfterOnSelect();
     newState.options = sortedOptions;
@@ -284,30 +281,32 @@ export default class SyncSelect extends Component {
     const { inputValue, showInput } = this.state;
     const { isDisabled } = this.props;
     return (
-      <div className="selectBoxWrapper">
-        <div
-          className={showInput ? 'activeSearch' : ''}
-          onClick={() => {
-            !isDisabled &&
-              this.setState({
-                menuIsOpen: true,
-                showInput: true
-              });
-          }}
-        >
-          <components.Control {...arg} />
+      <div className="selectBoxContainer">
+        <div className="selectBoxWrapper">
           <div
-            className={inputValue.length ? 'activeInput' : ''}
-            ref={e => {
-              if (e) {
-                this.iconRef = e;
-              }
+            className={showInput ? 'activeSearch' : ''}
+            onClick={() => {
+              !isDisabled &&
+                this.setState({
+                  menuIsOpen: true,
+                  showInput: true
+                });
             }}
           >
-            <Icon
-              type="cross"
-              onClick={() => this.setState({ inputValue: '' })}
-            />
+            <components.Control {...arg} />
+            <div
+              className={inputValue.length ? 'activeInput' : ''}
+              ref={e => {
+                if (e) {
+                  this.iconRef = e;
+                }
+              }}
+            >
+              <Icon
+                type="cross"
+                onClick={() => this.setState({ inputValue: '' })}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -342,7 +341,7 @@ export default class SyncSelect extends Component {
     let newState = this.getNewStateAfterOnSelect();
     newState.selectedItems = [data];
     this.setState({ ...newState });
-    onChange(data.value);
+    onChange(data);
   };
   handleSingleOnBlur = () => {
     if (this.isIconClicked) {
@@ -382,6 +381,7 @@ export default class SyncSelect extends Component {
           autoFocus: showInput,
           isFocused: true,
           autosize: false,
+          //  onBlur: this.handleMultiOnSelect,
           inputValue: inputValue,
           onInputChange: this.onInputChange
         }
@@ -392,6 +392,7 @@ export default class SyncSelect extends Component {
             SingleValue: this.handleSingleValue
           },
           onChange: this.handleSingleOnSelect,
+          // onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
           isFocused: true,
           backspaceRemovesValue: false,
@@ -402,7 +403,7 @@ export default class SyncSelect extends Component {
           value: selectedItems[0]
         };
     return (
-      <div>
+      <React.Fragment>
         {isButton && (
           <div
             ref={e => {
@@ -414,7 +415,12 @@ export default class SyncSelect extends Component {
             <Button
               type="secondary"
               onClick={this.toggleButton}
-              style={{ maxWidth: buttonMaxWidth, minWidth: buttonMinWidth }}
+              style={{
+                maxWidth: buttonMaxWidth,
+                minWidth: buttonMinWidth,
+                fontSize: 14
+              }}
+              size="small"
             >
               {this.getButtonText()}
             </Button>
@@ -435,7 +441,7 @@ export default class SyncSelect extends Component {
             {...selectProps}
           />
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

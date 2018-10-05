@@ -15,7 +15,6 @@ const MtCheckbox = styled(AntCheckbox)`
     .ant-checkbox-input:focus + .ant-checkbox-inner {
       border-color: ${theme.colors.INDIGO};
     }
-
     .ant-checkbox-indeterminate .ant-checkbox-inner:after {
       content: ' ';
       position: absolute;

@@ -287,10 +287,7 @@ export default class AsyncSelect extends Component {
     const { selectedItems, optionsCache } = this.state;
     const { isButton, onChange } = this.props;
     const options = optionsCache[''].options;
-    const selectedValues = selectedItems.map(selectedItem => {
-      return selectedItem.value;
-    });
-    onChange(selectedValues);
+    onChange(selectedItems);
     const arrangedOptions = this.__arrangeOptions(selectedItems, options);
     this.setState(prevState => {
       let newState = {
@@ -433,32 +430,34 @@ export default class AsyncSelect extends Component {
     const { inputValue } = this.state;
     const { isDisabled } = this.props;
     return (
-      <div className="selectBoxWrapper">
-        <div
-          className={this.state.showInput ? 'activeSearch' : ''}
-          onClick={() => {
-            !isDisabled &&
-              this.setState({
-                menuIsOpen: true,
-                showInput: true
-              });
-          }}
-        >
-          <components.Control {...arg} />
+      <div className="selectBoxContainer">
+        <div className="selectBoxWrapper">
           <div
-            className={inputValue.length ? 'activeInput' : ''}
-            ref={e => {
-              if (e) {
-                this.iconRef = e;
-              }
+            className={this.state.showInput ? 'activeSearch' : ''}
+            onClick={() => {
+              !isDisabled &&
+                this.setState({
+                  menuIsOpen: true,
+                  showInput: true
+                });
             }}
           >
-            <Icon
-              type="cross"
-              onClick={() => {
-                this.setState({ inputValue: '', search: '' });
+            <components.Control {...arg} />
+            <div
+              className={inputValue.length ? 'activeInput' : ''}
+              ref={e => {
+                if (e) {
+                  this.iconRef = e;
+                }
               }}
-            />
+            >
+              <Icon
+                type="cross"
+                onClick={() => {
+                  this.setState({ inputValue: '', search: '' });
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -496,7 +495,7 @@ export default class AsyncSelect extends Component {
     let newState = this.getNewStateAfterOnSelect();
     newState.selectedItems = [data];
     this.setState({ ...newState });
-    onChange(data.value);
+    onChange(data);
   };
   handleSingleOnBlur = () => {
     if (this.isIconClicked) {
@@ -538,6 +537,7 @@ export default class AsyncSelect extends Component {
           isSearchable: showInput,
           autoFocus: showInput,
           isFocused: true,
+          //onBlur: this.handleMultiOnSelect,
           inputValue: inputValue
         }
       : {
@@ -548,6 +548,7 @@ export default class AsyncSelect extends Component {
             Menu: this.buildMenu
           },
           onChange: this.handleSingleOnSelect,
+          //onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
           backspaceRemovesValue: false,
           controlShouldRenderValue: !showInput,
@@ -557,7 +558,7 @@ export default class AsyncSelect extends Component {
         };
 
     return (
-      <div>
+      <React.Fragment>
         {isButton && (
           <div
             ref={e => {
@@ -569,7 +570,12 @@ export default class AsyncSelect extends Component {
             <Button
               type="secondary"
               onClick={this.toggleButton}
-              style={{ maxWidth: buttonMaxWidth, minWidth: buttonMinWidth }}
+              style={{
+                maxWidth: buttonMaxWidth,
+                minWidth: buttonMinWidth,
+                fontSize: 14
+              }}
+              size="small"
             >
               {this.getButtonText()}
             </Button>
@@ -594,7 +600,7 @@ export default class AsyncSelect extends Component {
             {...selectProps}
           />
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

@@ -1,7 +1,13 @@
-import { configure, setAddon, addDecorator, setKindOrdering } from "@storybook/react";
+import {
+  configure,
+  setAddon,
+  addDecorator,
+  setKindOrdering
+} from "@storybook/react";
 import { setOptions } from "@storybook/addon-options";
+import { version } from "../package.json";
 setOptions({
-  name: "MT React Components",
+  name: `MT UI Components v${version}`,
   url: "https://github.com/Mindtickle/mt-ui-components",
   goFullScreen: false,
   showLeftPanel: true,
@@ -16,7 +22,7 @@ addDecorator(story => {
 
 addDecorator(story => (
   <div>
-    <div style={{ padding: 10 }}>{story()}</div>
+    <div style={{ margin: 20 }}>{story()}</div>
   </div>
 ));
 
