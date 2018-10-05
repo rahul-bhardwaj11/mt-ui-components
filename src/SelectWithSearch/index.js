@@ -68,12 +68,13 @@ const SelectBox = styled.div`
   }
 
   .selectBoxWrapper{
-    margin-top: 10px;
+    ${props => (props.isButton ? 'margin-top: 10px' : '')} 
+    
   .activeSearch {
     .mt-react-select__value-container{
       margin-left: 35px;
     }
-    mt-react-select__input {
+    .mt-react-select__input {
       margin-left: -3px
     }
 
@@ -270,7 +271,7 @@ class SelectWithSearch extends Component {
       buttonSelect: isButton
     });
     return (
-      <SelectBox className={className}>
+      <SelectBox className={className} isButton={isButton}>
         <SelectComponent {...this.props} />
       </SelectBox>
     );
