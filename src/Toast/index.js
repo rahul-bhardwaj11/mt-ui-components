@@ -68,7 +68,7 @@ export default class Toast extends Component {
   static defaultProps = {
     timeout: DEFAULT_HIDE_TIMER,
     autoHide: true,
-    hideBtn: true,
+    hideBtn: false,
     freeze: false,
     load: false
   };
@@ -137,6 +137,13 @@ export default class Toast extends Component {
     if (freeze) {
       this.mountOn = document.body.appendChild(document.createElement('div'));
       ReactDOM.render(<FreezeOverlay />, this.mountOn);
+    }
+  }
+
+  componentWillUnmount() {
+    const { freeze } = this.props;
+    if (freeze) {
+      ReactDOM.render(null, this.mountOn);
     }
   }
 

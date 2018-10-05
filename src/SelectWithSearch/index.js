@@ -24,6 +24,7 @@ const SelectBox = styled.div`
      }
   }
   .mt-react-select__single-value {
+    color: ${theme.colors.DARK_OUTER_SPACE};
     padding-left: 0px;
     position: absolute;
     top: 50%;
