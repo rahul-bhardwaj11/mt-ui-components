@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-//import AsyncSelect from "react-select/lib/Async";
-//import { Icon } from 'antd';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import AsyncSelect from './asyncSelect';
@@ -55,7 +53,7 @@ const SelectBox = styled.div`
     color: ${theme.colors.OUTER_SPACE};
   }
 
-  .selectBoxWrapper{ekta
+  .selectBoxWrapper{
   .activeSearch {
     .mt-react-select__value-container{
       margin-left: 35px;
@@ -233,7 +231,6 @@ const SelectBox = styled.div`
   margin-left: 5px;
 }
 `;
-
 class SelectWithSearch extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),

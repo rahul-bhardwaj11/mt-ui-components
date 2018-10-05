@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import AntTable from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
 import 'antd/lib/checkbox/style/index.css';
-
 import ActionBar from '../ActionBar';
 import Loader from '../Loader';
 import MtTable, { DEFAULT_LOADER_PROPS } from './style';

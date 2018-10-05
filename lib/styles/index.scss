@@ -1,0 +1,231 @@
+@import 'mixins.scss';
+@import 'icons.scss';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
+
+:global {
+  * {
+    padding: 0px;
+    margin: 0px;
+    outline: none;
+  }
+
+  body {
+    background: #f2f2f2;
+    font-family: 'Open sans';
+    outline: none;
+  }
+  .pointer {
+    cursor: pointer;
+  }
+  .displayN {
+    display: none;
+  }
+  .displayIM {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .pos_rel {
+    position: relative;
+  }
+  .pos_abs {
+    position: absolute;
+  }
+  .floatL {
+    float: left;
+  }
+  .floatR {
+    float: right;
+  }
+  .textAlignC {
+    text-align: center;
+  }
+  .textAlignL {
+    text-align: left;
+  }
+  .textAlignR {
+    text-align: right;
+  }
+
+  .ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .link {
+    color: get('colors.INDIGO');
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 13px;
+    margin: 0px 2px;
+    &:hover {
+      color: get('colors.INDIGO');
+    }
+  }
+
+  .boxStyle {
+    border: 1px solid get('colors.ALTO');
+    padding: 12px 15px;
+    background: get('colors.WHITE');
+  }
+  .divider {
+    height: 20px;
+    width: 1px;
+    background: #aaa;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .centerDiv {
+    @include centerDiv;
+    position: absolute;
+  }
+  .center_100_Percent {
+    width: 100%;
+    text-align: center;
+  }
+  .modal_footerWrapper {
+    padding: 20px 0px;
+    border-top: 1px solid get('colors.ALTO');
+    position: fixed;
+    left: 0px;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    text-align: center;
+  }
+  .clearfix {
+    @include clearfix;
+  }
+
+  .boxWrapper {
+    background: #fff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+  }
+  .arrowDropdown {
+    font-size: 0px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid #6f7583;
+    border-radius: 2px;
+    position: initial;
+    cursor: pointer;
+  }
+
+  .arrow_R {
+    position: absolute;
+    z-index: 1;
+    // @include getSupport;
+
+    &:after {
+      bottom: 0px;
+      left: -7px;
+      border: solid transparent;
+      content: ' ';
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-color: rgba(136, 183, 213, 0);
+      border-right-color: #fff;
+      border-width: 9px;
+      margin-left: 0;
+    }
+    &:before {
+      bottom: -1px;
+      left: -9px;
+      border: solid transparent;
+      content: ' ';
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-color: rgba(194, 225, 245, 0);
+      border-right-color: #c7c7c7;
+      border-width: 10px;
+      margin-left: 0;
+    }
+  }
+
+  .arrow_T {
+    position: absolute;
+    z-index: 9999;
+
+    &:after {
+      bottom: 0px;
+      left: -7px;
+      border: solid transparent;
+      content: ' ';
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-color: rgba(136, 183, 213, 0);
+      border-bottom-color: #fff;
+      border-width: 9px;
+      margin-top: 0;
+    }
+    &:before {
+      bottom: -0px;
+      left: -8px;
+      border: solid transparent;
+      content: ' ';
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-color: rgba(194, 225, 245, 0);
+      border-bottom-color: #c7c7c7;
+      border-width: 10px;
+      margin-top: 0;
+    }
+  }
+
+  // func for css  margin
+
+  @for $m from 0 through 50 {
+    @each $key in L, R, T, B {
+      @if $key == L {
+        .margin#{$key}#{$m + 1} {
+          margin-left: 1px + $m;
+        }
+      } @else if $key == R {
+        .margin#{$key}#{$m + 1} {
+          margin-right: 1px + $m;
+        }
+      } @else if $key == T {
+        .margin#{$key}#{$m + 1} {
+          margin-top: 1px + $m;
+        }
+      } @else {
+        .margin#{$key}#{$m + 1} {
+          margin-bottom: 1px + $m;
+        }
+      }
+    }
+  }
+  // func for css  padding
+  @for $p from 0 through 50 {
+    @each $key in L, R, T, B {
+      @if $key == L {
+        .padding#{$key}#{$p + 1} {
+          padding-left: 1px + $p;
+        }
+      } @else if $key == R {
+        .padding#{$key}#{$p + 1} {
+          padding-right: 1px + $p;
+        }
+      } @else if $key == T {
+        .padding#{$key}#{$p + 1} {
+          padding-top: 1px + $p;
+        }
+      } @else {
+        .padding#{$key}#{$p + 1} {
+          padding-bottom: 1px + $p;
+        }
+      }
+    }
+  }
+}

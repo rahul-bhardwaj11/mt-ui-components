@@ -10,7 +10,7 @@ import ReactDOM from 'react-dom';
 const MtModal = styled(AntModal)`
 &.ant-modal{
   font-family: inherit;
-
+  z-index: ${mixins.zIndex.MODAL};
   .ant-modal-content {
     border-radius:8px;
   }

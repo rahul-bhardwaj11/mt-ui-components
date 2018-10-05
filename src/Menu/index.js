@@ -163,7 +163,6 @@ const MtMenu = styled.div`
     }
   }
 `;
-
 class Menu extends Component {
   static propTypes = {
     options: PropTypes.array,

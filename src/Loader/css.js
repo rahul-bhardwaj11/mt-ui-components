@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import mixins from "../styles/mixins.js";
-import theme from "../styles/theme";
+import styled from 'styled-components';
+import mixins from '../styles/mixins.js';
+import theme from '../styles/theme';
 
 const StyledLoader = styled.div`
   &.fullPageloadingScreen {
@@ -10,7 +10,7 @@ const StyledLoader = styled.div`
     left: 0px;
     top: 0px;
     background: #fff;
-    z-index: 1;
+    z-index: ${mixins.zIndex.LOADER};
 
     & .loader {
       position: absolute;
@@ -22,13 +22,7 @@ const StyledLoader = styled.div`
 
   &.smallPageLoadingScreen,
   &.fullPageloadingScreen {
-    //padding: 2%;
-<<<<<<< HEAD
-    z-index: z-index(loader);
-=======
-    //@include z-index(loader);
-    z-index: 1;
->>>>>>> ebc79d918199d9f406f15732bb676870b779aa24
+    z-index: ${mixins.zIndex.LOADER};
     & .loader {
       text-align: center;
       p {
@@ -54,7 +48,7 @@ const StyledLoader = styled.div`
       width: 30px;
       height: 30px;
       div {
-        ${mixins.square("16px")};
+        ${mixins.square('16px')};
         border-width: 2px;
       }
     }
@@ -62,7 +56,7 @@ const StyledLoader = styled.div`
       width: 40px;
       height: 40px;
       div {
-        ${mixins.square("30px")};
+        ${mixins.square('30px')};
         border-width: 2px;
       }
     }
@@ -70,7 +64,7 @@ const StyledLoader = styled.div`
       width: 64px;
       height: 64px;
       div {
-        ${mixins.square("51px")};
+        ${mixins.square('51px')};
         border-width: 3px;
       }
     }
