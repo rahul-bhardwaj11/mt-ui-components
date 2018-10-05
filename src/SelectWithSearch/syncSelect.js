@@ -281,32 +281,30 @@ export default class SyncSelect extends Component {
     const { inputValue, showInput } = this.state;
     const { isDisabled } = this.props;
     return (
-      <div className="selectBoxContainer">
-        <div className="selectBoxWrapper">
+      <div className="selectBoxWrapper">
+        <div
+          className={showInput ? 'activeSearch' : ''}
+          onClick={() => {
+            !isDisabled &&
+              this.setState({
+                menuIsOpen: true,
+                showInput: true
+              });
+          }}
+        >
+          <components.Control {...arg} />
           <div
-            className={showInput ? 'activeSearch' : ''}
-            onClick={() => {
-              !isDisabled &&
-                this.setState({
-                  menuIsOpen: true,
-                  showInput: true
-                });
+            className={inputValue.length ? 'activeInput' : ''}
+            ref={e => {
+              if (e) {
+                this.iconRef = e;
+              }
             }}
           >
-            <components.Control {...arg} />
-            <div
-              className={inputValue.length ? 'activeInput' : ''}
-              ref={e => {
-                if (e) {
-                  this.iconRef = e;
-                }
-              }}
-            >
-              <Icon
-                type="cross"
-                onClick={() => this.setState({ inputValue: '' })}
-              />
-            </div>
+            <Icon
+              type="cross"
+              onClick={() => this.setState({ inputValue: '' })}
+            />
           </div>
         </div>
       </div>

@@ -430,34 +430,32 @@ export default class AsyncSelect extends Component {
     const { inputValue } = this.state;
     const { isDisabled } = this.props;
     return (
-      <div className="selectBoxContainer">
-        <div className="selectBoxWrapper">
+      <div className="selectBoxWrapper">
+        <div
+          className={this.state.showInput ? 'activeSearch' : ''}
+          onClick={() => {
+            !isDisabled &&
+              this.setState({
+                menuIsOpen: true,
+                showInput: true
+              });
+          }}
+        >
+          <components.Control {...arg} />
           <div
-            className={this.state.showInput ? 'activeSearch' : ''}
-            onClick={() => {
-              !isDisabled &&
-                this.setState({
-                  menuIsOpen: true,
-                  showInput: true
-                });
+            className={inputValue.length ? 'activeInput' : ''}
+            ref={e => {
+              if (e) {
+                this.iconRef = e;
+              }
             }}
           >
-            <components.Control {...arg} />
-            <div
-              className={inputValue.length ? 'activeInput' : ''}
-              ref={e => {
-                if (e) {
-                  this.iconRef = e;
-                }
+            <Icon
+              type="cross"
+              onClick={() => {
+                this.setState({ inputValue: '', search: '' });
               }}
-            >
-              <Icon
-                type="cross"
-                onClick={() => {
-                  this.setState({ inputValue: '', search: '' });
-                }}
-              />
-            </div>
+            />
           </div>
         </div>
       </div>
