@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import ReactDOM from 'react-dom';
+import mixins from '../styles/mixins';
 import {
   DEFAULT_HIDE_TIMER,
   ANIMATION_TRANSITION_DURATION,
@@ -44,7 +45,7 @@ const FreezeOverlay = () => {
         left: 0,
         bottom: 0,
         background: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 1
+        zIndex: mixins.zIndex.OVERLAY
       }}
     />
   );
@@ -79,6 +80,12 @@ export default class Toast extends Component {
   style = {
     transitionDuration: `${ANIMATION_TRANSITION_DURATION}ms`
   };
+
+  componentWillMount() {
+    if (this.props.freeze) {
+      document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+    }
+  }
 
   removeToast = () => setTimeout(this.props.onHide, TOAST_REMOVE_TIME);
 

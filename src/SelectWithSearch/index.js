@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-//import AsyncSelect from "react-select/lib/Async";
-//import { Icon } from 'antd';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import AsyncSelect from './asyncSelect';
@@ -244,7 +242,6 @@ const SelectBox = styled.div`
   margin-left: 5px;
 }
 `;
-
 class SelectWithSearch extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),
