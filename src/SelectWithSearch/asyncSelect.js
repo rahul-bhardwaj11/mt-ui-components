@@ -287,10 +287,7 @@ export default class AsyncSelect extends Component {
     const { selectedItems, optionsCache } = this.state;
     const { isButton, onChange } = this.props;
     const options = optionsCache[''].options;
-    const selectedValues = selectedItems.map(selectedItem => {
-      return selectedItem.value;
-    });
-    onChange(selectedValues);
+    onChange(selectedItems);
     const arrangedOptions = this.__arrangeOptions(selectedItems, options);
     this.setState(prevState => {
       let newState = {
@@ -496,7 +493,7 @@ export default class AsyncSelect extends Component {
     let newState = this.getNewStateAfterOnSelect();
     newState.selectedItems = [data];
     this.setState({ ...newState });
-    onChange(data.value);
+    onChange(data);
   };
   handleSingleOnBlur = () => {
     if (this.isIconClicked) {
