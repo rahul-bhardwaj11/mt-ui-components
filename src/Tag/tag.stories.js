@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Tag from './index';
 import { withInfo } from '@storybook/addon-info';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs, text, boolean, select } from '@storybook/addon-knobs';
 
 const stories = storiesOf('Tag', module);
 stories.addDecorator(withKnobs);
@@ -11,7 +11,22 @@ stories
   .add(
     'Default tag',
     withInfo('Basic usage of the Default tag')(() => (
-      <Tag margin={{ marginLeft: '10px' }}>{text('children', 'tag')}</Tag>
+      <Tag
+        margin={{ marginLeft: '10px' }}
+        type={select('type', [
+          'normal',
+          'add',
+          'added',
+          'selected',
+          'selection',
+          'action'
+        ])}
+        disabled={boolean('disabled', false)}
+        applied={boolean('applied', false)}
+        checkable={boolean('checkable', false)}
+      >
+        {text('children', 'tag')}
+      </Tag>
     ))
   )
   .add(
