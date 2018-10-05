@@ -9,7 +9,6 @@ const StyledLoader = styled.div`
     height: 100%;
     left: 0px;
     top: 0px;
-    background: #fff;
     z-index: 1;
 
     & .loader {

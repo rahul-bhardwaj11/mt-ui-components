@@ -28,6 +28,7 @@ const MtUserThumbnail = styled.div`
 const ThumbnailInfoWrapper = styled.div`
   display: table;
   table-layout: fixed;
+  border-spacing: 0px;
   height: 40px;
   width: 100%;
   .info {
