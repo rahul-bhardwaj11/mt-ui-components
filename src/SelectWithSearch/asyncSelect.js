@@ -537,7 +537,7 @@ export default class AsyncSelect extends Component {
           isSearchable: showInput,
           autoFocus: showInput,
           isFocused: true,
-          //onBlur: this.handleMultiOnSelect,
+          onBlur: this.handleMultiOnSelect,
           inputValue: inputValue
         }
       : {
@@ -548,7 +548,7 @@ export default class AsyncSelect extends Component {
             Menu: this.buildMenu
           },
           onChange: this.handleSingleOnSelect,
-          //onBlur: this.handleSingleOnBlur,
+          onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
           backspaceRemovesValue: false,
           controlShouldRenderValue: !showInput,
