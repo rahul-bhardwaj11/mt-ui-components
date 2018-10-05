@@ -57,6 +57,8 @@ stories.add(
       options={colourOptions}
       onChange={() => {}}
       isButton={true}
+      buttonMaxWidth={'110px'}
+      buttonMinWidth={'30px'}
     />
   ))
 );
