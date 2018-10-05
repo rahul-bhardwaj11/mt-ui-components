@@ -3,7 +3,7 @@
   "version": "0.0.13-0",
   "description": "Collection of common React UI components for Mindtickle",
   "repository": "git@github.com:MindTickle/mt-ui-components.git",
-  "author": "Mindtickle",
+  "author": "Afroz",
   "license": "MIT",
   "scripts": {
     "story": "start-storybook -p 6006",
