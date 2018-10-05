@@ -28,7 +28,6 @@ const getTimeSlotFromTimeObject = (timeObject = {}) => {
   const { hour = 0, min = 0 } = timeObject;
   return 2 * hour + (min ? 1 : 0);
 };
-
 class TimePicker extends Component {
   static propTypes = {
     onSelect: PropTypes.func.isRequired,

@@ -9,7 +9,8 @@ const StyledLoader = styled.div`
     height: 100%;
     left: 0px;
     top: 0px;
-    z-index: 1;
+    background: transparent;
+    z-index: ${mixins.zIndex.LOADER};
 
     & .loader {
       position: absolute;
@@ -21,9 +22,7 @@ const StyledLoader = styled.div`
 
   &.smallPageLoadingScreen,
   &.fullPageloadingScreen {
-    //padding: 2%;
-    //@include z-index(loader);
-    z-index: 1;
+    z-index: ${mixins.zIndex.LOADER};
     & .loader {
       text-align: center;
       p {
