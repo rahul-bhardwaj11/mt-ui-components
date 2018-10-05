@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import AntTable from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
 import 'antd/lib/checkbox/style/index.css';
-
 import ActionBar from '../ActionBar';
 import Loader from '../Loader';
 import MtTable, { DEFAULT_LOADER_PROPS } from './style';
+import classnames from 'classnames';
 
 class Table extends Component {
   static propTypes = {
@@ -40,7 +40,8 @@ class Table extends Component {
     scroll: PropTypes.object,
     dataSource: PropTypes.array,
     selectedRowKeys: PropTypes.array,
-    isMultiSelect: PropTypes.bool
+    isMultiSelect: PropTypes.bool,
+    selectRowClassName: PropTypes.string
   };
   static defaultProps = {
     infiniteScroll: false,
@@ -155,28 +156,20 @@ class Table extends Component {
       this.onChange(dataSource.map(v => v.key), dataSource);
     }
   }
-  render() {
+
+  getAntTableProps = () => {
     let {
       rowSelection,
-      actionBar,
-      children,
-      loading,
       dataSource,
-      infiniteScroll,
       selectedRowKeys: parentKeys,
       isMultiSelect
     } = this.props;
-    let { showActionBar, selectAll, selectedRowKeys } = this.state;
-
-    /**
-     * Check if rowSelection props is been passed, If yes override the onChange property of it.
-     * Also if onChange prop is passed and the rowSelection is not available, create a new rowSelection object with onChange method.
-     */
+    let { selectAll, selectedRowKeys } = this.state;
     const newSelectedRowskey = selectAll
       ? dataSource.map(v => v.key)
       : parentKeys || selectedRowKeys;
 
-    let updatedRowSelection = rowSelection
+    const updatedRowSelection = rowSelection
       ? {
           ...rowSelection,
           onChange: this.onChange,
@@ -196,10 +189,25 @@ class Table extends Component {
             onRow: record => ({
               onClick: () => this.onChange([record.key], [record]),
               className: newSelectedRowskey.some(v => v === record.key)
-                ? 'ant-table-row-selected'
+                ? classnames(
+                    'ant-table-row-selected',
+                    this.props.selectRowClassName
+                  )
                 : ''
             })
           };
+
+    return {
+      antTableProps: antProps,
+      newSelectedRowskey
+    };
+  };
+
+  render() {
+    let { actionBar, children, loading, infiniteScroll } = this.props;
+    let { showActionBar } = this.state;
+    const { antTableProps, newSelectedRowskey } = this.getAntTableProps();
+
     return (
       <MtTable
         innerRef={ele => (this.tableRef = ele)}
@@ -208,7 +216,7 @@ class Table extends Component {
         infiniteScroll={infiniteScroll}
         showActionBar={showActionBar}
       >
-        <AntTable {...antProps}>{children}</AntTable>
+        <AntTable {...antTableProps}>{children}</AntTable>
         {loading && this.getLoader()}
         {showActionBar && (
           <ActionBar {...actionBar}>
