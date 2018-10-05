@@ -26,11 +26,13 @@ const MtUserThumbnail = styled.div`
 `;
 
 const ThumbnailInfoWrapper = styled.div`
-  display: table;
-  table-layout: fixed;
-  border-spacing: 0px;
-  height: 40px;
-  width: 100%;
+  .wrapper {
+    display: table;
+    table-layout: fixed;
+    border-spacing: 0px;
+    height: 40px;
+    width: 100%;
+  }
   .info {
     vertical-align: middle;
     display: table-cell;
@@ -49,14 +51,14 @@ class UserThumbnailInfo extends Component {
     const { className, title, content } = this.props;
 
     return (
-      <div className={className}>
-        <ThumbnailInfoWrapper>
+      <ThumbnailInfoWrapper className={className}>
+        <div className="wrapper">
           <div className="info">
             {title && <div className={'name'}>{title}</div>}
             {content && <div className={'content'}>{content}</div>}
           </div>
-        </ThumbnailInfoWrapper>
-      </div>
+        </div>
+      </ThumbnailInfoWrapper>
     );
   }
 }
