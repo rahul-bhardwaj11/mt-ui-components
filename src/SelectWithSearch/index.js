@@ -17,7 +17,7 @@ const SelectBox = styled.div`
   .mt-react-select__control {
     min-height: auto;
   }
-  
+
   &.buttonSelect {
     .mt-react-select__control {
        width: 100%;
@@ -68,6 +68,7 @@ const SelectBox = styled.div`
   }
 
   .selectBoxWrapper{
+    margin-top: 10px;
   .activeSearch {
     .mt-react-select__value-container{
       margin-left: 35px;
@@ -87,7 +88,7 @@ const SelectBox = styled.div`
         cursor: pointer;
       }
   }
-    .mt-react-select__control {    
+    .mt-react-select__control {
       &:before {
         display: block;
         background: url('${searchIcon}') no-repeat 10px 5px;
