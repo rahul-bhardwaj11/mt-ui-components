@@ -171,10 +171,7 @@ export default class SyncSelect extends Component {
     this.isBlurActive = true;
     const { selectedItems, options } = this.state;
     const { onChange } = this.props;
-    const selectedValues = selectedItems.map(selectedItem => {
-      return selectedItem.value;
-    });
-    onChange(selectedValues);
+    onChange(selectedItems);
     const sortedOptions = this.__sortOptions(options, selectedItems);
     let newState = this.getNewStateAfterOnSelect();
     newState.options = sortedOptions;
@@ -342,7 +339,7 @@ export default class SyncSelect extends Component {
     let newState = this.getNewStateAfterOnSelect();
     newState.selectedItems = [data];
     this.setState({ ...newState });
-    onChange(data.value);
+    onChange(data);
   };
   handleSingleOnBlur = () => {
     if (this.isIconClicked) {
@@ -425,9 +422,10 @@ export default class SyncSelect extends Component {
         {showSelect && (
           <Select
             styles={{
-              container: () => ({
-                width: '200px',
-                position: 'absolute'
+              container: base => ({
+                ...base,
+                width: '210px',
+                position: isButton ? 'absolute' : 'inherit'
               })
             }}
             {...this.props}
