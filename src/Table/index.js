@@ -47,7 +47,7 @@ class Table extends Component {
     threshold: 0.9,
     windowScroll: false,
     size: 'default',
-    isMultiSelect: true
+    isMultiSelect: false
   };
   state = {
     showActionBar: false,

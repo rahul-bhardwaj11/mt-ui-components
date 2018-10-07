@@ -5,6 +5,9 @@ import Button from '../Button';
 import styled from 'styled-components';
 
 const MtGroupDropdown = styled.div`
+  .ant-dropdown {
+    left: 0 !important;
+  }
   .ant-dropdown-trigger {
     .ant-btn-primary {
       span {
@@ -27,17 +30,17 @@ class GroupButtonDropdown extends Component {
   static propTypes = {
     options: PropTypes.any.isRequired,
     trigger: PropTypes.string,
-    onClick: PropTypes.func,
+    onSelect: PropTypes.func,
     label: PropTypes.string
   };
 
   static defaultProps = {
     trigger: 'click',
-    onClick: () => {}
+    onSelect: () => {}
   };
 
   render() {
-    let { label, onClick, ...rest } = this.props;
+    let { label, ...rest } = this.props;
     return (
       <MtGroupDropdown>
         <Button
@@ -47,7 +50,7 @@ class GroupButtonDropdown extends Component {
             borderBottomRightRadius: 0,
             borderTopRightRadius: 0
           }}
-          onClick={onClick}
+          onClick={this.props.onSelect}
         >
           {label}
         </Button>

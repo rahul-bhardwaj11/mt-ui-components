@@ -20,8 +20,16 @@ export default class AsyncSelect extends Component {
     options: PropTypes.array,
     multiple: PropTypes.bool,
     defaultValue: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string)
+      PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.string
+      }),
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          label: PropTypes.string,
+          value: PropTypes.string
+        })
+      )
     ]),
     isMulti: PropTypes.bool,
     onChange: PropTypes.func,
@@ -33,8 +41,16 @@ export default class AsyncSelect extends Component {
     buttonMinWidth: PropTypes.number,
     sortOptions: PropTypes.bool,
     value: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string)
+      PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.string
+      }),
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          label: PropTypes.string,
+          value: PropTypes.string
+        })
+      )
     ])
   };
 
@@ -206,22 +222,26 @@ export default class AsyncSelect extends Component {
   };
 
   getSelectedItemsFromValue = value => {
-    const { search, optionsCache } = this.state;
-    const currentOptions = optionsCache[search] || initialCache;
-    const options = this.normalizeOption([...currentOptions.options]);
-    const selectedItems = [];
-    if (value) {
-      if (Array.isArray(value)) {
-        value.forEach(item => {
-          const option = options.filter(option => option.value == item);
-          selectedItems.push(...option);
-        });
-      } else {
-        const option = options.filter(option => option.value == value);
-        selectedItems.push(...option);
-      }
+    if (!value) {
+      return [];
     }
-    return selectedItems;
+    return Array.isArray(value) ? value : [value];
+    // const { search, optionsCache } = this.state;
+    // const currentOptions = optionsCache[search] || initialCache;
+    // const options = this.normalizeOption([...currentOptions.options]);
+    // const selectedItems = [];
+    // if (value) {
+    //   if (Array.isArray(value)) {
+    //     value.forEach(item => {
+    //       const option = options.filter(option => option.value == item.value);
+    //       selectedItems.push(...option);
+    //     });
+    //   } else {
+    //     const option = options.filter(option => option.value == value.value);
+    //     selectedItems.push(...option);
+    //   }
+    // }
+    // return selectedItems;
   };
 
   componentWillReceiveProps(nextProps) {
