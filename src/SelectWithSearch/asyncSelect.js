@@ -51,7 +51,8 @@ export default class AsyncSelect extends Component {
           value: PropTypes.string
         })
       )
-    ])
+    ]),
+    style: PropTypes.object
   };
 
   static defaultProps = {
@@ -525,6 +526,28 @@ export default class AsyncSelect extends Component {
     this.setState({ ...newState });
   };
 
+  getStyle = () => {
+    const { isButton, style: target = {} } = this.props;
+    const DEFAULT_SELECT_STYLE = {
+      container: base => ({
+        ...base,
+        width: '210px',
+        position: isButton ? 'absolute' : 'inherit'
+      })
+    };
+    const styles = { ...DEFAULT_SELECT_STYLE };
+    Object.keys(target).forEach(key => {
+      if (DEFAULT_SELECT_STYLE[key]) {
+        styles[key] = (rsCss, props) => {
+          return target[key](DEFAULT_SELECT_STYLE[key](rsCss, props), props);
+        };
+      } else {
+        styles[key] = target[key];
+      }
+    });
+    return styles;
+  };
+
   render() {
     const {
       search,
@@ -601,13 +624,7 @@ export default class AsyncSelect extends Component {
         )}
         {showSelect && (
           <Select
-            styles={{
-              container: base => ({
-                ...base,
-                width: '210px',
-                position: isButton ? 'absolute' : 'inherit'
-              })
-            }}
+            styles={this.getStyle()}
             {...this.props}
             classNamePrefix={'mt-react-select'}
             onInputChange={this.onInputChange}
