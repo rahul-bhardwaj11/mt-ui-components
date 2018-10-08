@@ -36,7 +36,6 @@ class Table extends Component {
     threshold: PropTypes.number,
     windowScroll: PropTypes.bool,
     hasMore: PropTypes.bool,
-    loading: PropTypes.bool,
     scroll: PropTypes.object,
     dataSource: PropTypes.array,
     selectedRowKeys: PropTypes.array,
@@ -48,12 +47,13 @@ class Table extends Component {
     threshold: 0.9,
     windowScroll: false,
     size: 'default',
-    isMultiSelect: true
+    isMultiSelect: false
   };
   state = {
     showActionBar: false,
     selectAll: false,
-    selectedRowKeys: []
+    selectedRowKeys: [],
+    isLoading: false
   };
   scrollElement = null;
   styleProps = {
@@ -61,11 +61,21 @@ class Table extends Component {
     headerCellPadding: this.props.headerCellPadding
   };
   tableRef = null;
-  fetch = () => {
-    const { loading, fetchData } = this.props;
-    if (!loading && fetchData) {
-      fetchData();
+  fetch = async () => {
+    const { fetchData } = this.props;
+    const { isLoading } = this.state;
+    if (isLoading) {
+      return;
     }
+    this.setState({
+      isLoading: true
+    });
+    if (fetchData) {
+      await fetchData();
+    }
+    this.setState({
+      isLoading: false
+    });
   };
   onScroll = () => {
     const {
@@ -204,8 +214,8 @@ class Table extends Component {
   };
 
   render() {
-    let { actionBar, children, loading, infiniteScroll } = this.props;
-    let { showActionBar } = this.state;
+    let { actionBar, children, infiniteScroll } = this.props;
+    let { showActionBar, isLoading } = this.state;
     const { antTableProps, newSelectedRowskey } = this.getAntTableProps();
 
     return (
@@ -217,7 +227,7 @@ class Table extends Component {
         showActionBar={showActionBar}
       >
         <AntTable {...antTableProps}>{children}</AntTable>
-        {loading && this.getLoader()}
+        {isLoading && this.getLoader()}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}
