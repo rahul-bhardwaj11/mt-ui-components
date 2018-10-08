@@ -17,9 +17,6 @@ const StyledModalWrapper = styled.div`
 `;
 
 const MtModal = styled(AntModal)`
-&.modalWrapper {
-  z-index: 9912;
-}
 &.ant-modal{
   font-family: inherit;
   z-index: ${mixins.zIndex.MODAL};
