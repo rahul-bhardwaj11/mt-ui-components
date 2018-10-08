@@ -111,7 +111,6 @@ class Table extends Component {
       : scroll.y + this.scrollElement.scrollTop;
 
     if (innerHeight >= height * threshold) {
-      console.log('satisified.....', infiniteScroll, hasMore); //eslint-disable-line
       if (infiniteScroll && hasMore) {
         this.fetch();
       } else {
