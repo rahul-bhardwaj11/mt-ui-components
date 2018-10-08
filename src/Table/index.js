@@ -40,7 +40,8 @@ class Table extends Component {
     dataSource: PropTypes.array,
     selectedRowKeys: PropTypes.array,
     isMultiSelect: PropTypes.bool,
-    selectRowClassName: PropTypes.string
+    selectRowClassName: PropTypes.string,
+    loading: PropTypes.bool
   };
   static defaultProps = {
     infiniteScroll: false,
@@ -53,7 +54,7 @@ class Table extends Component {
     showActionBar: false,
     selectAll: false,
     selectedRowKeys: [],
-    isLoading: false
+    loading: this.props.loading
   };
   scrollElement = null;
   styleProps = {
@@ -61,21 +62,26 @@ class Table extends Component {
     headerCellPadding: this.props.headerCellPadding
   };
   tableRef = null;
+
   fetch = async () => {
     const { fetchData } = this.props;
-    const { isLoading } = this.state;
-    if (isLoading) {
+    const { loading } = this.state;
+    if (loading) {
       return;
     }
-    this.setState({
-      isLoading: true
-    });
-    if (fetchData) {
-      await fetchData();
+    if (typeof fetchData.then === 'function') {
+      this.setState({
+        loading: true
+      });
+      if (fetchData) {
+        await fetchData();
+      }
+      this.setState({
+        loading: false
+      });
+    } else {
+      fetchData();
     }
-    this.setState({
-      isLoading: false
-    });
   };
   onScroll = () => {
     const {
@@ -105,6 +111,7 @@ class Table extends Component {
       : scroll.y + this.scrollElement.scrollTop;
 
     if (innerHeight >= height * threshold) {
+      console.log('satisified.....', infiniteScroll, hasMore); //eslint-disable-line
       if (infiniteScroll && hasMore) {
         this.fetch();
       } else {
@@ -121,6 +128,14 @@ class Table extends Component {
       if (this.scrollElement) {
         this.scrollElement.addEventListener('scroll', this.onScroll, false);
       }
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.loading !== this.state.loading) {
+      this.setState({
+        loading: nextProps.loading
+      });
     }
   }
 
@@ -215,7 +230,7 @@ class Table extends Component {
 
   render() {
     let { actionBar, children, infiniteScroll } = this.props;
-    let { showActionBar, isLoading } = this.state;
+    let { showActionBar, loading } = this.state;
     const { antTableProps, newSelectedRowskey } = this.getAntTableProps();
 
     return (
@@ -227,7 +242,7 @@ class Table extends Component {
         showActionBar={showActionBar}
       >
         <AntTable {...antTableProps}>{children}</AntTable>
-        {isLoading && this.getLoader()}
+        {loading && this.getLoader()}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}
