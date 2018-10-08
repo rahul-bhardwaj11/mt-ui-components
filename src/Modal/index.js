@@ -14,11 +14,12 @@ const MtModal = styled(AntModal)`
   .ant-modal-content {
     border-radius:8px;
   }
+
   .ant-modal-body {
     padding: 0px 32px;
     overflow: auto;
   }
-  .ant-modal-header {
+   .ant-modal-header {
     border-bottom: 0px;
     padding: 24px 32px;
     font-size: 20px;
