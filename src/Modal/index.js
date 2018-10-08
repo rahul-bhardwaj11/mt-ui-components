@@ -9,10 +9,10 @@ import ReactDOM from 'react-dom';
 
 const StyledModalWrapper = styled.div`
   .modalWrapper {
-    z-index: 9912;
+    z-index: ${mixins.zIndex.MODAL_WRAPPER};
   }
   .ant-modal-mask {
-    z-index: 9911;
+    z-index: ${mixins.zIndex.MODAL_MASK};
   }
 `;
 
