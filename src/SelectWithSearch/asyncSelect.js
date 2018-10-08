@@ -613,8 +613,7 @@ export default class AsyncSelect extends Component {
               onClick={this.toggleButton}
               style={{
                 maxWidth: buttonMaxWidth,
-                minWidth: buttonMinWidth,
-                fontSize: 14
+                minWidth: buttonMinWidth
               }}
               size="small"
             >

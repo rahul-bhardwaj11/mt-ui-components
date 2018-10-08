@@ -7,6 +7,15 @@ import theme from '../styles/theme';
 import mixins from '../styles/mixins';
 import ReactDOM from 'react-dom';
 
+const StyledModalWrapper = styled.div`
+  .modalWrapper {
+    z-index: ${mixins.zIndex.MODAL_WRAPPER};
+  }
+  .ant-modal-mask {
+    z-index: ${mixins.zIndex.MODAL_MASK};
+  }
+`;
+
 const MtModal = styled(AntModal)`
 &.ant-modal{
   font-family: inherit;
@@ -14,11 +23,12 @@ const MtModal = styled(AntModal)`
   .ant-modal-content {
     border-radius:8px;
   }
+
   .ant-modal-body {
     padding: 0px 32px;
     overflow: auto;
   }
-  .ant-modal-header {
+   .ant-modal-header {
     border-bottom: 0px;
     padding: 24px 32px;
     font-size: 20px;
@@ -111,8 +121,6 @@ const MtConfirmModal = styled.div`
     font-family: inherit;
   }
 
-  .ant-modal-body {
-  }
   .ant-confirm-body {
     .ant-confirm-content {
       margin-left: 0px;
@@ -197,7 +205,26 @@ class Modal extends Component {
         ...this.props.style
       }
     };
-    return <MtModal {...customProps}>{children}</MtModal>;
+    return (
+      <React.Fragment>
+        <StyledModalWrapper
+          innerRef={el => {
+            if (el) {
+              this.modalWrapRef = el;
+            }
+          }}
+        />
+        <MtModal
+          {...customProps}
+          getContainer={() => {
+            return this.modalWrapRef;
+          }}
+          wrapClassName="modalWrapper"
+        >
+          {children}
+        </MtModal>
+      </React.Fragment>
+    );
   }
 }
 
