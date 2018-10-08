@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import AntTable from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
 import 'antd/lib/checkbox/style/index.css';
-
 import ActionBar from '../ActionBar';
 import Loader from '../Loader';
 import MtTable, { DEFAULT_LOADER_PROPS } from './style';
+import classnames from 'classnames';
 
 class Table extends Component {
   static propTypes = {
@@ -36,22 +36,24 @@ class Table extends Component {
     threshold: PropTypes.number,
     windowScroll: PropTypes.bool,
     hasMore: PropTypes.bool,
-    loading: PropTypes.bool,
     scroll: PropTypes.object,
     dataSource: PropTypes.array,
-    selectedRowKeys: PropTypes.array
+    selectedRowKeys: PropTypes.array,
+    isMultiSelect: PropTypes.bool,
+    selectRowClassName: PropTypes.string
   };
   static defaultProps = {
     infiniteScroll: false,
     threshold: 0.9,
     windowScroll: false,
-    size: 'default'
+    size: 'default',
+    isMultiSelect: false
   };
   state = {
     showActionBar: false,
-    showMultiSelect: false,
     selectAll: false,
-    selectedRowKeys: []
+    selectedRowKeys: [],
+    isLoading: false
   };
   scrollElement = null;
   styleProps = {
@@ -59,11 +61,21 @@ class Table extends Component {
     headerCellPadding: this.props.headerCellPadding
   };
   tableRef = null;
-  fetch = () => {
-    const { loading, fetchData } = this.props;
-    if (!loading && fetchData) {
-      fetchData();
+  fetch = async () => {
+    const { fetchData } = this.props;
+    const { isLoading } = this.state;
+    if (isLoading) {
+      return;
     }
+    this.setState({
+      isLoading: true
+    });
+    if (fetchData) {
+      await fetchData();
+    }
+    this.setState({
+      isLoading: false
+    });
   };
   onScroll = () => {
     const {
@@ -123,7 +135,6 @@ class Table extends Component {
     let { dataSource, actionBar, rowSelection: { onChange } = {} } = this.props;
     this.setState(() => ({
       showActionBar: actionBar && selectedRowKeys.length > 0,
-      showMultiSelect: selectedRowKeys.length > 0,
       selectedRowKeys: selectedRowKeys,
       selectAll: dataSource.length === selectedRowKeys.length
     }));
@@ -155,27 +166,15 @@ class Table extends Component {
       this.onChange(dataSource.map(v => v.key), dataSource);
     }
   }
-  render() {
+
+  getAntTableProps = () => {
     let {
       rowSelection,
-      actionBar,
-      children,
-      loading,
       dataSource,
-      infiniteScroll,
-      selectedRowKeys: parentKeys
+      selectedRowKeys: parentKeys,
+      isMultiSelect
     } = this.props;
-    let {
-      showActionBar,
-      showMultiSelect,
-      selectAll,
-      selectedRowKeys
-    } = this.state;
-
-    /**
-     * Check if rowSelection props is been passed, If yes override the onChange property of it.
-     * Also if onChange prop is passed and the rowSelection is not available, create a new rowSelection object with onChange method.
-     */
+    let { selectAll, selectedRowKeys } = this.state;
     const newSelectedRowskey = selectAll
       ? dataSource.map(v => v.key)
       : parentKeys || selectedRowKeys;
@@ -188,24 +187,47 @@ class Table extends Component {
         }
       : null;
 
-    const antProps = updatedRowSelection
-      ? {
-          ...this.props,
-          rowSelection: updatedRowSelection
-        }
-      : {
-          ...this.props
-        };
+    const antProps =
+      updatedRowSelection && isMultiSelect
+        ? {
+            ...this.props,
+            rowSelection: updatedRowSelection
+          }
+        : {
+            ...this.props,
+            rowSelection: null,
+            onRow: record => ({
+              onClick: () => this.onChange([record.key], [record]),
+              className: newSelectedRowskey.some(v => v === record.key)
+                ? classnames(
+                    'ant-table-row-selected',
+                    this.props.selectRowClassName
+                  )
+                : ''
+            })
+          };
+
+    return {
+      antTableProps: antProps,
+      newSelectedRowskey
+    };
+  };
+
+  render() {
+    let { actionBar, children, infiniteScroll } = this.props;
+    let { showActionBar, isLoading } = this.state;
+    const { antTableProps, newSelectedRowskey } = this.getAntTableProps();
+
     return (
       <MtTable
         innerRef={ele => (this.tableRef = ele)}
-        showMultiSelect={showMultiSelect}
+        showMultiSelect={newSelectedRowskey.length > 0}
         {...this.styleProps}
         infiniteScroll={infiniteScroll}
         showActionBar={showActionBar}
       >
-        <AntTable {...antProps}>{children}</AntTable>
-        {loading && this.getLoader()}
+        <AntTable {...antTableProps}>{children}</AntTable>
+        {isLoading && this.getLoader()}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}

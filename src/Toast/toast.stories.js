@@ -14,9 +14,6 @@ stories.add(
     <Toast
       type={select('type', TOAST_TYPES) || TOAST_TYPES[0]}
       message={text('message', 'Success message')}
-      reloadBtn
-      freeze
-      load
     />
   ))
 );
