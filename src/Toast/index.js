@@ -15,6 +15,7 @@ const ReloadBtn = () => {
   return (
     <div
       className={classnames('floatR')}
+      id="toastReloadBtn"
       onClick={() => {
         window.location.href = window.location.href; // eslint-disable-line
       }}
