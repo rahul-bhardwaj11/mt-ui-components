@@ -20,8 +20,16 @@ export default class AsyncSelect extends Component {
     options: PropTypes.array,
     multiple: PropTypes.bool,
     defaultValue: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string)
+      PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.string
+      }),
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          label: PropTypes.string,
+          value: PropTypes.string
+        })
+      )
     ]),
     isMulti: PropTypes.bool,
     onChange: PropTypes.func,
@@ -33,9 +41,18 @@ export default class AsyncSelect extends Component {
     buttonMinWidth: PropTypes.number,
     sortOptions: PropTypes.bool,
     value: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string)
-    ])
+      PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.string
+      }),
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          label: PropTypes.string,
+          value: PropTypes.string
+        })
+      )
+    ]),
+    style: PropTypes.object
   };
 
   static defaultProps = {
@@ -206,22 +223,26 @@ export default class AsyncSelect extends Component {
   };
 
   getSelectedItemsFromValue = value => {
-    const { search, optionsCache } = this.state;
-    const currentOptions = optionsCache[search] || initialCache;
-    const options = this.normalizeOption([...currentOptions.options]);
-    const selectedItems = [];
-    if (value) {
-      if (Array.isArray(value)) {
-        value.forEach(item => {
-          const option = options.filter(option => option.value == item);
-          selectedItems.push(...option);
-        });
-      } else {
-        const option = options.filter(option => option.value == value);
-        selectedItems.push(...option);
-      }
+    if (!value) {
+      return [];
     }
-    return selectedItems;
+    return Array.isArray(value) ? value : [value];
+    // const { search, optionsCache } = this.state;
+    // const currentOptions = optionsCache[search] || initialCache;
+    // const options = this.normalizeOption([...currentOptions.options]);
+    // const selectedItems = [];
+    // if (value) {
+    //   if (Array.isArray(value)) {
+    //     value.forEach(item => {
+    //       const option = options.filter(option => option.value == item.value);
+    //       selectedItems.push(...option);
+    //     });
+    //   } else {
+    //     const option = options.filter(option => option.value == value.value);
+    //     selectedItems.push(...option);
+    //   }
+    // }
+    // return selectedItems;
   };
 
   componentWillReceiveProps(nextProps) {
@@ -287,10 +308,7 @@ export default class AsyncSelect extends Component {
     const { selectedItems, optionsCache } = this.state;
     const { isButton, onChange } = this.props;
     const options = optionsCache[''].options;
-    const selectedValues = selectedItems.map(selectedItem => {
-      return selectedItem.value;
-    });
-    onChange(selectedValues);
+    onChange(selectedItems);
     const arrangedOptions = this.__arrangeOptions(selectedItems, options);
     this.setState(prevState => {
       let newState = {
@@ -496,7 +514,7 @@ export default class AsyncSelect extends Component {
     let newState = this.getNewStateAfterOnSelect();
     newState.selectedItems = [data];
     this.setState({ ...newState });
-    onChange(data.value);
+    onChange(data);
   };
   handleSingleOnBlur = () => {
     if (this.isIconClicked) {
@@ -506,6 +524,28 @@ export default class AsyncSelect extends Component {
     this.isBlurActive = true;
     const newState = this.getNewStateAfterOnSelect();
     this.setState({ ...newState });
+  };
+
+  getStyle = () => {
+    const { isButton, style: target = {} } = this.props;
+    const DEFAULT_SELECT_STYLE = {
+      container: base => ({
+        ...base,
+        width: '210px',
+        position: isButton ? 'absolute' : 'inherit'
+      })
+    };
+    const styles = { ...DEFAULT_SELECT_STYLE };
+    Object.keys(target).forEach(key => {
+      if (DEFAULT_SELECT_STYLE[key]) {
+        styles[key] = (rsCss, props) => {
+          return target[key](DEFAULT_SELECT_STYLE[key](rsCss, props), props);
+        };
+      } else {
+        styles[key] = target[key];
+      }
+    });
+    return styles;
   };
 
   render() {
@@ -538,6 +578,7 @@ export default class AsyncSelect extends Component {
           isSearchable: showInput,
           autoFocus: showInput,
           isFocused: true,
+          onBlur: this.handleMultiOnSelect,
           inputValue: inputValue
         }
       : {
@@ -548,6 +589,7 @@ export default class AsyncSelect extends Component {
             Menu: this.buildMenu
           },
           onChange: this.handleSingleOnSelect,
+          onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
           backspaceRemovesValue: false,
           controlShouldRenderValue: !showInput,
@@ -557,7 +599,7 @@ export default class AsyncSelect extends Component {
         };
 
     return (
-      <div>
+      <React.Fragment>
         {isButton && (
           <div
             ref={e => {
@@ -569,7 +611,12 @@ export default class AsyncSelect extends Component {
             <Button
               type="secondary"
               onClick={this.toggleButton}
-              style={{ maxWidth: buttonMaxWidth, minWidth: buttonMinWidth }}
+              style={{
+                maxWidth: buttonMaxWidth,
+                minWidth: buttonMinWidth,
+                fontSize: 14
+              }}
+              size="small"
             >
               {this.getButtonText()}
             </Button>
@@ -577,13 +624,7 @@ export default class AsyncSelect extends Component {
         )}
         {showSelect && (
           <Select
-            styles={{
-              container: base => ({
-                ...base,
-                width: '210px',
-                position: isButton ? 'absolute' : 'inherit'
-              })
-            }}
+            styles={this.getStyle()}
             {...this.props}
             classNamePrefix={'mt-react-select'}
             onInputChange={this.onInputChange}
@@ -594,7 +635,7 @@ export default class AsyncSelect extends Component {
             {...selectProps}
           />
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

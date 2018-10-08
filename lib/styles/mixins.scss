@@ -133,12 +133,20 @@
 // z-index ----------//
 
 $z-index: (
-  getSupport: 99986
+  GET_SUPPORT: 99999,
+  TOAST: 9999,
+  LOADER: 9990,
+  OVERLAY: 9980,
+  CONFIRM_BOX: 9970,
+  MODAL: 9960,
+  TOOLTIP: 9950,
+  POPOVER: 9940
 );
 
 @function z-index($key) {
   @return map-get($z-index, $key);
 }
+
 @mixin z-index($key) {
   z-index: z-index($key);
 }

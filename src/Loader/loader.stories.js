@@ -14,7 +14,6 @@ stories.add(
       message={text('message', 'Loading....')}
       type={select('type', Object.keys(LOADER_TYPE))}
       size={select('size', Object.keys(LOADING_SIZE))}
-      vCenter={true}
     />
   ))
 );

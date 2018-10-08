@@ -60,8 +60,6 @@ h3 {
     display:none;
   }
 }
-
-
 .slick-arrow.slick-next{
     right:0px;
     font-size:20px; 

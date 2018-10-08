@@ -5,7 +5,6 @@ import AntTooltip from 'antd/lib/tooltip';
 import 'antd/lib/tooltip/style/index.css';
 
 const MtTooltip = styled(AntTooltip)``;
-
 class Tooltip extends Component {
   static propTypes = {
     children: PropTypes.node,
