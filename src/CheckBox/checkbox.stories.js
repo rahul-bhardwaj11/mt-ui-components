@@ -16,7 +16,12 @@ stories
   .add(
     'Checked CheckBox',
     withInfo('Checked checkbox')(() => (
-      <CheckBox checked={boolean('checked', true)}>{'Checkbox'}</CheckBox>
+      <CheckBox
+        checked={boolean('checked', true)}
+        disabled={boolean('disabled', false)}
+      >
+        {'Checkbox'}
+      </CheckBox>
     ))
   )
   .add(

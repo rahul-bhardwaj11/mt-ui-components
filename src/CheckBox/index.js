@@ -60,6 +60,12 @@ const MtCheckbox = styled(AntCheckbox)`
       }
     }
     .ant-checkbox-checked {
+      &.ant-checkbox-disabled {
+        .ant-checkbox-inner {
+          border: 1px solid ${theme.colors.ALTO};
+          background-color: ${theme.colors.PEARL};
+        }
+      }
       & > .ant-checkbox-inner {
         background-color: ${theme.colors.INDIGO};
         border-color: ${theme.colors.INDIGO};

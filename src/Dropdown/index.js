@@ -20,7 +20,8 @@ class Dropdown extends Component {
     type: PropTypes.string,
     label: PropTypes.string,
     getPopupContainer: PropTypes.func,
-    placement: PropTypes.string
+    placement: PropTypes.string,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -37,7 +38,8 @@ class Dropdown extends Component {
       type,
       label,
       onSelect,
-      placement
+      placement,
+      className
     } = this.props;
     let overlay;
     if (options instanceof Array) {
@@ -56,6 +58,7 @@ class Dropdown extends Component {
             this.dropdownRef = el;
           }
         }}
+        className={className}
       >
         <AntDropdown
           overlay={overlay}
