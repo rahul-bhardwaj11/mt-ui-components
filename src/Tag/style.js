@@ -219,10 +219,18 @@ const ButtonWrapper = styled.button`
     height: 24px;
     padding: 0px 15px;
     margin: 0px;
+    &:focus,
+    &:active {
+      outline: none;
+    }
   }
   .tagIcon {
     font-size: 10px;
     margin-left: 8px;
+  }
+  &:focus,
+  &:active {
+    outline: none;
   }
 `;
 
