@@ -252,23 +252,27 @@ class SelectWithSearch extends Component {
     onChange: PropTypes.func.isRequired,
     isButton: PropTypes.bool,
     buttonMaxWidth: PropTypes.string,
-    buttonWidth: PropTypes.string
+    buttonWidth: PropTypes.string,
+    className: PropTypes.string
   };
   static defaultProps = {
     placeholder: 'Type here to Search'
   };
 
   render() {
-    let { async, isButton } = this.props;
+    let { async, isButton, className } = this.props;
     let SelectComponent = SyncSelect;
     if (async) {
       SelectComponent = AsyncSelect;
     }
-    let className = classnames({
-      buttonSelect: isButton
-    });
+    let componentClassName = classnames(
+      {
+        buttonSelect: isButton
+      },
+      className
+    );
     return (
-      <SelectBox className={className} isButton={isButton}>
+      <SelectBox className={componentClassName} isButton={isButton}>
         <SelectComponent {...this.props} />
       </SelectBox>
     );
