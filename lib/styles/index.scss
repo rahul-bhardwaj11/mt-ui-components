@@ -116,7 +116,7 @@
   .arrow_T {
     position: absolute;
     z-index: 9999;
- 
+
     &:after {
       bottom: 0px;
       left: -7px;
@@ -146,11 +146,11 @@
       margin-top: 0;
     }
   }
- 
- .arrow_R {
+
+  .arrow_R {
     position: absolute;
     z-index: 1;
- 
+
     &:after {
       bottom: 0px;
       left: -7px;
@@ -227,4 +227,3 @@
     }
   }
 }
-
