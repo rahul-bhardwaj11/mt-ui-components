@@ -26,6 +26,9 @@ export default styled.div`
   counter-reset: rowNumber;
   position: relative;
   margin-bottom: ${props => (props.showActionBar ? '60px' : '0px')};
+  .ant-table {
+    font-family: inherit;
+  }
   .ant-table-default,
   .ant-table-middle,
   .ant-table-small {
