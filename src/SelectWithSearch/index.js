@@ -68,7 +68,7 @@ const SelectBox = styled.div`
   }
   
   .selectBoxWrapper{
-    ${props => (props.isButton ? 'margin-top: 10px' : '')};
+    ${props => (props.isButton ? 'margin-top: 10px' : '')}; 
     position: relative;
     z-index: 10;
   .activeSearch {

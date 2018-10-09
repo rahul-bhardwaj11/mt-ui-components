@@ -246,7 +246,6 @@ export default class SyncSelect extends Component {
         onClick={() => this.onCheckboxClick(data)}
         className="checkboxWrapper"
         title={data.label}
-        id="synSelectLabelBtn"
       >
         <CheckBox
           disabled={data.disabled}
@@ -264,20 +263,12 @@ export default class SyncSelect extends Component {
         {props.children}
         <div className="componentWrapper">
           <div className="buttonWrapperL">
-            <Button
-              type="text"
-              id="syncSelectClearBtn"
-              onClick={this.onClearAll}
-            >
+            <Button type="text" onClick={this.onClearAll}>
               {'Clear All'}
             </Button>
           </div>
           <div className="buttonWrapperR">
-            <Button
-              type="text"
-              id="syncSelectDoneBtn"
-              onClick={this.handleMultiOnSelect}
-            >
+            <Button type="text" onClick={this.handleMultiOnSelect}>
               <span className="marginR5"> Done</span>
               {`${selectedItems.length ? `(${selectedItems.length})` : ''}`}
             </Button>
@@ -294,7 +285,6 @@ export default class SyncSelect extends Component {
       <div className="selectBoxWrapper">
         <div
           className={showInput ? 'activeSearch' : ''}
-          id="syncSelectActiveSearch"
           onClick={() => {
             !isDisabled &&
               this.setState({
@@ -314,7 +304,6 @@ export default class SyncSelect extends Component {
           >
             <Icon
               type="cross"
-              id="synSelectSearchIcon"
               onClick={() => this.setState({ inputValue: '' })}
             />
           </div>
@@ -446,7 +435,6 @@ export default class SyncSelect extends Component {
           >
             <Button
               type="secondary"
-              id="syncSelectFtlterBtn"
               onClick={this.toggleButton}
               style={{
                 maxWidth: buttonMaxWidth,

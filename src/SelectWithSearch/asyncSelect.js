@@ -400,7 +400,6 @@ export default class AsyncSelect extends Component {
         }}
         className="checkboxWrapper"
         title={data.label}
-        id="asynSelectLabelBtn"
       >
         <CheckBox
           disabled={data.disabled}
@@ -429,21 +428,13 @@ export default class AsyncSelect extends Component {
         {isMulti && (
           <div className="componentWrapper">
             <div className="buttonWrapperL">
-              <Button
-                type="text"
-                id="asyncSelectClearBtn"
-                onClick={this.onClearAll}
-              >
+              <Button type="text" onClick={this.onClearAll}>
                 {'Clear All'}
               </Button>
             </div>
 
             <div className="buttonWrapperR">
-              <Button
-                type="text"
-                id="asyncSelectDoneBtn"
-                onClick={this.handleMultiOnSelect}
-              >
+              <Button type="text" onClick={this.handleMultiOnSelect}>
                 {`Done`}
                 <span className="doneMarginR">
                   {selectedItems.length ? `(${selectedItems.length})` : ''}
@@ -463,7 +454,6 @@ export default class AsyncSelect extends Component {
       <div className="selectBoxWrapper">
         <div
           className={this.state.showInput ? 'activeSearch' : ''}
-          id="asyncSelectActiveSearch"
           onClick={() => {
             !isDisabled &&
               this.setState({
@@ -483,7 +473,6 @@ export default class AsyncSelect extends Component {
           >
             <Icon
               type="cross"
-              id="asynSelectSearchIcon"
               onClick={() => {
                 this.setState({ inputValue: '', search: '' });
               }}
@@ -621,7 +610,6 @@ export default class AsyncSelect extends Component {
           >
             <Button
               type="secondary"
-              id="asyncSelectFtlterBtn"
               onClick={this.toggleButton}
               style={{
                 maxWidth: buttonMaxWidth,
