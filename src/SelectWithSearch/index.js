@@ -68,9 +68,9 @@ const SelectBox = styled.div`
   }
   
   .selectBoxWrapper{
-    ${props => (props.isButton ? 'margin-top: 10px' : '')} 
+    ${props => (props.isButton ? 'margin-top: 10px' : '')}; 
     position: relative;
-    z-index: 1;
+    z-index: 10;
   .activeSearch {
     .mt-react-select__value-container{
       margin-left: 35px;
