@@ -39,7 +39,6 @@ const MtButton = styled(AntButton)`
 
       &.ant-btn-sm {
         font-size: 12px;
-        padding: 0px 12px;
       }
       &:hover {
         color: ${theme.colors.DARK_OUTER_SPACE};
@@ -67,7 +66,6 @@ const MtButton = styled(AntButton)`
       color: #fff;
       &.ant-btn-sm {
         font-size: 12px;
-        padding: 0px 12px;
       }
       &:hover,
       &:focus,
@@ -93,7 +91,6 @@ const MtButton = styled(AntButton)`
       &.ant-btn-sm {
         color: ${theme.colors.SILVER};
         font-size: 12px;
-        padding: 0px 12px;
       }
       &:hover,
       &:focus,
@@ -122,7 +119,6 @@ const MtButton = styled(AntButton)`
 
       &.ant-btn-sm {
         font-size: 12px;
-        padding: 0px 12px;
       }
       &:hover,
       &:focus,
@@ -166,7 +162,6 @@ const MtButton = styled(AntButton)`
       }
       &.ant-btn-sm {
         font-size: 12px;
-        padding: 0px 12px;
       }
       &.disabled,
       &:disabled,
@@ -184,7 +179,6 @@ const MtButton = styled(AntButton)`
 
       &.ant-btn-sm {
         font-size: 12px;
-        padding: 0px 12px;
       }
       &.disabled,
       &:disabled {

@@ -63,7 +63,7 @@ class Button extends Component {
     type: PropTypes.oneOf(Object.values(BUTTON_TYPES)),
     children: PropTypes.node,
     disabled: PropTypes.bool,
-    size: PropTypes.string,
+    size: PropTypes.oneOf(Object.values(BUTTON_SIZES)),
     style: PropTypes.object,
     className: PropTypes.string,
     active: PropTypes.bool,
