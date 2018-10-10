@@ -155,7 +155,10 @@ export default class Toast extends Component {
 
   componentWillUnmount() {
     const { freeze } = this.props;
-    freeze && document.body.removeChild(this.element);
+    if (freeze) {
+      document.body.removeChild(this.element);
+      document.getElementsByTagName('body')[0].style.overflow = 'none';
+    }
   }
 
   render() {

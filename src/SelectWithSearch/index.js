@@ -68,14 +68,14 @@ const SelectBox = styled.div`
   }
   
   .selectBoxWrapper{
-    margin-top: 10px;
+    ${props => (props.isButton ? 'margin-top: 10px' : '')}; 
     position: relative;
-    z-index: 1;
+    z-index: 10;
   .activeSearch {
     .mt-react-select__value-container{
       margin-left: 35px;
     }
-    mt-react-select__input {
+    .mt-react-select__input {
       margin-left: -3px
     }
 
@@ -252,23 +252,27 @@ class SelectWithSearch extends Component {
     onChange: PropTypes.func.isRequired,
     isButton: PropTypes.bool,
     buttonMaxWidth: PropTypes.string,
-    buttonWidth: PropTypes.string
+    buttonWidth: PropTypes.string,
+    className: PropTypes.string
   };
   static defaultProps = {
     placeholder: 'Type here to Search'
   };
 
   render() {
-    let { async, isButton } = this.props;
+    let { async, isButton, className } = this.props;
     let SelectComponent = SyncSelect;
     if (async) {
       SelectComponent = AsyncSelect;
     }
-    let className = classnames({
-      buttonSelect: isButton
-    });
+    let componentClassName = classnames(
+      {
+        buttonSelect: isButton
+      },
+      className
+    );
     return (
-      <SelectBox className={className}>
+      <SelectBox className={componentClassName} isButton={isButton}>
         <SelectComponent {...this.props} />
       </SelectBox>
     );
