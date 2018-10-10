@@ -62,9 +62,7 @@ class Tag extends Component {
     };
 
     let TagProps = {
-      ...rest,
-      checked: checkable ? this.state.checked : '',
-      onChange: checkable ? this.handleChange : ''
+      ...rest
     };
 
     return (

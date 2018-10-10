@@ -15,11 +15,16 @@ const MtUserThumbnail = styled.div`
     cursor: default;
 
     .name {
-      ${mixin.blackText()};
+      ${mixin.blackLink()};
       ${mixin.truncate()};
+      .alertMsg {
+        ${mixin.smallDarkLink()};
+        margin-left: 6px;
+      }
     }
     .content {
-      ${mixin.smallDarkLink()};
+      ${mixin.darkText()};
+      font-size: 12px;
       ${mixin.truncate()};
     }
   }
@@ -44,17 +49,27 @@ class UserThumbnailInfo extends Component {
   static propTypes = {
     title: PropTypes.string,
     content: PropTypes.string,
+    message: PropTypes.object,
     className: PropTypes.string
   };
 
   render() {
-    const { className, title, content } = this.props;
+    const { className, title, content, message } = this.props;
 
     return (
       <ThumbnailInfoWrapper className={className}>
         <div className="wrapper">
           <div className="info">
-            {title && <div className={'name'}>{title}</div>}
+            {title && (
+              <div className={'name'}>
+                {title}
+                {message && (
+                  <label style={message.style} className="alertMsg">
+                    {message.msg}
+                  </label>
+                )}
+              </div>
+            )}
             {content && <div className={'content'}>{content}</div>}
           </div>
         </div>
@@ -67,6 +82,7 @@ class UserThumbnail extends Component {
   static propTypes = {
     title: PropTypes.string,
     content: PropTypes.string,
+    message: PropTypes.object,
     src: PropTypes.string,
     shape: PropTypes.oneOf(['circle', 'square']),
     size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -91,26 +107,17 @@ class UserThumbnail extends Component {
 
   render() {
     const { expanded, className, ...rest } = this.props;
-    const { title, content } = rest;
+    const { title } = rest;
 
     let mtProps = Object.assign({}, rest);
     mtProps = !title ? Object.assign(mtProps, { icon: 'user' }) : mtProps;
-
-    const thumbnailInfoProps = {
-      title: title,
-      content: content
-    };
-
     return (
       <MtUserThumbnail className={className}>
         <Avatar className="userThumbnailAvatar" {...mtProps}>
           {title && this.getInitials(title)}
         </Avatar>
         {expanded && (
-          <UserThumbnailInfo
-            {...thumbnailInfoProps}
-            className="userThumbnailInfo"
-          />
+          <UserThumbnailInfo {...rest} className="userThumbnailInfo" />
         )}
       </MtUserThumbnail>
     );
