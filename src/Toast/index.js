@@ -77,6 +77,15 @@ export default class Toast extends Component {
     timer: null
   };
 
+  element = null;
+  constructor(props) {
+    super(props);
+    const { freeze } = props;
+    if (freeze) {
+      this.element = document.createElement('div');
+    }
+  }
+
   style = {
     transitionDuration: `${ANIMATION_TRANSITION_DURATION}ms`
   };
@@ -141,29 +150,27 @@ export default class Toast extends Component {
   componentDidMount() {
     const { freeze } = this.props;
     this.handleTimer(this.props);
-    if (freeze) {
-      this.mountOn = document.body.appendChild(document.createElement('div'));
-      ReactDOM.render(<FreezeOverlay />, this.mountOn);
-    }
+    freeze && document.body.appendChild(this.element);
   }
 
   componentWillUnmount() {
     const { freeze } = this.props;
-    if (freeze) {
-      ReactDOM.render(null, this.mountOn);
-    }
+    freeze && document.body.removeChild(this.element);
   }
 
   render() {
     const { message, hideBtn, reloadBtn, freeze } = this.props;
     return (
-      <StyledToast>
-        <div className={this.getClasses()} style={this.style}>
-          <span className="toastMessage">{message}</span>
-        </div>
-        <span>{hideBtn && !freeze && <HideBtn hide={this.hideToast} />}</span>
-        <span>{freeze && reloadBtn && <ReloadBtn />}</span>
-      </StyledToast>
+      <React.Fragment>
+        {freeze && ReactDOM.createPortal(<FreezeOverlay />, this.element)}
+        <StyledToast>
+          <div className={this.getClasses()} style={this.style}>
+            <span className="toastMessage">{message}</span>
+          </div>
+          <span>{hideBtn && !freeze && <HideBtn hide={this.hideToast} />}</span>
+          <span>{freeze && reloadBtn && <ReloadBtn />}</span>
+        </StyledToast>
+      </React.Fragment>
     );
   }
 }
