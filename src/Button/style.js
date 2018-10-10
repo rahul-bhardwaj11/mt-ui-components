@@ -4,6 +4,14 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
 
+export const BUTTON_TYPES = {
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary',
+  TERTIARY: 'tertiary',
+  LINK: 'link',
+  TEXT: 'text',
+  EDIT: 'edit'
+};
 export const BUTTON_SIZES = {
   LARGE: 'large',
   SMALL: 'small',
@@ -11,8 +19,8 @@ export const BUTTON_SIZES = {
 };
 
 export const ANTD_BUTTON_SIZE_PADDING = {
-  [BUTTON_SIZES.LARGE]: '0px 32px',
-  default: '0px 24px',
+  [BUTTON_SIZES.LARGE]: '0px 24px',
+  default: '0px 12px',
   [BUTTON_SIZES.SMALL]: '0px 12px'
 };
 
@@ -113,6 +121,9 @@ const MtButton = styled(AntButton)`
       border: 1px dashed ${theme.colors.ALTO};
       background-color: ${theme.colors.WHITE};
       color: ${theme.colors.OUTER_SPACE};
+      padding: ${props =>
+        BUTTON_TYPES[props.tertiary] ? `padding: 0 16px` : null};
+
       &.ant-btn-sm {
         font-size: 12px;
         padding: 0px 12px;
@@ -136,6 +147,7 @@ const MtButton = styled(AntButton)`
       border: 1px dashed transparent;
       background-color: transparent;
       color: ${theme.colors.OUTER_SPACE};
+      padding: 0 12px;
 
       ${props =>
         props.active
