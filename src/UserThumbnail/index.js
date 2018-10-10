@@ -49,7 +49,10 @@ class UserThumbnailInfo extends Component {
   static propTypes = {
     title: PropTypes.string,
     content: PropTypes.string,
-    message: PropTypes.object,
+    message: PropTypes.shape({
+      msg: PropTypes.string,
+      style: PropTypes.object
+    }),
     className: PropTypes.string
   };
 
@@ -82,7 +85,10 @@ class UserThumbnail extends Component {
   static propTypes = {
     title: PropTypes.string,
     content: PropTypes.string,
-    message: PropTypes.object,
+    message: PropTypes.shape({
+      msg: PropTypes.string,
+      style: PropTypes.object
+    }),
     src: PropTypes.string,
     shape: PropTypes.oneOf(['circle', 'square']),
     size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
