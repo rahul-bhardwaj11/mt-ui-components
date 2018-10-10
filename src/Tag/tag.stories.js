@@ -24,6 +24,7 @@ stories
         disabled={boolean('disabled', false)}
         applied={boolean('applied', false)}
         checkable={boolean('checkable', false)}
+        closable={boolean('closable', false)}
       >
         {text('children', 'tag')}
       </Tag>
@@ -56,7 +57,9 @@ stories
   .add(
     'Selected tag',
     withInfo('Basic usage of the Default tag selected')(() => (
-      <Tag checkable>{text('children', 'tag')}</Tag>
+      <Tag checkable checked={boolean('checked', false)}>
+        {text('children', 'tag')}
+      </Tag>
     ))
   )
   .add(
