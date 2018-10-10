@@ -26,6 +26,9 @@ export default styled.div`
   counter-reset: rowNumber;
   position: relative;
   margin-bottom: ${props => (props.showActionBar ? '60px' : '0px')};
+  .ant-table {
+    font-family: inherit;
+  }
   .ant-table-default,
   .ant-table-middle,
   .ant-table-small {
@@ -270,6 +273,12 @@ export default styled.div`
       }
     }
     & > .ant-checkbox-checked {
+      &.ant-checkbox-disabled {
+        & > .ant-checkbox-inner {
+          border: 1px solid ${theme.colors.ALTO};
+          background-color: ${theme.colors.PEARL};
+        }
+      }
       & > .ant-checkbox-inner {
         background-color: ${theme.colors.INDIGO};
         border-color: ${theme.colors.INDIGO};

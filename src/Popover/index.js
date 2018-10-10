@@ -8,7 +8,6 @@ const StyledPopover = styled.div`
   .ant-popover {
     z-index: ${mixins.zIndex.POPOVER};
   }
-
   .ant-popover-title {
     border-bottom: 1px solid transparent;
     padding: 20px 20px 0px 20px;
