@@ -20,6 +20,7 @@ class Tag extends Component {
     checkable: PropTypes.bool,
     padding: PropTypes.string,
     onClick: PropTypes.func,
+    className: PropTypes.string,
     margin: PropTypes.shape({
       marginTop: PropTypes.string,
       marginRight: PropTypes.string,
@@ -47,6 +48,7 @@ class Tag extends Component {
       checkable,
       margin,
       disabled,
+      className,
       applied,
       ...rest
     } = this.props;
@@ -55,6 +57,7 @@ class Tag extends Component {
     let WrappedTagProps = {
       margin,
       disabled,
+      className,
       type,
       checkable,
       applied,
