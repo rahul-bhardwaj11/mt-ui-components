@@ -54,7 +54,8 @@ class Table extends Component {
     showActionBar: false,
     selectAll: false,
     selectedRowKeys: [],
-    loading: this.props.loading
+    loading: this.props.loading,
+    loadingMore: false
   };
   scrollElement = null;
   styleProps = {
@@ -69,17 +70,11 @@ class Table extends Component {
     if (loading) {
       return;
     }
+    this.setState({ loadingMore: true });
     if (typeof fetchData.then === 'function') {
-      this.setState({
-        loading: true
-      });
-      if (fetchData) {
-        await fetchData();
-      }
-      this.setState({
-        loading: false
-      });
-    } else {
+      await fetchData();
+      this.setState({ loadingMore: false });
+    } else if (fetchData) {
       fetchData();
     }
   };
@@ -132,8 +127,11 @@ class Table extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.loading !== this.state.loading) {
-      this.setState({
-        loading: nextProps.loading
+      this.setState(state => {
+        return {
+          loading: nextProps.loading,
+          loadingMore: !nextProps.loading ? false : state.loadingMore
+        };
       });
     }
   }
@@ -156,8 +154,8 @@ class Table extends Component {
   };
 
   getLoader = () => {
-    let { infiniteScroll } = this.props;
-    const loaderProps = infiniteScroll
+    let { loadingMore } = this.state;
+    const loaderProps = loadingMore
       ? {
           ...DEFAULT_LOADER_PROPS,
           size: 'sizeXSmall',
