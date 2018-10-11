@@ -12,7 +12,10 @@ class Table extends Component {
   static propTypes = {
     children: PropTypes.node,
     emptyTableData: PropTypes.node,
-    emptyTableMsg: PropTypes.string,
+    emptyTableMsg: PropTypes.shape({
+      title: PropTypes.string,
+      subtitle: PropTypes.string
+    }),
     actionBar: PropTypes.shape({
       countText: PropTypes.string.isRequired,
       actionItem: PropTypes.arrayOf(PropTypes.node)
@@ -50,7 +53,8 @@ class Table extends Component {
     threshold: 0.9,
     windowScroll: false,
     size: 'default',
-    isMultiSelect: false
+    isMultiSelect: false,
+    emptyTableMsg: { title: 'No Results Found.', subtitle: '' }
   };
   state = {
     showActionBar: false,
@@ -182,11 +186,13 @@ class Table extends Component {
   }
 
   getEmptyData = () => {
-    const { emptyTableMsg } = this.props;
+    const {
+      emptyTableMsg: { title, subtitle }
+    } = this.props;
     return (
       <div className="emptyTableContainer">
-        <div className="emptyTableText">No Results Found.</div>
-        <div className="emptyTableMsg">{emptyTableMsg}</div>
+        <div className="emptyTableTitle">{title}</div>
+        {subtitle && <div className="emptyTableSubtitle">{subtitle}</div>}
       </div>
     );
   };

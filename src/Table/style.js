@@ -34,17 +34,17 @@ export default styled.div`
       ${mixins.centerDiv()};
       position: absolute;
     }
-    .emptyTableText {
+    .emptyTableTitle {
       color: #999999;
       font-size: 18px;
       text-align: center;
       font-weight: 600;
-      margin-bottom: 5px;
     }
-    .emptyTableMsg {
+    .emptyTableSubtitle {
       color: #999999;
       font-size: 13px;
       text-align: center;
+      margin-top: 5px;
     }
   }
   .ant-table {
