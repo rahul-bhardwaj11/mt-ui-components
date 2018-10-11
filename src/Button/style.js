@@ -197,7 +197,6 @@ const MtButton = styled(AntButton)`
       border: 1px dashed transparent;
       background-color: transparent;
       color: ${theme.colors.OUTER_SPACE};
-      padding: 0 12px;
 
       ${props =>
         props.active
