@@ -4,7 +4,7 @@ import Loader from '../Loader';
 import Icon from '../Icon';
 import MtButton, { BUTTON_SIZES } from './style';
 
-const BUTTON_TYPES = {
+export const BUTTON_TYPES = {
   PRIMARY: 'primary',
   SECONDARY: 'secondary',
   TERTIARY: 'tertiary',
@@ -13,10 +13,37 @@ const BUTTON_TYPES = {
   EDIT: 'edit'
 };
 
-const ANT_BUTTON_SIZES_MAP = {
-  [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
-  [BUTTON_SIZES.MEDIUM]: 'default',
-  [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
+const BUTTON_TO_SIZE_MAP = {
+  [BUTTON_TYPES.PRIMARY]: {
+    [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
+    [BUTTON_SIZES.MEDIUM]: 'default',
+    [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
+  },
+  [BUTTON_TYPES.SECONDARY]: {
+    [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
+    [BUTTON_SIZES.MEDIUM]: 'default',
+    [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
+  },
+  [BUTTON_TYPES.TERTIARY]: {
+    [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
+    [BUTTON_SIZES.MEDIUM]: 'medium',
+    [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
+  },
+  [BUTTON_TYPES.LINK]: {
+    [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
+    [BUTTON_SIZES.MEDIUM]: 'medium',
+    [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
+  },
+  [BUTTON_TYPES.TEXT]: {
+    [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
+    [BUTTON_SIZES.MEDIUM]: 'medium',
+    [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
+  },
+  [BUTTON_TYPES.EDIT]: {
+    [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
+    [BUTTON_SIZES.MEDIUM]: 'medium',
+    [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
+  }
 };
 
 const ANTD_BUTTON_TYPE_MAP = {
@@ -70,7 +97,9 @@ class Button extends Component {
         className={className}
         type={antdType}
         style={style}
-        size={ANT_BUTTON_SIZES_MAP[size] || ANT_BUTTON_SIZES_MAP['large']}
+        size={
+          BUTTON_TO_SIZE_MAP[type][size] || BUTTON_TO_SIZE_MAP[type]['large']
+        }
       >
         {loading ? <Loader size="sizeXSmall" /> : children}
 
