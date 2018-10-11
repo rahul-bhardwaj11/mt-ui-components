@@ -6,7 +6,7 @@ import 'antd/lib/tooltip/style/index.css';
 import mixins from '../styles/mixins.js';
 
 const MtTooltip = styled.div`
-  display: inline-block;
+  //display: inline-block;
   .ant-tooltip-inner {
     min-height: unset;
     padding: 4px 8px 6px;

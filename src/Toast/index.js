@@ -90,7 +90,7 @@ export default class Toast extends Component {
     transitionDuration: `${ANIMATION_TRANSITION_DURATION}ms`
   };
 
-  removeToast = () => setTimeout(() => this.props.onHide, TOAST_REMOVE_TIME);
+  removeToast = () => setTimeout(this.props.onHide, TOAST_REMOVE_TIME);
 
   stopTimer = () => {
     let { timer } = this.state;

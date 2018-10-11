@@ -14,7 +14,7 @@ const SelectBox = styled.div`
   min-height: 32px;
   .mt-react-select__control {
     min-height: auto;
-    background: ${theme.colors.WHITE}; 
+    background: ${theme.colors.WHITE};
   }
 
   &.buttonSelect {
@@ -66,9 +66,9 @@ const SelectBox = styled.div`
     padding: 8px;
     color: ${theme.colors.OUTER_SPACE};
   }
-  
+
   .selectBoxWrapper{
-    ${props => (props.isButton ? 'margin-top: 10px' : '')}; 
+    ${props => (props.isButton ? 'margin-top: 10px' : '')};
     position: relative;
     z-index: 10;
   .activeSearch {
@@ -76,7 +76,6 @@ const SelectBox = styled.div`
       margin-left: 35px;
     }
     .mt-react-select__input {
-      margin-left: -3px
     }
 
     .activeInput {
@@ -167,7 +166,7 @@ const SelectBox = styled.div`
   }
   .mt-react-select__option--is-focused {
     background-color:  ${theme.colors.INDIGO};
-    color: ${theme.colors.WHITE}; 
+    color: ${theme.colors.WHITE};
     cursor: pointer;
   }
   .mt-react-select__indicator-separator {
