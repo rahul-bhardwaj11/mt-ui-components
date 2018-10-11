@@ -8,6 +8,10 @@ import PropTypes from 'prop-types';
 
 const MtCarousel = styled(AntCarousel)`
 padding: 0 2em;
+font-family: inherit;
+.slick-disabled {
+  visibility: hidden;
+ }
 .slick-initialized .slick-slide{
   margin-right:20px;
 }
@@ -90,18 +94,23 @@ h3 {
 .slick-slide{
   ${props => `padding-right: ${props.style.paddingRight}`};
 }
-
 `;
 
 class Carousel extends Component {
   static propTypes = {
-    style: PropTypes.object
+    style: PropTypes.object,
+    children: PropTypes.node
   };
   static defaultProps = {
     style: {}
   };
   render() {
-    return <MtCarousel {...this.props} arrows={true} dots={false} />;
+    const { children } = this.props;
+    return (
+      <MtCarousel {...this.props} arrows={true} dots={false}>
+        {children}
+      </MtCarousel>
+    );
   }
 }
 

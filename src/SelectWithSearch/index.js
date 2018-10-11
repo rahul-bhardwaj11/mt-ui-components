@@ -11,10 +11,10 @@ import classnames from 'classnames';
 
 const SelectBox = styled.div`
   position: relative;
-  min-height: 32px;
   .mt-react-select__control {
     min-height: auto;
     background: ${theme.colors.WHITE};
+    line-height: 18px;
   }
 
   &.buttonSelect {
@@ -24,18 +24,13 @@ const SelectBox = styled.div`
   }
   .mt-react-select__single-value {
     color: ${theme.colors.DARK_OUTER_SPACE};
-    padding-left: 0px;
+    left: 0px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
   }
 
-  .mt-react-select__single-value + div {
-    margin: 0px 2px;
-    line-height: 22px;
-  }
-
-  .mt-react-select__placeholder + div {
+  .mt-react-select__single-value + div, .mt-react-select__placeholder + div {
     margin: 0px 2px;
     line-height: 22px;
   }
@@ -52,15 +47,10 @@ const SelectBox = styled.div`
     &:before {
       content: '';
       display: none;
-      height: 22px;
-      width: 24px;
-      background-size: 14px;
-      padding-left: 5px;
-      padding-top: 5px;
-      left: 0;
-      position: absolute;
-      opacity: 0.6;
     }
+  }
+  .mt-react-select__menu {
+    z-index: 11;
   }
   .mt-react-select__menu-list {
     padding: 8px;
@@ -74,41 +64,40 @@ const SelectBox = styled.div`
   .activeSearch {
     .mt-react-select__value-container{
       margin-left: 35px;
-    }
-    .mt-react-select__input {
+      line-height: 18px;
     }
 
     .activeInput {
       .icon-cross {
-        display: inline-block;
+        display: block;
         position: absolute;
         right: 10px;
         bottom: 12px;
-        margin-left: 10px;
         font-size: 10px;
+        top: 12px;
         cursor: pointer;
+        &:before {
+          float: right;
+        }
       }
   }
     .mt-react-select__control {
       &:before {
         display: block;
-        background: url('${searchIcon}') no-repeat 10px 5px;
+        background: url('${searchIcon}') no-repeat 1px 0px;
         height: 18px;
         width: 19px;
         content: '';
         background-size: 13px;
-        padding-top: 5px;
         left: 0;
         position: absolute;
         opacity: 0.6;
-        margin-left: 15px;
+        left: 15px;
         top: 10px;
-        background-position: 1px 0px;
       }
     }
     .mt-react-select__dropdown-indicator {
       display: none;
-      background-size: 8px;
     }
       .mt-react-select__single-value {
         margin-left: 20px;
@@ -161,9 +150,10 @@ const SelectBox = styled.div`
   }
 
   .mt-react-select__option--is-selected {
-    background-color: #ffffff;
+    background-color:  ${theme.colors.WHITE};
     color: ${theme.colors.OUTER_SPACE};
   }
+
   .mt-react-select__option--is-focused {
     background-color:  ${theme.colors.INDIGO};
     color: ${theme.colors.WHITE};
@@ -219,7 +209,6 @@ const SelectBox = styled.div`
 }
 
 .dataLabel {
-  ${mixin.displayIB()};
   ${mixin.greyText()};
 }
 
