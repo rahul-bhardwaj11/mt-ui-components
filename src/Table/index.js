@@ -11,6 +11,11 @@ import classnames from 'classnames';
 class Table extends Component {
   static propTypes = {
     children: PropTypes.node,
+    emptyTableData: PropTypes.node,
+    emptyTableMsg: PropTypes.shape({
+      title: PropTypes.string,
+      subtitle: PropTypes.string
+    }),
     actionBar: PropTypes.shape({
       countText: PropTypes.string.isRequired,
       actionItem: PropTypes.arrayOf(PropTypes.node)
@@ -48,7 +53,8 @@ class Table extends Component {
     threshold: 0.9,
     windowScroll: false,
     size: 'default',
-    isMultiSelect: false
+    isMultiSelect: false,
+    emptyTableMsg: { title: 'No Results Found.', subtitle: '' }
   };
   state = {
     showActionBar: false,
@@ -179,12 +185,25 @@ class Table extends Component {
     }
   }
 
+  getEmptyData = () => {
+    const {
+      emptyTableMsg: { title, subtitle }
+    } = this.props;
+    return (
+      <div className="emptyTableContainer">
+        <div className="emptyTableTitle">{title}</div>
+        {subtitle && <div className="emptyTableSubtitle">{subtitle}</div>}
+      </div>
+    );
+  };
+
   getAntTableProps = () => {
     let {
       rowSelection,
       dataSource,
       selectedRowKeys: parentKeys,
-      isMultiSelect
+      isMultiSelect,
+      emptyTableData
     } = this.props;
     let { selectAll, selectedRowKeys } = this.state;
     const newSelectedRowskey = selectAll
@@ -219,8 +238,12 @@ class Table extends Component {
             })
           };
 
+    const locale = {
+      emptyText: emptyTableData ? emptyTableData : this.getEmptyData()
+    };
+
     return {
-      antTableProps: antProps,
+      antTableProps: { ...antProps, locale },
       newSelectedRowskey
     };
   };
