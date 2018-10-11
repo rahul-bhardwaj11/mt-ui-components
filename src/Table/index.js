@@ -11,6 +11,8 @@ import classnames from 'classnames';
 class Table extends Component {
   static propTypes = {
     children: PropTypes.node,
+    emptyTableData: PropTypes.node,
+    emptyTableMsg: PropTypes.string,
     actionBar: PropTypes.shape({
       countText: PropTypes.string.isRequired,
       actionItem: PropTypes.arrayOf(PropTypes.node)
@@ -179,12 +181,23 @@ class Table extends Component {
     }
   }
 
+  getEmptyData = () => {
+    const { emptyTableMsg } = this.props;
+    return (
+      <div className="emptyTableContainer">
+        <div className="emptyTableText">No Results Found.</div>
+        <div className="emptyTableMsg">{emptyTableMsg}</div>
+      </div>
+    );
+  };
+
   getAntTableProps = () => {
     let {
       rowSelection,
       dataSource,
       selectedRowKeys: parentKeys,
-      isMultiSelect
+      isMultiSelect,
+      emptyTableData
     } = this.props;
     let { selectAll, selectedRowKeys } = this.state;
     const newSelectedRowskey = selectAll
@@ -219,8 +232,12 @@ class Table extends Component {
             })
           };
 
+    const locale = {
+      emptyText: emptyTableData ? emptyTableData : this.getEmptyData()
+    };
+
     return {
-      antTableProps: antProps,
+      antTableProps: { ...antProps, locale },
       newSelectedRowskey
     };
   };

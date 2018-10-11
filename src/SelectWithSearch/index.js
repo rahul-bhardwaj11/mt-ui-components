@@ -62,6 +62,9 @@ const SelectBox = styled.div`
       opacity: 0.6;
     }
   }
+  .mt-react-select__menu {
+    z-index: 11;
+  }
   .mt-react-select__menu-list {
     padding: 8px;
     color: ${theme.colors.OUTER_SPACE};

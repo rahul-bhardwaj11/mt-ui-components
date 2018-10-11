@@ -4,8 +4,8 @@ import mixins from '../styles/mixins.js';
 
 export const DEFAULT_LOADER_PROPS = {
   type: 'Full',
-  size: 'sizeSmall',
-  style: { opacity: 0.5 }
+  size: 'sizeBig',
+  style: { opacity: 0.5, background: '#ffffff' }
 };
 
 export const DEFAULT_TH_PADDING = {
@@ -26,16 +26,38 @@ export default styled.div`
   counter-reset: rowNumber;
   position: relative;
   margin-bottom: ${props => (props.showActionBar ? '60px' : '0px')};
+
+  .ant-table-placeholder {
+    min-height: 60px;
+    padding: 0px;
+    .emptyTableContainer {
+      ${mixins.centerDiv()};
+      position: absolute;
+    }
+    .emptyTableText {
+      color: #999999;
+      font-size: 18px;
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .emptyTableMsg {
+      color: #999999;
+      font-size: 13px;
+      text-align: center;
+    }
+  }
   .ant-table {
     font-family: inherit;
   }
-  .ant-table-default,
-  .ant-table-middle,
-  .ant-table-small {
-    .ant-table-content {
-      .ant-table-body > table {
-        padding-bottom: ${props => (props.infiniteScroll ? '54px' : '0px')};
-      }
+  .ant-table-content {
+    .ant-table-body > table {
+      padding-bottom: ${props => (props.infiniteScroll ? '54px' : '0px')};
+    }
+  }
+  .ant-table-empty .ant-table-content {
+    .ant-table-body > table {
+      padding-bottom: 0px;
     }
   }
 
