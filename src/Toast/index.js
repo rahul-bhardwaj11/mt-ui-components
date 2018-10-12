@@ -90,12 +90,6 @@ export default class Toast extends Component {
     transitionDuration: `${ANIMATION_TRANSITION_DURATION}ms`
   };
 
-  componentWillMount() {
-    if (this.props.freeze) {
-      document.getElementsByTagName('body')[0].style.overflow = 'hidden';
-    }
-  }
-
   removeToast = () => setTimeout(this.props.onHide, TOAST_REMOVE_TIME);
 
   stopTimer = () => {
@@ -157,7 +151,6 @@ export default class Toast extends Component {
     const { freeze } = this.props;
     if (freeze) {
       document.body.removeChild(this.element);
-      document.getElementsByTagName('body')[0].style.overflow = 'none';
     }
   }
 
@@ -177,3 +170,47 @@ export default class Toast extends Component {
     );
   }
 }
+
+function addBodyOverflow(overflow) {
+  document.getElementsByTagName('body')[0].style.overflow = overflow;
+}
+
+let MountOn;
+const show = ({ message, type = 'success', freeze, mountId, ...rest }) => {
+  mountId = mountId || 'toast';
+  MountOn = document.getElementById(mountId);
+  if (!MountOn) {
+    return;
+  }
+  if (message) {
+    ReactDOM.render(
+      <Toast message={message} type={type} onHide={hideToast} {...rest} />,
+      MountOn
+    );
+  }
+  freeze && addBodyOverflow('hidden');
+};
+
+export function hideToast() {
+  if (!MountOn) {
+    return;
+  }
+  ReactDOM.unmountComponentAtNode(MountOn);
+  addBodyOverflow('auto');
+}
+
+export const errorToast = ({ message, ...rest }) => {
+  show({ message, type: 'error', ...rest });
+};
+export const successToast = ({ message, ...rest }) => {
+  show({ message, type: 'success', ...rest });
+};
+export const warningToast = ({ message, ...rest }) => {
+  show({ message, type: 'warning', ...rest });
+};
+export const infoToast = ({ message, ...rest }) => {
+  show({ message, type: 'info', ...rest });
+};
+export const loadingToast = ({ message, ...rest }) => {
+  show({ message, type: 'loading', ...rest });
+};

@@ -2,58 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Loader from '../Loader';
 import Icon from '../Icon';
-import MtButton, { BUTTON_SIZES } from './style';
-
-export const BUTTON_TYPES = {
-  PRIMARY: 'primary',
-  SECONDARY: 'secondary',
-  TERTIARY: 'tertiary',
-  LINK: 'link',
-  TEXT: 'text',
-  EDIT: 'edit'
-};
-
-const BUTTON_TO_SIZE_MAP = {
-  [BUTTON_TYPES.PRIMARY]: {
-    [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
-    [BUTTON_SIZES.MEDIUM]: 'default',
-    [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
-  },
-  [BUTTON_TYPES.SECONDARY]: {
-    [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
-    [BUTTON_SIZES.MEDIUM]: 'default',
-    [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
-  },
-  [BUTTON_TYPES.TERTIARY]: {
-    [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
-    [BUTTON_SIZES.MEDIUM]: 'medium',
-    [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
-  },
-  [BUTTON_TYPES.LINK]: {
-    [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
-    [BUTTON_SIZES.MEDIUM]: 'medium',
-    [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
-  },
-  [BUTTON_TYPES.TEXT]: {
-    [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
-    [BUTTON_SIZES.MEDIUM]: 'medium',
-    [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
-  },
-  [BUTTON_TYPES.EDIT]: {
-    [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
-    [BUTTON_SIZES.MEDIUM]: 'medium',
-    [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
-  }
-};
-
-const ANTD_BUTTON_TYPE_MAP = {
-  [BUTTON_TYPES.PRIMARY]: 'primary',
-  [BUTTON_TYPES.SECONDARY]: 'default',
-  [BUTTON_TYPES.TERTIARY]: 'dashed',
-  [BUTTON_TYPES.LINK]: 'link',
-  [BUTTON_TYPES.TEXT]: 'text',
-  [BUTTON_TYPES.EDIT]: 'edit'
-};
+import MtButton, {
+  BUTTON_SIZES,
+  BUTTON_TYPES,
+  MT_SIZE_TO_ANT_BUTTON_SIZE_MAP,
+  MT_TYPE_ANT_BUTTON_TYPE_MAP
+} from './style';
 
 const noop = () => undefined;
 
@@ -87,7 +41,7 @@ class Button extends Component {
       size,
       loading
     } = this.props;
-    let antdType = ANTD_BUTTON_TYPE_MAP[type];
+    let antdType = MT_TYPE_ANT_BUTTON_TYPE_MAP[type];
     let { className, ...rest } = this.props;
     return (
       <MtButton
@@ -98,7 +52,8 @@ class Button extends Component {
         type={antdType}
         style={style}
         size={
-          BUTTON_TO_SIZE_MAP[type][size] || BUTTON_TO_SIZE_MAP[type]['large']
+          MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[size] ||
+          MT_SIZE_TO_ANT_BUTTON_SIZE_MAP['large']
         }
       >
         {loading ? <Loader size="sizeXSmall" /> : children}
