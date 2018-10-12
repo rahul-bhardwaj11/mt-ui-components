@@ -36,8 +36,6 @@ h3 {
   line-height: 1;
   opacity: .75;
   color: black;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 .slick-arrow.slick-prev{
     left:0px;
@@ -95,7 +93,7 @@ h3 {
   }
 }
 .slick-slide{
-  ${props => `padding-right: ${props.style.paddingRight}`};
+  ${props => `margin-right: ${props.style.marginRight}`};
 }
 &.slick-slider:before {
     content: "";
@@ -209,7 +207,7 @@ class Carousel extends Component {
 
   render() {
     const { children } = this.props;
-    const { className } = this.getClassName();
+    const className = this.getClassName();
     return (
       <MtCarousel
         {...this.props}
