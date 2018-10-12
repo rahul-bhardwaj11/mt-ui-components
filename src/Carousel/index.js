@@ -40,7 +40,7 @@ h3 {
 }
 .slick-arrow.slick-prev{
     left:0px;
-    font-size:20px; 
+    font-size:20px;
     background-image: url('${leftArrow}');
     background-repeat: no-repeat;
     background-size: 38%;
@@ -66,7 +66,7 @@ h3 {
 }
 .slick-arrow.slick-next{
     right:0px;
-    font-size:20px; 
+    font-size:20px;
     background: url('${rightArrow}');
     background-repeat: no-repeat;
     background-size: 38%;
@@ -96,18 +96,40 @@ h3 {
 }
 `;
 
+const noop = () => undefined;
+
 class Carousel extends Component {
   static propTypes = {
     style: PropTypes.object,
+    fetchData: PropTypes.func,
+    hasMore: PropTypes.bool,
     children: PropTypes.node
   };
   static defaultProps = {
-    style: {}
+    style: {},
+    fetchData: noop
+  };
+  componentDidMount() {
+    const { hasMore } = this.props;
+    if (hasMore) {
+      this.fetch();
+    }
+  }
+  fetch = async () => {
+    const { hasMore, fetchData } = this.props;
+    if (hasMore) {
+      await fetchData();
+    }
   };
   render() {
     const { children } = this.props;
     return (
-      <MtCarousel {...this.props} arrows={true} dots={false}>
+      <MtCarousel
+        {...this.props}
+        arrows={true}
+        dots={false}
+        afterChange={this.fetch}
+      >
         {children}
       </MtCarousel>
     );
