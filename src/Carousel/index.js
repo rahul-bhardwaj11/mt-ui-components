@@ -5,6 +5,7 @@ import 'antd/lib/carousel/style/index.css';
 import leftArrow from '../styles/icons/leftCaret.svg';
 import rightArrow from '../styles/icons/rightCaret.svg';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 const MtCarousel = styled(AntCarousel)`
 padding: 0 2em;
@@ -49,6 +50,7 @@ h3 {
     background-position: 5px 4px;
     width: 20px;
     height: 20px;
+    z-index:2;
 
   &:hover, &:focus{
     background: url('${leftArrow}');
@@ -75,6 +77,7 @@ h3 {
     background-position: 7px 4px;
     width: 20px;
     height: 20px;
+    z-index:2;
 
   &:hover, &:focus{
     background: url('${rightArrow}');
@@ -94,6 +97,47 @@ h3 {
 .slick-slide{
   ${props => `padding-right: ${props.style.paddingRight}`};
 }
+&.slick-slider:before {
+    content: "";
+    position: absolute;
+    z-index:1;
+    left: 0;
+    top: 0;
+    width: 120px;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0)
+    );
+  }
+&.slick-slider:after {
+    content: "";
+    position: absolute;
+    z-index:1;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height:100%;
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0)
+    );
+  }
+  &.left_arrow--disabled{
+    &.slick-slider:before{
+    visibility: hidden;
+    }
+  }
+  &.right_arrow--disabled{
+    &.slick-slider::after {
+    visibility: hidden;
+    }
+   }
+
 `;
 
 const noop = () => undefined;
@@ -103,11 +147,15 @@ class Carousel extends Component {
     style: PropTypes.object,
     fetchData: PropTypes.func,
     hasMore: PropTypes.bool,
-    children: PropTypes.node
+    children: PropTypes.node,
+    className: PropTypes.string
   };
   static defaultProps = {
     style: {},
     fetchData: noop
+  };
+  state = {
+    current: 0
   };
   componentDidMount() {
     const { hasMore } = this.props;
@@ -121,14 +169,54 @@ class Carousel extends Component {
       await fetchData();
     }
   };
+
+  afterChange = (current, next) => {
+    this.fetch();
+    this.setState({
+      current,
+      next
+    });
+  };
+
+  canGoNext = spec => {
+    let canGo = true;
+    if (!spec.infinite) {
+      if (spec.centerMode && spec.currentSlide >= spec.slideCount - 1) {
+        canGo = false;
+      } else if (
+        spec.slideCount <= spec.slidesToShow ||
+        spec.current >= spec.slideCount - spec.slidesToShow
+      ) {
+        canGo = false;
+      }
+    }
+    return canGo;
+  };
+
+  getClassName = () => {
+    const current = this.state;
+    const infinite = this.props;
+    const slideCount = React.Children.count(this.props.children);
+    let className = '';
+    if (!infinite && current === 0) {
+      className = 'left_arrow--disabled';
+    }
+    if (!this.canGoNext({ ...this.props, slideCount, current })) {
+      className += 'right_arrow--disabled';
+    }
+    return classnames(this.props.className, className);
+  };
+
   render() {
     const { children } = this.props;
+    const { className } = this.getClassName();
     return (
       <MtCarousel
         {...this.props}
+        className={className}
         arrows={true}
         dots={false}
-        afterChange={this.fetch}
+        afterChange={this.afterChange}
       >
         {children}
       </MtCarousel>
