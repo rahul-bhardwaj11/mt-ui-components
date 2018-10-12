@@ -6,7 +6,6 @@ import 'antd/lib/tooltip/style/index.css';
 import mixins from '../styles/mixins.js';
 
 const MtTooltip = styled.div`
-  //display: inline-block;
   .ant-tooltip-inner {
     min-height: unset;
     padding: 4px 8px 6px;
@@ -19,14 +18,18 @@ const MtTooltip = styled.div`
 class Tooltip extends Component {
   static propTypes = {
     children: PropTypes.node,
-    title: PropTypes.oneOfType([PropTypes.node, PropTypes.string])
+    title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+    className: PropTypes.string
   };
 
   render() {
-    const { children } = this.props;
+    const { children, className } = this.props;
 
     return (
-      <MtTooltip innerRef={ele => (this.popUpContainer = ele)}>
+      <MtTooltip
+        className={className}
+        innerRef={ele => (this.popUpContainer = ele)}
+      >
         <AntTooltip
           {...this.props}
           getPopupContainer={() => this.popUpContainer}
