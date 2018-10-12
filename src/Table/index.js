@@ -5,6 +5,7 @@ import 'antd/lib/table/style/index.css';
 import 'antd/lib/checkbox/style/index.css';
 import ActionBar from '../ActionBar';
 import Loader from '../Loader';
+import Button from '../Button';
 import MtTable, { DEFAULT_LOADER_PROPS } from './style';
 import classnames from 'classnames';
 
@@ -41,7 +42,8 @@ class Table extends Component {
     selectedRowKeys: PropTypes.array,
     isMultiSelect: PropTypes.bool,
     selectRowClassName: PropTypes.string,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    isLoadMore: PropTypes.bool
   };
   static defaultProps = {
     infiniteScroll: false,
@@ -224,9 +226,14 @@ class Table extends Component {
       newSelectedRowskey
     };
   };
-
   render() {
-    let { actionBar, children, infiniteScroll } = this.props;
+    let {
+      actionBar,
+      children,
+      infiniteScroll,
+      isLoadMore,
+      hasMore
+    } = this.props;
     let { showActionBar, loading } = this.state;
     const { antTableProps, newSelectedRowskey } = this.getAntTableProps();
 
@@ -245,6 +252,8 @@ class Table extends Component {
             {actionBar ? actionBar.actionItem : false}
           </ActionBar>
         )}
+        {isLoadMore &&
+          hasMore && <Button onClick={this.fetch}>Load More</Button>}
       </MtTable>
     );
   }

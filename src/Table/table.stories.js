@@ -181,4 +181,19 @@ stories
         pagination={false}
       />
     ))
+  )
+
+  .add(
+    'Table with LoadMore Button',
+    withInfo('Adding Table scroll')(() => (
+      <Table
+        columns={columnsTry}
+        dataSource={dataOptions}
+        scroll={{ x: 1500, y: 300 }}
+        pagination={false}
+        isLoadMore
+        hasMore={true}
+        loading
+      />
+    ))
   );
