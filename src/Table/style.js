@@ -294,6 +294,12 @@ export default styled.div`
         top: 1.2px;
       }
     }
+    .ant-checkbox-disabled {
+      .ant-checkbox-inner {
+        border: 1px solid ${theme.colors.ALTO};
+        background-color: ${theme.colors.PEARL};
+      }
+    }
     & > .ant-checkbox-checked {
       &.ant-checkbox-disabled {
         & > .ant-checkbox-inner {
