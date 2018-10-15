@@ -12,7 +12,12 @@ stories.addDecorator(withKnobs);
 const { Column } = Table;
 
 const columns = [
-  <Column key="columnFirst" title={'column1'} dataIndex={'columnFirst'} />,
+  <Column
+    key="columnFirst"
+    title={'column1'}
+    dataIndex={'columnFirst'}
+    sorter={true}
+  />,
   <Column key="columnSecond" title={'column2'} dataIndex={'columnSecond'} />,
   <Column key="columnThird" title={'column3'} dataIndex={'columnThird'} />
 ];
