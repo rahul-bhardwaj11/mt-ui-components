@@ -345,10 +345,13 @@ export default styled.div`
       border-color: ${theme.colors.INDIGO};
     }
   }
-
-  .ant-table-column-sorter .anticon-caret-up,
-  .ant-table-column-sorter .anticon-caret-down {
-    color: ${theme.colors.ALTO};
+  .ant-table-column-sorter {
+    margin-left: 2px;
+    margin-top: -4px;
+    .anticon-caret-up,
+    .anticon-caret-down {
+      color: ${theme.colors.ALTO};
+    }
   }
 
   .ant-table-column-sorter-up.on .anticon-caret-up,
