@@ -134,6 +134,10 @@ export default styled.div`
               visibility: visible;
             }
           }
+          .ant-table-column-sorter-up:hover .anticon,
+          .ant-table-column-sorter-down:hover .anticon {
+            color: ${theme.colors.GREY};
+          }
           &.ant-table-column-has-filters .ant-table-column-sorter {
             visibility: hidden;
           }
