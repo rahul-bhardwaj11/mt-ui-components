@@ -43,7 +43,7 @@ var settings = {
       settings: {
         slidesToShow: 3,
         slidesToScroll: 3,
-        infinite: true
+        infinite: false
       }
     },
     {
@@ -92,6 +92,6 @@ stories.add(
   stories.add(
     'Async Carousel',
     withInfo('Adding type primary to Carousel')(() => (
-      <Carousel {...settings} pageSize={3} fetchData={promiseData} />
+      <Carousel {...settings} pageSize={4} fetchData={promiseData} />
     ))
   );

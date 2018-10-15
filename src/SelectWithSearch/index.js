@@ -208,10 +208,6 @@ const SelectBox = styled.div`
   padding-bottom: 10px;
 }
 
-.dataLabel {
-  ${mixin.greyText()};
-}
-
 .icon-cross {
   display: none;
 }

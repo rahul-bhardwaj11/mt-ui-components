@@ -117,6 +117,12 @@ const MtModal = styled(AntModal)`
 `;
 
 const MtConfirmModal = styled.div`
+  .ant-modal-wrap {
+    z-index: ${mixins.zIndex.MODAL_WRAPPER};
+  }
+  .ant-modal-mask {
+    z-index: ${mixins.zIndex.MODAL_MASK};
+  }
   .ant-modal {
     font-family: inherit;
   }
