@@ -40,7 +40,7 @@ const SelectBox = styled.div`
   }
 
   .mt-react-select__value-container{
-    margin-left: 20px;
+    margin-left: 10px;
     overflow: hidden;
     padding-left: 0px;
     margin-right: 20px;
