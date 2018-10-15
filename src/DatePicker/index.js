@@ -10,6 +10,10 @@ import theme from '../styles/theme';
 
 const StyledDatePicker = styled.div`
   font-family: inherit;
+  .ant-calendar-picker-container {
+    font-family: inherit;
+    z-index: 9999;
+  }
   .ant-calendar-selected-day {
     .ant-calendar-date {
       background: ${theme.colors.INDIGO};

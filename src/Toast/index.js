@@ -184,7 +184,13 @@ const show = ({ message, type = 'success', freeze, mountId, ...rest }) => {
   }
   if (message) {
     ReactDOM.render(
-      <Toast message={message} type={type} onHide={hideToast} {...rest} />,
+      <Toast
+        message={message}
+        type={type}
+        onHide={hideToast}
+        {...rest}
+        freeze={freeze}
+      />,
       MountOn
     );
   }
