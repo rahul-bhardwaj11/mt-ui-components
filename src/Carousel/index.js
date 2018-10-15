@@ -96,39 +96,61 @@ h3 {
 }
 `;
 
-const noop = () => undefined;
-
 class Carousel extends Component {
   static propTypes = {
     style: PropTypes.object,
     fetchData: PropTypes.func,
     hasMore: PropTypes.bool,
-    children: PropTypes.node
+    children: PropTypes.node,
+    afterChange: PropTypes.func,
+    pageSize: PropTypes.number
+  };
+  state = {
+    children: this.props.children || [],
+    hasMore: true
   };
   static defaultProps = {
     style: {},
-    fetchData: noop
+    pageSize: 6
   };
+
   componentDidMount() {
-    const { hasMore } = this.props;
+    const { hasMore } = this.state;
     if (hasMore) {
-      this.fetch();
+      this.afterChange();
     }
   }
-  fetch = async () => {
-    const { hasMore, fetchData } = this.props;
-    if (hasMore) {
-      await fetchData();
+  componentWillMount(nextProps) {
+    if (nextProps && nextProps.children != this.props.children) {
+      this.setState({ children: this.nextProps.children });
     }
+  }
+
+  afterChange = params => {
+    const { fetchData, afterChange, pageSize } = this.props;
+    if (fetchData) {
+      const { hasMore, children } = this.state;
+      if (hasMore) {
+        let offset = children.length;
+        fetchData({ offset, pageSize }).then(data => {
+          const newData = [...data, ...children];
+          this.setState({
+            children: newData,
+            hasMore: data.length == pageSize
+          });
+        }, {});
+      }
+    }
+    afterChange && afterChange(params);
   };
   render() {
-    const { children } = this.props;
+    const { children } = this.state;
     return (
       <MtCarousel
         {...this.props}
         arrows={true}
         dots={false}
-        afterChange={this.fetch}
+        afterChange={this.afterChange}
       >
         {children}
       </MtCarousel>
