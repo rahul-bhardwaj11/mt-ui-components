@@ -230,9 +230,10 @@ class Table extends Component {
             ...this.props,
             rowSelection: null,
             onRow: record => {
-              onRow && onRow(record);
+              const rowObject = onRow ? onRow(record) : {};
               return {
                 onClick: () => {
+                  rowObject.onClick && rowObject.onClick(record);
                   this.onChange([record[rowKey]], [record]);
                 },
                 className: newSelectedRowskey.some(v => v === record[rowKey])
