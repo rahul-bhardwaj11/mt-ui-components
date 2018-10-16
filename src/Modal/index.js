@@ -20,46 +20,46 @@ const MtModal = styled(AntModal)`
 
 .fade-enter,
 .fade-appear {
-  -webkit-animation-duration: 0.2s;
+  animation-duration: 0.2s;
           animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
           animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
           animation-play-state: paused;
 }
 .fade-leave {
-  -webkit-animation-duration: 0.2s;
+  animation-duration: 0.2s;
           animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
           animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
           animation-play-state: paused;
 }
 .fade-enter.fade-enter-active,
 .fade-appear.fade-appear-active {
-  -webkit-animation-name: antFadeIn;
+  animation-name: antFadeIn;
           animation-name: antFadeIn;
-  -webkit-animation-play-state: running;
+  animation-play-state: running;
           animation-play-state: running;
 }
 .fade-leave.fade-leave-active {
-  -webkit-animation-name: antFadeOut;
+  animation-name: antFadeOut;
           animation-name: antFadeOut;
-  -webkit-animation-play-state: running;
+  animation-play-state: running;
           animation-play-state: running;
   pointer-events: none;
 }
 .fade-enter,
 .fade-appear {
   opacity: 0;
-  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
           animation-timing-function: linear;
 }
 .fade-leave {
-  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
           animation-timing-function: linear;
 }
-@-webkit-keyframes antFadeIn {
+@keyframes antFadeIn {
   0% {
     opacity: 0;
   }
@@ -75,7 +75,7 @@ const MtModal = styled(AntModal)`
     opacity: 1;
   }
 }
-@-webkit-keyframes antFadeOut {
+@keyframes antFadeOut {
   0% {
     opacity: 1;
   }
