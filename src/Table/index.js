@@ -233,9 +233,9 @@ class Table extends Component {
               onRow && onRow(record);
               return {
                 onClick: () => {
-                  this.onChange([record.key], [record]);
+                  this.onChange([record[rowKey]], [record]);
                 },
-                className: newSelectedRowskey.some(v => v === record.key)
+                className: newSelectedRowskey.some(v => v === record[rowKey])
                   ? classnames(
                       'ant-table-row-selected',
                       this.props.selectRowClassName
