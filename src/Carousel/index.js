@@ -138,42 +138,59 @@ h3 {
 
 `;
 
-const noop = () => undefined;
-
 class Carousel extends Component {
   static propTypes = {
     style: PropTypes.object,
     fetchData: PropTypes.func,
     hasMore: PropTypes.bool,
     children: PropTypes.node,
+    afterChange: PropTypes.func,
+    pageSize: PropTypes.number,
     className: PropTypes.string
+  };
+  state = {
+    children: this.props.children || [],
+    hasMore: true
   };
   static defaultProps = {
     style: {},
-    fetchData: noop
-  };
-  state = {
+    pageSize: 6,
     current: 0
   };
   componentDidMount() {
-    const { hasMore } = this.props;
+    const { hasMore } = this.state;
     if (hasMore) {
-      this.fetch();
+      this.afterChange();
     }
   }
-  fetch = async () => {
-    const { hasMore, fetchData } = this.props;
-    if (hasMore) {
-      await fetchData();
-    }
-  };
 
-  afterChange = (current, next) => {
-    this.fetch();
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.children != this.props.children) {
+      this.setState({ children: this.nextProps.children });
+    }
+  }
+
+  afterChange = (params = {}) => {
+    const { fetchData, afterChange, pageSize } = this.props;
+    const { current, next } = params;
+    if (fetchData) {
+      const { hasMore, children } = this.state;
+      if (hasMore) {
+        let offset = children.length;
+        fetchData({ offset, pageSize }).then(data => {
+          const newData = [...data, ...children];
+          this.setState({
+            children: newData,
+            hasMore: data.length == pageSize
+          });
+        }, {});
+      }
+    }
     this.setState({
       current,
       next
     });
+    afterChange && afterChange(params);
   };
 
   canGoNext = spec => {
@@ -206,7 +223,7 @@ class Carousel extends Component {
   };
 
   render() {
-    const { children } = this.props;
+    const { children } = this.state;
     const className = this.getClassName();
     return (
       <MtCarousel

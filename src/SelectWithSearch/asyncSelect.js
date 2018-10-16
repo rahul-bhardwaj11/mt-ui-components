@@ -37,8 +37,8 @@ export default class AsyncSelect extends Component {
     isDisabled: PropTypes.bool,
     buttonLabel: PropTypes.string,
     placeholder: PropTypes.string,
-    buttonMaxWidth: PropTypes.number,
-    buttonMinWidth: PropTypes.number,
+    buttonMaxWidth: PropTypes.string,
+    buttonMinWidth: PropTypes.string,
     sortOptions: PropTypes.bool,
     value: PropTypes.oneOfType([
       PropTypes.shape({

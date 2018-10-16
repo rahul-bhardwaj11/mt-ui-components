@@ -14,17 +14,15 @@ const MtUserThumbnail = styled.div`
     margin-left: 56px;
     cursor: default;
 
-    .name {
+    .title {
       ${mixin.blackLink()};
       ${mixin.truncate()};
       .alertMsg {
         ${mixin.smallDarkLink()};
-        margin-left: 6px;
       }
     }
     .content {
       ${mixin.darkText()};
-      font-size: 12px;
       ${mixin.truncate()};
     }
   }
@@ -63,16 +61,14 @@ class UserThumbnailInfo extends Component {
       <ThumbnailInfoWrapper className={className}>
         <div className="wrapper">
           <div className="info">
-            {title && (
-              <div className={'name'}>
-                {title}
-                {message && (
-                  <label style={message.style} className="alertMsg">
-                    {message.msg}
-                  </label>
-                )}
-              </div>
-            )}
+            <div className={'title'}>
+              {title && <span className="marginR6">{title}</span>}
+              {message && (
+                <span style={message.style} className="alertMsg">
+                  {message.msg}
+                </span>
+              )}
+            </div>
             {content && <div className={'content'}>{content}</div>}
           </div>
         </div>
