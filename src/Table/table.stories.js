@@ -12,7 +12,12 @@ stories.addDecorator(withKnobs);
 const { Column } = Table;
 
 const columns = [
-  <Column key="columnFirst" title={'column1'} dataIndex={'columnFirst'} />,
+  <Column
+    key="columnFirst"
+    title={'column1'}
+    dataIndex={'columnFirst'}
+    sorter={true}
+  />,
   <Column key="columnSecond" title={'column2'} dataIndex={'columnSecond'} />,
   <Column key="columnThird" title={'column3'} dataIndex={'columnThird'} />
 ];
@@ -179,6 +184,21 @@ stories
         dataSource={dataOptions}
         scroll={{ x: 1500, y: 300 }}
         pagination={false}
+      />
+    ))
+  )
+
+  .add(
+    'Table with LoadMore Button',
+    withInfo('Adding Table scroll')(() => (
+      <Table
+        columns={columnsTry}
+        dataSource={dataOptions}
+        scroll={{ x: 1500, y: 300 }}
+        pagination={false}
+        isLoadMore
+        hasMore={true}
+        loading
       />
     ))
   );

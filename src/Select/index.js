@@ -7,12 +7,11 @@ import styled from 'styled-components';
 import selectArrowIcon from '../styles/icons/downFillcaret.svg';
 import StringToHTML from '../StringToHTML';
 import classnames from 'classnames';
-
+import theme from '../styles/theme';
 const Option = AntSelect.Option;
 
 const MtWrapper = styled.div`
   display: inline-block;
-
   .selectDropdownStyle {
     .ant-select-dropdown-menu-item {
      div {
@@ -42,14 +41,14 @@ const MtWrapper = styled.div`
   }
   .ant-select-selection {
     &.ant-select-selection--single {
-      border: 1px solid get('colors.ALTO');
+      border: 1px solid ${theme.colors.ALTO};
       &:hover {
-        border: 1px solid get('colors.SILVER');
+        border: 1px solid ${theme.colors.SILVER};
       }
       &:focus,
       &:active {
         box-shadow: none;
-        border: 1px solid get('colors.SILVER');
+        border: 1px solid ${theme.colors.SILVER};
       }
       &.disabled {
         background-color: #f8f8f8;
@@ -58,7 +57,7 @@ const MtWrapper = styled.div`
     }
     .ant-select-open {
       .ant-select-selection {
-        border: 1px solid get('colors.SILVER');
+        border: 1px solid ${theme.colors.SILVER};
       }
     }
   }
@@ -80,19 +79,22 @@ const MtWrapper = styled.div`
     }
   }
   .ant-select-dropdown-menu {
-    background-color: #fff;
-    color: get('colors.GREY');
+    background-color: ${theme.colors.WHITE};
+    color: ${theme.colors.GREY};
     margin: 8px;
     padding-bottom: 8px;
+    .ant-select-dropdown-menu-item-active {
+      background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+      color: ${theme.colors.WHITE}; 
+    }
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
-      margin-bottom: px;
-      &:first-child {
-        background-color: #fff;
-      }
+      // &:first-child {
+      //   background-color: ${theme.colors.WHITE};
+      // }
       &:hover {
-        background-color: #4a90e2;
-        color: #fff;
+        background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+        color: ${theme.colors.WHITE};
         border-radius: 4px;
       }
     }
@@ -118,17 +120,17 @@ const MtWrapper = styled.div`
       & > ul {
         & > .ant-select-selection__choice {
           border-radius: 14px;
-          border: 1px solid get('colors.ALTO');
+          border: 1px solid ${theme.colors.ALTO};
           border-radius: 16px;
-          background-color: #f5f6f7;
-          color: #989ca6;
+          background-color: ${theme.colors.PORCELAIN};
+          color: ${theme.colors.OUTER_SPACE};
           font-size: 12px;
           .ant-select-selection__choice__content {
             margin-right: 5px;
           }
           &:hover {
             border: 1px solid #468ee5;
-            background-color: #fff;
+            background-color: ${theme.colors.WHITE};
             color: #468ee5;
             cursor: pointer;
             .ant-select-selection__choice__remove {
@@ -136,7 +138,7 @@ const MtWrapper = styled.div`
             }
           }
           .ant-select-selection__choice__remove {
-            color: #989ca6;
+            color: ${theme.colors.OUTER_SPACE};
             font-size: 16px;
           }
         }

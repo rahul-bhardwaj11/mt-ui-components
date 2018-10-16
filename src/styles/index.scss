@@ -14,6 +14,21 @@
     font-family: 'Open sans';
     outline: none;
   }
+  .F12 {
+    font-size: 12px;
+  }
+  .F13 {
+    font-size: 13px;
+  }
+  .F14 {
+    font-size: 14px;
+  }
+  .F16 {
+    font-size: 16px;
+  }
+  .F18 {
+    font-size: 18px;
+  }
   .pointer {
     cursor: pointer;
   }
@@ -23,6 +38,9 @@
   .displayIM {
     display: inline-block;
     vertical-align: middle;
+  }
+  .displayIB {
+    display: inline-block;
   }
   .pos_rel {
     position: relative;
@@ -101,6 +119,7 @@
     background: #fff;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
     border-radius: 8px;
+    position: relative;
   }
   .arrowDropdown {
     font-size: 0px;
@@ -112,75 +131,6 @@
     border-radius: 2px;
     position: initial;
     cursor: pointer;
-  }
-
-  .arrow_R {
-    position: absolute;
-    z-index: 1;
-    // @include getSupport;
-
-    &:after {
-      bottom: 0px;
-      left: -7px;
-      border: solid transparent;
-      content: ' ';
-      height: 0;
-      width: 0;
-      position: absolute;
-      pointer-events: none;
-      border-color: rgba(136, 183, 213, 0);
-      border-right-color: #fff;
-      border-width: 9px;
-      margin-left: 0;
-    }
-    &:before {
-      bottom: -1px;
-      left: -9px;
-      border: solid transparent;
-      content: ' ';
-      height: 0;
-      width: 0;
-      position: absolute;
-      pointer-events: none;
-      border-color: rgba(194, 225, 245, 0);
-      border-right-color: #c7c7c7;
-      border-width: 10px;
-      margin-left: 0;
-    }
-  }
-
-  .arrow_T {
-    position: absolute;
-    z-index: 9999;
-
-    &:after {
-      bottom: 0px;
-      left: -7px;
-      border: solid transparent;
-      content: ' ';
-      height: 0;
-      width: 0;
-      position: absolute;
-      pointer-events: none;
-      border-color: rgba(136, 183, 213, 0);
-      border-bottom-color: #fff;
-      border-width: 9px;
-      margin-top: 0;
-    }
-    &:before {
-      bottom: -0px;
-      left: -8px;
-      border: solid transparent;
-      content: ' ';
-      height: 0;
-      width: 0;
-      position: absolute;
-      pointer-events: none;
-      border-color: rgba(194, 225, 245, 0);
-      border-bottom-color: #c7c7c7;
-      border-width: 10px;
-      margin-top: 0;
-    }
   }
 
   // func for css  margin

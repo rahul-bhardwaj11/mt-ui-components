@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-//import PropTypes from 'prop-types';
 import AntPopover from 'antd/lib/popover';
 import 'antd/lib/popover/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme.js';
-
+import mixins from '../styles/mixins.js';
 const StyledPopover = styled.div`
+  .ant-popover {
+    z-index: ${mixins.zIndex.POPOVER};
+  }
   .ant-popover-title {
     border-bottom: 1px solid transparent;
     padding: 20px 20px 0px 20px;
@@ -25,7 +27,6 @@ const StyledPopover = styled.div`
     }
   }
 `;
-
 class Popover extends Component {
   static propTypes = {};
 

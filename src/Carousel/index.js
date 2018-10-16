@@ -5,9 +5,14 @@ import 'antd/lib/carousel/style/index.css';
 import leftArrow from '../styles/icons/leftCaret.svg';
 import rightArrow from '../styles/icons/rightCaret.svg';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 const MtCarousel = styled(AntCarousel)`
 padding: 0 2em;
+font-family: inherit;
+.slick-disabled {
+  visibility: hidden;
+ }
 .slick-initialized .slick-slide{
   margin-right:20px;
 }
@@ -31,12 +36,10 @@ h3 {
   line-height: 1;
   opacity: .75;
   color: black;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 .slick-arrow.slick-prev{
     left:0px;
-    font-size:20px; 
+    font-size:20px;
     background-image: url('${leftArrow}');
     background-repeat: no-repeat;
     background-size: 38%;
@@ -45,6 +48,7 @@ h3 {
     background-position: 5px 4px;
     width: 20px;
     height: 20px;
+    z-index:2;
 
   &:hover, &:focus{
     background: url('${leftArrow}');
@@ -60,11 +64,9 @@ h3 {
     display:none;
   }
 }
-
-
 .slick-arrow.slick-next{
     right:0px;
-    font-size:20px; 
+    font-size:20px;
     background: url('${rightArrow}');
     background-repeat: no-repeat;
     background-size: 38%;
@@ -73,6 +75,7 @@ h3 {
     background-position: 7px 4px;
     width: 20px;
     height: 20px;
+    z-index:2;
 
   &:hover, &:focus{
     background: url('${rightArrow}');
@@ -90,20 +93,149 @@ h3 {
   }
 }
 .slick-slide{
-  ${props => `padding-right: ${props.style.paddingRight}`};
+  ${props => `margin-right: ${props.style.marginRight}`};
 }
+&.slick-slider:before {
+    content: "";
+    position: absolute;
+    z-index:1;
+    left: 0;
+    top: 0;
+    width: 120px;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0)
+    );
+  }
+&.slick-slider:after {
+    content: "";
+    position: absolute;
+    z-index:1;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height:100%;
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0)
+    );
+  }
+  &.left_arrow--disabled{
+    &.slick-slider:before{
+    visibility: hidden;
+    }
+  }
+  &.right_arrow--disabled{
+    &.slick-slider::after {
+    visibility: hidden;
+    }
+   }
 
 `;
 
 class Carousel extends Component {
   static propTypes = {
-    style: PropTypes.object
+    style: PropTypes.object,
+    fetchData: PropTypes.func,
+    hasMore: PropTypes.bool,
+    children: PropTypes.node,
+    afterChange: PropTypes.func,
+    pageSize: PropTypes.number,
+    className: PropTypes.string
+  };
+  state = {
+    children: this.props.children || [],
+    hasMore: true
   };
   static defaultProps = {
-    style: {}
+    style: {},
+    pageSize: 6,
+    current: 0
   };
+  componentDidMount() {
+    const { hasMore } = this.state;
+    if (hasMore) {
+      this.afterChange();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.children != this.props.children) {
+      this.setState({ children: this.nextProps.children });
+    }
+  }
+
+  afterChange = (params = {}) => {
+    const { fetchData, afterChange, pageSize } = this.props;
+    const { current, next } = params;
+    if (fetchData) {
+      const { hasMore, children } = this.state;
+      if (hasMore) {
+        let offset = children.length;
+        fetchData({ offset, pageSize }).then(data => {
+          const newData = [...data, ...children];
+          this.setState({
+            children: newData,
+            hasMore: data.length == pageSize
+          });
+        }, {});
+      }
+    }
+    this.setState({
+      current,
+      next
+    });
+    afterChange && afterChange(params);
+  };
+
+  canGoNext = spec => {
+    let canGo = true;
+    if (!spec.infinite) {
+      if (spec.centerMode && spec.currentSlide >= spec.slideCount - 1) {
+        canGo = false;
+      } else if (
+        spec.slideCount <= spec.slidesToShow ||
+        spec.current >= spec.slideCount - spec.slidesToShow
+      ) {
+        canGo = false;
+      }
+    }
+    return canGo;
+  };
+
+  getClassName = () => {
+    const current = this.state;
+    const infinite = this.props;
+    const slideCount = React.Children.count(this.props.children);
+    let className = '';
+    if (!infinite && current === 0) {
+      className = 'left_arrow--disabled';
+    }
+    if (!this.canGoNext({ ...this.props, slideCount, current })) {
+      className += 'right_arrow--disabled';
+    }
+    return classnames(this.props.className, className);
+  };
+
   render() {
-    return <MtCarousel {...this.props} arrows={true} dots={false} />;
+    const { children } = this.state;
+    const className = this.getClassName();
+    return (
+      <MtCarousel
+        {...this.props}
+        className={className}
+        arrows={true}
+        dots={false}
+        afterChange={this.afterChange}
+      >
+        {children}
+      </MtCarousel>
+    );
   }
 }
 

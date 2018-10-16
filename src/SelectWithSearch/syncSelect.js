@@ -26,7 +26,8 @@ export default class SyncSelect extends Component {
     value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string)
-    ])
+    ]),
+    style: PropTypes.object
   };
 
   static defaultProps = {
@@ -171,10 +172,7 @@ export default class SyncSelect extends Component {
     this.isBlurActive = true;
     const { selectedItems, options } = this.state;
     const { onChange } = this.props;
-    const selectedValues = selectedItems.map(selectedItem => {
-      return selectedItem.value;
-    });
-    onChange(selectedValues);
+    onChange(selectedItems);
     const sortedOptions = this.__sortOptions(options, selectedItems);
     let newState = this.getNewStateAfterOnSelect();
     newState.options = sortedOptions;
@@ -252,8 +250,9 @@ export default class SyncSelect extends Component {
         <CheckBox
           disabled={data.disabled}
           checked={selectedItems.map(i => i.value).includes(data.value)}
-        />
-        <span className="dataLabel">{data.label}</span>
+        >
+          {data.label}
+        </CheckBox>
       </div>
     ) : null;
   };
@@ -342,7 +341,7 @@ export default class SyncSelect extends Component {
     let newState = this.getNewStateAfterOnSelect();
     newState.selectedItems = [data];
     this.setState({ ...newState });
-    onChange(data.value);
+    onChange(data);
   };
   handleSingleOnBlur = () => {
     if (this.isIconClicked) {
@@ -352,6 +351,28 @@ export default class SyncSelect extends Component {
     this.isBlurActive = true;
     const newState = this.getNewStateAfterOnSelect();
     this.setState({ ...newState });
+  };
+
+  getStyle = () => {
+    const { isButton, style: target = {} } = this.props;
+    const DEFAULT_SELECT_STYLE = {
+      container: base => ({
+        ...base,
+        width: '210px',
+        position: isButton ? 'absolute' : 'inherit'
+      })
+    };
+    const styles = { ...DEFAULT_SELECT_STYLE };
+    Object.keys(target).forEach(key => {
+      if (DEFAULT_SELECT_STYLE[key]) {
+        styles[key] = (rsCss, props) => {
+          return target[key](DEFAULT_SELECT_STYLE[key](rsCss, props), props);
+        };
+      } else {
+        styles[key] = target[key];
+      }
+    });
+    return styles;
   };
 
   render() {
@@ -382,6 +403,7 @@ export default class SyncSelect extends Component {
           autoFocus: showInput,
           isFocused: true,
           autosize: false,
+          onBlur: this.handleMultiOnSelect,
           inputValue: inputValue,
           onInputChange: this.onInputChange
         }
@@ -392,6 +414,7 @@ export default class SyncSelect extends Component {
             SingleValue: this.handleSingleValue
           },
           onChange: this.handleSingleOnSelect,
+          onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
           isFocused: true,
           backspaceRemovesValue: false,
@@ -402,7 +425,7 @@ export default class SyncSelect extends Component {
           value: selectedItems[0]
         };
     return (
-      <div>
+      <React.Fragment>
         {isButton && (
           <div
             ref={e => {
@@ -414,7 +437,11 @@ export default class SyncSelect extends Component {
             <Button
               type="secondary"
               onClick={this.toggleButton}
-              style={{ maxWidth: buttonMaxWidth, minWidth: buttonMinWidth }}
+              style={{
+                maxWidth: buttonMaxWidth,
+                minWidth: buttonMinWidth
+              }}
+              size="small"
             >
               {this.getButtonText()}
             </Button>
@@ -422,20 +449,14 @@ export default class SyncSelect extends Component {
         )}
         {showSelect && (
           <Select
-            styles={{
-              container: base => ({
-                ...base,
-                width: '210px',
-                position: isButton ? 'absolute' : 'inherit'
-              })
-            }}
+            styles={this.getStyle()}
             {...this.props}
             options={options}
             classNamePrefix={'mt-react-select'}
             {...selectProps}
           />
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

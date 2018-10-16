@@ -11,18 +11,35 @@ const MtUserThumbnail = styled.div`
   }
   .userThumbnailInfo {
     height: 40px;
-    margin-left: 16px;
-    padding-top: 2px;
-    float: left;
+    margin-left: 56px;
+    cursor: default;
 
-    .name {
-      ${mixin.blackText()};
+    .title {
+      ${mixin.blackLink()};
       ${mixin.truncate()};
+      .alertMsg {
+        ${mixin.smallDarkLink()};
+      }
     }
     .content {
-      ${mixin.smallDarkLink()};
+      ${mixin.darkText()};
       ${mixin.truncate()};
     }
+  }
+`;
+
+const ThumbnailInfoWrapper = styled.div`
+  .wrapper {
+    display: table;
+    table-layout: fixed;
+    border-spacing: 0px;
+    height: 40px;
+    width: 100%;
+  }
+  .info {
+    vertical-align: middle;
+    display: table-cell;
+    width: 100%;
   }
 `;
 
@@ -30,17 +47,32 @@ class UserThumbnailInfo extends Component {
   static propTypes = {
     title: PropTypes.string,
     content: PropTypes.string,
+    message: PropTypes.shape({
+      msg: PropTypes.string,
+      style: PropTypes.object
+    }),
     className: PropTypes.string
   };
 
   render() {
-    const { className, title, content } = this.props;
+    const { className, title, content, message } = this.props;
 
     return (
-      <div className={className}>
-        {title && <div className={'name'}>{title}</div>}
-        {content && <div className={'content'}>{content}</div>}
-      </div>
+      <ThumbnailInfoWrapper className={className}>
+        <div className="wrapper">
+          <div className="info">
+            <div className={'title'}>
+              {title && <span className="marginR6">{title}</span>}
+              {message && (
+                <span style={message.style} className="alertMsg">
+                  {message.msg}
+                </span>
+              )}
+            </div>
+            {content && <div className={'content'}>{content}</div>}
+          </div>
+        </div>
+      </ThumbnailInfoWrapper>
     );
   }
 }
@@ -49,6 +81,10 @@ class UserThumbnail extends Component {
   static propTypes = {
     title: PropTypes.string,
     content: PropTypes.string,
+    message: PropTypes.shape({
+      msg: PropTypes.string,
+      style: PropTypes.object
+    }),
     src: PropTypes.string,
     shape: PropTypes.oneOf(['circle', 'square']),
     size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -73,26 +109,17 @@ class UserThumbnail extends Component {
 
   render() {
     const { expanded, className, ...rest } = this.props;
-    const { title, content } = rest;
+    const { title } = rest;
 
     let mtProps = Object.assign({}, rest);
     mtProps = !title ? Object.assign(mtProps, { icon: 'user' }) : mtProps;
-
-    const thumbnailInfoProps = {
-      title: title,
-      content: content
-    };
-
     return (
       <MtUserThumbnail className={className}>
         <Avatar className="userThumbnailAvatar" {...mtProps}>
           {title && this.getInitials(title)}
         </Avatar>
         {expanded && (
-          <UserThumbnailInfo
-            {...thumbnailInfoProps}
-            className="userThumbnailInfo"
-          />
+          <UserThumbnailInfo {...rest} className="userThumbnailInfo" />
         )}
       </MtUserThumbnail>
     );

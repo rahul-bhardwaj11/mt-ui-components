@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import ReactDOM from 'react-dom';
+import mixins from '../styles/mixins';
 import {
   DEFAULT_HIDE_TIMER,
   ANIMATION_TRANSITION_DURATION,
@@ -44,7 +45,7 @@ const FreezeOverlay = () => {
         left: 0,
         bottom: 0,
         background: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 1
+        zIndex: mixins.zIndex.OVERLAY
       }}
     />
   );
@@ -68,13 +69,22 @@ export default class Toast extends Component {
   static defaultProps = {
     timeout: DEFAULT_HIDE_TIMER,
     autoHide: true,
-    hideBtn: true,
+    hideBtn: false,
     freeze: false,
     load: false
   };
   state = {
     timer: null
   };
+
+  element = null;
+  constructor(props) {
+    super(props);
+    const { freeze } = props;
+    if (freeze) {
+      this.element = document.createElement('div');
+    }
+  }
 
   style = {
     transitionDuration: `${ANIMATION_TRANSITION_DURATION}ms`
@@ -134,22 +144,79 @@ export default class Toast extends Component {
   componentDidMount() {
     const { freeze } = this.props;
     this.handleTimer(this.props);
+    freeze && document.body.appendChild(this.element);
+  }
+
+  componentWillUnmount() {
+    const { freeze } = this.props;
     if (freeze) {
-      this.mountOn = document.body.appendChild(document.createElement('div'));
-      ReactDOM.render(<FreezeOverlay />, this.mountOn);
+      document.body.removeChild(this.element);
     }
   }
 
   render() {
     const { message, hideBtn, reloadBtn, freeze } = this.props;
     return (
-      <StyledToast>
-        <div className={this.getClasses()} style={this.style}>
-          <span className="toastMessage">{message}</span>
-        </div>
-        <span>{hideBtn && !freeze && <HideBtn hide={this.hideToast} />}</span>
-        <span>{freeze && reloadBtn && <ReloadBtn />}</span>
-      </StyledToast>
+      <React.Fragment>
+        {freeze && ReactDOM.createPortal(<FreezeOverlay />, this.element)}
+        <StyledToast>
+          <div className={this.getClasses()} style={this.style}>
+            <span className="toastMessage">{message}</span>
+          </div>
+          <span>{hideBtn && !freeze && <HideBtn hide={this.hideToast} />}</span>
+          <span>{freeze && reloadBtn && <ReloadBtn />}</span>
+        </StyledToast>
+      </React.Fragment>
     );
   }
 }
+
+function addBodyOverflow(overflow) {
+  document.getElementsByTagName('body')[0].style.overflow = overflow;
+}
+
+let MountOn;
+const show = ({ message, type = 'success', freeze, mountId, ...rest }) => {
+  mountId = mountId || 'toast';
+  MountOn = document.getElementById(mountId);
+  if (!MountOn) {
+    return;
+  }
+  if (message) {
+    ReactDOM.render(
+      <Toast
+        message={message}
+        type={type}
+        onHide={hideToast}
+        {...rest}
+        freeze={freeze}
+      />,
+      MountOn
+    );
+  }
+  freeze && addBodyOverflow('hidden');
+};
+
+export function hideToast() {
+  if (!MountOn) {
+    return;
+  }
+  ReactDOM.unmountComponentAtNode(MountOn);
+  addBodyOverflow('auto');
+}
+
+export const errorToast = ({ message, ...rest }) => {
+  show({ message, type: 'error', ...rest });
+};
+export const successToast = ({ message, ...rest }) => {
+  show({ message, type: 'success', ...rest });
+};
+export const warningToast = ({ message, ...rest }) => {
+  show({ message, type: 'warning', ...rest });
+};
+export const infoToast = ({ message, ...rest }) => {
+  show({ message, type: 'info', ...rest });
+};
+export const loadingToast = ({ message, ...rest }) => {
+  show({ message, type: 'loading', ...rest });
+};

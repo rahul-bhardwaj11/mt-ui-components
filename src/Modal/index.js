@@ -7,6 +7,15 @@ import theme from '../styles/theme';
 import mixins from '../styles/mixins';
 import ReactDOM from 'react-dom';
 
+const StyledModalWrapper = styled.div`
+  .modalWrapper {
+    z-index: ${mixins.zIndex.MODAL_WRAPPER};
+  }
+  .ant-modal-mask {
+    z-index: ${mixins.zIndex.MODAL_MASK};
+  }
+`;
+
 const MtModal = styled(AntModal)`
 
 .fade-enter,
@@ -84,24 +93,23 @@ const MtModal = styled(AntModal)`
 }
 &.ant-modal{
   font-family: inherit;
-
+  z-index: ${mixins.zIndex.MODAL};
   .ant-modal-content {
     border-radius:8px;
   }
+
   .ant-modal-body {
-    padding: 24px 32px;
+    padding: 0px 32px;
     overflow: auto;
   }
-  .ant-modal-header {
+   .ant-modal-header {
     border-bottom: 0px;
     padding: 24px 32px;
     font-size: 20px;
     border-radius: 8px 8px 0 0;
 
     .ant-modal-title {
-      color: ${theme.colors.SHARK};
-      font-size: 20px;
-      line-height: 27px;
+      ${mixins.h2()};
     }
   }
   .ant-modal-close {
@@ -110,12 +118,11 @@ const MtModal = styled(AntModal)`
     margin: 24px 32px;
   }
   .ant-modal-close-x {
-    font-size: 20px;
+    ${mixins.h2()};
     line-height: 27px;
     height: 20px;
     width: 20px;
   }
-
   .ant-modal-footer {
     padding: 15px 32px 16px 32px;
     background: ${theme.colors.PORCELAIN};
@@ -130,27 +137,27 @@ const MtModal = styled(AntModal)`
 
       &.ant-btn-primary {
         ${mixins.primaryBtn()}        
-        color: #fff;
+        color: ${theme.colors.WHITE};
         &:hover {
           ${mixins.primaryBtnHover()}
-          color: #fff;
+          color: ${theme.colors.WHITE};
         }
         &:focus,
         &.active {
           ${mixins.primaryBtnHover()};
-          color: #fff;
+          color: ${theme.colors.WHITE};
         }
         &:disabled {
           border: 1px solid ${theme.colors.DISABLE};
           border-radius: 4px;
-          color: #fff;
+          color: ${theme.colors.WHITE};
           background: ${theme.colors.ALTO};
         }
       }
       &:hover,
       &:focus {
         ${mixins.textBtn()};
-        color: ${theme.colors.GREY}
+        color: ${theme.colors.GREY};
       }
     }
   }
@@ -160,7 +167,7 @@ const MtModal = styled(AntModal)`
     margin: 0px;
     top:0px;
     height: 100vh;
-    background: #fff;
+    background: ${theme.colors.WHITE};
 
     .ant-modal-header{
       border-radius:0px;
@@ -185,12 +192,16 @@ const MtModal = styled(AntModal)`
 `;
 
 const MtConfirmModal = styled.div`
+  .ant-modal-wrap {
+    z-index: ${mixins.zIndex.MODAL_WRAPPER};
+  }
+  .ant-modal-mask {
+    z-index: ${mixins.zIndex.MODAL_MASK};
+  }
   .ant-modal {
     font-family: inherit;
   }
 
-  .ant-modal-body {
-  }
   .ant-confirm-body {
     .ant-confirm-content {
       margin-left: 0px;
@@ -275,7 +286,26 @@ class Modal extends Component {
         ...this.props.style
       }
     };
-    return <MtModal {...customProps}>{children}</MtModal>;
+    return (
+      <React.Fragment>
+        <StyledModalWrapper
+          innerRef={el => {
+            if (el) {
+              this.modalWrapRef = el;
+            }
+          }}
+        />
+        <MtModal
+          {...customProps}
+          getContainer={() => {
+            return this.modalWrapRef;
+          }}
+          wrapClassName="modalWrapper"
+        >
+          {children}
+        </MtModal>
+      </React.Fragment>
+    );
   }
 }
 

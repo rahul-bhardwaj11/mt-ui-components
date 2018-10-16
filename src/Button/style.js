@@ -10,13 +10,76 @@ export const BUTTON_SIZES = {
   MEDIUM: 'medium'
 };
 
+export const BUTTON_TYPES = {
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary',
+  TERTIARY: 'tertiary',
+  LINK: 'link',
+  TEXT: 'text',
+  EDIT: 'edit'
+};
+
+export const MT_SIZE_TO_ANT_BUTTON_SIZE_MAP = {
+  [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
+  [BUTTON_SIZES.MEDIUM]: 'default',
+  [BUTTON_SIZES.SMALL]: BUTTON_SIZES.SMALL
+};
+
+export const MT_TYPE_ANT_BUTTON_TYPE_MAP = {
+  [BUTTON_TYPES.PRIMARY]: 'primary',
+  [BUTTON_TYPES.SECONDARY]: 'default',
+  [BUTTON_TYPES.TERTIARY]: 'dashed',
+  [BUTTON_TYPES.LINK]: 'link',
+  [BUTTON_TYPES.TEXT]: 'text',
+  [BUTTON_TYPES.EDIT]: 'edit'
+};
+
+const BUTTON_TO_SIZE_MAP = {
+  [MT_TYPE_ANT_BUTTON_TYPE_MAP[BUTTON_TYPES.PRIMARY]]: {
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.LARGE]]: BUTTON_SIZES.LARGE,
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.MEDIUM]]: 'default',
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.SMALL]]: BUTTON_SIZES.SMALL
+  },
+  [MT_TYPE_ANT_BUTTON_TYPE_MAP[BUTTON_TYPES.SECONDARY]]: {
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.LARGE]]: BUTTON_SIZES.LARGE,
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.MEDIUM]]: 'default',
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.SMALL]]: BUTTON_SIZES.SMALL
+  },
+  [MT_TYPE_ANT_BUTTON_TYPE_MAP[BUTTON_TYPES.TERTIARY]]: {
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.LARGE]]: BUTTON_SIZES.LARGE,
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.MEDIUM]]: 'medium',
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.SMALL]]: BUTTON_SIZES.SMALL
+  },
+  [MT_TYPE_ANT_BUTTON_TYPE_MAP[BUTTON_TYPES.LINK]]: {
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.LARGE]]: BUTTON_SIZES.LARGE,
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.MEDIUM]]: 'medium',
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.SMALL]]: BUTTON_SIZES.SMALL
+  },
+  [MT_TYPE_ANT_BUTTON_TYPE_MAP[BUTTON_TYPES.TEXT]]: {
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.LARGE]]: BUTTON_SIZES.LARGE,
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.MEDIUM]]: 'medium',
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.SMALL]]: BUTTON_SIZES.SMALL
+  },
+  [MT_TYPE_ANT_BUTTON_TYPE_MAP[BUTTON_TYPES.EDIT]]: {
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.LARGE]]: BUTTON_SIZES.LARGE,
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.MEDIUM]]: 'medium',
+    [MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[BUTTON_SIZES.SMALL]]: BUTTON_SIZES.SMALL
+  }
+};
+
 export const ANTD_BUTTON_SIZE_PADDING = {
-  [BUTTON_SIZES.LARGE]: '0px 32px',
-  default: '0px 24px',
+  [BUTTON_SIZES.LARGE]: '0px 24px',
+  default: '0px 12px',
+  medium: '0px 16px',
   [BUTTON_SIZES.SMALL]: '0px 12px'
 };
 
 const MtButton = styled(AntButton)`
+  &.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {
+    .anticon {
+      display: none;
+    }
+  }
   &.ant-btn {
     font-family: inherit;
     text-overflow: ellipsis;
@@ -24,7 +87,8 @@ const MtButton = styled(AntButton)`
     overflow: hidden;
     border-radius: 4px;
     ${mixins.button()};
-    padding: ${props => ANTD_BUTTON_SIZE_PADDING[props.size]};
+    padding: ${props =>
+      ANTD_BUTTON_SIZE_PADDING[BUTTON_TO_SIZE_MAP[props.type][props.size]]};
 
     /*---------- Default Button styles ------------*/
     &.ant-btn-default {
@@ -33,9 +97,8 @@ const MtButton = styled(AntButton)`
 
       &.ant-btn-sm {
         font-size: 12px;
-        padding: 0px 12px;
       }
-      &:not([disabled]):hover {
+      &:hover {
         color: ${theme.colors.DARK_OUTER_SPACE};
         border: 1px solid ${theme.colors.SILVER};
       }
@@ -46,7 +109,9 @@ const MtButton = styled(AntButton)`
         color: ${theme.colors.INDIGO};
       }
       &.disabled,
-      &:disabled {
+      &:disabled,
+      &[disabled]:hover {
+        border: 1px solid ${theme.colors.DISABLE};
         background-color: ${theme.colors.PORCELAIN};
         color: ${theme.colors.SILVER};
       }
@@ -59,12 +124,8 @@ const MtButton = styled(AntButton)`
       color: #fff;
       &.ant-btn-sm {
         font-size: 12px;
-        padding: 0px 12px;
       }
-      &:not([disabled]):hover {
-        border: 1px solid ${theme.colors.JODHPUR};
-        background: ${theme.colors.JODHPUR};
-      }
+      &:hover,
       &:focus,
       &:active,
       &.active {
@@ -73,8 +134,11 @@ const MtButton = styled(AntButton)`
         color: #fff;
       }
       &.disabled,
-      &:disabled {
+      &:disabled,
+      &[disabled]:hover {
         border: 1px solid ${theme.colors.ALTO};
+        background: ${theme.colors.ALTO};
+        color: ${theme.colors.WHITE};
       }
     }
 
@@ -85,15 +149,8 @@ const MtButton = styled(AntButton)`
       &.ant-btn-sm {
         color: ${theme.colors.SILVER};
         font-size: 12px;
-        padding: 0px 12px;
       }
-      &:not([disabled]):hover {
-        border: 1px solid ${theme.colors.ALTO};
-        color: ${theme.colors.SILVER};
-        span {
-          color: ${theme.colors.SILVER};
-        }
-      }
+      &:hover,
       &:focus,
       &:active,
       &.active {
@@ -104,9 +161,11 @@ const MtButton = styled(AntButton)`
         }
       }
       &.disabled,
-      &:disabled {
+      &:disabled,
+      &[disabled]:hover {
         background-color: ${theme.colors.PORCELAIN};
         color: ${theme.colors.SILVER};
+        border: 1px solid ${theme.colors.DISABLE};
       }
     }
 
@@ -115,9 +174,9 @@ const MtButton = styled(AntButton)`
       border: 1px dashed ${theme.colors.ALTO};
       background-color: ${theme.colors.WHITE};
       color: ${theme.colors.OUTER_SPACE};
+
       &.ant-btn-sm {
         font-size: 12px;
-        padding: 0px 12px;
       }
       &:hover,
       &:focus,
@@ -126,7 +185,8 @@ const MtButton = styled(AntButton)`
         color: ${theme.colors.SHARK};
       }
       &.disabled,
-      &:disabled {
+      &:disabled,
+      &[disabled]:hover {
         border: 1px dashed ${theme.colors.ALTO};
         background-color: ${theme.colors.WHITE};
         color: ${theme.colors.SILVER};
@@ -146,7 +206,7 @@ const MtButton = styled(AntButton)`
       ${props =>
         props.disabled ? `color: ${theme.colors.OUTER_SPACE}` : null};
 
-      &:not([disabled]):hover,
+      &:hover,
       &:focus,
       &:active {
         border: 1px dashed transparent;
@@ -159,10 +219,10 @@ const MtButton = styled(AntButton)`
       }
       &.ant-btn-sm {
         font-size: 12px;
-        padding: 0px 12px;
       }
       &.disabled,
-      &:disabled {
+      &:disabled,
+      &[disabled]:hover {
         border: 1px solid transparent;
         background-color: ${theme.colors.WHITE};
         color: ${theme.colors.SILVER};
@@ -176,19 +236,19 @@ const MtButton = styled(AntButton)`
 
       &.ant-btn-sm {
         font-size: 12px;
-        padding: 0px 12px;
       }
       &.disabled,
       &:disabled {
         background-color: ${theme.colors.WHITE};
         color: ${theme.colors.SILVER};
+        border: 1px solid ${theme.colors.DISABLE};
       }
     }
 
     &.disabled,
     &:disabled {
       border: 1px solid ${theme.colors.DISABLE};
-      color: #fff;
+      color: ${theme.colors.WHITE};
       background: ${theme.colors.ALTO};
     }
   }

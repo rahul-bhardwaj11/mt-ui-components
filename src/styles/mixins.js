@@ -74,6 +74,18 @@ const mixins = {
       lineHeight: '24px'
     }),
 
+  zIndex: {
+    GET_SUPPORT: 99999,
+    TOAST: 9999,
+    LOADER: 9990,
+    OVERLAY: 9980,
+    CONFIRM_BOX: 9970,
+    MODAL_WRAPPER: 9912,
+    MODAL_MASK: 9911,
+    TOOLTIP: 9950,
+    POPOVER: 9940
+  },
+
   // links ----------//
 
   actionLink: () =>
@@ -83,6 +95,7 @@ const mixins = {
       color: theme.colors.INDIGO,
       lineHeight: '20px'
     }),
+
   blackLink: () =>
     mixins.fontStack({
       fontSize: '14px',
@@ -249,18 +262,6 @@ const mixins = {
       color: theme.colors.DARK_OUTER_SPACE,
       lineHeight: '20px'
     }),
-
-  // z-index ----------//
-
-  // $z-index: (
-  //   getSupport: 99986
-  // );
-  // @function z-index($key) {
-  //   @return map-get($z-index, $key);
-  // }
-  // @mixin z-index($key) {
-  //   z-index: z-index($key);
-  // }
 
   displayIB: () => `
   display: inline-block;

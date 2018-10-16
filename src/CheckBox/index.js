@@ -15,7 +15,6 @@ const MtCheckbox = styled(AntCheckbox)`
     .ant-checkbox-input:focus + .ant-checkbox-inner {
       border-color: ${theme.colors.INDIGO};
     }
-
     .ant-checkbox-indeterminate .ant-checkbox-inner:after {
       content: ' ';
       position: absolute;
@@ -42,12 +41,16 @@ const MtCheckbox = styled(AntCheckbox)`
         border-color: ${theme.colors.INDIGO};
       }
     }
+    .checkBoxLabel {
+      ${props =>
+        props.checked ? `${mixins.blackLink()}` : `${mixins.greyLink()}`};
+    }
+
     .ant-checkbox {
       display: inline-block;
       vertical-align: middle;
     }
     .ant-checkbox + span {
-      display: inline-block;
       min-width: 125px;
     }
     .ant-checkbox-inner {
@@ -60,15 +63,23 @@ const MtCheckbox = styled(AntCheckbox)`
         top: 1.2px;
       }
     }
+    .ant-checkbox-disabled {
+      .ant-checkbox-inner {
+        border: 1px solid ${theme.colors.ALTO};
+        background-color: ${theme.colors.PEARL};
+      }
+    }
     .ant-checkbox-checked {
+      &.ant-checkbox-disabled {
+        .ant-checkbox-inner {
+          border: 1px solid ${theme.colors.ALTO};
+          background-color: ${theme.colors.PEARL};
+        }
+      }
       & > .ant-checkbox-inner {
         background-color: ${theme.colors.INDIGO};
         border-color: ${theme.colors.INDIGO};
       }
-    }
-    .ant-checkbox-checked + span {
-      ${props =>
-        props.checked ? `${mixins.blackLink()}` : `${mixins.greyText()}`};
     }
     span {
       color: ${theme.colors.OUTER_SPACE};
@@ -119,7 +130,7 @@ class CheckBox extends Component {
         disabled={disabled}
         indeterminate={indeterminate}
       >
-        {children}
+        <span className="checkBoxLabel">{children}</span>
       </MtCheckbox>
     );
   }

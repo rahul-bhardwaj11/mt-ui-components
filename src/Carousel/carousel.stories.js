@@ -7,6 +7,29 @@ import { withKnobs } from '@storybook/addon-knobs';
 
 const stories = storiesOf('Carousel', module);
 stories.addDecorator(withKnobs);
+
+var data = [
+  <div key={Math.random()}>
+    <h3>{Math.floor(Math.random() * 100)}</h3>
+  </div>,
+  <div key={Math.random()}>
+    <h3>{Math.floor(Math.random() * 100)}</h3>
+  </div>,
+  <div key={Math.random()}>
+    <h3>{Math.floor(Math.random() * 100)}</h3>
+  </div>,
+  <div key={Math.random()}>
+    <h3>{Math.floor(Math.random() * 100)}</h3>
+  </div>
+];
+const promiseData = () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(data);
+    }, 1000);
+  });
+};
+
 var settings = {
   dots: false,
   infinite: false,
@@ -20,7 +43,7 @@ var settings = {
       settings: {
         slidesToShow: 3,
         slidesToScroll: 3,
-        infinite: true
+        infinite: false
       }
     },
     {
@@ -40,14 +63,15 @@ var settings = {
     }
   ]
 };
+
 stories.add(
   'Carousel',
   withInfo('Adding type primary to Carousel')(() => (
     <Carousel {...settings}>
-      <div>
+      <div key="1">
         <h3>1</h3>
       </div>
-      <div>
+      <div key="2">
         <h3>2</h3>
       </div>
       <div>
@@ -64,4 +88,10 @@ stories.add(
       </div>
     </Carousel>
   ))
-);
+),
+  stories.add(
+    'Async Carousel',
+    withInfo('Adding type primary to Carousel')(() => (
+      <Carousel {...settings} pageSize={4} fetchData={promiseData} />
+    ))
+  );

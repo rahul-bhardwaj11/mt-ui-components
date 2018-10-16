@@ -4,8 +4,8 @@ import mixins from '../styles/mixins.js';
 
 export const DEFAULT_LOADER_PROPS = {
   type: 'Full',
-  size: 'sizeSmall',
-  style: { opacity: 0.5 }
+  size: 'sizeBig',
+  style: { opacity: 0.5, background: '#ffffff' }
 };
 
 export const DEFAULT_TH_PADDING = {
@@ -26,13 +26,38 @@ export default styled.div`
   counter-reset: rowNumber;
   position: relative;
   margin-bottom: ${props => (props.showActionBar ? '60px' : '0px')};
-  .ant-table-default,
-  .ant-table-middle,
-  .ant-table-small {
-    .ant-table-content {
-      .ant-table-body > table {
-        padding-bottom: ${props => (props.infiniteScroll ? '54px' : '0px')};
-      }
+
+  .ant-table-placeholder {
+    min-height: 60px;
+    padding: 0px;
+    .emptyTableContainer {
+      ${mixins.centerDiv()};
+      position: absolute;
+    }
+    .emptyTableTitle {
+      color: #999999;
+      font-size: 18px;
+      text-align: center;
+      font-weight: 600;
+    }
+    .emptyTableSubtitle {
+      color: #999999;
+      font-size: 13px;
+      text-align: center;
+      margin-top: 5px;
+    }
+  }
+  .ant-table {
+    font-family: inherit;
+  }
+  .ant-table-content {
+    .ant-table-body > table {
+      padding-bottom: ${props => (props.infiniteScroll ? '54px' : '0px')};
+    }
+  }
+  .ant-table-empty .ant-table-content {
+    .ant-table-body > table {
+      padding-bottom: 0px;
     }
   }
 
@@ -108,6 +133,10 @@ export default styled.div`
             &.ant-table-column-has-filters .ant-table-column-sorter {
               visibility: visible;
             }
+          }
+          .ant-table-column-sorter-up:hover .anticon,
+          .ant-table-column-sorter-down:hover .anticon {
+            color: ${theme.colors.GREY};
           }
           &.ant-table-column-has-filters .ant-table-column-sorter {
             visibility: hidden;
@@ -269,7 +298,19 @@ export default styled.div`
         top: 1.2px;
       }
     }
+    .ant-checkbox-disabled {
+      .ant-checkbox-inner {
+        border: 1px solid ${theme.colors.ALTO};
+        background-color: ${theme.colors.PEARL};
+      }
+    }
     & > .ant-checkbox-checked {
+      &.ant-checkbox-disabled {
+        & > .ant-checkbox-inner {
+          border: 1px solid ${theme.colors.ALTO};
+          background-color: ${theme.colors.PEARL};
+        }
+      }
       & > .ant-checkbox-inner {
         background-color: ${theme.colors.INDIGO};
         border-color: ${theme.colors.INDIGO};
@@ -304,10 +345,13 @@ export default styled.div`
       border-color: ${theme.colors.INDIGO};
     }
   }
-
-  .ant-table-column-sorter .anticon-caret-up,
-  .ant-table-column-sorter .anticon-caret-down {
-    color: ${theme.colors.ALTO};
+  .ant-table-column-sorter {
+    margin-left: 2px;
+    margin-top: -4px;
+    .anticon-caret-up,
+    .anticon-caret-down {
+      color: ${theme.colors.ALTO};
+    }
   }
 
   .ant-table-column-sorter-up.on .anticon-caret-up,
