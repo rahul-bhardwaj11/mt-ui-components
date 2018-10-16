@@ -48,7 +48,8 @@ class Table extends Component {
     isMultiSelect: PropTypes.bool,
     selectRowClassName: PropTypes.string,
     loading: PropTypes.bool,
-    isLoadMore: PropTypes.bool
+    isLoadMore: PropTypes.bool,
+    onRow: PropTypes.func
   };
   static defaultProps = {
     infiniteScroll: false,
@@ -205,7 +206,8 @@ class Table extends Component {
       dataSource,
       selectedRowKeys: parentKeys,
       isMultiSelect,
-      emptyTableData
+      emptyTableData,
+      onRow
     } = this.props;
     let { selectAll, selectedRowKeys } = this.state;
     const newSelectedRowskey = selectAll
@@ -229,15 +231,20 @@ class Table extends Component {
         : {
             ...this.props,
             rowSelection: null,
-            onRow: record => ({
-              onClick: () => this.onChange([record.key], [record]),
-              className: newSelectedRowskey.some(v => v === record.key)
-                ? classnames(
-                    'ant-table-row-selected',
-                    this.props.selectRowClassName
-                  )
-                : ''
-            })
+            onRow: record => {
+              onRow && onRow(record);
+              return {
+                onClick: () => {
+                  this.onChange([record.key], [record]);
+                },
+                className: newSelectedRowskey.some(v => v === record.key)
+                  ? classnames(
+                      'ant-table-row-selected',
+                      this.props.selectRowClassName
+                    )
+                  : ''
+              };
+            }
           };
 
     const locale = {
