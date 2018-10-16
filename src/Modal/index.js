@@ -21,43 +21,31 @@ const MtModal = styled(AntModal)`
 .fade-enter,
 .fade-appear {
   animation-duration: 0.2s;
-          animation-duration: 0.2s;
   animation-fill-mode: both;
-          animation-fill-mode: both;
   animation-play-state: paused;
-          animation-play-state: paused;
 }
 .fade-leave {
   animation-duration: 0.2s;
-          animation-duration: 0.2s;
   animation-fill-mode: both;
-          animation-fill-mode: both;
   animation-play-state: paused;
-          animation-play-state: paused;
 }
 .fade-enter.fade-enter-active,
 .fade-appear.fade-appear-active {
   animation-name: antFadeIn;
-          animation-name: antFadeIn;
   animation-play-state: running;
-          animation-play-state: running;
 }
 .fade-leave.fade-leave-active {
   animation-name: antFadeOut;
-          animation-name: antFadeOut;
   animation-play-state: running;
-          animation-play-state: running;
   pointer-events: none;
 }
 .fade-enter,
 .fade-appear {
   opacity: 0;
   animation-timing-function: linear;
-          animation-timing-function: linear;
 }
 .fade-leave {
   animation-timing-function: linear;
-          animation-timing-function: linear;
 }
 @keyframes antFadeIn {
   0% {
