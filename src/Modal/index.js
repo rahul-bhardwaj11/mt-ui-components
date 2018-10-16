@@ -8,6 +8,80 @@ import mixins from '../styles/mixins';
 import ReactDOM from 'react-dom';
 
 const MtModal = styled(AntModal)`
+
+.fade-enter,
+.fade-appear {
+  -webkit-animation-duration: 0.2s;
+          animation-duration: 0.2s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+}
+.fade-leave {
+  -webkit-animation-duration: 0.2s;
+          animation-duration: 0.2s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+}
+.fade-enter.fade-enter-active,
+.fade-appear.fade-appear-active {
+  -webkit-animation-name: antFadeIn;
+          animation-name: antFadeIn;
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
+}
+.fade-leave.fade-leave-active {
+  -webkit-animation-name: antFadeOut;
+          animation-name: antFadeOut;
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
+  pointer-events: none;
+}
+.fade-enter,
+.fade-appear {
+  opacity: 0;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+}
+.fade-leave {
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+}
+@-webkit-keyframes antFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes antFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes antFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes antFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 &.ant-modal{
   font-family: inherit;
 
@@ -80,6 +154,7 @@ const MtModal = styled(AntModal)`
       }
     }
   }
+  
 
   @media (max-width: 576px){
     margin: 0px;
