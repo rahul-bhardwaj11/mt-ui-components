@@ -49,7 +49,7 @@ class Table extends Component {
     selectRowClassName: PropTypes.string,
     loading: PropTypes.bool,
     isLoadMore: PropTypes.bool,
-    onRow: PropTypes.object
+    onRow: PropTypes.func
   };
   static defaultProps = {
     infiniteScroll: false,
