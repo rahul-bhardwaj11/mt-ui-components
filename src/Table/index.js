@@ -12,6 +12,7 @@ import classnames from 'classnames';
 class Table extends Component {
   static propTypes = {
     children: PropTypes.node,
+    rowKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     emptyTableData: PropTypes.node,
     emptyTableMsg: PropTypes.shape({
       title: PropTypes.string,
@@ -62,7 +63,6 @@ class Table extends Component {
     showActionBar: false,
     selectAll: false,
     selectedRowKeys: [],
-    loading: this.props.loading,
     loadingMore: false
   };
   scrollElement = null;
@@ -73,9 +73,9 @@ class Table extends Component {
   tableRef = null;
 
   fetch = async () => {
-    const { fetchData } = this.props;
-    const { loading } = this.state;
-    if (loading) {
+    const { fetchData, loading } = this.props;
+    const { loadingMore } = this.state;
+    if (loading || loadingMore) {
       return;
     }
     this.setState({ loadingMore: true });
@@ -116,8 +116,6 @@ class Table extends Component {
     if (innerHeight >= height * threshold) {
       if (infiniteScroll && hasMore) {
         this.fetch();
-      } else {
-        window.removeEventListener('scroll', this.onScroll, false);
       }
     }
   };
@@ -134,10 +132,9 @@ class Table extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.loading !== this.state.loading) {
+    if (nextProps.loading !== this.props.loading) {
       this.setState(state => {
         return {
-          loading: nextProps.loading,
           loadingMore: !nextProps.loading ? false : state.loadingMore
         };
       });
@@ -181,9 +178,9 @@ class Table extends Component {
   };
   componentDidUpdate() {
     const { selectAll, selectedRowKeys } = this.state;
-    const { dataSource } = this.props;
+    const { dataSource, rowKey = 'key' } = this.props;
     if (selectAll && selectedRowKeys.length !== dataSource.length) {
-      this.onChange(dataSource.map(v => v.key), dataSource);
+      this.onChange(dataSource.map(v => v[rowKey]), dataSource);
     }
   }
 
@@ -205,11 +202,12 @@ class Table extends Component {
       dataSource,
       selectedRowKeys: parentKeys,
       isMultiSelect,
-      emptyTableData
+      emptyTableData,
+      rowKey = 'key'
     } = this.props;
     let { selectAll, selectedRowKeys } = this.state;
     const newSelectedRowskey = selectAll
-      ? dataSource.map(v => v.key)
+      ? dataSource.map(v => v[rowKey])
       : parentKeys || selectedRowKeys;
 
     const updatedRowSelection = rowSelection
@@ -230,8 +228,8 @@ class Table extends Component {
             ...this.props,
             rowSelection: null,
             onRow: record => ({
-              onClick: () => this.onChange([record.key], [record]),
-              className: newSelectedRowskey.some(v => v === record.key)
+              onClick: () => this.onChange([record[rowKey]], [record]),
+              className: newSelectedRowskey.some(v => v === record[rowKey])
                 ? classnames(
                     'ant-table-row-selected',
                     this.props.selectRowClassName
@@ -255,9 +253,10 @@ class Table extends Component {
       children,
       infiniteScroll,
       isLoadMore,
-      hasMore
+      hasMore,
+      loading
     } = this.props;
-    let { showActionBar, loading } = this.state;
+    let { showActionBar } = this.state;
     const { antTableProps, newSelectedRowskey } = this.getAntTableProps();
 
     return (
