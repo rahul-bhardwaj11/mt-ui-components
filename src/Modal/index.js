@@ -17,6 +17,68 @@ const StyledModalWrapper = styled.div`
 `;
 
 const MtModal = styled(AntModal)`
+
+.fade-enter,
+.fade-appear {
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+.fade-leave {
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+.fade-enter.fade-enter-active,
+.fade-appear.fade-appear-active {
+  animation-name: antFadeIn;
+  animation-play-state: running;
+}
+.fade-leave.fade-leave-active {
+  animation-name: antFadeOut;
+  animation-play-state: running;
+  pointer-events: none;
+}
+.fade-enter,
+.fade-appear {
+  opacity: 0;
+  animation-timing-function: linear;
+}
+.fade-leave {
+  animation-timing-function: linear;
+}
+@keyframes antFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes antFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes antFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes antFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 &.ant-modal{
   font-family: inherit;
   z-index: ${mixins.zIndex.MODAL};
@@ -87,6 +149,7 @@ const MtModal = styled(AntModal)`
       }
     }
   }
+  
 
   @media (max-width: 576px){
     margin: 0px;
