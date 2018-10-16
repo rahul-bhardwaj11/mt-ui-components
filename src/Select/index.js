@@ -84,7 +84,7 @@ const MtWrapper = styled.div`
     margin: 8px;
     padding-bottom: 8px;
     .ant-select-dropdown-menu-item-active {
-      background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+      background-color: ${theme.colors.TROPICAL_BLUE};
       color: ${theme.colors.WHITE}; 
     }
     .ant-select-dropdown-menu-item {
