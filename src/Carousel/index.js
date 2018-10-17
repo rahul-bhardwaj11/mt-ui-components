@@ -146,16 +146,17 @@ class Carousel extends Component {
     children: PropTypes.node,
     afterChange: PropTypes.func,
     pageSize: PropTypes.number,
-    className: PropTypes.string
+    className: PropTypes.string,
+    infinite: PropTypes.bool
   };
   state = {
+    current: 0,
     children: this.props.children || [],
     hasMore: true
   };
   static defaultProps = {
     style: {},
-    pageSize: 6,
-    current: 0
+    pageSize: 6
   };
   componentDidMount() {
     const { hasMore } = this.state;
@@ -170,9 +171,8 @@ class Carousel extends Component {
     }
   }
 
-  afterChange = (params = {}) => {
+  afterChange = current => {
     const { fetchData, afterChange, pageSize } = this.props;
-    const { current, next } = params;
     if (fetchData) {
       const { hasMore, children } = this.state;
       if (hasMore) {
@@ -187,16 +187,15 @@ class Carousel extends Component {
       }
     }
     this.setState({
-      current,
-      next
+      current: current || 0
     });
-    afterChange && afterChange(params);
+    afterChange && afterChange(current);
   };
 
   canGoNext = spec => {
     let canGo = true;
     if (!spec.infinite) {
-      if (spec.centerMode && spec.currentSlide >= spec.slideCount - 1) {
+      if (spec.centerMode && spec.current >= spec.slideCount - 1) {
         canGo = false;
       } else if (
         spec.slideCount <= spec.slidesToShow ||
@@ -209,15 +208,15 @@ class Carousel extends Component {
   };
 
   getClassName = () => {
-    const current = this.state;
-    const infinite = this.props;
+    const { current } = this.state;
+    const { infinite } = this.props;
     const slideCount = React.Children.count(this.props.children);
     let className = '';
     if (!infinite && current === 0) {
       className = 'left_arrow--disabled';
     }
     if (!this.canGoNext({ ...this.props, slideCount, current })) {
-      className += 'right_arrow--disabled';
+      className += ' right_arrow--disabled';
     }
     return classnames(this.props.className, className);
   };
