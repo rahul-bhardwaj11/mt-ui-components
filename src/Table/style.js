@@ -360,4 +360,8 @@ export default styled.div`
   .ant-table-column-sorter-down.on .anticon-caret-down {
     color: ${theme.colors.GREY};
   }
+  .loadMoreBtnDiv {
+    margin-top: 32px;
+    text-align: center;
+  }
 `;
