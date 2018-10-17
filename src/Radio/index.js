@@ -34,7 +34,25 @@ const MtRadio = styled(AntRadio)`
     }
   }
   span.ant-radio + * {
-    color: ${theme.colors.SILVER};
+    color: ${theme.colors.SHARK};
+  }
+
+  &.ant-radio-wrapper-disabled{
+    span.ant-radio + *{
+      color:${theme.colors.OUTER_SPACE};
+      cursor:default;
+    }
+  }
+  
+  &.ant-radio-wrapper.ant-radio-wrapper-disabled:hover span.ant-radio + *{
+    color:${theme.colors.OUTER_SPACE};
+    cursor:default;
+  }
+  .ant-radio-disabled{
+    .ant-radio-input{
+      cursor:default;
+    }
+  }
   }
 `;
 

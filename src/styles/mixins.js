@@ -126,7 +126,10 @@ const mixins = {
     }),
 
   error: () => ({
-    color: theme.colors.BITTERSWEET
+    fontSize: '12px',
+    fontWeight: 600,
+    color: theme.colors.BITTERSWEET,
+    lineHeight: '16px'
   }),
 
   // body text ----------//
