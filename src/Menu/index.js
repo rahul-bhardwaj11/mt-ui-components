@@ -162,6 +162,11 @@ const MtMenu = styled.div`
       color: #fff;
     }
   }
+
+  .ant-menu-vertical .ant-menu-item:not(:last-child),
+  .ant-menu-vertical .ant-menu-item {
+    margin-bottom: 0px;
+  }
 `;
 class Menu extends Component {
   static propTypes = {
