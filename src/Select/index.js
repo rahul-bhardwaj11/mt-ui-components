@@ -8,6 +8,7 @@ import selectArrowIcon from '../styles/icons/downFillcaret.svg';
 import StringToHTML from '../StringToHTML';
 import classnames from 'classnames';
 import theme from '../styles/theme';
+import Icon from '../Icon';
 const Option = AntSelect.Option;
 
 const MtWrapper = styled.div`
@@ -22,7 +23,9 @@ const MtWrapper = styled.div`
        }
      }
    }
-
+  .icon-tick {
+    display: none;
+  }  
   .ant-select, .ant-select-dropdown{
     font-family: inherit;
   }
@@ -83,10 +86,6 @@ const MtWrapper = styled.div`
     color: ${theme.colors.GREY};
     margin: 8px;
     padding-bottom: 8px;
-    .ant-select-dropdown-menu-item-active {
-      background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
-      color: ${theme.colors.WHITE}; 
-    }
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
       // &:first-child {
@@ -95,8 +94,29 @@ const MtWrapper = styled.div`
       &:hover {
         background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
         color: ${theme.colors.WHITE};
-        border-radius: 4px;
+        border-radius: 4px; 
       }
+    }
+    .ant-select-dropdown-menu-item-active {
+      background-color: ${theme.colors.TROPICAL_BLUE};
+      color: ${theme.colors.SHARK};    
+    }
+
+  .ant-select-dropdown-menu-item-selected{
+      .icon-tick {
+        content: '';
+        font-size: 7px;
+        font-weight: bold;
+        position: absolute;
+        display: block;
+        right: 5px;
+        top: 13px;
+      }   
+      &:hover {
+        .icon-tick {
+          display: block;
+        }
+      } 
     }
   }
   .ant-select-selection-selected-value {
@@ -201,6 +221,7 @@ class Select extends Component {
                 ) : (
                   option.content
                 )}
+                <Icon type="tick" />
               </Option>
             );
           })}
