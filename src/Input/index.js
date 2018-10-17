@@ -193,7 +193,11 @@ class TextArea extends Component {
   render() {
     const { value } = this.state;
     return (
-      <Input.TextArea {...this.props} value={value} onChange={this.onChange} />
+      <AntInput.TextArea
+        {...this.props}
+        value={value}
+        onChange={this.onChange}
+      />
     );
   }
 }

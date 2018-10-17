@@ -2,6 +2,7 @@ import React from 'react';
 import AntFrom from 'antd/lib/form';
 import Styled from 'styled-components';
 import theme from '../styles/theme';
+import 'antd/lib/form/style/index.css';
 
 const StyledForm = Styled(AntFrom)`
     .ant-form-explain{

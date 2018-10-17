@@ -46,7 +46,7 @@ class Button extends Component {
     return (
       <MtButton
         {...rest}
-        active={active}
+        active={active ? 1 : 0}
         disabled={disabled}
         className={className}
         type={antdType}

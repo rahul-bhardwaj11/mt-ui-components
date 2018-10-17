@@ -56,6 +56,47 @@ const MtSlider = styled.div`
       }
     }
   }
+
+
+  // css for disabled 
+
+  .ant-slider-disabled{
+    cursor:default;
+    .ant-slider-track{
+      border:2px solid  ${theme.colors.SILVER} !important;
+    }
+
+    &.ant-slider:hover .ant-slider-track{
+      border:2px solid  ${theme.colors.SILVER};
+    }
+    &:hover{
+
+    .ant-slider-track{
+      background-color: ${theme.colors.SILVER} 
+      &:hover{
+          background-color: ${theme.colors.SILVER} 
+      }
+     }
+    }
+
+    .ant-slider-disabled.ant-slider:hover .ant-slider-track{
+       border:2px solid  ${theme.colors.SILVER};
+    }
+    .ant-slider-mark-text, .ant-slider-disabled .ant-slider-dot{
+      cursor:default !important;
+    }
+    .ant-slider-dot{
+      display:none; 
+      cursor:default !important;
+    }
+    .ant-slider-handle{
+      background-color: ${theme.colors.SILVER} !important;
+      border-color: ${theme.colors.SILVER} !important;
+      cursor: default;
+    }
+  }
+
+ 
 `;
 
 class Slider extends Component {
