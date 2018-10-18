@@ -5,7 +5,7 @@ import mixins from '../styles/mixins.js';
 export const DEFAULT_LOADER_PROPS = {
   type: 'Full',
   size: 'sizeBig',
-  style: { opacity: 0.5, background: '#ffffff' }
+  style: { opacity: 0.5, background: 'transparent' }
 };
 
 export const DEFAULT_TH_PADDING = {
