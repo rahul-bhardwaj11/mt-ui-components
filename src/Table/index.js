@@ -317,7 +317,13 @@ class Table extends Component {
           </ActionBar>
         )}
         {isLoadMore &&
-          hasMore && <Button onClick={this.fetch}>Load More</Button>}
+          hasMore && (
+            <div className="loadMoreBtnDiv">
+              <Button type="secondary" size="medium" onClick={this.fetch}>
+                Load More
+              </Button>
+            </div>
+          )}
       </MtTable>
     );
   }
