@@ -141,14 +141,16 @@ class Table extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const d = {};
+    const newState = {};
     if (nextProps.loading !== this.props.loading) {
-      d.loadingMore = !nextProps.loading ? false : this.state.loadingMore;
+      newState.loadingMore = !nextProps.loading
+        ? false
+        : this.state.loadingMore;
     }
     if (nextProps.selectedRowKeys) {
-      d.showActionBar = !!nextProps.selectedRowKeys.length;
+      newState.showActionBar = !!nextProps.selectedRowKeys.length;
     }
-    this.setState(d);
+    this.setState(newState);
   }
 
   componentWillUnmount() {
