@@ -186,7 +186,7 @@ class Table extends Component {
       : {
           style: {
             opacity: '0.5',
-            backgroundColor: '#ffffff'
+            backgroundColor: 'transparent'
           }
         };
 

@@ -130,12 +130,6 @@ h3 {
     visibility: hidden;
     }
   }
-  &.right_arrow--disabled{
-    &.slick-slider::after {
-    visibility: hidden;
-    }
-   }
-
 `;
 
 class Carousel extends Component {
