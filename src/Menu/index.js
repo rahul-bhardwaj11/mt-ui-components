@@ -162,6 +162,10 @@ const MtMenu = styled.div`
       color: #fff;
     }
   }
+
+  .ant-dropdown-menu-item-selected {
+    background-color: ${theme.colors.TROPICAL_BLUE};
+  }
 `;
 class Menu extends Component {
   static propTypes = {
