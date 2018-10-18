@@ -132,7 +132,7 @@ h3 {
   }
   &.right_arrow--disabled{
     &.slick-slider::after {
-    visibility: hidden;
+      visibility: unset;
     }
    }
 
