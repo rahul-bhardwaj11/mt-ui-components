@@ -52,13 +52,10 @@ class Table extends Component {
     loading: PropTypes.bool,
     isLoadMore: PropTypes.bool,
     onRow: PropTypes.func,
-    freeze: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.shape({
-        isFreezed: PropTypes.bool.isRequired,
-        freezeMsg: PropTypes.string
-      })
-    ])
+    freeze: PropTypes.shape({
+      isFreezed: PropTypes.bool.isRequired,
+      freezeMsg: PropTypes.string
+    })
   };
   static defaultProps = {
     infiniteScroll: false,
@@ -67,7 +64,7 @@ class Table extends Component {
     size: 'default',
     isMultiSelect: false,
     emptyTableMsg: { title: 'No Results Found.', subtitle: '' },
-    freeze: false,
+    freeze: { isFreezed: false, freezeMsg: '' },
     loading: false
   };
   state = {
@@ -215,15 +212,14 @@ class Table extends Component {
     );
   };
   getLoadingProp = () => {
-    let { loadingMore } = this.state;
-    let { loading, freeze } = this.props;
-    let isFreez = typeof freeze === 'object' ? freeze.isFreezed : freeze;
+    const { loadingMore } = this.state;
+    const { loading, freeze } = this.props;
 
-    return isFreez
+    return freeze.isFreezed
       ? {
           indicator: <React.Fragment />,
-          tip: freeze.freezeMsg || 'freezing',
-          spinning: isFreez
+          tip: freeze.freezeMsg,
+          spinning: freeze.isFreezed
         }
       : {
           indicator:
@@ -238,7 +234,8 @@ class Table extends Component {
       selectedRowKeys: parentKeys,
       isMultiSelect,
       rowKey = 'key',
-      onRow
+      onRow,
+      locale
     } = this.props;
     let { selectAll, selectedRowKeys } = this.state;
     const newSelectedRowskey = selectAll
@@ -283,6 +280,7 @@ class Table extends Component {
       antTableProps: {
         ...antProps,
         locale: {
+          ...locale,
           emptyText: this.getEmptyData()
         },
         loading: this.getLoadingProp()

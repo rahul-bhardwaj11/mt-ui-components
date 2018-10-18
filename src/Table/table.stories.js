@@ -145,7 +145,6 @@ stories
         rowSelection={{}}
         dataSource={data}
         loading={boolean('loading', false)}
-        freeze={boolean('freeze', false)}
         size="small"
         pagination={false}
         headerCellPadding={{
