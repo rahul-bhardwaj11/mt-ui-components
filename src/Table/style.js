@@ -2,12 +2,6 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins.js';
 
-export const DEFAULT_LOADER_PROPS = {
-  type: 'Full',
-  size: 'sizeBig',
-  style: { opacity: 0.5, background: '#ffffff' }
-};
-
 export const DEFAULT_TH_PADDING = {
   pTop: '16px',
   pRight: '0',
@@ -27,6 +21,17 @@ export default styled.div`
   position: relative;
   margin-bottom: ${props => (props.showActionBar ? '60px' : '0px')};
 
+  .ant-spin-nested-loading > div > .ant-spin .ant-spin-text {
+    ${mixins.h2()};
+    color: #999999;
+  }
+  .ant-spin-nested-loading > div > .ant-spin .ant-spin-dot {
+    transform: translate(-50%, -50%);
+    height: 64px;
+    width: 64px;
+    margin: 0px;
+    margin-top: 16px;
+  }
   .ant-table-placeholder {
     min-height: 60px;
     padding: 0px;

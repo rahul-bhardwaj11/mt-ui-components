@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import AntTable from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
 import 'antd/lib/checkbox/style/index.css';
+import 'antd/lib/spin/style/index.css';
 import ActionBar from '../ActionBar';
 import Loader from '../Loader';
 import Button from '../Button';
-import MtTable, { DEFAULT_LOADER_PROPS } from './style';
+import MtTable from './style';
 import classnames from 'classnames';
 
 class Table extends Component {
@@ -50,7 +51,14 @@ class Table extends Component {
     selectRowClassName: PropTypes.string,
     loading: PropTypes.bool,
     isLoadMore: PropTypes.bool,
-    onRow: PropTypes.func
+    onRow: PropTypes.func,
+    freeze: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.shape({
+        isFreezed: PropTypes.bool.isRequired,
+        freezeMsg: PropTypes.string
+      })
+    ])
   };
   static defaultProps = {
     infiniteScroll: false,
@@ -58,7 +66,9 @@ class Table extends Component {
     windowScroll: false,
     size: 'default',
     isMultiSelect: false,
-    emptyTableMsg: { title: 'No Results Found.', subtitle: '' }
+    emptyTableMsg: { title: 'No Results Found.', subtitle: '' },
+    freeze: false,
+    loading: false
   };
   state = {
     showActionBar: false,
@@ -160,12 +170,10 @@ class Table extends Component {
   };
 
   getLoader = () => {
-    let { loadingMore } = this.state;
+    const { loadingMore } = this.state;
     const loaderProps = loadingMore
       ? {
-          ...DEFAULT_LOADER_PROPS,
           size: 'sizeXSmall',
-          type: 'Small',
           style: {
             padding: '12px 0px',
             backgroundColor: '#ffffff',
@@ -174,7 +182,13 @@ class Table extends Component {
             bottom: '0'
           }
         }
-      : DEFAULT_LOADER_PROPS;
+      : {
+          style: {
+            opacity: '0.5',
+            backgroundColor: '#ffffff'
+          }
+        };
+
     return <Loader {...loaderProps} />;
   };
   componentDidUpdate() {
@@ -187,23 +201,42 @@ class Table extends Component {
 
   getEmptyData = () => {
     const {
-      emptyTableMsg: { title, subtitle }
+      emptyTableMsg: { title, subtitle },
+      emptyTableData
     } = this.props;
-    return (
+
+    return emptyTableData ? (
+      emptyTableData
+    ) : (
       <div className="emptyTableContainer">
         <div className="emptyTableTitle">{title}</div>
         {subtitle && <div className="emptyTableSubtitle">{subtitle}</div>}
       </div>
     );
   };
+  getLoadingProp = () => {
+    let { loadingMore } = this.state;
+    let { loading, freeze } = this.props;
+    let isFreez = typeof freeze === 'object' ? freeze.isFreezed : freeze;
 
+    return isFreez
+      ? {
+          indicator: <React.Fragment />,
+          tip: freeze.freezeMsg || 'freezing',
+          spinning: isFreez
+        }
+      : {
+          indicator:
+            loading && !loadingMore ? this.getLoader() : <React.Fragment />,
+          spinning: loading && !loadingMore
+        };
+  };
   getAntTableProps = () => {
     let {
       rowSelection,
       dataSource,
       selectedRowKeys: parentKeys,
       isMultiSelect,
-      emptyTableData,
       rowKey = 'key',
       onRow
     } = this.props;
@@ -246,12 +279,14 @@ class Table extends Component {
             }
           };
 
-    const locale = {
-      emptyText: emptyTableData ? emptyTableData : this.getEmptyData()
-    };
-
     return {
-      antTableProps: { ...antProps, locale },
+      antTableProps: {
+        ...antProps,
+        locale: {
+          emptyText: this.getEmptyData()
+        },
+        loading: this.getLoadingProp()
+      },
       newSelectedRowskey
     };
   };
@@ -264,9 +299,8 @@ class Table extends Component {
       hasMore,
       loading
     } = this.props;
-    let { showActionBar } = this.state;
+    let { showActionBar, loadingMore } = this.state;
     const { antTableProps, newSelectedRowskey } = this.getAntTableProps();
-
     return (
       <MtTable
         innerRef={ele => (this.tableRef = ele)}
@@ -276,7 +310,7 @@ class Table extends Component {
         showActionBar={showActionBar}
       >
         <AntTable {...antTableProps}>{children}</AntTable>
-        {loading && this.getLoader()}
+        {loading && loadingMore && this.getLoader()}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}
