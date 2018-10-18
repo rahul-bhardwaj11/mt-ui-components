@@ -55,7 +55,8 @@ class Table extends Component {
     freeze: PropTypes.shape({
       isFreezed: PropTypes.bool.isRequired,
       freezeMsg: PropTypes.string
-    })
+    }),
+    locale: PropTypes.object
   };
   static defaultProps = {
     infiniteScroll: false,
@@ -140,13 +141,16 @@ class Table extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const newState = {};
     if (nextProps.loading !== this.props.loading) {
-      this.setState(state => {
-        return {
-          loadingMore: !nextProps.loading ? false : state.loadingMore
-        };
-      });
+      newState.loadingMore = !nextProps.loading
+        ? false
+        : this.state.loadingMore;
     }
+    if (nextProps.selectedRowKeys) {
+      newState.showActionBar = !!nextProps.selectedRowKeys.length;
+    }
+    this.setState(newState);
   }
 
   componentWillUnmount() {
