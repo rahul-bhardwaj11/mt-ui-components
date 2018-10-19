@@ -130,15 +130,7 @@ h3 {
     visibility: hidden;
     }
   }
-  &.right_arrow--disabled{
-    &.slick-slider::after {
-    visibility: hidden;
-    }
-   }
-
 `;
-
-const noop = () => undefined;
 
 class Carousel extends Component {
   static propTypes = {
@@ -146,40 +138,58 @@ class Carousel extends Component {
     fetchData: PropTypes.func,
     hasMore: PropTypes.bool,
     children: PropTypes.node,
-    className: PropTypes.string
+    afterChange: PropTypes.func,
+    pageSize: PropTypes.number,
+    className: PropTypes.string,
+    infinite: PropTypes.bool
+  };
+  state = {
+    current: 0,
+    children: this.props.children || [],
+    hasMore: true
   };
   static defaultProps = {
     style: {},
-    fetchData: noop
-  };
-  state = {
-    current: 0
+    pageSize: 6
   };
   componentDidMount() {
-    const { hasMore } = this.props;
+    const { hasMore } = this.state;
     if (hasMore) {
-      this.fetch();
+      this.afterChange();
     }
   }
-  fetch = async () => {
-    const { hasMore, fetchData } = this.props;
-    if (hasMore) {
-      await fetchData();
-    }
-  };
 
-  afterChange = (current, next) => {
-    this.fetch();
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.children != this.props.children) {
+      this.setState({ children: this.nextProps.children });
+    }
+  }
+
+  afterChange = current => {
+    const { fetchData, afterChange, pageSize } = this.props;
+    if (fetchData) {
+      const { hasMore, children } = this.state;
+      if (hasMore) {
+        let offset = children.length;
+        fetchData({ offset, pageSize }).then(data => {
+          const newData = [...data, ...children];
+          this.setState({
+            children: newData,
+            hasMore: data.length == pageSize
+          });
+        }, {});
+      }
+    }
     this.setState({
-      current,
-      next
+      current: current || 0
     });
+    afterChange && afterChange(current);
   };
 
   canGoNext = spec => {
     let canGo = true;
     if (!spec.infinite) {
-      if (spec.centerMode && spec.currentSlide >= spec.slideCount - 1) {
+      if (spec.centerMode && spec.current >= spec.slideCount - 1) {
         canGo = false;
       } else if (
         spec.slideCount <= spec.slidesToShow ||
@@ -192,21 +202,21 @@ class Carousel extends Component {
   };
 
   getClassName = () => {
-    const current = this.state;
-    const infinite = this.props;
+    const { current } = this.state;
+    const { infinite } = this.props;
     const slideCount = React.Children.count(this.props.children);
     let className = '';
     if (!infinite && current === 0) {
       className = 'left_arrow--disabled';
     }
     if (!this.canGoNext({ ...this.props, slideCount, current })) {
-      className += 'right_arrow--disabled';
+      className += ' right_arrow--disabled';
     }
     return classnames(this.props.className, className);
   };
 
   render() {
-    const { children } = this.props;
+    const { children } = this.state;
     const className = this.getClassName();
     return (
       <MtCarousel

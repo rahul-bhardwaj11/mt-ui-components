@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Table from './index';
 import { withInfo } from '@storybook/addon-info';
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
 import Button from '../Button';
 import Select from '../Select';
 
@@ -12,7 +12,12 @@ stories.addDecorator(withKnobs);
 const { Column } = Table;
 
 const columns = [
-  <Column key="columnFirst" title={'column1'} dataIndex={'columnFirst'} />,
+  <Column
+    key="columnFirst"
+    title={'column1'}
+    dataIndex={'columnFirst'}
+    sorter={true}
+  />,
   <Column key="columnSecond" title={'column2'} dataIndex={'columnSecond'} />,
   <Column key="columnThird" title={'column3'} dataIndex={'columnThird'} />
 ];
@@ -139,6 +144,7 @@ stories
       <Table
         rowSelection={{}}
         dataSource={data}
+        loading={boolean('loading', false)}
         size="small"
         pagination={false}
         headerCellPadding={{

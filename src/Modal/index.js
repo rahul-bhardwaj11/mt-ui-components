@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
 import ReactDOM from 'react-dom';
+import './index.css';
 
 const StyledModalWrapper = styled.div`
   .modalWrapper {
@@ -87,6 +88,7 @@ const MtModal = styled(AntModal)`
       }
     }
   }
+  
 
   @media (max-width: 576px){
     margin: 0px;

@@ -2,12 +2,6 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins.js';
 
-export const DEFAULT_LOADER_PROPS = {
-  type: 'Full',
-  size: 'sizeBig',
-  style: { opacity: 0.5, background: '#ffffff' }
-};
-
 export const DEFAULT_TH_PADDING = {
   pTop: '16px',
   pRight: '0',
@@ -27,6 +21,17 @@ export default styled.div`
   position: relative;
   margin-bottom: ${props => (props.showActionBar ? '60px' : '0px')};
 
+  .ant-spin-nested-loading > div > .ant-spin .ant-spin-text {
+    ${mixins.h2()};
+    color: #999999;
+  }
+  .ant-spin-nested-loading > div > .ant-spin .ant-spin-dot {
+    transform: translate(-50%, -50%);
+    height: 64px;
+    width: 64px;
+    margin: 0px;
+    margin-top: 16px;
+  }
   .ant-table-placeholder {
     min-height: 60px;
     padding: 0px;
@@ -133,6 +138,10 @@ export default styled.div`
             &.ant-table-column-has-filters .ant-table-column-sorter {
               visibility: visible;
             }
+          }
+          .ant-table-column-sorter-up:hover .anticon,
+          .ant-table-column-sorter-down:hover .anticon {
+            color: ${theme.colors.GREY};
           }
           &.ant-table-column-has-filters .ant-table-column-sorter {
             visibility: hidden;
@@ -341,10 +350,13 @@ export default styled.div`
       border-color: ${theme.colors.INDIGO};
     }
   }
-
-  .ant-table-column-sorter .anticon-caret-up,
-  .ant-table-column-sorter .anticon-caret-down {
-    color: ${theme.colors.ALTO};
+  .ant-table-column-sorter {
+    margin-left: 2px;
+    margin-top: -4px;
+    .anticon-caret-up,
+    .anticon-caret-down {
+      color: ${theme.colors.ALTO};
+    }
   }
 
   .ant-table-column-sorter-up.on .anticon-caret-up,
@@ -352,5 +364,9 @@ export default styled.div`
   .ant-table-column-sorter-up.on .anticon-caret-down,
   .ant-table-column-sorter-down.on .anticon-caret-down {
     color: ${theme.colors.GREY};
+  }
+  .loadMoreBtnDiv {
+    margin-top: 32px;
+    text-align: center;
   }
 `;

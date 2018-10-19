@@ -8,7 +8,9 @@ import mixins from '../styles/mixins';
 import theme from '../styles/theme';
 
 const MtMenu = styled.div`
-  font-family: inherit;
+  .ant-menu {
+    font-family: inherit;
+  }
   .ant-anchor-wrapper {
     overflow: hidden;
   }
@@ -165,6 +167,10 @@ const MtMenu = styled.div`
 
   .ant-dropdown-menu-item-selected {
     background-color: ${theme.colors.TROPICAL_BLUE};
+  }
+  .ant-menu-vertical .ant-menu-item:not(:last-child),
+  .ant-menu-vertical .ant-menu-item {
+    margin-bottom: 0px;
   }
 `;
 class Menu extends Component {

@@ -68,10 +68,12 @@ class Search extends Component {
   static propTypes = {
     value: PropTypes.string,
     onSearch: PropTypes.func.isRequired,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onPressEnter: PropTypes.func
   };
   static defaultProps = {
-    onSearch: () => {}
+    onSearch: () => {},
+    onPressEnter: () => {}
   };
   state = {
     query: this.props.value || ''
@@ -90,7 +92,7 @@ class Search extends Component {
   };
 
   handleSearch = event => {
-    this.props.onSearch(event.target.value);
+    this.props.onPressEnter(event.target.value);
   };
 
   componentWillReceiveProps(nextProps) {

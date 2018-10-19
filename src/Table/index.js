@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import AntTable from 'antd/lib/table';
 import 'antd/lib/table/style/index.css';
 import 'antd/lib/checkbox/style/index.css';
+import 'antd/lib/spin/style/index.css';
 import ActionBar from '../ActionBar';
 import Loader from '../Loader';
 import Button from '../Button';
-import MtTable, { DEFAULT_LOADER_PROPS } from './style';
+import MtTable from './style';
 import classnames from 'classnames';
 
 class Table extends Component {
   static propTypes = {
     children: PropTypes.node,
+    rowKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     emptyTableData: PropTypes.node,
     emptyTableMsg: PropTypes.shape({
       title: PropTypes.string,
@@ -48,7 +50,13 @@ class Table extends Component {
     isMultiSelect: PropTypes.bool,
     selectRowClassName: PropTypes.string,
     loading: PropTypes.bool,
-    isLoadMore: PropTypes.bool
+    isLoadMore: PropTypes.bool,
+    onRow: PropTypes.func,
+    freeze: PropTypes.shape({
+      isFreezed: PropTypes.bool.isRequired,
+      freezeMsg: PropTypes.string
+    }),
+    locale: PropTypes.object
   };
   static defaultProps = {
     infiniteScroll: false,
@@ -56,13 +64,14 @@ class Table extends Component {
     windowScroll: false,
     size: 'default',
     isMultiSelect: false,
-    emptyTableMsg: { title: 'No Results Found.', subtitle: '' }
+    emptyTableMsg: { title: 'No Results Found.', subtitle: '' },
+    freeze: { isFreezed: false, freezeMsg: '' },
+    loading: false
   };
   state = {
     showActionBar: false,
     selectAll: false,
     selectedRowKeys: [],
-    loading: this.props.loading,
     loadingMore: false
   };
   scrollElement = null;
@@ -73,9 +82,9 @@ class Table extends Component {
   tableRef = null;
 
   fetch = async () => {
-    const { fetchData } = this.props;
-    const { loading } = this.state;
-    if (loading) {
+    const { fetchData, loading } = this.props;
+    const { loadingMore } = this.state;
+    if (loading || loadingMore) {
       return;
     }
     this.setState({ loadingMore: true });
@@ -116,8 +125,6 @@ class Table extends Component {
     if (innerHeight >= height * threshold) {
       if (infiniteScroll && hasMore) {
         this.fetch();
-      } else {
-        window.removeEventListener('scroll', this.onScroll, false);
       }
     }
   };
@@ -134,14 +141,16 @@ class Table extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.loading !== this.state.loading) {
-      this.setState(state => {
-        return {
-          loading: nextProps.loading,
-          loadingMore: !nextProps.loading ? false : state.loadingMore
-        };
-      });
+    const newState = {};
+    if (nextProps.loading !== this.props.loading) {
+      newState.loadingMore = !nextProps.loading
+        ? false
+        : this.state.loadingMore;
     }
+    if (nextProps.selectedRowKeys) {
+      newState.showActionBar = !!nextProps.selectedRowKeys.length;
+    }
+    this.setState(newState);
   }
 
   componentWillUnmount() {
@@ -162,12 +171,10 @@ class Table extends Component {
   };
 
   getLoader = () => {
-    let { loadingMore } = this.state;
+    const { loadingMore } = this.state;
     const loaderProps = loadingMore
       ? {
-          ...DEFAULT_LOADER_PROPS,
           size: 'sizeXSmall',
-          type: 'Small',
           style: {
             padding: '12px 0px',
             backgroundColor: '#ffffff',
@@ -176,40 +183,67 @@ class Table extends Component {
             bottom: '0'
           }
         }
-      : DEFAULT_LOADER_PROPS;
+      : {
+          style: {
+            opacity: '0.5',
+            backgroundColor: 'transparent'
+          }
+        };
+
     return <Loader {...loaderProps} />;
   };
   componentDidUpdate() {
     const { selectAll, selectedRowKeys } = this.state;
-    const { dataSource } = this.props;
+    const { dataSource, rowKey = 'key' } = this.props;
     if (selectAll && selectedRowKeys.length !== dataSource.length) {
-      this.onChange(dataSource.map(v => v.key), dataSource);
+      this.onChange(dataSource.map(v => v[rowKey]), dataSource);
     }
   }
 
   getEmptyData = () => {
     const {
-      emptyTableMsg: { title, subtitle }
+      emptyTableMsg: { title, subtitle },
+      emptyTableData
     } = this.props;
-    return (
+
+    return emptyTableData ? (
+      emptyTableData
+    ) : (
       <div className="emptyTableContainer">
         <div className="emptyTableTitle">{title}</div>
         {subtitle && <div className="emptyTableSubtitle">{subtitle}</div>}
       </div>
     );
   };
+  getLoadingProp = () => {
+    const { loadingMore } = this.state;
+    const { loading, freeze } = this.props;
 
+    return freeze.isFreezed
+      ? {
+          indicator: <React.Fragment />,
+          tip: freeze.freezeMsg,
+          spinning: freeze.isFreezed
+        }
+      : {
+          indicator:
+            loading && !loadingMore ? this.getLoader() : <React.Fragment />,
+          spinning: loading && !loadingMore
+        };
+  };
   getAntTableProps = () => {
     let {
       rowSelection,
       dataSource,
       selectedRowKeys: parentKeys,
       isMultiSelect,
-      emptyTableData
+      rowKey = 'key',
+      onRow,
+      locale
     } = this.props;
     let { selectAll, selectedRowKeys } = this.state;
     const newSelectedRowskey = selectAll
-      ? dataSource.map(v => v.key)
+      ? dataSource.map(v => v[rowKey])
       : parentKeys || selectedRowKeys;
 
     const updatedRowSelection = rowSelection
@@ -229,23 +263,32 @@ class Table extends Component {
         : {
             ...this.props,
             rowSelection: null,
-            onRow: record => ({
-              onClick: () => this.onChange([record.key], [record]),
-              className: newSelectedRowskey.some(v => v === record.key)
-                ? classnames(
-                    'ant-table-row-selected',
-                    this.props.selectRowClassName
-                  )
-                : ''
-            })
+            onRow: record => {
+              const rowObject = onRow ? onRow(record) : {};
+              return {
+                onClick: () => {
+                  rowObject.onClick && rowObject.onClick(record);
+                  this.onChange([record[rowKey]], [record]);
+                },
+                className: newSelectedRowskey.some(v => v === record[rowKey])
+                  ? classnames(
+                      'ant-table-row-selected',
+                      this.props.selectRowClassName
+                    )
+                  : ''
+              };
+            }
           };
 
-    const locale = {
-      emptyText: emptyTableData ? emptyTableData : this.getEmptyData()
-    };
-
     return {
-      antTableProps: { ...antProps, locale },
+      antTableProps: {
+        ...antProps,
+        locale: {
+          ...locale,
+          emptyText: this.getEmptyData()
+        },
+        loading: this.getLoadingProp()
+      },
       newSelectedRowskey
     };
   };
@@ -255,11 +298,11 @@ class Table extends Component {
       children,
       infiniteScroll,
       isLoadMore,
-      hasMore
+      hasMore,
+      loading
     } = this.props;
-    let { showActionBar, loading } = this.state;
+    let { showActionBar, loadingMore } = this.state;
     const { antTableProps, newSelectedRowskey } = this.getAntTableProps();
-
     return (
       <MtTable
         innerRef={ele => (this.tableRef = ele)}
@@ -269,14 +312,20 @@ class Table extends Component {
         showActionBar={showActionBar}
       >
         <AntTable {...antTableProps}>{children}</AntTable>
-        {loading && this.getLoader()}
+        {loading && loadingMore && this.getLoader()}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}
           </ActionBar>
         )}
         {isLoadMore &&
-          hasMore && <Button onClick={this.fetch}>Load More</Button>}
+          hasMore && (
+            <div className="loadMoreBtnDiv">
+              <Button type="secondary" size="medium" onClick={this.fetch}>
+                Load More
+              </Button>
+            </div>
+          )}
       </MtTable>
     );
   }

@@ -1,13 +1,25 @@
 import React from 'react';
 import AntAutoComplete from 'antd/lib/auto-complete';
 import Styled from 'styled-components';
+import 'antd/lib/auto-complete/style/index.css';
 
-const StyledAutoComplete = Styled(AntAutoComplete)`
+const StyledAutoComplete = Styled.div`
 `;
 
 class AutoComplete extends React.Component {
   render() {
-    return <StyledAutoComplete {...this.props} />;
+    return (
+      <StyledAutoComplete
+        innerRef={ele => {
+          if (ele) this.popUpContainer = ele;
+        }}
+      >
+        <AntAutoComplete
+          getPopupContainer={() => this.popUpContainer}
+          {...this.props}
+        />
+      </StyledAutoComplete>
+    );
   }
 }
 
