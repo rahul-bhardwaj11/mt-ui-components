@@ -13,10 +13,7 @@ const StyledForm = Styled(AntFrom)`
     }    
     .ant-form-item{
       margin-bottom: 0px;
-    }
-    .ant-form-item-control-wrapper{
-      height: 52px;
-    }
+    }    
     .ant-form-item-control{
         line-height: unset;
     }  
