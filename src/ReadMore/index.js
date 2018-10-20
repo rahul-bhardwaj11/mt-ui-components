@@ -54,7 +54,7 @@ class ReadMore extends Component {
           ellipsis={[
             <span key="3dot">...</span>,
             <div className="viewMore" key="view_more">
-              <a onClick={this.toggleLines}>{lessText}</a>
+              <a onClick={this.toggleLines}>{moreText}</a>
             </div>
           ]}
           onTruncate={this.handleTruncate}
@@ -64,7 +64,7 @@ class ReadMore extends Component {
         {!truncated &&
           expanded && (
             <span className="viewLess">
-              <a onClick={this.toggleLines}> {moreText}</a>
+              <a onClick={this.toggleLines}> {lessText}</a>
             </span>
           )}
       </MTReadMore>
