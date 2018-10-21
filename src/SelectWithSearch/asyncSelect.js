@@ -52,7 +52,8 @@ export default class AsyncSelect extends Component {
         })
       )
     ]),
-    style: PropTypes.object
+    style: PropTypes.object,
+    optionNode: PropTypes.func
   };
 
   static defaultProps = {
@@ -77,6 +78,7 @@ export default class AsyncSelect extends Component {
       search: '',
       optionsCache: initialOptionsCache,
       selectedItems: [],
+      prevSelectedItems: [],
       menuIsOpen: false,
       showSelect: true,
       showInput: false,
@@ -128,52 +130,62 @@ export default class AsyncSelect extends Component {
       return;
     }
 
-    await this.setState(prevState => ({
-      search,
-      optionsCache: {
-        ...prevState.optionsCache,
-        [search]: {
-          ...currentOptions,
-          isLoading: true
+    (await this.mounted) &&
+      this.setState(prevState => ({
+        search,
+        optionsCache: {
+          ...prevState.optionsCache,
+          [search]: {
+            ...currentOptions,
+            isLoading: true
+          }
         }
-      }
-    }));
+      }));
 
     try {
       const loadOptions = this.__loadOptions;
 
-      const { options, hasMore } = await loadOptions(
+      const { options = [], hasMore } = await loadOptions(
         search,
         currentOptions.options
       );
+      let uniqueOptions = [];
+      options.length &&
+        options.forEach(option => {
+          if (currentOptions.options.indexOf(option) < 0) {
+            uniqueOptions.push(option);
+          }
+        });
 
-      await this.setState(prevState => ({
-        optionsCache: {
-          ...prevState.optionsCache,
-          [search]: {
-            ...currentOptions,
-            options: currentOptions.options.concat(options),
-            hasMore: !!hasMore,
-            isLoading: false
+      (await this.mounted) &&
+        this.setState(prevState => ({
+          optionsCache: {
+            ...prevState.optionsCache,
+            [search]: {
+              ...currentOptions,
+              options: currentOptions.options.concat(uniqueOptions),
+              hasMore: !!hasMore,
+              isLoading: false
+            }
           }
-        }
-      }));
+        }));
     } catch (e) {
-      await this.setState(prevState => ({
-        optionsCache: {
-          ...prevState.optionsCache,
-          [search]: {
-            ...currentOptions,
-            isLoading: false
+      (await this.mounted) &&
+        this.setState(prevState => ({
+          optionsCache: {
+            ...prevState.optionsCache,
+            [search]: {
+              ...currentOptions,
+              isLoading: false
+            }
           }
-        }
-      }));
+        }));
     }
   }
 
   __arrangeOptions = (selectedItems, options) => {
-    const { sortOptions } = this.props;
-    if (!sortOptions) return options;
+    //const { sortOptions } = this.props;
+    //if (!sortOptions) return options;
     const optionsThatAreNotSelected = options.filter(option => {
       return selectedItems.indexOf(option) < 0;
     });
@@ -192,6 +204,7 @@ export default class AsyncSelect extends Component {
   };
 
   componentDidMount = async () => {
+    this.mounted = true;
     const { defaultValue, isButton, value } = this.props;
     const { optionsCache, search } = this.state;
     const currentOptions = optionsCache[search] || initialCache;
@@ -205,17 +218,18 @@ export default class AsyncSelect extends Component {
       selectedItems,
       currentOptions.options
     );
-    this.setState(prevState => ({
-      selectedItems,
-      optionsCache: {
-        ...prevState.optionsCache,
-        [search]: {
-          isLoading: false,
-          options: arrangedOptions,
-          hasMore: true
+    (await this.mounted) &&
+      this.setState(prevState => ({
+        selectedItems,
+        optionsCache: {
+          ...prevState.optionsCache,
+          [search]: {
+            isLoading: false,
+            options: arrangedOptions,
+            hasMore: true
+          }
         }
-      }
-    }));
+      }));
     if (!optionsCache[''] || optionsCache[''].hasMore) {
       await this.loadOptions();
     }
@@ -267,6 +281,7 @@ export default class AsyncSelect extends Component {
   };
 
   componentWillUnmount() {
+    this.mounted = false;
     document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
@@ -305,10 +320,25 @@ export default class AsyncSelect extends Component {
       return;
     }
     this.isBlurActive = true;
-    const { selectedItems, optionsCache } = this.state;
+    const { selectedItems, optionsCache, prevSelectedItems } = this.state;
     const { isButton, onChange } = this.props;
     const options = optionsCache[''].options;
-    onChange(selectedItems);
+    let isSelectedItemsChange = false;
+    if (selectedItems.length == prevSelectedItems.length) {
+      for (let index = 0; index < selectedItems.length; index++) {
+        if (selectedItems[index].value != prevSelectedItems[index].value) {
+          isSelectedItemsChange = true;
+          break;
+        }
+      }
+    } else {
+      isSelectedItemsChange = true;
+    }
+    if (isSelectedItemsChange) {
+      onChange(selectedItems);
+      this.setState({ prevSelectedItems: selectedItems });
+    }
+
     const arrangedOptions = this.__arrangeOptions(selectedItems, options);
     this.setState(prevState => {
       let newState = {
@@ -386,9 +416,19 @@ export default class AsyncSelect extends Component {
 
   optionWithCheckBox = params => {
     const { isDisabled, data } = params;
+    const { optionNode } = this.props;
     const { selectedItems } = this.state;
     if (!this.props.isMulti)
-      return (
+      return optionNode ? (
+        <div
+          title={data.label}
+          onClick={() => {
+            this.handleSingleOnSelect(data);
+          }}
+        >
+          {optionNode(data)}
+        </div>
+      ) : (
         <div title={data.label}>
           <components.Option {...params} />
         </div>
@@ -401,12 +441,16 @@ export default class AsyncSelect extends Component {
         className="checkboxWrapper"
         title={data.label}
       >
-        <CheckBox
-          disabled={data.disabled}
-          checked={selectedItems.map(i => i.value).includes(data.value)}
-        >
-          {data.label}
-        </CheckBox>
+        {optionNode ? (
+          optionNode(data)
+        ) : (
+          <CheckBox
+            disabled={data.disabled}
+            checked={selectedItems.map(i => i.value).includes(data.value)}
+          >
+            {data.label}
+          </CheckBox>
+        )}
       </div>
     ) : null;
   };

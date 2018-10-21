@@ -27,7 +27,8 @@ export default class SyncSelect extends Component {
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string)
     ]),
-    style: PropTypes.object
+    style: PropTypes.object,
+    optionNode: PropTypes.func
   };
 
   static defaultProps = {
@@ -39,6 +40,7 @@ export default class SyncSelect extends Component {
   state = {
     options: this.props.options,
     selectedItems: [],
+    prevSelectedItems: [],
     menuIsOpen: false,
     showSelect: true,
     showInput: false,
@@ -170,9 +172,23 @@ export default class SyncSelect extends Component {
       return;
     }
     this.isBlurActive = true;
-    const { selectedItems, options } = this.state;
+    const { selectedItems, prevSelectedItems, options } = this.state;
     const { onChange } = this.props;
-    onChange(selectedItems);
+    let isSelectedItemsChange = false;
+    if (selectedItems.length == prevSelectedItems.length) {
+      for (let index = 0; index < selectedItems.length; index++) {
+        if (selectedItems[index].value != prevSelectedItems[index].value) {
+          isSelectedItemsChange = true;
+          break;
+        }
+      }
+    } else {
+      isSelectedItemsChange = true;
+    }
+    if (isSelectedItemsChange) {
+      onChange(selectedItems);
+      this.setState({ prevSelectedItems: selectedItems });
+    }
     const sortedOptions = this.__sortOptions(options, selectedItems);
     let newState = this.getNewStateAfterOnSelect();
     newState.options = sortedOptions;
@@ -234,25 +250,41 @@ export default class SyncSelect extends Component {
 
   optionWithCheckBox = params => {
     const { isDisabled, data } = params;
+    const { optionNode } = this.props;
     const { selectedItems } = this.state;
     if (!this.props.isMulti)
-      return (
+      return optionNode ? (
+        <div
+          title={data.label}
+          onClick={() => {
+            this.handleSingleOnSelect(data);
+          }}
+        >
+          {optionNode(data)}
+        </div>
+      ) : (
         <div title={data.label}>
           <components.Option {...params} />
         </div>
       );
     return !isDisabled ? (
       <div
-        onClick={() => this.onCheckboxClick(data)}
+        onClick={() => {
+          !data.disabled && this.onCheckboxClick(data);
+        }}
         className="checkboxWrapper"
         title={data.label}
       >
-        <CheckBox
-          disabled={data.disabled}
-          checked={selectedItems.map(i => i.value).includes(data.value)}
-        >
-          {data.label}
-        </CheckBox>
+        {optionNode ? (
+          optionNode(data)
+        ) : (
+          <CheckBox
+            disabled={data.disabled}
+            checked={selectedItems.map(i => i.value).includes(data.value)}
+          >
+            {data.label}
+          </CheckBox>
+        )}
       </div>
     ) : null;
   };

@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import SelectWithSearch from './index';
 import { withInfo } from '@storybook/addon-info';
 import { withKnobs } from '@storybook/addon-knobs';
+import UserThumbnail from '../UserThumbnail';
 //import Menu from '../Menu';
 
 const stories = storiesOf('SelectWithSearch', module);
@@ -64,6 +65,27 @@ stories.add(
 );
 
 stories.add(
+  'Sync Select with custom options',
+  withInfo('Usage of the Async Infinite Select')(() => (
+    <SelectWithSearch
+      options={colourOptions}
+      onChange={() => {}}
+      optionNode={({ value, label }) => {
+        return (
+          <UserThumbnail
+            title={label}
+            content={value}
+            src=""
+            expanded={true}
+            className="userThumbnail"
+          />
+        );
+      }}
+    />
+  ))
+);
+
+stories.add(
   'Sync Select with custom styles',
   withInfo('Basic usage of the SelectWithSearch for custom style')(() => (
     <SelectWithSearch
@@ -99,6 +121,21 @@ stories.add(
 );
 
 stories.add(
+  'Sync MultiSelect With Controlled Value',
+  withInfo('Basic usage of the SelectWithSearch')(() => (
+    <SelectWithSearch
+      defaultValue={colourOptions[2].value}
+      label="Select..."
+      options={colourOptions}
+      onChange={() => {}}
+      isMulti
+      sortOptions={false}
+      value={[colourOptions[2].value, colourOptions[3].value]}
+    />
+  ))
+);
+
+stories.add(
   'Sync MultiSelect with initially Button',
   withInfo('Basic usage of the SelectWithSearch')(() => (
     <SelectWithSearch
@@ -120,7 +157,7 @@ stories.add(
     <SelectWithSearch
       async
       promiseOption={promiseOption}
-      defaultValue={colourOptions[2].value}
+      defaultValue={colourOptions[2]}
       onChange={() => {}}
     />
   ))
@@ -132,7 +169,35 @@ stories.add(
     <SelectWithSearch
       async
       promiseOption={promiseOption}
-      defaultValue={colourOptions[2].value}
+      defaultValue={colourOptions[2]}
+      isMulti
+      onChange={() => {}}
+      isButton={true}
+    />
+  ))
+);
+
+stories.add(
+  'Async MultiSelect With controlled Values',
+  withInfo('Usage of the Async Infinite Select')(() => (
+    <SelectWithSearch
+      async
+      promiseOption={promiseOption}
+      isMulti
+      onChange={() => {}}
+      isButton={true}
+      value={[colourOptions[2], colourOptions[5]]}
+    />
+  ))
+);
+
+stories.add(
+  'Async MultiSelect With default value',
+  withInfo('Usage of the Async Infinite Select')(() => (
+    <SelectWithSearch
+      async
+      promiseOption={promiseOption}
+      defaultValue={[colourOptions[2], colourOptions[4]]}
       isMulti
       onChange={() => {}}
       isButton={true}

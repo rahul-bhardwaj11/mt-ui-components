@@ -161,7 +161,7 @@ class Carousel extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.children != this.props.children) {
-      this.setState({ children: this.nextProps.children });
+      this.setState({ children: nextProps.children });
     }
   }
 
