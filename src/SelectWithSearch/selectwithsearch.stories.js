@@ -70,7 +70,7 @@ stories.add(
     <SelectWithSearch
       options={colourOptions}
       onChange={() => {}}
-      optionNode={({ value, label }) => {
+      optionRenderer={({ value, label }) => {
         return (
           <UserThumbnail
             title={label}
