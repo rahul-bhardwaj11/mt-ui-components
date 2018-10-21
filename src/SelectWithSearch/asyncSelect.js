@@ -53,7 +53,7 @@ export default class AsyncSelect extends Component {
       )
     ]),
     style: PropTypes.object,
-    optionNode: PropTypes.func
+    optionRenderer: PropTypes.func
   };
 
   static defaultProps = {
@@ -410,17 +410,17 @@ export default class AsyncSelect extends Component {
 
   optionWithCheckBox = params => {
     const { isDisabled, data } = params;
-    const { optionNode } = this.props;
+    const { optionRenderer } = this.props;
     const { selectedItems } = this.state;
     if (!this.props.isMulti)
-      return optionNode ? (
+      return optionRenderer ? (
         <div
           title={data.label}
           onClick={() => {
             this.handleSingleOnSelect(data);
           }}
         >
-          {optionNode(data)}
+          {optionRenderer(data)}
         </div>
       ) : (
         <div title={data.label}>
@@ -435,8 +435,8 @@ export default class AsyncSelect extends Component {
         className="checkboxWrapper"
         title={data.label}
       >
-        {optionNode ? (
-          optionNode(data)
+        {optionRenderer ? (
+          optionRenderer(data)
         ) : (
           <CheckBox
             disabled={data.disabled}
