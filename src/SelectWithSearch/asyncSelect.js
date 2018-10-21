@@ -130,17 +130,16 @@ export default class AsyncSelect extends Component {
       return;
     }
 
-    (await this.mounted) &&
-      this.setState(prevState => ({
-        search,
-        optionsCache: {
-          ...prevState.optionsCache,
-          [search]: {
-            ...currentOptions,
-            isLoading: true
-          }
+    await this.setState(prevState => ({
+      search,
+      optionsCache: {
+        ...prevState.optionsCache,
+        [search]: {
+          ...currentOptions,
+          isLoading: true
         }
-      }));
+      }
+    }));
 
     try {
       const loadOptions = this.__loadOptions;
@@ -157,29 +156,27 @@ export default class AsyncSelect extends Component {
           }
         });
 
-      (await this.mounted) &&
-        this.setState(prevState => ({
-          optionsCache: {
-            ...prevState.optionsCache,
-            [search]: {
-              ...currentOptions,
-              options: currentOptions.options.concat(uniqueOptions),
-              hasMore: !!hasMore,
-              isLoading: false
-            }
+      await this.setState(prevState => ({
+        optionsCache: {
+          ...prevState.optionsCache,
+          [search]: {
+            ...currentOptions,
+            options: currentOptions.options.concat(uniqueOptions),
+            hasMore: !!hasMore,
+            isLoading: false
           }
-        }));
+        }
+      }));
     } catch (e) {
-      (await this.mounted) &&
-        this.setState(prevState => ({
-          optionsCache: {
-            ...prevState.optionsCache,
-            [search]: {
-              ...currentOptions,
-              isLoading: false
-            }
+      await this.setState(prevState => ({
+        optionsCache: {
+          ...prevState.optionsCache,
+          [search]: {
+            ...currentOptions,
+            isLoading: false
           }
-        }));
+        }
+      }));
     }
   }
 
@@ -204,7 +201,6 @@ export default class AsyncSelect extends Component {
   };
 
   componentDidMount = async () => {
-    this.mounted = true;
     const { defaultValue, isButton, value } = this.props;
     const { optionsCache, search } = this.state;
     const currentOptions = optionsCache[search] || initialCache;
@@ -218,18 +214,17 @@ export default class AsyncSelect extends Component {
       selectedItems,
       currentOptions.options
     );
-    (await this.mounted) &&
-      this.setState(prevState => ({
-        selectedItems,
-        optionsCache: {
-          ...prevState.optionsCache,
-          [search]: {
-            isLoading: false,
-            options: arrangedOptions,
-            hasMore: true
-          }
+    await this.setState(prevState => ({
+      selectedItems,
+      optionsCache: {
+        ...prevState.optionsCache,
+        [search]: {
+          isLoading: false,
+          options: arrangedOptions,
+          hasMore: true
         }
-      }));
+      }
+    }));
     if (!optionsCache[''] || optionsCache[''].hasMore) {
       await this.loadOptions();
     }
@@ -281,7 +276,6 @@ export default class AsyncSelect extends Component {
   };
 
   componentWillUnmount() {
-    this.mounted = false;
     document.removeEventListener('mousedown', this.handleClickOutside);
   }
 

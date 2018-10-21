@@ -173,10 +173,12 @@ class Carousel extends Component {
         let offset = children.length;
         fetchData({ offset, pageSize }).then(data => {
           const newData = [...data, ...children];
-          this.setState({
-            children: newData,
-            hasMore: data.length == pageSize
-          });
+          data &&
+            data.length &&
+            this.setState({
+              children: newData,
+              hasMore: data.length == pageSize
+            });
         }, {});
       }
     }
