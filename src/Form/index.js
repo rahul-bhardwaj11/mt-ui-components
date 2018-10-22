@@ -5,20 +5,20 @@ import theme from '../styles/theme';
 import 'antd/lib/form/style/index.css';
 
 const StyledForm = Styled(AntFrom)`
-    .ant-form-explain{
-      margin-bottom: 0px;  
-      margin-top: 0px;
-      line-height: 20px;
-      font-size: 12px;    
-    }    
+    
+    .ant-form-item-control {
+        line-height: unset;            
+        .ant-form-explain {
+            position: absolute;
+            line-height: 24px;
+            font-size: 12px; 
+        }
+    }
     .ant-form-item{
-      margin-bottom: 0px;
-    }    
-    .ant-form-item-control{
-        line-height: unset;
-    }  
+        margin-bottom: 0px;
+    }   
     .has-error .ant-select-selection,    
-    .has-error .ant-form-explain, .has-error .ant-form-split{
+    .has-error .ant-form-explain, .has-error .ant-form-split{      
       border-color: ${theme.colors.BITTERSWEET};   
       color: ${theme.colors.BITTERSWEET};   
     }

@@ -13,7 +13,6 @@ const MtTooltip = styled.div`
     ${mixins.smallInactiveLink()};
     color: #ffffff;
     font-weight: 600;
-    text-align: center;
   }
 `;
 class Tooltip extends Component {
