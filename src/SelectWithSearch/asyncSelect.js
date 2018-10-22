@@ -476,7 +476,7 @@ export default class AsyncSelect extends Component {
               <Button
                 type="text"
                 onClick={this.handleMultiOnSelect}
-                className={selectedItems.length ? 'doneBtn' : ' '}
+                className={selectedItems.length ? 'activeBtnState' : ' '}
               >
                 {`Done`}
                 <span className="doneMarginR">

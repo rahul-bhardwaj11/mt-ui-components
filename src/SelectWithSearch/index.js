@@ -206,7 +206,7 @@ const SelectBox = styled.div`
   text-align: right;
   float: right;
   padding-bottom: 10px;
-  .doneBtn {
+  .activeBtnState {
    color: ${theme.colors.INDIGO};
   } 
 }
