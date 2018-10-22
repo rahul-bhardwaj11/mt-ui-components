@@ -269,7 +269,11 @@ export default class SyncSelect extends Component {
             </Button>
           </div>
           <div className="buttonWrapperR">
-            <Button type="text" onClick={this.handleMultiOnSelect}>
+            <Button
+              type="text"
+              onClick={this.handleMultiOnSelect}
+              className={selectedItems.length ? 'doneBtn' : ' '}
+            >
               <span className="marginR5"> Done</span>
               {`${selectedItems.length ? `(${selectedItems.length})` : ''}`}
             </Button>
