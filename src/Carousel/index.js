@@ -130,12 +130,6 @@ h3 {
     visibility: hidden;
     }
   }
-  &.right_arrow--disabled{
-    &.slick-slider::after {
-    visibility: hidden;
-    }
-   }
-
 `;
 
 class Carousel extends Component {
@@ -167,7 +161,7 @@ class Carousel extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.children != this.props.children) {
-      this.setState({ children: this.nextProps.children });
+      this.setState({ children: nextProps.children });
     }
   }
 
@@ -179,10 +173,12 @@ class Carousel extends Component {
         let offset = children.length;
         fetchData({ offset, pageSize }).then(data => {
           const newData = [...data, ...children];
-          this.setState({
-            children: newData,
-            hasMore: data.length == pageSize
-          });
+          data &&
+            data.length &&
+            this.setState({
+              children: newData,
+              hasMore: data.length == pageSize
+            });
         }, {});
       }
     }

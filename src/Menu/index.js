@@ -165,6 +165,9 @@ const MtMenu = styled.div`
     }
   }
 
+  .ant-dropdown-menu-item-selected {
+    background-color: ${theme.colors.TROPICAL_BLUE};
+  }
   .ant-menu-vertical .ant-menu-item:not(:last-child),
   .ant-menu-vertical .ant-menu-item {
     margin-bottom: 0px;

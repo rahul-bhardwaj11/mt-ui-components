@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Table from './index';
 import { withInfo } from '@storybook/addon-info';
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
 import Button from '../Button';
 import Select from '../Select';
 
@@ -144,6 +144,7 @@ stories
       <Table
         rowSelection={{}}
         dataSource={data}
+        loading={boolean('loading', false)}
         size="small"
         pagination={false}
         headerCellPadding={{

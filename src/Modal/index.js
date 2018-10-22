@@ -56,14 +56,14 @@ const MtModal = styled(AntModal)`
     border-top: 1px solid ${theme.colors.ALTO};;
     border-radius: 0 0 8px 8px;
     margin-top: 15px;
-    
+
     .ant-btn {
-      ${mixins.textBtn()}      
+      ${mixins.textBtn()}
       color: ${theme.colors.OUTER_SPACE};
       min-width: 75px;
 
       &.ant-btn-primary {
-        ${mixins.primaryBtn()}        
+        ${mixins.primaryBtn()}
         color: ${theme.colors.WHITE};
         &:hover {
           ${mixins.primaryBtnHover()}
@@ -109,7 +109,7 @@ const MtModal = styled(AntModal)`
   .ant-modal-content{
     border-radius:0px;
     box-shadow:0 0px 0px rgba(0, 0, 0, 0.15);
-  }  
+  }
 
 }
 }
@@ -200,7 +200,7 @@ class Modal extends Component {
         props.onCancel && props.onCancel(cancelProps);
       }
     };
-    AntModal.confirm(confirmModalProps);
+    return AntModal.confirm(confirmModalProps);
   };
 
   render() {

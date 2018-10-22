@@ -21,7 +21,8 @@ class Dropdown extends Component {
     label: PropTypes.string,
     getPopupContainer: PropTypes.func,
     placement: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    selectedKeys: PropTypes.array
   };
 
   static defaultProps = {
@@ -39,11 +40,18 @@ class Dropdown extends Component {
       label,
       onSelect,
       placement,
-      className
+      className,
+      selectedKeys
     } = this.props;
     let overlay;
     if (options instanceof Array) {
-      overlay = <Menu options={options} onClick={onSelect} />;
+      overlay = (
+        <Menu
+          options={options}
+          onClick={onSelect}
+          selectedKeys={selectedKeys}
+        />
+      );
     } else {
       overlay = options;
     }
