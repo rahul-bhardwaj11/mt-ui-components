@@ -3,7 +3,7 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 import RaPlayer from './index';
-// import { withInfo } from '@storybook/addon-info';
+import { withInfo } from '@storybook/addon-info';
 // import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 
 const stories = storiesOf('RaPlayer', module);
@@ -48,7 +48,7 @@ const props = {
   }
 };
 
-stories.add('Default Player', () => <RaPlayer {...props} />);
+stories.add('Default Player', withInfo('Information')(() => <RaPlayer {...props} />));
 
 const secondaryPlayerProps = {
   ...props,
