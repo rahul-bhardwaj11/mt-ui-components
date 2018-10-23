@@ -60,6 +60,10 @@ const MtCollapse = styled.div`
       }
     }
   }
+
+  .ant-collapse-content {
+    border-top: 1px;
+  }
 `;
 
 class Collapse extends Component {
