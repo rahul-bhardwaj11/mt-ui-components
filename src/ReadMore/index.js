@@ -47,10 +47,10 @@ class ReadMore extends Component {
   render() {
     const {
       children,
+      showViewMore,
       moreText,
       lessText,
       lines,
-      hideViewMore,
       className
     } = this.props;
     const { expanded, truncated } = this.state;
@@ -59,19 +59,24 @@ class ReadMore extends Component {
       <MTReadMore className={className}>
         <Truncate
           lines={!expanded && lines}
-          ellipsis={[
-            <span key="3dot">...</span>,
-            <div className="viewMore" key="view_more" style={hideViewMore}>
-              <a onClick={this.toggleLines}>{lessText}</a>
-            </div>
-          ]}
+          ellipsis={
+            <React.Fragment>
+              <span key="3dot">...</span>
+              {showViewMore && (
+                <div className="viewMore" key="view_more">
+                  <a onClick={this.toggleLines}>{lessText}</a>
+                </div>
+              )}
+            </React.Fragment>
+          }
           onTruncate={this.handleTruncate}
         >
           {children}
         </Truncate>
         {!truncated &&
-          expanded && (
-            <span className="viewLess" style={hideViewMore}>
+          expanded &&
+          showViewMore && (
+            <span className="viewLess">
               <a onClick={this.toggleLines}> {moreText}</a>
             </span>
           )}
@@ -84,7 +89,7 @@ ReadMore.defaultProps = {
   lines: 3,
   moreText: 'Read More',
   lessText: 'Read Less',
-  hideViewMore: { display: 'block' }
+  showViewMore: true
 };
 
 ReadMore.propTypes = {
@@ -92,7 +97,7 @@ ReadMore.propTypes = {
   lines: PropTypes.number,
   moreText: PropTypes.string,
   lessText: PropTypes.string,
-  hideViewMore: PropTypes.object,
+  showViewMore: PropTypes.bool,
   className: PropTypes.string
 };
 
