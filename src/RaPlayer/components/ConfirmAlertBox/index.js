@@ -62,12 +62,11 @@ export default class ConfirmAlertBox extends Component {
   }
 }
 
-let root;
 const targetId = 'an-confirm-alert';
 
 function removeElementReconfirm() {
   const target = document.getElementById(targetId);
-  render('', target, root);
+  render('', target);
   target.parentNode.removeChild(target);
 }
 
@@ -75,7 +74,7 @@ function createElementReconfirm(properties) {
   const divTarget = document.createElement('div');
   divTarget.id = targetId;
   document.body.appendChild(divTarget);
-  root = render(<ConfirmAlertBox {...properties} />, divTarget);
+  render(<ConfirmAlertBox {...properties} />, divTarget);
 }
 
 export function ConfirmAlert(properties) {

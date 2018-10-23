@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import style from './index.scss';
 import { actions } from '../../actions';
 import { toHHMMSS } from '../../utils/core';
-import { namespaceConnect } from '../../utils/enhancer';
+import { connect } from '../../utils/providerHelper';
 import EmojiPicker from '../../components/EmojiPicker';
 
 function BoxContent({
@@ -124,8 +124,12 @@ function mapStateToProps(state) {
     xPos: state.commentHelperBox.data.xPos,
     time: state.commentHelperBox.data.time,
     downArrowXPos: state.commentHelperBox.data.downArrowXPos,
-    videoWidth: state.media.videoWidth
+    videoWidth: state.media.videoWidth,
+    postComment: state.postComment
   };
 }
 
-export default namespaceConnect(mapStateToProps, actions)(CommentHelperBox);
+export default connect(
+  mapStateToProps,
+  actions
+)(CommentHelperBox);

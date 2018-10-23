@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
-import { getStore } from '../store';
+import React, { Component, createContext } from 'react';
+import { createStore } from './storeHelper';
+// import { getStore } from '../store';
 import PropTypes from 'prop-types';
-import { Provider } from 'unistore/react';
+import getInitialState from './initialState';
+import deepmerge from 'deepmerge';
 
-let count = 0;
+const { Provider, Consumer } = createContext();
 
 export default function ProviderHelperHoc(Comp) {
   return class ProviderHelper extends Component {
@@ -13,17 +15,64 @@ export default function ProviderHelperHoc(Comp) {
 
     constructor(props) {
       super(props);
-      const namespace = 'ra_' + count++;
-      this.namespace = namespace;
-      this.store = getStore(namespace, props);
+      this.store = createStore(getInitialState(props));
+      this.unsubscribe = this.store.subscribe(this.stateChanged);
+      window.raplayerStore = this.store;
+    }
+
+    stateChanged = () => {
+      this.setState({});
+    };
+
+    componentWillReceiveProps(nextProps) {
+      const currentState = this.store.getState();
+      const newState = deepmerge(currentState, nextProps);
+      this.store.setState(newState);
+    }
+
+    componentWillUnmount() {
+      this.unsubscribe();
     }
 
     render() {
       return (
-        <Provider store={this.store}>
+        <Provider value={this.store}>
           <Comp {...this.props} namespace={this.namespace} />
         </Provider>
       );
     }
+  };
+}
+
+const noop = state => state;
+
+export function connect(mapStateToProps = noop, actions) {
+  return function connectedWrapper(Comp) {
+    function connected(ownProps) {
+      return (
+        <Consumer>
+          {store => {
+            const stateProps = mapStateToProps(store.getState());
+            const reducers = actions();
+            let boundActions = {};
+            Object.keys(actions()).reduce((boundActions, v) => {
+              boundActions[v] = function bound(payload) {
+                const newState = reducers[v](store.getState(), payload);
+                store.setState(newState);
+              };
+              return boundActions;
+            }, boundActions);
+            const mergedProps = {
+              ...stateProps,
+              ...ownProps,
+              ...boundActions
+            };
+            return <Comp {...mergedProps} />;
+          }}
+        </Consumer>
+      );
+    }
+    connected.displayName = `Connected(${Comp.displayName || Comp.name})`;
+    return connected;
   };
 }

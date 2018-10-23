@@ -36,6 +36,15 @@ const props = {
   },
   onCommentPaneRender: function(count) {
     console.info(count);
+  },
+  postComment: function(comment) {
+    console.log(comment);
+  },
+  deleteComment: function(comment) {
+    console.log(comment);
+  },
+  editComment: function(comment) {
+    console.log(comment);
   }
 };
 
@@ -54,3 +63,23 @@ const secondaryPlayerProps = {
 stories.add('With secondary player', () => (
   <RaPlayer {...secondaryPlayerProps} />
 ));
+
+const commentProps = {
+  ...props,
+  commentPane: {
+    activeComments: [
+      {
+        time: 2,
+        id: 3,
+        cname: 4,
+        author: {
+          id: 12,
+          name: 'Rama'
+        },
+        text: 'Abc'
+      }
+    ]
+  }
+};
+
+stories.add('With pre existing comments', () => <RaPlayer {...commentProps} />);

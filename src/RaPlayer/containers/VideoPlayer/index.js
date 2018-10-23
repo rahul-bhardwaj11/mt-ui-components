@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { actions } from '../../actions';
-import { namespaceConnect } from '../../utils/enhancer';
+import { connect } from '../../utils/providerHelper';
 import style from './index.scss';
 import Player from '../../components/Player';
 import VideoControls from '../VideoControls';
@@ -67,7 +67,7 @@ class VideoPlayerContainer extends Component {
   }
 
   onSelectTrack(selectedTrack) {
-    let currentTime = this.videoPlayer.getCurrentTime();
+    let currentTime = this.props.currentTime;
     let isPaused = this.videoPlayer.isPaused();
     this.setState({
       selectedTrack
@@ -129,9 +129,10 @@ class VideoPlayerContainer extends Component {
       showControlsOnly,
       namespace,
       controlOptions,
-      downloadSrc
+      downloadSrc,
+      currentTime
     } = this.props;
-    let { controls, selectedTrack, showPlayButton, currentTime } = this.state;
+    let { controls, selectedTrack, showPlayButton } = this.state;
     controls = showControlsOnly || controls;
     let downloadSrcLink = primaryTracks[selectedTrack].src;
     if (showControlsOnly) {
@@ -200,8 +201,12 @@ class VideoPlayerContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    fullScreen: state.media.fullScreen
+    fullScreen: state.media.fullScreen,
+    currentTime: state.media.currentTime
   };
 }
 
-export default namespaceConnect(mapStateToProps, actions)(VideoPlayerContainer);
+export default connect(
+  mapStateToProps,
+  actions
+)(VideoPlayerContainer);

@@ -27,7 +27,7 @@ class CommentBarDot extends Component {
     }
     return (
       <div className={style.container}>
-        {comments.map((comment, i) => {
+        {comments.map(comment => {
           let position = (comment.time * 100) / videoDuration;
           let divStyle = {
             left: position + '%',
@@ -38,7 +38,7 @@ class CommentBarDot extends Component {
               className={style.commentBarDot}
               style={divStyle}
               text={comment.text}
-              key={i}
+              key={comment.id}
               onMouseOver={e => onMouseIn(e, comment)}
               onMouseOut={onMouseOut}
             />

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import style from './index.scss';
 import { actions } from '../../actions';
 import { toHHMMSS, getColorMap, parseText } from '../../utils/core';
-import { namespaceConnect } from '../../utils/enhancer';
+import { connect } from '../../utils/providerHelper';
 import { ConfirmAlert } from '../../components/ConfirmAlertBox';
 import {
   STRING_DELETE_COMMENT,
@@ -114,7 +114,9 @@ class CommentBox extends Component {
       confirmLabel: STRING_DELETE,
       cancelLabel: STRING_CANCEL,
       onConfirm: () => {
-        this.props.deleteComment(props);
+        this.props.deleteComment({
+          id: props.id
+        });
         this.props.hideCommentBox();
       },
       onCancel: () => {}
@@ -139,18 +141,23 @@ class CommentBox extends Component {
           text: text,
           time: this.props.time
         },
-        isCommentBox: true
+        isCommentBox: true,
+        author: this.props.author
       });
       return;
     }
     this.props.postComment({
-      text,
-      time: this.props.time
+      commentObj: {
+        text,
+        time: this.props.time
+      }
     });
+    this.closeSelf();
   }
 
   componentWillUnmount() {
     clearTimeout(this.state.timer);
+    clearTimeout(this.autoSizeTimer);
     this.commentTextArea.removeEventListener('keydown', this.autosize);
   }
 
@@ -159,7 +166,7 @@ class CommentBox extends Component {
     if (!el) {
       return;
     }
-    setTimeout(function() {
+    this.autoSizeTimer = setTimeout(function() {
       el.style.cssText = 'height:auto; padding:0';
       el.style.cssText = 'height:' + el.scrollHeight + 'px';
     }, 0);
@@ -281,8 +288,14 @@ function mapStateToProps(state) {
     readOnly: state.commentBox.data.readOnly,
     id: state.commentBox.data.id,
     downArrowXPos: state.commentBox.data.downArrowXPos,
-    showError: state.commentBox.error
+    showError: state.commentBox.error,
+    postComment: state.postComment,
+    editComment: state.editComment,
+    deleteComment: state.deleteComment
   };
 }
 
-export default namespaceConnect(mapStateToProps, actions)(CommentBox);
+export default connect(
+  mapStateToProps,
+  actions
+)(CommentBox);

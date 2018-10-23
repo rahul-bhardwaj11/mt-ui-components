@@ -10,7 +10,7 @@ import {
   getColorMap,
   isIE
 } from '../../utils/core';
-import { namespaceConnect } from '../../utils/enhancer';
+import { connect } from '../../utils/providerHelper';
 import CommentBox from '../CommentBox';
 import CommentHelperBox from '../CommentHelperBox';
 import TimeBar from '../../components/TimeBar';
@@ -406,7 +406,6 @@ class VideoControls extends Component {
 function mapStateToProps(state) {
   return {
     ...state,
-    currentTime: state.media.currentTime,
     comments: state.commentPane.activeComments,
     mediaState: state.media.state,
     videoDuration: state.media.duration,
@@ -414,4 +413,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default namespaceConnect(mapStateToProps, actions)(VideoControls);
+export default connect(
+  mapStateToProps,
+  actions
+)(VideoControls);
