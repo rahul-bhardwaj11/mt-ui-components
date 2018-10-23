@@ -18,8 +18,8 @@ const props = {
       label: '360p'
     },
     {
-      src: '360p.mp4',
-      label: '144p'
+      src: '720p.mp4',
+      label: '720p'
     }
   ],
   app: {
@@ -48,7 +48,10 @@ const props = {
   }
 };
 
-stories.add('Default Player', withInfo('Information')(() => <RaPlayer {...props} />));
+stories.add(
+  'Default Player',
+  withInfo('Information')(() => <RaPlayer {...props} />)
+);
 
 const secondaryPlayerProps = {
   ...props,

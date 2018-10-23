@@ -27,20 +27,17 @@ class VideoPlayerContainer extends Component {
   }
 
   /* 
-    	for now we will be selecting any 360p track by default .
     	Later we can optimize this method to check for best suitable track for end uses
     */
 
   setTrackOnStart() {
     let selectedTrack = 0;
-    this.props.primaryTracks.forEach((track, i) => {
-      if (track.label.indexOf('360') > -1) {
-        selectedTrack = i;
-      }
-    });
+    const defaultTrack =
+      this.props.primaryTracks.find(track => track.default) ||
+      this.props.primaryTracks[0];
     this.state = {
       ...this.state,
-      selectedTrack
+      selectedTrack: this.props.primaryTracks.indexOf(defaultTrack)
     };
   }
 

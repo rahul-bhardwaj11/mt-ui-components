@@ -1,6 +1,5 @@
 import React, { Component, createContext } from 'react';
 import { createStore } from './storeHelper';
-import PropTypes from 'prop-types';
 import getInitialState from './initialState';
 import deepmerge from 'deepmerge';
 
@@ -8,10 +7,6 @@ const { Provider, Consumer } = createContext();
 
 export default function ProviderHelperHoc(Comp) {
   return class ProviderHelper extends Component {
-    static propTypes = {
-      app: PropTypes.object
-    };
-
     constructor(props) {
       super(props);
       this.store = createStore(getInitialState(props));
