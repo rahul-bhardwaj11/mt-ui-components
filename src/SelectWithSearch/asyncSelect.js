@@ -151,7 +151,11 @@ export default class AsyncSelect extends Component {
       let uniqueOptions = [];
       options.length &&
         options.forEach(option => {
-          if (currentOptions.options.indexOf(option) < 0) {
+          if (
+            !currentOptions.options.filter(
+              currOption => option.value == currOption.value
+            ).length
+          ) {
             uniqueOptions.push(option);
           }
         });
@@ -216,6 +220,7 @@ export default class AsyncSelect extends Component {
     );
     await this.setState(prevState => ({
       selectedItems,
+      prevSelectedItems: selectedItems,
       optionsCache: {
         ...prevState.optionsCache,
         [search]: {
