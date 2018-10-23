@@ -56,7 +56,11 @@ export default class SyncSelect extends Component {
     const selectedItems = this.getSelectedItemsFromValue(newValue);
     let sortedOptions = this.__sortOptions(options, selectedItems);
     sortedOptions = this.normalizeOption(sortedOptions);
-    this.setState({ selectedItems, options: sortedOptions });
+    this.setState({
+      selectedItems,
+      options: sortedOptions,
+      prevSelectedItems: selectedItems
+    });
     document.addEventListener('mousedown', this.handleClickOutside);
   }
 
