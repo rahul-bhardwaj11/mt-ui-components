@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Dropdown from '../Dropdown';
 import Button from '../Button';
 import styled from 'styled-components';
+import Icon from '../Icon';
 
 const MtGroupDropdown = styled.div`
   .ant-dropdown {
@@ -11,8 +12,8 @@ const MtGroupDropdown = styled.div`
   .ant-dropdown-trigger {
     .ant-btn-primary {
       span {
-        font-size: 9px;
-        margin-top: 4px;
+        font-size: 8px;
+        margin-top: 7px;
         display: inline-block;
         vertical-align: top;
       }
@@ -65,7 +66,7 @@ class GroupButtonDropdown extends Component {
                 borderLeft: '1px solid'
               }}
             >
-              <span>&#9660;</span>
+              <Icon type="down_fillcaret" />
             </Button>
           </div>
         </Dropdown>
