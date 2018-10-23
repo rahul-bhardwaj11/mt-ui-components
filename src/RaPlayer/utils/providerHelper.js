@@ -1,6 +1,5 @@
 import React, { Component, createContext } from 'react';
 import { createStore } from './storeHelper';
-// import { getStore } from '../store';
 import PropTypes from 'prop-types';
 import getInitialState from './initialState';
 import deepmerge from 'deepmerge';

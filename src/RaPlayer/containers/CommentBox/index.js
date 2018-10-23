@@ -143,14 +143,14 @@ class CommentBox extends Component {
         isCommentBox: true,
         author: this.props.author
       });
-      return;
+    } else {
+      this.props.postComment({
+        commentObj: {
+          text,
+          time: this.props.time
+        }
+      });
     }
-    this.props.postComment({
-      commentObj: {
-        text,
-        time: this.props.time
-      }
-    });
     this.closeSelf();
   }
 
