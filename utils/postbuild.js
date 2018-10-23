@@ -1,5 +1,5 @@
 /*eslint-disable */
-const {readdir, writeFileSync, lstatSync} = require("fs");
+const {readdirSync, writeFileSync, lstatSync} = require("fs");
 const {join} = require("path")
 const chalk = require("chalk")
 const {spawn} = require('child_process')
@@ -8,13 +8,13 @@ const buildDir = join(__dirname, "..", "lib")
 const indexFilePath = join(buildDir, "index.js")
 
 // generating index file
-readdir(buildDir, generateIndexFile);
+const files = readdirSync(buildDir, generateIndexFile);
+generateIndexFile(files)
 
 // adding build directory
 spawn('git', ['add', buildDir])
 
-function generateIndexFile(err, files) {
-  if (err) return console.log(err);
+function generateIndexFile(files) {
   const filteredFolder = files.filter(item => {
     let itemPath = join(buildDir, item)
     return (
