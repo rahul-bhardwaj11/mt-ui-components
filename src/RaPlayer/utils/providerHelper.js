@@ -17,7 +17,6 @@ export default function ProviderHelperHoc(Comp) {
       super(props);
       this.store = createStore(getInitialState(props));
       this.unsubscribe = this.store.subscribe(this.stateChanged);
-      window.raplayerStore = this.store;
     }
 
     stateChanged = () => {
