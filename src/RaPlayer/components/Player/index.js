@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import style from './index.scss';
 import Draggable from '../../components/Draggable/index';
 import Video from '../../components/Video/index';
-import instances from '../../api/players';
 
 class Player extends Component {
   static propTypes = {
@@ -96,10 +95,6 @@ class Player extends Component {
 
   isPaused() {
     return this.video.isPaused();
-  }
-
-  componentDidMount() {
-    instances.push(this);
   }
 
   onVideoEndedHandler = () => {

@@ -3,9 +3,8 @@ import style from './index.scss';
 import { actions } from '../../actions';
 import { toHHMMSS, getColorMap, parseText } from '../../utils/core';
 import { connect } from '../../utils/providerHelper';
-import { ConfirmAlert } from '../../components/ConfirmAlertBox';
+import Modal from '../../../Modal';
 import {
-  STRING_DELETE_COMMENT,
   STRING_DELETED_COMMENT_CANT_BE_RESTORED,
   STRING_DELETE,
   STRING_CANCEL,
@@ -108,18 +107,18 @@ class CommentBox extends Component {
   deleteClickHandler(event) {
     event.stopPropagation();
     let props = this.props;
-    ConfirmAlert({
-      title: STRING_DELETE_COMMENT,
-      message: STRING_DELETED_COMMENT_CANT_BE_RESTORED,
-      confirmLabel: STRING_DELETE,
-      cancelLabel: STRING_CANCEL,
-      onConfirm: () => {
+    Modal.confirm({
+      showFooter: true,
+      title: STRING_DELETED_COMMENT_CANT_BE_RESTORED,
+      okText: STRING_DELETE,
+      cancelText: STRING_CANCEL,
+      closable: true,
+      onOk: () => {
         this.props.deleteComment({
           id: props.id
         });
         this.props.hideCommentBox();
-      },
-      onCancel: () => {}
+      }
     });
   }
 

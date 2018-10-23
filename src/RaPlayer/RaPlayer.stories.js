@@ -70,7 +70,7 @@ const commentProps = {
     activeComments: [
       {
         time: 2,
-        id: 3,
+        id: '3',
         cname: 4,
         author: {
           id: 12,
