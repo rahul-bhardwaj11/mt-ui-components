@@ -125,7 +125,8 @@ function mapStateToProps(state) {
     time: state.commentHelperBox.data.time,
     downArrowXPos: state.commentHelperBox.data.downArrowXPos,
     videoWidth: state.media.videoWidth,
-    postComment: state.postComment
+    postComment: state.postComment,
+    BoxContentComp: state.BoxContentComp
   };
 }
 
