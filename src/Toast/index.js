@@ -201,7 +201,7 @@ export function hideToast() {
   if (!MountOn) {
     return;
   }
-  ReactDOM.unmountComponentAtNode(MountOn);
+  ReactDOM.render(null, MountOn);
   addBodyOverflow('auto');
 }
 

@@ -60,6 +60,7 @@ stories
         type={text('type', 'text')}
         size={select('size', ['large', 'medium', 'small'])}
         disabled={boolean('disabled', false)}
+        danger={boolean('danger', false)}
       >
         {text('children', 'Submit')}
       </Button>

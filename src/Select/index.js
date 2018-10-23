@@ -84,10 +84,10 @@ const MtWrapper = styled.div`
   .ant-select-dropdown-menu {
     background-color: ${theme.colors.WHITE};
     color: ${theme.colors.GREY};
-    margin: 8px;
-    padding-bottom: 8px;
+    margin: 8px;    
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
+      color: #606369;
       // &:first-child {
       //   background-color: ${theme.colors.WHITE};
       // }
