@@ -7,7 +7,7 @@
   "main": "./lib/index.js",
   "license": "MIT",
   "scripts": {
-    "story": "start-storybook -p 6006",
+    "story": "start-storybook -p 6006 -s ./public",
     "test": "jest --verbose ",
     "test:update": "jest -u",
     "start": "concurrently  \"npm run story\" \"npm run babel:watch\" \"npm run lint:watch\" --kill-others --names 'storybook,babel,lint'",
@@ -124,6 +124,7 @@
     "antd": "3.9.0",
     "babel-plugin-styled-components": "^1.6.3",
     "classnames": "^2.2.6",
+    "deepmerge": "^2.2.1",
     "identity-obj-proxy": "^3.0.0",
     "install": "^0.11.2",
     "moment": "^2.22.2",
@@ -140,7 +141,8 @@
     "react-sortable-tree": "^2.2.0",
     "react-test-renderer": "^16.1.1",
     "react-tether": "^0.5.7",
-    "react-truncate": "^2.4.0"
+    "react-truncate": "^2.4.0",
+    "unistore": "^3.0.6"
   },
   "peerDependencies": {
     "react": "16.3.0",
