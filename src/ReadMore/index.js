@@ -5,6 +5,8 @@ import Truncate from 'react-truncate';
 import mixins from '../styles/mixins';
 
 const MTReadMore = styled.div`
+  line-height: initial;
+
   .viewMore,
   .viewLess {
     margin: 10px 0px;
@@ -43,18 +45,24 @@ class ReadMore extends Component {
   }
 
   render() {
-    const { children, moreText, lessText, lines } = this.props;
-
+    const {
+      children,
+      moreText,
+      lessText,
+      lines,
+      hideViewMore,
+      className
+    } = this.props;
     const { expanded, truncated } = this.state;
 
     return (
-      <MTReadMore>
+      <MTReadMore className={className}>
         <Truncate
           lines={!expanded && lines}
           ellipsis={[
             <span key="3dot">...</span>,
-            <div className="viewMore" key="view_more">
-              <a onClick={this.toggleLines}>{moreText}</a>
+            <div className="viewMore" key="view_more" style={hideViewMore}>
+              <a onClick={this.toggleLines}>{lessText}</a>
             </div>
           ]}
           onTruncate={this.handleTruncate}
@@ -63,8 +71,8 @@ class ReadMore extends Component {
         </Truncate>
         {!truncated &&
           expanded && (
-            <span className="viewLess">
-              <a onClick={this.toggleLines}> {lessText}</a>
+            <span className="viewLess" style={hideViewMore}>
+              <a onClick={this.toggleLines}> {moreText}</a>
             </span>
           )}
       </MTReadMore>
@@ -75,14 +83,17 @@ class ReadMore extends Component {
 ReadMore.defaultProps = {
   lines: 3,
   moreText: 'Read More',
-  lessText: 'Read Less'
+  lessText: 'Read Less',
+  hideViewMore: { display: 'block' }
 };
 
 ReadMore.propTypes = {
   children: PropTypes.node.isRequired,
   lines: PropTypes.number,
   moreText: PropTypes.string,
-  lessText: PropTypes.string
+  lessText: PropTypes.string,
+  hideViewMore: PropTypes.object,
+  className: PropTypes.string
 };
 
 export default ReadMore;
