@@ -7,7 +7,11 @@ const {spawn} = require('child_process')
 const buildDir = join(__dirname, "..", "lib")
 const indexFilePath = join(buildDir, "index.js")
 
+// generating index file
 readdir(buildDir, generateIndexFile);
+
+// adding build directory
+spawn('git', ['add', buildDir])
 
 function generateIndexFile(err, files) {
   if (err) return console.log(err);
@@ -26,7 +30,6 @@ function generateIndexFile(err, files) {
   const indexFile = _createIndexFile(filteredFolder)
   console.log("==========Writing Index File=========");
   writeFileSync(indexFilePath, indexFile)
-  spawn('git', ['add', indexFilePath])
 }
 
 function _createIndexFile(files) {
