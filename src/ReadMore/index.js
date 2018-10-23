@@ -5,6 +5,8 @@ import Truncate from 'react-truncate';
 import mixins from '../styles/mixins';
 
 const MTReadMore = styled.div`
+  line-height: initial;
+
   .viewMore,
   .viewLess {
     margin: 10px 0px;
@@ -43,28 +45,39 @@ class ReadMore extends Component {
   }
 
   render() {
-    const { children, moreText, lessText, lines } = this.props;
-
+    const {
+      children,
+      showViewMore,
+      moreText,
+      lessText,
+      lines,
+      className
+    } = this.props;
     const { expanded, truncated } = this.state;
 
     return (
-      <MTReadMore>
+      <MTReadMore className={className}>
         <Truncate
           lines={!expanded && lines}
-          ellipsis={[
-            <span key="3dot">...</span>,
-            <div className="viewMore" key="view_more">
-              <a onClick={this.toggleLines}>{moreText}</a>
-            </div>
-          ]}
+          ellipsis={
+            <React.Fragment>
+              <span key="3dot">...</span>
+              {showViewMore && (
+                <div className="viewMore" key="view_more">
+                  <a onClick={this.toggleLines}>{lessText}</a>
+                </div>
+              )}
+            </React.Fragment>
+          }
           onTruncate={this.handleTruncate}
         >
           {children}
         </Truncate>
         {!truncated &&
-          expanded && (
+          expanded &&
+          showViewMore && (
             <span className="viewLess">
-              <a onClick={this.toggleLines}> {lessText}</a>
+              <a onClick={this.toggleLines}> {moreText}</a>
             </span>
           )}
       </MTReadMore>
@@ -75,14 +88,17 @@ class ReadMore extends Component {
 ReadMore.defaultProps = {
   lines: 3,
   moreText: 'Read More',
-  lessText: 'Read Less'
+  lessText: 'Read Less',
+  showViewMore: true
 };
 
 ReadMore.propTypes = {
   children: PropTypes.node.isRequired,
   lines: PropTypes.number,
   moreText: PropTypes.string,
-  lessText: PropTypes.string
+  lessText: PropTypes.string,
+  showViewMore: PropTypes.bool,
+  className: PropTypes.string
 };
 
 export default ReadMore;

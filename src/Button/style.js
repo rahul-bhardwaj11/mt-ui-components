@@ -196,7 +196,10 @@ const MtButton = styled(AntButton)`
     &.ant-btn-text {
       border: 1px dashed transparent;
       background-color: transparent;
-      color: ${theme.colors.OUTER_SPACE};
+      color: ${props =>
+        props.danger
+          ? `${theme.colors.BITTERSWEET}`
+          : ` ${theme.colors.OUTER_SPACE}`};
 
       ${props =>
         props.active
@@ -216,6 +219,10 @@ const MtButton = styled(AntButton)`
             background-color: ${theme.colors.TROPICAL_BLUE}`
             : `background-color: transparent;
               color: ${theme.colors.INDIGO}`};
+        ${props =>
+          props.danger
+            ? `color: ${theme.colors.BITTERSWEET}`
+            : `color: ${theme.colors.OUTER_SPACE}`};
       }
       &.ant-btn-sm {
         font-size: 12px;
