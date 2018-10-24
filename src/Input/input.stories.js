@@ -32,13 +32,4 @@ stories
         />
       </div>
     ))
-  )
-  .add(
-    'TextArea',
-    withInfo('Basic usage of the textarea')(() => (
-      <Input.TextArea
-        placeholder={text('Placeholder', 'Placeholder')}
-        autosize
-      />
-    ))
   );
