@@ -87,6 +87,7 @@ const MtWrapper = styled.div`
     margin: 8px;    
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
+      color: #606369;
       // &:first-child {
       //   background-color: ${theme.colors.WHITE};
       // }
