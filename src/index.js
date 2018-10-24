@@ -24,7 +24,6 @@ export GroupButtonDropdown from './GroupButtonDropdown';
 export Icon from './Icon';
 export InfiniteLoader from './InfiniteLoader';
 export Input from './Input';
-export Introduction from './Introduction';
 export Layout from './Layout';
 export Link from './Link';
 export Loader from './Loader';
