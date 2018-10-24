@@ -4,6 +4,7 @@ import AntRadio from 'antd/lib/radio';
 import 'antd/lib/radio/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import mixins from '../styles/mixins';
 
 const MtRadio = styled(AntRadio)`
   .ant-radio-inner:after {
@@ -28,31 +29,26 @@ const MtRadio = styled(AntRadio)`
       }
     }
   }
-  .ant-radio-wrapper-checked {
+  &.ant-radio-wrapper-checked {
     span.ant-radio + * {
-      color: ${theme.colors.SHARK};
+      ${mixins.blackLink()};
     }
   }
   span.ant-radio + * {
-    color: ${theme.colors.SHARK};
+    ${mixins.greyLink()};
   }
 
-  &.ant-radio-wrapper-disabled{
-    span.ant-radio + *{
-      color:${theme.colors.OUTER_SPACE};
-      cursor:default;
+  &.ant-radio-wrapper-disabled {
+    span.ant-radio + * {
+      color: ${theme.colors.OUTER_SPACE};
     }
   }
-  
-  &.ant-radio-wrapper.ant-radio-wrapper-disabled:hover span.ant-radio + *{
-    color:${theme.colors.OUTER_SPACE};
-    cursor:default;
+  .ant-radio-disabled .ant-radio-inner {
+    border-color: ${theme.colors.DISABLE} !important;
+    background-color: #f8f8f8;
   }
-  .ant-radio-disabled{
-    .ant-radio-input{
-      cursor:default;
-    }
-  }
+  &.ant-radio-wrapper.ant-radio-wrapper-disabled:hover span.ant-radio + * {
+    color: ${theme.colors.OUTER_SPACE};
   }
 `;
 
