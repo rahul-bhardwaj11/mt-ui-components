@@ -80,7 +80,8 @@ class Video extends Component {
     src: PropTypes.string,
     id: PropTypes.string,
     heightAuto: PropTypes.string,
-    hidemedia: PropTypes.bool
+    hidemedia: PropTypes.bool,
+    mediaState: PropTypes.oneOf(['PLAY', 'PAUSE'])
   };
 
   constructor(props) {
@@ -184,6 +185,20 @@ class Video extends Component {
     });
   };
 
+  updateVideoState = mediaState => {
+    if (!this.video) {
+      return;
+    }
+    switch (mediaState) {
+      case 'PLAY':
+        this.play();
+        break;
+      case 'PAUSE':
+        this.pause();
+        break;
+    }
+  };
+
   componentDidMount() {
     this.attachEvents();
     this.video.volume = 0.5;
@@ -197,13 +212,15 @@ class Video extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     if (nextProps.currentTime !== this.props.currentTime) return true;
+    if (nextProps.mediaState !== this.props.mediaState) return true;
     if (nextProps.src !== this.props.src) return true;
     if (nextState.loading !== this.state.loading) return true;
     else return false;
   }
 
   render() {
-    const { id, src, hidemedia, heightAuto } = this.props;
+    const { id, src, hidemedia, heightAuto, mediaState } = this.props;
+    this.updateVideoState(mediaState);
     const { loading } = this.state;
     let kClass;
     if (hidemedia) {

@@ -14,7 +14,7 @@ export function createStore(initialState = {}) {
       subscribers.push(fn);
     }
     return () => {
-      subscribers = subscribers.filter(fn => !subscribers.includes(fn));
+      subscribers = subscribers.filter(fun => fun !== fn);
     };
   };
 

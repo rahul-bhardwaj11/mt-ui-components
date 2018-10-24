@@ -10,12 +10,8 @@ export default function ProviderHelperHoc(Comp) {
     constructor(props) {
       super(props);
       this.store = createStore(getInitialState(props));
-      this.unsubscribe = this.store.subscribe(this.stateChanged);
+      window.raPlayer = this.store;
     }
-
-    stateChanged = () => {
-      this.setState({});
-    };
 
     componentWillReceiveProps(nextProps) {
       const currentState = this.store.getState();
@@ -23,14 +19,11 @@ export default function ProviderHelperHoc(Comp) {
       this.store.setState(newState);
     }
 
-    componentWillUnmount() {
-      this.unsubscribe();
-    }
-
     render() {
       return (
         <Provider value={this.store}>
-          <Comp {...this.props} namespace={this.namespace} />
+          {/* TODO: Remove prop dependency from video player container and get things from state */}
+          <Comp {...this.props} />
         </Provider>
       );
     }
@@ -41,31 +34,58 @@ const noop = state => state;
 
 export function connect(mapStateToProps = noop, actions) {
   return function connectedWrapper(Comp) {
-    function connected(ownProps) {
-      return (
-        <Consumer>
-          {store => {
-            const stateProps = mapStateToProps(store.getState());
-            const reducers = actions();
-            let boundActions = {};
-            Object.keys(actions()).reduce((boundActions, v) => {
-              boundActions[v] = function bound(payload) {
-                const newState = reducers[v](store.getState(), payload);
-                store.setState(newState);
-              };
-              return boundActions;
-            }, boundActions);
-            const mergedProps = {
-              ...stateProps,
-              ...ownProps,
-              ...boundActions
-            };
-            return <Comp {...mergedProps} />;
-          }}
-        </Consumer>
-      );
-    }
-    connected.displayName = `Connected(${Comp.displayName || Comp.name})`;
-    return connected;
+    return class Connected extends Component {
+      static displayName = `Connected(${Comp.displayName || Comp.name})`;
+
+      constructor() {
+        super();
+        this.stateChanged = this.stateChanged.bind(this);
+      }
+
+      stateChanged = () => {
+        this.setState({});
+      };
+
+      createBoundActions = () => {
+        const reducers = actions();
+        let boundActions = {};
+        Object.keys(actions()).reduce((boundActions, v) => {
+          boundActions[v] = payload => {
+            const newState = reducers[v](this.store.getState(), payload);
+            this.store.setState(newState);
+          };
+          return boundActions;
+        }, boundActions);
+        this.boundActions = boundActions;
+      };
+
+      componentWillUnmount() {
+        this.unsubscribe();
+      }
+
+      render() {
+        const ownProps = this.props;
+        return (
+          <Consumer>
+            {store => {
+              const stateProps = mapStateToProps(store.getState());
+              this.store = store;
+              this.unsubscribe = store.subscribe(this.stateChanged);
+              if (!this.boundActions) {
+                this.createBoundActions();
+              }
+              // TODO: have to fix this through memorization
+              let mergedProps = Object.assign(
+                {},
+                ownProps,
+                stateProps,
+                this.boundActions
+              );
+              return <Comp {...mergedProps} />;
+            }}
+          </Consumer>
+        );
+      }
+    };
   };
 }

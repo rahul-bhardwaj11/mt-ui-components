@@ -127,7 +127,8 @@ class VideoPlayerContainer extends Component {
       namespace,
       controlOptions,
       downloadSrc,
-      currentTime
+      currentTime,
+      mediaState
     } = this.props;
     let { controls, selectedTrack, showPlayButton } = this.state;
     controls = showControlsOnly || controls;
@@ -165,6 +166,7 @@ class VideoPlayerContainer extends Component {
           currentTime={currentTime}
           id={id}
           secondaryId={secondaryId}
+          mediaState={mediaState}
         />
 
         <div
@@ -199,7 +201,8 @@ class VideoPlayerContainer extends Component {
 function mapStateToProps(state) {
   return {
     fullScreen: state.media.fullScreen,
-    currentTime: state.media.currentTime
+    currentTime: state.media.currentTime,
+    mediaState: state.media.state
   };
 }
 

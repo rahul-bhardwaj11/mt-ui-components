@@ -55,6 +55,7 @@ class VideoControls extends Component {
   constructor(props) {
     super(props);
     this.showTrackList;
+    this.togglePlayPause = this.togglePlayPause.bind(this);
     this.state = {
       showTrackList: false
     };
@@ -74,16 +75,14 @@ class VideoControls extends Component {
 
   togglePlayPause = () => {
     this.props.onVideoPlayed();
-    if (!this.video.paused) {
+    if (this.props.mediaState === 'PLAY') {
       this.props.updateMediaAttributes({
         state: 'PAUSE'
       });
-      this.video.pause();
     } else {
       this.props.updateMediaAttributes({
         state: 'PLAY'
       });
-      this.video.play();
     }
   };
 
