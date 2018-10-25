@@ -12,7 +12,10 @@ stories
   .add(
     'Default Radio',
     withInfo('Basic usage of the Radio')(() => (
-      <Radio checked={boolean('checked', true)}>
+      <Radio
+        checked={boolean('checked', true)}
+        disabled={boolean('disabled', true)}
+      >
         {text('children', 'Radio')}
       </Radio>
     ))

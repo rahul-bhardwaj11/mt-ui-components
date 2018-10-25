@@ -54,7 +54,7 @@ class Button extends Component {
         className={className}
         type={antdType}
         style={style}
-        danger={danger}
+        danger={danger ? 1 : 0}
         size={
           MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[size] ||
           MT_SIZE_TO_ANT_BUTTON_SIZE_MAP['large']
