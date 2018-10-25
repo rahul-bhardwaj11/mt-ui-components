@@ -141,7 +141,10 @@ export default class SyncSelect extends Component {
     return sortedOptions;
   };
 
-  onCheckboxClick = data => {
+  onCheckboxClick = (data, event) => {
+    if (event) {
+      return;
+    }
     const selectedItems = [...this.state.selectedItems];
     let index = selectedItems.indexOf(data);
     if (index < 0) {
@@ -494,6 +497,7 @@ export default class SyncSelect extends Component {
             options={options}
             classNamePrefix={'mt-react-select'}
             {...selectProps}
+            backspaceRemovesValue={false}
           />
         )}
       </React.Fragment>
