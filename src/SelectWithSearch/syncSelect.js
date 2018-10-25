@@ -141,7 +141,10 @@ export default class SyncSelect extends Component {
     return sortedOptions;
   };
 
-  onCheckboxClick = data => {
+  onCheckboxClick = (data, event) => {
+    if (event) {
+      return;
+    }
     const selectedItems = [...this.state.selectedItems];
     let index = selectedItems.indexOf(data);
     if (index < 0) {
@@ -443,7 +446,7 @@ export default class SyncSelect extends Component {
           autoFocus: showInput,
           isFocused: true,
           autosize: false,
-          onBlur: this.handleMultiOnSelect,
+          //onBlur: this.handleMultiOnSelect,
           inputValue: inputValue,
           onInputChange: this.onInputChange
         }
@@ -454,7 +457,7 @@ export default class SyncSelect extends Component {
             SingleValue: this.handleSingleValue
           },
           onChange: this.handleSingleOnSelect,
-          onBlur: this.handleSingleOnBlur,
+          //onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
           isFocused: true,
           backspaceRemovesValue: false,
@@ -494,6 +497,7 @@ export default class SyncSelect extends Component {
             options={options}
             classNamePrefix={'mt-react-select'}
             {...selectProps}
+            backspaceRemovesValue={false}
           />
         )}
       </React.Fragment>
