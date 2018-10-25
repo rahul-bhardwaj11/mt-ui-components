@@ -231,4 +231,85 @@ class Select extends Component {
   }
 }
 
+class AsyncSelect extends Component {
+  static propTypes = {
+    handleSearch: PropTypes.func.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    options: PropTypes.array,
+    style: PropTypes.object,
+    placeholder: PropTypes.string,
+    title: PropTypes.string
+  };
+
+  static defaultProps = {
+    style: { minWidth: 125 }
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: undefined,
+      options: props.options
+    };
+  }
+
+  handleSearch = async value => {
+    const options = await this.props.handleSearch(value);
+    this.setState({
+      options
+    });
+  };
+
+  handleChange = value => {
+    this.setState({ value });
+    this.props.handleChange(value);
+  };
+
+  render() {
+    const { style } = this.props;
+
+    return (
+      <MtWrapper
+        innerRef={el => {
+          if (el) {
+            this.selectDropdownRef = el;
+          }
+        }}
+        style={style}
+      >
+        <AntSelect
+          {...this.props}
+          showSearch
+          value={this.state.value}
+          onSearch={this.handleSearch}
+          onChange={this.handleChange}
+          filterOption={false}
+          defaultActiveFirstOption={false}
+          showArrow={false}
+        >
+          {this.state.options &&
+            this.state.options.map(option => {
+              return (
+                <Option
+                  key={option.key}
+                  value={option.key}
+                  title={this.props.title || option.title}
+                >
+                  {typeof option.content === 'string' ? (
+                    <StringToHTML content={option.content} />
+                  ) : (
+                    option.content
+                  )}
+                  <Icon type="tick" />
+                </Option>
+              );
+            })}
+        </AntSelect>
+      </MtWrapper>
+    );
+  }
+}
+
+Select.Async = AsyncSelect;
+
 export default Select;
