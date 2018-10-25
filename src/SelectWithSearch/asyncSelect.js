@@ -196,17 +196,10 @@ export default class AsyncSelect extends Component {
 
   __loadOptions = (search, prevOptions) => {
     let { promiseOption, pageSize } = this.props;
-    // let debounce = 500;
-    // let status;
-    // if(status){
-    //   return Promise.resolve();
-    // }
     return new Promise(resolve => {
       let offset = prevOptions.length;
-      // status = 1;
       promiseOption({ search, offset, pageSize }).then(options => {
         resolve({ options, hasMore: options.length === pageSize });
-        // status = 0;
       }, {});
     });
   };
