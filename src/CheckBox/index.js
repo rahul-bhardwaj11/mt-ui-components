@@ -52,7 +52,9 @@ const MtCheckbox = styled(AntCheckbox)`
     }
     .ant-checkbox + span {
       min-width: 125px;
+      padding: 0px;
     }
+
     .ant-checkbox-inner {
       width: 14px;
       height: 14px;
