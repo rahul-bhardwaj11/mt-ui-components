@@ -58,7 +58,7 @@ export default class AsyncSelect extends Component {
 
   static defaultProps = {
     cacheUniq: null,
-    pageSize: 10,
+    pageSize: 15,
     isButton: false,
     buttonLabel: 'filter'
   };
@@ -152,9 +152,9 @@ export default class AsyncSelect extends Component {
       options.length &&
         options.forEach(option => {
           if (
-            !currentOptions.options.filter(
+            !currentOptions.options.some(
               currOption => option.value == currOption.value
-            ).length
+            )
           ) {
             uniqueOptions.push(option);
           }
@@ -188,7 +188,9 @@ export default class AsyncSelect extends Component {
     //const { sortOptions } = this.props;
     //if (!sortOptions) return options;
     const optionsThatAreNotSelected = options.filter(option => {
-      return selectedItems.indexOf(option) < 0;
+      return !selectedItems.some(
+        currOption => option.value == currOption.value
+      );
     });
     const newOptions = [...selectedItems, ...optionsThatAreNotSelected];
     return newOptions;
@@ -276,7 +278,7 @@ export default class AsyncSelect extends Component {
     }
     if (this.iconRef && this.iconRef.contains(event.target)) {
       this.setState({ inputValue: '', search: '' });
-      this.isBlurActive = true;
+      this.isIconClicked = true;
     }
   };
 
@@ -284,7 +286,10 @@ export default class AsyncSelect extends Component {
     document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
-  onCheckboxClick = data => {
+  onCheckboxClick = (data, event) => {
+    if (event) {
+      return;
+    }
     const selectedItems = [...this.state.selectedItems];
     let index = selectedItems.indexOf(data);
     if (index < 0) {
@@ -680,6 +685,7 @@ export default class AsyncSelect extends Component {
             autoload={false}
             onMenuScrollToBottom={this.onMenuScrollToBottom}
             {...selectProps}
+            backspaceRemovesValue={false}
           />
         )}
       </React.Fragment>
