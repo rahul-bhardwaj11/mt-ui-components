@@ -132,7 +132,9 @@ export default class SyncSelect extends Component {
     const { sortOptions } = this.props;
     if (!sortOptions) return options;
     const optionsToSort = options.filter(option => {
-      return selectedItems.indexOf(option) < 0;
+      return !selectedItems.some(
+        currOption => option.value == currOption.value
+      );
     });
     optionsToSort.sort((item1, item2) => {
       return item1.label > item2.label;
@@ -141,7 +143,10 @@ export default class SyncSelect extends Component {
     return sortedOptions;
   };
 
-  onCheckboxClick = data => {
+  onCheckboxClick = (data, event) => {
+    if (event) {
+      return;
+    }
     const selectedItems = [...this.state.selectedItems];
     let index = selectedItems.indexOf(data);
     if (index < 0) {
@@ -494,6 +499,7 @@ export default class SyncSelect extends Component {
             options={options}
             classNamePrefix={'mt-react-select'}
             {...selectProps}
+            backspaceRemovesValue={false}
           />
         )}
       </React.Fragment>
