@@ -58,7 +58,7 @@ export default class AsyncSelect extends Component {
 
   static defaultProps = {
     cacheUniq: null,
-    pageSize: 10,
+    pageSize: 15,
     isButton: false,
     buttonLabel: 'filter'
   };
@@ -188,7 +188,9 @@ export default class AsyncSelect extends Component {
     //const { sortOptions } = this.props;
     //if (!sortOptions) return options;
     const optionsThatAreNotSelected = options.filter(option => {
-      return selectedItems.indexOf(option) < 0;
+      return !selectedItems.some(
+        currOption => option.value == currOption.value
+      );
     });
     const newOptions = [...selectedItems, ...optionsThatAreNotSelected];
     return newOptions;
@@ -276,7 +278,7 @@ export default class AsyncSelect extends Component {
     }
     if (this.iconRef && this.iconRef.contains(event.target)) {
       this.setState({ inputValue: '', search: '' });
-      this.isBlurActive = true;
+      this.isIconClicked = true;
     }
   };
 
