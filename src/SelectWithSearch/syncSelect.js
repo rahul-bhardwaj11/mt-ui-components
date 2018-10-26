@@ -132,7 +132,9 @@ export default class SyncSelect extends Component {
     const { sortOptions } = this.props;
     if (!sortOptions) return options;
     const optionsToSort = options.filter(option => {
-      return selectedItems.indexOf(option) < 0;
+      return !selectedItems.some(
+        currOption => option.value == currOption.value
+      );
     });
     optionsToSort.sort((item1, item2) => {
       return item1.label > item2.label;
