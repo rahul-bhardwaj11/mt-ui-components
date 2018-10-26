@@ -58,7 +58,7 @@ export default class AsyncSelect extends Component {
 
   static defaultProps = {
     cacheUniq: null,
-    pageSize: 10,
+    pageSize: 15,
     isButton: false,
     buttonLabel: 'filter'
   };
