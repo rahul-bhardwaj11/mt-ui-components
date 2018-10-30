@@ -10,7 +10,7 @@ const StyledForm = Styled(AntFrom)`
         line-height: unset;            
         .ant-form-explain {
             position: absolute;
-            line-height: 24px;
+            line-height: 18px;
             font-size: 12px; 
         }
     }
