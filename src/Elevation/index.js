@@ -32,13 +32,15 @@ const Elevation = styled.div`
   box-shadow: ${props => boxShadowWithLevel(props.level)};
   padding: ${({ padding }) => padding};
   width: ${({ width }) => width};
+  min-height: ${({ minHeight }) => minHeight};
 `;
 
 Elevation.propTypes = {
   width: PropTypes.string,
   padding: PropTypes.string,
   borderRadius: PropTypes.string,
-  level: PropTypes.number
+  level: PropTypes.number,
+  minHeight: PropTypes.string
 };
 
 export default Elevation;
