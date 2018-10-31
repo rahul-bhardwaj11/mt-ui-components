@@ -238,30 +238,19 @@ class AsyncSelect extends Component {
     options: PropTypes.array,
     style: PropTypes.object,
     placeholder: PropTypes.string,
-    title: PropTypes.string
+    title: PropTypes.string,
+    value: PropTypes.array
   };
 
   static defaultProps = {
     style: { minWidth: 125 }
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: undefined,
-      options: props.options
-    };
-  }
-
   handleSearch = async value => {
-    const options = await this.props.handleSearch(value);
-    this.setState({
-      options
-    });
+    this.props.handleSearch(value);
   };
 
   handleChange = value => {
-    this.setState({ value });
     this.props.handleChange(value);
   };
 
@@ -280,15 +269,15 @@ class AsyncSelect extends Component {
         <AntSelect
           {...this.props}
           showSearch
-          value={this.state.value}
+          value={this.props.value}
           onSearch={this.handleSearch}
           onChange={this.handleChange}
           filterOption={false}
           defaultActiveFirstOption={false}
           showArrow={false}
         >
-          {this.state.options &&
-            this.state.options.map(option => {
+          {this.props.options &&
+            this.props.options.map(option => {
               return (
                 <Option
                   key={option.key}
@@ -300,7 +289,6 @@ class AsyncSelect extends Component {
                   ) : (
                     option.content
                   )}
-                  <Icon type="tick" />
                 </Option>
               );
             })}
