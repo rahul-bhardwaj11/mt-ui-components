@@ -231,4 +231,73 @@ class Select extends Component {
   }
 }
 
+class AsyncSelect extends Component {
+  static propTypes = {
+    handleSearch: PropTypes.func.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    options: PropTypes.array,
+    style: PropTypes.object,
+    placeholder: PropTypes.string,
+    title: PropTypes.string,
+    value: PropTypes.array
+  };
+
+  static defaultProps = {
+    style: { minWidth: 125 }
+  };
+
+  handleSearch = async value => {
+    this.props.handleSearch(value);
+  };
+
+  handleChange = value => {
+    this.props.handleChange(value);
+  };
+
+  render() {
+    const { style } = this.props;
+
+    return (
+      <MtWrapper
+        innerRef={el => {
+          if (el) {
+            this.selectDropdownRef = el;
+          }
+        }}
+        style={style}
+      >
+        <AntSelect
+          {...this.props}
+          showSearch
+          value={this.props.value}
+          onSearch={this.handleSearch}
+          onChange={this.handleChange}
+          filterOption={false}
+          defaultActiveFirstOption={false}
+          showArrow={false}
+        >
+          {this.props.options &&
+            this.props.options.map(option => {
+              return (
+                <Option
+                  key={option.key}
+                  value={option.key}
+                  title={this.props.title || option.title}
+                >
+                  {typeof option.content === 'string' ? (
+                    <StringToHTML content={option.content} />
+                  ) : (
+                    option.content
+                  )}
+                </Option>
+              );
+            })}
+        </AntSelect>
+      </MtWrapper>
+    );
+  }
+}
+
+Select.Async = AsyncSelect;
+
 export default Select;
