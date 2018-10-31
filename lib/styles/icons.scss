@@ -26,6 +26,9 @@
 }
 
 :global {
+  .icon-globe:before {
+    content: '\e978';
+  }
   .icon-library:before {
     content: '\e900';
   }
