@@ -33,6 +33,7 @@ export Popover from './Popover';
 export RaPlayer from './RaPlayer';
 export Radio from './Radio';
 export ReadMore from './ReadMore';
+export Scrollbar from './Scrollbar';
 export Search from './Search';
 export Select from './Select';
 export SelectWithSearch from './SelectWithSearch';
