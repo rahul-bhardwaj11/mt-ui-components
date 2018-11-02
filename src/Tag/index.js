@@ -21,18 +21,11 @@ class Tag extends Component {
     padding: PropTypes.string,
     onClick: PropTypes.func,
     className: PropTypes.string
-    // margin: PropTypes.shape({
-    //   marginTop: PropTypes.string,
-    //   marginRight: PropTypes.string,
-    //   marginBottom: PropTypes.string,
-    //   marginLeft: PropTypes.string
-    // })
   };
 
   static defaultProps = {
     type: TYPES.NORMAL,
     onClick: () => {}
-    // margin: {}
   };
 
   state = { checked: true };
@@ -46,7 +39,6 @@ class Tag extends Component {
       children,
       type,
       checkable,
-      //margin,
       disabled,
       className,
       applied,
@@ -55,7 +47,6 @@ class Tag extends Component {
     let AntTagComponent = checkable ? AntTag.CheckableTag : AntTag;
 
     let WrappedTagProps = {
-      //margin,
       disabled,
       className,
       type,

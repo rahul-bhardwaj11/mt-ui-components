@@ -11,16 +11,6 @@ export const TYPES = {
   ACTION: 'action'
 };
 
-// const getMargin = props => {
-//   let {
-//     marginTop = "0px",
-//     marginRight = "5px",
-//     marginBottom = "12px",
-//     marginLeft = "0px"
-//   } = props.margin;
-//   return `${marginTop} ${marginRight} ${marginBottom} ${marginLeft}`;
-// };
-
 const AppliedStyle = css`
   .ant-tag {
     color: ${theme.colors.INDIGO};
