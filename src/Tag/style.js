@@ -11,15 +11,15 @@ export const TYPES = {
   ACTION: 'action'
 };
 
-const getMargin = props => {
-  let {
-    marginTop = '0px',
-    marginRight = '5px',
-    marginBottom = '12px',
-    marginLeft = '0px'
-  } = props.margin;
-  return `${marginTop} ${marginRight} ${marginBottom} ${marginLeft}`;
-};
+// const getMargin = props => {
+//   let {
+//     marginTop = "0px",
+//     marginRight = "5px",
+//     marginBottom = "12px",
+//     marginLeft = "0px"
+//   } = props.margin;
+//   return `${marginTop} ${marginRight} ${marginBottom} ${marginLeft}`;
+// };
 
 const AppliedStyle = css`
   .ant-tag {
@@ -201,7 +201,6 @@ const CheckableWrappedTag = css`
 `;
 
 const ButtonWrapper = styled.button`
-  margin: ${props => getMargin(props)};
   border: none;
   background: transparent;
   border-radius: 16px;
