@@ -12,7 +12,6 @@ stories
     'Default tag',
     withInfo('Basic usage of the Default tag')(() => (
       <Tag
-        margin={{ marginLeft: '10px' }}
         type={select('type', [
           'normal',
           'add',
