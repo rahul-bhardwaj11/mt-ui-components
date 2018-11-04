@@ -127,7 +127,7 @@
     height: 0;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: 7px solid #6f7583;
+    border-top: 7px solid get('colors.OUTER_SPACE');
     border-radius: 2px;
     position: initial;
     cursor: pointer;
