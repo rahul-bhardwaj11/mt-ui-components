@@ -191,6 +191,7 @@ class Select extends Component {
   constructor(p) {
     super(p);
     this.element = document.createElement('div');
+    this.selectRef = React.createRef();
   }
 
   componentDidMount() {
@@ -205,14 +206,10 @@ class Select extends Component {
     let { options, style } = this.props;
     const container =
       this.props.getPopupContainer && this.props.getPopupContainer();
-
     return (
       <React.Fragment>
         {ReactDOM.createPortal(
-          <MtWrapper
-            style={style}
-            innerRef={e => e && (this.selectDropdownRef = e)}
-          />,
+          <MtWrapper style={style} innerRef={this.selectRef} />,
           container || this.element
         )}
         <MtWrapper style={style}>
@@ -222,7 +219,7 @@ class Select extends Component {
               event.stopPropagation();
             }}
             getPopupContainer={() => {
-              return this.selectDropdownRef;
+              return this.selectRef.current;
             }}
             dropdownClassName={classnames(
               'selectDropdownStyle',
