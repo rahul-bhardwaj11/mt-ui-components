@@ -196,7 +196,10 @@ const MtButton = styled(AntButton)`
     &.ant-btn-text {
       border: 1px dashed transparent;
       background-color: transparent;
-      color: ${props => (props.danger ? `${theme.colors.BITTERSWEET}` : null)};
+      color: ${props =>
+        props.danger
+          ? `${theme.colors.BITTERSWEET}`
+          : `${theme.colors.OUTER_SPACE}`};
 
       ${props =>
         props.active
