@@ -13,7 +13,6 @@ const Option = AntSelect.Option;
 import ReactDOM from 'react-dom';
 
 const MtWrapper = styled.span`
-  //display: inline-block;
   .selectDropdownStyle {
     z-index: 999999;
     .ant-select-dropdown-menu-item {
