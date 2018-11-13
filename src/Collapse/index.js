@@ -99,4 +99,5 @@ class Collapse extends Component {
     );
   }
 }
+Collapse.Panel = AntCollapse.Panel;
 export default Collapse;
