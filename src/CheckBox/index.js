@@ -11,6 +11,7 @@ const noop = () => undefined;
 
 const MtCheckbox = styled(AntCheckbox)`
   &.ant-checkbox-wrapper {
+    font-family: inherit;
     .ant-checkbox:hover .ant-checkbox-inner,
     .ant-checkbox-input:focus + .ant-checkbox-inner {
       border-color: ${theme.colors.INDIGO};
