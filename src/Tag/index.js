@@ -31,12 +31,6 @@ class Tag extends Component {
     onClick: () => {}
   };
 
-  state = { checked: true };
-
-  handleChange = checked => {
-    this.setState({ checked });
-  };
-
   render() {
     let {
       children,
