@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AntTag from 'antd/lib/tag';
 import 'antd/lib/tag/style/index.css';
 import Icon from '../Icon';
-import WrappedTag, { TYPES } from './style';
+import MtTag, { TYPES, MtCheckableTag } from './style';
 
 const ICON_TYPE = {
   [TYPES.ADD]: 'add',
@@ -20,7 +20,10 @@ class Tag extends Component {
     checkable: PropTypes.bool,
     padding: PropTypes.string,
     onClick: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
+    checked: PropTypes.bool,
+    onChange: PropTypes.func,
+    closable: PropTypes.bool
   };
 
   static defaultProps = {
@@ -28,49 +31,40 @@ class Tag extends Component {
     onClick: () => {}
   };
 
-  state = { checked: true };
-
-  handleChange = checked => {
-    this.setState({ checked });
-  };
-
   render() {
     let {
       children,
       type,
       checkable,
-      disabled,
-      className,
-      applied,
+      checked,
+      onChange,
+      closable,
       ...rest
     } = this.props;
-    let AntTagComponent = checkable ? AntTag.CheckableTag : AntTag;
 
-    let WrappedTagProps = {
-      disabled,
-      className,
-      type,
-      checkable,
-      applied,
-      onClick: () => {}
+    let Tag = checkable ? MtCheckableTag : MtTag;
+
+    let checkableTagProps = {
+      checked,
+      onChange
     };
-
     let TagProps = {
+      type,
+      checkable: checkable ? 1 : 0,
+      closable: closable ? 1 : 0,
       ...rest
     };
 
     return (
-      <WrappedTag {...WrappedTagProps}>
-        <AntTagComponent {...TagProps}>
-          {children}
-          {ICON_TYPE[type] && (
-            <Icon
-              type={ICON_TYPE[type]}
-              className={ICON_TYPE[type] ? 'tagIcon' : ''}
-            />
-          )}
-        </AntTagComponent>
-      </WrappedTag>
+      <Tag {...TagProps} {...checkableTagProps}>
+        {children}
+        {ICON_TYPE[type] && (
+          <Icon
+            type={ICON_TYPE[type]}
+            className={ICON_TYPE[type] ? 'tagIcon' : ''}
+          />
+        )}
+      </Tag>
     );
   }
 }
