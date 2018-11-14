@@ -47,7 +47,6 @@ class ReadMore extends Component {
 
   render() {
     const {
-      content,
       children,
       showViewMore,
       moreText,
@@ -73,8 +72,7 @@ class ReadMore extends Component {
           }
           onTruncate={this.handleTruncate}
         >
-          {children}
-          <StringToHTML content={content} />
+          <StringToHTML content={children} />
         </Truncate>
         {!truncated &&
           expanded &&
@@ -101,8 +99,7 @@ ReadMore.propTypes = {
   moreText: PropTypes.string,
   lessText: PropTypes.string,
   showViewMore: PropTypes.bool,
-  className: PropTypes.string,
-  content: PropTypes.string
+  className: PropTypes.string
 };
 
 export default ReadMore;
