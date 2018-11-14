@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Truncate from 'react-truncate';
 import mixins from '../styles/mixins';
+import StringToHTML from '../StringToHTML';
 
 const MTReadMore = styled.div`
   line-height: initial;
@@ -64,20 +65,20 @@ class ReadMore extends Component {
               <span key="3dot">...</span>
               {showViewMore && (
                 <div className="viewMore" key="view_more">
-                  <a onClick={this.toggleLines}>{lessText}</a>
+                  <a onClick={this.toggleLines}>{moreText}</a>
                 </div>
               )}
             </React.Fragment>
           }
           onTruncate={this.handleTruncate}
         >
-          {children}
+          <StringToHTML content={children} />
         </Truncate>
         {!truncated &&
           expanded &&
           showViewMore && (
             <span className="viewLess">
-              <a onClick={this.toggleLines}> {moreText}</a>
+              <a onClick={this.toggleLines}> {lessText}</a>
             </span>
           )}
       </MTReadMore>
