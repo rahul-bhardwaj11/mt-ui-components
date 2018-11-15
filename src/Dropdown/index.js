@@ -41,7 +41,8 @@ class Dropdown extends Component {
       onSelect,
       placement,
       className,
-      selectedKeys
+      selectedKeys,
+      ...dropDownProps
     } = this.props;
     let overlay;
     if (options instanceof Array) {
@@ -69,6 +70,7 @@ class Dropdown extends Component {
         className={className}
       >
         <AntDropdown
+          {...dropDownProps}
           overlay={overlay}
           trigger={[trigger]}
           prefixCls={'ant-dropdown'}
