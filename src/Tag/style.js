@@ -205,7 +205,6 @@ const MtTag = styled(TagWrapper)`
         return ActionTag;
     }
   }};
-  /* ${props => (props.checkable ? CheckableTag : '')}; */
   ${props => (props.applied ? AppliedStyle : '')};
   ${props => (props.disabled ? DisabledStyle : '')};
 `;
