@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
 import AntPopover from 'antd/lib/popover';
 import 'antd/lib/popover/style/index.css';
 import styled from 'styled-components';
@@ -29,16 +31,37 @@ const StyledPopover = styled.div`
   }
 `;
 class Popover extends Component {
-  static propTypes = {};
+  static propTypes = {
+    children: PropTypes.node,
+    getPopupContainer: PropTypes.func
+  };
+
+  element = null;
+  constructor(p) {
+    super(p);
+    this.element = document.createElement('div');
+  }
+
+  componentDidMount() {
+    document.body.appendChild(this.element);
+  }
+
+  componentWillUnmount() {
+    document.body.removeChild(this.element);
+  }
 
   render() {
+    const { children, getPopupContainer, ...rest } = this.props;
+    const container = getPopupContainer && getPopupContainer();
     return (
       <React.Fragment>
-        <StyledPopover innerRef={e => (this.popoverContainer = e)} />
-        <AntPopover
-          {...this.props}
-          getPopupContainer={() => this.popoverContainer}
-        />
+        {ReactDOM.createPortal(
+          <StyledPopover innerRef={e => (this.popoverContainer = e)} />,
+          container || this.element
+        )}
+        <AntPopover getPopupContainer={() => this.popoverContainer} {...rest}>
+          {children}
+        </AntPopover>
       </React.Fragment>
     );
   }
