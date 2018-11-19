@@ -45,7 +45,7 @@ class DateFilter extends Component {
   setDate(date) {
     this.setState({ date }, () => {
       this.state.date !== RANGE_PICKER_STATE &&
-        this.props.onChange(this.state.date);
+        this.props.onChange(this.state.date.from, this.state.date.to);
     });
   }
 
