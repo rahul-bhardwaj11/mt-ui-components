@@ -18,7 +18,7 @@ stories.add(
     }, {});
     return (
       <DateFilter
-        onChange={action('Date Filter Selected')} //eslint-disable-line
+        onChange={action('Date Filter Selected')}
         options={Object.keys(mappedObject)
           .map(v => mappedObject[v] && DATE_FILTER_OPTIONS[v])
           .filter(v => v)}

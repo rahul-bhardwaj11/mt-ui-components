@@ -44,7 +44,8 @@ class DateFilter extends Component {
 
   setDate(date) {
     this.setState({ date }, () => {
-      this.state.date !== RANGE_PICKER_STATE &&
+      this.state.date &&
+        this.state.date !== RANGE_PICKER_STATE &&
         this.props.onChange(this.state.date.from, this.state.date.to);
     });
   }
@@ -59,6 +60,13 @@ class DateFilter extends Component {
     this.dropdownVisibilityChange(false);
   };
 
+  rangePickerBlur = () => {
+    if (this.state.date === RANGE_PICKER_STATE) {
+      this.setDate(null);
+      this.dropdownVisibilityChange(false);
+    }
+  };
+
   dropdownVisibilityChange = dropdownVisible =>
     this.setState({ dropdownVisible });
 
@@ -69,15 +77,15 @@ class DateFilter extends Component {
       dateFormat,
       ...rangePickerProps
     } = this.props;
-    let { date: setDate, dropdownVisible } = this.state;
-    const isDateSelected = setDate && setDate !== RANGE_PICKER_STATE;
+    let { date: selectedDate, dropdownVisible } = this.state;
+    const isDateSelected = selectedDate && selectedDate !== RANGE_PICKER_STATE;
     const dateInputClass = cs('dateInput', {
       dateSelected: isDateSelected,
       dateNotSelected: !isDateSelected,
       dropdownOpen: dropdownVisible && !isDateSelected
     });
     if (isDateSelected) {
-      date = dateFormat ? dateFormat(setDate) : setDate.display;
+      date = dateFormat ? dateFormat(selectedDate) : selectedDate.display;
     }
     return (
       <DateFilterStyle>
@@ -93,18 +101,17 @@ class DateFilter extends Component {
             <Icon type="down_fillcaret" className="dateCaret" />
           </div>
         </Dropdown>
-        {setDate === RANGE_PICKER_STATE && (
-          <RangePicker
-            {...rangePickerProps}
-            open
-            onChange={this.onCustomDateSelect}
-            getCalendarContainer={() => this.ref.current}
-            dropdownClassName="dateRangeDropdown"
-            style={{
-              display: 'none'
-            }}
-          />
-        )}
+        <RangePicker
+          {...rangePickerProps}
+          open={selectedDate === RANGE_PICKER_STATE}
+          onBlur={this.rangePickerBlur}
+          onChange={this.onCustomDateSelect}
+          getCalendarContainer={() => this.ref.current}
+          dropdownClassName="dateRangeDropdown"
+          style={{
+            display: 'none'
+          }}
+        />
       </DateFilterStyle>
     );
   }

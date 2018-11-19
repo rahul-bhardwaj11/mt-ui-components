@@ -42,6 +42,7 @@ const DateFilterStyle = styled.div`
   .ant-calendar-input-wrap {
     display: none;
   }
+
   .ant-calendar-selected-date,
   .ant-calendar-selected-start-date,
   .ant-calendar-selected-end-date {
