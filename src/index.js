@@ -17,6 +17,7 @@ export ConfirmBox from './ConfirmBox';
 export CopyToClipboard from './CopyToClipboard';
 export DateFilter from './DateFilter';
 export DatePicker from './DatePicker';
+export Drawer from './Drawer';
 export Dropdown from './Dropdown';
 export Elevation from './Elevation';
 export Form from './Form';

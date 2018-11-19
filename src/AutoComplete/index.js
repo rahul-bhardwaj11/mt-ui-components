@@ -22,5 +22,5 @@ class AutoComplete extends React.Component {
     );
   }
 }
-
+AutoComplete.Option = AntAutoComplete.Option;
 export default AutoComplete;

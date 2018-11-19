@@ -40,13 +40,13 @@ class Switch extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.checked !== this.state.checked) {
-      this.setState({
-        checked: nextProps.checked
-      });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.checked !== this.state.checked) {
+  //     this.setState({
+  //       checked: nextProps.checked
+  //     });
+  //   }
+  // }
 
   static propTypes = {
     checked: PropTypes.bool,
