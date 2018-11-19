@@ -90,9 +90,14 @@ export default class AsyncSelect extends Component {
     const { cacheUniq } = this.props;
 
     if (oldProps.cacheUniq !== cacheUniq) {
-      this.setState({
-        optionsCache: {}
-      });
+      this.setState(
+        {
+          optionsCache: {}
+        },
+        () => {
+          this.loadOptions();
+        }
+      );
     }
   }
 

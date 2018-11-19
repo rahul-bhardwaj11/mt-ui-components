@@ -12,7 +12,6 @@ stories
     'Default tag',
     withInfo('Basic usage of the Default tag')(() => (
       <Tag
-        margin={{ marginLeft: '10px' }}
         type={select('type', [
           'normal',
           'add',
@@ -57,9 +56,7 @@ stories
   .add(
     'Selected tag',
     withInfo('Basic usage of the Default tag selected')(() => (
-      <Tag checkable checked={boolean('checked', false)}>
-        {text('children', 'tag')}
-      </Tag>
+      <Tag checkable>{text('children', 'tag')}</Tag>
     ))
   )
   .add(
