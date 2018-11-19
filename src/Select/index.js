@@ -10,10 +10,11 @@ import classnames from 'classnames';
 import theme from '../styles/theme';
 import Icon from '../Icon';
 const Option = AntSelect.Option;
+import ReactDOM from 'react-dom';
 
-const MtWrapper = styled.div`
-  display: inline-block;
+const MtWrapper = styled.span`
   .selectDropdownStyle {
+    z-index: 999999;
     .ant-select-dropdown-menu-item {
      div {
          width: 95%;
@@ -25,7 +26,7 @@ const MtWrapper = styled.div`
    }
   .icon-tick {
     display: none;
-  }  
+  }
   .ant-select, .ant-select-dropdown{
     font-family: inherit;
   }
@@ -84,7 +85,7 @@ const MtWrapper = styled.div`
   .ant-select-dropdown-menu {
     background-color: ${theme.colors.WHITE};
     color: ${theme.colors.GREY};
-    margin: 8px;    
+    margin: 8px;
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
       color: #606369;
@@ -94,12 +95,12 @@ const MtWrapper = styled.div`
       &:hover {
         background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
         color: ${theme.colors.WHITE};
-        border-radius: 4px; 
+        border-radius: 4px;
       }
     }
     .ant-select-dropdown-menu-item-active {
       background-color: ${theme.colors.TROPICAL_BLUE};
-      color: ${theme.colors.SHARK};    
+      color: ${theme.colors.SHARK};
     }
 
   .ant-select-dropdown-menu-item-selected{
@@ -111,12 +112,12 @@ const MtWrapper = styled.div`
         display: block;
         right: 5px;
         top: 13px;
-      }   
+      }
       &:hover {
         .icon-tick {
           display: block;
         }
-      } 
+      }
     }
   }
   .ant-select-selection-selected-value {
@@ -177,56 +178,72 @@ class Select extends Component {
     style: PropTypes.object,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    getPopupContainer: PropTypes.func
   };
 
   static defaultProps = {
     style: { minWidth: 125 }
   };
 
+  element = null;
+  constructor(p) {
+    super(p);
+    this.element = document.createElement('div');
+    this.selectRef = React.createRef();
+  }
+
+  componentDidMount() {
+    document.body.appendChild(this.element);
+  }
+
+  componentWillUnmount() {
+    document.body.removeChild(this.element);
+  }
+
   render() {
     let { options, style } = this.props;
-
+    const container =
+      this.props.getPopupContainer && this.props.getPopupContainer();
     return (
-      <MtWrapper
-        innerRef={el => {
-          if (el) {
-            this.selectDropdownRef = el;
-          }
-        }}
-        style={style}
-      >
-        <AntSelect
-          {...this.props}
-          onClick={event => {
-            event.stopPropagation();
-          }}
-          getPopupContainer={() => {
-            return this.selectDropdownRef;
-          }}
-          dropdownClassName={classnames(
-            'selectDropdownStyle',
-            this.props.className
-          )}
-        >
-          {options.map(option => {
-            return (
-              <Option
-                key={option.key}
-                value={option.key}
-                title={this.props.title || option.title}
-              >
-                {typeof option.content === 'string' ? (
-                  <StringToHTML content={option.content} />
-                ) : (
-                  option.content
-                )}
-                <Icon type="tick" />
-              </Option>
-            );
-          })}
-        </AntSelect>
-      </MtWrapper>
+      <React.Fragment>
+        {ReactDOM.createPortal(
+          <MtWrapper style={style} innerRef={this.selectRef} />,
+          container || this.element
+        )}
+        <MtWrapper style={style}>
+          <AntSelect
+            {...this.props}
+            onClick={event => {
+              event.stopPropagation();
+            }}
+            getPopupContainer={() => {
+              return this.selectRef.current;
+            }}
+            dropdownClassName={classnames(
+              'selectDropdownStyle',
+              this.props.className
+            )}
+          >
+            {options.map(option => {
+              return (
+                <Option
+                  key={option.key}
+                  value={option.key}
+                  title={this.props.title || option.title}
+                >
+                  {typeof option.content === 'string' ? (
+                    <StringToHTML content={option.content} />
+                  ) : (
+                    option.content
+                  )}
+                  <Icon type="tick" />
+                </Option>
+              );
+            })}
+          </AntSelect>
+        </MtWrapper>
+      </React.Fragment>
     );
   }
 }

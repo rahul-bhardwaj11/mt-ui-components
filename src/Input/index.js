@@ -129,7 +129,7 @@ class Input extends Component {
   }
 
   render() {
-    const { errors, maxLength, maxLengthClassName } = this.props;
+    const { errors /*, maxLength, maxLengthClassName*/ } = this.props;
     const { value } = this.state;
     return (
       <MtInput>
@@ -139,7 +139,7 @@ class Input extends Component {
           onChange={this.onChange}
           onFocus={this.moveCaretAtEnd}
         />
-        <div
+        {/*<div
           key="maxLength"
           className={classnames(
             { ['counterStyle']: maxLength, displayN: !maxLength },
@@ -148,6 +148,7 @@ class Input extends Component {
         >
           {maxLength && maxLength - value.length}
         </div>
+       */}
         <div
           key="error"
           className={classnames(errors[0] ? 'error' : 'displayN')}
