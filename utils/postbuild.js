@@ -2,6 +2,7 @@
 const {readdirSync, lstatSync} = require("fs");
 const {join} = require("path")
 const chalk = require("chalk")
+const {spawn} = require('child_process')
 
 const buildDir = join(__dirname, "..", "lib")
 
@@ -22,3 +23,5 @@ function generateIndexFile(files) {
   console.log(chalk.green(filteredFolder.join("\n")));
   console.log("=====================================");
 }
+
+spawn('git', ['add', buildDir])
