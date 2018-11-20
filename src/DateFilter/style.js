@@ -3,8 +3,9 @@ import theme from '../styles/theme';
 
 const DateFilterStyle = styled.div`
   .dateInput {
+    position: relative;
     min-width: 180px;
-    padding: 8px;
+    padding: 6px 12px;
     cursor: pointer;
     border-radius: 4px;
     font-size: 12px;
@@ -15,7 +16,7 @@ const DateFilterStyle = styled.div`
       font-weight: 600;
       color: ${theme.colors.INDIGO};
       background-color: ${theme.colors.TROPICAL_BLUE};
-      border: 1px solid rgba(77, 124, 199, 0.2); // cannot use from theme as rgba support needed
+      border: 1px solid ${theme.colors.OCEAN};
       .dateCaret {
         color: ${theme.colors.INDIGO};
       }
@@ -31,9 +32,10 @@ const DateFilterStyle = styled.div`
   }
   .dateRangeDropdown {
     top: 40px !important;
+    left: 0 !important;
   }
   .dateCaret {
-    padding: 4px;
+    padding: 4px 0;
     margin-left: 10px;
     float: right;
     color: ${theme.colors.SILVER};

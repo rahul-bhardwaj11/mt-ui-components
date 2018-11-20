@@ -14,6 +14,7 @@ const theme = {
     TAG_HOVER_TEXT_COLOR: '#4A90E2',
     CONGRESS_BLUE: '#202A39',
     CAROLINA_BLUE: '#CCD0E9',
+    OCEAN: '#C5D8F0',
     MANATEE: '#868BA7',
     GREY: '#888',
     DARK_GREY: '#666',
