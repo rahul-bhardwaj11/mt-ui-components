@@ -12,7 +12,8 @@ import Icon from '../Icon';
 const Option = AntSelect.Option;
 import ReactDOM from 'react-dom';
 
-const MtWrapper = styled.span`
+const MtWrapper = styled.div`
+  display: block;
   .selectDropdownStyle {
     z-index: 999999;
     .ant-select-dropdown-menu-item {
@@ -64,18 +65,22 @@ const MtWrapper = styled.span`
         border: 1px solid ${theme.colors.SILVER};
       }
     }
+    &:hover, &:focus, &:active, &:focus-within, &:visited {
+      border-color: ${theme.colors.SILVER};
+      box-shadow: none;
+    }
   }
 
   .ant-select-open {
     .ant-select-selection {
       &.ant-select-selection--multiple {
-        border: 1px solid transparent;
+        border: 1px solid ${theme.colors.ALTO};
         outline: none;
         &:hover,
         &:focus,
         &:active {
-          border: 0px;
-          border-color: transparent;
+          border: 1px solid ${theme.colors.ALTO};
+          border-color: ${theme.colors.ALTO};
           outline: none;
           box-shadow: none;
         }
@@ -130,11 +135,10 @@ const MtWrapper = styled.span`
     }
   }
   .ant-select-selection--multiple {
-    width: 688px;
-    padding: 5px;
-    border: 0px;
+    padding: 0;
+    border: border-color: 1px solid ${theme.colors.ALTO};
     &:focus {
-      border-color: transparent;
+      border-color: 1px solid ${theme.colors.ALTO};
       box-shadow: none;
     }
     .ant-select-selection__rendered {
@@ -164,9 +168,13 @@ const MtWrapper = styled.span`
           }
         }
       }
+
+      & > ul > li {
+        margin-bottom: 3px;
+      }
     }
   }
-  .ant-select-dropdown--multiple {
+  .ant-select-dropdown, .ant-select-dropdown--multiple {
     z-index: 999999;
   }
 `;

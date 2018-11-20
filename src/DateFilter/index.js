@@ -20,7 +20,8 @@ class DateFilter extends Component {
     ).isRequired,
     onChange: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
-    dateFormat: PropTypes.func
+    dateFormat: PropTypes.func,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -75,6 +76,7 @@ class DateFilter extends Component {
       options,
       placeholder: date,
       dateFormat,
+      className,
       ...rangePickerProps
     } = this.props;
     let { date: selectedDate, dropdownVisible } = this.state;
@@ -88,7 +90,7 @@ class DateFilter extends Component {
       date = dateFormat ? dateFormat(selectedDate) : selectedDate.display;
     }
     return (
-      <DateFilterStyle>
+      <DateFilterStyle className={className}>
         <Dropdown
           onVisibleChange={this.dropdownVisibilityChange}
           placement="bottomLeft"
