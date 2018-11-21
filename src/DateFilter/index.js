@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 import { RangePicker } from 'antd/lib/date-picker';
 import moment from 'moment';
 
-import { DATE_FILTER_OPTIONS, RANGE_PICKER_STATE } from './dateFilterOptions';
+import {
+  DATE_FILTER_OPTIONS,
+  RANGE_PICKER_STATE,
+  defaultFormatter
+} from './dateFilterOptions';
 import Dropdown from '../Dropdown';
 import DateFilterStyle from './style';
 import Icon from '../Icon';
@@ -15,7 +19,8 @@ class DateFilter extends Component {
       PropTypes.shape({
         key: PropTypes.string.isRequired,
         content: PropTypes.string.isRequired,
-        resolver: PropTypes.func.isRequired
+        resolver: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+          .isRequired
       })
     ).isRequired,
     onChange: PropTypes.func.isRequired,
@@ -37,25 +42,44 @@ class DateFilter extends Component {
   };
   ref = createRef();
 
+  static getDerivedStateFromProps = ({ value }, { date }) => {
+    let state;
+    if (Array.isArray(value) && value.length === 2) {
+      const from = value[0];
+      const to = value[1];
+      if (!date) {
+        state = {
+          date: {
+            from,
+            to,
+            display: defaultFormatter(from, to)
+          }
+        };
+      }
+    }
+    return state;
+  };
+
   onSelect = key => {
-    let date = this.props.options.find(v => v.key === key).resolver();
+    let date = this.props.options.find(v => v.key === key).resolver;
     this.setDate(date);
     date !== RANGE_PICKER_STATE && this.dropdownVisibilityChange(false);
   };
 
   setDate(date) {
-    this.setState({ date }, () => {
-      this.state.date &&
-        this.state.date !== RANGE_PICKER_STATE &&
-        this.props.onChange(this.state.date.from, this.state.date.to);
-    });
+    this.state.date !== date &&
+      this.setState({ date }, () => {
+        this.state.date &&
+          this.state.date !== RANGE_PICKER_STATE &&
+          this.props.onChange(this.state.date.from, this.state.date.to);
+      });
   }
 
   onCustomDateSelect = ([from, to]) => {
     const date = {
       from,
       to,
-      display: `${from.format("D MMM' YY")} ~ ${to.format("D MMM' YY")}`
+      display: defaultFormatter(from, to)
     };
     this.setDate(date);
     this.dropdownVisibilityChange(false);
