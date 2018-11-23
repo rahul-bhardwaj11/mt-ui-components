@@ -30,6 +30,7 @@ class DateFilter extends Component {
     dateFormat: PropTypes.func,
     className: PropTypes.string,
     mobile: PropTypes.bool,
+    value: PropTypes.array,
     openDropdown: PropTypes.bool
   };
 
@@ -114,6 +115,7 @@ class DateFilter extends Component {
       className,
       mobile,
       openDropdown,
+      value, //eslint-disable-line
       ...rangePickerProps
     } = this.props;
     let { date: selectedDate, dropdownVisible } = this.state;
