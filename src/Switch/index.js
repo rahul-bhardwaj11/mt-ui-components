@@ -7,11 +7,12 @@ import theme from '../styles/theme';
 
 const MtSwitch = styled.div`
   .ant-switch-checked {
-    background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+    background-color: ${theme.colors.INDIGO};
   }
   .ant-switch {
     min-width: 36px;
     height: 20px;
+    color: ${theme.colors.ALTO};
     &:after {
       width: 14px;
       height: 14px;
@@ -39,13 +40,13 @@ class Switch extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.checked !== this.state.checked) {
-      this.setState({
-        checked: nextProps.checked
-      });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.checked !== this.state.checked) {
+  //     this.setState({
+  //       checked: nextProps.checked
+  //     });
+  //   }
+  // }
 
   static propTypes = {
     checked: PropTypes.bool,

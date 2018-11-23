@@ -69,7 +69,6 @@ class Table extends Component {
     loading: false
   };
   state = {
-    showActionBar: false,
     selectAll: false,
     selectedRowKeys: [],
     loadingMore: false
@@ -141,16 +140,11 @@ class Table extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const newState = {};
     if (nextProps.loading !== this.props.loading) {
-      newState.loadingMore = !nextProps.loading
-        ? false
-        : this.state.loadingMore;
+      this.setState({
+        loadingMore: !nextProps.loading ? false : this.state.loadingMore
+      });
     }
-    if (nextProps.selectedRowKeys) {
-      newState.showActionBar = !!nextProps.selectedRowKeys.length;
-    }
-    this.setState(newState);
   }
 
   componentWillUnmount() {
@@ -161,9 +155,8 @@ class Table extends Component {
   }
 
   onChange = (selectedRowKeys, selectedRows) => {
-    let { dataSource, actionBar, rowSelection: { onChange } = {} } = this.props;
+    let { dataSource, rowSelection: { onChange } = {} } = this.props;
     this.setState(() => ({
-      showActionBar: actionBar && selectedRowKeys.length > 0,
       selectedRowKeys: selectedRowKeys,
       selectAll: dataSource.length === selectedRowKeys.length
     }));
@@ -254,31 +247,39 @@ class Table extends Component {
         }
       : null;
 
-    const antProps =
-      updatedRowSelection && isMultiSelect
-        ? {
-            ...this.props,
-            rowSelection: updatedRowSelection
-          }
-        : {
-            ...this.props,
-            rowSelection: null,
-            onRow: record => {
-              const rowObject = onRow ? onRow(record) : {};
-              return {
-                onClick: () => {
-                  rowObject.onClick && rowObject.onClick(record);
-                  this.onChange([record[rowKey]], [record]);
-                },
-                className: newSelectedRowskey.some(v => v === record[rowKey])
-                  ? classnames(
-                      'ant-table-row-selected',
-                      this.props.selectRowClassName
-                    )
-                  : ''
-              };
-            }
+    let antProps;
+    if (updatedRowSelection && isMultiSelect) {
+      antProps = {
+        ...this.props,
+        rowSelection: updatedRowSelection
+      };
+    } else if (
+      rowSelection &&
+      typeof rowSelection.onChange === 'function' &&
+      !isMultiSelect
+    ) {
+      antProps = {
+        ...this.props,
+        rowSelection: null,
+        onRow: record => {
+          const rowObject = onRow ? onRow(record) : {};
+          return {
+            onClick: () => {
+              rowObject.onClick && rowObject.onClick(record);
+              this.onChange([record[rowKey]], [record]);
+            },
+            className: newSelectedRowskey.some(v => v === record[rowKey])
+              ? classnames(
+                  'ant-table-row-selected',
+                  this.props.selectRowClassName
+                )
+              : ''
           };
+        }
+      };
+    } else {
+      antProps = { ...this.props };
+    }
 
     return {
       antTableProps: {
@@ -301,8 +302,9 @@ class Table extends Component {
       hasMore,
       loading
     } = this.props;
-    let { showActionBar, loadingMore } = this.state;
+    let { loadingMore } = this.state;
     const { antTableProps, newSelectedRowskey } = this.getAntTableProps();
+    const showActionBar = actionBar && newSelectedRowskey.length > 0;
     return (
       <MtTable
         innerRef={ele => (this.tableRef = ele)}

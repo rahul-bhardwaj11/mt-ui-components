@@ -21,14 +21,16 @@ class Button extends Component {
     style: PropTypes.object,
     className: PropTypes.string,
     active: PropTypes.bool,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    danger: PropTypes.bool
   };
   static defaultProps = {
     onClick: noop,
     children: 'Submit',
     disabled: false,
     type: BUTTON_TYPES.PRIMARY,
-    size: 'large'
+    size: 'large',
+    danger: false
   };
 
   render() {
@@ -39,7 +41,8 @@ class Button extends Component {
       active,
       disabled,
       size,
-      loading
+      loading,
+      danger
     } = this.props;
     let antdType = MT_TYPE_ANT_BUTTON_TYPE_MAP[type];
     let { className, ...rest } = this.props;
@@ -51,6 +54,7 @@ class Button extends Component {
         className={className}
         type={antdType}
         style={style}
+        danger={danger ? 1 : 0}
         size={
           MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[size] ||
           MT_SIZE_TO_ANT_BUTTON_SIZE_MAP['large']

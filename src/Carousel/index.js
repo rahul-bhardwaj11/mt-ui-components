@@ -93,7 +93,7 @@ h3 {
   }
 }
 .slick-slide{
-  ${props => `margin-right: ${props.style.marginRight}`};
+  ${props => `padding-right: ${props.style.paddingRight}`};
 }
 &.slick-slider:before {
     content: "";

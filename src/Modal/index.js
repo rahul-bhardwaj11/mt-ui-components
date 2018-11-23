@@ -88,7 +88,7 @@ const MtModal = styled(AntModal)`
       }
     }
   }
-  
+
 
   @media (max-width: 576px){
     margin: 0px;
@@ -155,6 +155,9 @@ const MtConfirmModal = styled.div`
   }
   .ant-confirm-body .ant-confirm-title {
     ${mixins.blackLink()};
+  }
+  .ant-confirm .ant-modal-close {
+    display: block;
   }
 `;
 

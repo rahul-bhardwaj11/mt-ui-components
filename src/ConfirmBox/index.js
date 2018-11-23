@@ -17,12 +17,13 @@ const StyledPopconfirm = styled.div`
     padding-left: 0px;
   }
   .ant-popover-inner-content {
-    padding: 22px 26px;
+    padding: 24px;
   }
   .ant-popover-message > .anticon {
     display: none;
   }
   .ant-popover-buttons {
+    margin-bottom: 0px;
     .ant-btn {
       ${mixins.textBtn()};
       ${mixins.button()};
