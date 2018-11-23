@@ -1,6 +1,7 @@
 import React, { Component, createRef } from 'react';
 import cs from 'classnames';
 import PropTypes from 'prop-types';
+import CustomRangePicker from './customRangePicker';
 import { RangePicker } from 'antd/lib/date-picker';
 import moment from 'moment';
 
@@ -13,6 +14,7 @@ import Dropdown from '../Dropdown';
 import DateFilterStyle from './style';
 import Icon from '../Icon';
 
+const tomorrow = moment().add(1, 'd');
 class DateFilter extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(
@@ -36,7 +38,9 @@ class DateFilter extends Component {
     placeholder: 'Date',
     onChange: () => {},
     mobile: false,
-    disabledDate: startValue => startValue > moment()
+    disabledDate: startValue => {
+      return !!startValue && startValue.valueOf() > tomorrow.valueOf();
+    }
   };
 
   state = {
@@ -94,8 +98,8 @@ class DateFilter extends Component {
 
   rangePickerBlur = () => {
     if (this.state.date === RANGE_PICKER_STATE) {
-      // this.setDate(null);
-      // this.dropdownVisibilityChange(false);
+      this.setDate(null);
+      this.dropdownVisibilityChange(false);
     }
   };
 
@@ -128,6 +132,7 @@ class DateFilter extends Component {
     const dropDownProps = {
       ...(mobile && { visible: openDropdown })
     };
+    const RangePickerComponent = mobile ? CustomRangePicker : RangePicker;
     return (
       <DateFilterStyle className={className} mobile={mobile}>
         <Dropdown
@@ -145,7 +150,7 @@ class DateFilter extends Component {
             </div>
           </div>
         </Dropdown>
-        <RangePicker
+        <RangePickerComponent
           {...rangePickerProps}
           open={selectedDate === RANGE_PICKER_STATE}
           onBlur={this.rangePickerBlur}
@@ -160,8 +165,6 @@ class DateFilter extends Component {
     );
   }
 }
-
-// const CustomRangePicker =
 
 export { DATE_FILTER_OPTIONS };
 
