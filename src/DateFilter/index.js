@@ -26,13 +26,16 @@ class DateFilter extends Component {
     onChange: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
     dateFormat: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
+    mobile: PropTypes.bool,
+    openDropdown: PropTypes.bool
   };
 
   static defaultProps = {
     options: Object.keys(DATE_FILTER_OPTIONS).map(v => DATE_FILTER_OPTIONS[v]),
     placeholder: 'Date',
     onChange: () => {},
+    mobile: false,
     disabledDate: startValue => startValue > moment()
   };
 
@@ -71,7 +74,11 @@ class DateFilter extends Component {
       this.setState({ date }, () => {
         this.state.date &&
           this.state.date !== RANGE_PICKER_STATE &&
-          this.props.onChange(this.state.date.from, this.state.date.to);
+          this.props.onChange(
+            this.state.date.from,
+            this.state.date.to,
+            this.state.date.display
+          );
       });
   }
 
@@ -87,8 +94,8 @@ class DateFilter extends Component {
 
   rangePickerBlur = () => {
     if (this.state.date === RANGE_PICKER_STATE) {
-      this.setDate(null);
-      this.dropdownVisibilityChange(false);
+      // this.setDate(null);
+      // this.dropdownVisibilityChange(false);
     }
   };
 
@@ -101,6 +108,8 @@ class DateFilter extends Component {
       placeholder: date,
       dateFormat,
       className,
+      mobile,
+      openDropdown,
       ...rangePickerProps
     } = this.props;
     let { date: selectedDate, dropdownVisible } = this.state;
@@ -110,21 +119,30 @@ class DateFilter extends Component {
       dateNotSelected: !isDateSelected,
       dropdownOpen: dropdownVisible && !isDateSelected
     });
+    const dateRangeClass = cs('dateRangeDropdown', {
+      mobile: mobile
+    });
     if (isDateSelected) {
       date = dateFormat ? dateFormat(selectedDate) : selectedDate.display;
     }
+    const dropDownProps = {
+      ...(mobile && { visible: openDropdown })
+    };
     return (
-      <DateFilterStyle className={className}>
+      <DateFilterStyle className={className} mobile={mobile}>
         <Dropdown
           onVisibleChange={this.dropdownVisibilityChange}
           placement="bottomLeft"
           options={options}
           trigger="click"
           onSelect={this.onSelect}
+          {...dropDownProps}
         >
-          <div className={dateInputClass} ref={this.ref}>
-            <span className="datePlaceholder">{date}</span>
-            <Icon type="down_fillcaret" className="dateCaret" />
+          <div ref={this.ref}>
+            <div className={dateInputClass}>
+              <span className="datePlaceholder">{date}</span>
+              <Icon type="down_fillcaret" className="dateCaret" />
+            </div>
           </div>
         </Dropdown>
         <RangePicker
@@ -133,7 +151,7 @@ class DateFilter extends Component {
           onBlur={this.rangePickerBlur}
           onChange={this.onCustomDateSelect}
           getCalendarContainer={() => this.ref.current}
-          dropdownClassName="dateRangeDropdown"
+          dropdownClassName={dateRangeClass}
           style={{
             display: 'none'
           }}
@@ -142,6 +160,8 @@ class DateFilter extends Component {
     );
   }
 }
+
+// const CustomRangePicker =
 
 export { DATE_FILTER_OPTIONS };
 

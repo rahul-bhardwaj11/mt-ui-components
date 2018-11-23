@@ -35,10 +35,49 @@ stories
       );
     })
   )
+  .add('Mobile view of Date Filter', withInfo('')(() => <MobileDateFilter />))
   .add(
     'Date Filter with controlled input',
     withInfo('')(() => <ControlledDateFilter />)
   );
+
+class MobileDateFilter extends Component {
+  state = {
+    selectedDate: null,
+    openDropDown: false
+  };
+  dateOnChange = (from, to, display) => {
+    this.setState({
+      selectedDate: {
+        from,
+        to,
+        display
+      },
+      openDropDown: false
+    });
+    dateChangeActionLogger(from, to, display);
+  };
+
+  render() {
+    return (
+      <Fragment>
+        <button
+          onClick={() =>
+            this.setState({ openDropDown: !this.state.openDropDown })
+          }
+        >
+          {(this.state.selectedDate && this.state.selectedDate.display) ||
+            'Date'}
+        </button>
+        <DateFilter
+          onChange={this.dateOnChange}
+          mobile
+          openDropdown={this.state.openDropDown}
+        />
+      </Fragment>
+    );
+  }
+}
 
 class ControlledDateFilter extends Component {
   state = {
