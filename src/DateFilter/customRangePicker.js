@@ -51,7 +51,7 @@ class CustomRangePicker extends Component {
   render() {
     const { open, disabledDate, ...commonProps } = this.props;
     const startOpen = open && !this.state.from;
-    const endOpen = open && this.state.from;
+    const endOpen = !!(open && this.state.from);
     const commonCustomProps = {
       onBlur: this.onBlur
     };

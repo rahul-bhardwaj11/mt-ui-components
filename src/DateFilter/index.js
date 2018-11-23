@@ -51,7 +51,7 @@ class DateFilter extends Component {
   ref = createRef();
 
   static getDerivedStateFromProps = ({ value }, { date }) => {
-    let state;
+    let state = null;
     if (Array.isArray(value) && value.length === 2) {
       const from = value[0];
       const to = value[1];
