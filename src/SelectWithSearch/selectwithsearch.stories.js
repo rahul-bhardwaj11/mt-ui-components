@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import SelectWithSearch from './index';
 import { withInfo } from '@storybook/addon-info';
 import { withKnobs } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import UserThumbnail from '../UserThumbnail';
 //import Menu from '../Menu';
 
@@ -159,6 +160,21 @@ stories.add(
       promiseOption={promiseOption}
       defaultValue={colourOptions[2]}
       onChange={() => {}}
+    />
+  ))
+);
+
+stories.add(
+  'Async Select with default open',
+  withInfo('Usage of the Async Infinite Select with default open')(() => (
+    <SelectWithSearch
+      async
+      isMulti
+      hideFooter
+      persistOpen
+      onSelect={action('Option selected')}
+      promiseOption={promiseOption}
+      defaultValue={colourOptions[2]}
     />
   ))
 );

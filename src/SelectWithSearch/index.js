@@ -243,7 +243,8 @@ class SelectWithSearch extends Component {
     className: PropTypes.string
   };
   static defaultProps = {
-    placeholder: 'Type here to Search'
+    placeholder: 'Type here to Search',
+    onChange: () => {}
   };
 
   render() {
