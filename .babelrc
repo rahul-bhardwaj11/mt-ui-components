@@ -2,9 +2,9 @@
   "env": {
     "dev": {
       "presets": ["env", "es2015", "stage-2", "react"],
-      "plugins": ["transform-react-require", "transform-runtime", "babel-plugin-styled-components"]
+      "plugins": ["transform-react-require", "transform-runtime", "babel-plugin-styled-components", "transform-export-default"]
     }
   },
   "presets": ["env", "es2015", "stage-2", "react"],
-  "plugins": ["transform-react-require", "transform-runtime"]
+  "plugins": ["transform-react-require", "transform-runtime", "transform-export-default"]
 }
