@@ -1,19 +1,17 @@
-// /*eslint-disable */
+/*eslint-disable */
 const {readdirSync, lstatSync} = require("fs");
 const {join} = require("path")
 const chalk = require("chalk")
-const {spawn} = require('child_process')
 
-const buildDir = join(__dirname, "..", "lib")
+const sourceDir = join(__dirname, '..', 'src')
 
-// generating index file
-const files = readdirSync(buildDir, generateIndexFile);
+const files = readdirSync(sourceDir);
 
-generateIndexFile(files)
+listModules(files)
 
-function generateIndexFile(files) {
+function listModules(files) {
   const filteredFolder = files.filter(item => {
-    let itemPath = join(buildDir, item)
+    let itemPath = join(sourceDir, item)
     return (
       new RegExp(/^(?!.*images|styles).*$/g).test(item) &&
       lstatSync(itemPath).isDirectory()
@@ -23,5 +21,3 @@ function generateIndexFile(files) {
   console.log(chalk.green(filteredFolder.join("\n")));
   console.log("=====================================");
 }
-
-spawn('git', ['add', buildDir])

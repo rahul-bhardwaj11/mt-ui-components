@@ -4,7 +4,7 @@
   "description": "Collection of common React UI components for Mindtickle",
   "repository": "git@github.com:MindTickle/mt-ui-components.git",
   "author": "Afroz",
-  "main": "./lib/index.js",
+  "main": "./src/index.js",
   "license": "MIT",
   "scripts": {
     "story": "start-storybook -p 6006",
@@ -15,7 +15,7 @@
     "build:prod": "babel src --out-dir lib --copy-files --ignore test,*.stories.js && npm run test && npm run lint",
     "babel": "babel src --out-dir lib --copy-files --ignore test,*.stories.js",
     "babel:watch": "BABEL_ENV=dev babel src --out-dir lib --copy-files --ignore test,*.stories.js --watch",
-    "build": "npm run babel && npm run lint && npm run prettier",
+    "build": "npm run lint && npm run prettier",
     "postbuild": "node utils/postbuild.js",
     "deploy:sb": "npm run build-storybook && gh-pages -m 'update storybook' -d ./build",
     "deploy": "sh ./deploy.sh",
