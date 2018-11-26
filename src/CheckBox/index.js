@@ -133,7 +133,9 @@ class CheckBox extends Component {
         disabled={disabled}
         indeterminate={indeterminate}
       >
-        <span className="checkBoxLabel">{children}</span>
+        <span onClick={e => e.stopPropagation()} className="checkBoxLabel">
+          {children}
+        </span>
       </MtCheckbox>
     );
   }
