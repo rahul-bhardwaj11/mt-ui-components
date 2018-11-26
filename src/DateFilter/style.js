@@ -3,6 +3,7 @@ import theme from '../styles/theme';
 
 const DateFilterStyle = styled.div`
   .dateInput {
+    display: ${props => (props.mobile ? 'none' : 'block')};
     position: relative;
     min-width: 180px;
     padding: 6px 12px;

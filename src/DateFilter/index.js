@@ -1,6 +1,7 @@
 import React, { Component, createRef } from 'react';
 import cs from 'classnames';
 import PropTypes from 'prop-types';
+import CustomRangePicker from './customRangePicker';
 import { RangePicker } from 'antd/lib/date-picker';
 import moment from 'moment';
 
@@ -13,6 +14,7 @@ import Dropdown from '../Dropdown';
 import DateFilterStyle from './style';
 import Icon from '../Icon';
 
+const tomorrow = moment().add(1, 'd');
 class DateFilter extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(
@@ -26,14 +28,20 @@ class DateFilter extends Component {
     onChange: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
     dateFormat: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
+    mobile: PropTypes.bool,
+    value: PropTypes.array,
+    openDropdown: PropTypes.bool
   };
 
   static defaultProps = {
     options: Object.keys(DATE_FILTER_OPTIONS).map(v => DATE_FILTER_OPTIONS[v]),
     placeholder: 'Date',
     onChange: () => {},
-    disabledDate: startValue => startValue > moment()
+    mobile: false,
+    disabledDate: startValue => {
+      return !!startValue && startValue.valueOf() > tomorrow.valueOf();
+    }
   };
 
   state = {
@@ -43,7 +51,7 @@ class DateFilter extends Component {
   ref = createRef();
 
   static getDerivedStateFromProps = ({ value }, { date }) => {
-    let state;
+    let state = null;
     if (Array.isArray(value) && value.length === 2) {
       const from = value[0];
       const to = value[1];
@@ -71,7 +79,11 @@ class DateFilter extends Component {
       this.setState({ date }, () => {
         this.state.date &&
           this.state.date !== RANGE_PICKER_STATE &&
-          this.props.onChange(this.state.date.from, this.state.date.to);
+          this.props.onChange(
+            this.state.date.from,
+            this.state.date.to,
+            this.state.date.display
+          );
       });
   }
 
@@ -101,6 +113,9 @@ class DateFilter extends Component {
       placeholder: date,
       dateFormat,
       className,
+      mobile,
+      openDropdown,
+      value, //eslint-disable-line
       ...rangePickerProps
     } = this.props;
     let { date: selectedDate, dropdownVisible } = this.state;
@@ -110,30 +125,40 @@ class DateFilter extends Component {
       dateNotSelected: !isDateSelected,
       dropdownOpen: dropdownVisible && !isDateSelected
     });
+    const dateRangeClass = cs('dateRangeDropdown', {
+      mobile: mobile
+    });
     if (isDateSelected) {
       date = dateFormat ? dateFormat(selectedDate) : selectedDate.display;
     }
+    const dropDownProps = {
+      ...(mobile && { visible: openDropdown })
+    };
+    const RangePickerComponent = mobile ? CustomRangePicker : RangePicker;
     return (
-      <DateFilterStyle className={className}>
+      <DateFilterStyle className={className} mobile={mobile}>
         <Dropdown
           onVisibleChange={this.dropdownVisibilityChange}
           placement="bottomLeft"
           options={options}
           trigger="click"
           onSelect={this.onSelect}
+          {...dropDownProps}
         >
-          <div className={dateInputClass} ref={this.ref}>
-            <span className="datePlaceholder">{date}</span>
-            <Icon type="down_fillcaret" className="dateCaret" />
+          <div ref={this.ref}>
+            <div className={dateInputClass}>
+              <span className="datePlaceholder">{date}</span>
+              <Icon type="down_fillcaret" className="dateCaret" />
+            </div>
           </div>
         </Dropdown>
-        <RangePicker
+        <RangePickerComponent
           {...rangePickerProps}
           open={selectedDate === RANGE_PICKER_STATE}
           onBlur={this.rangePickerBlur}
           onChange={this.onCustomDateSelect}
           getCalendarContainer={() => this.ref.current}
-          dropdownClassName="dateRangeDropdown"
+          dropdownClassName={dateRangeClass}
           style={{
             display: 'none'
           }}
