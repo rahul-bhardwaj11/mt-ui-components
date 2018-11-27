@@ -27,6 +27,7 @@
   },
   "files": [
     "lib",
+    "src",
     "README.md"
   ],
   "devDependencies": {
