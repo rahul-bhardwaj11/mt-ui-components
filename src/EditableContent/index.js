@@ -1,9 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import Input from '../Input';
-import Button from '../Button';
+import Tag from '../Tag';
 import Icon from '../Icon';
+import styled from 'styled-components';
+
+const StyledEditableContent = styled.div`
+  padding: 6px 12px;
+  .editableText {
+    float: left;
+    margin-right: 12px;
+  }
+
+  .icon-edit {
+    cursor: pointer;
+  }
+`;
+
+const StyledEditableInput = styled.div`
+  .editableInputControl {
+    width: 40%;
+    float: left;
+    .icon-close {
+      font-size: 10px;
+    }
+  }
+
+  .editableContentSaveBtn,
+  .editableContentCancelBtn {
+    margin: 4px 0px 0px 12px;
+    padding: 0px 12px;
+  }
+`;
 
 class EditableContent extends Component {
   state = {
@@ -50,32 +78,43 @@ class EditableContent extends Component {
       inputProps.suffix = <Icon type="close" onClick={this.handleClear} />;
     }
     return (
-      <div>
-        <Input
-          {...inputProps}
-          value={this.state.nextValue}
-          onChange={this.handleInputChange}
-        />
+      <StyledEditableInput>
+        <div className="editableInputControl">
+          <Input
+            {...inputProps}
+            value={this.state.nextValue}
+            onChange={this.handleInputChange}
+          />
+        </div>
         {!editOnEnter && (
-          <div>
-            <Button size="small" onClick={this.handleSave}>
+          <React.Fragment>
+            <Tag
+              className="editableContentSaveBtn"
+              type="action"
+              onClick={this.handleSave}
+            >
               Save
-            </Button>
-            <Button size="small" type="secondary" onClick={this.handleCancel}>
+            </Tag>
+            <Tag
+              className="editableContentCancelBtn"
+              onClick={this.handleCancel}
+            >
               Cancel
-            </Button>
-          </div>
+            </Tag>
+          </React.Fragment>
         )}
-      </div>
+      </StyledEditableInput>
     );
   }
 
   renderStaticComponent() {
     return (
-      <div onClick={this.toggleEditMode}>
-        <div>{this.props.value}</div>
-        <Icon type="edit" />
-      </div>
+      <StyledEditableContent>
+        <div onClick={this.toggleEditMode}>
+          <div className="editableText">{this.props.value}</div>
+          <Icon type="edit" />
+        </div>
+      </StyledEditableContent>
     );
   }
 
