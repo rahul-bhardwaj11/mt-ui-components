@@ -32,7 +32,8 @@ const theme = {
     FROG: '#E9D0FF',
     PASTEL_GREEN: '#35C759',
     ICON: '#888888',
-    WHITE: '#fff'
+    WHITE: '#fff',
+    WARNING: '#EDA43E'
   },
   typography: {},
   breakpoints: {
