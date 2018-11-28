@@ -11,6 +11,7 @@ const DateFilterStyle = styled.div`
     border-radius: 4px;
     font-size: 12px;
     &.dateNotSelected {
+      background-color: ${theme.colors.WHITE};
       border: 1px solid ${theme.colors.SILVER};
     }
     &.dateSelected {
