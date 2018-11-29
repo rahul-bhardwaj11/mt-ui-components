@@ -4,6 +4,7 @@ import 'antd/lib/popover/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme.js';
 import mixins from '../styles/mixins.js';
+import PropTypes from 'prop-types';
 const StyledPopover = styled.div`
   .ant-popover {
     font-family: inherit;
@@ -29,12 +30,18 @@ const StyledPopover = styled.div`
   }
 `;
 class Popover extends Component {
-  static propTypes = {};
+  static propTypes = {
+    className: PropTypes.string
+  };
 
   render() {
+    const { className } = this.props;
     return (
       <React.Fragment>
-        <StyledPopover innerRef={e => (this.popoverContainer = e)} />
+        <StyledPopover
+          className={className}
+          innerRef={e => (this.popoverContainer = e)}
+        />
         <AntPopover
           {...this.props}
           getPopupContainer={() => this.popoverContainer}
