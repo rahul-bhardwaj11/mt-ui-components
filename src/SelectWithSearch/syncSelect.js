@@ -4,6 +4,7 @@ import Select, { components } from 'react-select';
 import CheckBox from '../CheckBox';
 import Button from '../Button';
 import Icon from '../Icon';
+import classnames from 'classnames';
 
 const noop = () => undefined;
 
@@ -28,7 +29,8 @@ export default class SyncSelect extends Component {
       PropTypes.arrayOf(PropTypes.string)
     ]),
     style: PropTypes.object,
-    optionRenderer: PropTypes.func
+    optionRenderer: PropTypes.func,
+    showSearch: PropTypes.bool
   };
 
   static defaultProps = {
@@ -315,8 +317,10 @@ export default class SyncSelect extends Component {
               onClick={this.handleMultiOnSelect}
               className={selectedItems.length ? 'activeBtnState' : ' '}
             >
-              <span className="marginR5"> Done</span>
-              {`${selectedItems.length ? `(${selectedItems.length})` : ''}`}
+              {'Apply'}
+              <span className="doneMarginR">
+                {`${selectedItems.length ? `(${selectedItems.length})` : ''}`}
+              </span>
             </Button>
           </div>
         </div>
@@ -326,35 +330,37 @@ export default class SyncSelect extends Component {
 
   handleControl = arg => {
     const { inputValue, showInput } = this.state;
-    const { isDisabled } = this.props;
+    const { isDisabled, showSearch } = this.props;
     return (
-      <div className="selectBoxWrapper">
-        <div
-          className={showInput ? 'activeSearch' : ''}
-          onClick={() => {
-            !isDisabled &&
-              this.setState({
-                menuIsOpen: true,
-                showInput: true
-              });
-          }}
-        >
-          <components.Control {...arg} />
+      showSearch && (
+        <div className="selectBoxWrapper">
           <div
-            className={inputValue.length ? 'activeInput' : ''}
-            ref={e => {
-              if (e) {
-                this.iconRef = e;
-              }
+            className={showInput ? 'activeSearch' : ''}
+            onClick={() => {
+              !isDisabled &&
+                this.setState({
+                  menuIsOpen: true,
+                  showInput: true
+                });
             }}
           >
-            <Icon
-              type="cross"
-              onClick={() => this.setState({ inputValue: '' })}
-            />
+            <components.Control {...arg} />
+            <div
+              className={inputValue.length ? 'activeInput' : ''}
+              ref={e => {
+                if (e) {
+                  this.iconRef = e;
+                }
+              }}
+            >
+              <Icon
+                type="cross"
+                onClick={() => this.setState({ inputValue: '' })}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )
     );
   };
 
@@ -376,7 +382,13 @@ export default class SyncSelect extends Component {
             ? buttonLabel
             : selectedItems[0].label
         }`;
-      return `${buttonLabel}.${selectedItems.length}`;
+      return (
+        <span className="selectWithSearchText">
+          {buttonLabel}
+          <Icon type="circle" className="discIcon" />
+          {selectedItems.length}
+        </span>
+      );
     }
     return buttonLabel;
   };
@@ -425,6 +437,7 @@ export default class SyncSelect extends Component {
     const {
       options,
       selectedItems,
+      prevSelectedItems,
       menuIsOpen,
       showSelect,
       showInput,
@@ -487,6 +500,10 @@ export default class SyncSelect extends Component {
                 minWidth: buttonMinWidth
               }}
               size="small"
+              className={classnames(
+                prevSelectedItems.length > 0 ? 'selectedItems' : '',
+                showSelect ? 'activeSelect' : ''
+              )}
             >
               {this.getButtonText()}
             </Button>
