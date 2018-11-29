@@ -266,14 +266,19 @@ class Table extends Component {
           return {
             onClick: () => {
               rowObject.onClick && rowObject.onClick(record);
-              this.onChange([record[rowKey]], [record]);
+              if (!rowObject.isDisabled || !rowObject.isDisabled()) {
+                this.onChange([record[rowKey]], [record]);
+              }
             },
             className: newSelectedRowskey.some(v => v === record[rowKey])
               ? classnames(
                   'ant-table-row-selected',
-                  this.props.selectRowClassName
+                  this.props.selectRowClassName,
+                  { 'row-disabled': true }
                 )
-              : ''
+              : !rowObject.isDisabled || !rowObject.isDisabled()
+                ? ''
+                : classnames({ 'row-disabled': true })
           };
         }
       };
