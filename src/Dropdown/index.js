@@ -43,20 +43,10 @@ class Dropdown extends Component {
   componentDidMount() {
     if (!this.props.getPopupContainer || !this.props.getPopupContainer())
       document.body.appendChild(this.element);
-    // if (this.props.getPopupContainer && this.props.getPopupContainer())
-    //   document.body.appendChild(this.props.getPopupContainer());
-    // else {
-    //   document.body.appendChild(this.element);
-    // }
   }
 
   componentWillUnmount() {
     if (!this.props.getPopupContainer) document.body.removeChild(this.element);
-    // if (this.props.getPopupContainer && this.props.getPopupContainer())
-    //   document.body.removeChild(this.props.getPopupContainer());
-    // else {
-    //   document.body.removeChild(this.element);
-    // }
   }
 
   render() {
@@ -69,8 +59,7 @@ class Dropdown extends Component {
       onSelect,
       placement,
       className,
-      selectedKeys,
-      ...rest
+      selectedKeys
     } = this.props;
 
     const container =
@@ -94,31 +83,24 @@ class Dropdown extends Component {
 
     return (
       <React.Fragment>
-        {/* <MtWrapper
-          innerRef={el => {
-            this.dropdownRef = el;
-          }}
-          className={className}
-        > */}
         {ReactDOM.createPortal(
-          <MtWrapper innerRef={e => e && (this.dropdownRef = e)} />,
+          <MtWrapper
+            className={className}
+            innerRef={e => e && (this.dropdownRef = e)}
+          />,
           container || this.element
         )}
-        <MtWrapper className={className}>
-          <AntDropdown
-            overlay={overlay}
-            trigger={[trigger]}
-            prefixCls={'ant-dropdown'}
-            getPopupContainer={() => {
-              return this.dropdownRef;
-            }}
-            placement={placement}
-            {...rest}
-          >
-            {children}
-          </AntDropdown>
-        </MtWrapper>
-        {/* </MtWrapper> */}
+        <AntDropdown
+          overlay={overlay}
+          trigger={[trigger]}
+          prefixCls={'ant-dropdown'}
+          getPopupContainer={() => {
+            return this.dropdownRef;
+          }}
+          placement={placement}
+        >
+          {children}
+        </AntDropdown>
       </React.Fragment>
     );
   }

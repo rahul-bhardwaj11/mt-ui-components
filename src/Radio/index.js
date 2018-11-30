@@ -6,6 +6,11 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
 
+const MtRadioGroup = styled(AntRadio.Group)`
+  &.ant-radio-group {
+    font-family: inherit;
+  }
+`;
 const MtRadio = styled(AntRadio)`
   .ant-radio-inner:after {
     background-color: white;
@@ -62,5 +67,5 @@ class Radio extends Component {
     return <MtRadio {...this.props}>{children}</MtRadio>;
   }
 }
-Radio.Group = AntRadio.Group;
+Radio.Group = MtRadioGroup;
 export default Radio;
