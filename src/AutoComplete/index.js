@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import Styled from 'styled-components';
 import 'antd/lib/auto-complete/style/index.css';
 
-const StyledAutoComplete = Styled.div`
-  display: inline-block;
-`;
+const StyledAutoComplete = Styled.div``;
 
 class AutoComplete extends React.Component {
   static propTypes = {
@@ -22,8 +20,8 @@ class AutoComplete extends React.Component {
         className={className}
       >
         <AntAutoComplete
-          getPopupContainer={() => this.popUpContainer}
           {...rest}
+          getPopupContainer={() => this.popUpContainer}
         />
       </StyledAutoComplete>
     );
