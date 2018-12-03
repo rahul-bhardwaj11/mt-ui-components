@@ -33,7 +33,8 @@ const StyledPopover = styled.div`
 class Popover extends Component {
   static propTypes = {
     children: PropTypes.node,
-    getPopupContainer: PropTypes.func
+    getPopupContainer: PropTypes.func,
+    className: PropTypes.string
   };
 
   element = null;
@@ -51,12 +52,15 @@ class Popover extends Component {
   }
 
   render() {
-    const { children, getPopupContainer, ...rest } = this.props;
+    const { children, getPopupContainer, className, ...rest } = this.props;
     const container = getPopupContainer && getPopupContainer();
     return (
       <React.Fragment>
         {ReactDOM.createPortal(
-          <StyledPopover innerRef={e => (this.popoverContainer = e)} />,
+          <StyledPopover
+            className={className}
+            innerRef={e => (this.popoverContainer = e)}
+          />,
           container || this.element
         )}
         <AntPopover getPopupContainer={() => this.popoverContainer} {...rest}>
