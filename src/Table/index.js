@@ -266,7 +266,7 @@ class Table extends Component {
           return {
             onClick: () => {
               rowObject.onClick && rowObject.onClick(record);
-              if (!rowObject.isDisabled || !rowObject.isDisabled()) {
+              if (!(rowObject.isDisabled && rowObject.isDisabled())) {
                 this.onChange([record[rowKey]], [record]);
               }
             },
@@ -276,7 +276,7 @@ class Table extends Component {
                   this.props.selectRowClassName,
                   { 'row-disabled': true }
                 )
-              : !rowObject.isDisabled || !rowObject.isDisabled()
+              : !(rowObject.isDisabled && rowObject.isDisabled())
                 ? ''
                 : classnames({ 'row-disabled': true })
           };
