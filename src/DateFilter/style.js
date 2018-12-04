@@ -110,7 +110,23 @@ const DateFilterStyle = styled.div`
       background-color: rgba(0, 0, 0, 0.2);
 
       .ant-calendar {
+        display: table;
+        height: 100%;
         margin: 0 auto;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+
+        .ant-calendar-panel {
+          display: table-cell;
+          vertical-align: middle;
+
+          .ant-calendar-date-panel {
+            background: ${theme.colors.WHITE};
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+          }
+        }
       }
     }
   }
