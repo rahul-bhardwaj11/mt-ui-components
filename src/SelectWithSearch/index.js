@@ -14,16 +14,16 @@ const SelectBox = styled.div`
   .mt-react-select__control {
     min-height: auto;
     background: ${theme.colors.WHITE};
-    line-height: 18px;
+    line-height: 18px;    
   }
 
   &.buttonSelect {
     .mt-react-select__control {
        width: 100%;
-       height: 32px;
+       height: 40px;
        border-bottom-left-radius: 0px;
        border-bottom-right-radius: 0px;
-       border-bottom: none;
+       border-bottom: none;       
      }
     .selectedItems{
       color: ${theme.colors.INDIGO};
@@ -46,10 +46,10 @@ const SelectBox = styled.div`
       display: inline-block;
       line-height: 16px;      
       .discIcon{
-        font-size: 6px;
-        margin: 0px 8px;
+        font-size: 4px;
+        margin: -2px 8px 0px;
         vertical-align: middle;
-        line-height: 15px;
+        display: inline-block;        
       }
     }
   }
@@ -75,7 +75,7 @@ const SelectBox = styled.div`
     margin-left: 10px;
     overflow: hidden;
     padding-left: 0px;
-    margin-right: 20px;
+    margin-right: 32px;
     cursor: text;
     &:before {
       content: '';
@@ -100,7 +100,8 @@ const SelectBox = styled.div`
   }
 
   .selectBoxWrapper{
-    ${props => (props.isButton ? 'margin-top: 10px' : '')};
+    ${props => (props.isButton ? 'margin-top: 10px' : '')};  
+    border-radius: 4px; 
     position: relative;
     z-index: 10;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.08);
@@ -114,10 +115,9 @@ const SelectBox = styled.div`
         .icon-cross {
           display: block;
           position: absolute;
-          right: 10px;
-          bottom: 12px;
+          right: 16px;
+          top: 17px;
           font-size: 10px;
-          top: 12px;
           cursor: pointer;
           &:before {
             float: right;
@@ -125,6 +125,7 @@ const SelectBox = styled.div`
         }
     }
     .mt-react-select__control {
+      height: 40px;
       &:before {
         display: block;
         background: url('${searchIcon}') no-repeat 1px 0px;
@@ -136,7 +137,7 @@ const SelectBox = styled.div`
         position: absolute;
         opacity: 0.6;
         left: 15px;
-        top: 10px;
+        top: 14px;
       }
     }
     .mt-react-select__dropdown-indicator {
@@ -150,6 +151,7 @@ const SelectBox = styled.div`
       .mt-react-select__placeholder {
           margin-left: 4px;
           ${mixin.inactiveLink()};
+          ${mixin.truncate('100%')};
       }
     }
 
@@ -220,7 +222,7 @@ const SelectBox = styled.div`
   }
 
   .mt-react-select__menu-list--is-multi {
-    padding: 19px 24px;
+    padding: 4px 24px 0px;
   }
 
   .selectedItem {
@@ -244,19 +246,21 @@ const SelectBox = styled.div`
 .componentWrapper {
   ${mixin.clearfix()};
   width: 100%;
+  padding: 10px 0px;
+  button{
+    box-shadow: none;
+  }
 }
 
 .buttonWrapperL {
   float: left;
-  width: 50%;
-  padding-bottom: 10px;
+  width: 50%; 
 }
 
 .buttonWrapperR {
   width: 50%;
   text-align: right;
   float: right;
-  padding-bottom: 10px;
   .activeBtnState {
    color: ${theme.colors.INDIGO};
   } 
@@ -272,8 +276,18 @@ const SelectBox = styled.div`
 }
 
 .checkboxWrapper {
-  margin-bottom: 5px;
-  ${() => mixin.truncate(`100%`)};
+  margin-top: 12px;  
+  ${mixin.clearfix()};
+  .labelText{
+    ${mixin.truncate('auto')};
+    display: block;
+  }
+  .subLabelText{
+    ${mixin.smallDarkLink()};
+    line-height: 21px;
+    padding-left: 8px;
+    float: right;
+  }
 }
 
 .doneMarginR {

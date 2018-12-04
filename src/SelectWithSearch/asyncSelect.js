@@ -455,12 +455,16 @@ export default class AsyncSelect extends Component {
         {optionRenderer ? (
           optionRenderer(data)
         ) : (
-          <CheckBox
-            disabled={data.disabled}
-            checked={selectedItems.map(i => i.value).includes(data.value)}
-          >
-            {data.label}
-          </CheckBox>
+          <React.Fragment>
+            <div className="subLabelText">{data.subText}</div>
+            <CheckBox
+              disabled={data.disabled}
+              checked={selectedItems.map(i => i.value).includes(data.value)}
+              className="labelText"
+            >
+              {data.label}
+            </CheckBox>
+          </React.Fragment>
         )}
       </div>
     ) : null;
@@ -471,15 +475,13 @@ export default class AsyncSelect extends Component {
     const isLoading = optionsCache[search] && optionsCache[search].isLoading;
     const { isMulti } = this.props;
     let loaderStyle = {
-      position: 'absolute',
-      bottom: isMulti ? 30 : 0,
-      left: '50%'
+      bottom: isMulti ? 30 : 0
     };
     return (
       <components.Menu {...props}>
         {props.children}
         {!!isLoading && (
-          <Loader size={'sizeXSmall'} vCenter={false} style={loaderStyle} />
+          <Loader size={'sizeXSmall'} type="Full" style={loaderStyle} />
         )}
         {isMulti && (
           <div className="componentWrapper">

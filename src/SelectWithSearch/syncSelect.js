@@ -289,12 +289,16 @@ export default class SyncSelect extends Component {
         {optionRenderer ? (
           optionRenderer(data)
         ) : (
-          <CheckBox
-            disabled={data.disabled}
-            checked={selectedItems.map(i => i.value).includes(data.value)}
-          >
-            {data.label}
-          </CheckBox>
+          <React.Fragment>
+            <div className="subLabelText">{data.subText}</div>
+            <CheckBox
+              disabled={data.disabled}
+              checked={selectedItems.map(i => i.value).includes(data.value)}
+              className="labelText"
+            >
+              {data.label}
+            </CheckBox>
+          </React.Fragment>
         )}
       </div>
     ) : null;
