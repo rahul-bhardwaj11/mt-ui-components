@@ -99,8 +99,8 @@ class DateFilter extends Component {
 
   rangePickerBlur = () => {
     if (this.state.date === RANGE_PICKER_STATE) {
-      this.setDate(null);
-      this.dropdownVisibilityChange(false);
+      // this.setDate(null);
+      // this.dropdownVisibilityChange(false);
     }
   };
 

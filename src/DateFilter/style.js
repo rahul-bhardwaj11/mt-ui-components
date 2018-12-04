@@ -1,7 +1,16 @@
 import styled from 'styled-components';
+import mixins from '../styles/mixins';
 import theme from '../styles/theme';
 
 const DateFilterStyle = styled.div`
+  .ant-dropdown-trigger {
+    position: relative;
+  }
+
+  .ant-dropdown-trigger + div {
+    position: relative !important;
+  }
+
   .dateInput {
     display: ${props => (props.mobile ? 'none' : 'block')};
     position: relative;
@@ -32,8 +41,9 @@ const DateFilterStyle = styled.div`
       }
     }
   }
+
   .dateRangeDropdown {
-    top: 40px !important;
+    top: 32px !important;
     left: 0 !important;
   }
   .dateCaret {
@@ -57,8 +67,52 @@ const DateFilterStyle = styled.div`
       }
     }
   }
+
   .ant-calendar-range .ant-calendar-in-range-cell:before {
     background: ${theme.colors.PORCELAIN};
+  }
+
+  @media only screen and (max-width: 767px) {
+    .ant-dropdown {
+      position: relative;
+
+      .ant-dropdown-menu {
+        box-shadow: none;
+        background-color: transparent;
+
+        .ant-dropdown-menu-item {
+          height: 36px;
+          padding: 8px 0;
+          margin: 0;
+          line-height: 36px;
+          background-color: transparent;
+          ${mixins.greyLink()};
+
+          div {
+            line-height: 20px;
+          }
+
+          &:hover {
+            color: ${theme.colors.OUTER_SPACE};
+            background-color: transparent;
+          }
+        }
+      }
+    }
+
+    .dateRangeDropdown {
+      position: fixed;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100%;
+      height: 100%;
+      padding: 8px;
+      background-color: rgba(0, 0, 0, 0.2);
+
+      .ant-calendar {
+        margin: 0 auto;
+      }
+    }
   }
 `;
 
