@@ -9,6 +9,7 @@ const StyledEditableContent = styled.div`
   padding: 6px 12px;
   .editableText {
     float: left;
+    cursor: pointer;
     margin-right: 12px;
   }
 
@@ -42,7 +43,8 @@ class EditableContent extends Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string,
-    editOnEnter: PropTypes.bool
+    editOnEnter: PropTypes.bool,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -108,8 +110,9 @@ class EditableContent extends Component {
   }
 
   renderStaticComponent() {
+    //const {className} = this.props;
     return (
-      <StyledEditableContent>
+      <StyledEditableContent className="editableContentWrapper">
         <div onClick={this.toggleEditMode}>
           <div className="editableText">{this.props.value}</div>
           <Icon type="edit" />
