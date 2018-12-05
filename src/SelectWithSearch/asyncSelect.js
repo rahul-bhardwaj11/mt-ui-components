@@ -103,16 +103,18 @@ export default class AsyncSelect extends Component {
 
   onInputChange = (search, event) => {
     if (event.action == 'input-change') {
-      this.setState({
-        inputValue: search,
-        search
-      });
-    }
-
-    const { optionsCache } = this.state;
-
-    if (!optionsCache[search]) {
-      this.loadOptions();
+      this.setState(
+        {
+          inputValue: search,
+          search
+        },
+        () => {
+          const { optionsCache } = this.state;
+          if (!optionsCache[search]) {
+            this.loadOptions();
+          }
+        }
+      );
     }
   };
 
