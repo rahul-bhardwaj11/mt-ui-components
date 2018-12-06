@@ -222,12 +222,12 @@ class Select extends Component {
     const container =
       this.props.getPopupContainer && this.props.getPopupContainer();
     return (
-      <div key={this.state.key}>
+      <React.Fragment>
         {ReactDOM.createPortal(
           <MtWrapper style={style} innerRef={this.selectRef} />,
           container || this.element
         )}
-        <MtWrapper style={style}>
+        <MtWrapper style={style} key={this.state.key}>
           <AntSelect
             {...this.props}
             onClick={event => {
@@ -259,7 +259,7 @@ class Select extends Component {
             })}
           </AntSelect>
         </MtWrapper>
-      </div>
+      </React.Fragment>
     );
   }
 }
