@@ -179,7 +179,12 @@ class Select extends Component {
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
     className: PropTypes.string,
-    getPopupContainer: PropTypes.func
+    getPopupContainer: PropTypes.func,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.array
+    ])
   };
 
   static defaultProps = {
@@ -193,6 +198,10 @@ class Select extends Component {
     this.selectRef = React.createRef();
   }
 
+  state = {
+    key: 'select'
+  };
+
   componentDidMount() {
     document.body.appendChild(this.element);
   }
@@ -201,12 +210,19 @@ class Select extends Component {
     document.body.removeChild(this.element);
   }
 
+  // hack for controlled value
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value != this.props.value) {
+      this.setState({ key: nextProps.value });
+    }
+  }
+
   render() {
     let { options, style } = this.props;
     const container =
       this.props.getPopupContainer && this.props.getPopupContainer();
     return (
-      <React.Fragment>
+      <div key={this.state.key}>
         {ReactDOM.createPortal(
           <MtWrapper style={style} innerRef={this.selectRef} />,
           container || this.element
@@ -243,7 +259,7 @@ class Select extends Component {
             })}
           </AntSelect>
         </MtWrapper>
-      </React.Fragment>
+      </div>
     );
   }
 }
