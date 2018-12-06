@@ -34,12 +34,15 @@ const StyledEditableInput = styled.div`
 `;
 
 class EditableContent extends Component {
-  state = {
-    editing: !this.props.value,
+  getInitialState = () => ({
+    editing: false,
     nextValue: this.props.value
-  };
+  });
+
+  state = this.getInitialState();
 
   static propTypes = {
+    id: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string,
     editOnEnter: PropTypes.bool
@@ -51,11 +54,23 @@ class EditableContent extends Component {
     value: ''
   };
 
-  toggleEditMode = () =>
-    this.setState(prevState => ({ editing: !prevState.editing }));
+  componentDidUpdate(oldProps) {
+    const newProps = this.props;
+    if (oldProps.id !== newProps.id) {
+      this.setState(this.getInitialState()); // reset to older state
+    }
+  }
+
+  toggleEditMode = editing =>
+    this.setState(prevState => ({
+      editing: typeof editing === 'undefined' ? !prevState.editing : editing
+    }));
 
   handleSave = () => {
-    this.props.onChange(this.state.nextValue);
+    if (this.state.nextValue) {
+      // do not save empty value in edit mode
+      this.props.onChange(this.state.nextValue);
+    }
     this.toggleEditMode();
   };
 
