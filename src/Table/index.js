@@ -277,8 +277,8 @@ class Table extends Component {
                   { 'row-disabled': true }
                 )
               : !(rowObject.isDisabled && rowObject.isDisabled())
-              ? ''
-              : classnames({ 'row-disabled': true })
+                ? ''
+                : classnames({ 'row-disabled': true })
           };
         }
       };
@@ -325,13 +325,14 @@ class Table extends Component {
             {actionBar ? actionBar.actionItem : false}
           </ActionBar>
         )}
-        {isLoadMore && hasMore && (
-          <div className="loadMoreBtnDiv">
-            <Button type="secondary" size="medium" onClick={this.fetch}>
-              Load More
-            </Button>
-          </div>
-        )}
+        {isLoadMore &&
+          hasMore && (
+            <div className="loadMoreBtnDiv">
+              <Button type="secondary" size="medium" onClick={this.fetch}>
+                Load More
+              </Button>
+            </div>
+          )}
       </MtTable>
     );
   }
