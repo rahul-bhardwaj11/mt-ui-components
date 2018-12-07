@@ -6,6 +6,7 @@ import theme from '../styles/theme.js';
 import mixins from '../styles/mixins.js';
 import PropTypes from 'prop-types';
 const StyledPopover = styled.div`
+  position: absolute;
   .ant-popover {
     font-family: inherit;
     z-index: ${mixins.zIndex.POPOVER};
