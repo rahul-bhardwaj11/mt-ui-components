@@ -65,7 +65,7 @@ class Tabs extends Component {
           {options.map(option => {
             return (
               <AntTabs.TabPane tab={option.title} key={option.key}>
-                {option.title}
+                {option.content}
               </AntTabs.TabPane>
             );
           })}
