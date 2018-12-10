@@ -42,7 +42,6 @@ class EditableContent extends Component {
   state = this.getInitialState();
 
   static propTypes = {
-    id: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string,
     editOnEnter: PropTypes.bool
