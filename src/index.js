@@ -7,6 +7,7 @@
 export ActionBar from './ActionBar';
 export Alert from './Alert';
 export AutoComplete from './AutoComplete';
+export AutoCompleteTag from './AutoCompleteTag';
 export Badge from './Badge';
 export Button from './Button';
 export Card from './Card';
@@ -31,6 +32,7 @@ export Link from './Link';
 export Loader from './Loader';
 export Menu from './Menu';
 export Modal from './Modal';
+export PdfPlayer from './PdfPlayer';
 export Popover from './Popover';
 export RaPlayer from './RaPlayer';
 export Radio from './Radio';
