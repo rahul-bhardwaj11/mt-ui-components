@@ -24,6 +24,8 @@ const SelectBox = styled.div`
        border-bottom-left-radius: 0px;
        border-bottom-right-radius: 0px;
        border-bottom: none;       
+       /* ${({ showSearch, isButton }) =>
+         !showSearch && isButton ? `visibility: hidden; height:0px;` : null}; */
      }
     .selectedItems{
       color: ${theme.colors.INDIGO};
@@ -100,11 +102,14 @@ const SelectBox = styled.div`
   }
 
   .selectBoxWrapper{
-    ${props => (props.isButton ? 'margin-top: 10px' : '')};  
+    /* ${({ showSearch, isButton }) =>
+      !showSearch && isButton ? `visibility: hidden; ` : null}; */
+    
     border-radius: 4px; 
     position: relative;
     z-index: 10;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.08);
+    ${props => (props.isButton ? 'margin-top: 10px' : '')};  
     .activeSearch {
       .mt-react-select__value-container{
         margin-left: 35px;
@@ -124,7 +129,7 @@ const SelectBox = styled.div`
           }
         }
     }
-    .mt-react-select__control {
+    .mt-react-select__control {      
       height: 40px;
       &:before {
         display: block;

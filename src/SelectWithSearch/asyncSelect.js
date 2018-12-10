@@ -101,6 +101,7 @@ export default class AsyncSelect extends Component {
         }
       );
     }
+    if (!this.props.showSearch && this.selectRef) this.selectRef.focus();
   }
 
   onInputChange = (search, event) => {
@@ -697,18 +698,30 @@ export default class AsyncSelect extends Component {
           </div>
         )}
         {showSelect && (
-          <Select
-            styles={this.getStyle()}
-            {...this.props}
-            classNamePrefix={'mt-react-select'}
-            onInputChange={this.onInputChange}
-            options={options}
-            onMenuOpen={this.onMenuOpen}
-            autoload={false}
-            onMenuScrollToBottom={this.onMenuScrollToBottom}
-            {...selectProps}
-            backspaceRemovesValue={false}
-          />
+          <div
+            onBlur={() => {
+              if (!this.props.showSearch) this.handleMultiOnSelect();
+            }}
+            tabIndex={0}
+            ref={e => {
+              if (e) {
+                this.selectRef = e;
+              }
+            }}
+          >
+            <Select
+              styles={this.getStyle()}
+              {...this.props}
+              classNamePrefix={'mt-react-select'}
+              onInputChange={this.onInputChange}
+              options={options}
+              onMenuOpen={this.onMenuOpen}
+              autoload={false}
+              onMenuScrollToBottom={this.onMenuScrollToBottom}
+              {...selectProps}
+              backspaceRemovesValue={false}
+            />
+          </div>
         )}
       </React.Fragment>
     );

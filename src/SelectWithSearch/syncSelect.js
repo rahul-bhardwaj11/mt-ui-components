@@ -91,6 +91,9 @@ export default class SyncSelect extends Component {
       this.setState({ inputValue: '' });
       this.isIconClicked = true;
     }
+    if (this.selectRef && this.selectRef.contains(event.target)) {
+      this.isBlurActive = false;
+    }
   };
 
   componentWillUnmount() {
@@ -436,6 +439,10 @@ export default class SyncSelect extends Component {
     return styles;
   };
 
+  componentDidUpdate() {
+    if (this.selectRef) this.selectRef.focus();
+  }
+
   render() {
     const { isMulti, isButton, buttonMaxWidth, buttonMinWidth } = this.props;
     const {
@@ -514,14 +521,26 @@ export default class SyncSelect extends Component {
           </div>
         )}
         {showSelect && (
-          <Select
-            styles={this.getStyle()}
-            {...this.props}
-            options={options}
-            classNamePrefix={'mt-react-select'}
-            {...selectProps}
-            backspaceRemovesValue={false}
-          />
+          <div
+            onBlur={() => {
+              this.handleMultiOnSelect();
+            }}
+            tabIndex={0}
+            ref={e => {
+              if (e) {
+                this.selectRef = e;
+              }
+            }}
+          >
+            <Select
+              styles={this.getStyle()}
+              {...this.props}
+              options={options}
+              classNamePrefix={'mt-react-select'}
+              {...selectProps}
+              backspaceRemovesValue={false}
+            />
+          </div>
         )}
       </React.Fragment>
     );
