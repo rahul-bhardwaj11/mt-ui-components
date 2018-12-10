@@ -74,13 +74,11 @@ class ReadMore extends Component {
         >
           <StringToHTML content={children} />
         </Truncate>
-        {!truncated &&
-          expanded &&
-          showViewMore && (
-            <span className="viewLess">
-              <a onClick={this.toggleLines}> {lessText}</a>
-            </span>
-          )}
+        {!truncated && expanded && showViewMore && (
+          <span className="viewLess">
+            <a onClick={this.toggleLines}> {lessText}</a>
+          </span>
+        )}
       </MTReadMore>
     );
   }
