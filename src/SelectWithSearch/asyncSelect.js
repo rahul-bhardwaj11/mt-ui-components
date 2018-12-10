@@ -691,6 +691,7 @@ export default class AsyncSelect extends Component {
             onMenuOpen={this.onMenuOpen}
             autoload={false}
             onMenuScrollToBottom={this.onMenuScrollToBottom}
+            filterOption={() => true}
             {...selectProps}
             backspaceRemovesValue={false}
           />
