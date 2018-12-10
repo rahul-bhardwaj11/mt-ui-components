@@ -123,11 +123,9 @@ class EditableContent extends Component {
 
   renderStaticComponent() {
     return (
-      <StyledEditableContent>
-        <div onClick={this.toggleEditMode}>
-          <div className="editableText">{this.props.value}</div>
-          <Icon type="edit" />
-        </div>
+      <StyledEditableContent onClick={this.toggleEditMode}>
+        <div className="editableText">{this.props.value}</div>
+        <Icon type="edit" />
       </StyledEditableContent>
     );
   }
