@@ -2,6 +2,7 @@ import React from 'react';
 import AntAutoComplete from 'antd/lib/auto-complete';
 import Styled from 'styled-components';
 import 'antd/lib/auto-complete/style/index.css';
+import 'antd/lib/select/style/index.css';
 
 const StyledAutoComplete = Styled.div`
 `;

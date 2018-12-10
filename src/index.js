@@ -19,6 +19,7 @@ export CopyToClipboard from './CopyToClipboard';
 export DatePicker from './DatePicker';
 export Drawer from './Drawer';
 export Dropdown from './Dropdown';
+export EditableContent from './EditableContent';
 export Elevation from './Elevation';
 export Form from './Form';
 export Grid from './Grid';
