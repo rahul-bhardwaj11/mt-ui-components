@@ -157,6 +157,9 @@ export default styled.div`
       }
     }
     .ant-table-tbody {
+      .row-disabled {
+        opacity: 0.4;
+      }
       & > tr {
         color: ${theme.colors.DARK_OUTER_SPACE};
         & > td {
