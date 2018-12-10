@@ -56,7 +56,7 @@ class EditableContent extends Component {
 
   componentDidUpdate(oldProps) {
     const newProps = this.props;
-    if (oldProps.id !== newProps.id) {
+    if (oldProps.value !== newProps.value) {
       this.setState(this.getInitialState()); // reset to older state
     }
   }
