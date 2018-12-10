@@ -58,7 +58,7 @@ export default class AsyncSelect extends Component {
 
   static defaultProps = {
     cacheUniq: null,
-    pageSize: 10,
+    pageSize: 15,
     isButton: false,
     buttonLabel: 'filter'
   };
@@ -90,24 +90,31 @@ export default class AsyncSelect extends Component {
     const { cacheUniq } = this.props;
 
     if (oldProps.cacheUniq !== cacheUniq) {
-      this.setState({
-        optionsCache: {}
-      });
+      this.setState(
+        {
+          optionsCache: {}
+        },
+        () => {
+          this.loadOptions();
+        }
+      );
     }
   }
 
   onInputChange = (search, event) => {
     if (event.action == 'input-change') {
-      this.setState({
-        inputValue: search,
-        search
-      });
-    }
-
-    const { optionsCache } = this.state;
-
-    if (!optionsCache[search]) {
-      this.loadOptions();
+      this.setState(
+        {
+          inputValue: search,
+          search
+        },
+        () => {
+          const { optionsCache } = this.state;
+          if (!optionsCache[search]) {
+            this.loadOptions();
+          }
+        }
+      );
     }
   };
 
@@ -151,7 +158,11 @@ export default class AsyncSelect extends Component {
       let uniqueOptions = [];
       options.length &&
         options.forEach(option => {
-          if (currentOptions.options.indexOf(option) < 0) {
+          if (
+            !currentOptions.options.some(
+              currOption => option.value == currOption.value
+            )
+          ) {
             uniqueOptions.push(option);
           }
         });
@@ -184,7 +195,9 @@ export default class AsyncSelect extends Component {
     //const { sortOptions } = this.props;
     //if (!sortOptions) return options;
     const optionsThatAreNotSelected = options.filter(option => {
-      return selectedItems.indexOf(option) < 0;
+      return !selectedItems.some(
+        currOption => option.value == currOption.value
+      );
     });
     const newOptions = [...selectedItems, ...optionsThatAreNotSelected];
     return newOptions;
@@ -216,6 +229,7 @@ export default class AsyncSelect extends Component {
     );
     await this.setState(prevState => ({
       selectedItems,
+      prevSelectedItems: selectedItems,
       optionsCache: {
         ...prevState.optionsCache,
         [search]: {
@@ -271,7 +285,7 @@ export default class AsyncSelect extends Component {
     }
     if (this.iconRef && this.iconRef.contains(event.target)) {
       this.setState({ inputValue: '', search: '' });
-      this.isBlurActive = true;
+      this.isIconClicked = true;
     }
   };
 
@@ -279,7 +293,10 @@ export default class AsyncSelect extends Component {
     document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
-  onCheckboxClick = data => {
+  onCheckboxClick = (data, event) => {
+    if (event) {
+      return;
+    }
     const selectedItems = [...this.state.selectedItems];
     let index = selectedItems.indexOf(data);
     if (index < 0) {
@@ -473,7 +490,11 @@ export default class AsyncSelect extends Component {
             </div>
 
             <div className="buttonWrapperR">
-              <Button type="text" onClick={this.handleMultiOnSelect}>
+              <Button
+                type="text"
+                onClick={this.handleMultiOnSelect}
+                className={selectedItems.length ? 'activeBtnState' : ' '}
+              >
                 {`Done`}
                 <span className="doneMarginR">
                   {selectedItems.length ? `(${selectedItems.length})` : ''}
@@ -671,6 +692,7 @@ export default class AsyncSelect extends Component {
             autoload={false}
             onMenuScrollToBottom={this.onMenuScrollToBottom}
             {...selectProps}
+            backspaceRemovesValue={false}
           />
         )}
       </React.Fragment>

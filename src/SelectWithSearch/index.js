@@ -206,6 +206,9 @@ const SelectBox = styled.div`
   text-align: right;
   float: right;
   padding-bottom: 10px;
+  .activeBtnState {
+   color: ${theme.colors.INDIGO};
+  } 
 }
 
 .icon-cross {

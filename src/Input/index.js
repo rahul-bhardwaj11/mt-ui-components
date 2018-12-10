@@ -37,6 +37,7 @@ const MtInput = styled.div`
   }
   .ant-input {
     border: 1px solid ${theme.colors.ALTO};
+    font-family: inherit;
   }
   .ant-input {
     &:hover {
@@ -44,10 +45,11 @@ const MtInput = styled.div`
     }
   }
   .ant-input {
+    &.active,
     &:focus {
       border-color: ${theme.colors.SILVER};
       outline: 0;
-      box-shadow: 0 0 0 0px rgba(24, 144, 255, 0.2);
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08);
     }
   }
   .ant-input-disabled {
@@ -71,6 +73,7 @@ class Input extends Component {
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     type: PropTypes.oneOf(['text', 'number', 'password', 'file']),
     errors: PropTypes.array
   };
@@ -115,7 +118,11 @@ class Input extends Component {
   };
 
   componentWillMount() {
-    const { value = '' } = this.props;
+    let { value, defaultValue } = this.props;
+    if (!value) {
+      value = defaultValue ? defaultValue : '';
+    }
+
     this.setState({ value: this.handleValue(value) });
   }
 
@@ -128,7 +135,7 @@ class Input extends Component {
   }
 
   render() {
-    const { errors, maxLength, maxLengthClassName } = this.props;
+    const { errors /*, maxLength, maxLengthClassName*/ } = this.props;
     const { value } = this.state;
     return (
       <MtInput>
@@ -138,7 +145,7 @@ class Input extends Component {
           onChange={this.onChange}
           onFocus={this.moveCaretAtEnd}
         />
-        <div
+        {/*<div
           key="maxLength"
           className={classnames(
             { ['counterStyle']: maxLength, displayN: !maxLength },
@@ -147,6 +154,7 @@ class Input extends Component {
         >
           {maxLength && maxLength - value.length}
         </div>
+       */}
         <div
           key="error"
           className={classnames(errors[0] ? 'error' : 'displayN')}
@@ -158,49 +166,4 @@ class Input extends Component {
   }
 }
 
-class TextArea extends Component {
-  static propTypes = {
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    onChange: PropTypes.func
-  };
-
-  static defaultProps = {
-    onChange: noop
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: this.props.value
-    };
-  }
-
-  onChange = event => {
-    const { onChange } = this.props;
-    const value = event.target.value;
-    this.setState({ value });
-    onChange(event, value);
-  };
-
-  componentWillReceiveProps(newProps) {
-    const { value } = this.props;
-    let { value: newValue } = newProps;
-    if (newValue !== value) {
-      this.setState({ value: newValue });
-    }
-  }
-
-  render() {
-    const { value } = this.state;
-    return (
-      <AntInput.TextArea
-        {...this.props}
-        value={value}
-        onChange={this.onChange}
-      />
-    );
-  }
-}
-
-Input.TextArea = TextArea;
 export default Input;

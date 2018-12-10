@@ -46,7 +46,7 @@ const ThumbnailInfoWrapper = styled.div`
 class UserThumbnailInfo extends Component {
   static propTypes = {
     title: PropTypes.string,
-    content: PropTypes.string,
+    content: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     message: PropTypes.shape({
       msg: PropTypes.string,
       style: PropTypes.object

@@ -40,7 +40,7 @@ const MtCollapse = styled.div`
           height: 0;
           border-left: 6px solid transparent;
           border-right: 6px solid transparent;
-          border-top: 7px solid #6f7583;
+          border-top: 7px solid ${theme.colors.OUTER_SPACE};
           border-radius: 2px;
           margin-bottom: 20px;
           position: absolute;
@@ -59,6 +59,10 @@ const MtCollapse = styled.div`
         }
       }
     }
+  }
+
+  .ant-collapse-content {
+    border-top: 1px;
   }
 `;
 
@@ -95,4 +99,5 @@ class Collapse extends Component {
     );
   }
 }
+Collapse.Panel = AntCollapse.Panel;
 export default Collapse;
