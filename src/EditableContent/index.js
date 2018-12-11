@@ -45,8 +45,7 @@ class EditableContent extends Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string,
-    editOnEnter: PropTypes.bool,
-    className: PropTypes.string
+    editOnEnter: PropTypes.bool
   };
 
   static defaultProps = {
@@ -124,7 +123,6 @@ class EditableContent extends Component {
   }
 
   renderStaticComponent() {
-    //const {className} = this.props;
     return (
       <StyledEditableContent className="editableContentWrapper">
         <div onClick={this.toggleEditMode}>
