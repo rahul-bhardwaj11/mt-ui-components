@@ -94,6 +94,22 @@ export default class SyncSelect extends Component {
     if (this.selectRef && this.selectRef.contains(event.target)) {
       this.isBlurActive = false;
     }
+    if (this.props.isButton) {
+      if (
+        !this.buttonRef.contains(event.target) &&
+        !this.selectRef.contains(event.target)
+      ) {
+        this.props.isMulti
+          ? this.handleMultiOnSelect()
+          : this.handleSingleOnBlur();
+      }
+    } else {
+      if (!this.selectRef.contains(event.target)) {
+        this.props.isMulti
+          ? this.handleMultiOnSelect()
+          : this.handleSingleOnBlur();
+      }
+    }
   };
 
   componentWillUnmount() {
@@ -282,15 +298,15 @@ export default class SyncSelect extends Component {
         </div>
       );
     return !isDisabled ? (
-      <div
-        onClick={() => {
-          !data.disabled && this.onCheckboxClick(data);
-        }}
-        className="checkboxWrapper"
-        title={data.label}
-      >
+      <div className="checkboxWrapper" title={data.label}>
         {optionRenderer ? (
-          optionRenderer(data)
+          <div
+            onClick={() => {
+              !data.disabled && this.onCheckboxClick(data);
+            }}
+          >
+            {optionRenderer(data)}
+          </div>
         ) : (
           <React.Fragment>
             <div className="subLabelText">{data.subText}</div>
@@ -298,6 +314,9 @@ export default class SyncSelect extends Component {
               disabled={data.disabled}
               checked={selectedItems.map(i => i.value).includes(data.value)}
               className="labelText"
+              onChange={() => {
+                !data.disabled && this.onCheckboxClick(data);
+              }}
             >
               {data.label}
             </CheckBox>
@@ -439,10 +458,6 @@ export default class SyncSelect extends Component {
     return styles;
   };
 
-  componentDidUpdate() {
-    if (this.selectRef) this.selectRef.focus();
-  }
-
   render() {
     const { isMulti, isButton, buttonMaxWidth, buttonMinWidth } = this.props;
     const {
@@ -472,7 +487,7 @@ export default class SyncSelect extends Component {
           autoFocus: showInput,
           isFocused: true,
           autosize: false,
-          onBlur: this.handleMultiOnSelect,
+          //onBlur: this.handleMultiOnSelect,
           inputValue: inputValue,
           onInputChange: this.onInputChange
         }
@@ -483,7 +498,7 @@ export default class SyncSelect extends Component {
             SingleValue: this.handleSingleValue
           },
           onChange: this.handleSingleOnSelect,
-          onBlur: this.handleSingleOnBlur,
+          //onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
           isFocused: true,
           backspaceRemovesValue: false,
@@ -522,10 +537,6 @@ export default class SyncSelect extends Component {
         )}
         {showSelect && (
           <div
-            onBlur={() => {
-              this.handleMultiOnSelect();
-            }}
-            tabIndex={0}
             ref={e => {
               if (e) {
                 this.selectRef = e;

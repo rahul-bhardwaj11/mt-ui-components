@@ -101,7 +101,6 @@ export default class AsyncSelect extends Component {
         }
       );
     }
-    if (!this.props.showSearch && this.selectRef) this.selectRef.focus();
   }
 
   onInputChange = (search, event) => {
@@ -245,7 +244,7 @@ export default class AsyncSelect extends Component {
     if (!optionsCache[''] || optionsCache[''].hasMore) {
       await this.loadOptions();
     }
-    document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener('mousedown', this.handleClickOutside.bind(this));
   };
 
   getSelectedItemsFromValue = value => {
@@ -289,6 +288,25 @@ export default class AsyncSelect extends Component {
     if (this.iconRef && this.iconRef.contains(event.target)) {
       this.setState({ inputValue: '', search: '' });
       this.isIconClicked = true;
+    }
+    if (this.selectRef && this.selectRef.contains(event.target)) {
+      this.isBlurActive = false;
+    }
+    if (this.props.isButton) {
+      if (
+        !this.buttonRef.contains(event.target) &&
+        !this.selectRef.contains(event.target)
+      ) {
+        this.props.isMulti
+          ? this.handleMultiOnSelect()
+          : this.handleSingleOnBlur();
+      }
+    } else {
+      if (!this.selectRef.contains(event.target)) {
+        this.props.isMulti
+          ? this.handleMultiOnSelect()
+          : this.handleSingleOnBlur();
+      }
     }
   };
 
@@ -448,15 +466,15 @@ export default class AsyncSelect extends Component {
         </div>
       );
     return !isDisabled ? (
-      <div
-        onClick={() => {
-          !data.disabled && this.onCheckboxClick(data);
-        }}
-        className="checkboxWrapper"
-        title={data.label}
-      >
+      <div className="checkboxWrapper" title={data.label}>
         {optionRenderer ? (
-          optionRenderer(data)
+          <div
+            onClick={() => {
+              !data.disabled && this.onCheckboxClick(data);
+            }}
+          >
+            {optionRenderer(data)}
+          </div>
         ) : (
           <React.Fragment>
             <div className="subLabelText">{data.subText}</div>
@@ -464,6 +482,9 @@ export default class AsyncSelect extends Component {
               disabled={data.disabled}
               checked={selectedItems.map(i => i.value).includes(data.value)}
               className="labelText"
+              onChange={() => {
+                !data.disabled && this.onCheckboxClick(data);
+              }}
             >
               {data.label}
             </CheckBox>
@@ -652,7 +673,7 @@ export default class AsyncSelect extends Component {
           isSearchable: showInput,
           autoFocus: showInput,
           isFocused: true,
-          onBlur: this.handleMultiOnSelect,
+          //onBlur: this.handleMultiOnSelect,
           inputValue: inputValue
         }
       : {
@@ -663,7 +684,7 @@ export default class AsyncSelect extends Component {
             Menu: this.buildMenu
           },
           onChange: this.handleSingleOnSelect,
-          onBlur: this.handleSingleOnBlur,
+          //onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
           backspaceRemovesValue: false,
           controlShouldRenderValue: !showInput,
@@ -701,10 +722,6 @@ export default class AsyncSelect extends Component {
         )}
         {showSelect && (
           <div
-            onBlur={() => {
-              if (!this.props.showSearch) this.handleMultiOnSelect();
-            }}
-            tabIndex={0}
             ref={e => {
               if (e) {
                 this.selectRef = e;

@@ -23,9 +23,7 @@ const SelectBox = styled.div`
        height: 40px;
        border-bottom-left-radius: 0px;
        border-bottom-right-radius: 0px;
-       border-bottom: none;       
-       /* ${({ showSearch, isButton }) =>
-         !showSearch && isButton ? `visibility: hidden; height:0px;` : null}; */
+       border-bottom: none;              
      }
     .selectedItems{
       color: ${theme.colors.INDIGO};
@@ -101,10 +99,7 @@ const SelectBox = styled.div`
     color: ${theme.colors.OUTER_SPACE};
   }
 
-  .selectBoxWrapper{
-    /* ${({ showSearch, isButton }) =>
-      !showSearch && isButton ? `visibility: hidden; ` : null}; */
-    
+  .selectBoxWrapper{        
     border-radius: 4px; 
     position: relative;
     z-index: 10;
