@@ -21,6 +21,7 @@ export Drawer from './Drawer';
 export Dropdown from './Dropdown';
 export EditableContent from './EditableContent';
 export Elevation from './Elevation';
+export FileViewer from './FileViewer';
 export Form from './Form';
 export Grid from './Grid';
 export GroupButtonDropdown from './GroupButtonDropdown';
