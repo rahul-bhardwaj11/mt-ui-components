@@ -7,7 +7,7 @@
   "main": "./lib/index.js",
   "license": "MIT",
   "scripts": {
-    "story": "start-storybook -p 6006",
+    "story": "start-storybook -p 6006 -s ./public",
     "test": "jest --verbose ",
     "test:update": "jest -u",
     "start": "concurrently  \"npm run story\" \"npm run babel:watch\" \"npm run lint:watch\" --kill-others --names 'storybook,babel,lint'",
@@ -125,6 +125,7 @@
     "antd": "3.9.0",
     "babel-plugin-styled-components": "^1.6.3",
     "classnames": "^2.2.6",
+    "deepmerge": "^2.2.1",
     "identity-obj-proxy": "^3.0.0",
     "install": "^0.11.2",
     "moment": "^2.22.2",
