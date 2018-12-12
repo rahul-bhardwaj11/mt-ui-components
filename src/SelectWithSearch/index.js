@@ -286,14 +286,13 @@ const SelectBox = styled.div`
     ${mixin.smallDarkLink()};
     line-height: 21px;
     padding-left: 8px;
+    cursor: pointer;
     float: right;
   }
 }
-
 .doneMarginR {
   margin-left: 5px;
 }
-
 `;
 class SelectWithSearch extends Component {
   static propTypes = {

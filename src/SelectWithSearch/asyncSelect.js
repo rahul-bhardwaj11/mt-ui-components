@@ -23,12 +23,14 @@ export default class AsyncSelect extends Component {
     defaultValue: PropTypes.oneOfType([
       PropTypes.shape({
         label: PropTypes.string,
-        value: PropTypes.string
+        value: PropTypes.string,
+        subText: PropTypes.string
       }),
       PropTypes.arrayOf(
         PropTypes.shape({
           label: PropTypes.string,
-          value: PropTypes.string
+          value: PropTypes.string,
+          subText: PropTypes.string
         })
       )
     ]),
@@ -44,12 +46,14 @@ export default class AsyncSelect extends Component {
     value: PropTypes.oneOfType([
       PropTypes.shape({
         label: PropTypes.string,
-        value: PropTypes.string
+        value: PropTypes.string,
+        subText: PropTypes.string
       }),
       PropTypes.arrayOf(
         PropTypes.shape({
           label: PropTypes.string,
-          value: PropTypes.string
+          value: PropTypes.string,
+          subText: PropTypes.string
         })
       )
     ]),
@@ -292,21 +296,15 @@ export default class AsyncSelect extends Component {
     if (this.selectRef && this.selectRef.contains(event.target)) {
       this.isBlurActive = false;
     }
-    if (this.props.isButton) {
+
+    if (!this.selectRef.contains(event.target)) {
       if (
-        !this.buttonRef.contains(event.target) &&
-        !this.selectRef.contains(event.target)
-      ) {
+        (this.buttonRef && !this.buttonRef.contains(event.target)) ||
+        !this.props.isButton
+      )
         this.props.isMulti
           ? this.handleMultiOnSelect()
           : this.handleSingleOnBlur();
-      }
-    } else {
-      if (!this.selectRef.contains(event.target)) {
-        this.props.isMulti
-          ? this.handleMultiOnSelect()
-          : this.handleSingleOnBlur();
-      }
     }
   };
 
@@ -477,7 +475,16 @@ export default class AsyncSelect extends Component {
           </div>
         ) : (
           <React.Fragment>
-            <div className="subLabelText">{data.subText}</div>
+            {data.subText && (
+              <div
+                onClick={() => {
+                  !data.disabled && this.onCheckboxClick(data);
+                }}
+                className="subLabelText"
+              >
+                {data.subText}
+              </div>
+            )}
             <CheckBox
               disabled={data.disabled}
               checked={selectedItems.map(i => i.value).includes(data.value)}
@@ -673,7 +680,6 @@ export default class AsyncSelect extends Component {
           isSearchable: showInput,
           autoFocus: showInput,
           isFocused: true,
-          //onBlur: this.handleMultiOnSelect,
           inputValue: inputValue
         }
       : {
@@ -684,7 +690,6 @@ export default class AsyncSelect extends Component {
             Menu: this.buildMenu
           },
           onChange: this.handleSingleOnSelect,
-          //onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
           backspaceRemovesValue: false,
           controlShouldRenderValue: !showInput,

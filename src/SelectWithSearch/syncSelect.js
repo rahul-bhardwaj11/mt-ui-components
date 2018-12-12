@@ -94,21 +94,15 @@ export default class SyncSelect extends Component {
     if (this.selectRef && this.selectRef.contains(event.target)) {
       this.isBlurActive = false;
     }
-    if (this.props.isButton) {
+
+    if (!this.selectRef.contains(event.target)) {
       if (
-        !this.buttonRef.contains(event.target) &&
-        !this.selectRef.contains(event.target)
-      ) {
+        (this.buttonRef && !this.buttonRef.contains(event.target)) ||
+        !this.props.isButton
+      )
         this.props.isMulti
           ? this.handleMultiOnSelect()
           : this.handleSingleOnBlur();
-      }
-    } else {
-      if (!this.selectRef.contains(event.target)) {
-        this.props.isMulti
-          ? this.handleMultiOnSelect()
-          : this.handleSingleOnBlur();
-      }
     }
   };
 
@@ -309,7 +303,16 @@ export default class SyncSelect extends Component {
           </div>
         ) : (
           <React.Fragment>
-            <div className="subLabelText">{data.subText}</div>
+            {data.subText && (
+              <div
+                onClick={() => {
+                  !data.disabled && this.onCheckboxClick(data);
+                }}
+                className="subLabelText"
+              >
+                {data.subText}
+              </div>
+            )}
             <CheckBox
               disabled={data.disabled}
               checked={selectedItems.map(i => i.value).includes(data.value)}
@@ -487,7 +490,6 @@ export default class SyncSelect extends Component {
           autoFocus: showInput,
           isFocused: true,
           autosize: false,
-          //onBlur: this.handleMultiOnSelect,
           inputValue: inputValue,
           onInputChange: this.onInputChange
         }
@@ -498,7 +500,6 @@ export default class SyncSelect extends Component {
             SingleValue: this.handleSingleValue
           },
           onChange: this.handleSingleOnSelect,
-          //onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
           isFocused: true,
           backspaceRemovesValue: false,
