@@ -9,6 +9,7 @@ const StyledEditableContent = styled.div`
   padding: 6px 12px;
   .editableText {
     float: left;
+    cursor: pointer;
     margin-right: 12px;
   }
 
@@ -123,9 +124,11 @@ class EditableContent extends Component {
 
   renderStaticComponent() {
     return (
-      <StyledEditableContent onClick={this.toggleEditMode}>
-        <div className="editableText">{this.props.value}</div>
-        <Icon type="edit" />
+      <StyledEditableContent className="editableContentWrapper">
+        <div onClick={this.toggleEditMode}>
+          <div className="editableText">{this.props.value}</div>
+          <Icon type="edit" />
+        </div>
       </StyledEditableContent>
     );
   }
