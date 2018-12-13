@@ -23,7 +23,8 @@ export default class Description extends Component {
     onChange: PropTypes.func,
     maxLength: PropTypes.number,
     ok: PropTypes.func,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
+    required: PropTypes.bool
   };
   static defaultProps = {
     content: '',
@@ -42,7 +43,7 @@ export default class Description extends Component {
 
   onChange = (value, editor, trigger = true) => {
     //const { content } = this.state;
-    const { maxLength } = this.props;
+    const { maxLength, required } = this.props;
     let text = trimNewLine(editor.getText().trim());
     let contentLength = text.length;
     if (contentLength > maxLength && editor.deleteText) {
@@ -57,6 +58,7 @@ export default class Description extends Component {
     contentLength && this.props.onChange(value);
     !contentLength &&
       trigger &&
+      required &&
       errorToast({ message: 'Description can not be empty' });
   };
 
