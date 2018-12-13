@@ -7,6 +7,7 @@ import theme from '../styles/theme';
 
 const MtTabs = styled.div`
   .ant-tabs-bar {
+    font-family: inherit;
     border-bottom: 1px solid #e7e8ec;
     margin-bottom: 40px;
   }
@@ -37,7 +38,8 @@ class Tabs extends Component {
   static propTypes = {
     options: PropTypes.array.isRequired,
     activeKey: PropTypes.string,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    className: PropTypes.string
   };
 
   state = {
@@ -58,10 +60,14 @@ class Tabs extends Component {
   }
 
   render() {
-    let { options } = this.props;
+    let { options, className } = this.props;
     return (
       <MtTabs>
-        <AntTabs activeKey={this.state.activeKey} onChange={this.onChange}>
+        <AntTabs
+          activeKey={this.state.activeKey}
+          onChange={this.onChange}
+          className={className}
+        >
           {options.map(option => {
             return (
               <AntTabs.TabPane tab={option.title} key={option.key}>
