@@ -17,6 +17,7 @@ export Collapse from './Collapse';
 export ConfirmBox from './ConfirmBox';
 export CopyToClipboard from './CopyToClipboard';
 export DatePicker from './DatePicker';
+export Description from './Description';
 export Drawer from './Drawer';
 export Dropdown from './Dropdown';
 export Elevation from './Elevation';
