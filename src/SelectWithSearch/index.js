@@ -276,10 +276,12 @@ const SelectBox = styled.div`
 }
 
 .checkboxWrapper {
-  margin-top: 12px;    
+  margin-top: 12px;  
+  float: none;  
+  line-height: initial;
   .labelText{
     ${mixin.truncate('auto')};
-    display: block;
+    display: block;    
   }
 }
 .doneMarginR {
