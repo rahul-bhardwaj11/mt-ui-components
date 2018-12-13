@@ -20,7 +20,7 @@ const SelectBox = styled.div`
   &.buttonSelect {
     .mt-react-select__control {
        width: 100%;
-       height: 40px;
+       height: 32px;
        border-bottom-left-radius: 0px;
        border-bottom-right-radius: 0px;
        border-bottom: none;              
@@ -115,8 +115,8 @@ const SelectBox = styled.div`
         .icon-cross {
           display: block;
           position: absolute;
-          right: 16px;
-          top: 17px;
+          right: 14px;
+          top: 12px;
           font-size: 10px;
           cursor: pointer;
           &:before {
@@ -125,7 +125,7 @@ const SelectBox = styled.div`
         }
     }
     .mt-react-select__control {      
-      height: 40px;
+      height: 32px;
       &:before {
         display: block;
         background: url('${searchIcon}') no-repeat 1px 0px;
@@ -136,8 +136,8 @@ const SelectBox = styled.div`
         left: 0;
         position: absolute;
         opacity: 0.6;
-        left: 15px;
-        top: 14px;
+        left: 12px;
+        top: 10px;
       }
     }
     .mt-react-select__dropdown-indicator {
