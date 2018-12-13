@@ -276,18 +276,10 @@ const SelectBox = styled.div`
 }
 
 .checkboxWrapper {
-  margin-top: 12px;  
-  ${mixin.clearfix()};
+  margin-top: 12px;    
   .labelText{
     ${mixin.truncate('auto')};
     display: block;
-  }
-  .subLabelText{
-    ${mixin.smallDarkLink()};
-    line-height: 21px;
-    padding-left: 8px;
-    cursor: pointer;
-    float: right;
   }
 }
 .doneMarginR {

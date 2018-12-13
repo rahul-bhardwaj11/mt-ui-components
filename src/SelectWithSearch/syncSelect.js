@@ -302,28 +302,16 @@ export default class SyncSelect extends Component {
             {optionRenderer(data)}
           </div>
         ) : (
-          <React.Fragment>
-            {data.subText && (
-              <div
-                onClick={() => {
-                  !data.disabled && this.onCheckboxClick(data);
-                }}
-                className="subLabelText"
-              >
-                {data.subText}
-              </div>
-            )}
-            <CheckBox
-              disabled={data.disabled}
-              checked={selectedItems.map(i => i.value).includes(data.value)}
-              className="labelText"
-              onChange={() => {
-                !data.disabled && this.onCheckboxClick(data);
-              }}
-            >
-              {data.label}
-            </CheckBox>
-          </React.Fragment>
+          <CheckBox
+            disabled={data.disabled}
+            checked={selectedItems.map(i => i.value).includes(data.value)}
+            className="labelText"
+            onChange={() => {
+              !data.disabled && this.onCheckboxClick(data);
+            }}
+          >
+            {data.label}
+          </CheckBox>
         )}
       </div>
     ) : null;
