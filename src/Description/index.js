@@ -5,8 +5,7 @@ import Editor from './components/editor';
 import { MODES } from './constants';
 import { errorToast } from '../Toast';
 import classnames from 'classnames';
-
-import './index.scss';
+import StyledDescription from './css';
 
 const trimNewLine = text => {
   return text ? text.replace(/^\n|\n$/g, '') : text;
@@ -120,10 +119,10 @@ export default class Description extends Component {
   render() {
     const { heading, className } = this.props;
     return (
-      <div className={classnames('clearfix', className)}>
+      <StyledDescription className={classnames('clearfix', className)}>
         {heading && <span className="desc_Heading">{heading}</span>}
         {this.renderContent()}
-      </div>
+      </StyledDescription>
     );
   }
 }

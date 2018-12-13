@@ -1,5 +1,6 @@
-@import '~styles/index.scss';
-:global {
+import styled from 'styled-components';
+import theme from '../styles/theme';
+const StyledDescription = styled.div`
   .desc_Heading {
     float: left;
     font-size: 13px;
@@ -43,7 +44,7 @@
       padding: 0px 6px;
       tab-size: 4;
       text-align: left;
-      color: get('colors.SILVER');
+      color: ${theme.colors.SILVER};
       white-space: pre-wrap;
       word-wrap: break-word;
       &.ql-blank::before {
@@ -55,7 +56,7 @@
 
     .ql-container.ql-snow {
       border: 1px solid #ccc;
-      background: get('colors.WHITE');
+      background: ${theme.colors.WHITE};
       max-height: 100px;
       padding: 5px 0px 5px 5px;
       margin-bottom: 10px;
@@ -68,7 +69,7 @@
     p {
       outline: none;
       margin-bottom: 10px;
-      color: get('colors.DARK_OUTER_SPACE');
+      color: ${theme.colors.DARK_OUTER_SPACE};
       dl {
         padding-left: 15px;
       }
@@ -85,32 +86,32 @@
       position: relative;
       &.ql-snow {
         border: 1px solid #ccc;
-        background: get('colors.WHITE');
+        background: ${theme.colors.WHITE};
         height: 80px;
         &:hover,
         &:active,
         &.active {
-          border: 1px solid get('colors.SILVER');
+          border: 1px solid ${theme.colors.SILVER};
         }
       }
     }
 
     .ql-toolbar.ql-snow {
-      border: 1px solid get('colors.ALTO');
+      border: 1px solid ${theme.colors.ALTO};
       box-sizing: border-box;
       position: absolute;
       right: 0px;
       font-family: 'Open sans', arial, sans-serif;
       padding: 5px 0px 5px 5px;
       top: -31px;
-      background: get('colors.WHITE');
+      background: ${theme.colors.WHITE};
       cursor: pointer;
       box-shadow: none;
     }
 
     .ql-snow.ql-toolbar button {
       background: none;
-      border: 1px solid get('colors.WHITE');
+      border: 1px solid ${theme.colors.WHITE};
       cursor: pointer;
       display: inline-block;
       float: left;
@@ -120,8 +121,8 @@
       width: auto;
       &:hover,
       &.ql-active {
-        border: 1px solid get('colors.TROPICAL_BLUE');
-        background: get('colors.TROPICAL_BLUE');
+        border: 1px solid ${theme.colors.TROPICAL_BLUE};
+        background: ${theme.colors.TROPICAL_BLUE};
       }
       svg {
         float: left;
@@ -186,9 +187,9 @@
     transform: translateY(-10px);
   }
   .ql-snow .ql-tooltip {
-    background-color: get('colors.WHITE');
+    background-color: ${theme.colors.WHITE};
     border: 1px solid #ccc;
-    box-shadow: 0px 0px 5px get('colors.ALTO');
+    box-shadow: 0px 0px 5px ${theme.colors.ALTO};
     color: #444;
     padding: 5px 12px;
     white-space: nowrap;
@@ -278,3 +279,5 @@
     visibility: hidden;
   }
 }
+`;
+export default StyledDescription;
