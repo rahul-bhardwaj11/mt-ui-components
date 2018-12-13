@@ -14,14 +14,46 @@ const SelectBox = styled.div`
   .mt-react-select__control {
     min-height: auto;
     background: ${theme.colors.WHITE};
-    line-height: 18px;
+    line-height: 18px;    
   }
 
   &.buttonSelect {
     .mt-react-select__control {
        width: 100%;
+       height: 32px;
+       border-bottom-left-radius: 0px;
+       border-bottom-right-radius: 0px;
+       border-bottom: none;              
      }
+    .selectedItems{
+      color: ${theme.colors.INDIGO};
+      border: 1px solid ${theme.colors.INDIGO};
+      background-color: ${theme.colors.TROPICAL_BLUE};
+      &:hover{
+        border: 1px solid ${theme.colors.INDIGO};
+        color: ${theme.colors.INDIGO};
+      }      
+    }
+    .activeSelect{
+        color: ${theme.colors.INDIGO};
+        border: 1px solid ${theme.colors.INDIGO};
+        &:hover{
+          border: 1px solid ${theme.colors.INDIGO};
+          color: ${theme.colors.INDIGO};
+        }
+    }
+    .selectWithSearchText{
+      display: inline-block;
+      line-height: 16px;      
+      .discIcon{
+        font-size: 4px;
+        margin: -2px 8px 0px;
+        vertical-align: middle;
+        display: inline-block;        
+      }
+    }
   }
+  
   .mt-react-select__single-value {
     color: ${theme.colors.DARK_OUTER_SPACE};
     left: 0px;
@@ -43,7 +75,8 @@ const SelectBox = styled.div`
     margin-left: 10px;
     overflow: hidden;
     padding-left: 0px;
-    margin-right: 20px;
+    margin-right: 32px;
+    cursor: text;
     &:before {
       content: '';
       display: none;
@@ -51,37 +84,48 @@ const SelectBox = styled.div`
   }
   .mt-react-select__menu {
     z-index: 11;
+    margin: 0px;
+    ${props =>
+      props.showSearch
+        ? `border-top-left-radius: 0px;
+    border-top-right-radius: 0px;`
+        : `margin-top: 8px;`}    
+    width: 210px;
+    border: 1px solid ${theme.colors.PEARL};
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.08);
   }
   .mt-react-select__menu-list {
     padding: 8px;
     color: ${theme.colors.OUTER_SPACE};
   }
 
-  .selectBoxWrapper{
-    ${props => (props.isButton ? 'margin-top: 10px' : '')};
+  .selectBoxWrapper{        
+    border-radius: 4px; 
     position: relative;
     z-index: 10;
-  .activeSearch {
-    .mt-react-select__value-container{
-      margin-left: 35px;
-      line-height: 18px;
-    }
-
-    .activeInput {
-      .icon-cross {
-        display: block;
-        position: absolute;
-        right: 10px;
-        bottom: 12px;
-        font-size: 10px;
-        top: 12px;
-        cursor: pointer;
-        &:before {
-          float: right;
-        }
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.08);
+    ${props => (props.isButton ? 'margin-top: 10px' : '')};  
+    .activeSearch {
+      .mt-react-select__value-container{
+        margin-left: 35px;
+        line-height: 18px;
       }
-  }
-    .mt-react-select__control {
+
+      .activeInput {
+        .icon-cross {
+          display: block;
+          position: absolute;
+          right: 14px;
+          top: 12px;
+          font-size: 10px;
+          cursor: pointer;
+          &:before {
+            float: right;
+          }
+        }
+    }
+    .mt-react-select__control {      
+      height: 32px;
       &:before {
         display: block;
         background: url('${searchIcon}') no-repeat 1px 0px;
@@ -92,7 +136,7 @@ const SelectBox = styled.div`
         left: 0;
         position: absolute;
         opacity: 0.6;
-        left: 15px;
+        left: 12px;
         top: 10px;
       }
     }
@@ -106,6 +150,8 @@ const SelectBox = styled.div`
 
       .mt-react-select__placeholder {
           margin-left: 4px;
+          ${mixin.inactiveLink()};
+          ${mixin.truncate('100%')};
       }
     }
 
@@ -125,17 +171,24 @@ const SelectBox = styled.div`
   }
 
   .mt-react-select__control {
-    border: 1px solid ${theme.colors.ALTO};
+    border: 1px solid ${theme.colors.PEARL};
+    border-bottom: none;
     position: relative;
+    &:hover{
+      border: 1px solid ${theme.colors.PEARL};
+      border-bottom: none;
+    }
   }
 
-  .mt-react-select__control--is-focused {
+  .mt-react-select__control--is-focused {    
+    border: 1px solid ${theme.colors.PEARL};
+    border-bottom: none;
     box-shadow: none;
-    border: 1px solid ${theme.colors.SILVER};
   }
 
   .mt-react-select__control--is-focused:hover {
-    border: 1px solid ${theme.colors.SILVER};
+    border: 1px solid ${theme.colors.PEARL};
+    border-bottom: none;
   }
 
   .mt-react-select__option {
@@ -169,7 +222,7 @@ const SelectBox = styled.div`
   }
 
   .mt-react-select__menu-list--is-multi {
-    padding: 19px 24px;
+    padding: 4px 24px 0px;
   }
 
   .selectedItem {
@@ -193,19 +246,21 @@ const SelectBox = styled.div`
 .componentWrapper {
   ${mixin.clearfix()};
   width: 100%;
+  padding: 10px 0px;
+  button{
+    box-shadow: none;
+  }
 }
 
 .buttonWrapperL {
   float: left;
-  width: 50%;
-  padding-bottom: 10px;
+  width: 50%; 
 }
 
 .buttonWrapperR {
   width: 50%;
   text-align: right;
   float: right;
-  padding-bottom: 10px;
   .activeBtnState {
    color: ${theme.colors.INDIGO};
   } 
@@ -221,14 +276,15 @@ const SelectBox = styled.div`
 }
 
 .checkboxWrapper {
-  margin-bottom: 5px;
-  ${() => mixin.truncate(`100%`)};
+  margin-top: 12px;    
+  .labelText{
+    ${mixin.truncate('auto')};
+    display: block;
+  }
 }
-
 .doneMarginR {
   margin-left: 5px;
 }
-
 `;
 class SelectWithSearch extends Component {
   static propTypes = {
@@ -240,14 +296,16 @@ class SelectWithSearch extends Component {
     isButton: PropTypes.bool,
     buttonMaxWidth: PropTypes.string,
     buttonWidth: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    showSearch: PropTypes.bool
   };
   static defaultProps = {
-    placeholder: 'Type here to Search'
+    placeholder: 'Type here to Search',
+    showSearch: true
   };
 
   render() {
-    let { async, isButton, className } = this.props;
+    let { async, isButton, className, showSearch } = this.props;
     let SelectComponent = SyncSelect;
     if (async) {
       SelectComponent = AsyncSelect;
@@ -259,7 +317,11 @@ class SelectWithSearch extends Component {
       className
     );
     return (
-      <SelectBox className={componentClassName} isButton={isButton}>
+      <SelectBox
+        className={componentClassName}
+        isButton={isButton}
+        showSearch={showSearch}
+      >
         <SelectComponent {...this.props} />
       </SelectBox>
     );
