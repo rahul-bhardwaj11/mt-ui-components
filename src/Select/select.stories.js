@@ -13,12 +13,33 @@ const options = [
   { key: '3', content: 'Third Item' }
 ];
 
+class ControlledSelect extends React.Component {
+  state = {
+    value: '3'
+  };
+  render() {
+    return (
+      <Select
+        options={object('options', options)}
+        value={this.state.value}
+        onSelect={key => {
+          this.setState({ value: key });
+        }}
+      />
+    );
+  }
+}
+stories.add(
+  'Default Select',
+  withInfo('Basic usage of the Select')(() => (
+    <Select options={object('options', options)} defaultValue="Select" />
+  ))
+);
+
 stories
   .add(
-    'Default Select',
-    withInfo('Basic usage of the Select')(() => (
-      <Select options={object('options', options)} defaultValue="Select" />
-    ))
+    'Controlled Select',
+    withInfo('Basic usage of the Select')(() => <ControlledSelect />)
   )
   .add(
     'Multiple Select',

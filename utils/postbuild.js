@@ -2,8 +2,10 @@
 const {readdirSync, lstatSync} = require("fs");
 const {join} = require("path")
 const chalk = require("chalk")
+const {spawn}= require('child_process')
 
 const sourceDir = join(__dirname, '..', 'src')
+const buildDir = join(__dirname, '..', 'lib')
 
 const files = readdirSync(sourceDir);
 
@@ -21,3 +23,12 @@ function listModules(files) {
   console.log(chalk.green(filteredFolder.join("\n")));
   console.log("=====================================");
 }
+
+const addProcess = spawn('git', ['add', buildDir])
+addProcess.addListener('close', (code) => {
+  if(code === 0) {
+    console.log('lib added successfully')
+  } else {
+    console.log('some error occurred')
+  }
+})
