@@ -16,14 +16,14 @@ const MtMenu = styled.div`
   }
   .ant-select-dropdown-menu-item {
     background-color: ${theme.colors.INDIGO};
-    color: #fff;
+    color: ${theme.colors.WHITE};
   }
   .ant-select-dropdown {
     background-color: ${theme.colors.INDIGO};
-    color: #fff;
+    color: ${theme.colors.WHITE};
   }
   .ant-select-dropdown-menu {
-    background-color: #fff;
+    background-color: ${theme.colors.WHITE};
     color: ${theme.colors.GREY};
     padding: 0px 5px;
     margin: 8px;
@@ -43,12 +43,13 @@ const MtMenu = styled.div`
     transition: all 0.2s;
     &:hover {
       background-color: ${theme.colors.INDIGO};
-      color: #fff;
+      color: ${theme.colors.WHITE};
     }
   }
   .ant-dropdown-menu-item {
-    background-color: #fff;
+    background-color: ${theme.colors.WHITE};
     color: ${theme.colors.OUTER_SPACE};
+    font-weight: 600;
     padding: 0px 15px;
     margin: 4px 8px;
     border-radius: 4px;
@@ -58,14 +59,17 @@ const MtMenu = styled.div`
     transition: all 0.2s;
     &:hover {
       background-color: ${theme.colors.INDIGO};
-      color: #fff;
+      color: ${theme.colors.WHITE};
     }
   }
   .ant-menu-horizontal {
     line-height: normal;
     & > .ant-menu-item {
+      font-weight: 600;
+
       &:hover {
         color: ${theme.colors.CONGRESS_BLUE};
+        border-bottom: 3px solid transparent;
       }
     }
     & > .ant-menu-submenu {
@@ -78,26 +82,26 @@ const MtMenu = styled.div`
     & > .ant-menu-item-selected,
     & > .ant-menu-submenu-selected {
       color: ${theme.colors.CONGRESS_BLUE};
+      border-bottom: 3px solid ${theme.colors.INDIGO};
     }
   }
   .ant-menu-vertical {
     & > .ant-menu-item {
-      color: #8e9194;
+      color: ${theme.colors.OUTER_SPACE};
       padding: 0px;
       margin: 0px;
       text-align: left;
       &:hover {
-        color: black;
+        color: ${theme.colors.CONGRESS_BLUE};
       }
     }
   }
   .ant-menu-item {
-    font-size: 15px;
-    color: #8e9194;
+    color: ${theme.colors.OUTER_SPACE};
     padding: 0px 8px;
 
     &:hover {
-      color: #fff;
+      color: ${theme.colors.WHITE};
     }
     b {
       font-weight: normal;
@@ -157,11 +161,11 @@ const MtMenu = styled.div`
     color: ${theme.colors.BITTERSWEET};
     &:active {
       background-color: ${theme.colors.BITTERSWEET};
-      color: #fff;
+      color: ${theme.colors.WHITE};
     }
     &:hover {
       background-color: ${theme.colors.BITTERSWEET};
-      color: #fff;
+      color: ${theme.colors.WHITE};
     }
   }
 
