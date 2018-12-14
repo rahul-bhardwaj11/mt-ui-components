@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Truncate from 'react-truncate';
+//import Truncate from "react-truncate";
 import mixins from '../styles/mixins';
-import StringToHTML from '../StringToHTML';
+import TruncateHTML from './truncate-html';
 
 const MTReadMore = styled.div`
   line-height: initial;
-
   .viewMore,
   .viewLess {
     margin: 10px 0px;
@@ -47,35 +46,33 @@ class ReadMore extends Component {
 
   render() {
     const {
-      children,
       showViewMore,
       moreText,
       lessText,
       lines,
-      className
+      className,
+      html
     } = this.props;
     const { expanded, truncated } = this.state;
 
     return (
       <MTReadMore className={className}>
-        <Truncate
-          lines={!expanded && lines}
-          ellipsis={
-            <React.Fragment>
-              <span key="3dot">...</span>
-              {showViewMore && (
-                <div className="viewMore" key="view_more">
-                  <a onClick={this.toggleLines}>{moreText}</a>
-                </div>
-              )}
-            </React.Fragment>
-          }
-          onTruncate={this.handleTruncate}
-        >
-          <StringToHTML content={children} />
-        </Truncate>
-        {!truncated &&
-          expanded &&
+        {!expanded && (
+          <TruncateHTML
+            lines={lines}
+            html={html}
+            onTruncate={this.handleTruncate}
+          />
+        )}
+        {expanded && <span dangerouslySetInnerHTML={{ __html: html }} />}
+        {showViewMore &&
+          truncated &&
+          !expanded && (
+            <div className="viewMore" key="view_more">
+              <a onClick={this.toggleLines}>{moreText}</a>
+            </div>
+          )}
+        {expanded &&
           showViewMore && (
             <span className="viewLess">
               <a onClick={this.toggleLines}> {lessText}</a>
@@ -94,12 +91,12 @@ ReadMore.defaultProps = {
 };
 
 ReadMore.propTypes = {
-  children: PropTypes.node.isRequired,
   lines: PropTypes.number,
   moreText: PropTypes.string,
   lessText: PropTypes.string,
   showViewMore: PropTypes.bool,
-  className: PropTypes.string
+  className: PropTypes.string,
+  html: PropTypes.string
 };
 
 export default ReadMore;
