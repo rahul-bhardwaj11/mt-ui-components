@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import theme from '../../styles/theme';
 
 export default class PhotoViewer extends Component {
   static propTypes = {
@@ -7,45 +8,59 @@ export default class PhotoViewer extends Component {
     width: PropTypes.number,
     height: PropTypes.number
   };
-  state = {
-    loaded: false
-  };
+
   static defaultProps = {
-    width: 200,
     height: 200
   };
 
   componentDidMount() {
+    const { height } = this.props;
     const image = new Image();
     image.src = this.props.src;
-    image.onload = () => {
-      this.imageRef.setAttribute(
+    const self = this;
+    image.onload = function() {
+      let imageWidth = this.width;
+      let imageHeight = this.height;
+      let suffix = 'px';
+      if (imageHeight > height) {
+        imageWidth = '100';
+        imageHeight = '100';
+        suffix = '%';
+      }
+      imageWidth += suffix;
+      imageHeight += suffix;
+
+      self.imageRef.setAttribute(
         'style',
-        `background-image: url('${
-          this.props.src
-        }');background-size: contain;width: 100%;height: 100%`
+        `background-image: url('${self.props.src}');
+            background-size: contain;
+            width: ${imageWidth};
+            height: ${imageHeight};
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            background-repeat: no-repeat;
+            background-position: center;`
       );
-      this.setState({
+      self.setState({
         loaded: true
       });
     };
   }
 
   render() {
-    const { loaded } = this.state;
-    const { width, height } = this.props;
+    const { height } = this.props;
     const containerStyle = {
-      width,
-      height
+      width: '100%',
+      height,
+      background: `${theme.colors.IVORY}`,
+      position: 'relative',
+      borderRadius: '8px'
     };
 
     return (
       <div style={containerStyle}>
-        {!loaded ? (
-          <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
-            <rect width={width} height={height} rx="10" ry="10" fill="#CCC" />
-          </svg>
-        ) : null}
         <div ref={e => (this.imageRef = e)} />
       </div>
     );
