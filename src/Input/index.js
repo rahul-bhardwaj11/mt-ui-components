@@ -37,6 +37,7 @@ const MtInput = styled.div`
   }
   .ant-input {
     border: 1px solid ${theme.colors.ALTO};
+    font-family: inherit;
   }
   .ant-input {
     &:hover {
@@ -72,6 +73,7 @@ class Input extends Component {
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     type: PropTypes.oneOf(['text', 'number', 'password', 'file']),
     errors: PropTypes.array
   };
@@ -116,7 +118,11 @@ class Input extends Component {
   };
 
   componentWillMount() {
-    const { value = '' } = this.props;
+    let { value, defaultValue } = this.props;
+    if (!value) {
+      value = defaultValue ? defaultValue : '';
+    }
+
     this.setState({ value: this.handleValue(value) });
   }
 

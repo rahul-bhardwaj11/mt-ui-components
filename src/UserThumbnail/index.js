@@ -46,7 +46,7 @@ const ThumbnailInfoWrapper = styled.div`
 class UserThumbnailInfo extends Component {
   static propTypes = {
     title: PropTypes.string,
-    content: PropTypes.string,
+    content: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     message: PropTypes.shape({
       msg: PropTypes.string,
       style: PropTypes.object
@@ -108,11 +108,13 @@ class UserThumbnail extends Component {
   };
 
   render() {
-    const { expanded, className, ...rest } = this.props;
+    const { expanded, className, icon, ...rest } = this.props;
     const { title } = rest;
 
     let mtProps = Object.assign({}, rest);
-    mtProps = !title ? Object.assign(mtProps, { icon: 'user' }) : mtProps;
+    mtProps = !title
+      ? Object.assign(mtProps, { icon: icon || 'user' })
+      : mtProps;
     return (
       <MtUserThumbnail className={className}>
         <Avatar className="userThumbnailAvatar" {...mtProps}>

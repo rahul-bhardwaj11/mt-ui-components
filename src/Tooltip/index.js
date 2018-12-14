@@ -23,14 +23,13 @@ class Tooltip extends Component {
     className: PropTypes.string
   };
 
+  getRef = ele => (this.popUpContainer = ele);
+
   render() {
     const { children, className } = this.props;
 
     return (
-      <MtTooltip
-        className={className}
-        innerRef={ele => (this.popUpContainer = ele)}
-      >
+      <MtTooltip className={className} innerRef={this.getRef}>
         <AntTooltip
           {...this.props}
           getPopupContainer={() => this.popUpContainer}
