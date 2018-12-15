@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 //import Truncate from "react-truncate";
 import mixins from '../styles/mixins';
-import TruncateHTML from './truncate-html';
+import trunc from 'trunc-html';
 
 const MTReadMore = styled.div`
   line-height: initial;
@@ -20,20 +20,9 @@ class ReadMore extends Component {
     super();
 
     this.state = {
-      expanded: false,
-      truncated: false
+      expanded: false
     };
-
-    this.handleTruncate = this.handleTruncate.bind(this);
     this.toggleLines = this.toggleLines.bind(this);
-  }
-
-  handleTruncate(truncated) {
-    if (this.state.truncated !== truncated) {
-      this.setState({
-        truncated
-      });
-    }
   }
 
   toggleLines(event) {
@@ -49,20 +38,21 @@ class ReadMore extends Component {
       showViewMore,
       moreText,
       lessText,
-      lines,
       className,
-      html
+      html,
+      limit
     } = this.props;
-    const { expanded, truncated } = this.state;
+    let truncated = false;
+    let { expanded } = this.state;
+    var truncateHTML = trunc(html, limit);
+    if (truncateHTML.html.indexOf('…') > -1) {
+      truncated = true;
+    }
 
     return (
       <MTReadMore className={className}>
         {!expanded && (
-          <TruncateHTML
-            lines={lines}
-            html={html}
-            onTruncate={this.handleTruncate}
-          />
+          <span dangerouslySetInnerHTML={{ __html: truncateHTML.html }} />
         )}
         {expanded && <span dangerouslySetInnerHTML={{ __html: html }} />}
         {showViewMore &&
@@ -84,14 +74,14 @@ class ReadMore extends Component {
 }
 
 ReadMore.defaultProps = {
-  lines: 3,
+  limit: 500,
   moreText: 'Read More',
   lessText: 'Read Less',
   showViewMore: true
 };
 
 ReadMore.propTypes = {
-  lines: PropTypes.number,
+  limit: PropTypes.number,
   moreText: PropTypes.string,
   lessText: PropTypes.string,
   showViewMore: PropTypes.bool,

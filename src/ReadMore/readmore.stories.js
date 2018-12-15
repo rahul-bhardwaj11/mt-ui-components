@@ -45,7 +45,7 @@ stories.add(
   ))
 );
 stories.add(
-  'ReadMore without link',
+  'ReadMore with html tags',
   withInfo('ReadMore with html tags')(() => (
     <ReadMore
       html={`<b>Hello</b> this form are mapped the sales stages, and the rep is
