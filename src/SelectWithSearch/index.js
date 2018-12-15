@@ -280,7 +280,7 @@ const SelectBox = styled.div`
   float: none;  
   line-height: initial;
   .labelText{
-    ${mixin.truncate('auto')};
+    ${mixin.truncate('100%')};
     display: block;    
   }
 }
