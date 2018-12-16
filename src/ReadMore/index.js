@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Truncate from 'react-truncate';
+//import Truncate from "react-truncate";
 import mixins from '../styles/mixins';
-import StringToHTML from '../StringToHTML';
+import trunc from 'trunc-html';
 
 const MTReadMore = styled.div`
   line-height: initial;
-
   .viewMore,
   .viewLess {
     margin: 10px 0px;
@@ -21,20 +20,9 @@ class ReadMore extends Component {
     super();
 
     this.state = {
-      expanded: false,
-      truncated: false
+      expanded: false
     };
-
-    this.handleTruncate = this.handleTruncate.bind(this);
     this.toggleLines = this.toggleLines.bind(this);
-  }
-
-  handleTruncate(truncated) {
-    if (this.state.truncated !== truncated) {
-      this.setState({
-        truncated
-      });
-    }
   }
 
   toggleLines(event) {
@@ -47,35 +35,34 @@ class ReadMore extends Component {
 
   render() {
     const {
-      children,
       showViewMore,
       moreText,
       lessText,
-      lines,
-      className
+      className,
+      html,
+      limit
     } = this.props;
-    const { expanded, truncated } = this.state;
+    let truncated = false;
+    let { expanded } = this.state;
+    var truncateHTML = trunc(html, limit);
+    if (truncateHTML.html.indexOf('…') > -1) {
+      truncated = true;
+    }
 
     return (
       <MTReadMore className={className}>
-        <Truncate
-          lines={!expanded && lines}
-          ellipsis={
-            <React.Fragment>
-              <span key="3dot">...</span>
-              {showViewMore && (
-                <div className="viewMore" key="view_more">
-                  <a onClick={this.toggleLines}>{moreText}</a>
-                </div>
-              )}
-            </React.Fragment>
-          }
-          onTruncate={this.handleTruncate}
-        >
-          <StringToHTML content={children} />
-        </Truncate>
-        {!truncated &&
-          expanded &&
+        {!expanded && (
+          <span dangerouslySetInnerHTML={{ __html: truncateHTML.html }} />
+        )}
+        {expanded && <span dangerouslySetInnerHTML={{ __html: html }} />}
+        {showViewMore &&
+          truncated &&
+          !expanded && (
+            <div className="viewMore" key="view_more">
+              <a onClick={this.toggleLines}>{moreText}</a>
+            </div>
+          )}
+        {expanded &&
           showViewMore && (
             <span className="viewLess">
               <a onClick={this.toggleLines}> {lessText}</a>
@@ -87,19 +74,19 @@ class ReadMore extends Component {
 }
 
 ReadMore.defaultProps = {
-  lines: 3,
+  limit: 500,
   moreText: 'Read More',
   lessText: 'Read Less',
   showViewMore: true
 };
 
 ReadMore.propTypes = {
-  children: PropTypes.node.isRequired,
-  lines: PropTypes.number,
+  limit: PropTypes.number,
   moreText: PropTypes.string,
   lessText: PropTypes.string,
   showViewMore: PropTypes.bool,
-  className: PropTypes.string
+  className: PropTypes.string,
+  html: PropTypes.string
 };
 
 export default ReadMore;

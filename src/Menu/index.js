@@ -88,7 +88,6 @@ const MtMenu = styled.div`
   .ant-menu-vertical {
     & > .ant-menu-item {
       color: ${theme.colors.OUTER_SPACE};
-      font-size: 14px;
       padding: 0px;
       margin: 0px;
       text-align: left;
@@ -190,8 +189,7 @@ class Menu extends Component {
 
   static defaultProps = {
     style: { paddingLeft: '0px' },
-    onClick: () => {},
-    menuHeader: false
+    onClick: () => {}
   };
 
   onClick = ({ key }) => {
