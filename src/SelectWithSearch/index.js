@@ -279,8 +279,9 @@ const SelectBox = styled.div`
   margin-top: 12px;  
   float: none;  
   line-height: initial;
+  ${mixin.truncate('100%')};
   .labelText{
-    ${mixin.truncate('auto')};
+    ${mixin.truncate('100%')};
     display: block;    
   }
 }
