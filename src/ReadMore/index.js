@@ -5,6 +5,53 @@ import styled from 'styled-components';
 import mixins from '../styles/mixins';
 import trunc from 'trunc-html';
 
+const ALLOWED_HTML_TAGS = [
+  'u',
+  'a',
+  'abbr',
+  'article',
+  'b',
+  'blockquote',
+  'br',
+  'caption',
+  'code',
+  'del',
+  'details',
+  'div',
+  'em',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'hr',
+  'i',
+  'img',
+  'ins',
+  'kbd',
+  'li',
+  'main',
+  'mark',
+  'ol',
+  'p',
+  'pre',
+  'section',
+  'span',
+  'strike',
+  'strong',
+  'sub',
+  'summary',
+  'sup',
+  'table',
+  'tbody',
+  'td',
+  'th',
+  'thead',
+  'tr',
+  'ul'
+];
+
 const MTReadMore = styled.div`
   line-height: initial;
   .viewMore,
@@ -44,8 +91,13 @@ class ReadMore extends Component {
     } = this.props;
     let truncated = false;
     let { expanded } = this.state;
-    var truncateHTML = trunc(html, limit);
-    if (truncateHTML.html.indexOf('…') > -1) {
+    var truncateHTML = trunc(html, limit, {
+      sanitizer: {
+        allowedTags: ALLOWED_HTML_TAGS
+      }
+    });
+    const indexOf = truncateHTML.html.indexOf('…');
+    if (indexOf > truncateHTML.html.length - 4) {
       truncated = true;
     }
 
