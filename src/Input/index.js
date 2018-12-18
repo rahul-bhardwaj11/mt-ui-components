@@ -70,6 +70,7 @@ class Input extends Component {
     placeholder: PropTypes.string,
     maxLength: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
     maxLengthClassName: PropTypes.string,
+    wrapperClassName: PropTypes.string,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -135,12 +136,16 @@ class Input extends Component {
   }
 
   render() {
-    const { errors /*, maxLength, maxLengthClassName*/ } = this.props;
+    const {
+      errors /*, maxLength, maxLengthClassName*/,
+      wrapperClassName,
+      ...rest
+    } = this.props;
     const { value } = this.state;
     return (
-      <MtInput>
+      <MtInput className={wrapperClassName}>
         <AntInput
-          {...this.props}
+          {...rest}
           value={value}
           onChange={this.onChange}
           onFocus={this.moveCaretAtEnd}
