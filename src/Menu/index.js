@@ -189,8 +189,7 @@ class Menu extends Component {
 
   static defaultProps = {
     style: { paddingLeft: '0px' },
-    onClick: () => {},
-    menuHeader: false
+    onClick: () => {}
   };
 
   onClick = ({ key }) => {
