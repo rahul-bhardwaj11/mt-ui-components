@@ -350,7 +350,7 @@ export default class AsyncSelect extends Component {
     this.isBlurActive = true;
     const { selectedItems, optionsCache, prevSelectedItems } = this.state;
     const { isButton, onChange } = this.props;
-    const options = optionsCache[''].options;
+    const options = (optionsCache[''] && optionsCache[''].options) || [];
     let isSelectedItemsChange = false;
     if (selectedItems.length == prevSelectedItems.length) {
       for (let index = 0; index < selectedItems.length; index++) {
@@ -618,7 +618,8 @@ export default class AsyncSelect extends Component {
     const DEFAULT_SELECT_STYLE = {
       container: base => ({
         ...base,
-        width: '210px',
+        width: base.width ? base.width : '210px',
+        minWidth: '210px',
         position: isButton ? 'absolute' : 'inherit'
       })
     };
