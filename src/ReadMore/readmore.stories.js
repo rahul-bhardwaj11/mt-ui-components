@@ -80,3 +80,13 @@ stories.add(
     />
   ))
 );
+
+stories.add(
+  'ReadMore with multiple new lines',
+  withInfo('ReadMore with text containing multiple new lines')(() => (
+    <ReadMore
+      html={` <p>aa</p><p>a</p><p>a</p><p>a</p><p>a</p><p><br></p><p>a</p><p>a</p><p>a</p><p>a</p><p>a</p><p>a</p><p><br></p><p>a</p><p>a</p><p>a</p><p>aa</p><p>a</p><p>a</p><p><br></p>
+`}
+    />
+  ))
+);

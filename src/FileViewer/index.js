@@ -4,7 +4,10 @@ import { PdfPlayer, PhotoViewer, UnsupportedViewer } from './drivers';
 
 class FileViewer extends Component {
   getDriver() {
-    const type = this.props.src.split('.').pop();
+    const type = this.props.src
+      .split('.')
+      .pop()
+      .split(/#|\?/)[0];
     switch (type) {
       case 'jpg':
       case 'jpeg':
