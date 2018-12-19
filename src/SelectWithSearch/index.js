@@ -10,7 +10,7 @@ import arrowIcon from '../styles/icons/downFillcaret.svg';
 import classnames from 'classnames';
 
 const SelectBox = styled.div`
-  position: relative;
+  position: relative;  
   .mt-react-select__control {
     min-height: auto;
     background: ${theme.colors.WHITE};
@@ -89,8 +89,7 @@ const SelectBox = styled.div`
       props.showSearch
         ? `border-top-left-radius: 0px;
     border-top-right-radius: 0px;`
-        : `margin-top: 8px;`}    
-    width: 210px;
+        : `margin-top: 8px;`}        
     border: 1px solid ${theme.colors.PEARL};
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.08);
   }
