@@ -54,6 +54,12 @@ const ALLOWED_HTML_TAGS = [
 
 const MTReadMore = styled.div`
   line-height: initial;
+  .trunc-text {
+    max-height: ${props => {
+      return `${props.truncateHeight}px`;
+    }};
+    overflow: hidden;
+  }
   .viewMore,
   .viewLess {
     margin: 10px 0px;
@@ -67,7 +73,8 @@ class ReadMore extends Component {
     super();
 
     this.state = {
-      expanded: false
+      expanded: false,
+      heightTruncated: false
     };
     this.toggleLines = this.toggleLines.bind(this);
   }
@@ -80,6 +87,18 @@ class ReadMore extends Component {
     });
   }
 
+  componentDidMount() {
+    const { truncateHeight } = this.props;
+    if (!truncateHeight) {
+      return;
+    }
+    if (this.ref && this.ref.scrollHeight > truncateHeight) {
+      this.setState({
+        heightTruncated: true
+      });
+    }
+  }
+
   render() {
     const {
       showViewMore,
@@ -87,24 +106,28 @@ class ReadMore extends Component {
       lessText,
       className,
       html,
-      limit
+      limit,
+      truncateHeight
     } = this.props;
     let truncated = false;
-    let { expanded } = this.state;
+    let { expanded, heightTruncated } = this.state;
     var truncateHTML = trunc(html, limit, {
       sanitizer: {
         allowedTags: ALLOWED_HTML_TAGS
       }
     });
-    const indexOf = truncateHTML.html.indexOf('…');
-    if (indexOf > truncateHTML.html.length - 4) {
+    const indexOf = truncateHTML.text.indexOf('…');
+    if (indexOf > truncateHTML.text.length - 4) {
       truncated = true;
     }
+    truncated = truncated || heightTruncated;
 
     return (
-      <MTReadMore className={className}>
+      <MTReadMore className={className} truncateHeight={truncateHeight}>
         {!expanded && (
-          <span dangerouslySetInnerHTML={{ __html: truncateHTML.html }} />
+          <div className="trunc-text" ref={e => (this.ref = e)}>
+            <span dangerouslySetInnerHTML={{ __html: truncateHTML.html }} />
+          </div>
         )}
         {expanded && <span dangerouslySetInnerHTML={{ __html: html }} />}
         {showViewMore &&
@@ -129,7 +152,8 @@ ReadMore.defaultProps = {
   limit: 500,
   moreText: 'Read More',
   lessText: 'Read Less',
-  showViewMore: true
+  showViewMore: true,
+  truncateHeight: 100
 };
 
 ReadMore.propTypes = {
@@ -138,7 +162,8 @@ ReadMore.propTypes = {
   lessText: PropTypes.string,
   showViewMore: PropTypes.bool,
   className: PropTypes.string,
-  html: PropTypes.string
+  html: PropTypes.string,
+  truncateHeight: PropTypes.number
 };
 
 export default ReadMore;
