@@ -88,31 +88,34 @@ const MtModal = styled(AntModal)`
       }
     }
   }
-
-
-  @media (max-width: 576px){
-    margin: 0px;
-    top:0px;
-    height: 100vh;
-    background: ${theme.colors.WHITE};
-
-    .ant-modal-header{
-      border-radius:0px;
-    }
-
-    .ant-modal-footer {
-      position: fixed;
-      bottom: 0px;
-      width: 100%;
-      border-radius: 0px;
-  }
-  .ant-modal-content{
-    border-radius:0px;
-    box-shadow:0 0px 0px rgba(0, 0, 0, 0.15);
-  }
-
+  ${({ fullScreenMobile }) => {
+    if (!fullScreenMobile) return;
+    return `
+    @media (max-width: 576px){
+      margin: 0px;
+      top:0px;
+      height: 100vh;
+      background: ${theme.colors.WHITE};
+  
+      .ant-modal-header{
+        border-radius:0px;
+      }
+  
+      .ant-modal-footer {
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+        border-radius: 0px;
+      }
+  
+      .ant-modal-content{
+        border-radius:0px;
+        box-shadow:0 0px 0px rgba(0, 0, 0, 0.15);
+      }
+    }`;
+  }}
 }
-}
+
 .ant-confirm-body > .anticon {
   display: none;
 }
@@ -173,11 +176,13 @@ class Modal extends Component {
     children: PropTypes.node.isRequired,
     type: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
     style: PropTypes.object,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    fullScreenMobile: PropTypes.bool
   };
 
   static defaultProps = {
-    type: 'medium'
+    type: 'medium',
+    fullScreenMobile: true
   };
 
   static confirm = props => {
@@ -207,10 +212,11 @@ class Modal extends Component {
   };
 
   render() {
-    let { children, type, width } = this.props;
+    let { children, type, width, fullScreenMobile } = this.props;
     let customProps = {
       ...this.props,
       width: width || MODAL_WIDTH_MAP[type],
+      fullScreenMobile,
       style: {
         top: type === 'full' ? 0 : undefined,
         ...this.props.style
