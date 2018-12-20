@@ -7,6 +7,10 @@ import StringToHTML from '../StringToHTML';
 
 const MTReadMore = styled.div`
   line-height: initial;
+  ul,
+  ol {
+    margin-left: 18px;
+  }
 
   .viewMore,
   .viewLess {
