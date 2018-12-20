@@ -10,7 +10,8 @@ stories.addDecorator(withKnobs);
 stories.add(
   'ReadMore',
   withInfo('Basic usage of the ReadMore')(() => (
-    <ReadMore>
+    <ReadMore
+      html={`
       In this form are mapped the sales stages, and the rep is specifically
       tested on the skill at each stage. Scale description; 0= No evidence of
       Skill [The rep is not able to demonstrate any of the required skills and
@@ -39,22 +40,15 @@ stories.add(
       [The rep inconsistently demonstrates some but not many of the behaviors
       and skills required to sell this product]; 2= Beginner level skill [The
       rep inconsistently demonstrates many of the behavior and skills required
-      to sell this
-    </ReadMore>
+      to sell this`}
+    />
   ))
 );
 stories.add(
-  'ReadMore without link',
-  withInfo('Basic usage of the ReadMore  without link')(() => (
-    <ReadMore showViewMore={false}>
-      In this form are mapped the sales stages, and the rep is specifically
-      tested on the skill at each stage. Scale description; 0= No evidence of
-      Skill [The rep is not able to demonstrate any of the required skills and
-      behaviors expected to sell this product] ; 1= Basic level skill [The rep
-      inconsistently demonstrates some but not many of the behaviors and skills
-      required to sell this product]; 2= Beginner level skill [The rep
-      inconsistently demonstrates many of the behavior and skills required to
-      sell this In this form are mapped the sales stages, and the rep is
+  'ReadMore with html tags',
+  withInfo('ReadMore with html tags')(() => (
+    <ReadMore
+      html={`<b>Hello</b> this form are mapped the sales stages, and the rep is
       specifically tested on the skill at each stage. Scale description; 0= No
       evidence of Skill [The rep is not able to demonstrate any of the required
       skills and behaviors expected to sell this product] ; 1= Basic level skill
@@ -75,7 +69,24 @@ stories.add(
       [The rep inconsistently demonstrates some but not many of the behaviors
       and skills required to sell this product]; 2= Beginner level skill [The
       rep inconsistently demonstrates many of the behavior and skills required
-      to sell this
-    </ReadMore>
+      to sell this In this form are mapped the sales stages, and the rep is
+      specifically tested on the skill at each stage. Scale description; 0= No
+      evidence of Skill [The rep is not able to demonstrate any of the required
+      skills and behaviors expected to sell this product] ; 1= Basic level skill
+      [The rep inconsistently demonstrates some but not many of the behaviors
+      and skills required to sell this product]; 2= Beginner level skill [The
+      rep inconsistently demonstrates many of the behavior and skills required
+      to sell this`}
+    />
+  ))
+);
+
+stories.add(
+  'ReadMore with multiple new lines',
+  withInfo('ReadMore with text containing multiple new lines')(() => (
+    <ReadMore
+      html={` <p>aa</p><p>a</p><p>a</p><p>a</p><p>a</p><p><br></p><p>a</p><p>a</p><p>a</p><p>a</p><p>a</p><p>a</p><p><br></p><p>a</p><p>a</p><p>a</p><p>aa</p><p>a</p><p>a</p><p><br></p>
+`}
+    />
   ))
 );

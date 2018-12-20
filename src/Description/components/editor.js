@@ -18,7 +18,8 @@ export default class Editor extends Component {
     onMount: PropTypes.func.isRequired,
     availableLength: PropTypes.number.isRequired,
     placeholder: PropTypes.string,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
+    scrollingContainer: PropTypes.string
   };
   static defaultProps = {
     onMount: noop
@@ -39,7 +40,8 @@ export default class Editor extends Component {
       availableLength,
       id,
       placeholder,
-      readOnly
+      readOnly,
+      scrollingContainer
     } = this.props;
     const toolbarId = `${id}-toolbar`;
     let modules = {};
@@ -55,6 +57,7 @@ export default class Editor extends Component {
           ref={el => {
             this.quillRef = el;
           }}
+          scrollingContainer={scrollingContainer}
           readOnly={readOnly}
           placeholder={placeholder}
           defaultValue={value}

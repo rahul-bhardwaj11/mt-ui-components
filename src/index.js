@@ -20,6 +20,7 @@ export DatePicker from './DatePicker';
 export Description from './Description';
 export Drawer from './Drawer';
 export Dropdown from './Dropdown';
+export EditableContent from './EditableContent';
 export Elevation from './Elevation';
 export FileViewer from './FileViewer';
 export Form from './Form';

@@ -24,7 +24,8 @@ export default class Description extends Component {
     maxLength: PropTypes.number,
     ok: PropTypes.func,
     readOnly: PropTypes.bool,
-    required: PropTypes.bool
+    required: PropTypes.bool,
+    scrollingContainer: PropTypes.string
   };
   static defaultProps = {
     content: '',
@@ -84,7 +85,14 @@ export default class Description extends Component {
 
   renderContent = () => {
     const { content, mode, availableLength } = this.state;
-    const { placeholder, preview, heading, className, readOnly } = this.props;
+    const {
+      placeholder,
+      preview,
+      heading,
+      className,
+      readOnly,
+      scrollingContainer
+    } = this.props;
 
     return mode == MODES.EDIT ? (
       <div className={classnames('desc_editor', 'pos_rel')}>
@@ -99,6 +107,7 @@ export default class Description extends Component {
           availableLength={availableLength}
           className={className}
           onMount={this.onChange.bind(this)}
+          scrollingContainer={scrollingContainer}
         />
       </div>
     ) : (
