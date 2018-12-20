@@ -54,6 +54,10 @@ const ALLOWED_HTML_TAGS = [
 
 const MTReadMore = styled.div`
   line-height: initial;
+  ul,
+  ol {
+    padding-left: 16px;
+  }
   .trunc-text {
     max-height: ${props => {
       return `${props.truncateHeight}px`;
