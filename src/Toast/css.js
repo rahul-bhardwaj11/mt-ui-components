@@ -6,6 +6,8 @@ const StyledToast = styled.div`
     border-radius: 4px;
     text-align: center;
     padding: 7px 24px 8px 24px;
+    max-width: 600px;
+    margin-right: 8px;
     &.toast-info {
       background-color: #5dc778;
     }
@@ -33,6 +35,9 @@ const StyledToast = styled.div`
     cursor: pointer;
     border: 1px solid ${theme.colors.WHITE};
     background-color: ${theme.colors.WHITE};
+  }
+  .styleToastBtn {
+    float: right;
   }
 `;
 
