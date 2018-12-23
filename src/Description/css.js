@@ -57,7 +57,6 @@ const StyledDescription = styled.div`
     .ql-container.ql-snow {
       border: 1px solid #ccc;
       background: ${theme.colors.WHITE};
-      max-height: 100px;
       padding: 5px 0px 5px 5px;
       margin-bottom: 10px;
     }
@@ -87,7 +86,6 @@ const StyledDescription = styled.div`
       &.ql-snow {
         border: 1px solid #ccc;
         background: ${theme.colors.WHITE};
-        height: 80px;
         &:hover,
         &:active,
         &.active {
