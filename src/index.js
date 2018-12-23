@@ -21,6 +21,7 @@ export Description from './Description';
 export Drawer from './Drawer';
 export Dropdown from './Dropdown';
 export Elevation from './Elevation';
+export ErrorBoundary from './ErrorBoundary';
 export FileViewer from './FileViewer';
 export Form from './Form';
 export Grid from './Grid';
