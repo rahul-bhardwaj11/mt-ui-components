@@ -495,6 +495,7 @@ export default class SyncSelect extends Component {
         {showSelect && (
           <Select
             styles={this.getStyle()}
+            filterOption={option => option.label}
             {...this.props}
             options={options}
             classNamePrefix={'mt-react-select'}
