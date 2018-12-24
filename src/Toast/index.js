@@ -15,14 +15,12 @@ export const TOAST_TYPES = ['success', 'warning', 'error', 'info', 'loading'];
 const ReloadBtn = () => {
   return (
     <div
-      className={classnames('floatR')}
+      className={classnames('toastReloadBtn')}
       onClick={() => {
         window.location.href = window.location.href; // eslint-disable-line
       }}
     >
-      <span className={classnames('floatR', 'marginL8', 'toastReloadBtn')}>
-        Reload
-      </span>
+      Reload
     </div>
   );
 };
@@ -164,7 +162,9 @@ export default class Toast extends Component {
             <span className="toastMessage">{message}</span>
           </div>
           <span>{hideBtn && !freeze && <HideBtn hide={this.hideToast} />}</span>
-          <span>{freeze && reloadBtn && <ReloadBtn />}</span>
+          <span className="styleToastBtn">
+            {freeze && reloadBtn && <ReloadBtn />}
+          </span>
         </StyledToast>
       </React.Fragment>
     );
