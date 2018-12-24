@@ -68,4 +68,5 @@ class Radio extends Component {
   }
 }
 Radio.Group = MtRadioGroup;
+Radio.Button = AntRadio.Button;
 export default Radio;
