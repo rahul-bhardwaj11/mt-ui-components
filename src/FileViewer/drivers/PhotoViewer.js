@@ -5,8 +5,9 @@ import theme from '../../styles/theme';
 export default class PhotoViewer extends Component {
   static propTypes = {
     src: PropTypes.string.isRequired,
-    width: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    style: PropTypes.object,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -15,53 +16,54 @@ export default class PhotoViewer extends Component {
 
   componentDidMount() {
     const { height } = this.props;
+    const width = this.containerRef.clientWidth;
+    const containerBorderRadius = this.containerRef.style.borderRadius;
     const image = new Image();
     image.src = this.props.src;
     const self = this;
     image.onload = function() {
-      let imageWidth = this.width;
       let imageHeight = this.height;
-      let suffix = 'px';
-      if (imageHeight > height) {
-        imageWidth = '100';
-        imageHeight = '100';
-        suffix = '%';
+      let imageWidth = this.width;
+      if (imageHeight >= height) {
+        imageHeight = height;
       }
-      imageWidth += suffix;
-      imageHeight += suffix;
+      if (imageWidth > width) {
+        imageWidth = `${width}px`;
+      } else {
+        imageWidth = 'auto';
+      }
 
+      imageHeight += 'px';
+
+      self.imageRef.setAttribute('src', self.props.src);
       self.imageRef.setAttribute(
         'style',
-        `background-image: url('${self.props.src}');
-            background-size: contain;
-            width: ${imageWidth};
-            height: ${imageHeight};
-            position:absolute;
-            top:50%;
-            left:50%;
-            transform:translate(-50%,-50%);
-            background-repeat: no-repeat;
-            background-position: center;`
+        `display: block;
+         width: ${imageWidth};
+         height:${imageHeight};
+         position:absolute;
+         left: 50%;
+         top: 50%;
+         transform: translate(-50%,-50%);
+         border-radius: ${containerBorderRadius ? containerBorderRadius : 0}
+         `
       );
-      self.setState({
-        loaded: true
-      });
     };
   }
 
   render() {
-    const { height } = this.props;
+    const { height, style } = this.props;
     const containerStyle = {
+      ...style,
       width: '100%',
       height,
       background: `${theme.colors.IVORY}`,
-      position: 'relative',
-      borderRadius: '8px'
+      position: 'relative'
     };
 
     return (
-      <div style={containerStyle}>
-        <div ref={e => (this.imageRef = e)} />
+      <div style={containerStyle} ref={e => (this.containerRef = e)}>
+        <img ref={e => (this.imageRef = e)} />
       </div>
     );
   }
