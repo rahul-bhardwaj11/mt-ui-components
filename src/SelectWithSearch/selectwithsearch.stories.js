@@ -12,8 +12,7 @@ const colourOptions = [
   {
     value: 'ocean',
     label: 'Oceangfcfgcgscgfscfgscghghcfghsacfgcfgcsaccfcfcfascfgcfasgfhags',
-    color: '#00B8D9',
-    subText: '12'
+    color: '#00B8D9'
   },
   { value: 'blue', label: 'Blue', color: '#0052CC', disabled: true },
   { value: 'purple', label: 'Purple', color: '#5243AA' },

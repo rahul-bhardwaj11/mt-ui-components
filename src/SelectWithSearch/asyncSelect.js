@@ -39,14 +39,12 @@ export default class AsyncSelect extends Component {
     defaultValue: PropTypes.oneOfType([
       PropTypes.shape({
         label: PropTypes.string,
-        value: PropTypes.string,
-        subText: PropTypes.string
+        value: PropTypes.string
       }),
       PropTypes.arrayOf(
         PropTypes.shape({
           label: PropTypes.string,
-          value: PropTypes.string,
-          subText: PropTypes.string
+          value: PropTypes.string
         })
       )
     ]),
