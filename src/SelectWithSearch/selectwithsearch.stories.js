@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import SelectWithSearch from './index';
 import { withInfo } from '@storybook/addon-info';
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
 import UserThumbnail from '../UserThumbnail';
 //import Menu from '../Menu';
 
@@ -60,6 +60,7 @@ stories.add(
       isButton={true}
       buttonMaxWidth={'110px'}
       buttonMinWidth={'30px'}
+      showSearch={boolean('showSearch', true)}
     />
   ))
 );
@@ -70,6 +71,7 @@ stories.add(
     <SelectWithSearch
       options={colourOptions}
       onChange={() => {}}
+      isMulti={true}
       optionRenderer={({ value, label }) => {
         return (
           <UserThumbnail
@@ -147,6 +149,7 @@ stories.add(
       isButton={true}
       buttonMaxWidth={'110px'}
       buttonMinWidth={'30px'}
+      showSearch={boolean('showSearch', true)}
     />
   ))
 );
@@ -173,6 +176,7 @@ stories.add(
       isMulti
       onChange={() => {}}
       isButton={true}
+      showSearch={boolean('showSearch', true)}
     />
   ))
 );
@@ -187,6 +191,7 @@ stories.add(
       onChange={() => {}}
       isButton={true}
       value={[colourOptions[2], colourOptions[5]]}
+      showSearch={boolean('showSearch', true)}
     />
   ))
 );
@@ -201,6 +206,7 @@ stories.add(
       isMulti
       onChange={() => {}}
       isButton={true}
+      showSearch={boolean('showSearch', true)}
     />
   ))
 );
