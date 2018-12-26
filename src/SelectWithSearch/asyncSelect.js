@@ -13,6 +13,22 @@ const initialCache = {
   isLoading: false
 };
 
+const debounce = (func, wait, immediate) => {
+  var timeout;
+  return function() {
+    var context = this,
+      args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+
 export default class AsyncSelect extends Component {
   static propTypes = {
     promiseOption: PropTypes.func,
@@ -103,6 +119,13 @@ export default class AsyncSelect extends Component {
     }
   }
 
+  debounceSearch = debounce(() => {
+    const { optionsCache, search } = this.state;
+    if (!optionsCache[search]) {
+      this.loadOptions();
+    }
+  }, 500);
+
   onInputChange = (search, event) => {
     if (event.action == 'input-change') {
       this.setState(
@@ -110,12 +133,7 @@ export default class AsyncSelect extends Component {
           inputValue: search,
           search
         },
-        () => {
-          const { optionsCache } = this.state;
-          if (!optionsCache[search]) {
-            this.loadOptions();
-          }
-        }
+        this.debounceSearch
       );
     }
   };
@@ -720,6 +738,7 @@ export default class AsyncSelect extends Component {
           >
             <Select
               styles={this.getStyle()}
+              filterOption={option => option.label}
               {...this.props}
               classNamePrefix={'mt-react-select'}
               onInputChange={this.onInputChange}
