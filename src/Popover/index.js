@@ -45,11 +45,12 @@ class Popover extends Component {
   }
 
   componentDidMount() {
-    document.body.appendChild(this.element);
+    if (!this.props.getPopupContainer || !this.props.getPopupContainer())
+      document.body.appendChild(this.element);
   }
 
   componentWillUnmount() {
-    document.body.removeChild(this.element);
+    if (!this.props.getPopupContainer) document.body.removeChild(this.element);
   }
 
   render() {
