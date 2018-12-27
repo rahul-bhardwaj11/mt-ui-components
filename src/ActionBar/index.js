@@ -25,7 +25,7 @@ const MtActionBar = styled.div`
 const ActionBar = ({ children, countText, style }) => {
   return (
     <MtActionBar {...style}>
-      <span className="countText">{countText}</span>
+      {countText && <span className="countText">{countText}</span>}
       {children}
     </MtActionBar>
   );

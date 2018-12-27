@@ -4,6 +4,7 @@ import AntInput from 'antd/lib/input';
 import 'antd/lib/input/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import mixins from '../styles/mixins';
 import classnames from 'classnames';
 
 const noop = () => undefined;
@@ -13,20 +14,17 @@ const isString = value => {
 };
 
 const MtInput = styled.div`
+  position: relative;
+  ${mixins.clearfix()};
   .counterStyle {
-    color: #696969;
-    font-size: 12px;
-    margin-left: 0;
-    padding: 4px 8px;
-    border: 1px solid #ccc;
-    border-left: none;
+    ${mixins.smallGreyLink()};
     line-height: 20px;
-    float: left;
+    position: absolute;
+    right: 0px;
   }
   .displayN {
     display: none;
   }
-
   .error {
     font-size: 12px;
     bottom: -24px;
@@ -70,6 +68,7 @@ class Input extends Component {
     placeholder: PropTypes.string,
     maxLength: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
     maxLengthClassName: PropTypes.string,
+    showMaxLength: PropTypes.bool,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -135,7 +134,7 @@ class Input extends Component {
   }
 
   render() {
-    const { errors /*, maxLength, maxLengthClassName*/ } = this.props;
+    const { errors, maxLength, maxLengthClassName, showMaxLength } = this.props;
     const { value } = this.state;
     return (
       <MtInput>
@@ -145,16 +144,18 @@ class Input extends Component {
           onChange={this.onChange}
           onFocus={this.moveCaretAtEnd}
         />
-        {/*<div
-          key="maxLength"
-          className={classnames(
-            { ['counterStyle']: maxLength, displayN: !maxLength },
-            maxLengthClassName
+        {maxLength &&
+          showMaxLength && (
+            <div
+              key="maxLength"
+              className={classnames(
+                { ['counterStyle']: maxLength, displayN: !maxLength },
+                maxLengthClassName
+              )}
+            >
+              {maxLength && maxLength - value.length}
+            </div>
           )}
-        >
-          {maxLength && maxLength - value.length}
-        </div>
-       */}
         <div
           key="error"
           className={classnames(errors[0] ? 'error' : 'displayN')}

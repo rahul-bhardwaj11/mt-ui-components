@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import AntDropdown from 'antd/lib/dropdown';
 import Menu from '../Menu';
@@ -30,6 +31,23 @@ class Dropdown extends Component {
     placement: 'bottomRight',
     onSelect: () => {}
   };
+  dropdownRef = null;
+
+  element = null;
+
+  constructor(p) {
+    super(p);
+    this.element = document.createElement('div');
+  }
+
+  componentDidMount() {
+    if (!this.props.getPopupContainer || !this.props.getPopupContainer())
+      document.body.appendChild(this.element);
+  }
+
+  componentWillUnmount() {
+    if (!this.props.getPopupContainer) document.body.removeChild(this.element);
+  }
 
   render() {
     let {
@@ -43,6 +61,10 @@ class Dropdown extends Component {
       className,
       selectedKeys
     } = this.props;
+
+    const container =
+      this.props.getPopupContainer && this.props.getPopupContainer();
+
     let overlay;
     if (options instanceof Array) {
       overlay = (
@@ -60,14 +82,14 @@ class Dropdown extends Component {
     }
 
     return (
-      <MtWrapper
-        innerRef={el => {
-          if (el) {
-            this.dropdownRef = el;
-          }
-        }}
-        className={className}
-      >
+      <React.Fragment>
+        {ReactDOM.createPortal(
+          <MtWrapper
+            className={className}
+            innerRef={e => e && (this.dropdownRef = e)}
+          />,
+          container || this.element
+        )}
         <AntDropdown
           overlay={overlay}
           trigger={[trigger]}
@@ -79,7 +101,7 @@ class Dropdown extends Component {
         >
           {children}
         </AntDropdown>
-      </MtWrapper>
+      </React.Fragment>
     );
   }
 }
