@@ -145,7 +145,7 @@ class Input extends Component {
   render() {
     const {
       errors /*, maxLength, maxLengthClassName*/,
-      className = ''
+      className
     } = this.props;
     const { value } = this.state;
     return (
@@ -155,7 +155,7 @@ class Input extends Component {
           value={value}
           onChange={this.onChange}
           onFocus={this.moveCaretAtEnd}
-          className={classnames(errors[0] ? 'errorInputStyle' : className)}
+          className={classnames(className, { errorInputStyle: errors[0] })}
         />
         {/*<div
           key="maxLength"
