@@ -69,7 +69,6 @@ class Table extends Component {
     loading: false
   };
   state = {
-    selectAll: false,
     selectedRowKeys: [],
     loadingMore: false
   };
@@ -155,11 +154,8 @@ class Table extends Component {
   }
 
   onChange = (selectedRowKeys, selectedRows) => {
-    let { dataSource, rowSelection: { onChange } = {} } = this.props;
-    this.setState(() => ({
-      selectedRowKeys: selectedRowKeys,
-      selectAll: dataSource.length === selectedRowKeys.length
-    }));
+    let { rowSelection: { onChange } = {} } = this.props;
+    this.setState(() => ({ selectedRowKeys: selectedRowKeys }));
     onChange && onChange(selectedRowKeys, selectedRows);
   };
 
@@ -185,13 +181,13 @@ class Table extends Component {
 
     return <Loader {...loaderProps} />;
   };
-  componentDidUpdate() {
-    const { selectAll, selectedRowKeys } = this.state;
-    const { dataSource, rowKey = 'key' } = this.props;
-    if (selectAll && selectedRowKeys.length !== dataSource.length) {
-      this.onChange(dataSource.map(v => v[rowKey]), dataSource);
-    }
-  }
+  // componentDidUpdate() {
+  //   const { selectAll, selectedRowKeys } = this.state;
+  //   const { dataSource, rowKey = "key" } = this.props;
+  //   if (selectAll && selectedRowKeys.length !== dataSource.length) {
+  //     this.onChange(dataSource.map(v => v[rowKey]), dataSource);
+  //   }
+  // }
 
   getEmptyData = () => {
     const {
@@ -227,17 +223,14 @@ class Table extends Component {
   getAntTableProps = () => {
     let {
       rowSelection,
-      dataSource,
       selectedRowKeys: parentKeys,
       isMultiSelect,
       rowKey = 'key',
       onRow,
       locale
     } = this.props;
-    let { selectAll, selectedRowKeys } = this.state;
-    const newSelectedRowskey = selectAll
-      ? dataSource.map(v => v[rowKey])
-      : parentKeys || selectedRowKeys;
+    let { selectedRowKeys } = this.state;
+    const newSelectedRowskey = parentKeys || selectedRowKeys;
 
     const updatedRowSelection = rowSelection
       ? {

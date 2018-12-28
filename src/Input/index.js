@@ -29,12 +29,19 @@ const MtInput = styled.div`
 
   .error {
     font-size: 12px;
-    bottom: -24px;
-    left: 8px;
+    bottom: -20px;
+    left: 2px;
     position: absolute;
-    color: #c63434;
-    font-weight: bold;
+    color: ${theme.colors.BITTERSWEET};
   }
+  .ant-input.errorInputStyle {
+    border: 1px solid red;
+    &:focus,
+    &:hover {
+      border: 1px solid #f5222d;
+    }
+  }
+
   .ant-input {
     border: 1px solid ${theme.colors.ALTO};
     font-family: inherit;
@@ -67,6 +74,7 @@ const MtInput = styled.div`
 
 class Input extends Component {
   static propTypes = {
+    className: PropTypes.string,
     placeholder: PropTypes.string,
     maxLength: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
     maxLengthClassName: PropTypes.string,
@@ -135,7 +143,10 @@ class Input extends Component {
   }
 
   render() {
-    const { errors /*, maxLength, maxLengthClassName*/ } = this.props;
+    const {
+      errors /*, maxLength, maxLengthClassName*/,
+      className = ''
+    } = this.props;
     const { value } = this.state;
     return (
       <MtInput>
@@ -144,6 +155,7 @@ class Input extends Component {
           value={value}
           onChange={this.onChange}
           onFocus={this.moveCaretAtEnd}
+          className={classnames(errors[0] ? 'errorInputStyle' : className)}
         />
         {/*<div
           key="maxLength"
