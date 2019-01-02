@@ -177,6 +177,9 @@ const MtWrapper = styled.div`
   .ant-select-dropdown, .ant-select-dropdown--multiple {
     z-index: 999999;
   }
+  .mt-react-select__placeholder {
+    color: ${theme.colors.SILVER};
+  }
 `;
 
 class Select extends Component {

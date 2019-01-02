@@ -17,11 +17,16 @@ const SelectBox = styled.div`
     line-height: 18px;
   }
 
+  .mt-react-select__placeholder {
+    color: ${theme.colors.SILVER};
+  }
+
   &.buttonSelect {
     .mt-react-select__control {
-       width: 100%;
-     }
+      width: 100%;
+    }
   }
+
   .mt-react-select__single-value {
     color: ${theme.colors.DARK_OUTER_SPACE};
     left: 0px;
