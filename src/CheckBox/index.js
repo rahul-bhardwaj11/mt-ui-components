@@ -53,7 +53,6 @@ const MtCheckbox = styled(AntCheckbox)`
     }
     .ant-checkbox + span {
       min-width: 125px;
-      padding: 0px;
     }
 
     .ant-checkbox-inner {
@@ -83,9 +82,6 @@ const MtCheckbox = styled(AntCheckbox)`
         background-color: ${theme.colors.INDIGO};
         border-color: ${theme.colors.INDIGO};
       }
-    }
-    span {
-      color: ${theme.colors.OUTER_SPACE};
     }
   }
 `;
