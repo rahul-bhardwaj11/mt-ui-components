@@ -48,9 +48,11 @@ const props = {
   }
 };
 
+window.videoRef = React.createRef();
+
 stories.add(
   'Default Player',
-  withInfo('Information')(() => <RaPlayer {...props} />)
+  withInfo('Information')(() => <RaPlayer ref={window.videoRef} {...props} />)
 );
 
 const secondaryPlayerProps = {

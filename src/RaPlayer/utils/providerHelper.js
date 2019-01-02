@@ -1,42 +1,51 @@
 import React, { Component, createContext } from 'react';
+import PropTypes from 'prop-types';
 import { createStore } from './storeHelper';
-import getInitialState from './initialState';
-import deepmerge from 'deepmerge';
+import getInitialState, { getDerivedState } from './initialState';
 
 const { Provider, Consumer } = createContext();
 
 export default function ProviderHelperHoc(Comp) {
-  return class ProviderHelper extends Component {
+  class ProviderHelper extends Component {
     constructor(props) {
       super(props);
       this.store = createStore(getInitialState(props));
       window.raPlayer = this.store;
     }
 
+    static propTypes = {
+      forwardedRef: PropTypes.object
+    };
+
     componentWillReceiveProps(nextProps) {
       const currentState = this.store.getState();
-      const newState = deepmerge(currentState, nextProps);
+      const newState = getDerivedState(currentState, nextProps);
       this.store.setState(newState);
     }
 
     render() {
+      const { forwardedRef, ...props } = this.props;
       return (
         <Provider value={this.store}>
-          {/* TODO: Remove prop dependency from video player container and get things from state */}
-          <Comp {...this.props} />
+          <Comp ref={forwardedRef} {...props} />
         </Provider>
       );
     }
-  };
+  }
+  return React.forwardRef((props, ref) => (
+    <ProviderHelper forwardedRef={ref} {...props} />
+  ));
 }
 
 const noop = state => state;
 
 export function connect(mapStateToProps = noop, actions) {
   return function connectedWrapper(Comp) {
-    return class Connected extends Component {
+    class Connected extends Component {
       static displayName = `Connected(${Comp.displayName || Comp.name})`;
-
+      static propTypes = {
+        forwardedRef: PropTypes.object
+      };
       constructor() {
         super();
         this.stateChanged = this.stateChanged.bind(this);
@@ -64,7 +73,7 @@ export function connect(mapStateToProps = noop, actions) {
       }
 
       render() {
-        const ownProps = this.props;
+        const { forwardedRef, ...ownProps } = this.props;
         return (
           <Consumer>
             {store => {
@@ -81,11 +90,14 @@ export function connect(mapStateToProps = noop, actions) {
                 stateProps,
                 this.boundActions
               );
-              return <Comp {...mergedProps} />;
+              return <Comp ref={forwardedRef} {...mergedProps} />;
             }}
           </Consumer>
         );
       }
-    };
+    }
+    return React.forwardRef((props, ref) => (
+      <Connected forwardedRef={ref} {...props} />
+    ));
   };
 }
