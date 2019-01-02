@@ -15,7 +15,6 @@ const isString = value => {
 
 const MtInput = styled.div`
   position: relative;
-  ${mixins.clearfix()};
   .counterStyle {
     ${mixins.smallGreyLink()};
     line-height: 20px;
