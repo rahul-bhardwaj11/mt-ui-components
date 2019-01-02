@@ -1,7 +1,8 @@
 import React, { Component, createContext } from 'react';
 import PropTypes from 'prop-types';
 import { createStore } from './storeHelper';
-import getInitialState, { getDerivedState } from './initialState';
+import getInitialState, { getDerivedState } from './stateHelper';
+import { IS_DEV } from '.';
 
 const { Provider, Consumer } = createContext();
 
@@ -10,7 +11,9 @@ export default function ProviderHelperHoc(Comp) {
     constructor(props) {
       super(props);
       this.store = createStore(getInitialState(props));
-      window.raPlayer = this.store;
+      if(IS_DEV){
+        window.raPlayer = this.store;
+      }
     }
 
     static propTypes = {

@@ -1,3 +1,5 @@
+import {MEDIA_STATES} from '../config/constants'
+
 const localState = {
   commentHelperBox: {
     show: false,
@@ -11,7 +13,7 @@ const localState = {
   },
   media: {
     currentTime: 0,
-    state: 'PAUSE'
+    state: MEDIA_STATES.PLAY
   }
 };
 
@@ -28,11 +30,17 @@ const initialState = {
 };
 
 const getInitialState = props => {
-  return {
+  
+  const mergedState = {
     ...initialState,
     ...props,
     ...localState
   };
+  if(!mergedState.autoplay) {
+    mergedState.media.state = MEDIA_STATES.PAUSE
+  }
+  mergedState.media.currentTime = mergedState.startTime
+  return mergedState
 };
 
 const excludedKeys = [

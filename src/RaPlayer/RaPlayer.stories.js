@@ -10,8 +10,6 @@ const stories = storiesOf('RaPlayer', module);
 // stories.addDecorator(withKnobs);
 
 const props = {
-  targetVideoContainer: 'targetContainer',
-  targetCommentContainer: 'targetCommentContainer',
   primaryTracks: [
     {
       src: '360p.mp4',
@@ -22,12 +20,6 @@ const props = {
       label: '720p'
     }
   ],
-  app: {
-    subjectId: 123,
-    companyName: 423,
-    socialId: 111,
-    author: { id: '1222222', name: '123' }
-  },
   showControlsOnly: false,
   edit: true,
   showOnboarding: true,
