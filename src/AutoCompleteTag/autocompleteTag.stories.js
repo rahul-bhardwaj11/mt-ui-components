@@ -15,6 +15,7 @@ stories.add(
         placeholder: 'Search words'
       }}
       onChange={() => {}}
+      withSearch={false}
     />
   ))
 );

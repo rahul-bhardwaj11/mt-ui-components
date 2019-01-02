@@ -17,9 +17,9 @@ const StyleAutoCompleteTag = styled.div`
     padding: 0px;
     border-radius: 4px;
     border: 1px solid  ${theme.colors.SILVER};
-    padding-left: 30px;
+    padding-left: ${props => (props.withSearch ? `30px` : `16px`)};
     &:before {
-        display: block;
+        display: ${props => (props.withSearch ? `block` : `none`)};
         background: url('${searchIcon}') no-repeat 1px 0px;
         height: 15px;
         width: 15px;
@@ -66,7 +66,12 @@ class AutoCompleteTag extends React.Component {
   static propTypes = {
     onChange: PropTypes.func,
     tags: PropTypes.array,
-    className: PropTypes.string
+    className: PropTypes.string,
+    withSearch: PropTypes.bool
+  };
+
+  static defaultProps = {
+    withSearch: true
   };
 
   state = {
@@ -79,9 +84,9 @@ class AutoCompleteTag extends React.Component {
   };
 
   render() {
-    const { className, ...rest } = this.props;
+    const { className, withSearch, ...rest } = this.props;
     return (
-      <StyleAutoCompleteTag className={className}>
+      <StyleAutoCompleteTag className={className} withSearch={withSearch}>
         <TagsInput
           inputProps={{
             placeholder: 'Search words'
