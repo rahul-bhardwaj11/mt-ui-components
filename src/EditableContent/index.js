@@ -88,8 +88,9 @@ class EditableContent extends Component {
 
   handleInputChange = event => {
     const { onChange } = this.props;
-    this.setState({ nextValue: event.target.value });
-    onChange && onChange(event.target.value);
+    const content = event.target.value.trim();
+    this.setState({ nextValue: content });
+    onChange && onChange(content);
   };
 
   handleClear = () => this.setState({ nextValue: '' });
@@ -117,6 +118,7 @@ class EditableContent extends Component {
               className="editableContentSaveBtn"
               type="action"
               onClick={this.handleSave}
+              disabled={inputProps.errors && inputProps.errors.length}
             >
               Save
             </Tag>
