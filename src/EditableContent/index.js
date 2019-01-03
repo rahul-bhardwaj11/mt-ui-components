@@ -46,7 +46,8 @@ class EditableContent extends Component {
     editOnEnter: PropTypes.bool,
     value: PropTypes.string,
     onChange: PropTypes.func,
-    onSave: PropTypes.func.isRequired
+    onSave: PropTypes.func.isRequired,
+    onCancel: PropTypes.func
   };
 
   static defaultProps = {
@@ -79,8 +80,10 @@ class EditableContent extends Component {
   };
 
   handleCancel = () => {
+    const { onCancel } = this.props;
     this.setState({ nextValue: this.props.value }); // resetting to older value
     this.toggleEditMode();
+    onCancel && onCancel();
   };
 
   handleInputChange = event => {
@@ -98,6 +101,7 @@ class EditableContent extends Component {
       inputProps.onBlur = this.handleSave;
       inputProps.suffix = <Icon type="close" onClick={this.handleClear} />;
     }
+    inputProps.maxLength = false;
     return (
       <StyledEditableInput>
         <div className="editableInputControl">
