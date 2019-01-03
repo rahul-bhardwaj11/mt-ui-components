@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import style from './index.scss';
 import { actions } from '../../actions';
-import { toHHMMSS, getColorMap, parseText } from '../../utils/core';
+import { toHHMMSS, getColorMap } from '../../utils/core';
 import { connect } from '../../utils/providerHelper';
 import Modal from '../../../Modal';
 import {
@@ -10,7 +10,6 @@ import {
   STRING_CANCEL,
   MAX_CHAR_LIMIT_COMMENT
 } from '../../config/constants';
-import EmojiPicker from '../../components/EmojiPicker';
 import PropTypes from 'prop-types';
 
 class CommentBox extends Component {
@@ -28,7 +27,8 @@ class CommentBox extends Component {
     downArrowXPos: PropTypes.number,
     edit: PropTypes.bool,
     showError: PropTypes.bool,
-    author: PropTypes.object
+    author: PropTypes.object,
+    commentBoxRenderer: PropTypes.func
   };
   static getDerivedStateFromProps(props, state) {
     if (props.showError && state.disableSaveButton) {
@@ -55,6 +55,10 @@ class CommentBox extends Component {
     this.state = intialState;
   }
 
+  ref = node => {
+    this.commentTextArea = node;
+  };
+
   emojiOnSelectHandler(selectedEmoji) {
     if (this.commentTextArea.value.length < MAX_CHAR_LIMIT_COMMENT) {
       let text = this.commentTextArea.value + selectedEmoji;
@@ -64,6 +68,7 @@ class CommentBox extends Component {
       this.setState({
         disableSaveButton: false
       });
+      this.commentTextArea.focus();
     }
   }
 
@@ -184,7 +189,8 @@ class CommentBox extends Component {
       downArrowXPos,
       edit,
       showError,
-      author
+      author,
+      commentBoxRenderer
     } = this.props;
     const { disableSaveButton } = this.state;
     let divStyle = {
@@ -211,68 +217,25 @@ class CommentBox extends Component {
 
     return (
       <div style={divStyle} className={style.acBox}>
-        <div className={style.downArrow} style={downArrowStyle} />
-        <div className={style.acBoxContent}>
-          <div className={style.acBoxContentInfo}>
-            <span className={style.time} style={timeStampColor}>
-              {timestampReadable}
-            </span>
-          </div>
-          {edit &&
-            this.props.id &&
-            disableSaveButton && (
-              <div className={style.acControlTopRight}>
-                <span
-                  onClick={this.editClickHandler}
-                  title="edit"
-                  className={style.edit}
-                />
-                <span
-                  onClick={this.deleteClickHandler}
-                  title="delete"
-                  className={style.delete}
-                />
-              </div>
-            )}
-          <textarea
-            className={style.acBoxText}
-            onChange={this.textAreaChangeHandler}
-            onKeyUp={this.textAreaChangeHandler}
-            maxLength={MAX_CHAR_LIMIT_COMMENT}
-            {...opts}
-            rows="1"
-            ref={input => {
-              this.commentTextArea = input;
-            }}
-            value={parseText(commentText)}
-          />
-          <div
-            className={
-              style.acBoxControls + ' ' + (readOnly ? style.hide : style.show)
-            }
-          >
-            <EmojiPicker toLeft="true" onSelect={this.emojiOnSelectHandler} />
-            <span
-              title="save"
-              className={[
-                style.acActionButton,
-                style.save,
-                disableSaveButton ? style.disable : ''
-              ].join(' ')}
-              onClick={this.postCommentHandler}
-            />
-            <span
-              title="discard"
-              className={[style.acActionButton, style.cancel].join(' ')}
-              onClick={this.closeSelf}
-            />
-          </div>
-          {showError && (
-            <div className={[style.error, style.floatR].join(' ')}>
-              Something went wrong.Please try again..
-            </div>
-          )}
-        </div>
+        {commentBoxRenderer({
+          id: this.props.id,
+          commentText,
+          edit,
+          showError,
+          disableSaveButton,
+          timestampReadable,
+          downArrowStyle,
+          timeStampColor,
+          readOnly,
+          textAreaOpts: opts,
+          editClickHandler: this.editClickHandler,
+          deleteClickHandler: this.deleteClickHandler,
+          textAreaChangeHandler: this.textAreaChangeHandler,
+          emojiOnSelectHandler: this.emojiOnSelectHandler,
+          postCommentHandler: this.postCommentHandler,
+          closeSelf: this.closeSelf,
+          ref: this.ref
+        })}
       </div>
     );
   }
@@ -290,7 +253,8 @@ function mapStateToProps(state) {
     showError: state.commentBox.error,
     postComment: state.postComment,
     editComment: state.editComment,
-    deleteComment: state.deleteComment
+    deleteComment: state.deleteComment,
+    commentBoxRenderer: state.commentBoxRenderer
   };
 }
 

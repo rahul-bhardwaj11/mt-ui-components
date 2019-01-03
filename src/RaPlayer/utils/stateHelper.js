@@ -1,4 +1,8 @@
-import {MEDIA_STATES} from '../config/constants'
+import { MEDIA_STATES } from '../config/constants';
+import {
+  commentBoxHelperRenderer,
+  commentBoxRenderer
+} from '../utils/defaultRenderers';
 
 const localState = {
   commentHelperBox: {
@@ -26,21 +30,22 @@ const initialState = {
   comments: [],
   commentPane: {
     activeComments: []
-  }
+  },
+  commentBoxHelperRenderer,
+  commentBoxRenderer
 };
 
 const getInitialState = props => {
-  
   const mergedState = {
     ...initialState,
     ...props,
     ...localState
   };
-  if(!mergedState.autoplay) {
-    mergedState.media.state = MEDIA_STATES.PAUSE
+  if (!mergedState.autoplay) {
+    mergedState.media.state = MEDIA_STATES.PAUSE;
   }
-  mergedState.media.currentTime = mergedState.startTime
-  return mergedState
+  mergedState.media.currentTime = mergedState.startTime;
+  return mergedState;
 };
 
 const excludedKeys = [

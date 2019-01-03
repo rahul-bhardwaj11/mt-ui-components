@@ -4,39 +4,10 @@ import style from './index.scss';
 import { actions } from '../../actions';
 import { toHHMMSS } from '../../utils/core';
 import { connect } from '../../utils/providerHelper';
-import EmojiPicker from '../../components/EmojiPicker';
-
-function BoxContent({
-  timestampReadable,
-  commentHelperBoxClickHandler,
-  emojiOnSelectHandler
-}) {
-  return (
-    <div className={style.chBoxContent}>
-      <div
-        className={style.chBoxContentInfo}
-        onClick={commentHelperBoxClickHandler}
-      >
-        <span className={style.plusIcon}>+</span> Add Comments @{
-          timestampReadable
-        }
-      </div>
-      <div className={style.chBoxControls}>
-        <EmojiPicker onSelect={emojiOnSelectHandler} />
-      </div>
-      <div className={style.clear} />
-    </div>
-  );
-}
-BoxContent.propTypes = {
-  commentHelperBoxClickHandler: PropTypes.func.isRequired,
-  timestampReadable: PropTypes.string,
-  emojiOnSelectHandler: PropTypes.func
-};
 
 class CommentHelperBox extends Component {
   static propTypes = {
-    BoxContentComp: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+    commentBoxHelperRenderer: PropTypes.oneOfType(PropTypes.func),
     targetPlayerId: PropTypes.string,
     xPos: PropTypes.number,
     time: PropTypes.number,
@@ -47,10 +18,6 @@ class CommentHelperBox extends Component {
     onClickHandler: PropTypes.func,
     postComment: PropTypes.func,
     videoWidth: PropTypes.number
-  };
-
-  static defaultProps = {
-    BoxContentComp: BoxContent
   };
 
   commentHelperBoxClickHandler = () => {
@@ -95,7 +62,7 @@ class CommentHelperBox extends Component {
   };
 
   render() {
-    const { xPos, time, downArrowXPos, BoxContentComp } = this.props;
+    const { xPos, time, downArrowXPos, commentBoxHelperRenderer } = this.props;
     let divStyle = {
         left: xPos
       },
@@ -108,12 +75,12 @@ class CommentHelperBox extends Component {
     }
     return (
       <div style={divStyle} className={style.chBox}>
-        <div className={style.downArrow} style={downArrowStyle} />
-        <BoxContentComp
-          emojiOnSelectHandler={this.emojiOnSelectHandler}
-          timestampReadable={timestampReadable}
-          commentHelperBoxClickHandler={this.commentHelperBoxClickHandler}
-        />
+        {commentBoxHelperRenderer({
+          emojiOnSelectHandler: this.emojiOnSelectHandler,
+          timestampReadable,
+          commentHelperBoxClickHandler: this.commentHelperBoxClickHandler,
+          downArrowStyle
+        })}
       </div>
     );
   }
@@ -126,7 +93,7 @@ function mapStateToProps(state) {
     downArrowXPos: state.commentHelperBox.data.downArrowXPos,
     videoWidth: state.media.videoWidth,
     postComment: state.postComment,
-    BoxContentComp: state.BoxContentComp
+    commentBoxHelperRenderer: state.commentBoxHelperRenderer
   };
 }
 
