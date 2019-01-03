@@ -63,20 +63,18 @@ stories.add('With secondary player', () => (
 
 const commentProps = {
   ...props,
-  commentPane: {
-    activeComments: [
-      {
-        time: 2,
-        id: '3',
-        cname: 4,
-        author: {
-          id: 12,
-          name: 'Rama'
-        },
-        text: 'Abc'
-      }
-    ]
-  }
+  comments: [
+    {
+      time: 2,
+      id: '3',
+      cname: 4,
+      author: {
+        id: 12,
+        name: 'Rama'
+      },
+      text: 'Abc'
+    }
+  ]
 };
 
 stories.add('With pre existing comments', () => <RaPlayer {...commentProps} />);

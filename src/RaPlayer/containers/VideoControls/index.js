@@ -400,7 +400,7 @@ class VideoControls extends Component {
 function mapStateToProps(state) {
   return {
     ...state,
-    comments: state.commentPane.activeComments,
+    comments: state.comments,
     mediaState: state.media.state,
     videoDuration: state.media.duration,
     isCommentBoxActive: state.commentBox.show && !state.commentBox.data.readOnly

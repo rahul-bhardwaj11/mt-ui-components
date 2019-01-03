@@ -3,6 +3,7 @@ import {
   commentBoxHelperRenderer,
   commentBoxRenderer
 } from '../utils/defaultRenderers';
+import { splitByExistingKeys } from '.';
 
 const localState = {
   commentHelperBox: {
@@ -28,17 +29,16 @@ const initialState = {
   autoplay: true,
   startTime: 0,
   comments: [],
-  commentPane: {
-    activeComments: []
-  },
   commentBoxHelperRenderer,
   commentBoxRenderer
 };
+const localStateKeys = Object.keys(localState);
+const initialPropsKeys = Object.keys(initialState);
 
 const getInitialState = props => {
   const mergedState = {
     ...initialState,
-    ...props,
+    ...splitByExistingKeys([...initialPropsKeys], props).included,
     ...localState
   };
   if (!mergedState.autoplay) {
@@ -48,24 +48,15 @@ const getInitialState = props => {
   return mergedState;
 };
 
-const excludedKeys = [
-  ...Object.keys({
-    ...localState,
-    ...initialState
-  }),
-  'forwardedRef'
-];
+const excludedKeys = [...localStateKeys, ...initialPropsKeys].filter(
+  v => v !== 'comments'
+);
 
 export function getDerivedState(currentState, nextProps) {
-  return Object.keys(nextProps).reduce(
-    (state, v) => {
-      if (!excludedKeys.includes(v)) {
-        state[v] = nextProps[v];
-      }
-      return state;
-    },
-    { ...currentState }
-  );
+  return {
+    ...currentState,
+    ...splitByExistingKeys(excludedKeys, nextProps).excluded
+  };
 }
 
 export default getInitialState;
