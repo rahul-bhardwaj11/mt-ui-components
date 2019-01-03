@@ -32,4 +32,16 @@ stories
         />
       </div>
     ))
+  )
+  .add(
+    'Input with maxChar length',
+    withInfo('Basic usage of the Input')(() => (
+      <div style={styles}>
+        <Input
+          placeholder={text('Placeholder', 'Placeholder')}
+          showMaxLength={true}
+          maxLength={40}
+        />
+      </div>
+    ))
   );

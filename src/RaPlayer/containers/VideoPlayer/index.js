@@ -4,6 +4,7 @@ import { connect } from '../../utils/providerHelper';
 import style from './index.scss';
 import Player from '../../components/Player';
 import VideoControls from '../VideoControls';
+import classnames from 'classnames';
 
 /*eslint-disable*/
 class VideoPlayerContainer extends Component {
@@ -128,7 +129,8 @@ class VideoPlayerContainer extends Component {
       controlOptions,
       downloadSrc,
       currentTime,
-      mediaState
+      mediaState,
+      className
     } = this.props;
     let { controls, selectedTrack, showPlayButton } = this.state;
     controls = showControlsOnly || controls;
@@ -139,11 +141,14 @@ class VideoPlayerContainer extends Component {
     return (
       <div
         ref={e => (this.container = e)}
-        className={[
-          style.videoContainer,
-          style.posRel,
-          fullScreen ? style.fullScreen : ''
-        ].join(' ')}
+        className={classnames(
+          this.props.className,
+          [
+            style.videoContainer,
+            style.posRel,
+            fullScreen ? style.fullScreen : ''
+          ].join(' ')
+        )}
         onMouseOver={this.showControls}
         onMouseOut={this.hideControls}
       >

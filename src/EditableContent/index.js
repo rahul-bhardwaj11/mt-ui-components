@@ -9,6 +9,7 @@ const StyledEditableContent = styled.div`
   padding: 6px 12px;
   .editableText {
     float: left;
+    cursor: pointer;
     margin-right: 12px;
   }
 
@@ -42,9 +43,10 @@ class EditableContent extends Component {
   state = this.getInitialState();
 
   static propTypes = {
-    onChange: PropTypes.func.isRequired,
+    editOnEnter: PropTypes.bool,
     value: PropTypes.string,
-    editOnEnter: PropTypes.bool
+    onChange: PropTypes.func,
+    onSave: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -68,9 +70,12 @@ class EditableContent extends Component {
   handleSave = () => {
     if (this.state.nextValue) {
       // do not save empty value in edit mode
-      this.props.onChange(this.state.nextValue);
+      this.props.onSave(this.state.nextValue);
+      this.toggleEditMode();
+    } else {
+      // set the initial state when we click on close with empty value
+      this.setState(this.getInitialState());
     }
-    this.toggleEditMode();
   };
 
   handleCancel = () => {
@@ -79,7 +84,9 @@ class EditableContent extends Component {
   };
 
   handleInputChange = event => {
+    const { onChange } = this.props;
     this.setState({ nextValue: event.target.value });
+    onChange && onChange(event.target.value);
   };
 
   handleClear = () => this.setState({ nextValue: '' });
@@ -123,9 +130,11 @@ class EditableContent extends Component {
 
   renderStaticComponent() {
     return (
-      <StyledEditableContent onClick={this.toggleEditMode}>
-        <div className="editableText">{this.props.value}</div>
-        <Icon type="edit" />
+      <StyledEditableContent className="editableContentWrapper">
+        <div onClick={this.toggleEditMode}>
+          <div className="editableText">{this.props.value}</div>
+          <Icon type="edit" />
+        </div>
       </StyledEditableContent>
     );
   }
