@@ -14,7 +14,8 @@
     "INFINITY": true,
     "module": true,
     "require": true,
-    "UploadeManager": true
+    "UploadeManager": true,
+    "Symbol": true
   },
   "parser": "babel-eslint",
   "env": {

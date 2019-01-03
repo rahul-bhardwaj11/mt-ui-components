@@ -45,7 +45,6 @@ class VideoControls extends Component {
     selectedTrack: PropTypes.number,
     onSeekHandler: PropTypes.func,
     volumeUpdateHandler: PropTypes.func,
-    namespace: PropTypes.string,
     videoPauseAtTimeHandler: PropTypes.func,
     controlOptions: PropTypes.func,
     downloadSrc: PropTypes.string,
@@ -255,7 +254,6 @@ class VideoControls extends Component {
       selectedTrack,
       onSeekHandler,
       volumeUpdateHandler,
-      namespace,
       videoPauseAtTimeHandler,
       controlOptions: controlOptionsProp = {},
       downloadSrc,
@@ -378,13 +376,10 @@ class VideoControls extends Component {
           </div>
           <div className={style.clear} />
         </div>
-        {commentBox.show ? (
-          <CommentBox edit={edit} namespace={namespace} />
-        ) : null}
+        {commentBox.show ? <CommentBox edit={edit} /> : null}
         {commentHelperBox.show && edit ? (
           <CommentHelperBox
             targetPlayerId={targetPlayerId}
-            namespace={namespace}
             onClickHandler={videoPauseAtTimeHandler}
           />
         ) : null}
