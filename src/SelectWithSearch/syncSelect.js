@@ -455,7 +455,6 @@ export default class SyncSelect extends Component {
     const {
       options,
       selectedItems,
-      prevSelectedItems,
       menuIsOpen,
       showSelect,
       showInput,
@@ -517,7 +516,7 @@ export default class SyncSelect extends Component {
               }}
               size="small"
               className={classnames(
-                prevSelectedItems.length > 0 ? 'selectedItems' : '',
+                selectedItems.length > 0 ? 'selectedItems' : '',
                 showSelect ? 'activeSelect' : ''
               )}
             >
