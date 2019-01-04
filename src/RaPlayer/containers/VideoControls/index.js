@@ -124,16 +124,6 @@ class VideoControls extends Component {
     }
   };
 
-  isCommentBarDotWithin(time) {
-    var isWithin = false;
-    this.props.comments.forEach(comment => {
-      if (parseInt(comment.time) === parseInt(time)) {
-        isWithin = true;
-      }
-    });
-    return isWithin;
-  }
-
   showCommentHelperBox = e => {
     /*
 			200px: width of helper box
@@ -156,28 +146,12 @@ class VideoControls extends Component {
       xPos = 0;
     }
 
-    let time = (percentage / 100) * this.props.videoDuration,
-      availableWindowForCommentHelperBox = xPos + 200,
-      upperXLimit = e.target.clientWidth,
-      downArrowXPos;
-    downArrowXPos = 8;
-
-    if (this.isCommentBarDotWithin(time)) {
-      return;
-    }
-    xPos -= 10;
-    if (availableWindowForCommentHelperBox > upperXLimit) {
-      xPos = e.target.clientWidth - 200;
-      downArrowXPos = availableWindowForCommentHelperBox - upperXLimit;
-    }
-
-    downArrowXPos = downArrowXPos < 8 ? 8 : downArrowXPos;
-    downArrowXPos = downArrowXPos > 183 ? 183 : downArrowXPos;
+    let time = (percentage / 100) * this.props.videoDuration;
 
     this.props.showCommentHelperBox({
-      xPos,
+      xPosRaw: xPos,
       time,
-      downArrowXPos
+      clientWidth: e.target.clientWidth
     });
     this.props.hideCommentBox();
   };

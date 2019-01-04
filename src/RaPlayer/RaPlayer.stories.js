@@ -38,6 +38,7 @@ const props = {
   editComment: function(comment) {
     console.log(comment);
   }
+  // commentBoxHelperRenderer: ({boxRef, ...props}) => <button ref={boxRef}>Test</button>
 };
 
 window.videoRef = React.createRef();

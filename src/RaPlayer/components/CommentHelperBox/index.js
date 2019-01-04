@@ -8,10 +8,11 @@ export default function CommentHelperBox({
   timestampReadable,
   commentHelperBoxClickHandler,
   emojiOnSelectHandler,
-  downArrowStyle
+  downArrowStyle,
+  boxRef
 }) {
   return (
-    <React.Fragment>
+    <div ref={boxRef} className={style.chBox}>
       <div className={style.downArrow} style={downArrowStyle} />
       <div className={style.chBoxContent}>
         <div
@@ -27,12 +28,13 @@ export default function CommentHelperBox({
         </div>
         <div className={style.clear} />
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 CommentHelperBox.propTypes = {
   commentHelperBoxClickHandler: PropTypes.func.isRequired,
   timestampReadable: PropTypes.string,
   emojiOnSelectHandler: PropTypes.func,
-  downArrowStyle: PropTypes.object
+  downArrowStyle: PropTypes.object,
+  boxRef: PropTypes.func
 };
