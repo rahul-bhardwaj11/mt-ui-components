@@ -10,11 +10,17 @@ const StyledEditableContent = styled.div`
   .editableText {
     float: left;
     cursor: pointer;
-    margin-right: 12px;
+    padding-right: 26px;
   }
 
   .icon-edit {
     cursor: pointer;
+  }
+
+  .editableWrapper {
+    float: left;
+    position: relative;
+    max-width: 100%;
   }
 `;
 
@@ -137,7 +143,7 @@ class EditableContent extends Component {
   renderStaticComponent() {
     return (
       <StyledEditableContent className="editableContentWrapper">
-        <div onClick={this.toggleEditMode}>
+        <div className="clearfix editableWrapper" onClick={this.toggleEditMode}>
           <div className="editableText">{this.props.value}</div>
           <Icon type="edit" />
         </div>
