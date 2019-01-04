@@ -183,10 +183,10 @@ class VideoControls extends Component {
 
     this.props.hideCommentHelperBox();
     this.props.showCommentBox({
-      xPos: _xPos,
+      xPosRaw: _xPos,
       ...comment,
       readOnly: true,
-      downArrowXPos: downArrowXPos
+      downArrowXPosRaw: downArrowXPos
     });
   };
 
