@@ -1,9 +1,7 @@
-.acBox {
-  width: 300px;
-  border-radius: 6px;
-  border: 1px solid;
-  bottom: 71px;
+.boxWrapper {
   position: absolute;
-  background-color: #ffffff;
-  box-shadow: 0 0 8px 0 rgba(97, 120, 148, 0.26);
+}
+
+.hide {
+  visibility: hidden;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import style from './index.scss';
+import cs from 'classnames';
 import { actions } from '../../actions';
 import { toHHMMSS, getColorMap } from '../../utils/core';
 import { connect } from '../../utils/providerHelper';
@@ -22,13 +23,14 @@ class CommentBox extends Component {
     editComment: PropTypes.func,
     time: PropTypes.number,
     postComment: PropTypes.func,
-    xPos: PropTypes.number,
+    xPosRaw: PropTypes.number,
     commentText: PropTypes.string,
-    downArrowXPos: PropTypes.number,
+    downArrowXPosRaw: PropTypes.number,
     edit: PropTypes.bool,
     showError: PropTypes.bool,
     author: PropTypes.object,
-    commentBoxRenderer: PropTypes.func
+    commentBoxRenderer: PropTypes.func,
+    clientWidth: PropTypes.number
   };
   static getDerivedStateFromProps(props, state) {
     if (props.showError && state.disableSaveButton) {
@@ -55,8 +57,47 @@ class CommentBox extends Component {
     this.state = intialState;
   }
 
-  ref = node => {
+  state = {
+    xPos: null,
+    downArrowXPos: null
+  };
+
+  inputRef = node => {
     this.commentTextArea = node;
+  };
+
+  boxRef = commentBox => {
+    if (commentBox) {
+      this.commentBox = commentBox;
+      this.calculateXPos();
+    }
+  };
+
+  calculateXPos = () => {
+    let { xPosRaw, downArrowXPosRaw, clientWidth } = this.props;
+    let width = this.commentBox.getBoundingClientRect().width;
+    let _xPos = xPosRaw;
+    let availableWindow = _xPos + width / 2,
+      upperXLimit = clientWidth,
+      downArrowXPos = width / 2 - 8;
+
+    _xPos -= width / 2;
+    if (availableWindow > upperXLimit) {
+      _xPos = clientWidth - width;
+      downArrowXPos = downArrowXPosRaw + 85;
+    }
+
+    if (_xPos < 0) {
+      downArrowXPos = _xPos + width / 2;
+      _xPos = 0;
+    }
+
+    downArrowXPos = downArrowXPos < 30 ? 30 : downArrowXPos;
+    downArrowXPos = downArrowXPos > width - 30 ? width - 30 : downArrowXPos;
+    this.setState({
+      xPos: _xPos,
+      downArrowXPos: downArrowXPos
+    });
   };
 
   emojiOnSelectHandler(selectedEmoji) {
@@ -140,20 +181,14 @@ class CommentBox extends Component {
     });
     if (this.props.id) {
       this.props.editComment({
-        commentObj: {
-          id: this.props.id,
-          text: text,
-          time: this.props.time
-        },
-        isCommentBox: true,
-        author: this.props.author
+        id: this.props.id,
+        text: text,
+        time: this.props.time
       });
     } else {
       this.props.postComment({
-        commentObj: {
-          text,
-          time: this.props.time
-        }
+        text,
+        time: this.props.time
       });
     }
     this.closeSelf();
@@ -182,17 +217,19 @@ class CommentBox extends Component {
 
   render() {
     const {
-      xPos,
       time,
       commentText,
       readOnly,
-      downArrowXPos,
       edit,
       showError,
       author,
       commentBoxRenderer
     } = this.props;
+    let { xPos, downArrowXPos } = this.state;
     const { disableSaveButton } = this.state;
+    let divCls = cs(style.boxWrapper, {
+      [style.hide]: xPos === null
+    });
     let divStyle = {
         left: xPos
       },
@@ -216,7 +253,7 @@ class CommentBox extends Component {
     }
 
     return (
-      <div style={divStyle} className={style.acBox}>
+      <div style={divStyle} className={divCls}>
         {commentBoxRenderer({
           id: this.props.id,
           commentText,
@@ -234,7 +271,8 @@ class CommentBox extends Component {
           emojiOnSelectHandler: this.emojiOnSelectHandler,
           postCommentHandler: this.postCommentHandler,
           closeSelf: this.closeSelf,
-          ref: this.ref
+          inputRef: this.inputRef,
+          boxRef: this.boxRef
         })}
       </div>
     );
@@ -243,13 +281,14 @@ class CommentBox extends Component {
 
 function mapStateToProps(state) {
   return {
-    xPos: state.commentBox.data.xPos,
+    xPosRaw: state.commentBox.data.xPosRaw,
+    clientWidth: state.commentBox.data.clientWidth,
     time: state.commentBox.data.time,
     author: state.commentBox.data.author,
     commentText: state.commentBox.data.text,
     readOnly: state.commentBox.data.readOnly,
     id: state.commentBox.data.id,
-    downArrowXPos: state.commentBox.data.downArrowXPos,
+    downArrowXPosRaw: state.commentBox.data.downArrowXPosRaw,
     showError: state.commentBox.error,
     postComment: state.postComment,
     editComment: state.editComment,

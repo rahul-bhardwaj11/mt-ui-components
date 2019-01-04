@@ -79,7 +79,8 @@ class CommentHelperBox extends Component {
     downArrowXPos = downArrowXPos > width - 20 ? width - 20 : downArrowXPos;
     this.setState({
       xPos: xPosRaw,
-      downArrowXPos
+      downArrowXPos,
+      selfWidth: width
     });
   };
 
@@ -92,25 +93,13 @@ class CommentHelperBox extends Component {
     let { time } = this.props;
     let { xPos, downArrowXPos } = this.state;
     let clientWidth = this.props.videoWidth - 20;
-    let _xPos = xPos;
-    let availableWindow = _xPos + 300,
-      upperXLimit = clientWidth,
-      _downArrowXPos = 8;
-
-    _xPos -= 4;
-    if (availableWindow > upperXLimit) {
-      _xPos = clientWidth - 300;
-      _downArrowXPos = xPos + downArrowXPos - _xPos - 6;
-    }
-
-    _downArrowXPos = _downArrowXPos < 8 ? 8 : _downArrowXPos;
-    _downArrowXPos = _downArrowXPos > 274 ? 274 : _downArrowXPos;
 
     this.props.hideCommentBox();
     this.props.showCommentBox({
-      xPos: _xPos,
+      xPosRaw: xPos + downArrowXPos,
       time: time,
-      downArrowXPos: _downArrowXPos
+      clientWidth,
+      downArrowXPosRaw: downArrowXPos
     });
     this.props.hideCommentHelperBox();
     if (typeof this.props.onClickHandler === 'function') {

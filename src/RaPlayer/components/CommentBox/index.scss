@@ -1,5 +1,15 @@
 @import '../../styles/index.scss';
 
+.acBox {
+  width: 300px;
+  border-radius: 6px;
+  border: 1px solid;
+  bottom: 54px;
+  position: absolute;
+  background-color: #ffffff;
+  box-shadow: 0 0 8px 0 rgba(97, 120, 148, 0.26);
+}
+
 .downArrow {
   content: '\00a0';
   display: block;

@@ -7,7 +7,7 @@ import EmojiPicker from '../../components/EmojiPicker';
 import style from './index.scss';
 import { MAX_CHAR_LIMIT_COMMENT } from '../../config/constants';
 
-function CommentBox({
+export default function CommentBox({
   id,
   downArrowStyle,
   edit,
@@ -24,10 +24,11 @@ function CommentBox({
   emojiOnSelectHandler,
   postCommentHandler,
   closeSelf,
-  inputRef
+  inputRef,
+  boxRef
 }) {
   return (
-    <React.Fragment>
+    <div className={style.acBox} ref={boxRef}>
       <div className={style.downArrow} style={downArrowStyle} />
       <div className={style.acBoxContent}>
         <div className={style.acBoxContentInfo}>
@@ -88,7 +89,7 @@ function CommentBox({
           </div>
         )}
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 
@@ -109,9 +110,6 @@ CommentBox.propTypes = {
   emojiOnSelectHandler: PropTypes.func,
   postCommentHandler: PropTypes.func,
   closeSelf: PropTypes.func,
-  inputRef: PropTypes.func
+  inputRef: PropTypes.func,
+  boxRef: PropTypes.boxRef
 };
-
-export default React.forwardRef((props, ref) => (
-  <CommentBox {...props} inputRef={ref} />
-));
