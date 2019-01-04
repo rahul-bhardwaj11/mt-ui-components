@@ -8,7 +8,7 @@ import style from './index.scss';
 
 class CommentHelperBox extends Component {
   static propTypes = {
-    commentBoxHelperRenderer: PropTypes.oneOfType(PropTypes.func),
+    commentBoxHelperRenderer: PropTypes.func,
     targetPlayerId: PropTypes.string,
     xPosRaw: PropTypes.number,
     time: PropTypes.number,
