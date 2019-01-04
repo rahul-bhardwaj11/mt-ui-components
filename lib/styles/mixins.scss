@@ -2,7 +2,7 @@
 @mixin button {
   font-size: 14px;
   height: 32px;
-  font-weight: 500;
+  font-weight: 600;
 }
 @mixin primaryBtn() {
   border: 1px solid get('colors.INDIGO');
