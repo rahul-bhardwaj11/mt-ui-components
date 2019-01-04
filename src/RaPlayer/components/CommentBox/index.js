@@ -111,5 +111,5 @@ CommentBox.propTypes = {
   postCommentHandler: PropTypes.func,
   closeSelf: PropTypes.func,
   inputRef: PropTypes.func,
-  boxRef: PropTypes.boxRef
+  boxRef: PropTypes.func
 };
