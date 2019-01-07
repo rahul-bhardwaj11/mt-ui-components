@@ -309,7 +309,7 @@ const mixins = {
 
   truncate: width => {
     return `
-        width: ${width};
+        max-width: ${width};
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

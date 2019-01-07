@@ -348,20 +348,23 @@ export default class SyncSelect extends Component {
   handleControl = arg => {
     const { inputValue, showInput } = this.state;
     const { isDisabled, showSearch } = this.props;
+    const controlProps = { ...arg };
+    const openModal = () => {
+      !isDisabled &&
+        this.setState({
+          menuIsOpen: true,
+          showInput: true
+        });
+    };
+    controlProps.innerProps = {
+      ...arg.innerProps,
+      onTouchEnd: openModal
+    };
     return (
       showSearch && (
         <div className="selectBoxWrapper">
-          <div
-            className={showInput ? 'activeSearch' : ''}
-            onClick={() => {
-              !isDisabled &&
-                this.setState({
-                  menuIsOpen: true,
-                  showInput: true
-                });
-            }}
-          >
-            <components.Control {...arg} />
+          <div className={showInput ? 'activeSearch' : ''} onClick={openModal}>
+            <components.Control {...controlProps} />
             <div
               className={inputValue.length ? 'activeInput' : ''}
               ref={e => {
@@ -455,7 +458,6 @@ export default class SyncSelect extends Component {
     const {
       options,
       selectedItems,
-      prevSelectedItems,
       menuIsOpen,
       showSelect,
       showInput,
@@ -517,7 +519,7 @@ export default class SyncSelect extends Component {
               }}
               size="small"
               className={classnames(
-                prevSelectedItems.length > 0 ? 'selectedItems' : '',
+                selectedItems.length > 0 ? 'selectedItems' : '',
                 showSelect ? 'activeSelect' : ''
               )}
             >
