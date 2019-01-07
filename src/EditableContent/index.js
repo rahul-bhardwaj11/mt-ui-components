@@ -77,7 +77,7 @@ class EditableContent extends Component {
   handleSave = () => {
     if (this.state.nextValue) {
       // do not save empty value in edit mode
-      this.props.onSave(this.state.nextValue);
+      this.props.onSave(this.state.nextValue.trim());
       this.toggleEditMode();
     } else {
       // set the initial state when we click on close with empty value
@@ -94,7 +94,7 @@ class EditableContent extends Component {
 
   handleInputChange = event => {
     const { onChange } = this.props;
-    const content = event.target.value.trim();
+    const content = event.target.value;
     this.setState({ nextValue: content });
     onChange && onChange(content);
   };
