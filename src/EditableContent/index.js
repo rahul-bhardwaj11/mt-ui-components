@@ -10,11 +10,17 @@ const StyledEditableContent = styled.div`
   .editableText {
     float: left;
     cursor: pointer;
-    margin-right: 12px;
+    padding-right: 26px;
   }
 
   .icon-edit {
     cursor: pointer;
+  }
+
+  .editableWrapper {
+    float: left;
+    position: relative;
+    max-width: 100%;
   }
 `;
 
@@ -46,7 +52,8 @@ class EditableContent extends Component {
     editOnEnter: PropTypes.bool,
     value: PropTypes.string,
     onChange: PropTypes.func,
-    onSave: PropTypes.func.isRequired
+    onSave: PropTypes.func.isRequired,
+    onCancel: PropTypes.func
   };
 
   static defaultProps = {
@@ -70,7 +77,7 @@ class EditableContent extends Component {
   handleSave = () => {
     if (this.state.nextValue) {
       // do not save empty value in edit mode
-      this.props.onSave(this.state.nextValue);
+      this.props.onSave(this.state.nextValue.trim());
       this.toggleEditMode();
     } else {
       // set the initial state when we click on close with empty value
@@ -79,14 +86,17 @@ class EditableContent extends Component {
   };
 
   handleCancel = () => {
+    const { onCancel } = this.props;
     this.setState({ nextValue: this.props.value }); // resetting to older value
     this.toggleEditMode();
+    onCancel && onCancel();
   };
 
   handleInputChange = event => {
     const { onChange } = this.props;
-    this.setState({ nextValue: event.target.value });
-    onChange && onChange(event.target.value);
+    const content = event.target.value;
+    this.setState({ nextValue: content });
+    onChange && onChange(content);
   };
 
   handleClear = () => this.setState({ nextValue: '' });
@@ -98,6 +108,7 @@ class EditableContent extends Component {
       inputProps.onBlur = this.handleSave;
       inputProps.suffix = <Icon type="close" onClick={this.handleClear} />;
     }
+    inputProps.maxLength = false;
     return (
       <StyledEditableInput>
         <div className="editableInputControl">
@@ -113,6 +124,7 @@ class EditableContent extends Component {
               className="editableContentSaveBtn"
               type="action"
               onClick={this.handleSave}
+              disabled={inputProps.errors && inputProps.errors.length}
             >
               Save
             </Tag>
@@ -131,7 +143,7 @@ class EditableContent extends Component {
   renderStaticComponent() {
     return (
       <StyledEditableContent className="editableContentWrapper">
-        <div onClick={this.toggleEditMode}>
+        <div className="clearfix editableWrapper" onClick={this.toggleEditMode}>
           <div className="editableText">{this.props.value}</div>
           <Icon type="edit" />
         </div>

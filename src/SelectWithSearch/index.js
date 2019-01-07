@@ -14,7 +14,7 @@ const SelectBox = styled.div`
   .mt-react-select__control {
     min-height: auto;
     background: ${theme.colors.WHITE};
-    line-height: 18px;    
+    line-height: 18px;        
   }
 
   &.buttonSelect {
@@ -23,7 +23,7 @@ const SelectBox = styled.div`
        height: 32px;
        border-bottom-left-radius: 0px;
        border-bottom-right-radius: 0px;
-       border-bottom: none;              
+       border-bottom: 1px solid transparent;       
      }
     .selectedItems{
       color: ${theme.colors.INDIGO};
@@ -124,6 +124,9 @@ const SelectBox = styled.div`
     }
     .mt-react-select__control {      
       height: 32px;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;   
+      border-bottom: 1px solid transparent;  
       &:before {
         display: block;
         background: url('${searchIcon}') no-repeat 1px 0px;
@@ -169,24 +172,21 @@ const SelectBox = styled.div`
   }
 
   .mt-react-select__control {
-    border: 1px solid ${theme.colors.PEARL};
-    border-bottom: none;
+    border: 1px solid ${theme.colors.PEARL};    
     position: relative;
     &:hover{
-      border: 1px solid ${theme.colors.PEARL};
-      border-bottom: none;
+      border: 1px solid ${theme.colors.PEARL};      
     }
   }
 
   .mt-react-select__control--is-focused {    
     border: 1px solid ${theme.colors.PEARL};
-    border-bottom: none;
+    
     box-shadow: none;
   }
 
   .mt-react-select__control--is-focused:hover {
-    border: 1px solid ${theme.colors.PEARL};
-    border-bottom: none;
+    border: 1px solid ${theme.colors.PEARL};    
   }
 
   .mt-react-select__option {
