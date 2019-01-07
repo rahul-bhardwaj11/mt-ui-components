@@ -13,7 +13,7 @@ const MtTabs = styled.div`
   }
   .ant-tabs-nav {
     .ant-tabs-tab {
-      font-weight: 500;
+      font-weight: 600;
       color: ${theme.colors.OUTER_SPACE};
       margin: 0 1px 0 0;
       padding: 12px 10px;
