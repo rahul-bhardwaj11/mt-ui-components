@@ -558,20 +558,26 @@ export default class AsyncSelect extends Component {
   handleControl = arg => {
     const { inputValue } = this.state;
     const { isDisabled, showSearch } = this.props;
+    const controlProps = { ...arg };
+    const openModal = () => {
+      !isDisabled &&
+        this.setState({
+          menuIsOpen: true,
+          showInput: true
+        });
+    };
+    controlProps.innerProps = {
+      ...arg.innerProps,
+      onTouchEnd: openModal
+    };
     return (
       showSearch && (
         <div className="selectBoxWrapper">
           <div
             className={this.state.showInput ? 'activeSearch' : ''}
-            onClick={() => {
-              !isDisabled &&
-                this.setState({
-                  menuIsOpen: true,
-                  showInput: true
-                });
-            }}
+            onClick={openModal}
           >
-            <components.Control {...arg} />
+            <components.Control {...controlProps} />
             <div
               className={inputValue.length ? 'activeInput' : ''}
               ref={e => {
