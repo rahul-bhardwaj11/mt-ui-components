@@ -49,7 +49,6 @@ const MtMenu = styled.div`
   .ant-dropdown-menu-item {
     background-color: ${theme.colors.WHITE};
     color: ${theme.colors.OUTER_SPACE};
-    font-weight: 600;
     padding: 0px 15px;
     margin: 4px 8px;
     border-radius: 4px;
@@ -65,8 +64,6 @@ const MtMenu = styled.div`
   .ant-menu-horizontal {
     line-height: normal;
     & > .ant-menu-item {
-      font-weight: 600;
-
       &:hover {
         color: ${theme.colors.CONGRESS_BLUE};
         border-bottom: 3px solid transparent;
