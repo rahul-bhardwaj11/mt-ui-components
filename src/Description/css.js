@@ -85,8 +85,9 @@ const StyledDescription = styled.div`
       margin: 0px;
       position: relative;
       &.ql-snow {
-        border: 1px solid #ccc;
+        border: 1px solid ${theme.colors.ALTO};
         background: ${theme.colors.WHITE};
+        border-radius: 4px 0 4px 4px;
         height: 80px;
         &:hover,
         &:active,
@@ -98,6 +99,7 @@ const StyledDescription = styled.div`
 
     .ql-toolbar.ql-snow {
       border: 1px solid ${theme.colors.ALTO};
+      border-radius: 4px 4px 0 0;
       box-sizing: border-box;
       position: absolute;
       right: 0px;
@@ -252,9 +254,6 @@ const StyledDescription = styled.div`
   }
   .ql-snow a {
     color: #06c;
-  }
-  .ql-container.ql-snow {
-    border: 1px solid #ccc;
   }
 
   .ql-snow.ql-toolbar button:active:hover,
