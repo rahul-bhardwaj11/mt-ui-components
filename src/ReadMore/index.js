@@ -4,6 +4,7 @@ import styled from 'styled-components';
 //import Truncate from "react-truncate";
 import mixins from '../styles/mixins';
 import trunc from 'trunc-html';
+//import { min } from 'moment';
 
 const ALLOWED_HTML_TAGS = [
   'u',
@@ -54,9 +55,11 @@ const ALLOWED_HTML_TAGS = [
 
 const MTReadMore = styled.div`
   line-height: initial;
-  ul,
   ol {
     padding-left: 16px;
+  }
+  ul {
+    padding-left: 18px;
   }
   .trunc-text {
     max-height: ${props => {
@@ -68,6 +71,9 @@ const MTReadMore = styled.div`
   .viewLess {
     margin: 10px 0px;
     display: block;
+    ${mixins.actionLink()};
+  }
+  .linkText {
     ${mixins.actionLink()};
   }
 `;
@@ -138,13 +144,18 @@ class ReadMore extends Component {
           truncated &&
           !expanded && (
             <div className="viewMore" key="view_more">
-              <a onClick={this.toggleLines}>{moreText}</a>
+              <a className="linkText" onClick={this.toggleLines}>
+                {moreText}
+              </a>
             </div>
           )}
         {expanded &&
           showViewMore && (
             <span className="viewLess">
-              <a onClick={this.toggleLines}> {lessText}</a>
+              <a className="linkText" onClick={this.toggleLines}>
+                {' '}
+                {lessText}
+              </a>
             </span>
           )}
       </MTReadMore>
