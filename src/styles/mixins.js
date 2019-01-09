@@ -5,7 +5,7 @@ const mixins = {
   button: () => `
     font-size: 14px;
     height: 32px;
-    font-weight: 500;
+    font-weight: 600;
   `,
   primaryBtn: () => `
     border: 1px solid ${theme.colors.INDIGO};
@@ -309,7 +309,7 @@ const mixins = {
 
   truncate: width => {
     return `
-        width: ${width};
+        max-width: ${width};
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
