@@ -521,13 +521,16 @@ export default class AsyncSelect extends Component {
     const isLoading = optionsCache[search] && optionsCache[search].isLoading;
     const { isMulti } = this.props;
     let loaderStyle = {
-      bottom: isMulti ? 30 : 0
+      position: 'absolute',
+      bottom: isMulti ? 30 : 0,
+      left: '50%',
+      transform: 'translateX(-50%)'
     };
     return (
       <components.Menu {...props}>
         {props.children}
         {!!isLoading && (
-          <Loader size={'sizeXSmall'} type="Full" style={loaderStyle} />
+          <Loader size={'sizeXSmall'} type="Small" style={loaderStyle} />
         )}
         {isMulti && (
           <div className="componentWrapper">
