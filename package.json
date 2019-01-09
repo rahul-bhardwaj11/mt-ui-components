@@ -21,7 +21,7 @@
     "deploy": "sh ./deploy.sh",
     "build-storybook": "build-storybook -o ./build",
     "precommit": "npm run build && lint-staged",
-    "prettier": "prettier --single-quote --write src/**/*.{js,scss} lib/**/*.{js,scss}",
+    "prettier": "prettier --single-quote --write src/**/*.{js,scss}",
     "lint": "./node_modules/.bin/eslint src/**/*.js ",
     "lint:watch": "./node_modules/.bin/esw src/**/*.js -w"
   },

@@ -45,7 +45,6 @@ class VideoControls extends Component {
     selectedTrack: PropTypes.number,
     onSeekHandler: PropTypes.func,
     volumeUpdateHandler: PropTypes.func,
-    namespace: PropTypes.string,
     videoPauseAtTimeHandler: PropTypes.func,
     controlOptions: PropTypes.func,
     downloadSrc: PropTypes.string,
@@ -125,16 +124,6 @@ class VideoControls extends Component {
     }
   };
 
-  isCommentBarDotWithin(time) {
-    var isWithin = false;
-    this.props.comments.forEach(comment => {
-      if (parseInt(comment.time) === parseInt(time)) {
-        isWithin = true;
-      }
-    });
-    return isWithin;
-  }
-
   showCommentHelperBox = e => {
     /*
 			200px: width of helper box
@@ -157,28 +146,12 @@ class VideoControls extends Component {
       xPos = 0;
     }
 
-    let time = (percentage / 100) * this.props.videoDuration,
-      availableWindowForCommentHelperBox = xPos + 200,
-      upperXLimit = e.target.clientWidth,
-      downArrowXPos;
-    downArrowXPos = 8;
-
-    if (this.isCommentBarDotWithin(time)) {
-      return;
-    }
-    xPos -= 10;
-    if (availableWindowForCommentHelperBox > upperXLimit) {
-      xPos = e.target.clientWidth - 200;
-      downArrowXPos = availableWindowForCommentHelperBox - upperXLimit;
-    }
-
-    downArrowXPos = downArrowXPos < 8 ? 8 : downArrowXPos;
-    downArrowXPos = downArrowXPos > 183 ? 183 : downArrowXPos;
+    let time = (percentage / 100) * this.props.videoDuration;
 
     this.props.showCommentHelperBox({
-      xPos,
+      xPosRaw: xPos,
       time,
-      downArrowXPos
+      clientWidth: e.target.clientWidth
     });
     this.props.hideCommentBox();
   };
@@ -210,10 +183,10 @@ class VideoControls extends Component {
 
     this.props.hideCommentHelperBox();
     this.props.showCommentBox({
-      xPos: _xPos,
+      xPosRaw: _xPos,
       ...comment,
       readOnly: true,
-      downArrowXPos: downArrowXPos
+      downArrowXPosRaw: downArrowXPos
     });
   };
 
@@ -255,7 +228,6 @@ class VideoControls extends Component {
       selectedTrack,
       onSeekHandler,
       volumeUpdateHandler,
-      namespace,
       videoPauseAtTimeHandler,
       controlOptions: controlOptionsProp = {},
       downloadSrc,
@@ -378,13 +350,10 @@ class VideoControls extends Component {
           </div>
           <div className={style.clear} />
         </div>
-        {commentBox.show ? (
-          <CommentBox edit={edit} namespace={namespace} />
-        ) : null}
+        {commentBox.show ? <CommentBox edit={edit} /> : null}
         {commentHelperBox.show && edit ? (
           <CommentHelperBox
             targetPlayerId={targetPlayerId}
-            namespace={namespace}
             onClickHandler={videoPauseAtTimeHandler}
           />
         ) : null}
@@ -405,7 +374,7 @@ class VideoControls extends Component {
 function mapStateToProps(state) {
   return {
     ...state,
-    comments: state.commentPane.activeComments,
+    comments: state.comments,
     mediaState: state.media.state,
     videoDuration: state.media.duration,
     isCommentBoxActive: state.commentBox.show && !state.commentBox.data.readOnly

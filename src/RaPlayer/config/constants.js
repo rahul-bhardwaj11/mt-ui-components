@@ -10,3 +10,8 @@ export const STRING_NO_COMMENT_ON_SUBMISSION =
 export const STRING_ONBOARDING =
   'Make your review more contextual and insightful for the Learner. Hover your mouse over the video progress bar and add your comments at precise time(s).';
 export const MAX_CHAR_LIMIT_COMMENT = 1000;
+
+export const MEDIA_STATES = {
+  PLAY: 'PLAY',
+  PAUSE: 'PAUSE'
+}
