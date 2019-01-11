@@ -475,6 +475,7 @@ export default class AsyncSelect extends Component {
     const { isDisabled, data } = params;
     const { optionRenderer } = this.props;
     const { selectedItems } = this.state;
+    let checked = !!selectedItems.map(i => i.value).includes(data.value);
     if (!this.props.isMulti)
       return optionRenderer ? (
         <div
@@ -498,7 +499,7 @@ export default class AsyncSelect extends Component {
               !data.disabled && this.onCheckboxClick(data);
             }}
           >
-            {optionRenderer(data)}
+            {optionRenderer({ ...data, checked })}
           </div>
         ) : (
           <CheckBox

@@ -278,6 +278,9 @@ const SelectBox = styled.div`
   float: none;  
   line-height: initial;
   ${mixin.truncate('100%')};
+  .ant-checkbox-wrapper .ant-checkbox {
+    margin-right: 0px;
+  }
   .labelText{
     ${mixin.truncate('100%')};
     display: block;    

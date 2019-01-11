@@ -36,18 +36,24 @@ export default class SyncSelect extends Component {
   static defaultProps = {
     buttonLabel: 'filter',
     onChange: noop,
-    sortOptions: true
+    sortOptions: true,
+    options: []
   };
 
-  state = {
-    options: this.props.options,
-    selectedItems: [],
-    prevSelectedItems: [],
-    menuIsOpen: false,
-    showSelect: true,
-    showInput: false,
-    inputValue: ''
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      options: this.filterOptions(this.props.options),
+      selectedItems: [],
+      prevSelectedItems: [],
+      menuIsOpen: false,
+      showSelect: true,
+      showInput: false,
+      inputValue: ''
+    };
+  }
+
+  filterOptions = options => options.filter(option => option.label);
 
   componentDidMount() {
     const { defaultValue, isButton, options, value } = this.props;
@@ -276,6 +282,7 @@ export default class SyncSelect extends Component {
     const { isDisabled, data } = params;
     const { optionRenderer } = this.props;
     const { selectedItems } = this.state;
+    let checked = !!selectedItems.map(i => i.value).includes(data.value);
     if (!this.props.isMulti)
       return optionRenderer ? (
         <div
@@ -299,7 +306,7 @@ export default class SyncSelect extends Component {
               !data.disabled && this.onCheckboxClick(data);
             }}
           >
-            {optionRenderer(data)}
+            {optionRenderer({ ...data, checked })}
           </div>
         ) : (
           <CheckBox
@@ -537,7 +544,6 @@ export default class SyncSelect extends Component {
           >
             <Select
               styles={this.getStyle()}
-              filterOption={option => option.label}
               {...this.props}
               options={options}
               classNamePrefix={'mt-react-select'}
