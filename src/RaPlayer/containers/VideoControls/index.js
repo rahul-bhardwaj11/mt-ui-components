@@ -48,7 +48,8 @@ class VideoControls extends Component {
     videoPauseAtTimeHandler: PropTypes.func,
     controlOptions: PropTypes.func,
     downloadSrc: PropTypes.string,
-    videoDuration: PropTypes.number
+    videoDuration: PropTypes.number,
+    commentBarClassName: PropTypes.string
   };
 
   constructor(props) {
@@ -231,7 +232,8 @@ class VideoControls extends Component {
       videoPauseAtTimeHandler,
       controlOptions: controlOptionsProp = {},
       downloadSrc,
-      videoDuration
+      videoDuration,
+      commentBarClassName
     } = this.props;
     const { showTrackList } = this.state;
     this.video = document.getElementById(targetPlayerId);
@@ -365,6 +367,7 @@ class VideoControls extends Component {
           targetPlayerId={targetPlayerId}
           colorMap={colorMap}
           videoDuration={videoDuration}
+          commentBarClassName={commentBarClassName}
         />
       </div>
     );
@@ -377,7 +380,9 @@ function mapStateToProps(state) {
     comments: state.comments,
     mediaState: state.media.state,
     videoDuration: state.media.duration,
-    isCommentBoxActive: state.commentBox.show && !state.commentBox.data.readOnly
+    isCommentBoxActive:
+      state.commentBox.show && !state.commentBox.data.readOnly,
+    commentBarClassName: state.commentBarClassName
   };
 }
 

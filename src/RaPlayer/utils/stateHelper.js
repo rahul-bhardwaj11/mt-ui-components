@@ -29,6 +29,7 @@ const initialState = {
   autoplay: true,
   startTime: 0,
   comments: [],
+  commentBarClassName: '',
   commentBoxHelperRenderer,
   commentBoxRenderer
 };
