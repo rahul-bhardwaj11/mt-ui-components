@@ -30,6 +30,7 @@ const initialState = {
   startTime: 0,
   comments: [],
   commentBarClassName: '',
+  videoControlsClassName: '',
   commentBoxHelperRenderer,
   commentBoxRenderer
 };
