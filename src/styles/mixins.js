@@ -132,13 +132,6 @@ const mixins = {
     lineHeight: '16px'
   }),
 
-  errorText: () => ({
-    fontSize: '14px',
-    fontWeight: 'normal',
-    color: theme.colors.BITTERSWEET,
-    lineHeight: '20px'
-  }),
-
   // body text ----------//
 
   whiteText: () =>
