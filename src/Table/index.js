@@ -267,7 +267,7 @@ class Table extends Component {
               ? classnames(
                   'ant-table-row-selected',
                   this.props.selectRowClassName,
-                  { 'row-disabled': true }
+                  { 'row-disabled': rowObject.isDisabled }
                 )
               : !(rowObject.isDisabled && rowObject.isDisabled())
                 ? ''
