@@ -75,7 +75,7 @@ class AutoCompleteTag extends React.Component {
   };
 
   state = {
-    tags: (this.props.tags && this.props.tags.length) || []
+    tags: this.props.tags || []
   };
 
   handleChange = tags => {
