@@ -282,7 +282,7 @@ export default class SyncSelect extends Component {
     const { isDisabled, data } = params;
     const { optionRenderer } = this.props;
     const { selectedItems } = this.state;
-    let checked = !!selectedItems.map(i => i.value).includes(data.value);
+    let checked = selectedItems.map(i => i.value).includes(data.value);
     if (!this.props.isMulti)
       return optionRenderer ? (
         <div
@@ -311,7 +311,7 @@ export default class SyncSelect extends Component {
         ) : (
           <CheckBox
             disabled={data.disabled}
-            checked={selectedItems.map(i => i.value).includes(data.value)}
+            checked={checked}
             className="labelText"
             onChange={() => {
               !data.disabled && this.onCheckboxClick(data);
