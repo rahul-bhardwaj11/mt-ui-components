@@ -36,12 +36,12 @@ const StyledCheckBoxListOption = styled.div`
 export function CheckBoxStyleRenderer({ data }) {
   return (
     <StyledCheckBoxListOption disable={data.disabled} checked={data.checked}>
-      {data.subLabel && <div className="subLabel">{data.subLabel}</div>}
       <CheckBox
         disabled={data.disabled}
         className="checkBox"
         checked={data.checked}
       />
+      <div className="subLabel">{data.subLabel}</div>
       <div className="label">{data.label}</div>
     </StyledCheckBoxListOption>
   );
