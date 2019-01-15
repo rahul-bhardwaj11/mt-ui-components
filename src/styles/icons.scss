@@ -26,6 +26,12 @@
 }
 
 :global {
+  .icon-refresh:before {
+    content: '\e900';
+  }
+  .icon-google:before {
+    content: '\e800';
+  }
   .icon-lock:before {
     content: '\e901';
   }
@@ -37,9 +43,6 @@
   }
   .icon-robot:before {
     content: '\e904';
-  }
-  .icon-google:before {
-    content: '\e800';
   }
   .icon-starFilled:before {
     content: '\e905';
