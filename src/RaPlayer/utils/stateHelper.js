@@ -29,6 +29,8 @@ const initialState = {
   autoplay: true,
   startTime: 0,
   comments: [],
+  commentBarClassName: '',
+  videoControlsClassName: '',
   commentBoxHelperRenderer,
   commentBoxRenderer
 };

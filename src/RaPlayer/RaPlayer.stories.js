@@ -37,7 +37,9 @@ const props = {
   },
   editComment: function(comment) {
     console.log(comment);
-  }
+  },
+  commentBarClassName: 'abc',
+  videoControlsClassName: 'videoabc'
   // commentBoxHelperRenderer: ({boxRef, ...props}) => <button ref={boxRef}>Test</button>
 };
 
