@@ -302,8 +302,7 @@ class Table extends Component {
       children,
       infiniteScroll,
       isLoadMore,
-      hasMore,
-      loading
+      hasMore
     } = this.props;
     let { loadingMore } = this.state;
     const { antTableProps, newSelectedRowskey } = this.getAntTableProps();
@@ -317,7 +316,7 @@ class Table extends Component {
         showActionBar={showActionBar}
       >
         <AntTable {...antTableProps}>{children}</AntTable>
-        {(loading || loadingMore) && this.getLoader()}
+        {loadingMore && this.getLoader()}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}

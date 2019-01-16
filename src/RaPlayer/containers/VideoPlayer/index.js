@@ -79,9 +79,9 @@ class VideoPlayerContainer extends Component {
     if (this[container].contains(e)) {
       return;
     }
-    // this.setState({
-    //   controls: false
-    // });
+    this.setState({
+      controls: false
+    });
   };
 
   [onSelectTrack] = selectedTrack => {
