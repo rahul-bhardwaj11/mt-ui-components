@@ -5,6 +5,7 @@ import { connect } from '../../utils/providerHelper';
 import style from './index.scss';
 import Player from '../../components/Player';
 import VideoControls from '../VideoControls';
+import cs from 'classnames';
 
 let showControls = Symbol('showControls');
 let hideControls = Symbol('hideControls');
@@ -35,7 +36,8 @@ class VideoPlayerContainer extends Component {
     showControlsOnly: PropTypes.bool,
     controlOptions: PropTypes.object,
     downloadSrc: PropTypes.bool,
-    mediaState: PropTypes.string
+    mediaState: PropTypes.string,
+    videoControlsClassName: PropTypes.string
   };
 
   [updateMediaAttributes] = this.props.updateMediaAttributes.bind(this.props);
@@ -146,7 +148,8 @@ class VideoPlayerContainer extends Component {
       controlOptions,
       downloadSrc,
       currentTime,
-      mediaState
+      mediaState,
+      videoControlsClassName
     } = this.props;
     let { controls, selectedTrack, showPlayButton } = this.state;
     controls = showControlsOnly || controls;
@@ -188,10 +191,10 @@ class VideoPlayerContainer extends Component {
         />
 
         <div
-          className={[
-            style.videoControls,
-            controls ? style.showControls : style.hideControls
-          ].join(' ')}
+          className={cs(videoControlsClassName, style.videoControls, {
+            [style.showControls]: controls,
+            [style.hideControls]: !controls
+          })}
         >
           <VideoControls
             edit={edit}
@@ -218,7 +221,8 @@ function mapStateToProps(state) {
     fullScreen: state.media.fullScreen,
     currentTime: state.media.currentTime,
     mediaState: state.media.state,
-    defaultTrack: state.defaultTrack
+    defaultTrack: state.defaultTrack,
+    videoControlsClassName: state.videoControlsClassName
   };
 }
 
