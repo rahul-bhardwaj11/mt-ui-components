@@ -1,52 +1,69 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import theme from '../../styles/theme';
 
 export default class PhotoViewer extends Component {
   static propTypes = {
     src: PropTypes.string.isRequired,
-    width: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    style: PropTypes.object,
+    className: PropTypes.string
   };
-  state = {
-    loaded: false
-  };
+
   static defaultProps = {
-    width: 200,
     height: 200
   };
 
   componentDidMount() {
+    const { height } = this.props;
+    const width = this.containerRef.clientWidth;
+    const containerBorderRadius = this.containerRef.style.borderRadius;
     const image = new Image();
     image.src = this.props.src;
-    image.onload = () => {
-      this.imageRef.setAttribute(
+    const self = this;
+    image.onload = function() {
+      let imageHeight = this.height;
+      let imageWidth = this.width;
+      if (imageHeight >= height) {
+        imageHeight = height;
+      }
+      if (imageWidth > width) {
+        imageWidth = `${width}px`;
+      } else {
+        imageWidth = 'auto';
+      }
+
+      imageHeight += 'px';
+
+      self.imageRef.setAttribute('src', self.props.src);
+      self.imageRef.setAttribute(
         'style',
-        `background-image: url('${
-          this.props.src
-        }');background-size: contain;width: 100%;height: 100%`
+        `display: block;
+         width: ${imageWidth};
+         height:${imageHeight};
+         position:absolute;
+         left: 50%;
+         top: 50%;
+         transform: translate(-50%,-50%);
+         border-radius: ${containerBorderRadius ? containerBorderRadius : 0}
+         `
       );
-      this.setState({
-        loaded: true
-      });
     };
   }
 
   render() {
-    const { loaded } = this.state;
-    const { width, height } = this.props;
+    const { height, style } = this.props;
     const containerStyle = {
-      width,
-      height
+      ...style,
+      width: '100%',
+      height,
+      background: `${theme.colors.IVORY}`,
+      position: 'relative'
     };
 
     return (
-      <div style={containerStyle}>
-        {!loaded ? (
-          <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
-            <rect width={width} height={height} rx="10" ry="10" fill="#CCC" />
-          </svg>
-        ) : null}
-        <div ref={e => (this.imageRef = e)} />
+      <div style={containerStyle} ref={e => (this.containerRef = e)}>
+        <img ref={e => (this.imageRef = e)} />
       </div>
     );
   }

@@ -5,6 +5,7 @@ import CheckBox from '../CheckBox';
 import Icon from '../Icon';
 import Loader from '../Loader';
 import Select, { components } from 'react-select';
+import classnames from 'classnames';
 
 const initialCache = {
   options: [],
@@ -12,10 +13,27 @@ const initialCache = {
   isLoading: false
 };
 
+const debounce = (func, wait, immediate) => {
+  var timeout;
+  return function() {
+    var context = this,
+      args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+
 export default class AsyncSelect extends Component {
   static propTypes = {
     promiseOption: PropTypes.func,
     cacheUniq: PropTypes.any,
+    reset: PropTypes.any,
     pageSize: PropTypes.number,
     options: PropTypes.array,
     multiple: PropTypes.bool,
@@ -56,7 +74,8 @@ export default class AsyncSelect extends Component {
       )
     ]),
     style: PropTypes.object,
-    optionRenderer: PropTypes.func
+    optionRenderer: PropTypes.func,
+    showSearch: PropTypes.bool
   };
 
   static defaultProps = {
@@ -102,12 +121,23 @@ export default class AsyncSelect extends Component {
   }
 
   componentDidUpdate(oldProps) {
-    const { cacheUniq } = this.props;
-
+    const { cacheUniq, reset } = this.props;
+    let newState = {};
+    let hasStateUpdated = false;
+    if (oldProps.reset !== reset) {
+      newState.selectedItems = [];
+      newState.prevSelectedItems = [];
+      newState.optionsCache = {};
+      hasStateUpdated = true;
+    }
     if (oldProps.cacheUniq !== cacheUniq) {
+      newState.optionsCache = {};
+      hasStateUpdated = true;
+    }
+    if (hasStateUpdated) {
       this.setState(
         {
-          optionsCache: {}
+          ...newState
         },
         () => {
           this.loadOptions();
@@ -116,6 +146,13 @@ export default class AsyncSelect extends Component {
     }
   }
 
+  debounceSearch = debounce(() => {
+    const { optionsCache, search } = this.state;
+    if (!optionsCache[search]) {
+      this.loadOptions();
+    }
+  }, 500);
+
   onInputChange = (search, event) => {
     if (event.action == 'input-change') {
       this.setState(
@@ -123,12 +160,7 @@ export default class AsyncSelect extends Component {
           inputValue: search,
           search
         },
-        () => {
-          const { optionsCache } = this.state;
-          if (!optionsCache[search]) {
-            this.loadOptions();
-          }
-        }
+        this.debounceSearch
       );
     }
   };
@@ -257,7 +289,7 @@ export default class AsyncSelect extends Component {
     if (!optionsCache[''] || optionsCache[''].hasMore) {
       await this.loadOptions();
     }
-    document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener('mousedown', this.handleClickOutside.bind(this));
   };
 
   getSelectedItemsFromValue = value => {
@@ -302,6 +334,19 @@ export default class AsyncSelect extends Component {
       this.setState({ inputValue: '', search: '' });
       this.isIconClicked = true;
     }
+    if (this.selectRef && this.selectRef.contains(event.target)) {
+      this.isBlurActive = false;
+    }
+
+    if (!this.selectRef.contains(event.target)) {
+      if (
+        (this.buttonRef && !this.buttonRef.contains(event.target)) ||
+        !this.props.isButton
+      )
+        this.props.isMulti
+          ? this.handleMultiOnSelect()
+          : this.handleSingleOnBlur();
+    }
   };
 
   componentWillUnmount() {
@@ -339,7 +384,8 @@ export default class AsyncSelect extends Component {
     let newState = {
       menuIsOpen: false,
       showInput: false,
-      inputValue: ''
+      inputValue: '',
+      search: ''
     };
     newState = isButton
       ? Object.assign(newState, { showSelect: false })
@@ -356,7 +402,7 @@ export default class AsyncSelect extends Component {
     this.isBlurActive = true;
     const { selectedItems, optionsCache, prevSelectedItems } = this.state;
     const { isButton, onChange, persistOpen } = this.props;
-    const options = optionsCache[''].options;
+    const options = (optionsCache[''] && optionsCache[''].options) || [];
     let isSelectedItemsChange = false;
     if (selectedItems.length == prevSelectedItems.length) {
       for (let index = 0; index < selectedItems.length; index++) {
@@ -408,7 +454,7 @@ export default class AsyncSelect extends Component {
   };
 
   handleDisplayValue = ({ data }) => {
-    let { selectedItems } = this.state;
+    let selectedItems = [...this.state.selectedItems];
     const { value, placeholder } = this.props;
     if (value) {
       selectedItems = this.getSelectedItemsFromValue(value);
@@ -431,7 +477,7 @@ export default class AsyncSelect extends Component {
   };
 
   handleSingleValue = props => {
-    let { selectedItems } = this.state;
+    let selectedItems = [...this.state.selectedItems];
     const { value, placeholder } = this.props;
     if (value) {
       selectedItems = this.getSelectedItemsFromValue(value);
@@ -452,6 +498,7 @@ export default class AsyncSelect extends Component {
     const { isDisabled, data } = params;
     const { optionRenderer } = this.props;
     const { selectedItems } = this.state;
+    let checked = selectedItems.map(i => i.value).includes(data.value);
     if (!this.props.isMulti)
       return optionRenderer ? (
         <div
@@ -468,22 +515,26 @@ export default class AsyncSelect extends Component {
         </div>
       );
     return !isDisabled ? (
-      <div
-        onClick={() => {
-          !data.disabled && this.onCheckboxClick(data);
-        }}
-        onMouseDown={() => {
-          this.optionClicked = true;
-        }}
-        className="checkboxWrapper"
-        title={data.label}
-      >
+      <div className="checkboxWrapper" title={data.label}>
         {optionRenderer ? (
-          optionRenderer(data)
+          <div
+            onClick={() => {
+              !data.disabled && this.onCheckboxClick(data);
+            }}
+            onMouseDown={() => {
+              this.optionClicked = true;
+            }}
+          >
+            {optionRenderer({ ...data, checked })}
+          </div>
         ) : (
           <CheckBox
             disabled={data.disabled}
-            checked={selectedItems.map(i => i.value).includes(data.value)}
+            checked={checked}
+            className="labelText"
+            onChange={() => {
+              !data.disabled && this.onCheckboxClick(data);
+            }}
           >
             {data.label}
           </CheckBox>
@@ -499,13 +550,14 @@ export default class AsyncSelect extends Component {
     let loaderStyle = {
       position: 'absolute',
       bottom: isMulti ? 30 : 0,
-      left: '50%'
+      left: '50%',
+      transform: 'translateX(-50%)'
     };
     return (
       <components.Menu {...props}>
         {props.children}
         {!!isLoading && (
-          <Loader size={'sizeXSmall'} vCenter={false} style={loaderStyle} />
+          <Loader size={'sizeXSmall'} type="Small" style={loaderStyle} />
         )}
         {isMulti &&
           !hideFooter && (
@@ -528,6 +580,19 @@ export default class AsyncSelect extends Component {
                   </span>
                 </Button>
               </div>
+
+              <div className="buttonWrapperR">
+                <Button
+                  type="text"
+                  onClick={this.handleMultiOnSelect}
+                  className={selectedItems.length ? 'activeBtnState' : ' '}
+                >
+                  {'Apply'}
+                  <span className="doneMarginR">
+                    {selectedItems.length ? `(${selectedItems.length})` : ''}
+                  </span>
+                </Button>
+              </div>
             </div>
           )}
       </components.Menu>
@@ -536,37 +601,45 @@ export default class AsyncSelect extends Component {
 
   handleControl = arg => {
     const { inputValue } = this.state;
-    const { isDisabled } = this.props;
+    const { isDisabled, showSearch } = this.props;
+    const controlProps = { ...arg };
+    const openModal = () => {
+      !isDisabled &&
+        this.setState({
+          menuIsOpen: true,
+          showInput: true
+        });
+    };
+    controlProps.innerProps = {
+      ...arg.innerProps,
+      onTouchEnd: openModal
+    };
     return (
-      <div className="selectBoxWrapper">
-        <div
-          className={this.state.showInput ? 'activeSearch' : ''}
-          onClick={() => {
-            !isDisabled &&
-              this.setState({
-                menuIsOpen: true,
-                showInput: true
-              });
-          }}
-        >
-          <components.Control {...arg} />
+      showSearch && (
+        <div className="selectBoxWrapper">
           <div
-            className={inputValue.length ? 'activeInput' : ''}
-            ref={e => {
-              if (e) {
-                this.iconRef = e;
-              }
-            }}
+            className={this.state.showInput ? 'activeSearch' : ''}
+            onClick={openModal}
           >
-            <Icon
-              type="cross"
-              onClick={() => {
-                this.setState({ inputValue: '', search: '' });
+            <components.Control {...controlProps} />
+            <div
+              className={inputValue.length ? 'activeInput' : ''}
+              ref={e => {
+                if (e) {
+                  this.iconRef = e;
+                }
               }}
-            />
+            >
+              <Icon
+                type="cross"
+                onClick={() => {
+                  this.setState({ inputValue: '', search: '' });
+                }}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )
     );
   };
 
@@ -579,7 +652,7 @@ export default class AsyncSelect extends Component {
 
   getButtonText = () => {
     const { buttonLabel, value } = this.props;
-    let { selectedItems } = this.state;
+    let selectedItems = [...this.state.selectedItems];
     if (value) {
       selectedItems = this.getSelectedItemsFromValue(value);
     }
@@ -591,7 +664,13 @@ export default class AsyncSelect extends Component {
             ? buttonLabel
             : selectedItems[0].label
         }`;
-      return `${buttonLabel}.${selectedItems.length}`;
+      return (
+        <span className="selectWithSearchText">
+          {buttonLabel}
+          <Icon type="circle" className="discIcon" />
+          {selectedItems.length}
+        </span>
+      );
     }
     return buttonLabel;
   };
@@ -618,7 +697,8 @@ export default class AsyncSelect extends Component {
     const DEFAULT_SELECT_STYLE = {
       container: base => ({
         ...base,
-        width: '210px',
+        width: base.width ? base.width : '210px',
+        minWidth: '210px',
         position: isButton ? 'absolute' : 'inherit'
       })
     };
@@ -665,7 +745,6 @@ export default class AsyncSelect extends Component {
           isSearchable: showInput,
           autoFocus: showInput,
           isFocused: true,
-          onBlur: this.handleMultiOnSelect,
           inputValue: inputValue
         }
       : {
@@ -676,7 +755,6 @@ export default class AsyncSelect extends Component {
             Menu: this.buildMenu
           },
           onChange: this.handleSingleOnSelect,
-          onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
           backspaceRemovesValue: false,
           controlShouldRenderValue: !showInput,
@@ -703,6 +781,10 @@ export default class AsyncSelect extends Component {
                 minWidth: buttonMinWidth
               }}
               size="small"
+              className={classnames(
+                selectedItems.length > 0 ? 'selectedItems' : '',
+                showSelect ? 'activeSelect' : ''
+              )}
             >
               {this.getButtonText()}
             </Button>
@@ -719,7 +801,7 @@ export default class AsyncSelect extends Component {
             onMenuOpen={this.onMenuOpen}
             autoload={false}
             onMenuScrollToBottom={this.onMenuScrollToBottom}
-            filterOption={() => true}
+            filterOption={option => option.label}
             {...selectProps}
             backspaceRemovesValue={false}
           />

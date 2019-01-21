@@ -4,6 +4,7 @@ import Select, { components } from 'react-select';
 import CheckBox from '../CheckBox';
 import Button from '../Button';
 import Icon from '../Icon';
+import classnames from 'classnames';
 
 const noop = () => undefined;
 
@@ -28,24 +29,31 @@ export default class SyncSelect extends Component {
       PropTypes.arrayOf(PropTypes.string)
     ]),
     style: PropTypes.object,
-    optionRenderer: PropTypes.func
+    optionRenderer: PropTypes.func,
+    showSearch: PropTypes.bool
   };
 
   static defaultProps = {
     buttonLabel: 'filter',
     onChange: noop,
-    sortOptions: true
+    sortOptions: true,
+    options: []
   };
 
-  state = {
-    options: this.props.options,
-    selectedItems: [],
-    prevSelectedItems: [],
-    menuIsOpen: false,
-    showSelect: true,
-    showInput: false,
-    inputValue: ''
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      options: this.filterOptions(this.props.options),
+      selectedItems: [],
+      prevSelectedItems: [],
+      menuIsOpen: false,
+      showSelect: true,
+      showInput: false,
+      inputValue: ''
+    };
+  }
+
+  filterOptions = options => options.filter(option => option.label);
 
   componentDidMount() {
     const { defaultValue, isButton, options, value } = this.props;
@@ -88,6 +96,19 @@ export default class SyncSelect extends Component {
     if (this.iconRef && this.iconRef.contains(event.target)) {
       this.setState({ inputValue: '' });
       this.isIconClicked = true;
+    }
+    if (this.selectRef && this.selectRef.contains(event.target)) {
+      this.isBlurActive = false;
+    }
+
+    if (!this.selectRef.contains(event.target)) {
+      if (
+        (this.buttonRef && !this.buttonRef.contains(event.target)) ||
+        !this.props.isButton
+      )
+        this.props.isMulti
+          ? this.handleMultiOnSelect()
+          : this.handleSingleOnBlur();
     }
   };
 
@@ -261,6 +282,7 @@ export default class SyncSelect extends Component {
     const { isDisabled, data } = params;
     const { optionRenderer } = this.props;
     const { selectedItems } = this.state;
+    let checked = selectedItems.map(i => i.value).includes(data.value);
     if (!this.props.isMulti)
       return optionRenderer ? (
         <div
@@ -277,19 +299,23 @@ export default class SyncSelect extends Component {
         </div>
       );
     return !isDisabled ? (
-      <div
-        onClick={() => {
-          !data.disabled && this.onCheckboxClick(data);
-        }}
-        className="checkboxWrapper"
-        title={data.label}
-      >
+      <div className="checkboxWrapper" title={data.label}>
         {optionRenderer ? (
-          optionRenderer(data)
+          <div
+            onClick={() => {
+              !data.disabled && this.onCheckboxClick(data);
+            }}
+          >
+            {optionRenderer({ ...data, checked })}
+          </div>
         ) : (
           <CheckBox
             disabled={data.disabled}
-            checked={selectedItems.map(i => i.value).includes(data.value)}
+            checked={checked}
+            className="labelText"
+            onChange={() => {
+              !data.disabled && this.onCheckboxClick(data);
+            }}
           >
             {data.label}
           </CheckBox>
@@ -315,8 +341,10 @@ export default class SyncSelect extends Component {
               onClick={this.handleMultiOnSelect}
               className={selectedItems.length ? 'activeBtnState' : ' '}
             >
-              <span className="marginR5"> Done</span>
-              {`${selectedItems.length ? `(${selectedItems.length})` : ''}`}
+              {'Apply'}
+              <span className="doneMarginR">
+                {`${selectedItems.length ? `(${selectedItems.length})` : ''}`}
+              </span>
             </Button>
           </div>
         </div>
@@ -326,35 +354,40 @@ export default class SyncSelect extends Component {
 
   handleControl = arg => {
     const { inputValue, showInput } = this.state;
-    const { isDisabled } = this.props;
+    const { isDisabled, showSearch } = this.props;
+    const controlProps = { ...arg };
+    const openModal = () => {
+      !isDisabled &&
+        this.setState({
+          menuIsOpen: true,
+          showInput: true
+        });
+    };
+    controlProps.innerProps = {
+      ...arg.innerProps,
+      onTouchEnd: openModal
+    };
     return (
-      <div className="selectBoxWrapper">
-        <div
-          className={showInput ? 'activeSearch' : ''}
-          onClick={() => {
-            !isDisabled &&
-              this.setState({
-                menuIsOpen: true,
-                showInput: true
-              });
-          }}
-        >
-          <components.Control {...arg} />
-          <div
-            className={inputValue.length ? 'activeInput' : ''}
-            ref={e => {
-              if (e) {
-                this.iconRef = e;
-              }
-            }}
-          >
-            <Icon
-              type="cross"
-              onClick={() => this.setState({ inputValue: '' })}
-            />
+      showSearch && (
+        <div className="selectBoxWrapper">
+          <div className={showInput ? 'activeSearch' : ''} onClick={openModal}>
+            <components.Control {...controlProps} />
+            <div
+              className={inputValue.length ? 'activeInput' : ''}
+              ref={e => {
+                if (e) {
+                  this.iconRef = e;
+                }
+              }}
+            >
+              <Icon
+                type="cross"
+                onClick={() => this.setState({ inputValue: '' })}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )
     );
   };
 
@@ -376,7 +409,13 @@ export default class SyncSelect extends Component {
             ? buttonLabel
             : selectedItems[0].label
         }`;
-      return `${buttonLabel}.${selectedItems.length}`;
+      return (
+        <span className="selectWithSearchText">
+          {buttonLabel}
+          <Icon type="circle" className="discIcon" />
+          {selectedItems.length}
+        </span>
+      );
     }
     return buttonLabel;
   };
@@ -403,7 +442,8 @@ export default class SyncSelect extends Component {
     const DEFAULT_SELECT_STYLE = {
       container: base => ({
         ...base,
-        width: '210px',
+        width: base.width ? base.width : '210px',
+        minWidth: '210px',
         position: isButton ? 'absolute' : 'inherit'
       })
     };
@@ -448,7 +488,6 @@ export default class SyncSelect extends Component {
           autoFocus: showInput,
           isFocused: true,
           autosize: false,
-          onBlur: this.handleMultiOnSelect,
           inputValue: inputValue,
           onInputChange: this.onInputChange
         }
@@ -459,7 +498,6 @@ export default class SyncSelect extends Component {
             SingleValue: this.handleSingleValue
           },
           onChange: this.handleSingleOnSelect,
-          onBlur: this.handleSingleOnBlur,
           autoFocus: showInput,
           isFocused: true,
           backspaceRemovesValue: false,
@@ -487,20 +525,32 @@ export default class SyncSelect extends Component {
                 minWidth: buttonMinWidth
               }}
               size="small"
+              className={classnames(
+                selectedItems.length > 0 ? 'selectedItems' : '',
+                showSelect ? 'activeSelect' : ''
+              )}
             >
               {this.getButtonText()}
             </Button>
           </div>
         )}
         {showSelect && (
-          <Select
-            styles={this.getStyle()}
-            {...this.props}
-            options={options}
-            classNamePrefix={'mt-react-select'}
-            {...selectProps}
-            backspaceRemovesValue={false}
-          />
+          <div
+            ref={e => {
+              if (e) {
+                this.selectRef = e;
+              }
+            }}
+          >
+            <Select
+              styles={this.getStyle()}
+              {...this.props}
+              options={options}
+              classNamePrefix={'mt-react-select'}
+              {...selectProps}
+              backspaceRemovesValue={false}
+            />
+          </div>
         )}
       </React.Fragment>
     );

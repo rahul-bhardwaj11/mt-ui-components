@@ -45,6 +45,7 @@ const MtCollapse = styled.div`
           margin-bottom: 20px;
           position: absolute;
           left: 91%;
+          transform: rotate(-90deg);
         }
       }
     }
@@ -53,7 +54,7 @@ const MtCollapse = styled.div`
     & > .ant-collapse-item {
       & > .ant-collapse-header[aria-expanded='true'] {
         .arrow {
-          transform: rotate(-90deg);
+          transform: rotate(0deg);
           position: absolute;
           left: 91%;
         }
