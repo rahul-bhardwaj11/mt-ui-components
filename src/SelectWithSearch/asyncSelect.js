@@ -574,19 +574,6 @@ export default class AsyncSelect extends Component {
                   onClick={this.handleMultiOnSelect}
                   className={selectedItems.length ? 'activeBtnState' : ' '}
                 >
-                  {`Done`}
-                  <span className="doneMarginR">
-                    {selectedItems.length ? `(${selectedItems.length})` : ''}
-                  </span>
-                </Button>
-              </div>
-
-              <div className="buttonWrapperR">
-                <Button
-                  type="text"
-                  onClick={this.handleMultiOnSelect}
-                  className={selectedItems.length ? 'activeBtnState' : ' '}
-                >
                   {'Apply'}
                   <span className="doneMarginR">
                     {selectedItems.length ? `(${selectedItems.length})` : ''}
