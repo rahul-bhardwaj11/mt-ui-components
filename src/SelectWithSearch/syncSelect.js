@@ -36,18 +36,24 @@ export default class SyncSelect extends Component {
   static defaultProps = {
     buttonLabel: 'filter',
     onChange: noop,
-    sortOptions: true
+    sortOptions: true,
+    options: []
   };
 
-  state = {
-    options: this.props.options,
-    selectedItems: [],
-    prevSelectedItems: [],
-    menuIsOpen: false,
-    showSelect: true,
-    showInput: false,
-    inputValue: ''
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      options: this.filterOptions(this.props.options),
+      selectedItems: [],
+      prevSelectedItems: [],
+      menuIsOpen: false,
+      showSelect: true,
+      showInput: false,
+      inputValue: ''
+    };
+  }
+
+  filterOptions = options => options.filter(option => option.label);
 
   componentDidMount() {
     const { defaultValue, isButton, options, value } = this.props;
@@ -276,6 +282,7 @@ export default class SyncSelect extends Component {
     const { isDisabled, data } = params;
     const { optionRenderer } = this.props;
     const { selectedItems } = this.state;
+    let checked = selectedItems.map(i => i.value).includes(data.value);
     if (!this.props.isMulti)
       return optionRenderer ? (
         <div
@@ -299,12 +306,12 @@ export default class SyncSelect extends Component {
               !data.disabled && this.onCheckboxClick(data);
             }}
           >
-            {optionRenderer(data)}
+            {optionRenderer({ ...data, checked })}
           </div>
         ) : (
           <CheckBox
             disabled={data.disabled}
-            checked={selectedItems.map(i => i.value).includes(data.value)}
+            checked={checked}
             className="labelText"
             onChange={() => {
               !data.disabled && this.onCheckboxClick(data);
@@ -348,20 +355,23 @@ export default class SyncSelect extends Component {
   handleControl = arg => {
     const { inputValue, showInput } = this.state;
     const { isDisabled, showSearch } = this.props;
+    const controlProps = { ...arg };
+    const openModal = () => {
+      !isDisabled &&
+        this.setState({
+          menuIsOpen: true,
+          showInput: true
+        });
+    };
+    controlProps.innerProps = {
+      ...arg.innerProps,
+      onTouchEnd: openModal
+    };
     return (
       showSearch && (
         <div className="selectBoxWrapper">
-          <div
-            className={showInput ? 'activeSearch' : ''}
-            onClick={() => {
-              !isDisabled &&
-                this.setState({
-                  menuIsOpen: true,
-                  showInput: true
-                });
-            }}
-          >
-            <components.Control {...arg} />
+          <div className={showInput ? 'activeSearch' : ''} onClick={openModal}>
+            <components.Control {...controlProps} />
             <div
               className={inputValue.length ? 'activeInput' : ''}
               ref={e => {
@@ -455,7 +465,6 @@ export default class SyncSelect extends Component {
     const {
       options,
       selectedItems,
-      prevSelectedItems,
       menuIsOpen,
       showSelect,
       showInput,
@@ -517,7 +526,7 @@ export default class SyncSelect extends Component {
               }}
               size="small"
               className={classnames(
-                prevSelectedItems.length > 0 ? 'selectedItems' : '',
+                selectedItems.length > 0 ? 'selectedItems' : '',
                 showSelect ? 'activeSelect' : ''
               )}
             >
@@ -535,7 +544,6 @@ export default class SyncSelect extends Component {
           >
             <Select
               styles={this.getStyle()}
-              filterOption={option => option.label}
               {...this.props}
               options={options}
               classNamePrefix={'mt-react-select'}

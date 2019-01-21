@@ -33,6 +33,7 @@ export default class AsyncSelect extends Component {
   static propTypes = {
     promiseOption: PropTypes.func,
     cacheUniq: PropTypes.any,
+    reset: PropTypes.any,
     pageSize: PropTypes.number,
     options: PropTypes.array,
     multiple: PropTypes.bool,
@@ -105,12 +106,23 @@ export default class AsyncSelect extends Component {
   }
 
   componentDidUpdate(oldProps) {
-    const { cacheUniq } = this.props;
-
+    const { cacheUniq, reset } = this.props;
+    let newState = {};
+    let hasStateUpdated = false;
+    if (oldProps.reset !== reset) {
+      newState.selectedItems = [];
+      newState.prevSelectedItems = [];
+      newState.optionsCache = {};
+      hasStateUpdated = true;
+    }
     if (oldProps.cacheUniq !== cacheUniq) {
+      newState.optionsCache = {};
+      hasStateUpdated = true;
+    }
+    if (hasStateUpdated) {
       this.setState(
         {
-          optionsCache: {}
+          ...newState
         },
         () => {
           this.loadOptions();
@@ -350,7 +362,8 @@ export default class AsyncSelect extends Component {
     let newState = {
       menuIsOpen: false,
       showInput: false,
-      inputValue: ''
+      inputValue: '',
+      search: ''
     };
     newState = isButton
       ? Object.assign(newState, { showSelect: false })
@@ -418,7 +431,7 @@ export default class AsyncSelect extends Component {
   };
 
   handleDisplayValue = ({ data }) => {
-    let { selectedItems } = this.state;
+    let selectedItems = [...this.state.selectedItems];
     const { value, placeholder } = this.props;
     if (value) {
       selectedItems = this.getSelectedItemsFromValue(value);
@@ -441,7 +454,7 @@ export default class AsyncSelect extends Component {
   };
 
   handleSingleValue = props => {
-    let { selectedItems } = this.state;
+    let selectedItems = [...this.state.selectedItems];
     const { value, placeholder } = this.props;
     if (value) {
       selectedItems = this.getSelectedItemsFromValue(value);
@@ -462,6 +475,7 @@ export default class AsyncSelect extends Component {
     const { isDisabled, data } = params;
     const { optionRenderer } = this.props;
     const { selectedItems } = this.state;
+    let checked = selectedItems.map(i => i.value).includes(data.value);
     if (!this.props.isMulti)
       return optionRenderer ? (
         <div
@@ -485,12 +499,12 @@ export default class AsyncSelect extends Component {
               !data.disabled && this.onCheckboxClick(data);
             }}
           >
-            {optionRenderer(data)}
+            {optionRenderer({ ...data, checked })}
           </div>
         ) : (
           <CheckBox
             disabled={data.disabled}
-            checked={selectedItems.map(i => i.value).includes(data.value)}
+            checked={checked}
             className="labelText"
             onChange={() => {
               !data.disabled && this.onCheckboxClick(data);
@@ -508,13 +522,16 @@ export default class AsyncSelect extends Component {
     const isLoading = optionsCache[search] && optionsCache[search].isLoading;
     const { isMulti } = this.props;
     let loaderStyle = {
-      bottom: isMulti ? 30 : 0
+      position: 'absolute',
+      bottom: isMulti ? 30 : 0,
+      left: '50%',
+      transform: 'translateX(-50%)'
     };
     return (
       <components.Menu {...props}>
         {props.children}
         {!!isLoading && (
-          <Loader size={'sizeXSmall'} type="Full" style={loaderStyle} />
+          <Loader size={'sizeXSmall'} type="Small" style={loaderStyle} />
         )}
         {isMulti && (
           <div className="componentWrapper">
@@ -545,20 +562,26 @@ export default class AsyncSelect extends Component {
   handleControl = arg => {
     const { inputValue } = this.state;
     const { isDisabled, showSearch } = this.props;
+    const controlProps = { ...arg };
+    const openModal = () => {
+      !isDisabled &&
+        this.setState({
+          menuIsOpen: true,
+          showInput: true
+        });
+    };
+    controlProps.innerProps = {
+      ...arg.innerProps,
+      onTouchEnd: openModal
+    };
     return (
       showSearch && (
         <div className="selectBoxWrapper">
           <div
             className={this.state.showInput ? 'activeSearch' : ''}
-            onClick={() => {
-              !isDisabled &&
-                this.setState({
-                  menuIsOpen: true,
-                  showInput: true
-                });
-            }}
+            onClick={openModal}
           >
-            <components.Control {...arg} />
+            <components.Control {...controlProps} />
             <div
               className={inputValue.length ? 'activeInput' : ''}
               ref={e => {
@@ -589,7 +612,7 @@ export default class AsyncSelect extends Component {
 
   getButtonText = () => {
     const { buttonLabel, value } = this.props;
-    let { selectedItems } = this.state;
+    let selectedItems = [...this.state.selectedItems];
     if (value) {
       selectedItems = this.getSelectedItemsFromValue(value);
     }
@@ -657,7 +680,6 @@ export default class AsyncSelect extends Component {
       search,
       optionsCache,
       selectedItems,
-      prevSelectedItems,
       menuIsOpen,
       showSelect,
       showInput,
@@ -720,7 +742,7 @@ export default class AsyncSelect extends Component {
               }}
               size="small"
               className={classnames(
-                prevSelectedItems.length > 0 ? 'selectedItems' : '',
+                selectedItems.length > 0 ? 'selectedItems' : '',
                 showSelect ? 'activeSelect' : ''
               )}
             >
