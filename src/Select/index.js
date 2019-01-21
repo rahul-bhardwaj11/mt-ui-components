@@ -94,9 +94,6 @@ const MtWrapper = styled.div`
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
       color: #606369;
-      // &:first-child {
-      //   background-color: ${theme.colors.WHITE};
-      // }
       &:hover {
         background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
         color: ${theme.colors.WHITE};
@@ -136,9 +133,9 @@ const MtWrapper = styled.div`
   }
   .ant-select-selection--multiple {
     padding: 0;
-    border: border-color: 1px solid ${theme.colors.ALTO};
+    border: 1px solid ${theme.colors.ALTO};
     &:focus {
-      border-color: 1px solid ${theme.colors.ALTO};
+      border: 1px solid ${theme.colors.ALTO};
       box-shadow: none;
     }
     .ant-select-selection__rendered {
