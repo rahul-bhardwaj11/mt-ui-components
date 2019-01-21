@@ -9,7 +9,7 @@ const BADGE_TYPES = {
   SUCCESS: 'success',
   ERROR: 'error',
   WARNING: 'warning',
-  ESLAVA: 'eslava',
+  ELSALVA: 'elsalva',
   DEFAULT: 'default'
 };
 
@@ -17,7 +17,7 @@ const BADGE_COLOR_TYPE_MAP = {
   [BADGE_TYPES.SUCCESS]: `${theme.colors.PASTEL_GREEN}`,
   [BADGE_TYPES.ERROR]: `${theme.colors.BITTERSWEET}`,
   [BADGE_TYPES.WARNING]: `${theme.colors.KOROMIKO}`,
-  [BADGE_TYPES.ESLAVA]: `${theme.colors.ELSALVA}`,
+  [BADGE_TYPES.ELSALVA]: `${theme.colors.ELSALVA}`,
   [BADGE_TYPES.DEFAULT]: `${theme.colors.SILVER}`
 };
 
