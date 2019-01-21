@@ -37,7 +37,8 @@ class VideoPlayerContainer extends Component {
     controlOptions: PropTypes.object,
     downloadSrc: PropTypes.bool,
     mediaState: PropTypes.string,
-    videoControlsClassName: PropTypes.string
+    videoControlsClassName: PropTypes.string,
+    className: PropTypes.string
   };
 
   [updateMediaAttributes] = this.props.updateMediaAttributes.bind(this.props);
@@ -79,9 +80,9 @@ class VideoPlayerContainer extends Component {
     if (this[container].contains(e)) {
       return;
     }
-    this.setState({
-      controls: false
-    });
+    // this.setState({
+    //   controls: false
+    // });
   };
 
   [onSelectTrack] = selectedTrack => {
@@ -149,6 +150,7 @@ class VideoPlayerContainer extends Component {
       downloadSrc,
       currentTime,
       mediaState,
+      className,
       videoControlsClassName
     } = this.props;
     let { controls, selectedTrack, showPlayButton } = this.state;
@@ -163,7 +165,8 @@ class VideoPlayerContainer extends Component {
         className={[
           style.videoContainer,
           style.posRel,
-          fullScreen ? style.fullScreen : ''
+          fullScreen ? style.fullScreen : '',
+          className
         ].join(' ')}
         onMouseOver={this[showControls]}
         onMouseOut={this[hideControls]}

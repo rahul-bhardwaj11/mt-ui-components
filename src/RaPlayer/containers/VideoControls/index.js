@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cs from 'classnames';
 import style from './index.scss';
 import { actions } from '../../actions';
 import {
@@ -49,7 +50,8 @@ class VideoControls extends Component {
     controlOptions: PropTypes.func,
     downloadSrc: PropTypes.string,
     videoDuration: PropTypes.number,
-    commentBarClassName: PropTypes.string
+    commentBarClassName: PropTypes.string,
+    videoControlsButtonsClassName: PropTypes.string
   };
 
   constructor(props) {
@@ -233,7 +235,8 @@ class VideoControls extends Component {
       controlOptions: controlOptionsProp = {},
       downloadSrc,
       videoDuration,
-      commentBarClassName
+      commentBarClassName,
+      videoControlsButtonsClassName
     } = this.props;
     const { showTrackList } = this.state;
     this.video = document.getElementById(targetPlayerId);
@@ -278,7 +281,12 @@ class VideoControls extends Component {
           onSeekHandler={onSeekHandler}
         />
 
-        <div className={style.controlsButtonContainer}>
+        <div
+          className={cs(
+            style.controlsButtonContainer,
+            videoControlsButtonsClassName
+          )}
+        >
           <div className={style.playPauseButton}>
             <button
               style={{ border: 'none' }}
@@ -380,6 +388,7 @@ function mapStateToProps(state) {
     comments: state.comments,
     mediaState: state.media.state,
     videoDuration: state.media.duration,
+    videoControlsButtonsClassName: state.videoControlsButtonsClassName,
     isCommentBoxActive:
       state.commentBox.show && !state.commentBox.data.readOnly,
     commentBarClassName: state.commentBarClassName
