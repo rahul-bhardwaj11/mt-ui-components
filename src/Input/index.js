@@ -53,7 +53,7 @@ const MtInput = styled.div`
     &:focus {
       border-color: ${theme.colors.SILVER};
       outline: 0;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+      box-shadow: none;
     }
   }
   .ant-input-disabled {
@@ -146,13 +146,14 @@ class Input extends Component {
       maxLength,
       maxLengthClassName,
       showMaxLength,
-      className
+      className,
+      ...rest
     } = this.props;
     const { value } = this.state;
     return (
       <MtInput>
         <AntInput
-          {...this.props}
+          {...rest}
           value={value}
           onChange={this.onChange}
           onFocus={this.moveCaretAtEnd}
