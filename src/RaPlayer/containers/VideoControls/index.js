@@ -169,27 +169,12 @@ class VideoControls extends Component {
     let targetElement = e.target.parentElement;
     let clientWidth = targetElement.clientWidth;
 
-    let availableWindowForCommentHelperBox = xPos + 300,
-      upperXLimit = clientWidth,
-      downArrowXPos,
-      _xPos = xPos;
-    downArrowXPos = 8;
-
-    _xPos -= 16;
-    if (availableWindowForCommentHelperBox > upperXLimit) {
-      _xPos = clientWidth - 300;
-      downArrowXPos = xPos - _xPos - 8;
-    }
-
-    downArrowXPos = downArrowXPos < 8 ? 8 : downArrowXPos;
-    downArrowXPos = downArrowXPos > 274 ? 274 : downArrowXPos;
-
     this.props.hideCommentHelperBox();
     this.props.showCommentBox({
-      xPosRaw: _xPos,
+      xPosRaw: xPos,
       ...comment,
       readOnly: true,
-      downArrowXPosRaw: downArrowXPos
+      clientWidth
     });
   };
 
