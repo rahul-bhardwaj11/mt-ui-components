@@ -684,8 +684,8 @@ export default class AsyncSelect extends Component {
     const DEFAULT_SELECT_STYLE = {
       container: base => ({
         ...base,
-        width: base.width ? base.width : '210px',
-        minWidth: '210px',
+        width: base.width ? base.width : '256px',
+        minWidth: '256px',
         position: isButton ? 'absolute' : 'inherit'
       })
     };
