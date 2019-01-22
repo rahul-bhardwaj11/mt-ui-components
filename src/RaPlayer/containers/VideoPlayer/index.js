@@ -80,9 +80,9 @@ class VideoPlayerContainer extends Component {
     if (this[container].contains(e)) {
       return;
     }
-    // this.setState({
-    //   controls: false
-    // });
+    this.setState({
+      controls: false
+    });
   };
 
   [onSelectTrack] = selectedTrack => {
@@ -168,8 +168,8 @@ class VideoPlayerContainer extends Component {
           fullScreen ? style.fullScreen : '',
           className
         ].join(' ')}
-        onMouseOver={this[showControls]}
-        onMouseOut={this[hideControls]}
+        onMouseEnter={this[showControls]}
+        onMouseLeave={this[hideControls]}
       >
         {showPlayButton &&
           !showControlsOnly && (

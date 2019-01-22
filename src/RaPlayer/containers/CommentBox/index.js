@@ -101,7 +101,10 @@ class CommentBox extends Component {
   };
 
   emojiOnSelectHandler(selectedEmoji) {
-    if (this.commentTextArea.value.length < MAX_CHAR_LIMIT_COMMENT) {
+    if (
+      this.commentTextArea &&
+      this.commentTextArea.value.length < MAX_CHAR_LIMIT_COMMENT
+    ) {
       let text = this.commentTextArea.value + selectedEmoji;
       this.props.showCommentBox({
         text
@@ -135,13 +138,16 @@ class CommentBox extends Component {
     this.setState({
       disableSaveButton: false
     });
+    if (!this.commentTextArea) {
+      return;
+    }
     this.commentTextArea.addEventListener('keydown', this.autosize.bind(this));
     this.commentTextArea.focus();
   }
 
   componentDidMount() {
     this.autosize();
-    if (!this.props.readOnly) {
+    if (!this.props.readOnly && this.commentTextArea) {
       this.commentTextArea.addEventListener(
         'keydown',
         this.autosize.bind(this)
@@ -197,7 +203,8 @@ class CommentBox extends Component {
   componentWillUnmount() {
     clearTimeout(this.state.timer);
     clearTimeout(this.autoSizeTimer);
-    this.commentTextArea.removeEventListener('keydown', this.autosize);
+    this.commentTextArea &&
+      this.commentTextArea.removeEventListener('keydown', this.autosize);
   }
 
   autosize() {
