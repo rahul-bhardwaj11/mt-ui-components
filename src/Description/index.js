@@ -45,7 +45,7 @@ export default class Description extends Component {
   onChange = (value, editor, trigger = true) => {
     //const { content } = this.state;
     const { maxLength, required } = this.props;
-    let text = trimNewLine(editor.getText());
+    let text = trimNewLine(editor.getText().trim());
     let contentLength = text.length;
     if (contentLength > maxLength && editor.deleteText) {
       editor.deleteText(maxLength, contentLength);
