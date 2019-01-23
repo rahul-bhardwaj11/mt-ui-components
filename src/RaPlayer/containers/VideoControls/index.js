@@ -51,7 +51,8 @@ class VideoControls extends Component {
     downloadSrc: PropTypes.string,
     videoDuration: PropTypes.number,
     commentBarClassName: PropTypes.string,
-    videoControlsButtonsClassName: PropTypes.string
+    videoControlsButtonsClassName: PropTypes.string,
+    videoSeekBarClassName: PropTypes.string
   };
 
   constructor(props) {
@@ -221,7 +222,8 @@ class VideoControls extends Component {
       downloadSrc,
       videoDuration,
       commentBarClassName,
-      videoControlsButtonsClassName
+      videoControlsButtonsClassName,
+      videoSeekBarClassName
     } = this.props;
     const { showTrackList } = this.state;
     this.video = document.getElementById(targetPlayerId);
@@ -264,6 +266,7 @@ class VideoControls extends Component {
           onMouseMove={this.showCommentHelperBox}
           seekTime={seekTime}
           onSeekHandler={onSeekHandler}
+          className={videoSeekBarClassName}
         />
 
         <div
@@ -374,6 +377,7 @@ function mapStateToProps(state) {
     mediaState: state.media.state,
     videoDuration: state.media.duration,
     videoControlsButtonsClassName: state.videoControlsButtonsClassName,
+    videoSeekBarClassName: state.videoSeekBarClassName,
     isCommentBoxActive:
       state.commentBox.show && !state.commentBox.data.readOnly,
     commentBarClassName: state.commentBarClassName
