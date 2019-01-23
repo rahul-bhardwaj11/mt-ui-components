@@ -39,7 +39,8 @@ const props = {
     console.log(comment);
   },
   commentBarClassName: 'abc',
-  videoControlsClassName: 'videoabc'
+  videoControlsClassName: 'videoabc',
+  videoSeekBarClassName: 'videoSeek'
   // commentBoxHelperRenderer: ({boxRef, ...props}) => <button ref={boxRef}>Test</button>
 };
 
