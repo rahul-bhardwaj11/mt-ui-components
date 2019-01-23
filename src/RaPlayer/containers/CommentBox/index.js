@@ -25,7 +25,6 @@ class CommentBox extends Component {
     postComment: PropTypes.func,
     xPosRaw: PropTypes.number,
     commentText: PropTypes.string,
-    downArrowXPosRaw: PropTypes.number,
     edit: PropTypes.bool,
     showError: PropTypes.bool,
     author: PropTypes.object,
@@ -74,34 +73,34 @@ class CommentBox extends Component {
   };
 
   calculateXPos = () => {
-    let { xPosRaw, downArrowXPosRaw, clientWidth } = this.props;
+    let { xPosRaw, clientWidth } = this.props;
     let width = this.commentBox.getBoundingClientRect().width;
     let _xPos = xPosRaw;
     let availableWindow = _xPos + width / 2,
-      upperXLimit = clientWidth,
-      downArrowXPos = width / 2 - 8;
+      upperXLimit = clientWidth;
 
     _xPos -= width / 2;
     if (availableWindow > upperXLimit) {
       _xPos = clientWidth - width;
-      downArrowXPos = downArrowXPosRaw + 85;
     }
 
     if (_xPos < 0) {
-      downArrowXPos = _xPos + width / 2;
       _xPos = 0;
     }
-
+    let downArrowXPos = xPosRaw - _xPos - 25;
     downArrowXPos = downArrowXPos < 30 ? 30 : downArrowXPos;
     downArrowXPos = downArrowXPos > width - 30 ? width - 30 : downArrowXPos;
     this.setState({
       xPos: _xPos,
-      downArrowXPos: downArrowXPos
+      downArrowXPos
     });
   };
 
   emojiOnSelectHandler(selectedEmoji) {
-    if (this.commentTextArea.value.length < MAX_CHAR_LIMIT_COMMENT) {
+    if (
+      this.commentTextArea &&
+      this.commentTextArea.value.length < MAX_CHAR_LIMIT_COMMENT
+    ) {
       let text = this.commentTextArea.value + selectedEmoji;
       this.props.showCommentBox({
         text
@@ -135,13 +134,16 @@ class CommentBox extends Component {
     this.setState({
       disableSaveButton: false
     });
+    if (!this.commentTextArea) {
+      return;
+    }
     this.commentTextArea.addEventListener('keydown', this.autosize.bind(this));
     this.commentTextArea.focus();
   }
 
   componentDidMount() {
     this.autosize();
-    if (!this.props.readOnly) {
+    if (!this.props.readOnly && this.commentTextArea) {
       this.commentTextArea.addEventListener(
         'keydown',
         this.autosize.bind(this)
@@ -197,7 +199,8 @@ class CommentBox extends Component {
   componentWillUnmount() {
     clearTimeout(this.state.timer);
     clearTimeout(this.autoSizeTimer);
-    this.commentTextArea.removeEventListener('keydown', this.autosize);
+    this.commentTextArea &&
+      this.commentTextArea.removeEventListener('keydown', this.autosize);
   }
 
   autosize() {
@@ -288,7 +291,6 @@ function mapStateToProps(state) {
     commentText: state.commentBox.data.text,
     readOnly: state.commentBox.data.readOnly,
     id: state.commentBox.data.id,
-    downArrowXPosRaw: state.commentBox.data.downArrowXPosRaw,
     showError: state.commentBox.error,
     postComment: state.postComment,
     editComment: state.editComment,

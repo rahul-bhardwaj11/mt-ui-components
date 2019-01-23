@@ -90,13 +90,13 @@ class CommentHelperBox extends Component {
 			8px: default left for down arrow
 		*/
 
-    let { time } = this.props;
-    let { xPos, downArrowXPos } = this.state;
+    let { time, xPosRaw } = this.props;
+    let { downArrowXPos } = this.state;
     let clientWidth = this.props.videoWidth - 20;
 
     this.props.hideCommentBox();
     this.props.showCommentBox({
-      xPosRaw: xPos + downArrowXPos,
+      xPosRaw,
       time: time,
       clientWidth,
       downArrowXPosRaw: downArrowXPos
