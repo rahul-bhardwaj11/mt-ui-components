@@ -104,6 +104,14 @@ class DatePicker extends Component {
     onChange: noop
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.value !== nextProps.value) {
+      this.setState({
+        date: nextProps.value ? moment(nextProps.value) : undefined
+      });
+    }
+  }
+
   state = {
     date: this.props.value ? moment(this.props.value) : undefined
   };
