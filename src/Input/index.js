@@ -155,6 +155,7 @@ class Input extends Component {
         <AntInput
           {...rest}
           value={value}
+          maxLength={maxLength}
           onChange={this.onChange}
           onFocus={this.moveCaretAtEnd}
           className={classnames(className, { errorInputStyle: errors[0] })}
