@@ -93,10 +93,7 @@ const MtWrapper = styled.span`
     margin: 8px;
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
-      color: #606369;
-      // &:first-child {
-      //   background-color: ${theme.colors.WHITE};
-      // }
+      color: ${theme.colors.DARK_OUTER_SPACE};
       &:hover {
         background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
         color: ${theme.colors.WHITE};
@@ -109,7 +106,7 @@ const MtWrapper = styled.span`
     }
 
   .ant-select-dropdown-menu-item-selected{
-     background-color: #E4EFFB;
+     background-color:${theme.colors.TROPICAL_BLUE};
       .icon-tick {
         content: '';
         font-size: 7px;
