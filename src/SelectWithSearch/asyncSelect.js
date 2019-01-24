@@ -72,14 +72,16 @@ export default class AsyncSelect extends Component {
     ]),
     style: PropTypes.object,
     optionRenderer: PropTypes.func,
-    showSearch: PropTypes.bool
+    showSearch: PropTypes.bool,
+    hasNone: PropTypes.bool
   };
 
   static defaultProps = {
     cacheUniq: null,
     pageSize: 15,
     isButton: false,
-    buttonLabel: 'filter'
+    buttonLabel: 'filter',
+    hasNone: true
   };
 
   constructor(props) {
@@ -604,7 +606,11 @@ export default class AsyncSelect extends Component {
   };
 
   normalizeOption = options => {
-    if (!this.props.isMulti && !this.state.search.length) {
+    if (
+      !this.props.isMulti &&
+      !this.state.search.length &&
+      this.props.hasNone
+    ) {
       options.unshift({ label: 'None', value: 'None' });
     }
     return options;
