@@ -241,7 +241,7 @@ export default class SyncSelect extends Component {
   };
 
   handleDisplayValue = ({ data }) => {
-    let { selectedItems } = this.state;
+    let selectedItems = [...this.state.selectedItems];
     const { value, placeholder } = this.props;
     if (value) {
       selectedItems = this.getSelectedItemsFromValue(value);
@@ -264,7 +264,7 @@ export default class SyncSelect extends Component {
   };
 
   handleSingleValue = props => {
-    let { selectedItems } = this.state;
+    let selectedItems = [...this.state.selectedItems];
     const { value, placeholder } = this.props;
     if (value) {
       selectedItems = this.getSelectedItemsFromValue(value);
