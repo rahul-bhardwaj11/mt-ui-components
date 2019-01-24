@@ -30,14 +30,16 @@ export default class SyncSelect extends Component {
     ]),
     style: PropTypes.object,
     optionRenderer: PropTypes.func,
-    showSearch: PropTypes.bool
+    showSearch: PropTypes.bool,
+    hasNone: PropTypes.bool
   };
 
   static defaultProps = {
     buttonLabel: 'filter',
     onChange: noop,
     sortOptions: true,
-    options: []
+    options: [],
+    hasNone: true
   };
 
   constructor(props) {
@@ -117,8 +119,8 @@ export default class SyncSelect extends Component {
   }
 
   normalizeOption = sortedOptions => {
-    const { isMulti } = this.props;
-    if (!isMulti) {
+    const { isMulti, hasNone } = this.props;
+    if (!isMulti && hasNone) {
       sortedOptions.unshift({ label: 'None', value: 'None' });
     }
     return sortedOptions;
@@ -135,6 +137,7 @@ export default class SyncSelect extends Component {
   };
   componentWillReceiveProps(nextProps) {
     const { options, value } = this.props;
+    const filteredOptions = this.filterOptions(nextProps.options);
     if (
       value != nextProps.value ||
       !this.isOptionsEqual(options, nextProps.options)
@@ -143,7 +146,7 @@ export default class SyncSelect extends Component {
       if (value) {
         selectedItems = this.getSelectedItemsFromValue(nextProps.value);
       }
-      let sortedOptions = this.__sortOptions(nextProps.options, selectedItems);
+      let sortedOptions = this.__sortOptions(filteredOptions, selectedItems);
       sortedOptions = this.normalizeOption(sortedOptions);
       this.setState({ options: sortedOptions, selectedItems });
     }
