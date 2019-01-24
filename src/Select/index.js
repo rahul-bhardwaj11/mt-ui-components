@@ -17,12 +17,17 @@ const MtWrapper = styled.span`
     z-index: 999999;
     .ant-select-dropdown-menu-item {
      div {
-         width: 95%;
+         width: ${props => (props.showTick ? '95%' : null)};
          text-overflow: ellipsis;
          overflow: hidden;
          white-space: nowrap;
        }
      }
+   }
+   .ant-select-dropdown-menu-item-disabled{
+     background:${theme.colors.PORCELAIN};
+     opacity:0.8;
+     pointer-events: none;
    }
   .icon-tick {
     display: none;
@@ -88,10 +93,7 @@ const MtWrapper = styled.span`
     margin: 8px;
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
-      color: #606369;
-      // &:first-child {
-      //   background-color: ${theme.colors.WHITE};
-      // }
+      color: ${theme.colors.DARK_OUTER_SPACE};
       &:hover {
         background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
         color: ${theme.colors.WHITE};
@@ -104,6 +106,7 @@ const MtWrapper = styled.span`
     }
 
   .ant-select-dropdown-menu-item-selected{
+     background-color:${theme.colors.TROPICAL_BLUE};
       .icon-tick {
         content: '';
         font-size: 7px;
@@ -180,6 +183,7 @@ class Select extends Component {
     title: PropTypes.string,
     className: PropTypes.string,
     getPopupContainer: PropTypes.func,
+    showTick: PropTypes.bool,
     value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
@@ -188,7 +192,8 @@ class Select extends Component {
   };
 
   static defaultProps = {
-    style: { minWidth: 125 }
+    style: { minWidth: 125 },
+    showTick: true
   };
 
   element = null;
@@ -218,7 +223,7 @@ class Select extends Component {
   }
 
   render() {
-    let { options, style } = this.props;
+    let { options, style, showTick } = this.props;
     const container =
       this.props.getPopupContainer && this.props.getPopupContainer();
     return (
@@ -227,7 +232,7 @@ class Select extends Component {
           <MtWrapper style={style} innerRef={this.selectRef} />,
           container || this.element
         )}
-        <MtWrapper style={style} key={this.state.key}>
+        <MtWrapper style={style} key={this.state.key} showTick={showTick}>
           <AntSelect
             {...this.props}
             onClick={event => {
@@ -247,13 +252,14 @@ class Select extends Component {
                   key={option.key}
                   value={option.key}
                   title={this.props.title || option.title}
+                  disabled={option.disabled}
                 >
                   {typeof option.content === 'string' ? (
                     <StringToHTML content={option.content} />
                   ) : (
                     option.content
                   )}
-                  <Icon type="tick" />
+                  {showTick && <Icon type="tick" />}
                 </Option>
               );
             })}
