@@ -66,6 +66,7 @@ const MTReadMore = styled.div`
       return `${props.truncateHeight}px`;
     }};
     overflow: hidden;
+    text-align: justify;
   }
   .viewMore,
   .viewLess {
