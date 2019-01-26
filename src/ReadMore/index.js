@@ -91,7 +91,7 @@ class ReadMore extends Component {
 
   toggleLines(event) {
     event.preventDefault();
-
+    this.props.onToggle({ expanded: !this.state.expanded });
     this.setState({
       expanded: !this.state.expanded
     });
@@ -168,7 +168,8 @@ ReadMore.defaultProps = {
   moreText: 'Read More',
   lessText: 'Read Less',
   showViewMore: true,
-  truncateHeight: 100
+  truncateHeight: 100,
+  onToggle: () => {}
 };
 
 ReadMore.propTypes = {
@@ -178,6 +179,7 @@ ReadMore.propTypes = {
   showViewMore: PropTypes.bool,
   className: PropTypes.string,
   html: PropTypes.string,
+  onToggle: PropTypes.func,
   truncateHeight: PropTypes.number
 };
 
