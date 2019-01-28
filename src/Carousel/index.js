@@ -130,6 +130,11 @@ h3 {
     visibility: hidden;
     }
   }
+  &.right_arrow--disabled{
+    &.slick-slider:after{
+    visibility: hidden;
+    }
+  }
 `;
 
 class Carousel extends Component {
@@ -206,7 +211,7 @@ class Carousel extends Component {
   getClassName = () => {
     const { current } = this.state;
     const { infinite } = this.props;
-    const slideCount = React.Children.count(this.props.children);
+    const slideCount = React.Children.count(this.state.children);
     let className = '';
     if (!infinite && current === 0) {
       className = 'left_arrow--disabled';
