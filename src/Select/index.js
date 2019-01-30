@@ -101,7 +101,7 @@ const MtWrapper = styled.span`
       }
     }
     .ant-select-dropdown-menu-item-active {
-      background-color: ${theme.colors.TROPICAL_BLUE};
+      background-color: ${theme.colors.WHITE};
       color: ${theme.colors.SHARK};
     }
 
