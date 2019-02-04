@@ -14,10 +14,9 @@ const StyleAutoCompleteTag = styled.div`
     min-height: 32px;
     background-color:${theme.colors.WHITE};
     overflow: hidden;
-    padding: 0px;
     border-radius: 4px;
-    border: 1px solid  ${theme.colors.SILVER};
-    padding-left: ${props => (props.withSearch ? `30px` : `16px`)};
+    border: 1px solid  ${theme.colors.ALTO};
+    padding: 0 ${props => (props.withSearch ? `32px` : `12px`)};
     &:before {
         display: ${props => (props.withSearch ? `block` : `none`)};
         background: url('${searchIcon}') no-repeat 1px 0px;
@@ -30,6 +29,9 @@ const StyleAutoCompleteTag = styled.div`
         left: 12px;
         top: 9px;
       }
+      &:hover{
+        border: 1px solid  ${theme.colors.SILVER};
+      }
   }
   .react-tagsinput-input {
     background: transparent;
@@ -39,19 +41,24 @@ const StyleAutoCompleteTag = styled.div`
     font-weight: 500;
     outline: none;
     width: auto;
-    padding: 0 4px 0 4px;
-    margin: 0;
+    padding: 0;
+    margin:0 0 0  ${props => (props.withSearch ? `4px` : `0`)};;
     line-height: 30px;
     float:left;
+    font-family:inherit;
+    ::placeholder{
+      color: ${theme.colors.ALTO};
+    }
   }
   .react-tagsinput-tag {
+    font-family:inherit;
     height: 24px;
     border: 1px solid  ${theme.colors.ALTO};
     border-radius: 16px;
     background-color: ${theme.colors.PORCELAIN};
     padding: 3px 12px;
     ${mixins.smallGreyLink()};
-    margin: 3px 5px;
+    margin: 4px 8px 4px 0;
     float:left;
   }
   .react-tagsinput-remove {
