@@ -55,11 +55,10 @@ const ALLOWED_HTML_TAGS = [
 
 const MTReadMore = styled.div`
   line-height: initial;
-  counter-reset: my-sec-counter;
-
   ul,
   ol {
     list-style: none;
+    counter-reset: my-sec-counter;
   }
 
   li {
