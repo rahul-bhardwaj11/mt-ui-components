@@ -11,21 +11,20 @@ export default class Icon extends Component {
     className: PropTypes.string,
     onClick: PropTypes.func,
     gradient: PropTypes.bool,
-    style: PropTypes.object,
-    styleProps: PropTypes.object
+    style: PropTypes.object
   };
   static defaultProps = {
     onClick: noop,
     gradient: false,
-    styleProps: {}
+    style: {}
   };
 
   render() {
-    const { type, onClick, gradient, styleProps } = this.props;
+    const { type, onClick, gradient } = this.props;
     let { style, className } = this.props;
-    let svgIcon = svgIcons[type];
-    if (typeof svgIcons[type] == 'function') {
-      svgIcon = svgIcons[type](styleProps);
+    let svgIcon = {};
+    if (gradient) {
+      svgIcon = svgIcons[type](style);
     }
     style = gradient ? { ...style, ...svgIcon } : style;
     className = gradient ? className : classnames(`icon-${type}`, className);

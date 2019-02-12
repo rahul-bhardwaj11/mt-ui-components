@@ -6,23 +6,17 @@ import textConditionFull from './assests/images/textConditionFull.svg';
 import textConditionFullActive from './assests/images/textConditionFullActive.svg';
 
 export default {
-  outlookCalendar: {
+  outlookCalendar: ({ width = 30, height = 30 }) => ({
     background: `url(${outlookCalendarSvg})  no-repeat 0 0 / contain transparent`,
-    width: 30,
-    height: 30,
-    float: 'left'
-  },
-  googleCalendar: {
+    width: width,
+    height: height
+  }),
+  googleCalendar: ({ width = 30, height = 30 }) => ({
     background: `url(${googleCalendar})  no-repeat 0 0 / contain transparent`,
-    width: 30,
-    height: 30,
-    float: 'left'
-  },
-  // googleCalendar:(width=30,height=30)=> ({
-  //   background: `url(${googleCalendar})  no-repeat 0 0 / contain transparent`,
-  //   width: width,
-  //   height: height,
-  // }),
+    width: width,
+    height: height
+  }),
+
   keywordsFull: ({ width = 30, height = 30 }) => ({
     background: `url(${keywordsFull})  no-repeat 0 0 / contain transparent`,
     width: width,
