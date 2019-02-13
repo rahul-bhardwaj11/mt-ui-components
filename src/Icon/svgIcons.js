@@ -16,7 +16,6 @@ export default {
     width: width,
     height: height
   }),
-
   keywordsFull: ({ width = 30, height = 30 }) => ({
     background: `url(${keywordsFull})  no-repeat 0 0 / contain transparent`,
     width: width,
