@@ -23,6 +23,7 @@ const MtTextArea = styled.div`
 class TextArea extends Component {
   static propTypes = {
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     placeholder: PropTypes.string,
     onChange: PropTypes.func
   };
@@ -34,7 +35,7 @@ class TextArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: this.props.value
+      value: this.props.value || this.props.defaultValue
     };
   }
 

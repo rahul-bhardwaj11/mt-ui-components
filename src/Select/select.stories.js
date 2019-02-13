@@ -10,7 +10,7 @@ stories.addDecorator(withKnobs);
 const options = [
   { key: '1', content: 'First Item' },
   { key: '2', content: 'Second Item' },
-  { key: '3', content: 'Third Item' }
+  { key: '3', content: 'Third Item', disabled: true }
 ];
 
 class ControlledSelect extends React.Component {
@@ -32,7 +32,11 @@ class ControlledSelect extends React.Component {
 stories.add(
   'Default Select',
   withInfo('Basic usage of the Select')(() => (
-    <Select options={object('options', options)} defaultValue="Select" />
+    <Select
+      options={object('options', options)}
+      defaultValue="Select"
+      showTick={true}
+    />
   ))
 );
 

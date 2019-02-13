@@ -6,6 +6,9 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const MtTabs = styled.div`
+  .ant-tabs {
+    font-family: inherit;
+  }
   .ant-tabs-bar {
     font-family: inherit;
     border-bottom: 1px solid #e7e8ec;

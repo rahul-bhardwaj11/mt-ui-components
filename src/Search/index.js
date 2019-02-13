@@ -81,6 +81,7 @@ class Search extends Component {
 
   handleClear = () => {
     this.setState({ query: '' });
+    this.props.onPressEnter('');
     this.props.onSearch('');
   };
 
