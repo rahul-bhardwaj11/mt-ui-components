@@ -333,4 +333,3 @@ class SelectWithSearch extends Component {
 }
 
 export default SelectWithSearch;
-export AsyncCreatableSelect from 'react-select/lib/AsyncCreatable';
