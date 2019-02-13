@@ -9,10 +9,18 @@ const StyledAutoComplete = Styled.div``;
 
 class AutoComplete extends React.Component {
   static propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    getPopupContainer: PropTypes.func
   };
   render() {
-    const { className, ...rest } = this.props;
+    const {
+      className,
+      getPopupContainer = () => {
+        return this.popUpContainer;
+      },
+      ...rest
+    } = this.props;
+
     return (
       <StyledAutoComplete
         innerRef={ele => {
@@ -20,10 +28,7 @@ class AutoComplete extends React.Component {
         }}
         className={className}
       >
-        <AntAutoComplete
-          {...rest}
-          getPopupContainer={() => this.popUpContainer}
-        />
+        <AntAutoComplete {...rest} getPopupContainer={getPopupContainer} />
       </StyledAutoComplete>
     );
   }
