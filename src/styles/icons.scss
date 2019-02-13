@@ -26,6 +26,66 @@
 }
 
 :global {
+  .icon-cohortSmall:before {
+    content: '\e9b2';
+  }
+  .icon-groupUser:before {
+    content: '\e9b3';
+  }
+  .icon-iconShadow:before {
+    content: '\e9b4';
+  }
+  .icon-invert:before {
+    content: '\e9b5';
+  }
+  .icon-keywordsSmall:before {
+    content: '\e9b6';
+  }
+  .icon-lowerLimit:before {
+    content: '\e9b7';
+  }
+  .icon-lowerLimitBigger:before {
+    content: '\e9b8';
+  }
+  .icon-multipleConditionsSmall:before {
+    content: '\e9b9';
+  }
+  .icon-rangeSmall:before {
+    content: '\e9ba';
+  }
+  .icon-reverse:before {
+    content: '\e9bb';
+  }
+  .icon-syncAnimate:before {
+    content: '\e9bc';
+  }
+  .icon-textConditionSmall:before {
+    content: '\e9bd';
+  }
+  .icon-upperLimit:before {
+    content: '\e9be';
+  }
+  .icon-upperLimitSmaller:before {
+    content: '\e9bf';
+  }
+  .icon-up_triangle:before {
+    content: '\e963';
+  }
+  .icon-right_triangle:before {
+    content: '\e965';
+  }
+  .icon-left_triangle:before {
+    content: '\e97e';
+  }
+  .icon-down_triangle:before {
+    content: '\e97f';
+  }
+  .icon-delete:before {
+    content: '\e980';
+  }
+  .icon-edit:before {
+    content: '\e9b1';
+  }
   .icon-refreshReverse:before {
     content: '\e900';
   }
@@ -326,14 +386,8 @@
   .icon-cross:before {
     content: '\e962';
   }
-  .icon-delete:before {
-    content: '\e963';
-  }
   .icon-move:before {
     content: '\e964';
-  }
-  .icon-edit:before {
-    content: '\e965';
   }
   .icon-Collapse:before {
     content: '\e966';
@@ -406,15 +460,6 @@
   }
   .icon-Comment:before {
     content: '\e97d';
-  }
-  .icon-left_triangle:before {
-    content: '\e97e';
-  }
-  .icon-right_triangle:before {
-    content: '\e97f';
-  }
-  .icon-down_triangle:before {
-    content: '\e980';
   }
   .icon-Checklist:before {
     content: '\e981';
