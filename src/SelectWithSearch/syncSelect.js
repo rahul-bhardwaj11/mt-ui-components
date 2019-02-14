@@ -442,8 +442,8 @@ export default class SyncSelect extends Component {
     const DEFAULT_SELECT_STYLE = {
       container: base => ({
         ...base,
-        width: base.width ? base.width : '256px',
-        minWidth: '256px',
+        width: base.width ? base.width : '210px',
+        minWidth: '210px',
         position: isButton ? 'absolute' : 'inherit'
       })
     };
