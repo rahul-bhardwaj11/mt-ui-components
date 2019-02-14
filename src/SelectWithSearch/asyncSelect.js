@@ -51,6 +51,9 @@ export default class AsyncSelect extends Component {
     ]),
     isMulti: PropTypes.bool,
     onChange: PropTypes.func,
+    onSelect: PropTypes.func,
+    hideFooter: PropTypes.bool,
+    persistOpen: PropTypes.bool,
     isButton: PropTypes.bool,
     isDisabled: PropTypes.bool,
     buttonLabel: PropTypes.string,
@@ -81,6 +84,9 @@ export default class AsyncSelect extends Component {
     pageSize: 15,
     isButton: false,
     buttonLabel: 'filter',
+    onSelect: () => {},
+    persistOpen: false,
+    hideFooter: false,
     hasNone: true
   };
 
@@ -95,15 +101,24 @@ export default class AsyncSelect extends Component {
           }
         }
       : {};
+    const openState = props.persistOpen
+      ? {
+          menuIsOpen: true,
+          showSelect: true,
+          showInput: true
+        }
+      : {
+          menuIsOpen: false,
+          showSelect: true,
+          showInput: false
+        };
     this.state = {
       search: '',
       optionsCache: initialOptionsCache,
       selectedItems: [],
       prevSelectedItems: [],
-      menuIsOpen: false,
-      showSelect: true,
-      showInput: false,
-      inputValue: ''
+      inputValue: '',
+      ...openState
     };
   }
 
@@ -351,7 +366,14 @@ export default class AsyncSelect extends Component {
     } else {
       selectedItems.splice(index, 1);
     }
-    this.setState({ selectedItems });
+    this.props.onSelect(selectedItems);
+    this.setState({ selectedItems }, () => {
+      if (this.props.persistOpen) {
+        this.handleMultiOnSelect();
+      }
+      this.selectRef.focus();
+      this.optionClicked = false;
+    });
   };
 
   onClearAll = () => {
@@ -374,13 +396,14 @@ export default class AsyncSelect extends Component {
   };
 
   handleMultiOnSelect = () => {
-    if (this.isIconClicked) {
+    if (this.isIconClicked || this.optionClicked) {
       this.isIconClicked = false;
+      this.optionClicked = false;
       return;
     }
     this.isBlurActive = true;
     const { selectedItems, optionsCache, prevSelectedItems } = this.state;
-    const { isButton, onChange } = this.props;
+    const { isButton, onChange, persistOpen } = this.props;
     const options = (optionsCache[''] && optionsCache[''].options) || [];
     let isSelectedItemsChange = false;
     if (selectedItems.length == prevSelectedItems.length) {
@@ -401,8 +424,8 @@ export default class AsyncSelect extends Component {
     const arrangedOptions = this.__arrangeOptions(selectedItems, options);
     this.setState(prevState => {
       let newState = {
-        menuIsOpen: false,
-        showInput: false,
+        menuIsOpen: persistOpen ? true : false,
+        showInput: persistOpen ? true : false,
         inputValue: '',
         search: '',
         optionsCache: {
@@ -500,6 +523,9 @@ export default class AsyncSelect extends Component {
             onClick={() => {
               !data.disabled && this.onCheckboxClick(data);
             }}
+            onMouseDown={() => {
+              this.optionClicked = true;
+            }}
           >
             {optionRenderer({ ...data, checked })}
           </div>
@@ -522,7 +548,7 @@ export default class AsyncSelect extends Component {
   buildMenu = props => {
     const { selectedItems, search, optionsCache } = this.state;
     const isLoading = optionsCache[search] && optionsCache[search].isLoading;
-    const { isMulti } = this.props;
+    const { isMulti, hideFooter } = this.props;
     let loaderStyle = {
       position: 'absolute',
       bottom: isMulti ? 30 : 0,
@@ -535,28 +561,29 @@ export default class AsyncSelect extends Component {
         {!!isLoading && (
           <Loader size={'sizeXSmall'} type="Small" style={loaderStyle} />
         )}
-        {isMulti && (
-          <div className="componentWrapper">
-            <div className="buttonWrapperL">
-              <Button type="text" onClick={this.onClearAll}>
-                {'Clear All'}
-              </Button>
-            </div>
+        {isMulti &&
+          !hideFooter && (
+            <div className="componentWrapper">
+              <div className="buttonWrapperL">
+                <Button type="text" onClick={this.onClearAll}>
+                  {'Clear All'}
+                </Button>
+              </div>
 
-            <div className="buttonWrapperR">
-              <Button
-                type="text"
-                onClick={this.handleMultiOnSelect}
-                className={selectedItems.length ? 'activeBtnState' : ' '}
-              >
-                {'Apply'}
-                <span className="doneMarginR">
-                  {selectedItems.length ? `(${selectedItems.length})` : ''}
-                </span>
-              </Button>
+              <div className="buttonWrapperR">
+                <Button
+                  type="text"
+                  onClick={this.handleMultiOnSelect}
+                  className={selectedItems.length ? 'activeBtnState' : ' '}
+                >
+                  {'Apply'}
+                  <span className="doneMarginR">
+                    {selectedItems.length ? `(${selectedItems.length})` : ''}
+                  </span>
+                </Button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
       </components.Menu>
     );
   };
@@ -757,27 +784,20 @@ export default class AsyncSelect extends Component {
           </div>
         )}
         {showSelect && (
-          <div
-            ref={e => {
-              if (e) {
-                this.selectRef = e;
-              }
-            }}
-          >
-            <Select
-              styles={this.getStyle()}
-              filterOption={option => option.label}
-              {...this.props}
-              classNamePrefix={'mt-react-select'}
-              onInputChange={this.onInputChange}
-              options={options}
-              onMenuOpen={this.onMenuOpen}
-              autoload={false}
-              onMenuScrollToBottom={this.onMenuScrollToBottom}
-              {...selectProps}
-              backspaceRemovesValue={false}
-            />
-          </div>
+          <Select
+            styles={this.getStyle()}
+            {...this.props}
+            ref={node => (this.selectRef = node)}
+            classNamePrefix={'mt-react-select'}
+            onInputChange={this.onInputChange}
+            options={options}
+            onMenuOpen={this.onMenuOpen}
+            autoload={false}
+            onMenuScrollToBottom={this.onMenuScrollToBottom}
+            filterOption={option => option.label}
+            {...selectProps}
+            backspaceRemovesValue={false}
+          />
         )}
       </React.Fragment>
     );

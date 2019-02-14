@@ -15,13 +15,18 @@ export default class Icon extends Component {
   };
   static defaultProps = {
     onClick: noop,
-    gradient: false
+    gradient: false,
+    style: {}
   };
 
   render() {
     const { type, onClick, gradient } = this.props;
     let { style, className } = this.props;
-    style = gradient ? { ...style, ...svgIcons[type] } : style;
+    let svgIcon = {};
+    if (gradient) {
+      svgIcon = svgIcons[type](style);
+    }
+    style = gradient ? { ...style, ...svgIcon } : style;
     className = gradient ? className : classnames(`icon-${type}`, className);
     const iconProps = {
       className,

@@ -83,7 +83,8 @@ const mixins = {
     MODAL_WRAPPER: 9912,
     MODAL_MASK: 9911,
     TOOLTIP: 9950,
-    POPOVER: 9940
+    POPOVER: 9940,
+    HEADER: 9900
   },
 
   // links ----------//
