@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 
 class StringToHTML extends React.Component {
   static propTypes = {
-    content: PropTypes.string
+    content: PropTypes.string,
+    className: PropTypes.string
   };
   render() {
-    let { content } = this.props;
-    return <div dangerouslySetInnerHTML={{ __html: content }} />;
+    let { content, className } = this.props;
+    return (
+      <div
+        className={className}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    );
   }
 }
 

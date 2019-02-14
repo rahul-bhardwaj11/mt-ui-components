@@ -93,7 +93,7 @@ const MtWrapper = styled.div`
     margin: 8px;
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
-      color: #606369;
+      color: ${theme.colors.DARK_OUTER_SPACE};
       &:hover {
         background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
         color: ${theme.colors.WHITE};

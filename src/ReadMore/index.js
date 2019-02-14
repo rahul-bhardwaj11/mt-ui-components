@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-//import Truncate from "react-truncate";
 import mixins from '../styles/mixins';
 import trunc from 'trunc-html';
+import CircleSvg from '../styles/icons/circle.svg';
 //import { min } from 'moment';
 
 const ALLOWED_HTML_TAGS = [
@@ -55,11 +55,32 @@ const ALLOWED_HTML_TAGS = [
 
 const MTReadMore = styled.div`
   line-height: initial;
+  ul,
   ol {
-    padding-left: 16px;
+    list-style: none;
+    counter-reset: my-sec-counter;
   }
-  ul {
-    padding-left: 18px;
+
+  li {
+    position: relative;
+    padding-left: 20px;
+  }
+
+  ul li:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: url(${CircleSvg});
+    transform: scale(0.6);
+    opacity: 0.6;
+  }
+  ol li:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    counter-increment: my-sec-counter;
+    content: counter(my-sec-counter) '.';
+    transform: scale(1);
   }
   .trunc-text {
     max-height: ${props => {
@@ -91,7 +112,7 @@ class ReadMore extends Component {
 
   toggleLines(event) {
     event.preventDefault();
-
+    this.props.onToggle({ expanded: !this.state.expanded });
     this.setState({
       expanded: !this.state.expanded
     });
@@ -168,7 +189,8 @@ ReadMore.defaultProps = {
   moreText: 'Read More',
   lessText: 'Read Less',
   showViewMore: true,
-  truncateHeight: 100
+  truncateHeight: 100,
+  onToggle: () => {}
 };
 
 ReadMore.propTypes = {
@@ -178,6 +200,7 @@ ReadMore.propTypes = {
   showViewMore: PropTypes.bool,
   className: PropTypes.string,
   html: PropTypes.string,
+  onToggle: PropTypes.func,
   truncateHeight: PropTypes.number
 };
 

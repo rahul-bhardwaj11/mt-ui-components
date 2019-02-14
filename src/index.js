@@ -24,6 +24,7 @@ export Dropdown from './Dropdown';
 export EditableContent from './EditableContent';
 export Elevation from './Elevation';
 export ErrorBoundary from './ErrorBoundary';
+export ErrorPage from './ErrorPage';
 export FileViewer from './FileViewer';
 export Form from './Form';
 export Grid from './Grid';
