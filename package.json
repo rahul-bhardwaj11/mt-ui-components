@@ -10,7 +10,7 @@
     "story": "start-storybook -p 6006 -s ./public",
     "test": "jest --verbose ",
     "test:update": "jest -u",
-    "start": "concurrently  \"npm run story\" \"npm run babel:watch\" \"npm run lint:watch\" --kill-others --names 'storybook,babel,lint'",
+    "start": "npm run story",
     "prebuild": "node utils/prebuild.js",
     "build:prod": "babel src --out-dir lib --copy-files --ignore test,*.stories.js && npm run test && npm run lint",
     "babel": "babel src --out-dir lib --copy-files --ignore test,*.stories.js",
