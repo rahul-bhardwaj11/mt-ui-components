@@ -336,11 +336,14 @@ export default class AsyncSelect extends Component {
       this.setState({ inputValue: '', search: '' });
       this.isIconClicked = true;
     }
-    if (this.selectRef && this.selectRef.contains(event.target)) {
+    if (this.selectWrapperRef && this.selectWrapperRef.contains(event.target)) {
       this.isBlurActive = false;
     }
 
-    if (!this.selectRef.contains(event.target)) {
+    if (
+      this.selectWrapperRef &&
+      !this.selectWrapperRef.contains(event.target)
+    ) {
       if (
         (this.buttonRef && !this.buttonRef.contains(event.target)) ||
         !this.props.isButton
@@ -757,7 +760,7 @@ export default class AsyncSelect extends Component {
         };
 
     return (
-      <React.Fragment>
+      <div ref={node => (this.selectWrapperRef = node)}>
         {isButton && (
           <div
             ref={e => {
@@ -799,7 +802,7 @@ export default class AsyncSelect extends Component {
             backspaceRemovesValue={false}
           />
         )}
-      </React.Fragment>
+      </div>
     );
   }
 }
