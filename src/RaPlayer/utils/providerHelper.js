@@ -11,7 +11,7 @@ export default function ProviderHelperHoc(Comp) {
     constructor(props) {
       super(props);
       this.store = createStore(getInitialState(props));
-      if(IS_DEV){
+      if (IS_DEV) {
         window.raPlayer = this.store;
       }
     }

@@ -14,4 +14,4 @@ export const MAX_CHAR_LIMIT_COMMENT = 1000;
 export const MEDIA_STATES = {
   PLAY: 'PLAY',
   PAUSE: 'PAUSE'
-}
+};
