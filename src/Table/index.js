@@ -56,7 +56,8 @@ class Table extends Component {
       isFreezed: PropTypes.bool.isRequired,
       freezeMsg: PropTypes.string
     }),
-    locale: PropTypes.object
+    locale: PropTypes.object,
+    className: PropTypes.string
   };
   static defaultProps = {
     infiniteScroll: false,
@@ -310,6 +311,7 @@ class Table extends Component {
         {...this.styleProps}
         infiniteScroll={infiniteScroll}
         showActionBar={showActionBar}
+        className={classnames(this.props.className, 'tableConatiner')}
       >
         <AntTable {...antTableProps}>{children}</AntTable>
         {loading && loadingMore && this.getLoader()}
