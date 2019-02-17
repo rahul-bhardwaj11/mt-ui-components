@@ -75,7 +75,8 @@ export default class AsyncSelect extends Component {
     ]),
     style: PropTypes.object,
     optionRenderer: PropTypes.func,
-    showSearch: PropTypes.bool
+    showSearch: PropTypes.bool,
+    hasNone: PropTypes.bool
   };
 
   static defaultProps = {
@@ -85,7 +86,8 @@ export default class AsyncSelect extends Component {
     buttonLabel: 'filter',
     onSelect: () => {},
     persistOpen: false,
-    hideFooter: false
+    hideFooter: false,
+    hasNone: true
   };
 
   constructor(props) {
@@ -334,11 +336,14 @@ export default class AsyncSelect extends Component {
       this.setState({ inputValue: '', search: '' });
       this.isIconClicked = true;
     }
-    if (this.selectRef && this.selectRef.contains(event.target)) {
+    if (this.selectWrapperRef && this.selectWrapperRef.contains(event.target)) {
       this.isBlurActive = false;
     }
 
-    if (!this.selectRef.contains(event.target)) {
+    if (
+      this.selectWrapperRef &&
+      !this.selectWrapperRef.contains(event.target)
+    ) {
       if (
         (this.buttonRef && !this.buttonRef.contains(event.target)) ||
         !this.props.isButton
@@ -631,7 +636,11 @@ export default class AsyncSelect extends Component {
   };
 
   normalizeOption = options => {
-    if (!this.props.isMulti && !this.state.search.length) {
+    if (
+      !this.props.isMulti &&
+      !this.state.search.length &&
+      this.props.hasNone
+    ) {
       options.unshift({ label: 'None', value: 'None' });
     }
     return options;
@@ -684,8 +693,8 @@ export default class AsyncSelect extends Component {
     const DEFAULT_SELECT_STYLE = {
       container: base => ({
         ...base,
-        width: base.width ? base.width : '256px',
-        minWidth: '256px',
+        width: base.width ? base.width : '210px',
+        minWidth: '210px',
         position: isButton ? 'absolute' : 'inherit'
       })
     };
@@ -751,7 +760,7 @@ export default class AsyncSelect extends Component {
         };
 
     return (
-      <React.Fragment>
+      <div ref={node => (this.selectWrapperRef = node)}>
         {isButton && (
           <div
             ref={e => {
@@ -793,7 +802,7 @@ export default class AsyncSelect extends Component {
             backspaceRemovesValue={false}
           />
         )}
-      </React.Fragment>
+      </div>
     );
   }
 }
