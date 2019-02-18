@@ -45,32 +45,11 @@ class Tabs extends Component {
     className: PropTypes.string
   };
 
-  state = {
-    activeKey: this.props.activeKey
-  };
-
-  onChange = activeKey => {
-    this.setState({ activeKey });
-    if (this.props.onChange) {
-      this.props.onChange(activeKey);
-    }
-  };
-
-  componentWillReceiveProps(nextProps) {
-    if (typeof nextProps.activeKey !== 'undefined') {
-      this.setState({ activeKey: nextProps.activeKey });
-    }
-  }
-
   render() {
     let { options, className } = this.props;
     return (
       <MtTabs>
-        <AntTabs
-          activeKey={this.state.activeKey}
-          onChange={this.onChange}
-          className={className}
-        >
+        <AntTabs defaultActiveKey={this.props.activeKey} className={className}>
           {options.map(option => {
             return (
               <AntTabs.TabPane tab={option.title} key={option.key}>

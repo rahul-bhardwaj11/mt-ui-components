@@ -311,7 +311,7 @@ class Table extends Component {
         {...this.styleProps}
         infiniteScroll={infiniteScroll}
         showActionBar={showActionBar}
-        className={classnames(this.props.className, 'tableConatiner')}
+        className={classnames(this.props.className, 'tableContainer')}
       >
         <AntTable {...antTableProps}>{children}</AntTable>
         {loading && loadingMore && this.getLoader()}

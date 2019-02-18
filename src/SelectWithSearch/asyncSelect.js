@@ -4,7 +4,8 @@ import Button from '../Button';
 import CheckBox from '../CheckBox';
 import Icon from '../Icon';
 import Loader from '../Loader';
-import Select, { components } from 'react-select';
+import { components } from 'react-select';
+import Select from 'react-select/lib/Creatable';
 import classnames from 'classnames';
 
 const initialCache = {
@@ -73,7 +74,9 @@ export default class AsyncSelect extends Component {
     style: PropTypes.object,
     optionRenderer: PropTypes.func,
     showSearch: PropTypes.bool,
-    hasNone: PropTypes.bool
+    hasNone: PropTypes.bool,
+    isCreatable: PropTypes.bool,
+    isValidNewOption: PropTypes.func
   };
 
   static defaultProps = {
@@ -81,7 +84,8 @@ export default class AsyncSelect extends Component {
     pageSize: 15,
     isButton: false,
     buttonLabel: 'filter',
-    hasNone: true
+    hasNone: true,
+    isValidNewOption: () => true
   };
 
   constructor(props) {
@@ -481,6 +485,7 @@ export default class AsyncSelect extends Component {
     if (!this.props.isMulti)
       return optionRenderer ? (
         <div
+          className="menuOption"
           title={data.label}
           onClick={() => {
             this.handleSingleOnSelect(data);
@@ -489,7 +494,7 @@ export default class AsyncSelect extends Component {
           {optionRenderer(data)}
         </div>
       ) : (
-        <div title={data.label}>
+        <div className="menuOption" title={data.label}>
           <components.Option {...params} />
         </div>
       );
@@ -681,6 +686,19 @@ export default class AsyncSelect extends Component {
     return styles;
   };
 
+  isValidNewOption = (inputValue, selectValue, selectOptions) => {
+    const { search, optionsCache } = this.state;
+    const { isValidNewOption, isCreatable } = this.props;
+    const isLoading = optionsCache[search] && optionsCache[search].isLoading;
+    return (
+      isCreatable &&
+      !isLoading &&
+      inputValue &&
+      !selectOptions.map(option => option.label).includes(inputValue) &&
+      isValidNewOption(inputValue, selectValue, selectOptions)
+    );
+  };
+
   render() {
     const {
       search,
@@ -776,6 +794,7 @@ export default class AsyncSelect extends Component {
               onMenuScrollToBottom={this.onMenuScrollToBottom}
               {...selectProps}
               backspaceRemovesValue={false}
+              isValidNewOption={this.isValidNewOption}
             />
           </div>
         )}
