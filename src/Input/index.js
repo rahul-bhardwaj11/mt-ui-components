@@ -53,7 +53,7 @@ const MtInput = styled.div`
     &:focus {
       border-color: ${theme.colors.SILVER};
       outline: 0;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+      box-shadow: none;
     }
   }
   .ant-input-disabled {
@@ -75,6 +75,7 @@ class Input extends Component {
     placeholder: PropTypes.string,
     maxLength: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
     maxLengthClassName: PropTypes.string,
+    wrapperClassName: PropTypes.string,
     showMaxLength: PropTypes.bool,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
@@ -146,14 +147,17 @@ class Input extends Component {
       maxLength,
       maxLengthClassName,
       showMaxLength,
-      className
+      wrapperClassName,
+      className,
+      ...rest
     } = this.props;
     const { value } = this.state;
     return (
-      <MtInput>
+      <MtInput className={wrapperClassName}>
         <AntInput
-          {...this.props}
+          {...rest}
           value={value}
+          maxLength={maxLength}
           onChange={this.onChange}
           onFocus={this.moveCaretAtEnd}
           className={classnames(className, { errorInputStyle: errors[0] })}

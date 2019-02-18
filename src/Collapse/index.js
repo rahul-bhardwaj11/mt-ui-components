@@ -86,6 +86,7 @@ class Collapse extends Component {
                 header={option.header}
                 style={panelStyle}
                 className={option.className}
+                forceRender={option.forceRender}
               >
                 {typeof option.content === 'string' ? (
                   <StringToHTML content={option.content} />

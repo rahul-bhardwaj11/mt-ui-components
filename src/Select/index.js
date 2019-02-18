@@ -17,7 +17,7 @@ const MtWrapper = styled.span`
     z-index: 999999;
     .ant-select-dropdown-menu-item {
      div {
-         width: 95%;
+         width: ${props => (props.showTick ? '95%' : null)};
          text-overflow: ellipsis;
          overflow: hidden;
          white-space: nowrap;
@@ -64,18 +64,22 @@ const MtWrapper = styled.span`
         border: 1px solid ${theme.colors.SILVER};
       }
     }
+    &:hover, &:focus, &:active, &:focus-within, &:visited {
+      border-color: ${theme.colors.SILVER};
+      box-shadow: none;
+    }
   }
 
   .ant-select-open {
     .ant-select-selection {
       &.ant-select-selection--multiple {
-        border: 1px solid transparent;
+        border: 1px solid ${theme.colors.ALTO};
         outline: none;
         &:hover,
         &:focus,
         &:active {
-          border: 0px;
-          border-color: transparent;
+          border: 1px solid ${theme.colors.ALTO};
+          border-color: ${theme.colors.ALTO};
           outline: none;
           box-shadow: none;
         }
@@ -88,10 +92,7 @@ const MtWrapper = styled.span`
     margin: 8px;
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
-      color: #606369;
-      // &:first-child {
-      //   background-color: ${theme.colors.WHITE};
-      // }
+      color: ${theme.colors.DARK_OUTER_SPACE};
       &:hover {
         background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
         color: ${theme.colors.WHITE};
@@ -130,11 +131,10 @@ const MtWrapper = styled.span`
     }
   }
   .ant-select-selection--multiple {
-    width: 688px;
-    padding: 5px;
-    border: 0px;
+    padding: 0;
+    border: 1px solid ${theme.colors.ALTO};
     &:focus {
-      border-color: transparent;
+      border: 1px solid ${theme.colors.ALTO};
       box-shadow: none;
     }
     .ant-select-selection__rendered {
@@ -164,10 +164,17 @@ const MtWrapper = styled.span`
           }
         }
       }
+
+      & > ul > li {
+        margin-bottom: 3px;
+      }
     }
   }
-  .ant-select-dropdown--multiple {
+  .ant-select-dropdown, .ant-select-dropdown--multiple {
     z-index: 999999;
+  }
+  .mt-react-select__placeholder {
+    color: ${theme.colors.SILVER};
   }
 `;
 
@@ -180,6 +187,7 @@ class Select extends Component {
     title: PropTypes.string,
     className: PropTypes.string,
     getPopupContainer: PropTypes.func,
+    showTick: PropTypes.bool,
     value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
@@ -188,7 +196,8 @@ class Select extends Component {
   };
 
   static defaultProps = {
-    style: { minWidth: 125 }
+    style: { minWidth: 125 },
+    showTick: true
   };
 
   element = null;
@@ -218,7 +227,7 @@ class Select extends Component {
   }
 
   render() {
-    let { options, style } = this.props;
+    let { options, style, showTick } = this.props;
     const container =
       this.props.getPopupContainer && this.props.getPopupContainer();
     return (
@@ -227,7 +236,7 @@ class Select extends Component {
           <MtWrapper style={style} innerRef={this.selectRef} />,
           container || this.element
         )}
-        <MtWrapper style={style} key={this.state.key}>
+        <MtWrapper style={style} key={this.state.key} showTick={showTick}>
           <AntSelect
             {...this.props}
             onClick={event => {
@@ -253,7 +262,7 @@ class Select extends Component {
                   ) : (
                     option.content
                   )}
-                  <Icon type="tick" />
+                  {showTick && <Icon type="tick" />}
                 </Option>
               );
             })}
@@ -263,5 +272,75 @@ class Select extends Component {
     );
   }
 }
+
+class AsyncSelect extends Component {
+  static propTypes = {
+    handleSearch: PropTypes.func.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    options: PropTypes.array,
+    style: PropTypes.object,
+    placeholder: PropTypes.string,
+    title: PropTypes.string,
+    value: PropTypes.array
+  };
+
+  static defaultProps = {
+    style: { minWidth: 125 }
+  };
+
+  handleSearch = async value => {
+    this.props.handleSearch(value);
+  };
+
+  handleChange = value => {
+    this.props.handleChange(value);
+  };
+
+  render() {
+    const { style } = this.props;
+
+    return (
+      <MtWrapper
+        innerRef={el => {
+          if (el) {
+            this.selectDropdownRef = el;
+          }
+        }}
+        style={style}
+      >
+        <AntSelect
+          {...this.props}
+          showSearch
+          value={this.props.value}
+          onSearch={this.handleSearch}
+          onChange={this.handleChange}
+          filterOption={false}
+          defaultActiveFirstOption={false}
+          showArrow={false}
+        >
+          {this.props.options &&
+            this.props.options.map(option => {
+              return (
+                <Option
+                  key={option.key}
+                  value={option.key}
+                  title={this.props.title || option.title}
+                  disabled={option.disabled}
+                >
+                  {typeof option.content === 'string' ? (
+                    <StringToHTML content={option.content} />
+                  ) : (
+                    option.content
+                  )}
+                </Option>
+              );
+            })}
+        </AntSelect>
+      </MtWrapper>
+    );
+  }
+}
+
+Select.Async = AsyncSelect;
 
 export default Select;

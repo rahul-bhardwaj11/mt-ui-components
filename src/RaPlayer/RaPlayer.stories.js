@@ -10,8 +10,6 @@ const stories = storiesOf('RaPlayer', module);
 // stories.addDecorator(withKnobs);
 
 const props = {
-  targetVideoContainer: 'targetContainer',
-  targetCommentContainer: 'targetCommentContainer',
   primaryTracks: [
     {
       src: '360p.mp4',
@@ -22,12 +20,6 @@ const props = {
       label: '720p'
     }
   ],
-  app: {
-    subjectId: 123,
-    companyName: 423,
-    socialId: 111,
-    author: { id: '1222222', name: '123' }
-  },
   showControlsOnly: false,
   edit: true,
   showOnboarding: true,
@@ -45,12 +37,18 @@ const props = {
   },
   editComment: function(comment) {
     console.log(comment);
-  }
+  },
+  commentBarClassName: 'abc',
+  videoControlsClassName: 'videoabc',
+  videoSeekBarClassName: 'videoSeek'
+  // commentBoxHelperRenderer: ({boxRef, ...props}) => <button ref={boxRef}>Test</button>
 };
+
+window.videoRef = React.createRef();
 
 stories.add(
   'Default Player',
-  withInfo('Information')(() => <RaPlayer {...props} />)
+  withInfo('Information')(() => <RaPlayer ref={window.videoRef} {...props} />)
 );
 
 const secondaryPlayerProps = {
@@ -69,20 +67,18 @@ stories.add('With secondary player', () => (
 
 const commentProps = {
   ...props,
-  commentPane: {
-    activeComments: [
-      {
-        time: 2,
-        id: '3',
-        cname: 4,
-        author: {
-          id: 12,
-          name: 'Rama'
-        },
-        text: 'Abc'
-      }
-    ]
-  }
+  comments: [
+    {
+      time: 2,
+      id: '3',
+      cname: 4,
+      author: {
+        id: 12,
+        name: 'Rama'
+      },
+      text: 'Abc'
+    }
+  ]
 };
 
 stories.add('With pre existing comments', () => <RaPlayer {...commentProps} />);

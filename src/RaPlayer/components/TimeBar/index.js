@@ -7,7 +7,8 @@ class TimeBar extends Component {
   static propTypes = {
     onSeekHandler: PropTypes.func,
     seekTime: PropTypes.number,
-    onMouseMove: PropTypes.func
+    onMouseMove: PropTypes.func,
+    className: PropTypes.string
   };
 
   constructor(props) {
@@ -31,7 +32,7 @@ class TimeBar extends Component {
   }
 
   render() {
-    const { seekTime, onMouseMove } = this.props;
+    const { seekTime, onMouseMove, className } = this.props;
     let containerHeight = isIE() ? 15 : 4;
     let seekBarStyle = {
         backgroundImage: !isIE()
@@ -53,9 +54,12 @@ class TimeBar extends Component {
           min="0"
           max="100"
           step="0.01"
-          className={[style.marginR12, style.marginT14, style.rangeBar].join(
-            ' '
-          )}
+          className={[
+            style.marginR12,
+            style.marginT14,
+            style.rangeBar,
+            className
+          ].join(' ')}
           onMouseMove={onMouseMove}
           style={seekBarStyle}
         />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import nanoid from 'nanoid';
-import Modal from '../Modal';
+import StyleAlertBox from './style';
 
 const noop = () => undefined;
 class AlertBox extends Component {
@@ -29,7 +29,7 @@ class AlertBox extends Component {
       footer = null;
     }
     return (
-      <Modal
+      <StyleAlertBox
         footer={footer}
         onCancel={() => {
           this.close(false);
@@ -39,8 +39,8 @@ class AlertBox extends Component {
         }}
         visible={true}
       >
-        {children}
-      </Modal>
+        <div className="getHelpMsg">{children}</div>
+      </StyleAlertBox>
     );
   }
 }
