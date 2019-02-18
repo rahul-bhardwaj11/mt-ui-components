@@ -139,7 +139,7 @@ class EditableContent extends Component {
             addonAfter={
               showRemainingCharacterCount &&
               inputProps.maxLength &&
-              inputProps.maxLength - this.state.nextValue.length
+              String(inputProps.maxLength - this.state.nextValue.length)
             }
           />
           {/* {showRemainingCharacterCount &&
