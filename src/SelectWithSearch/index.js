@@ -200,7 +200,7 @@ const SelectBox = styled.div`
     padding: 6px 20px 8px 16px;
     color: ${theme.colors.OUTER_SPACE};
     height: 32px;
-    width: 100%;
+    width: auto;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
