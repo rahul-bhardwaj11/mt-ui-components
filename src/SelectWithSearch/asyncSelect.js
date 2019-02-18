@@ -485,6 +485,7 @@ export default class AsyncSelect extends Component {
     if (!this.props.isMulti)
       return optionRenderer ? (
         <div
+          className="menuOption"
           title={data.label}
           onClick={() => {
             this.handleSingleOnSelect(data);
@@ -493,7 +494,7 @@ export default class AsyncSelect extends Component {
           {optionRenderer(data)}
         </div>
       ) : (
-        <div title={data.label}>
+        <div className="menuOption" title={data.label}>
           <components.Option {...params} />
         </div>
       );
