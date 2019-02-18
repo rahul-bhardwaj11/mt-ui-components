@@ -90,7 +90,8 @@ class UserThumbnail extends Component {
     size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     icon: PropTypes.string,
     expanded: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    children: PropTypes.node
   };
 
   static defaultProps = {
@@ -108,17 +109,19 @@ class UserThumbnail extends Component {
   };
 
   render() {
-    const { expanded, className, icon, ...rest } = this.props;
+    const { expanded, className, icon, children, ...rest } = this.props;
     const { title } = rest;
 
     let mtProps = Object.assign({}, rest);
-    mtProps = !title
-      ? Object.assign(mtProps, { icon: icon || 'user' })
-      : mtProps;
+    mtProps =
+      !title && !children
+        ? Object.assign(mtProps, { icon: icon || 'user' })
+        : mtProps;
     return (
       <MtUserThumbnail className={className}>
         <Avatar className="userThumbnailAvatar" {...mtProps}>
-          {title && this.getInitials(title)}
+          {!children && title && this.getInitials(title)}
+          {children}
         </Avatar>
         {expanded && (
           <UserThumbnailInfo {...rest} className="userThumbnailInfo" />

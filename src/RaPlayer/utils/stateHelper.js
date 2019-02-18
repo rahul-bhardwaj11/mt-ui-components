@@ -26,7 +26,7 @@ const initialState = {
   defaultTrack: 0,
   showControlsOnly: false,
   edit: true,
-  autoplay: true,
+  autoplay: false,
   startTime: 0,
   comments: [],
   commentBarClassName: '',
