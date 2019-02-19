@@ -103,6 +103,7 @@ const SelectBox = styled.div`
     position: relative;
     z-index: 2;
     ${props => (props.isButton ? 'margin-top: 10px' : '')};  
+
     .activeSearch {
       .mt-react-select__value-container{
         margin-left: 35px;

@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import Input from '../Input';
 import Tag from '../Tag';
 import Icon from '../Icon';
-import theme from '../styles/theme';
 import styled from 'styled-components';
 
 const StyledEditableContent = styled.div`
   padding: 6px 12px;
-
   .editableText {
     float: left;
     cursor: pointer;
@@ -17,9 +15,6 @@ const StyledEditableContent = styled.div`
 
   .icon-edit {
     cursor: pointer;
-    position: absolute;
-    top: 3px;
-    right: 0px;
   }
 
   .editableWrapper {
@@ -33,8 +28,6 @@ const StyledEditableInput = styled.div`
   .editableInputControl {
     width: 40%;
     float: left;
-    position: relative;
-
     .icon-close {
       font-size: 10px;
     }
@@ -44,13 +37,6 @@ const StyledEditableInput = styled.div`
   .editableContentCancelBtn {
     margin: 4px 0px 0px 12px;
     padding: 0px 12px;
-  }
-
-  .ant-input-group-addon {
-    width: 32px;
-    font-size: 11px;
-    padding: 0 6px;
-    background-color: ${theme.colors.WHITE};
   }
 `;
 
@@ -136,15 +122,10 @@ class EditableContent extends Component {
             {...inputProps}
             value={this.state.nextValue}
             onChange={this.handleInputChange}
-            addonAfter={
-              showRemainingCharacterCount &&
-              inputProps.maxLength &&
-              inputProps.maxLength - this.state.nextValue.length
-            }
           />
-          {/* {showRemainingCharacterCount &&
+          {showRemainingCharacterCount &&
             inputProps.maxLength &&
-            inputProps.maxLength - this.state.nextValue.length} */}
+            inputProps.maxLength - this.state.nextValue.length}
         </div>
         {!editOnEnter && (
           <React.Fragment>
