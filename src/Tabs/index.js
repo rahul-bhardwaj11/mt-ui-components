@@ -46,10 +46,14 @@ class Tabs extends Component {
   };
 
   render() {
-    let { options, className } = this.props;
+    let { options, className, onChange } = this.props;
     return (
       <MtTabs>
-        <AntTabs defaultActiveKey={this.props.activeKey} className={className}>
+        <AntTabs
+          defaultActiveKey={this.props.activeKey}
+          className={className}
+          onChange={onChange}
+        >
           {options.map(option => {
             return (
               <AntTabs.TabPane tab={option.title} key={option.key}>
