@@ -148,12 +148,12 @@ const SelectBox = styled.div`
         margin-left: 20px;
         line-height: 26px;
       }
+    }
 
-      .mt-react-select__placeholder {
-          margin-left: 4px;
-          ${mixin.inactiveLink()};
-          ${mixin.truncate('100%')};
-      }
+   .mt-react-select__placeholder {
+      margin-left: 4px;
+      ${mixin.inactiveLink()};
+      ${mixin.truncate('100%')};
     }
 
     .mt-react-select__dropdown-indicator {
