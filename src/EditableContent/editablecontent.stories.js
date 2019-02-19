@@ -19,18 +19,16 @@ class EditableContentWrapper extends Component {
     editOnEnter: PropTypes.bool
   };
 
-  handleSave = value => {
+  handleChange = value => {
     this.setState({ value });
   };
 
   render() {
     return (
       <EditableContent
+        onChange={this.handleChange}
         value={this.state.value}
         editOnEnter={this.props.editOnEnter}
-        onSave={this.handleSave}
-        showRemainingCharacterCount={true}
-        maxLength={50}
       />
     );
   }
