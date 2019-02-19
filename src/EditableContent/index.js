@@ -50,7 +50,6 @@ class EditableContent extends Component {
 
   static propTypes = {
     editOnEnter: PropTypes.bool,
-    showRemainingCharacterCount: PropTypes.bool,
     value: PropTypes.string,
     onChange: PropTypes.func,
     onSave: PropTypes.func.isRequired,
@@ -60,8 +59,7 @@ class EditableContent extends Component {
   static defaultProps = {
     placeholder: 'Add Content',
     editOnEnter: false,
-    value: '',
-    showRemainingCharacterCount: false
+    value: ''
   };
 
   componentDidUpdate(oldProps) {
@@ -104,17 +102,13 @@ class EditableContent extends Component {
   handleClear = () => this.setState({ nextValue: '' });
 
   renderEditingComponent() {
-    const {
-      editOnEnter,
-      showRemainingCharacterCount,
-      ...inputProps
-    } = this.props;
+    const { editOnEnter, ...inputProps } = this.props;
     if (editOnEnter) {
       inputProps.onPressEnter = this.handleSave;
       inputProps.onBlur = this.handleSave;
       inputProps.suffix = <Icon type="close" onClick={this.handleClear} />;
     }
-    const hasError = inputProps.errors && inputProps.errors.length;
+    inputProps.maxLength = false;
     return (
       <StyledEditableInput>
         <div className="editableInputControl">
@@ -123,17 +117,14 @@ class EditableContent extends Component {
             value={this.state.nextValue}
             onChange={this.handleInputChange}
           />
-          {showRemainingCharacterCount &&
-            inputProps.maxLength &&
-            inputProps.maxLength - this.state.nextValue.length}
         </div>
         {!editOnEnter && (
           <React.Fragment>
             <Tag
               className="editableContentSaveBtn"
               type="action"
-              onClick={!hasError && this.handleSave}
-              disabled={hasError}
+              onClick={this.handleSave}
+              disabled={inputProps.errors && inputProps.errors.length}
             >
               Save
             </Tag>
