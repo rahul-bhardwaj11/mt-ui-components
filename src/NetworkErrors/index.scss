@@ -1,0 +1,59 @@
+@import '~styles/index.scss';
+.errorpage {
+  @include size(100%, 100%);
+  padding: 20px 15px;
+  background: #fff;
+  position: fixed;
+  .logo {
+    @include size(195px, 34px);
+    background: url(./assests/images/companylogo.png) no-repeat 6px 0px
+      transparent;
+  }
+  .errorLogo {
+    margin: 0 auto 35px;
+    @include size(164px, 162px);
+    background: url(./assests/images/error_page_logo.png) no-repeat 6px 0px
+      transparent;
+  }
+  .errorWrapper {
+    margin-top: 100px;
+    text-align: center;
+    .mainErrorText {
+      color: #000;
+      font-size: 36px;
+      line-height: 60px;
+    }
+    .subErrorText {
+      color: #000;
+      font-size: 18px;
+      padding-bottom: 30px;
+    }
+    .supportLink {
+      line-height: 22px;
+      text-align: center;
+      .backLink {
+        color: #0072bc;
+        font-size: 14px;
+        display: inline-block;
+        cursor: pointer;
+      }
+      .divider {
+        color: #000;
+        font-size: 14px;
+        margin: 0px 5px;
+        display: inline-block;
+      }
+      .contactText {
+        color: #000;
+        font-size: 14px;
+        display: inline-block;
+        margin-right: 4px;
+      }
+      .supportText {
+        color: #0072bc;
+        font-size: 14px;
+        display: inline-block;
+      }
+    }
+  }
+}
