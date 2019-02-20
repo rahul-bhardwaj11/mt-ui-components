@@ -75,6 +75,7 @@ class Input extends Component {
     placeholder: PropTypes.string,
     maxLength: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
     maxLengthClassName: PropTypes.string,
+    wrapperClassName: PropTypes.string,
     showMaxLength: PropTypes.bool,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
@@ -146,12 +147,13 @@ class Input extends Component {
       maxLength,
       maxLengthClassName,
       showMaxLength,
+      wrapperClassName,
       className,
       ...rest
     } = this.props;
     const { value } = this.state;
     return (
-      <MtInput>
+      <MtInput className={wrapperClassName}>
         <AntInput
           {...rest}
           value={value}

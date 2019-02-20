@@ -17,6 +17,10 @@ const SelectBox = styled.div`
     line-height: 18px;        
   }
 
+  .mt-react-select__placeholder {
+    color: ${theme.colors.SILVER};
+  }
+
   &.buttonSelect {
     .mt-react-select__control {
        width: 100%;
@@ -94,7 +98,8 @@ const SelectBox = styled.div`
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.08);
   }
   .mt-react-select__menu-list {
-    padding: 8px;
+    padding: 0;
+    margin: 8px 0;
     color: ${theme.colors.OUTER_SPACE};
   }
 
@@ -105,8 +110,8 @@ const SelectBox = styled.div`
     ${props => (props.isButton ? 'margin-top: 10px' : '')};  
     .activeSearch {
       .mt-react-select__value-container{
-        margin-left: 35px;
-        line-height: 18px;
+        margin-left: 34px;
+        line-height: 30px;
       }
 
       .activeInput {
@@ -137,8 +142,9 @@ const SelectBox = styled.div`
         left: 0;
         position: absolute;
         opacity: 0.6;
-        left: 12px;
-        top: 10px;
+        left: 16px;
+        top: 9px;
+        line-height: 30px;
       }
     }
     .mt-react-select__dropdown-indicator {
@@ -194,7 +200,7 @@ const SelectBox = styled.div`
     padding: 6px 20px 8px 16px;
     color: ${theme.colors.OUTER_SPACE};
     height: 32px;
-    width: 100%;
+    width: auto;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -217,10 +223,6 @@ const SelectBox = styled.div`
   .ant-checkbox-wrapper .ant-checkbox {
     vertical-align: middle;
     margin-right: 8px;
-  }
-
-  .mt-react-select__menu-list--is-multi {
-    padding: 4px 24px 0px;
   }
 
   .selectedItem {
@@ -253,6 +255,7 @@ const SelectBox = styled.div`
 .buttonWrapperL {
   float: left;
   width: 50%; 
+
 }
 
 .buttonWrapperR {
@@ -264,6 +267,12 @@ const SelectBox = styled.div`
   } 
 }
 
+.buttonWrapperL, .buttonWrapperR {
+  .ant-btn {
+    padding: 0 16px;
+  }
+};
+
 .icon-cross {
   display: none;
 }
@@ -274,8 +283,9 @@ const SelectBox = styled.div`
 }
 
 .checkboxWrapper {
-  margin-top: 12px;  
   float: none;  
+  padding: 6px 8px;
+  margin: 0 8px;
   line-height: initial;
   ${mixin.truncate('100%')};
   .ant-checkbox-wrapper .ant-checkbox {
@@ -284,6 +294,12 @@ const SelectBox = styled.div`
   .labelText{
     ${mixin.truncate('100%')};
     display: block;    
+  }
+
+  &:hover {
+    .ant-checkbox-wrapper .checkBoxLabel {
+      color: ${theme.colors.SHARK};
+    }
   }
 }
 .doneMarginR {
@@ -305,6 +321,7 @@ class SelectWithSearch extends Component {
   };
   static defaultProps = {
     placeholder: 'Type here to Search',
+    onChange: () => {},
     showSearch: true
   };
 
