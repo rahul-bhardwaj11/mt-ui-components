@@ -108,6 +108,7 @@ const SelectBox = styled.div`
     position: relative;
     z-index: 2;
     ${props => (props.isButton ? 'margin-top: 10px' : '')};  
+
     .activeSearch {
       .mt-react-select__value-container{
         margin-left: 34px;
@@ -154,12 +155,12 @@ const SelectBox = styled.div`
         margin-left: 20px;
         line-height: 26px;
       }
+    }
 
-      .mt-react-select__placeholder {
-          margin-left: 4px;
-          ${mixin.inactiveLink()};
-          ${mixin.truncate('100%')};
-      }
+   .mt-react-select__placeholder {
+      margin-left: 4px;
+      ${mixin.inactiveLink()};
+      ${mixin.truncate('100%')};
     }
 
     .mt-react-select__dropdown-indicator {
