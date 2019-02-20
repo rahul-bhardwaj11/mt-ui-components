@@ -1,8 +1,8 @@
 import outlookCalendarSvg from './assests/images/outlookCalendar.svg';
 import googleCalendar from './assests/images/googleCalendar.svg';
 import keywordsFull from './assests/images/keywordsFull.svg';
-import textConditionFull from './assests/images/textConditionFull.svg';
 import keywordsFullActive from './assests/images/keywordsFullActive.svg';
+import textConditionFull from './assests/images/textConditionFull.svg';
 import textConditionFullActive from './assests/images/textConditionFullActive.svg';
 
 export default {
