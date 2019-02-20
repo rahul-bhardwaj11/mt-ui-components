@@ -36,6 +36,8 @@ stories.add(
       options={object('options', options)}
       defaultValue="Select"
       showTick={true}
+      dropdownMatchSelectWidth={false}
+      dropdownStyle={{ width: '150px' }}
     />
   ))
 );
