@@ -36,8 +36,6 @@ stories.add(
       options={object('options', options)}
       defaultValue="Select"
       showTick={true}
-      dropdownMatchSelectWidth={false}
-      dropdownStyle={{ width: '150px' }}
     />
   ))
 );
@@ -69,6 +67,17 @@ stories
       />
     ))
   );
+stories.add(
+  'Select with different dropdown width',
+  withInfo('Basic usage of the Select')(() => (
+    <Select
+      options={object('options', options)}
+      defaultValue="Select"
+      dropdownMatchSelectWidth={false}
+      dropdownStyle={{ width: '150px' }}
+    />
+  ))
+);
 
 function handleSearch(value) {
   const url = 'https://itunes.apple.com/search?term=';
