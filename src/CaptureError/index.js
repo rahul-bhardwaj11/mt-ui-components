@@ -13,7 +13,7 @@ import { isDebuggingEnabled, noop } from './utils';
 import ServerErrorPage from './ServerError';
 import NotFoundErrorPage from './NotFound';
 import UnauthorizedErrorPage from './UnauthorizedError';
-import ReportError from '~/components/ReportError';
+import ReportError from './ReportError';
 
 const ErrorPage = ({ error }) => {
   switch (error) {
