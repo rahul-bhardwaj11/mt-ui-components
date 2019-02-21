@@ -81,7 +81,9 @@ class Input extends Component {
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     type: PropTypes.oneOf(['text', 'number', 'password', 'file']),
-    errors: PropTypes.array
+    errors: PropTypes.array,
+    min: PropTypes.number,
+    max: PropTypes.number
   };
 
   static defaultProps = {
@@ -102,7 +104,11 @@ class Input extends Component {
     let trimmedValue = isString(value) ? value.trim() : value;
     trimmedValue = trimmedValue || '';
     value = trimmedValue.length ? value : trimmedValue;
-    const { maxLength } = this.props;
+    const { maxLength, max, min, type } = this.props;
+    if (type == 'number') {
+      if (!value) return min || 0;
+      return max < value || min > value ? this.state.value : value;
+    }
     if (maxLength) {
       return maxLength <= value.length ? value : value.substring(0, maxLength);
     }

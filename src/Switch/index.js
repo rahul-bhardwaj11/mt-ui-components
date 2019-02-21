@@ -58,6 +58,13 @@ class Switch extends Component {
     onChange: noop
   };
 
+  componentWillReceiveProps(nextProps) {
+    let { checked } = this.state;
+    if (checked !== nextProps.checked) {
+      this.setState({ checked: nextProps.checked });
+    }
+  }
+
   onChange = checked => {
     this.setState({
       checked: checked
