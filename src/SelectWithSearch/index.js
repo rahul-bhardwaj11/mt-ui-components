@@ -112,7 +112,7 @@ const SelectBox = styled.div`
     .activeSearch {
       .mt-react-select__value-container{
         margin-left: 34px;
-        line-height: 30px;
+        line-height: 18px;
       }
 
       .activeInput {
@@ -145,7 +145,7 @@ const SelectBox = styled.div`
         opacity: 0.6;
         left: 16px;
         top: 9px;
-        line-height: 30px;
+        line-height: 18px;
       }
     }
     .mt-react-select__dropdown-indicator {
