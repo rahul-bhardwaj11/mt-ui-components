@@ -56,7 +56,7 @@ export default class Description extends Component {
       content: value,
       availableLength: maxLength - contentLength
     });
-    contentLength && this.props.onChange(value);
+    this.props.onChange(value, contentLength);
     !contentLength &&
       trigger &&
       required &&
