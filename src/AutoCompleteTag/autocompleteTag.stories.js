@@ -9,13 +9,6 @@ stories.addDecorator(withKnobs);
 stories.add(
   'AutoCompleteTag',
   withInfo('Basic usage AutoComplete')(() => (
-    <AutoCompleteTag
-      tags={[]}
-      inputProps={{
-        placeholder: 'Search words'
-      }}
-      onChange={() => {}}
-      withSearch={true}
-    />
+    <AutoCompleteTag tags={[]} onChange={() => {}} withSearch={true} />
   ))
 );
