@@ -11,27 +11,27 @@ stories.addDecorator(withKnobs);
 stories.add(
   '404 Error',
   withInfo('Differnet Error Pages')(() => (
-    <ErrorPage pageType={PAGE_TYPES['404']} />
+    <ErrorPage pageType={PAGE_TYPES.NOT_FOUND} />
   ))
 );
 
 stories.add(
   '500 Error',
   withInfo('Differnet Error Pages')(() => (
-    <ErrorPage pageType={PAGE_TYPES['500']} />
+    <ErrorPage pageType={PAGE_TYPES.INTERNAL_SERVER_ERROR} />
   ))
 );
 
 stories.add(
   '503 Error',
   withInfo('Differnet Error Pages')(() => (
-    <ErrorPage pageType={PAGE_TYPES['503']} />
+    <ErrorPage pageType={PAGE_TYPES.SERVICE_UNAVAILABLE} />
   ))
 );
 
 stories.add(
   '404 Error without Logo',
   withInfo('Differnet Error Pages')(() => (
-    <ErrorPage showLogo={false} pageType={PAGE_TYPES['503']} />
+    <ErrorPage showLogo={false} pageType={PAGE_TYPES.SERVICE_UNAVAILABLE} />
   ))
 );

@@ -6,7 +6,8 @@ import StringToHTML from '../StringToHTML';
 import Icon from '../Icon';
 import mixins from '../styles/mixins';
 
-import { PAGE_TYPES } from './constants';
+import { PAGE_TYPES, PAGE_TYPES_CONFIG } from './constants';
+import { isObject } from 'util';
 
 const ErrorpageWrapper = styled.div`
   text-align: center;
@@ -50,13 +51,17 @@ class ErrorPage extends Component {
     styleDescription: PropTypes.string,
     styleActionButton: PropTypes.string,
     styleHeadingText: PropTypes.string.isRequired,
-    pageType: PropTypes.shape({
-      image: PropTypes.string,
-      heading: PropTypes.string,
-      description: PropTypes.string,
-      buttons: PropTypes.func
-    }).isRequired,
-    showLogo: PropTypes.bool
+    pageType: PropTypes.oneOfType([
+      PropTypes.oneOf(Object.values(PAGE_TYPES)),
+      PropTypes.shape({
+        image: PropTypes.string,
+        heading: PropTypes.string,
+        description: PropTypes.string,
+        buttons: PropTypes.func
+      })
+    ]).isRequired,
+    showLogo: PropTypes.bool,
+    reportError: PropTypes.func
   };
   static defaultProps = {
     onSearch: () => {},
@@ -72,8 +77,12 @@ class ErrorPage extends Component {
       styleDescription,
       styleActionButton,
       pageType,
-      showLogo
+      showLogo,
+      reportError
     } = this.props;
+    const pageInfo = isObject(pageType)
+      ? pageType
+      : PAGE_TYPES_CONFIG[pageType] || {};
     return (
       <ErrorpageWrapper>
         {showLogo && (
@@ -84,17 +93,17 @@ class ErrorPage extends Component {
         )}
         <Icon
           gradient={true}
-          type={pageType.image}
+          type={pageInfo.image}
           className="errorPageIcon"
           style={{ ...styleIcon }}
         />
         <div className={cs('errorPageHeading', styleHeading)}>
-          {pageType.heading}
+          {pageInfo.heading}
         </div>
         <div className={cs('errorPageDescription', styleDescription)}>
-          <StringToHTML content={pageType.description} />
+          <StringToHTML content={pageInfo.description} />
         </div>
-        {pageType.buttons(styleActionButton)}
+        {pageInfo.buttons(styleActionButton, reportError)}
       </ErrorpageWrapper>
     );
   }

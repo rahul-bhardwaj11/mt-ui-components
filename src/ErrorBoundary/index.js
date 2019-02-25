@@ -1,55 +1,67 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import ErrorBoundaryWrapper from './style';
-import logo from './assets/companylogo.png';
-import errorImage from './assets/error_page_logo.png';
-import Button from '../Button';
+import { PropTypes } from 'prop-types';
+
+import { IS_DEV } from './constants';
+
+import { isDebuggingEnabled, noop } from './utils';
+
+import ErrorPage, { PAGE_TYPES } from '../ErrorPage';
+
+const PrintError = ({ error, errorInfo }) => {
+  return (
+    <pre
+      style={{
+        color: 'white',
+        fontSize: '16px',
+        backgroundColor: '#d20000cc'
+      }}
+    >
+      {error.stack}
+      <br />
+      {errorInfo.componentStack}
+    </pre>
+  );
+};
+
+PrintError.propTypes = {
+  error: PropTypes.object.isRequired,
+  errorInfo: PropTypes.object.isRequired
+};
 
 class ErrorBoundary extends Component {
   static propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node,
+    trackError: PropTypes.func,
+    reportError: PropTypes.func
   };
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false, error: null, errorInfo: null };
-  }
+  static defaultProps = {
+    trackError: noop
+  };
+  state = { error: null, errorInfo: null };
 
   componentDidCatch(error, errorInfo) {
-    this.setState({ hasError: true, error, errorInfo });
-    // if (process.env.NODE_ENV === "production") PostErrors(error, info);
+    this.setState({ error, errorInfo });
+
+    if (!IS_DEV) this.props.trackError(error, errorInfo);
   }
-  reload = () =>
-    this.setState({ error: null, hasError: false, errorInfo: null });
+
   render() {
-    if (this.state.hasError) {
-      return (
-        <ErrorBoundaryWrapper>
-          <div className="innerWrapperErrorBoundary">
-            <div className="logo">
-              <img src={logo} />
-              <img src={errorImage} />
-            </div>
-            <div className="subErrorText">Something went wrong</div>
-            <div className="errorWrapper">
-              <Button
-                onClick={this.reload}
-                type="secondary"
-                className="marginB24"
-              >
-                Reload
-              </Button>
-              {process.env.NODE_ENV === 'production' ? null : (
-                <details style={{ whiteSpace: 'pre-wrap' }}>
-                  {this.state.error && this.state.error.toString()}
-                  <br />
-                  {this.state.errorInfo.componentStack}
-                </details>
-              )}
-            </div>
-          </div>
-        </ErrorBoundaryWrapper>
-      );
+    const { error = {}, errorInfo = {} } = this.state;
+    const { reportError } = this.props;
+    if (error && (IS_DEV || isDebuggingEnabled())) {
+      return <PrintError error={error} errorInfo={errorInfo} />;
     }
+
+    if (error) {
+      <>
+        <ErrorPage
+          pageType={PAGE_TYPES.CLIENT_ERROR}
+          reportError={reportError}
+        />
+      </>;
+      return;
+    }
+
     return this.props.children;
   }
 }
