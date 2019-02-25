@@ -40,3 +40,5 @@ const NetworkError = ({
 NetworkError.propTypes = {
   statusCode: PropTypes.number.isRequired
 };
+
+export default NetworkError;
