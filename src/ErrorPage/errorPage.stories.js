@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import ErrorPage from './index';
+import ErrorPage, { PAGE_TYPES } from './index';
 import { withInfo } from '@storybook/addon-info';
 import { withKnobs } from '@storybook/addon-knobs';
 
@@ -10,5 +10,7 @@ stories.addDecorator(withKnobs);
 
 stories.add(
   'Error Page',
-  withInfo('Differnet Error Pages')(() => <ErrorPage />)
+  withInfo('Differnet Error Pages')(() => (
+    <ErrorPage pageType={PAGE_TYPES['404']} />
+  ))
 );
