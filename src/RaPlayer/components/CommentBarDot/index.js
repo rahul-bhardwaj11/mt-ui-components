@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import style from './index.scss';
+import cs from 'classnames';
 
 class CommentBarDot extends Component {
   static propTypes = {
@@ -8,7 +9,8 @@ class CommentBarDot extends Component {
     onMouseIn: PropTypes.func,
     onMouseOut: PropTypes.func,
     colorMap: PropTypes.object,
-    videoDuration: PropTypes.number
+    videoDuration: PropTypes.number,
+    commentBarClassName: PropTypes.string
   };
   constructor(props) {
     super(props);
@@ -20,13 +22,14 @@ class CommentBarDot extends Component {
       onMouseIn,
       onMouseOut,
       colorMap,
-      videoDuration
+      videoDuration,
+      commentBarClassName
     } = this.props;
     if (!videoDuration) {
       return null;
     }
     return (
-      <div className={style.container}>
+      <div className={cs(commentBarClassName, style.container)}>
         {comments.map(comment => {
           let position = (comment.time * 100) / videoDuration;
           let divStyle = {

@@ -25,8 +25,7 @@ const MtWrapper = styled.span`
      }
    }
    .ant-select-dropdown-menu-item-disabled{
-     background:${theme.colors.PORCELAIN};
-     opacity:0.8;
+     opacity:0.3;
      pointer-events: none;
    }
   .icon-tick {
@@ -93,6 +92,10 @@ const MtWrapper = styled.span`
     margin: 8px;
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
+      margin-bottom: 4px;
+      &:last-child{
+        margin-bottom: 0px;
+      }
       color: ${theme.colors.DARK_OUTER_SPACE};
       &:hover {
         background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
