@@ -38,7 +38,7 @@ function _createIndexFile(files) {
    * This file is generated post build
    * */
   `
-  const fileLines = files.map(v => `export ${v} from "./${v}"`)
+  const fileLines = files.map(v => `export ${v} from './${v}';`)
   fileLines.unshift(fileString)
   fileLines.push('')
   return fileLines.join("\n")

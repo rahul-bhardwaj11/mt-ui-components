@@ -87,11 +87,9 @@ class Table extends Component {
       return;
     }
     this.setState({ loadingMore: true });
-    if (typeof fetchData.then === 'function') {
+    if (typeof fetchData === 'function') {
       await fetchData();
       this.setState({ loadingMore: false });
-    } else if (fetchData) {
-      fetchData();
     }
   };
   onScroll = () => {
@@ -298,8 +296,7 @@ class Table extends Component {
       children,
       infiniteScroll,
       isLoadMore,
-      hasMore,
-      loading
+      hasMore
     } = this.props;
     let { loadingMore } = this.state;
     const { antTableProps, newSelectedRowskey } = this.getAntTableProps();
@@ -314,7 +311,7 @@ class Table extends Component {
         className={classnames(this.props.className, 'tableContainer')}
       >
         <AntTable {...antTableProps}>{children}</AntTable>
-        {loading && loadingMore && this.getLoader()}
+        {loadingMore && this.getLoader()}
         {showActionBar && (
           <ActionBar {...actionBar}>
             {actionBar ? actionBar.actionItem : false}

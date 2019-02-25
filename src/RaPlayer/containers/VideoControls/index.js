@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cs from 'classnames';
 import style from './index.scss';
 import { actions } from '../../actions';
 import {
@@ -45,11 +46,13 @@ class VideoControls extends Component {
     selectedTrack: PropTypes.number,
     onSeekHandler: PropTypes.func,
     volumeUpdateHandler: PropTypes.func,
-    namespace: PropTypes.string,
     videoPauseAtTimeHandler: PropTypes.func,
     controlOptions: PropTypes.func,
     downloadSrc: PropTypes.string,
-    videoDuration: PropTypes.number
+    videoDuration: PropTypes.number,
+    commentBarClassName: PropTypes.string,
+    videoControlsButtonsClassName: PropTypes.string,
+    videoSeekBarClassName: PropTypes.string
   };
 
   constructor(props) {
@@ -125,16 +128,6 @@ class VideoControls extends Component {
     }
   };
 
-  isCommentBarDotWithin(time) {
-    var isWithin = false;
-    this.props.comments.forEach(comment => {
-      if (parseInt(comment.time) === parseInt(time)) {
-        isWithin = true;
-      }
-    });
-    return isWithin;
-  }
-
   showCommentHelperBox = e => {
     /*
 			200px: width of helper box
@@ -157,28 +150,12 @@ class VideoControls extends Component {
       xPos = 0;
     }
 
-    let time = (percentage / 100) * this.props.videoDuration,
-      availableWindowForCommentHelperBox = xPos + 200,
-      upperXLimit = e.target.clientWidth,
-      downArrowXPos;
-    downArrowXPos = 8;
-
-    if (this.isCommentBarDotWithin(time)) {
-      return;
-    }
-    xPos -= 10;
-    if (availableWindowForCommentHelperBox > upperXLimit) {
-      xPos = e.target.clientWidth - 200;
-      downArrowXPos = availableWindowForCommentHelperBox - upperXLimit;
-    }
-
-    downArrowXPos = downArrowXPos < 8 ? 8 : downArrowXPos;
-    downArrowXPos = downArrowXPos > 183 ? 183 : downArrowXPos;
+    let time = (percentage / 100) * this.props.videoDuration;
 
     this.props.showCommentHelperBox({
-      xPos,
+      xPosRaw: xPos,
       time,
-      downArrowXPos
+      clientWidth: e.target.clientWidth
     });
     this.props.hideCommentBox();
   };
@@ -193,27 +170,12 @@ class VideoControls extends Component {
     let targetElement = e.target.parentElement;
     let clientWidth = targetElement.clientWidth;
 
-    let availableWindowForCommentHelperBox = xPos + 300,
-      upperXLimit = clientWidth,
-      downArrowXPos,
-      _xPos = xPos;
-    downArrowXPos = 8;
-
-    _xPos -= 16;
-    if (availableWindowForCommentHelperBox > upperXLimit) {
-      _xPos = clientWidth - 300;
-      downArrowXPos = xPos - _xPos - 8;
-    }
-
-    downArrowXPos = downArrowXPos < 8 ? 8 : downArrowXPos;
-    downArrowXPos = downArrowXPos > 274 ? 274 : downArrowXPos;
-
     this.props.hideCommentHelperBox();
     this.props.showCommentBox({
-      xPos: _xPos,
+      xPosRaw: xPos,
       ...comment,
       readOnly: true,
-      downArrowXPos: downArrowXPos
+      clientWidth
     });
   };
 
@@ -255,11 +217,13 @@ class VideoControls extends Component {
       selectedTrack,
       onSeekHandler,
       volumeUpdateHandler,
-      namespace,
       videoPauseAtTimeHandler,
       controlOptions: controlOptionsProp = {},
       downloadSrc,
-      videoDuration
+      videoDuration,
+      commentBarClassName,
+      videoControlsButtonsClassName,
+      videoSeekBarClassName
     } = this.props;
     const { showTrackList } = this.state;
     this.video = document.getElementById(targetPlayerId);
@@ -302,9 +266,15 @@ class VideoControls extends Component {
           onMouseMove={this.showCommentHelperBox}
           seekTime={seekTime}
           onSeekHandler={onSeekHandler}
+          className={videoSeekBarClassName}
         />
 
-        <div className={style.controlsButtonContainer}>
+        <div
+          className={cs(
+            style.controlsButtonContainer,
+            videoControlsButtonsClassName
+          )}
+        >
           <div className={style.playPauseButton}>
             <button
               style={{ border: 'none' }}
@@ -358,7 +328,6 @@ class VideoControls extends Component {
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ border: 'none' }}
-                    type="button"
                     href={downloadSrc}
                     download={downloadSrc}
                     className={style.download}
@@ -378,13 +347,10 @@ class VideoControls extends Component {
           </div>
           <div className={style.clear} />
         </div>
-        {commentBox.show ? (
-          <CommentBox edit={edit} namespace={namespace} />
-        ) : null}
+        {commentBox.show ? <CommentBox edit={edit} /> : null}
         {commentHelperBox.show && edit ? (
           <CommentHelperBox
             targetPlayerId={targetPlayerId}
-            namespace={namespace}
             onClickHandler={videoPauseAtTimeHandler}
           />
         ) : null}
@@ -396,6 +362,7 @@ class VideoControls extends Component {
           targetPlayerId={targetPlayerId}
           colorMap={colorMap}
           videoDuration={videoDuration}
+          commentBarClassName={commentBarClassName}
         />
       </div>
     );
@@ -405,10 +372,14 @@ class VideoControls extends Component {
 function mapStateToProps(state) {
   return {
     ...state,
-    comments: state.commentPane.activeComments,
+    comments: state.comments,
     mediaState: state.media.state,
     videoDuration: state.media.duration,
-    isCommentBoxActive: state.commentBox.show && !state.commentBox.data.readOnly
+    videoControlsButtonsClassName: state.videoControlsButtonsClassName,
+    videoSeekBarClassName: state.videoSeekBarClassName,
+    isCommentBoxActive:
+      state.commentBox.show && !state.commentBox.data.readOnly,
+    commentBarClassName: state.commentBarClassName
   };
 }
 

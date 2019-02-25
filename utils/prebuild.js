@@ -1,5 +1,5 @@
 const generateIndexFile = require('./indexFile')
-const cleanBuildPath = require('./cleanBuildPath')
+// const cleanBuildPath = require('./cleanBuildPath')
 
-cleanBuildPath()
+// cleanBuildPath()
 generateIndexFile()
