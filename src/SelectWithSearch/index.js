@@ -153,7 +153,7 @@ const SelectBox = styled.div`
 
    .mt-react-select__placeholder {
       margin-left: 4px;
-      ${mixin.inactiveLink()};
+      ${mixin.placeholderText()};
       ${mixin.truncate('100%')};
     }
 
