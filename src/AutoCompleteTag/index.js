@@ -74,11 +74,13 @@ class AutoCompleteTag extends React.Component {
     onChange: PropTypes.func,
     tags: PropTypes.array,
     className: PropTypes.string,
-    withSearch: PropTypes.bool
+    withSearch: PropTypes.bool,
+    placeholder: PropTypes.string
   };
 
   static defaultProps = {
-    withSearch: true
+    withSearch: true,
+    placeholder: 'Search words'
   };
 
   state = {
@@ -91,12 +93,12 @@ class AutoCompleteTag extends React.Component {
   };
 
   render() {
-    const { className, withSearch, ...rest } = this.props;
+    const { className, withSearch, placeholder, ...rest } = this.props;
     return (
       <StyleAutoCompleteTag className={className} withSearch={withSearch}>
         <TagsInput
           inputProps={{
-            placeholder: 'Search words'
+            placeholder: placeholder
           }}
           {...rest}
           value={this.state.tags}

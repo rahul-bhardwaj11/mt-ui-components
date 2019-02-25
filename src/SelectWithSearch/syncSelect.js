@@ -74,8 +74,10 @@ export default class SyncSelect extends Component {
     document.addEventListener('mousedown', this.handleClickOutside);
   }
 
-  getSelectedItemsFromValue = value => {
-    const { options } = this.props;
+  getSelectedItemsFromValue = (value, options) => {
+    if (!options) {
+      options = this.props.options;
+    }
     const selectedItems = [];
     if (value) {
       if (Array.isArray(value)) {
@@ -144,7 +146,10 @@ export default class SyncSelect extends Component {
     ) {
       let selectedItems = [];
       if (value) {
-        selectedItems = this.getSelectedItemsFromValue(nextProps.value);
+        selectedItems = this.getSelectedItemsFromValue(
+          nextProps.value,
+          nextProps.options
+        );
       }
       let sortedOptions = this.__sortOptions(filteredOptions, selectedItems);
       sortedOptions = this.normalizeOption(sortedOptions);
