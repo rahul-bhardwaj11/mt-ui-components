@@ -2,7 +2,7 @@ import React from 'react';
 import cs from 'classnames';
 import Button from '../Button';
 
-const PAGE_TYPES = {
+export const PAGE_TYPES = {
   ['404']: {
     image: 'pageNotFound',
     heading: 'Page not found',
@@ -13,7 +13,7 @@ const PAGE_TYPES = {
           Go to Home
         </Button>
       </div>
-    ) // eslint-disable-line react/display-name
+    )
   },
   ['500']: {
     image: 'internalError',
@@ -29,7 +29,7 @@ const PAGE_TYPES = {
           Try Again
         </Button>
       </div>
-    ) // eslint-disable-line react/display-name
+    )
   },
   ['503']: {
     image: 'serviceUnavailable',
@@ -45,8 +45,6 @@ const PAGE_TYPES = {
           Try Again
         </Button>
       </div>
-    ) // eslint-disable-line react/display-name
+    )
   }
 };
-
-export { PAGE_TYPES };
