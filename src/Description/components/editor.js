@@ -5,7 +5,7 @@ import ReactQuill from 'react-quill';
 import UpdateBtns from './updateBtns';
 import Toolbar from './toolbar';
 import { FORMATS } from '../constants';
-//import { debounce } from "@mt-ui-core/utils";
+//import { debounce } from "mt-ui-core/utils";
 
 const noop = () => undefined;
 export default class Editor extends Component {

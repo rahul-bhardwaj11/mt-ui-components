@@ -2,8 +2,8 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { reload } from '@mt-ui-core/utils';
-import Routes from '@mt-ui-core/config/base.routes';
+import { reload } from 'mt-ui-core/utils';
+import Routes from 'mt-ui-core/config/base.routes';
 
 const PrivateRoute = ({
   component: Component,
