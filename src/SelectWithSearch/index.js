@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import theme from '../styles/theme';
@@ -310,6 +311,11 @@ const SelectBox = styled.div`
   margin-left: 5px;
 }
 `;
+
+const PortalSelectBox = styled(SelectBox)`
+  position: unset;
+`;
+
 class SelectWithSearch extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),
@@ -321,7 +327,8 @@ class SelectWithSearch extends Component {
     buttonMaxWidth: PropTypes.string,
     buttonWidth: PropTypes.string,
     className: PropTypes.string,
-    showSearch: PropTypes.bool
+    showSearch: PropTypes.bool,
+    menuPortalTarget: PropTypes.instanceOf(Element)
   };
   static defaultProps = {
     placeholder: 'Type here to Search',
@@ -329,8 +336,17 @@ class SelectWithSearch extends Component {
     showSearch: true
   };
 
+  selectRef = React.createRef();
+
   render() {
-    let { async, isButton, className, showSearch } = this.props;
+    let {
+      async,
+      isButton,
+      className,
+      showSearch,
+      menuPortalTarget
+    } = this.props;
+    const selectProps = { ...this.props };
     let SelectComponent = SyncSelect;
     if (async) {
       SelectComponent = AsyncSelect;
@@ -341,14 +357,29 @@ class SelectWithSearch extends Component {
       },
       className
     );
+    if (menuPortalTarget) {
+      selectProps.menuPortalTarget = this.selectRef.current;
+    }
     return (
-      <SelectBox
-        className={componentClassName}
-        isButton={isButton}
-        showSearch={showSearch}
-      >
-        <SelectComponent {...this.props} />
-      </SelectBox>
+      <React.Fragment>
+        {menuPortalTarget &&
+          ReactDOM.createPortal(
+            <PortalSelectBox
+              innerRef={this.selectRef}
+              className={componentClassName}
+              isButton={isButton}
+              showSearch={showSearch}
+            />,
+            menuPortalTarget
+          )}
+        <SelectBox
+          className={componentClassName}
+          isButton={isButton}
+          showSearch={showSearch}
+        >
+          <SelectComponent {...selectProps} />
+        </SelectBox>
+      </React.Fragment>
     );
   }
 }
