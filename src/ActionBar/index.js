@@ -22,9 +22,9 @@ const MtActionBar = styled.div`
   }
 `;
 
-const ActionBar = ({ children, countText, style }) => {
+const ActionBar = ({ children, countText, style, className }) => {
   return (
-    <MtActionBar {...style}>
+    <MtActionBar {...style} className={className}>
       {countText && <span className="countText">{countText}</span>}
       {children}
     </MtActionBar>
@@ -34,7 +34,8 @@ const ActionBar = ({ children, countText, style }) => {
 ActionBar.propTypes = {
   children: PropTypes.arrayOf(PropTypes.node),
   countText: PropTypes.string.isRequired,
-  style: PropTypes.object
+  style: PropTypes.object,
+  className: PropTypes.string
 };
 
 export default ActionBar;
