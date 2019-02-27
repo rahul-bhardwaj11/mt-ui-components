@@ -38,7 +38,7 @@ const NetworkError = ({
 };
 
 NetworkError.propTypes = {
-  statusCode: PropTypes.number.isRequired
+  statusCode: PropTypes.number
 };
 
 export default NetworkError;

@@ -37,29 +37,30 @@ class ErrorBoundary extends Component {
   static defaultProps = {
     trackError: noop
   };
-  state = { error: null, errorInfo: null };
+  state = { error: null, errorInfo: null, hasError: false };
 
   componentDidCatch(error, errorInfo) {
-    this.setState({ error, errorInfo });
+    this.setState({ error, errorInfo, hasError: true });
 
     if (!IS_DEV) this.props.trackError(error, errorInfo);
   }
 
   render() {
-    const { error = {}, errorInfo = {} } = this.state;
+    const { error, errorInfo, hasError } = this.state;
     const { reportError } = this.props;
-    if (error && (IS_DEV || isDebuggingEnabled())) {
+    if (hasError && (IS_DEV || isDebuggingEnabled())) {
       return <PrintError error={error} errorInfo={errorInfo} />;
     }
 
-    if (error) {
-      <>
-        <ErrorPage
-          pageType={PAGE_TYPES.CLIENT_ERROR}
-          reportError={reportError}
-        />
-      </>;
-      return;
+    if (hasError) {
+      return (
+        <>
+          <ErrorPage
+            pageType={PAGE_TYPES.CLIENT_ERROR}
+            reportError={reportError}
+          />
+        </>
+      );
     }
 
     return this.props.children;

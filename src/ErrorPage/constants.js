@@ -54,8 +54,8 @@ export const PAGE_TYPES_CONFIG = {
       </div>
     )
   },
-  [PAGE_TYPES.SERVICE_UNAVAILABLE]: {
-    image: 'internalClientError',
+  [PAGE_TYPES.CLIENT_ERROR]: {
+    image: 'serviceUnavailable',
     heading: 'Something went wrong',
     description:
       "Sorry your past request could't be completed <br /> Please try agaain after some time",
