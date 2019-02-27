@@ -309,14 +309,6 @@ const SelectBox = styled.div`
 .doneMarginR {
   margin-left: 5px;
 }
-
-.menuOption {
-  &.asyncCreateButton:last-child {
-    border-top: 1px solid ${theme.colors.ALTO};
-    margin-top: 8px;
-    padding-top: 4px;
-  }
-}
 `;
 class SelectWithSearch extends Component {
   static propTypes = {
