@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import cs from 'classnames';
+
+import { isObject } from 'mt-ui-core/utils';
+
 import StringToHTML from '../StringToHTML';
 import Icon from '../Icon';
 import mixins from '../styles/mixins';
 
 import { PAGE_TYPES, PAGE_TYPES_CONFIG } from './constants';
-import { isObject } from 'util';
+import PrintError from './PrintError';
 
 const ErrorpageWrapper = styled.div`
   text-align: center;
@@ -50,7 +53,7 @@ class ErrorPage extends Component {
     styleHeading: PropTypes.string,
     styleDescription: PropTypes.string,
     styleActionButton: PropTypes.string,
-    styleHeadingText: PropTypes.string.isRequired,
+    styleHeadingText: PropTypes.string,
     pageType: PropTypes.oneOfType([
       PropTypes.oneOf(Object.values(PAGE_TYPES)),
       PropTypes.shape({
@@ -110,4 +113,4 @@ class ErrorPage extends Component {
 }
 
 export default ErrorPage;
-export { PAGE_TYPES };
+export { PAGE_TYPES, PrintError };

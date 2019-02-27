@@ -1,32 +1,9 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 
-import { IS_DEV } from './constants';
+import { isDebuggingEnabled, noop, IS_DEV } from 'mt-ui-core/utils';
 
-import { isDebuggingEnabled, noop } from './utils';
-
-import ErrorPage, { PAGE_TYPES } from '../ErrorPage';
-
-const PrintError = ({ error, errorInfo }) => {
-  return (
-    <pre
-      style={{
-        color: 'white',
-        fontSize: '16px',
-        backgroundColor: '#d20000cc'
-      }}
-    >
-      {error.stack}
-      <br />
-      {errorInfo.componentStack}
-    </pre>
-  );
-};
-
-PrintError.propTypes = {
-  error: PropTypes.object.isRequired,
-  errorInfo: PropTypes.object.isRequired
-};
+import ErrorPage, { PAGE_TYPES, PrintError } from '../ErrorPage';
 
 class ErrorBoundary extends Component {
   static propTypes = {

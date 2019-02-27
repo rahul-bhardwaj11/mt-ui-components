@@ -48,6 +48,7 @@ export Scrollbar from './Scrollbar';
 export Search from './Search';
 export Select from './Select';
 export SelectWithSearch from './SelectWithSearch';
+export SiderMenu from './SiderMenu';
 export Slider from './Slider';
 export StringToHTML from './StringToHTML';
 export Switch from './Switch';
