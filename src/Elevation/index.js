@@ -36,9 +36,7 @@ const Elevation = styled.div`
   padding: ${({ padding }) => padding};
   width: ${({ width }) => width};
   min-height: ${({ minHeight }) => minHeight};
-   {
-    ...props.style;
-  }
+  ${props => ({ ...props.style })};
 `;
 
 Elevation.propTypes = {
