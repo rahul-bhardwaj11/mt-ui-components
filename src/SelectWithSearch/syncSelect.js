@@ -31,7 +31,8 @@ export default class SyncSelect extends Component {
     style: PropTypes.object,
     optionRenderer: PropTypes.func,
     showSearch: PropTypes.bool,
-    hasNone: PropTypes.bool
+    hasNone: PropTypes.bool,
+    noneLabel: PropTypes.string
   };
 
   static defaultProps = {
@@ -39,7 +40,8 @@ export default class SyncSelect extends Component {
     onChange: noop,
     sortOptions: true,
     options: [],
-    hasNone: true
+    hasNone: true,
+    noneLabel: 'None'
   };
 
   constructor(props) {
@@ -121,9 +123,9 @@ export default class SyncSelect extends Component {
   }
 
   normalizeOption = sortedOptions => {
-    const { isMulti, hasNone } = this.props;
+    const { isMulti, hasNone, noneLabel } = this.props;
     if (!isMulti && hasNone) {
-      sortedOptions.unshift({ label: 'None', value: 'None' });
+      sortedOptions.unshift({ label: noneLabel, value: 'None' });
     }
     return sortedOptions;
   };

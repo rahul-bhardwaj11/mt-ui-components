@@ -56,6 +56,11 @@ const MtSearchInput = styled.span`
   .ant-input-affix-wrapper .ant-input-suffix {
     top: 17px;
   }
+  .icon-search {
+    font-size: 12px;
+    font-weight: 600;
+    color: ${theme.colors.ICON};
+  }
   .icon-close {
     font-size: 10px;
     font-weight: 600;
