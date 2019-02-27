@@ -29,10 +29,12 @@ const SelectBox = styled.div`
        border-bottom-right-radius: 0px;
        border-bottom: 1px solid transparent;       
      }
+
     .selectedItems{
       color: ${theme.colors.INDIGO};
       border: 1px solid ${theme.colors.INDIGO};
       background-color: ${theme.colors.TROPICAL_BLUE};
+
       &:hover{
         border: 1px solid ${theme.colors.INDIGO};
         color: ${theme.colors.INDIGO};
@@ -97,12 +99,12 @@ const SelectBox = styled.div`
     border: 1px solid ${theme.colors.PEARL};
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.08);
   }
+
   .mt-react-select__menu-list {
-    padding: 0;
-    margin: 8px 0;
+    padding: 8px 0;
     color: ${theme.colors.OUTER_SPACE};
   }
-
+  
   .selectBoxWrapper{        
     border-radius: 4px; 
     position: relative;
@@ -205,6 +207,7 @@ const SelectBox = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin: 0 8px;
   }
 
   .mt-react-select__option--is-selected {
