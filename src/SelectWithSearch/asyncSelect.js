@@ -79,7 +79,8 @@ export default class AsyncSelect extends Component {
     showSearch: PropTypes.bool,
     hasNone: PropTypes.bool,
     isCreatable: PropTypes.bool,
-    isValidNewOption: PropTypes.func
+    isValidNewOption: PropTypes.func,
+    menuPortalTarget: PropTypes.instanceOf(Element)
   };
 
   static defaultProps = {
@@ -333,6 +334,12 @@ export default class AsyncSelect extends Component {
   }
 
   handleClickOutside = event => {
+    if (
+      this.props.menuPortalTarget &&
+      this.props.menuPortalTarget.contains(event.target)
+    ) {
+      return;
+    }
     if (this.buttonRef && this.buttonRef.contains(event.target)) {
       this.isBlurActive = false;
     }
@@ -701,6 +708,10 @@ export default class AsyncSelect extends Component {
         width: base.width ? base.width : '210px',
         minWidth: '210px',
         position: isButton ? 'absolute' : 'inherit'
+      }),
+      menuPortal: base => ({
+        ...base,
+        zIndex: 9998
       })
     };
     const styles = { ...DEFAULT_SELECT_STYLE };

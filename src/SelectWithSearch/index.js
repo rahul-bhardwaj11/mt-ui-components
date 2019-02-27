@@ -359,6 +359,7 @@ class SelectWithSearch extends Component {
     );
     if (menuPortalTarget) {
       selectProps.menuPortalTarget = this.selectRef.current;
+      selectProps.menuPosition = 'absolute';
     }
     return (
       <React.Fragment>
