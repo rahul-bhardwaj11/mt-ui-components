@@ -20,6 +20,18 @@ const MtActionBar = styled.div`
     ${mixins.blackLink()};
     margin-right: 29px;
   }
+  animation-name: fade-in;
+  animation-duration: 0.2s;
+
+  @keyframes fade-in {
+    0% {
+      padding: 0 32px;
+    }
+
+    100% {
+      padding: 16px 32px;
+    }
+  }
 `;
 
 const ActionBar = ({ children, countText, style, className }) => {

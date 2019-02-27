@@ -80,6 +80,7 @@ export default class AsyncSelect extends Component {
     hasNone: PropTypes.bool,
     isCreatable: PropTypes.bool,
     isValidNewOption: PropTypes.func,
+    noneLabel: PropTypes.string,
     menuPortalTarget: PropTypes.instanceOf(Element)
   };
 
@@ -92,7 +93,8 @@ export default class AsyncSelect extends Component {
     persistOpen: false,
     hideFooter: false,
     hasNone: true,
-    isValidNewOption: () => true
+    isValidNewOption: () => true,
+    noneLabel: 'None'
   };
 
   constructor(props) {
@@ -653,7 +655,7 @@ export default class AsyncSelect extends Component {
       !this.state.search.length &&
       this.props.hasNone
     ) {
-      options.unshift({ label: 'None', value: 'None' });
+      options.unshift({ label: this.props.noneLabel, value: 'None' });
     }
     return options;
   };
