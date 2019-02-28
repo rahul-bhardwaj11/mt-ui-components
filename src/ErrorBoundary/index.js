@@ -31,12 +31,12 @@ class ErrorBoundary extends Component {
 
     if (hasError) {
       return (
-        <>
+        <React.Fragment>
           <ErrorPage
             pageType={PAGE_TYPES.CLIENT_ERROR}
             reportError={reportError}
           />
-        </>
+        </React.Fragment>
       );
     }
 
