@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 
-import { isDebuggingEnabled, noop, IS_DEV } from 'mt-ui-core/utils';
+import { isDebuggingEnabled, noop, IS_DEV } from '../utils';
 
 import ErrorPage, { PAGE_TYPES, PrintError } from '../ErrorPage';
 

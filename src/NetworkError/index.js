@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import ErrorPage, { PAGE_TYPES } from '@mindtickle/mt-ui-components/ErrorPage';
 
-import { reload } from 'mt-ui-core/utils';
+import { reload } from '../utils';
 
 import { ErrorCodes } from './constants';
 

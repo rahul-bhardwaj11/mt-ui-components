@@ -62,3 +62,4 @@ export Tooltip from './Tooltip';
 export Tree from './Tree';
 export Upload from './Upload';
 export UserThumbnail from './UserThumbnail';
+export utils from './utils';
