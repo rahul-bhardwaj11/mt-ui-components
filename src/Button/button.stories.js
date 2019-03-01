@@ -24,6 +24,7 @@ stories
         size={select('size', ['large', 'medium', 'small'])}
         disabled={boolean('disabled', false)}
         loading={boolean('loading', false)}
+        danger={boolean('danger', false)}
       >
         {text('children', 'Submit')}
       </Button>

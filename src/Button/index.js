@@ -6,7 +6,8 @@ import MtButton, {
   BUTTON_SIZES,
   BUTTON_TYPES,
   MT_SIZE_TO_ANT_BUTTON_SIZE_MAP,
-  MT_TYPE_ANT_BUTTON_TYPE_MAP
+  MT_TYPE_ANT_BUTTON_TYPE_MAP,
+  BUTTON_LOADER_COLOR
 } from './style';
 
 const noop = () => undefined;
@@ -61,8 +62,13 @@ class Button extends Component {
           MT_SIZE_TO_ANT_BUTTON_SIZE_MAP['large']
         }
       >
-        {loading && <Loader size="sizeXSmall" type="Full" />}
-
+        {loading && (
+          <Loader
+            size="sizeXSmall"
+            type="Full"
+            style={{ loaderStyle: { borderColor: BUTTON_LOADER_COLOR[type] } }}
+          />
+        )}
         {children}
         {type === 'edit' && <Icon type="edit" className="editIcon" />}
       </MtButton>

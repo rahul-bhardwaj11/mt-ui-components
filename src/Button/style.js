@@ -19,6 +19,15 @@ export const BUTTON_TYPES = {
   EDIT: 'edit'
 };
 
+export const BUTTON_LOADER_COLOR = {
+  [BUTTON_TYPES.PRIMARY]: theme.colors.WHITE,
+  [BUTTON_TYPES.SECONDARY]: theme.colors.DARK_OUTER_SPACE,
+  [BUTTON_TYPES.TERTIARY]: theme.colors.OUTER_SPACE,
+  [BUTTON_TYPES.LINK]: theme.colors.INDIGO,
+  [BUTTON_TYPES.TEXT]: theme.colors.OUTER_SPACE,
+  [BUTTON_TYPES.EDIT]: theme.colors.OUTER_SPACE
+};
+
 export const MT_SIZE_TO_ANT_BUTTON_SIZE_MAP = {
   [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
   [BUTTON_SIZES.MEDIUM]: 'default',
@@ -269,6 +278,10 @@ const MtButton = styled(AntButton)`
     &.ant-btn {
       padding: ${props =>
         ANTD_BUTTON_SIZE_PADDING[BUTTON_TO_SIZE_MAP[props.type][props.size]]};
+
+      &:before {
+        background: transparent;
+      }
     }
     .anticon {
       display: none;
