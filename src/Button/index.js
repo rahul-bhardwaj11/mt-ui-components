@@ -55,13 +55,15 @@ class Button extends Component {
         type={antdType}
         style={style}
         danger={danger ? 1 : 0}
+        loading={loading}
         size={
           MT_SIZE_TO_ANT_BUTTON_SIZE_MAP[size] ||
           MT_SIZE_TO_ANT_BUTTON_SIZE_MAP['large']
         }
       >
-        {loading ? <Loader size="sizeXSmall" /> : children}
+        {loading && <Loader size="sizeXSmall" type="Full" />}
 
+        {children}
         {type === 'edit' && <Icon type="edit" className="editIcon" />}
       </MtButton>
     );

@@ -75,11 +75,6 @@ export const ANTD_BUTTON_SIZE_PADDING = {
 };
 
 const MtButton = styled(AntButton)`
-  &.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {
-    .anticon {
-      display: none;
-    }
-  }
   &.ant-btn {
     font-family: inherit;
     text-overflow: ellipsis;
@@ -268,15 +263,22 @@ const MtButton = styled(AntButton)`
 
   /* loading Button styles */
 
-  .ant-btn.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {
+  &.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {
+    &.ant-btn-sm,
+    &.ant-btn.lg,
+    &.ant-btn {
+      padding: ${props =>
+        ANTD_BUTTON_SIZE_PADDING[BUTTON_TO_SIZE_MAP[props.type][props.size]]};
+    }
     .anticon {
       display: none;
     }
   }
-  .ant-btn.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {
-    padding: 0 52px;
-  }
-  .ant-btn {
+
+  &.ant-btn {
+    & > span {
+      visibility: ${props => (props.loading ? 'hidden' : 'visible')};
+    }
     & > .anticon {
       & + span {
         display: none;
