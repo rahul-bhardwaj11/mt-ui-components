@@ -23,6 +23,8 @@ stories
         ])}
         size={select('size', ['large', 'medium', 'small'])}
         disabled={boolean('disabled', false)}
+        loading={boolean('loading', false)}
+        danger={boolean('danger', false)}
       >
         {text('children', 'Submit')}
       </Button>
@@ -93,5 +95,9 @@ stories
   )
   .add(
     'Loading button',
-    withInfo('Loading type button')(() => <Button type="secondary" loading />)
+    withInfo('Loading type button')(() => (
+      <Button type="secondary" loading={boolean('loading', false)}>
+        Mindtickle
+      </Button>
+    ))
   );

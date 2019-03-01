@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import mixins from '../styles/mixins.js';
-import theme from '../styles/theme';
 
 const StyledLoader = styled.div`
   &.fullPageloadingScreen {
@@ -76,7 +75,8 @@ const StyledLoader = styled.div`
       border: 6px solid #fff;
       border-radius: 50%;
       animation: spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-      border-color: ${theme.colors.INDIGO} transparent transparent transparent;
+      border-color: ${({ loaderStyle: { borderColor } }) => borderColor}
+        transparent transparent transparent;
       &:nth-child(1) {
         animation-delay: -0.45s;
       }
