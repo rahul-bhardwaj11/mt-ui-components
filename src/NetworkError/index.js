@@ -35,7 +35,7 @@ const NetworkError = ({
 
   if (ErrorCodes.serviceUnavailable.indexOf(statusCode) > -1) {
     return (
-      <ErrorPage {...propsToPass} pageType={PAGE_TYPES.SERVVICE_UNAVAILABLE} />
+      <ErrorPage {...propsToPass} pageType={PAGE_TYPES.SERVICE_UNAVAILABLE} />
     );
   }
 
