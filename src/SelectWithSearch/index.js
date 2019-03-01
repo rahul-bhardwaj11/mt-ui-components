@@ -338,6 +338,23 @@ class SelectWithSearch extends Component {
 
   selectRef = React.createRef();
 
+  constructor(props) {
+    super(props);
+    let { isButton, className, showSearch, menuPortalTarget } = props;
+    let componentClassName = classnames({ buttonSelect: isButton }, className);
+    if (menuPortalTarget) {
+      ReactDOM.render(
+        <PortalSelectBox
+          innerRef={this.selectRef}
+          className={componentClassName}
+          isButton={isButton}
+          showSearch={showSearch}
+        />,
+        menuPortalTarget
+      );
+    }
+  }
+
   render() {
     let {
       async,
@@ -363,16 +380,6 @@ class SelectWithSearch extends Component {
     }
     return (
       <React.Fragment>
-        {menuPortalTarget &&
-          ReactDOM.createPortal(
-            <PortalSelectBox
-              innerRef={this.selectRef}
-              className={componentClassName}
-              isButton={isButton}
-              showSearch={showSearch}
-            />,
-            menuPortalTarget
-          )}
         <SelectBox
           className={componentClassName}
           isButton={isButton}
