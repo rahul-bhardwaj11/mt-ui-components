@@ -19,6 +19,15 @@ export const BUTTON_TYPES = {
   EDIT: 'edit'
 };
 
+export const BUTTON_LOADER_COLOR = {
+  [BUTTON_TYPES.PRIMARY]: theme.colors.WHITE,
+  [BUTTON_TYPES.SECONDARY]: theme.colors.DARK_OUTER_SPACE,
+  [BUTTON_TYPES.TERTIARY]: theme.colors.OUTER_SPACE,
+  [BUTTON_TYPES.LINK]: theme.colors.INDIGO,
+  [BUTTON_TYPES.TEXT]: theme.colors.OUTER_SPACE,
+  [BUTTON_TYPES.EDIT]: theme.colors.OUTER_SPACE
+};
+
 export const MT_SIZE_TO_ANT_BUTTON_SIZE_MAP = {
   [BUTTON_SIZES.LARGE]: BUTTON_SIZES.LARGE,
   [BUTTON_SIZES.MEDIUM]: 'default',
@@ -75,11 +84,6 @@ export const ANTD_BUTTON_SIZE_PADDING = {
 };
 
 const MtButton = styled(AntButton)`
-  &.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {
-    .anticon {
-      display: none;
-    }
-  }
   &.ant-btn {
     font-family: inherit;
     text-overflow: ellipsis;
@@ -268,15 +272,26 @@ const MtButton = styled(AntButton)`
 
   /* loading Button styles */
 
-  .ant-btn.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {
+  &.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {
+    &.ant-btn-sm,
+    &.ant-btn.lg,
+    &.ant-btn {
+      padding: ${props =>
+        ANTD_BUTTON_SIZE_PADDING[BUTTON_TO_SIZE_MAP[props.type][props.size]]};
+
+      &:before {
+        background: transparent;
+      }
+    }
     .anticon {
       display: none;
     }
   }
-  .ant-btn.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {
-    padding: 0 52px;
-  }
-  .ant-btn {
+
+  &.ant-btn {
+    & > span {
+      visibility: ${props => (props.loading ? 'hidden' : 'visible')};
+    }
     & > .anticon {
       & + span {
         display: none;

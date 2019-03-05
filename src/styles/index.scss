@@ -32,6 +32,13 @@
   .pointer {
     cursor: pointer;
   }
+  .visibleN {
+    visibility: hidden;
+  }
+
+  .visible {
+    visibility: visible;
+  }
   .displayN {
     display: none;
   }
