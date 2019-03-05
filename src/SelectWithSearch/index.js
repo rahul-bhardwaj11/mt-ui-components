@@ -336,24 +336,19 @@ class SelectWithSearch extends Component {
     showSearch: true
   };
 
-  selectRef = React.createRef();
+  state = {
+    menuRef: null
+  };
 
-  constructor(props) {
-    super(props);
-    let { isButton, className, showSearch, menuPortalTarget } = props;
-    let componentClassName = classnames({ buttonSelect: isButton }, className);
-    if (menuPortalTarget) {
-      ReactDOM.render(
-        <PortalSelectBox
-          innerRef={this.selectRef}
-          className={componentClassName}
-          isButton={isButton}
-          showSearch={showSearch}
-        />,
-        menuPortalTarget
-      );
+  setMenuRef = menuRef => {
+    const { menuRef: oldMenuRef } = this.state;
+    if (oldMenuRef || !menuRef) {
+      return;
     }
-  }
+    this.setState({
+      menuRef
+    });
+  };
 
   render() {
     let {
@@ -364,6 +359,7 @@ class SelectWithSearch extends Component {
       menuPortalTarget
     } = this.props;
     const selectProps = { ...this.props };
+    const { menuRef } = this.state;
     let SelectComponent = SyncSelect;
     if (async) {
       SelectComponent = AsyncSelect;
@@ -375,11 +371,22 @@ class SelectWithSearch extends Component {
       className
     );
     if (menuPortalTarget) {
-      selectProps.menuPortalTarget = this.selectRef.current;
+      selectProps.menuPortalTarget = menuRef;
       selectProps.menuPosition = 'absolute';
     }
+
     return (
       <React.Fragment>
+        {menuPortalTarget &&
+          ReactDOM.createPortal(
+            <PortalSelectBox
+              innerRef={this.setMenuRef}
+              className={componentClassName}
+              isButton={isButton}
+              showSearch={showSearch}
+            />,
+            menuPortalTarget
+          )}
         <SelectBox
           className={componentClassName}
           isButton={isButton}
