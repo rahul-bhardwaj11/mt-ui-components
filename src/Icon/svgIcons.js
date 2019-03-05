@@ -1,8 +1,8 @@
 import outlookCalendarSvg from './assests/images/outlookCalendar.svg';
 import googleCalendar from './assests/images/googleCalendar.svg';
 import keywordsFull from './assests/images/keywordsFull.svg';
-import textConditionFull from './assests/images/textConditionFull.svg';
 import keywordsFullActive from './assests/images/keywordsFullActive.svg';
+import textConditionFull from './assests/images/textConditionFull.svg';
 import textConditionFullActive from './assests/images/textConditionFullActive.svg';
 import internalError from './assests/images/internalError.svg';
 import pageNotFound from './assests/images/pageNotFound.svg';
@@ -39,17 +39,18 @@ export default {
     width: width,
     height: height
   }),
-  internalError: ({ width = 100, height = 100 }) => ({
+  internalError: ({ width = 268, height = 200, ...style }) => ({
     background: `url(${internalError})  no-repeat 0 0 / contain transparent`,
     width: width,
-    height: height
+    height: height,
+    ...style
   }),
-  pageNotFound: ({ width = 100, height = 100 }) => ({
+  pageNotFound: ({ width = 200, height = 200 }) => ({
     background: `url(${pageNotFound})  no-repeat 0 0 / contain transparent`,
     width: width,
     height: height
   }),
-  serviceUnavailable: ({ width = 100, height = 100 }) => ({
+  serviceUnavailable: ({ width = 244, height = 200 }) => ({
     background: `url(${serviceUnavailable})  no-repeat 0 0 / contain transparent`,
     width: width,
     height: height

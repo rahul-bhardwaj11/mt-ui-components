@@ -330,7 +330,6 @@ class VideoControls extends Component {
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ border: 'none' }}
-                    type="button"
                     href={downloadSrc}
                     download={downloadSrc}
                     className={style.download}

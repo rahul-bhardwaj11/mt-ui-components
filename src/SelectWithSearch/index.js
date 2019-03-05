@@ -108,10 +108,11 @@ const SelectBox = styled.div`
     position: relative;
     z-index: 2;
     ${props => (props.isButton ? 'margin-top: 10px' : '')};  
+
     .activeSearch {
       .mt-react-select__value-container{
         margin-left: 34px;
-        line-height: 30px;
+        line-height: 18px;
       }
 
       .activeInput {
@@ -144,7 +145,7 @@ const SelectBox = styled.div`
         opacity: 0.6;
         left: 16px;
         top: 9px;
-        line-height: 30px;
+        line-height: 18px;
       }
     }
     .mt-react-select__dropdown-indicator {
@@ -154,12 +155,12 @@ const SelectBox = styled.div`
         margin-left: 20px;
         line-height: 26px;
       }
+    }
 
-      .mt-react-select__placeholder {
-          margin-left: 4px;
-          ${mixin.inactiveLink()};
-          ${mixin.truncate('100%')};
-      }
+   .mt-react-select__placeholder {
+      margin-left: 4px;
+      ${mixin.placeholderText()};
+      ${mixin.truncate('100%')};
     }
 
     .mt-react-select__dropdown-indicator {
@@ -200,7 +201,7 @@ const SelectBox = styled.div`
     padding: 6px 20px 8px 16px;
     color: ${theme.colors.OUTER_SPACE};
     height: 32px;
-    width: 100%;
+    width: auto;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -326,7 +327,7 @@ class SelectWithSearch extends Component {
   };
 
   render() {
-    let { async, isButton, className, showSearch } = this.props;
+    let { async, isButton, className, showSearch, ...props } = this.props;
     let SelectComponent = SyncSelect;
     if (async) {
       SelectComponent = AsyncSelect;
@@ -343,7 +344,12 @@ class SelectWithSearch extends Component {
         isButton={isButton}
         showSearch={showSearch}
       >
-        <SelectComponent {...this.props} />
+        <SelectComponent
+          {...props}
+          async={async}
+          isButton={isButton}
+          showSearch={showSearch}
+        />
       </SelectBox>
     );
   }
