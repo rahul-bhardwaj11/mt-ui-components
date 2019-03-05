@@ -327,7 +327,7 @@ class SelectWithSearch extends Component {
   };
 
   render() {
-    let { async, isButton, className, showSearch } = this.props;
+    let { async, isButton, className, showSearch, ...props } = this.props;
     let SelectComponent = SyncSelect;
     if (async) {
       SelectComponent = AsyncSelect;
@@ -344,7 +344,12 @@ class SelectWithSearch extends Component {
         isButton={isButton}
         showSearch={showSearch}
       >
-        <SelectComponent {...this.props} />
+        <SelectComponent
+          {...props}
+          async={async}
+          isButton={isButton}
+          showSearch={showSearch}
+        />
       </SelectBox>
     );
   }

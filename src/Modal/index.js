@@ -179,7 +179,8 @@ class Modal extends Component {
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     fullScreenMobile: PropTypes.bool,
     getPopupContainer: PropTypes.func,
-    renderInPortal: PropTypes.bool.isRequired
+    renderInPortal: PropTypes.bool.isRequired,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -233,7 +234,8 @@ class Modal extends Component {
       type,
       width,
       fullScreenMobile,
-      renderInPortal
+      renderInPortal,
+      className
     } = this.props;
     let customProps = {
       ...this.props,
@@ -247,6 +249,7 @@ class Modal extends Component {
     const modalFragment = (
       <React.Fragment>
         <StyledModalWrapper
+          className={className}
           innerRef={el => {
             if (el) {
               this.modalWrapRef = el;
