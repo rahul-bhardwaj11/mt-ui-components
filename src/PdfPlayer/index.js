@@ -47,6 +47,7 @@ class PdfPlayer extends Component {
     this.iframe = iframe;
     iframe.name = uuid;
     iframe.scrolling = 'no';
+    iframe.style.position = 'absolute';
     iframe.style.width = '100%';
     iframe.style.height = '100%';
 
@@ -140,7 +141,10 @@ class PdfPlayer extends Component {
             {this.renderReplaceDiv()}
           </div>
         )}
-        <div ref={e => (this.ref = e)} style={style} />
+        <div
+          ref={e => (this.ref = e)}
+          style={{ minHeight: 'inherit', position: 'relative', ...style }}
+        />
       </React.Fragment>
     );
   }
