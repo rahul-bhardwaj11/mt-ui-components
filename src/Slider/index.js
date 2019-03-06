@@ -5,26 +5,35 @@ import 'antd/lib/slider/style/index.css';
 import 'antd/lib/tooltip/style/index.css';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
+import PropTypes from 'prop-types';
+
+const isEmpty = value => {
+  return typeof value === 'undefined' || value === null;
+};
+
+const getSliderMarkColor = isEmpty => {
+  return isEmpty ? theme.colors.DARK_OUTER_SPACE : theme.colors.INDIGO;
+};
 
 const MtSlider = styled.div`
   .ant-slider-handle {
-    border: 2px solid ${theme.colors.INDIGO};
-    background-color: ${theme.colors.INDIGO};
+    border: 2px solid ${props => getSliderMarkColor(props.isEmpty)}; 
+    background-color: ${props => getSliderMarkColor(props.isEmpty)};
     ${mixins.size('12px', '12px')};
     &:focus {
-      box-shadow: 0 0 0 0 ${theme.colors.BITTERSWEET};
+      box-shadow: 0 0 0 0 ${theme.colors.DARK_OUTER_SPACE};
       border-color: 2px solid ${theme.colors.INDIGO};
     }
     &.ant-tooltip-open {
       &:hover {
-        border: 2px solid ${theme.colors.INDIGO};
+        border: 2px solid ${props => getSliderMarkColor(props.isEmpty)};
       }
     }
 
     &:hover {
       .ant-slider-handle:not(.ant-tooltip-open) {
-        background-color: ${theme.colors.INDIGO};
-        border: 2px solid ${theme.colors.INDIGO};
+        background-color: ${props => getSliderMarkColor(props.isEmpty)};
+        border: 2px solid ${props => getSliderMarkColor(props.isEmpty)};
       }
     }
   }
@@ -43,8 +52,8 @@ const MtSlider = styled.div`
   .ant-slider {
     &:hover {
       .ant-slider-handle:not(.ant-tooltip-open) {
-        background-color: ${theme.colors.INDIGO};
-        border: 2px solid ${theme.colors.INDIGO};
+        background-color: ${props => getSliderMarkColor(props.isEmpty)};
+        border: 2px solid ${props => getSliderMarkColor(props.isEmpty)};
       }
     }
   }
@@ -100,9 +109,13 @@ const MtSlider = styled.div`
 `;
 
 class Slider extends Component {
+  static propTypes = {
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.array])
+  };
   render() {
+    const { value } = this.props;
     return (
-      <MtSlider>
+      <MtSlider isEmpty={isEmpty(value)}>
         <AntSlider {...this.props} />
       </MtSlider>
     );
