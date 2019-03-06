@@ -15,74 +15,100 @@ const itemShape = PropTypes.shape({
 class SiderMenu extends Component {
   static propTypes = {
     items: PropTypes.arrayOf(itemShape),
-    selected: PropTypes.array,
-    onClick: PropTypes.func.isRequired,
+    propsToPass: PropTypes.shape({
+      scrollbar: PropTypes.object,
+      sider: PropTypes.object,
+      menu: PropTypes.object
+    }),
     sectionScroll: PropTypes.bool,
-    width: PropTypes.number,
-    height: PropTypes.number
+    width: PropTypes.number
   };
   static defaultProps = {
     width: 280,
-    selected: []
+    selected: [],
+    scrollOffset: '0px',
+    propsToPass: {}
   };
 
   state = {
     scrollableHeight: undefined
   };
 
-  fixedMenuRef = React.createRef();
+  beforeScrollableMenuRef = React.createRef();
+  afterScrollableMenuRef = React.createRef();
+  noSectionScrollRef = React.createRef();
 
   componentDidMount() {
-    const el = this.fixedMenuRef.current;
-    const { height, top } = el.getBoundingClientRect();
+    if (this.props.sectionScroll) {
+      const beforeEl = this.beforeScrollableMenuRef.current;
+      const afterEl = this.afterScrollableMenuRef.current;
+      const { height: bHeight, top: bTop } = beforeEl.getBoundingClientRect();
+      const { height: aHeight } = afterEl.getBoundingClientRect();
+
+      this.setState({
+        scrollableHeight: `calc(100vh - ${bHeight + bTop}px - ${aHeight}px)`
+      });
+      return;
+    }
+
+    const noSectionScrollEl = this.noSectionScrollRef.current;
+    const { top } = noSectionScrollEl.getBoundingClientRect();
     this.setState({
-      scrollableHeight: `calc(100vh - ${height + top}px)`
+      scrollableHeight: `calc(100vh - ${top}px)`
     });
   }
 
   render() {
-    const { items, onClick, width, sectionScroll, selected } = this.props;
+    const {
+      items,
+      sectionScroll,
+      propsToPass: { scrollbar = {}, sider = {}, menu = {} },
+      ...rest
+    } = this.props;
     const { scrollableHeight } = this.state;
 
     const commonProps = {
-      width,
-      onClick,
-      selected,
-      height: scrollableHeight
+      siderPropsToPass: sider,
+      menuPropsToPass: menu,
+      ...rest
     };
 
-    let fixedItems = items;
-    let scrollableItems = [];
-
+    let itemsBeforeScrollableItem = items;
+    let scrollableItem = [];
+    let itemsAfterScrollableItem = [];
     if (sectionScroll) {
       const index = items.findIndex(({ scroll }) => scroll);
-      fixedItems = items.slice(0, index);
-      scrollableItems = items.slice(index);
+      itemsBeforeScrollableItem = items.slice(0, index);
+      scrollableItem = items.slice(index, index + 1);
+      itemsAfterScrollableItem = items.slice(index + 1);
     }
 
     return (
       <SiderStyle>
         {sectionScroll && (
           <>
-            <div ref={this.fixedMenuRef}>
-              <SiderWrapper
-                items={fixedItems}
-                {...commonProps}
-                height={undefined}
-              />
+            <div ref={this.beforeScrollableMenuRef}>
+              <SiderWrapper items={itemsBeforeScrollableItem} {...rest} />
             </div>
-            <Scrollbar style={{ height: scrollableHeight, width }}>
+            <Scrollbar style={{ height: scrollableHeight }} {...scrollbar}>
               <SiderWrapper
                 className="userDefinedItems"
-                items={scrollableItems}
-                {...commonProps}
+                items={scrollableItem}
+                height={scrollableHeight}
+                {...rest}
               />
             </Scrollbar>
+            <div ref={this.afterScrollableMenuRef}>
+              {!!itemsAfterScrollableItem.length && (
+                <SiderWrapper items={itemsAfterScrollableItem} {...rest} />
+              )}
+            </div>
           </>
         )}
+
         {!sectionScroll && (
-          <div ref={this.fixedMenuRef}>
-            <Scrollbar style={{ height: scrollableHeight, width }}>
+          <div ref={this.noSectionScrollRef}>
+            <Scrollbar style={{ height: scrollableHeight }} {...scrollbar}>
               <SiderWrapper items={items} {...commonProps} />
             </Scrollbar>
           </div>
