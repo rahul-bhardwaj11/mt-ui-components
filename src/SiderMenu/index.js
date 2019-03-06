@@ -21,7 +21,9 @@ class SiderMenu extends Component {
       menu: PropTypes.object
     }),
     sectionScroll: PropTypes.bool,
-    width: PropTypes.number
+    width: PropTypes.number,
+    preMenuContent: PropTypes.func,
+    postMenuContent: PropTypes.func
   };
   static defaultProps = {
     width: 280,
@@ -63,6 +65,8 @@ class SiderMenu extends Component {
       items,
       sectionScroll,
       propsToPass: { scrollbar = {}, sider = {}, menu = {} },
+      preMenuContent,
+      postMenuContent,
       ...rest
     } = this.props;
     const { scrollableHeight } = this.state;
@@ -90,7 +94,11 @@ class SiderMenu extends Component {
         {sectionScroll && (
           <>
             <div ref={this.beforeScrollableMenuRef}>
-              <SiderWrapper items={itemsBeforeScrollableItem} {...rest} />
+              <SiderWrapper
+                items={itemsBeforeScrollableItem}
+                {...rest}
+                preMenuContent={preMenuContent}
+              />
             </div>
             <Scrollbar style={{ height: scrollableHeight }} {...scrollbar}>
               <SiderWrapper
@@ -102,7 +110,11 @@ class SiderMenu extends Component {
             </Scrollbar>
             <div ref={this.afterScrollableMenuRef}>
               {!!itemsAfterScrollableItem.length && (
-                <SiderWrapper items={itemsAfterScrollableItem} {...rest} />
+                <SiderWrapper
+                  items={itemsAfterScrollableItem}
+                  {...rest}
+                  postMenuContent={postMenuContent}
+                />
               )}
             </div>
           </>
@@ -111,7 +123,12 @@ class SiderMenu extends Component {
         {!sectionScroll && (
           <div ref={this.noSectionScrollRef}>
             <Scrollbar style={{ height: scrollableHeight }} {...scrollbar}>
-              <SiderWrapper items={items} {...commonProps} />
+              <SiderWrapper
+                items={items}
+                preMenuContent={preMenuContent}
+                postMenuContent={postMenuContent}
+                {...commonProps}
+              />
             </Scrollbar>
           </div>
         )}
