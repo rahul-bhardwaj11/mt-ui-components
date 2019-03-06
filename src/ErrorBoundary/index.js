@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 
-import { isDebuggingEnabled, noop, IS_DEV } from 'mt-ui-core/utils';
+import { isDebuggingEnabled, noop, IS_DEV } from '../utils';
 
 import ErrorPage, { PAGE_TYPES, PrintError } from '../ErrorPage';
 
@@ -31,12 +31,12 @@ class ErrorBoundary extends Component {
 
     if (hasError) {
       return (
-        <>
+        <React.Fragment>
           <ErrorPage
             pageType={PAGE_TYPES.CLIENT_ERROR}
             reportError={reportError}
           />
-        </>
+        </React.Fragment>
       );
     }
 

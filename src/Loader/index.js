@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import StyledLoader from './css.js';
+import theme from '../styles/theme';
 
 export const LOADING_SIZE = {
   sizeBig: 'big',
@@ -28,11 +29,17 @@ class Loader extends Component {
   };
   static defaultProps = {
     type: 'Small',
-    size: 'sizeBig'
+    size: 'sizeBig',
+    style: {
+      loaderStyle: {
+        borderColor: theme.colors.INDIGO
+      }
+    }
   };
 
   render() {
     const { className, message, size, type, style } = this.props;
+    const { loaderStyle, ...rest } = style;
     const wrapperClasses = classnames(
       {
         [LOADER_TYPE[type]]: true
@@ -40,7 +47,11 @@ class Loader extends Component {
       className
     );
     return (
-      <StyledLoader className={wrapperClasses} style={style}>
+      <StyledLoader
+        className={wrapperClasses}
+        style={{ ...rest }}
+        loaderStyle={loaderStyle}
+      >
         <div className={'loader'}>
           <div className={'loadingHeading'}>{this.props.loadingMessage}</div>
           <div className={classnames('spinner', LOADING_SIZE[size])}>

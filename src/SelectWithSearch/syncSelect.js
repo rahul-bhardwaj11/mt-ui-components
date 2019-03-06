@@ -31,7 +31,9 @@ export default class SyncSelect extends Component {
     style: PropTypes.object,
     optionRenderer: PropTypes.func,
     showSearch: PropTypes.bool,
-    hasNone: PropTypes.bool
+    hasNone: PropTypes.bool,
+    noneLabel: PropTypes.string,
+    menuPortalTarget: PropTypes.instanceOf(Element)
   };
 
   static defaultProps = {
@@ -39,7 +41,8 @@ export default class SyncSelect extends Component {
     onChange: noop,
     sortOptions: true,
     options: [],
-    hasNone: true
+    hasNone: true,
+    noneLabel: 'None'
   };
 
   constructor(props) {
@@ -94,6 +97,12 @@ export default class SyncSelect extends Component {
   };
 
   handleClickOutside = event => {
+    if (
+      this.props.menuPortalTarget &&
+      this.props.menuPortalTarget.contains(event.target)
+    ) {
+      return;
+    }
     if (this.buttonRef && this.buttonRef.contains(event.target)) {
       this.isBlurActive = false;
     }
@@ -121,9 +130,9 @@ export default class SyncSelect extends Component {
   }
 
   normalizeOption = sortedOptions => {
-    const { isMulti, hasNone } = this.props;
+    const { isMulti, hasNone, noneLabel } = this.props;
     if (!isMulti && hasNone) {
-      sortedOptions.unshift({ label: 'None', value: 'None' });
+      sortedOptions.unshift({ label: noneLabel, value: 'None' });
     }
     return sortedOptions;
   };
@@ -453,6 +462,10 @@ export default class SyncSelect extends Component {
         width: base.width ? base.width : '210px',
         minWidth: '210px',
         position: isButton ? 'absolute' : 'inherit'
+      }),
+      menuPortal: base => ({
+        ...base,
+        zIndex: 9998
       })
     };
     const styles = { ...DEFAULT_SELECT_STYLE };

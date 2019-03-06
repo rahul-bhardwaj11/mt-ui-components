@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 
 import ErrorPage, { PAGE_TYPES } from '@mindtickle/mt-ui-components/ErrorPage';
 
-import { reload } from 'mt-ui-core/utils';
+import { reload } from '../utils';
 
 import { ErrorCodes } from './constants';
 
 const NetworkError = ({
   statusCode,
   children,
-  unauthorisedRedirectionRoute
+  unauthorisedRedirectionRoute,
+  propsToPass
 }) => {
   if (
     ErrorCodes.unauthorised.indexOf(statusCode) > -1 ||
@@ -23,22 +24,28 @@ const NetworkError = ({
     ErrorCodes.serverErrors.indexOf(statusCode) > -1 ||
     ErrorCodes.badRequest.indexOf(statusCode) > -1
   ) {
-    return <ErrorPage pageType={PAGE_TYPES.INTERNAL_SERVER_ERROR} />;
+    return (
+      <ErrorPage {...propsToPass} pageType={PAGE_TYPES.INTERNAL_SERVER_ERROR} />
+    );
   }
 
   if (ErrorCodes.notFound.indexOf(statusCode) > -1) {
-    return <ErrorPage pageType={PAGE_TYPES.NOT_FOUND} />;
+    return <ErrorPage {...propsToPass} pageType={PAGE_TYPES.NOT_FOUND} />;
   }
 
   if (ErrorCodes.serviceUnavailable.indexOf(statusCode) > -1) {
-    return <ErrorPage pageType={PAGE_TYPES.SERVVICE_UNAVAILABLE} />;
+    return (
+      <ErrorPage {...propsToPass} pageType={PAGE_TYPES.SERVICE_UNAVAILABLE} />
+    );
   }
 
   return children;
 };
 
 NetworkError.propTypes = {
-  statusCode: PropTypes.number
+  statusCode: PropTypes.number,
+  propsToPass: PropTypes.shape(ErrorPage.propTypes),
+  unauthorisedRedirectionRoute: PropTypes.string.isRequired
 };
 
 export default NetworkError;

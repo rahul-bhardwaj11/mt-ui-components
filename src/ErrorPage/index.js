@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import cs from 'classnames';
 
-import { isObject } from 'mt-ui-core/utils';
+import { isObject } from '../utils';
 
 import StringToHTML from '../StringToHTML';
 import Icon from '../Icon';
