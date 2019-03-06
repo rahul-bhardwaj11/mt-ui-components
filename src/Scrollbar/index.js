@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Scrollbar from 'react-custom-scrollbars';
+import cs from 'classnames';
 import themes from '../styles/theme';
 
 const ScrollbarStyle = styled.div`
@@ -20,19 +22,31 @@ const ScrollbarStyle = styled.div`
 `;
 
 const CustomScrollbar = props => {
+  const { classNames, ...rest } = props;
   return (
     <ScrollbarStyle>
       <Scrollbar
         renderTrackVertical={props => (
-          <div {...props} className="trackVertical" />
+          <div {...props} className={cs('trackVertical', classNames.track)} />
         )}
         renderThumbVertical={props => (
-          <div {...props} className="thumbVertical" />
+          <div {...props} className={cs('thumbVertical', classNames.thumb)} />
         )}
-        {...props}
+        {...rest}
       />
     </ScrollbarStyle>
   );
+};
+
+CustomScrollbar.propTypes = {
+  classNames: PropTypes.shape({
+    track: PropTypes.string,
+    thumb: PropTypes.string
+  })
+};
+
+CustomScrollbar.defaultProps = {
+  classNames: {}
 };
 
 export default CustomScrollbar;
