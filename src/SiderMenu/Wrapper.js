@@ -40,28 +40,17 @@ const renderItems = items => {
 const SiderWrapper = ({
   items,
   width,
-  height,
-  onClick,
-  selected,
-  className
+  className,
+  siderPropsToPass,
+  menuPropsToPass
 }) => {
-  let style = {};
-  if (height) {
-    style = { height };
-  }
   return (
     <Sider
+      {...siderPropsToPass}
       width={width}
       className={classnames('siderStyling', className)}
-      style={style}
     >
-      <Menu
-        theme="dark"
-        mode="inline"
-        inlineIndent={20}
-        onClick={onClick}
-        selectedKeys={selected}
-      >
+      <Menu theme="dark" mode="inline" inlineIndent={20} {...menuPropsToPass}>
         {renderItems(items)}
       </Menu>
     </Sider>
@@ -70,11 +59,10 @@ const SiderWrapper = ({
 
 SiderWrapper.propTypes = {
   items: PropTypes.array.isRequired,
-  selected: PropTypes.array.isRequired,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  onClick: PropTypes.func.isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
+  siderPropsToPass: PropTypes.object,
+  menuPropsToPass: PropTypes.object
 };
 
 export default SiderWrapper;
