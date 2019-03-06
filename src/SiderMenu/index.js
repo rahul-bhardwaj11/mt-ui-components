@@ -90,19 +90,28 @@ class SiderMenu extends Component {
         {sectionScroll && (
           <>
             <div ref={this.beforeScrollableMenuRef}>
-              <SiderWrapper items={itemsBeforeScrollableItem} {...rest} />
+              <SiderWrapper
+                items={itemsBeforeScrollableItem}
+                {...commonProps}
+              />
             </div>
-            <Scrollbar style={{ height: scrollableHeight }} {...scrollbar}>
+            <Scrollbar
+              style={{ height: scrollableHeight, width: rest.width }}
+              {...scrollbar}
+            >
               <SiderWrapper
                 className="userDefinedItems"
                 items={scrollableItem}
                 height={scrollableHeight}
-                {...rest}
+                {...commonProps}
               />
             </Scrollbar>
             <div ref={this.afterScrollableMenuRef}>
               {!!itemsAfterScrollableItem.length && (
-                <SiderWrapper items={itemsAfterScrollableItem} {...rest} />
+                <SiderWrapper
+                  items={itemsAfterScrollableItem}
+                  {...commonProps}
+                />
               )}
             </div>
           </>
@@ -110,7 +119,10 @@ class SiderMenu extends Component {
 
         {!sectionScroll && (
           <div ref={this.noSectionScrollRef}>
-            <Scrollbar style={{ height: scrollableHeight }} {...scrollbar}>
+            <Scrollbar
+              style={{ height: scrollableHeight, width: rest.width }}
+              {...scrollbar}
+            >
               <SiderWrapper items={items} {...commonProps} />
             </Scrollbar>
           </div>
