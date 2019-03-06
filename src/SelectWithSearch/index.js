@@ -356,9 +356,15 @@ class SelectWithSearch extends Component {
       isButton,
       className,
       showSearch,
-      menuPortalTarget
+      menuPortalTarget,
+      ...props
     } = this.props;
-    const selectProps = { ...this.props };
+    const selectProps = {
+      async,
+      isButton,
+      showSearch,
+      ...props
+    };
     const { menuRef } = this.state;
     let SelectComponent = SyncSelect;
     if (async) {

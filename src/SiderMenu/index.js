@@ -56,8 +56,10 @@ class SiderMenu extends Component {
 
     if (sectionScroll) {
       const index = items.findIndex(({ scroll }) => scroll);
-      fixedItems = items.slice(0, index);
-      scrollableItems = items.slice(index);
+      if (index !== -1) {
+        fixedItems = items.slice(0, index);
+        scrollableItems = items.slice(index);
+      }
     }
 
     return (
