@@ -270,7 +270,7 @@ class Modal extends Component {
     );
     const comp = renderInPortal
       ? ReactDOM.createPortal(
-          modalFragment,
+          <div onClick={e => e.stopPropagation()}>{modalFragment}</div>,
           this.modalContainer || this.defaultElement
         )
       : modalFragment;
