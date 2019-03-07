@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import classnames from 'classnames';
 
-import { noop } from '../utils';
 import Menu from 'mt-ui-components/Menu';
 import Layout from 'mt-ui-components/Layout';
 
@@ -68,12 +67,8 @@ SiderWrapper.propTypes = {
   className: PropTypes.string,
   siderPropsToPass: PropTypes.object,
   menuPropsToPass: PropTypes.object,
-  preMenuContent: PropTypes.func,
-  postMenuContent: PropTypes.func
-};
-SiderWrapper.defaultProps = {
-  preMenuContent: noop,
-  postMenuContent: noop
+  preMenuContent: PropTypes.element,
+  postMenuContent: PropTypes.element
 };
 
 export default SiderWrapper;

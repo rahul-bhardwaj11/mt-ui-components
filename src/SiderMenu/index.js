@@ -22,8 +22,8 @@ class SiderMenu extends Component {
     }),
     sectionScroll: PropTypes.bool,
     width: PropTypes.number,
-    preMenuContent: PropTypes.func,
-    postMenuContent: PropTypes.func
+    preMenuContent: PropTypes.element,
+    postMenuContent: PropTypes.element
   };
   static defaultProps = {
     width: 280,
@@ -101,7 +101,9 @@ class SiderMenu extends Component {
               />
             </div>
             <Scrollbar
-              style={{ height: scrollableHeight, width: rest.width }}
+              autoHeight
+              autoHeightMax={scrollableHeight}
+              style={{ width: rest.width }}
               {...scrollbar}
             >
               <SiderWrapper
