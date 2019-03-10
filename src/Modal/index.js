@@ -168,13 +168,14 @@ const MODAL_WIDTH_MAP = {
   small: 500,
   medium: 600,
   large: 720,
+  extraLarge: 856,
   full: '100%'
 };
 
 class Modal extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    type: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
+    type: PropTypes.oneOf(Object.keys(MODAL_WIDTH_MAP)),
     style: PropTypes.object,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     fullScreenMobile: PropTypes.bool
