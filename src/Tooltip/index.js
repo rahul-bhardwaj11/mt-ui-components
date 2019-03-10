@@ -28,12 +28,17 @@ class Tooltip extends Component {
 
   render() {
     const { children, className, getPopupContainer } = this.props;
-    const container = getPopupContainer
-      ? getPopupContainer()
-      : this.popUpContainer;
     return (
       <MtTooltip className={className} innerRef={this.getRef}>
-        <AntTooltip {...this.props} getPopupContainer={() => container}>
+        <AntTooltip
+          {...this.props}
+          getPopupContainer={() => {
+            const container = getPopupContainer
+              ? getPopupContainer()
+              : this.popUpContainer;
+            return container;
+          }}
+        >
           {children}
         </AntTooltip>
       </MtTooltip>
