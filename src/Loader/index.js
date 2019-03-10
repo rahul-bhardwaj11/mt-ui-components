@@ -15,6 +15,10 @@ export const LOADER_TYPE = {
   Full: 'fullPageloadingScreen'
 };
 
+const DEFAULT_LOADER_STYLE = {
+  borderColor: theme.colors.INDIGO
+};
+
 class Loader extends Component {
   static propTypes = {
     className: PropTypes.string,
@@ -30,16 +34,13 @@ class Loader extends Component {
   static defaultProps = {
     type: 'Small',
     size: 'sizeBig',
-    style: {
-      loaderStyle: {
-        borderColor: theme.colors.INDIGO
-      }
-    }
+    style: {}
   };
 
   render() {
     const { className, message, size, type, style } = this.props;
-    const { loaderStyle, ...rest } = style;
+    let { loaderStyle, ...rest } = style;
+    loaderStyle = { ...DEFAULT_LOADER_STYLE, ...loaderStyle };
     const wrapperClasses = classnames(
       {
         [LOADER_TYPE[type]]: true
