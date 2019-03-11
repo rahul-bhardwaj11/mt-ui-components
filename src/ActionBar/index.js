@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import mixins from '../styles/mixins.js';
 
 const MtActionBar = styled.div`
-  position: fixed;
+  position: ${({ position = 'fixed' }) => position};
   max-width: 100vw;
   bottom: 0;
   width: ${({ width = '1248px' }) => width};
