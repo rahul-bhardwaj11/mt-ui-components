@@ -16,7 +16,9 @@ class Player extends Component {
     updateMediaAttributes: PropTypes.func,
     onRenderComplete: PropTypes.func,
     currentTime: PropTypes.number,
-    mediaState: PropTypes.oneOf(['PLAY', 'PAUSE'])
+    mediaState: PropTypes.oneOf(['PLAY', 'PAUSE']),
+    onVideoTimeUpdate: PropTypes.func,
+    onVideoEnded: PropTypes.func
   };
 
   pause() {
@@ -100,6 +102,7 @@ class Player extends Component {
 
   onVideoEndedHandler = () => {
     this.props.onVideoLoaded();
+    this.props.onVideoEnded();
     if (this.props.hidemedia) {
       return;
     }
@@ -115,7 +118,8 @@ class Player extends Component {
       onRenderComplete,
       hidemedia,
       currentTime,
-      mediaState
+      mediaState,
+      onVideoTimeUpdate
     } = this.props;
     return (
       <div onClick={this.togglePlayPause} className={style.playerContainer}>
@@ -131,6 +135,7 @@ class Player extends Component {
           onVideoLoaded={this.onVideoLoadedHandler}
           onVideoEnded={this.onVideoEndedHandler}
           onRenderComplete={onRenderComplete}
+          onVideoTimeUpdate={onVideoTimeUpdate}
         />
         {secondarySrc && (
           <Draggable>

@@ -48,6 +48,8 @@ class PdfPlayer extends Component {
     iframe.name = uuid;
     iframe.scrolling = 'no';
     iframe.style.position = 'absolute';
+    iframe.style.left = '0px';
+    iframe.style.border = '0px';
     iframe.style.width = '100%';
     iframe.style.height = '100%';
 
@@ -78,10 +80,14 @@ class PdfPlayer extends Component {
 
   pageChanged = event => {
     const { onPageChange } = this.props;
+    if (!event.data || typeof event.data !== 'string') return;
     var data = event.data.split('.');
     if (data[0] == 'A') {
       const pageNumber = parseInt(data[1]);
-      onPageChange && onPageChange(pageNumber);
+      if (this.pageNumber !== pageNumber) {
+        this.pageNumber = pageNumber;
+        onPageChange && onPageChange(pageNumber);
+      }
     }
   };
 

@@ -38,7 +38,13 @@ class VideoPlayerContainer extends Component {
     downloadSrc: PropTypes.bool,
     mediaState: PropTypes.string,
     videoControlsClassName: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onVideoTimeUpdate: PropTypes.func,
+    onVideoEnded: PropTypes.func
+  };
+
+  static defaultProps = {
+    onVideoEnded: () => {}
   };
 
   [updateMediaAttributes] = this.props.updateMediaAttributes.bind(this.props);
@@ -119,6 +125,7 @@ class VideoPlayerContainer extends Component {
   };
 
   [onVideoEndedHandler] = () => {
+    this.props.onVideoEnded();
     this.setState({
       showPlayButton: true,
       controls: false
@@ -151,7 +158,8 @@ class VideoPlayerContainer extends Component {
       currentTime,
       mediaState,
       className,
-      videoControlsClassName
+      videoControlsClassName,
+      onVideoTimeUpdate
     } = this.props;
     let { controls, selectedTrack, showPlayButton } = this.state;
     controls = showControlsOnly || controls;
@@ -186,6 +194,7 @@ class VideoPlayerContainer extends Component {
           onVideoEnded={this[onVideoEndedHandler]}
           onVideoPlayed={this[onVideoPlayedHandler]}
           onRenderComplete={onRenderComplete}
+          onVideoTimeUpdate={onVideoTimeUpdate}
           hidemedia={showControlsOnly}
           currentTime={currentTime}
           id={id}
