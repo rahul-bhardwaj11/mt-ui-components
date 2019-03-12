@@ -32,6 +32,10 @@ class Dropdown extends Component {
   };
   dropdownRef = null;
 
+  getPopupContainer = () => this.dropdownRef;
+
+  dropdownRefCallback = e => e && (this.dropdownRef = e);
+
   render() {
     let {
       options,
@@ -43,10 +47,8 @@ class Dropdown extends Component {
       placement,
       className,
       selectedKeys,
-      getPopupContainer = () => {
-        return this.dropdownRef;
-      },
-      ...rest
+      getPopupContainer = this.getPopupContainer,
+      ...dropdownProps
     } = this.props;
 
     let overlay;
@@ -67,17 +69,14 @@ class Dropdown extends Component {
 
     return (
       <React.Fragment>
-        <MtWrapper
-          className={className}
-          innerRef={e => e && (this.dropdownRef = e)}
-        >
+        <MtWrapper className={className} innerRef={this.dropdownRefCallback}>
           <AntDropdown
             overlay={overlay}
             trigger={[trigger]}
             prefixCls={'ant-dropdown'}
             getPopupContainer={getPopupContainer}
             placement={placement}
-            {...rest}
+            {...dropdownProps}
           >
             {children}
           </AntDropdown>

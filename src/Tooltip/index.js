@@ -20,19 +20,24 @@ class Tooltip extends Component {
   static propTypes = {
     children: PropTypes.node,
     title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-    className: PropTypes.string
+    className: PropTypes.string,
+    getPopupContainer: PropTypes.func
   };
 
   getRef = ele => (this.popUpContainer = ele);
 
   render() {
-    const { children, className } = this.props;
-
+    const { children, className, getPopupContainer } = this.props;
     return (
       <MtTooltip className={className} innerRef={this.getRef}>
         <AntTooltip
           {...this.props}
-          getPopupContainer={() => this.popUpContainer}
+          getPopupContainer={() => {
+            const container = getPopupContainer
+              ? getPopupContainer()
+              : this.popUpContainer;
+            return container;
+          }}
         >
           {children}
         </AntTooltip>

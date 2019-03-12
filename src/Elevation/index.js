@@ -6,6 +6,9 @@ function boxShadowWithLevel(level) {
   let boxShadow;
 
   switch (level) {
+    case 0:
+      boxShadow = 'none';
+      break;
     case 1:
       boxShadow = '0 2px 4px 0 rgba(0,0,0,0.08)';
       break;
@@ -25,7 +28,7 @@ function boxShadowWithLevel(level) {
 }
 
 const Elevation = styled.div`
-  border: ${theme.colors.PEARL};
+  border: 1px solid ${theme.colors.PEARL};
   border-radius: ${({ borderRadius = '4px' }) => borderRadius};
   background-color: #ffffff;
   box-sizing: border-box;
@@ -33,6 +36,7 @@ const Elevation = styled.div`
   padding: ${({ padding }) => padding};
   width: ${({ width }) => width};
   min-height: ${({ minHeight }) => minHeight};
+  ${props => ({ ...props.style })};
 `;
 
 Elevation.propTypes = {
@@ -40,7 +44,12 @@ Elevation.propTypes = {
   padding: PropTypes.string,
   borderRadius: PropTypes.string,
   level: PropTypes.number,
-  minHeight: PropTypes.string
+  minHeight: PropTypes.string,
+  style: PropTypes.object
+};
+
+Elevation.defaultProps = {
+  style: {}
 };
 
 export default Elevation;

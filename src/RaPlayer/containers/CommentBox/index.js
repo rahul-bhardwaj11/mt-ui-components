@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import style from './index.scss';
+import cs from 'classnames';
 import { actions } from '../../actions';
-import { toHHMMSS, getColorMap, parseText } from '../../utils/core';
+import { toHHMMSS, getColorMap } from '../../utils/core';
 import { connect } from '../../utils/providerHelper';
 import Modal from '../../../Modal';
 import {
@@ -10,7 +11,6 @@ import {
   STRING_CANCEL,
   MAX_CHAR_LIMIT_COMMENT
 } from '../../config/constants';
-import EmojiPicker from '../../components/EmojiPicker';
 import PropTypes from 'prop-types';
 
 class CommentBox extends Component {
@@ -23,12 +23,13 @@ class CommentBox extends Component {
     editComment: PropTypes.func,
     time: PropTypes.number,
     postComment: PropTypes.func,
-    xPos: PropTypes.number,
+    xPosRaw: PropTypes.number,
     commentText: PropTypes.string,
-    downArrowXPos: PropTypes.number,
     edit: PropTypes.bool,
     showError: PropTypes.bool,
-    author: PropTypes.object
+    author: PropTypes.object,
+    commentBoxRenderer: PropTypes.func,
+    clientWidth: PropTypes.number
   };
   static getDerivedStateFromProps(props, state) {
     if (props.showError && state.disableSaveButton) {
@@ -55,8 +56,51 @@ class CommentBox extends Component {
     this.state = intialState;
   }
 
+  state = {
+    xPos: null,
+    downArrowXPos: null
+  };
+
+  inputRef = node => {
+    this.commentTextArea = node;
+  };
+
+  boxRef = commentBox => {
+    if (commentBox) {
+      this.commentBox = commentBox;
+      this.calculateXPos();
+    }
+  };
+
+  calculateXPos = () => {
+    let { xPosRaw, clientWidth } = this.props;
+    let width = this.commentBox.getBoundingClientRect().width;
+    let _xPos = xPosRaw;
+    let availableWindow = _xPos + width / 2,
+      upperXLimit = clientWidth;
+
+    _xPos -= width / 2;
+    if (availableWindow > upperXLimit) {
+      _xPos = clientWidth - width;
+    }
+
+    if (_xPos < 0) {
+      _xPos = 0;
+    }
+    let downArrowXPos = xPosRaw - _xPos - 25;
+    downArrowXPos = downArrowXPos < 30 ? 30 : downArrowXPos;
+    downArrowXPos = downArrowXPos > width - 30 ? width - 30 : downArrowXPos;
+    this.setState({
+      xPos: _xPos,
+      downArrowXPos
+    });
+  };
+
   emojiOnSelectHandler(selectedEmoji) {
-    if (this.commentTextArea.value.length < MAX_CHAR_LIMIT_COMMENT) {
+    if (
+      this.commentTextArea &&
+      this.commentTextArea.value.length < MAX_CHAR_LIMIT_COMMENT
+    ) {
       let text = this.commentTextArea.value + selectedEmoji;
       this.props.showCommentBox({
         text
@@ -64,6 +108,7 @@ class CommentBox extends Component {
       this.setState({
         disableSaveButton: false
       });
+      this.commentTextArea.focus();
     }
   }
 
@@ -89,13 +134,16 @@ class CommentBox extends Component {
     this.setState({
       disableSaveButton: false
     });
+    if (!this.commentTextArea) {
+      return;
+    }
     this.commentTextArea.addEventListener('keydown', this.autosize.bind(this));
     this.commentTextArea.focus();
   }
 
   componentDidMount() {
     this.autosize();
-    if (!this.props.readOnly) {
+    if (!this.props.readOnly && this.commentTextArea) {
       this.commentTextArea.addEventListener(
         'keydown',
         this.autosize.bind(this)
@@ -135,20 +183,14 @@ class CommentBox extends Component {
     });
     if (this.props.id) {
       this.props.editComment({
-        commentObj: {
-          id: this.props.id,
-          text: text,
-          time: this.props.time
-        },
-        isCommentBox: true,
-        author: this.props.author
+        id: this.props.id,
+        text: text,
+        time: this.props.time
       });
     } else {
       this.props.postComment({
-        commentObj: {
-          text,
-          time: this.props.time
-        }
+        text,
+        time: this.props.time
       });
     }
     this.closeSelf();
@@ -157,7 +199,8 @@ class CommentBox extends Component {
   componentWillUnmount() {
     clearTimeout(this.state.timer);
     clearTimeout(this.autoSizeTimer);
-    this.commentTextArea.removeEventListener('keydown', this.autosize);
+    this.commentTextArea &&
+      this.commentTextArea.removeEventListener('keydown', this.autosize);
   }
 
   autosize() {
@@ -177,16 +220,19 @@ class CommentBox extends Component {
 
   render() {
     const {
-      xPos,
       time,
       commentText,
       readOnly,
-      downArrowXPos,
       edit,
       showError,
-      author
+      author,
+      commentBoxRenderer
     } = this.props;
+    let { xPos, downArrowXPos } = this.state;
     const { disableSaveButton } = this.state;
+    let divCls = cs(style.boxWrapper, {
+      [style.hide]: xPos === null
+    });
     let divStyle = {
         left: xPos
       },
@@ -210,69 +256,27 @@ class CommentBox extends Component {
     }
 
     return (
-      <div style={divStyle} className={style.acBox}>
-        <div className={style.downArrow} style={downArrowStyle} />
-        <div className={style.acBoxContent}>
-          <div className={style.acBoxContentInfo}>
-            <span className={style.time} style={timeStampColor}>
-              {timestampReadable}
-            </span>
-          </div>
-          {edit &&
-            this.props.id &&
-            disableSaveButton && (
-              <div className={style.acControlTopRight}>
-                <span
-                  onClick={this.editClickHandler}
-                  title="edit"
-                  className={style.edit}
-                />
-                <span
-                  onClick={this.deleteClickHandler}
-                  title="delete"
-                  className={style.delete}
-                />
-              </div>
-            )}
-          <textarea
-            className={style.acBoxText}
-            onChange={this.textAreaChangeHandler}
-            onKeyUp={this.textAreaChangeHandler}
-            maxLength={MAX_CHAR_LIMIT_COMMENT}
-            {...opts}
-            rows="1"
-            ref={input => {
-              this.commentTextArea = input;
-            }}
-            value={parseText(commentText)}
-          />
-          <div
-            className={
-              style.acBoxControls + ' ' + (readOnly ? style.hide : style.show)
-            }
-          >
-            <EmojiPicker toLeft="true" onSelect={this.emojiOnSelectHandler} />
-            <span
-              title="save"
-              className={[
-                style.acActionButton,
-                style.save,
-                disableSaveButton ? style.disable : ''
-              ].join(' ')}
-              onClick={this.postCommentHandler}
-            />
-            <span
-              title="discard"
-              className={[style.acActionButton, style.cancel].join(' ')}
-              onClick={this.closeSelf}
-            />
-          </div>
-          {showError && (
-            <div className={[style.error, style.floatR].join(' ')}>
-              Something went wrong.Please try again..
-            </div>
-          )}
-        </div>
+      <div style={divStyle} className={divCls}>
+        {commentBoxRenderer({
+          id: this.props.id,
+          commentText,
+          edit,
+          showError,
+          disableSaveButton,
+          timestampReadable,
+          downArrowStyle,
+          timeStampColor,
+          readOnly,
+          textAreaOpts: opts,
+          editClickHandler: this.editClickHandler,
+          deleteClickHandler: this.deleteClickHandler,
+          textAreaChangeHandler: this.textAreaChangeHandler,
+          emojiOnSelectHandler: this.emojiOnSelectHandler,
+          postCommentHandler: this.postCommentHandler,
+          closeSelf: this.closeSelf,
+          inputRef: this.inputRef,
+          boxRef: this.boxRef
+        })}
       </div>
     );
   }
@@ -280,17 +284,18 @@ class CommentBox extends Component {
 
 function mapStateToProps(state) {
   return {
-    xPos: state.commentBox.data.xPos,
+    xPosRaw: state.commentBox.data.xPosRaw,
+    clientWidth: state.commentBox.data.clientWidth,
     time: state.commentBox.data.time,
     author: state.commentBox.data.author,
     commentText: state.commentBox.data.text,
     readOnly: state.commentBox.data.readOnly,
     id: state.commentBox.data.id,
-    downArrowXPos: state.commentBox.data.downArrowXPos,
     showError: state.commentBox.error,
     postComment: state.postComment,
     editComment: state.editComment,
-    deleteComment: state.deleteComment
+    deleteComment: state.deleteComment,
+    commentBoxRenderer: state.commentBoxRenderer
   };
 }
 

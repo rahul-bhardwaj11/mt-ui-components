@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import StyledLoader from './css.js';
+import theme from '../styles/theme';
 
 export const LOADING_SIZE = {
   sizeBig: 'big',
@@ -12,6 +13,10 @@ export const LOADING_SIZE = {
 export const LOADER_TYPE = {
   Small: 'smallPageLoadingScreen',
   Full: 'fullPageloadingScreen'
+};
+
+const DEFAULT_LOADER_STYLE = {
+  borderColor: theme.colors.INDIGO
 };
 
 class Loader extends Component {
@@ -28,11 +33,14 @@ class Loader extends Component {
   };
   static defaultProps = {
     type: 'Small',
-    size: 'sizeBig'
+    size: 'sizeBig',
+    style: {}
   };
 
   render() {
     const { className, message, size, type, style } = this.props;
+    let { loaderStyle, ...rest } = style;
+    loaderStyle = { ...DEFAULT_LOADER_STYLE, ...loaderStyle };
     const wrapperClasses = classnames(
       {
         [LOADER_TYPE[type]]: true
@@ -40,7 +48,11 @@ class Loader extends Component {
       className
     );
     return (
-      <StyledLoader className={wrapperClasses} style={style}>
+      <StyledLoader
+        className={wrapperClasses}
+        style={{ ...rest }}
+        loaderStyle={loaderStyle}
+      >
         <div className={'loader'}>
           <div className={'loadingHeading'}>{this.props.loadingMessage}</div>
           <div className={classnames('spinner', LOADING_SIZE[size])}>

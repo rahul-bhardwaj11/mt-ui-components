@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import Input from '../Input';
 import Tag from '../Tag';
 import Icon from '../Icon';
+import theme from '../styles/theme';
 import styled from 'styled-components';
 
 const StyledEditableContent = styled.div`
   padding: 6px 12px;
+
   .editableText {
     float: left;
     cursor: pointer;
@@ -15,6 +17,9 @@ const StyledEditableContent = styled.div`
 
   .icon-edit {
     cursor: pointer;
+    position: absolute;
+    top: 3px;
+    right: 0px;
   }
 
   .editableWrapper {
@@ -28,6 +33,8 @@ const StyledEditableInput = styled.div`
   .editableInputControl {
     width: 40%;
     float: left;
+    position: relative;
+
     .icon-close {
       font-size: 10px;
     }
@@ -37,6 +44,13 @@ const StyledEditableInput = styled.div`
   .editableContentCancelBtn {
     margin: 4px 0px 0px 12px;
     padding: 0px 12px;
+  }
+
+  .ant-input-group-addon {
+    width: 32px;
+    font-size: 11px;
+    padding: 0 6px;
+    background-color: ${theme.colors.WHITE};
   }
 `;
 
@@ -50,6 +64,7 @@ class EditableContent extends Component {
 
   static propTypes = {
     editOnEnter: PropTypes.bool,
+    showRemainingCharacterCount: PropTypes.bool,
     value: PropTypes.string,
     onChange: PropTypes.func,
     onSave: PropTypes.func.isRequired,
@@ -59,7 +74,8 @@ class EditableContent extends Component {
   static defaultProps = {
     placeholder: 'Add Content',
     editOnEnter: false,
-    value: ''
+    value: '',
+    showRemainingCharacterCount: false
   };
 
   componentDidUpdate(oldProps) {
@@ -102,13 +118,17 @@ class EditableContent extends Component {
   handleClear = () => this.setState({ nextValue: '' });
 
   renderEditingComponent() {
-    const { editOnEnter, ...inputProps } = this.props;
+    const {
+      editOnEnter,
+      showRemainingCharacterCount,
+      ...inputProps
+    } = this.props;
     if (editOnEnter) {
       inputProps.onPressEnter = this.handleSave;
       inputProps.onBlur = this.handleSave;
       inputProps.suffix = <Icon type="close" onClick={this.handleClear} />;
     }
-    inputProps.maxLength = false;
+    const hasError = inputProps.errors && inputProps.errors.length;
     return (
       <StyledEditableInput>
         <div className="editableInputControl">
@@ -116,15 +136,23 @@ class EditableContent extends Component {
             {...inputProps}
             value={this.state.nextValue}
             onChange={this.handleInputChange}
+            addonAfter={
+              showRemainingCharacterCount &&
+              inputProps.maxLength &&
+              String(inputProps.maxLength - this.state.nextValue.length)
+            }
           />
+          {/* {showRemainingCharacterCount &&
+            inputProps.maxLength &&
+            inputProps.maxLength - this.state.nextValue.length} */}
         </div>
         {!editOnEnter && (
           <React.Fragment>
             <Tag
               className="editableContentSaveBtn"
               type="action"
-              onClick={this.handleSave}
-              disabled={inputProps.errors && inputProps.errors.length}
+              onClick={!hasError && this.handleSave}
+              disabled={hasError}
             >
               Save
             </Tag>
