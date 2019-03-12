@@ -4,6 +4,8 @@ import keywordsFull from './assests/images/keywordsFull.svg';
 import keywordsFullActive from './assests/images/keywordsFullActive.svg';
 import textConditionFull from './assests/images/textConditionFull.svg';
 import textConditionFullActive from './assests/images/textConditionFullActive.svg';
+import multipleConditionsFull from './assests/images/multipleConditionsFull.svg';
+import multipleConditionsFullActive from './assests/images/multipleConditionsFullActive.svg';
 import internalError from './assests/images/internalError.svg';
 import pageNotFound from './assests/images/pageNotFound.svg';
 import serviceUnavailable from './assests/images/serviceUnavailable.svg';
@@ -36,6 +38,16 @@ export default {
   }),
   textConditionFullActive: ({ width = 30, height = 30 }) => ({
     background: `url(${textConditionFullActive})  no-repeat 0 0 / contain transparent`,
+    width: width,
+    height: height
+  }),
+  multipleConditionsFull: ({ width = 30, height = 30 }) => ({
+    background: `url(${multipleConditionsFull})  no-repeat 0 0 / contain transparent`,
+    width: width,
+    height: height
+  }),
+  multipleConditionsFullActive: ({ width = 30, height = 30 }) => ({
+    background: `url(${multipleConditionsFullActive})  no-repeat 0 0 / contain transparent`,
     width: width,
     height: height
   }),
