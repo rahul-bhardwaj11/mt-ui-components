@@ -13,6 +13,7 @@ stories.add(
   withInfo('Basic usage of the Icon')(() => (
     <div>
       <Icon gradient={true} type="googleCalendar" />
+      <Icon gradient={true} type="noSearchResults" />
     </div>
   ))
 );
