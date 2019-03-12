@@ -7,6 +7,7 @@ import textConditionFullActive from './assests/images/textConditionFullActive.sv
 import internalError from './assests/images/internalError.svg';
 import pageNotFound from './assests/images/pageNotFound.svg';
 import serviceUnavailable from './assests/images/serviceUnavailable.svg';
+import noSearchResults from './assests/images/noSearchResults.svg';
 
 export default {
   outlookCalendar: ({ width = 30, height = 30 }) => ({
@@ -52,6 +53,11 @@ export default {
   }),
   serviceUnavailable: ({ width = 244, height = 200 }) => ({
     background: `url(${serviceUnavailable})  no-repeat 0 0 / contain transparent`,
+    width: width,
+    height: height
+  }),
+  noSearchResults: ({ width = 250, height = 216 }) => ({
+    background: `url(${noSearchResults})  no-repeat 0 0 / contain transparent`,
     width: width,
     height: height
   })
