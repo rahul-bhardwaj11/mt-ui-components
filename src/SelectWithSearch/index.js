@@ -315,7 +315,6 @@ const SelectBox = styled.div`
 const PortalSelectBox = styled(SelectBox)`
   position: unset;
 `;
-
 class SelectWithSearch extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),
@@ -324,6 +323,7 @@ class SelectWithSearch extends Component {
     isMulti: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     isButton: PropTypes.bool,
+    fixedButtonLabel: PropTypes.string,
     buttonMaxWidth: PropTypes.string,
     buttonWidth: PropTypes.string,
     className: PropTypes.string,
