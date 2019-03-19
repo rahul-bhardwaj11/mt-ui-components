@@ -4,6 +4,7 @@ import Input from '../Input';
 import ConfirmBox from '../ConfirmBox';
 import Tag from '../Tag';
 
+const DEFAULT_STYLE = { width: 650, height: 378 };
 class PdfPlayer extends Component {
   static propTypes = {
     nextPage: PropTypes.number,
@@ -18,7 +19,7 @@ class PdfPlayer extends Component {
   };
 
   static defaultProps = {
-    style: { width: 650, height: 378 }
+    style: {}
   };
 
   state = {
@@ -149,7 +150,12 @@ class PdfPlayer extends Component {
         )}
         <div
           ref={e => (this.ref = e)}
-          style={{ minHeight: 'inherit', position: 'relative', ...style }}
+          style={{
+            minHeight: 'inherit',
+            position: 'relative',
+            ...DEFAULT_STYLE,
+            ...style
+          }}
         />
       </React.Fragment>
     );
