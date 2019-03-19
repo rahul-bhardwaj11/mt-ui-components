@@ -141,6 +141,7 @@ class VideoControls extends Component {
     let targetOffset = getElementOffset(e.target);
     let xPos = e.pageX - targetOffset.left;
     let percentage = (100 * xPos) / e.target.clientWidth;
+    xPos -= 5;
     if (percentage > 100) {
       percentage = 100;
     }
@@ -167,7 +168,7 @@ class VideoControls extends Component {
     }
 
     let style = window.getComputedStyle(e.target, null);
-    let xPos = parseInt(style.getPropertyValue('left'));
+    let xPos = Number(parseFloat(style.getPropertyValue('left')).toFixed()) - 8;
     let targetElement = e.target.parentElement;
     let clientWidth = targetElement.clientWidth;
 

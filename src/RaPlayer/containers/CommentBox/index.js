@@ -87,8 +87,8 @@ class CommentBox extends Component {
     if (_xPos < 0) {
       _xPos = 0;
     }
-    let downArrowXPos = xPosRaw - _xPos - 25;
-    downArrowXPos = downArrowXPos < 30 ? 30 : downArrowXPos;
+    let downArrowXPos = xPosRaw - _xPos;
+    downArrowXPos = downArrowXPos < 10 ? 10 : downArrowXPos;
     downArrowXPos = downArrowXPos > width - 30 ? width - 30 : downArrowXPos;
     this.setState({
       xPos: _xPos,
