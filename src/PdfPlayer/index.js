@@ -9,7 +9,7 @@ import MTPDFPlayer from './style';
 class PdfPlayer extends Component {
   static propTypes = {
     nextPage: PropTypes.number,
-    url: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
     uuid: PropTypes.string.isRequired,
     onPageChange: PropTypes.func,
     isEditMode: PropTypes.bool,
@@ -29,7 +29,7 @@ class PdfPlayer extends Component {
   };
 
   componentDidMount() {
-    const { url, uuid } = this.props;
+    const { src, uuid } = this.props;
     let staticUrl = uuid + '&width=547&height=401';
     staticUrl = staticUrl.replace('crocodoc', 'pdfViewer');
 
@@ -42,7 +42,7 @@ class PdfPlayer extends Component {
     let input = document.createElement('input');
     input.type = 'hidden';
     input.name = 'pdf';
-    input.value = url;
+    input.value = src;
     form.appendChild(input);
 
     let iframe = document.createElement('iframe');
