@@ -55,6 +55,9 @@ class PdfPlayer extends Component {
     iframe.style.width = '100%';
     iframe.style.height = '100%';
     iframe.style.border = '0';
+    iframe.style.position = 'absolute';
+    iframe.style.left = '0';
+    iframe.style.top = '0';
 
     this.ref.appendChild(iframe);
     this.ref.appendChild(form);
@@ -161,23 +164,20 @@ class PdfPlayer extends Component {
 
   render() {
     const { style, isEditMode } = this.props;
+    const __style = {
+      minHeight: 'inherit',
+      position: 'relative',
+      ...DEFAULT_STYLE,
+      ...style
+    };
     return (
-      <MTPDFPlayer>
+      <MTPDFPlayer style={__style} innerRef={e => (this.ref = e)}>
         {isEditMode && (
           <div className="uploaderHeader">
             {this.renderEditTitleDiv()}
             {this.renderReplaceDiv()}
           </div>
         )}
-        <div
-          ref={e => (this.ref = e)}
-          style={{
-            minHeight: 'inherit',
-            position: 'relative',
-            ...DEFAULT_STYLE,
-            ...style
-          }}
-        />
       </MTPDFPlayer>
     );
   }
