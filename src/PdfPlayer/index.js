@@ -145,6 +145,7 @@ class PdfPlayer extends Component {
     const { onRemove } = this.props;
     return (
       <ConfirmBox
+        placement="bottomRight"
         onConfirm={() => {
           onRemove && onRemove();
         }}
@@ -157,7 +158,7 @@ class PdfPlayer extends Component {
   render() {
     const { style, isEditMode } = this.props;
     return (
-      <MTPDFPlayer>
+      <MTPDFPlayer edit={this.state.edit}>
         {isEditMode && (
           <div className="uploaderHeader">
             {this.renderEditTitleDiv()}
