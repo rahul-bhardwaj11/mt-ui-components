@@ -16,11 +16,13 @@ class PdfPlayer extends Component {
     onRemove: PropTypes.func,
     onTitleEdit: PropTypes.func,
     style: PropTypes.object,
-    title: PropTypes.string
+    title: PropTypes.string,
+    deleteConfirmText: PropTypes.string
   };
 
   static defaultProps = {
-    style: { width: 620, height: 350 }
+    style: { width: 620, height: 350 },
+    deleteConfirmText: 'Are you sure you want to delete this file ?'
   };
 
   state = {
@@ -142,9 +144,10 @@ class PdfPlayer extends Component {
   };
 
   renderReplaceDiv = () => {
-    const { onRemove } = this.props;
+    const { onRemove, deleteConfirmText } = this.props;
     return (
       <ConfirmBox
+        title={deleteConfirmText}
         placement="bottomRight"
         onConfirm={() => {
           onRemove && onRemove();
