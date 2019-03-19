@@ -82,7 +82,10 @@ class Input extends Component {
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     type: PropTypes.oneOf(['text', 'number', 'password', 'file']),
-    errors: PropTypes.array
+    errors: PropTypes.array,
+    onError: PropTypes.func,
+    min: PropTypes.number,
+    max: PropTypes.number
   };
 
   static defaultProps = {
@@ -95,7 +98,8 @@ class Input extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: this.handleValue(this.props.value)
+      value: this.handleValue(this.props.value),
+      isError: false
     };
   }
 
@@ -104,10 +108,26 @@ class Input extends Component {
     trimmedValue = trimmedValue || '';
     value = trimmedValue.length ? value : trimmedValue;
     const { maxLength } = this.props;
+    this.checkForError(value);
     if (maxLength) {
       return maxLength <= value.length ? value : value.substring(0, maxLength);
     }
     return value;
+  };
+
+  checkForError = value => {
+    const { min, max, type, onError } = this.props;
+    let isError = false;
+    if (type == 'number') {
+      if (this.props.hasOwnProperty('min')) {
+        if (value < min) isError = true;
+      }
+      if (this.props.hasOwnProperty('max')) {
+        if (value > max) isError = true;
+      }
+    }
+    isError && onError && onError();
+    this.setState({ isError });
   };
 
   onChange = event => {
