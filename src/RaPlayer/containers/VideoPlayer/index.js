@@ -174,6 +174,7 @@ class VideoPlayerContainer extends Component {
           style.videoContainer,
           style.posRel,
           fullScreen ? style.fullScreen : '',
+          showControlsOnly ? style.showControlsOnly : '',
           className
         ].join(' ')}
         onMouseEnter={this[showControls]}

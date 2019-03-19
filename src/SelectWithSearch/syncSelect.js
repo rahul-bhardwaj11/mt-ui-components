@@ -20,6 +20,7 @@ export default class SyncSelect extends Component {
     isButton: PropTypes.bool,
     isDisabled: PropTypes.bool,
     buttonLabel: PropTypes.string,
+    fixedButtonLabel: PropTypes.string,
     placeholder: PropTypes.string,
     buttonMaxWidth: PropTypes.string,
     buttonMinWidth: PropTypes.string,
@@ -482,7 +483,13 @@ export default class SyncSelect extends Component {
   };
 
   render() {
-    const { isMulti, isButton, buttonMaxWidth, buttonMinWidth } = this.props;
+    const {
+      isMulti,
+      isButton,
+      buttonMaxWidth,
+      buttonMinWidth,
+      fixedButtonLabel
+    } = this.props;
     const {
       options,
       selectedItems,
@@ -551,7 +558,7 @@ export default class SyncSelect extends Component {
                 showSelect ? 'activeSelect' : ''
               )}
             >
-              {this.getButtonText()}
+              {fixedButtonLabel || this.getButtonText()}
             </Button>
           </div>
         )}

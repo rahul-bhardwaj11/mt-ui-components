@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import style from './index.scss';
 import Draggable from '../../components/Draggable/index';
 import Video from '../../components/Video/index';
+import classnames from 'classnames';
 
 class Player extends Component {
   static propTypes = {
@@ -121,8 +122,11 @@ class Player extends Component {
       mediaState,
       onVideoTimeUpdate
     } = this.props;
+    const className = classnames(style.playerContainer, {
+      [style.hide]: hidemedia
+    });
     return (
-      <div onClick={this.togglePlayPause} className={style.playerContainer}>
+      <div onClick={this.togglePlayPause} className={className}>
         <Video
           src={src}
           updateMediaAttributes={updateMediaAttributes}
