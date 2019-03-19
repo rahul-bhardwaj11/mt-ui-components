@@ -7,7 +7,7 @@ import Tag from '../Tag';
 class PdfPlayer extends Component {
   static propTypes = {
     nextPage: PropTypes.number,
-    url: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
     uuid: PropTypes.string.isRequired,
     onPageChange: PropTypes.func,
     isEditMode: PropTypes.bool,
@@ -27,7 +27,7 @@ class PdfPlayer extends Component {
   };
 
   componentDidMount() {
-    const { url, uuid } = this.props;
+    const { src, uuid } = this.props;
     let staticUrl = uuid + '&width=547&height=401';
     staticUrl = staticUrl.replace('crocodoc', 'pdfViewer');
 
@@ -40,13 +40,14 @@ class PdfPlayer extends Component {
     let input = document.createElement('input');
     input.type = 'hidden';
     input.name = 'pdf';
-    input.value = url;
+    input.value = src;
     form.appendChild(input);
 
     let iframe = document.createElement('iframe');
     this.iframe = iframe;
     iframe.name = uuid;
     iframe.scrolling = 'no';
+    iframe.style.position = 'absolute';
     iframe.style.width = '100%';
     iframe.style.height = '100%';
 
@@ -140,7 +141,10 @@ class PdfPlayer extends Component {
             {this.renderReplaceDiv()}
           </div>
         )}
-        <div ref={e => (this.ref = e)} style={style} />
+        <div
+          ref={e => (this.ref = e)}
+          style={{ minHeight: 'inherit', position: 'relative', ...style }}
+        />
       </React.Fragment>
     );
   }

@@ -2,7 +2,6 @@
   font-family: 'icomoon';
   src: url('fonts/icomoon.eot?i20me6');
   src: url('fonts/icomoon.eot?i20me6#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.woff2?i20me6') format('woff2'),
     url('fonts/icomoon.ttf?i20me6') format('truetype'),
     url('fonts/icomoon.woff?i20me6') format('woff'),
     url('fonts/icomoon.svg?i20me6#icomoon') format('svg');
@@ -27,6 +26,18 @@
 }
 
 :global {
+  .icon-Asset:before {
+    content: '\e9cb';
+  }
+  .icon-Home:before {
+    content: '\e9cc';
+  }
+  .icon-Peers:before {
+    content: '\e9cd';
+  }
+  .icon-Reviews:before {
+    content: '\e9ce';
+  }
   .icon-mic:before {
     content: '\e9ca';
   }
