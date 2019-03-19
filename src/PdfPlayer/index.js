@@ -158,7 +158,7 @@ class PdfPlayer extends Component {
   render() {
     const { style, isEditMode } = this.props;
     return (
-      <MTPDFPlayer edit={this.state.edit}>
+      <MTPDFPlayer>
         {isEditMode && (
           <div className="uploaderHeader">
             {this.renderEditTitleDiv()}
