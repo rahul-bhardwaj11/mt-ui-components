@@ -57,7 +57,6 @@ class PdfPlayer extends Component {
     iframe.style.border = '0';
     iframe.style.position = 'absolute';
     iframe.style.left = '0';
-    iframe.style.top = '0';
 
     this.ref.appendChild(iframe);
     this.ref.appendChild(form);
