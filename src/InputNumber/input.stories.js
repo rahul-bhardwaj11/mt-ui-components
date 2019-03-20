@@ -20,6 +20,7 @@ stories.add(
         placeholder={text('Placeholder', 'Placeholder')}
         min={0}
         max={100}
+        onChange={() => {}}
       />
     </div>
   ))
