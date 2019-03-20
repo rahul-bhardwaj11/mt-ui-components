@@ -26,6 +26,21 @@
 }
 
 :global {
+  .icon-bonusPoints:before {
+    content: '\e9d2';
+  }
+  .icon-questionMastered:before {
+    content: '\e9d3';
+  }
+  .icon-copyright:before {
+    content: '\e9cf';
+  }
+  .icon-home:before {
+    content: '\e9d0';
+  }
+  .icon-insights:before {
+    content: '\e9d1';
+  }
   .icon-Asset:before {
     content: '\e9cb';
   }
