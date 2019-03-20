@@ -26,6 +26,12 @@
 }
 
 :global {
+  .icon-bonusPoints:before {
+    content: '\e9d2';
+  }
+  .icon-questionMastered:before {
+    content: '\e9d3';
+  }
   .icon-copyright:before {
     content: '\e9cf';
   }
