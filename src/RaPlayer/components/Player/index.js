@@ -143,7 +143,7 @@ class Player extends Component {
         />
         {secondarySrc && (
           <Draggable>
-            <div style={{ width: '140px' }}>
+            <div style={{ width: '140px', height: '79px' }}>
               <Video
                 ref={e => (this.videoInset = e)}
                 src={secondarySrc}
