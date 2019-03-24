@@ -32,7 +32,7 @@ class PdfPlayer extends Component {
   };
 
   componentDidMount() {
-    const { src, uuid } = this.props;
+    const { src, uuid, isEditMode } = this.props;
     let staticUrl = uuid + '&width=547&height=401';
     staticUrl = staticUrl.replace('crocodoc', 'pdfViewer');
 
@@ -53,7 +53,7 @@ class PdfPlayer extends Component {
     iframe.name = uuid;
     iframe.scrolling = 'no';
     iframe.style.width = '100%';
-    iframe.style.height = '100%';
+    iframe.style.height = isEditMode ? 'calc(100% - 48px)' : '100%';
     iframe.style.border = '0';
     iframe.style.position = 'absolute';
     iframe.style.left = '0';
