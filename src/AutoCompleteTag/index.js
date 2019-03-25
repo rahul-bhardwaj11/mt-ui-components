@@ -62,6 +62,7 @@ const StyleAutoCompleteTag = styled.div`
     margin: 4px 8px 4px 0;
     float:left;
     cursor: pointer;
+    position: relative;
   }
 
   .tag-value {
@@ -74,7 +75,8 @@ const StyleAutoCompleteTag = styled.div`
     cursor: pointer;
     color:${theme.colors.SILVER};
     font-size:14px;
-    margin-left: 6px;
+    position: absolute;
+    right: 2px;
   }
 `;
 
