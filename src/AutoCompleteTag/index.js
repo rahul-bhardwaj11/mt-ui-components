@@ -76,7 +76,7 @@ const StyleAutoCompleteTag = styled.div`
     color:${theme.colors.SILVER};
     font-size:14px;
     position: absolute;
-    right: 2px;
+    right: 4px;
   }
 `;
 
