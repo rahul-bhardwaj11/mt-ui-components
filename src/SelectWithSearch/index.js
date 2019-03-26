@@ -216,10 +216,15 @@ const SelectBox = styled.div`
     color: ${theme.colors.OUTER_SPACE};
   }
 
-  .mt-react-select__option--is-focused:hover {
-    background-color:  ${theme.colors.INDIGO};
-    color: ${theme.colors.WHITE};
+  .mt-react-select__option--is-focused {
+    background-color:  ${theme.colors.WHITE};
+    color: ${theme.colors.OUTER_SPACE};
     cursor: pointer;
+    
+    &:hover {
+      background-color:  ${theme.colors.INDIGO};
+      color: ${theme.colors.WHITE};
+    }
   }
   
   .mt-react-select__option--is-disabled  {
