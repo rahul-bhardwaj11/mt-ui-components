@@ -22,6 +22,7 @@ class PdfPlayer extends Component {
   };
 
   static defaultProps = {
+    nextPage: 1,
     style: {},
     deleteConfirmText: 'Are you sure you want to delete this file ?'
   };
@@ -31,14 +32,31 @@ class PdfPlayer extends Component {
     title: this.props.title
   };
 
-  componentDidMount() {
+  setRef = ref => {
+    if (this.ref || !ref) {
+      return;
+    }
+
+    this.ref = ref;
     const { src, uuid, isEditMode } = this.props;
     let staticUrl = uuid + '&width=547&height=401';
     staticUrl = staticUrl.replace('crocodoc', 'pdfViewer');
 
+    let iframe = document.createElement('iframe');
+    this.iframe = iframe;
+    iframe.name = '1';
+    iframe.scrolling = 'no';
+    iframe.style.width = '100%';
+    iframe.style.height = isEditMode ? 'calc(100% - 48px)' : '100%';
+    iframe.style.border = '0';
+    iframe.style.position = 'absolute';
+    iframe.style.left = '0';
+
+    this.ref.appendChild(iframe);
+
     let form = document.createElement('form');
     form.action = staticUrl;
-    form.target = uuid;
+    form.target = '1';
     form.method = 'post';
     form.style.display = 'none';
 
@@ -48,32 +66,21 @@ class PdfPlayer extends Component {
     input.value = src;
     form.appendChild(input);
 
-    let iframe = document.createElement('iframe');
-    this.iframe = iframe;
-    iframe.name = uuid;
-    iframe.scrolling = 'no';
-    iframe.style.width = '100%';
-    iframe.style.height = isEditMode ? 'calc(100% - 48px)' : '100%';
-    iframe.style.border = '0';
-    iframe.style.position = 'absolute';
-    iframe.style.left = '0';
-
-    this.ref.appendChild(iframe);
     this.ref.appendChild(form);
     form.submit();
 
     if (!window.addEventListener) {
-      window.attachEvent('onmessage', this.pageChanged);
+      window.attachEvent('onmessage', this.handleIncomingMessage);
     } else {
-      window.addEventListener('message', this.pageChanged, false);
+      window.addEventListener('message', this.handleIncomingMessage, false);
     }
-  }
+  };
 
   componentWillUnmount() {
     if (!window.removeEventListener) {
-      window.detachEvent('onmessage', this.pageChanged);
+      window.detachEvent('onmessage', this.handleIncomingMessage);
     } else {
-      window.removeEventListener('message', this.pageChanged, false);
+      window.removeEventListener('message', this.handleIncomingMessage, false);
     }
   }
 
@@ -83,9 +90,12 @@ class PdfPlayer extends Component {
     }
   }
 
-  pageChanged = event => {
-    const { onPageChange } = this.props;
+  handleIncomingMessage = event => {
+    const { onPageChange, nextPage } = this.props;
     if (!event.data || typeof event.data !== 'string') return;
+    if (event.data === 'viewerinitialized') {
+      this.goToPage(nextPage);
+    }
     var data = event.data.split('.');
     if (data[0] == 'A') {
       const pageNumber = parseInt(data[1]);
@@ -170,7 +180,7 @@ class PdfPlayer extends Component {
       ...style
     };
     return (
-      <MTPDFPlayer style={__style} innerRef={e => (this.ref = e)}>
+      <MTPDFPlayer style={__style} innerRef={this.setRef}>
         {isEditMode && (
           <div className="uploaderHeader">
             {this.renderEditTitleDiv()}
