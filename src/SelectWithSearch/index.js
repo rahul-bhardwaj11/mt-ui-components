@@ -217,10 +217,24 @@ const SelectBox = styled.div`
   }
 
   .mt-react-select__option--is-focused {
-    background-color:  ${theme.colors.INDIGO};
-    color: ${theme.colors.WHITE};
+    background-color:  ${theme.colors.WHITE};
+    color: ${theme.colors.OUTER_SPACE};
     cursor: pointer;
+    
+    &:hover {
+      background-color:  ${theme.colors.INDIGO};
+      color: ${theme.colors.WHITE};
+    }
   }
+  
+  .mt-react-select__option--is-disabled  {
+      color: ${theme.colors.SILVER};
+      
+    &:hover  {
+      background-color:  ${theme.colors.PORCELAIN};
+    }
+  }
+  
   .mt-react-select__indicator-separator {
     display: none;
   }
