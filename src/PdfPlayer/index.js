@@ -88,6 +88,11 @@ class PdfPlayer extends Component {
     if (nextProps.nextPage != this.props.nextPage) {
       this.goToPage(nextProps.nextPage);
     }
+    if (nextProps.isEditMode != this.props.isEditMode && this.iframe) {
+      this.iframe.style.height = nextProps.isEditMode
+        ? 'calc(100% - 48px)'
+        : '100%';
+    }
   }
 
   handleIncomingMessage = event => {
