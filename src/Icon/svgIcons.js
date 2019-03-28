@@ -59,17 +59,18 @@ export default {
     width: width,
     height: height
   }),
-  internalError: ({ width = 100, height = 100 }) => ({
+  internalError: ({ width = 268, height = 200, ...style }) => ({
     background: `url(${internalError})  no-repeat 0 0 / contain transparent`,
     width: width,
-    height: height
+    height: height,
+    ...style
   }),
-  pageNotFound: ({ width = 100, height = 100 }) => ({
+  pageNotFound: ({ width = 200, height = 200 }) => ({
     background: `url(${pageNotFound})  no-repeat 0 0 / contain transparent`,
     width: width,
     height: height
   }),
-  serviceUnavailable: ({ width = 100, height = 100 }) => ({
+  serviceUnavailable: ({ width = 244, height = 200 }) => ({
     background: `url(${serviceUnavailable})  no-repeat 0 0 / contain transparent`,
     width: width,
     height: height
