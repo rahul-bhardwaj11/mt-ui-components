@@ -127,25 +127,23 @@ class AutoCompleteTag extends React.Component {
     }
   };
 
-  state = {
-    tags: this.props.tags || []
-  };
-
-  handleChange = tags => {
-    this.setState({ tags });
-    this.props.onChange(tags);
-  };
-
   render() {
-    const { className, withSearch, inputProps, ...rest } = this.props;
+    const {
+      className,
+      withSearch,
+      inputProps,
+      tags = [],
+      onChange,
+      ...rest
+    } = this.props;
     return (
       <StyleAutoCompleteTag className={className} withSearch={withSearch}>
         <TagsInput
           inputProps={inputProps}
           {...rest}
           renderTag={RenderTag}
-          value={this.state.tags}
-          onChange={this.handleChange}
+          value={tags}
+          onChange={onChange}
           onlyUnique={true}
         />
       </StyleAutoCompleteTag>
