@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import theme from 'mt-ui-components/styles/theme.js';
+import theme from '../styles/theme.js';
 
 export default styled.div`
   .siderStyling {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Scrollbar from 'mt-ui-components/Scrollbar';
+import Scrollbar from '../Scrollbar';
 
 import SiderWrapper from './Wrapper';
 import SiderStyle from './style';
@@ -92,7 +92,7 @@ class SiderMenu extends Component {
     return (
       <SiderStyle>
         {sectionScroll && (
-          <>
+          <React.Fragment>
             <div ref={this.beforeScrollableMenuRef}>
               <SiderWrapper
                 items={itemsBeforeScrollableItem}
@@ -122,7 +122,7 @@ class SiderMenu extends Component {
                 />
               )}
             </div>
-          </>
+          </React.Fragment>
         )}
 
         {!sectionScroll && (

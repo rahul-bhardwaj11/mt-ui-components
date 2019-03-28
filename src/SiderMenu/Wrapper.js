@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import classnames from 'classnames';
 
-import Menu from 'mt-ui-components/Menu';
-import Layout from 'mt-ui-components/Layout';
+import Menu from '../Menu';
+import Layout from '../Layout';
 
 const { Item, ItemGroup: Group, SubMenu } = Menu;
 const { Sider } = Layout;
