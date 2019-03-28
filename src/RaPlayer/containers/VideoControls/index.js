@@ -52,7 +52,8 @@ class VideoControls extends Component {
     videoDuration: PropTypes.number,
     commentBarClassName: PropTypes.string,
     videoControlsButtonsClassName: PropTypes.string,
-    videoSeekBarClassName: PropTypes.string
+    videoSeekBarClassName: PropTypes.string,
+    disableComments: PropTypes.bool
   };
 
   constructor(props) {
@@ -223,7 +224,8 @@ class VideoControls extends Component {
       videoDuration,
       commentBarClassName,
       videoControlsButtonsClassName,
-      videoSeekBarClassName
+      videoSeekBarClassName,
+      disableComments
     } = this.props;
     const { showTrackList } = this.state;
     this.video = document.getElementById(targetPlayerId);
@@ -347,23 +349,27 @@ class VideoControls extends Component {
           </div>
           <div className={style.clear} />
         </div>
-        {commentBox.show ? <CommentBox edit={edit} /> : null}
-        {commentHelperBox.show && edit ? (
-          <CommentHelperBox
-            targetPlayerId={targetPlayerId}
-            onClickHandler={videoPauseAtTimeHandler}
-          />
-        ) : null}
+        {!disableComments && (
+          <React.Fragment>
+            {commentBox.show ? <CommentBox edit={edit} /> : null}
+            {commentHelperBox.show && edit ? (
+              <CommentHelperBox
+                targetPlayerId={targetPlayerId}
+                onClickHandler={videoPauseAtTimeHandler}
+              />
+            ) : null}
 
-        <CommentBarDot
-          comments={comments}
-          onMouseIn={this.commentBarDotOnMouseInHandler}
-          onMouseOut={this.commentBarDotOnMouseOutHandler}
-          targetPlayerId={targetPlayerId}
-          colorMap={colorMap}
-          videoDuration={videoDuration}
-          commentBarClassName={commentBarClassName}
-        />
+            <CommentBarDot
+              comments={comments}
+              onMouseIn={this.commentBarDotOnMouseInHandler}
+              onMouseOut={this.commentBarDotOnMouseOutHandler}
+              targetPlayerId={targetPlayerId}
+              colorMap={colorMap}
+              videoDuration={videoDuration}
+              commentBarClassName={commentBarClassName}
+            />
+          </React.Fragment>
+        )}
       </div>
     );
   };
@@ -372,6 +378,7 @@ class VideoControls extends Component {
 function mapStateToProps(state) {
   return {
     ...state,
+    disableComments: state.disableComments,
     comments: state.comments,
     mediaState: state.media.state,
     videoDuration: state.media.duration,

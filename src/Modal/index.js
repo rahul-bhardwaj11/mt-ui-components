@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import AntModal from 'antd/lib/modal';
 import 'antd/lib/modal/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
-import ReactDOM from 'react-dom';
 import './index.css';
 
 const StyledModalWrapper = styled.div`
@@ -178,12 +178,16 @@ class Modal extends Component {
     type: PropTypes.oneOf(Object.keys(MODAL_WIDTH_MAP)),
     style: PropTypes.object,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    fullScreenMobile: PropTypes.bool
+    fullScreenMobile: PropTypes.bool,
+    getPopupContainer: PropTypes.func,
+    renderInPortal: PropTypes.bool.isRequired,
+    className: PropTypes.string
   };
 
   static defaultProps = {
     type: 'medium',
-    fullScreenMobile: true
+    fullScreenMobile: true,
+    renderInPortal: false
   };
 
   static confirm = props => {
@@ -212,8 +216,28 @@ class Modal extends Component {
     return AntModal.confirm(confirmModalProps);
   };
 
+  defaultElement = document.createElement('div');
+  modalContainer = null;
+
+  componentDidMount() {
+    document.body.appendChild(this.defaultElement);
+    this.modalContainer =
+      this.props.getPopupContainer && this.props.getPopupContainer();
+  }
+
+  componentWillUnmount() {
+    document.body.removeChild(this.defaultElement);
+  }
+
   render() {
-    let { children, type, width, fullScreenMobile } = this.props;
+    let {
+      children,
+      type,
+      width,
+      fullScreenMobile,
+      renderInPortal,
+      className
+    } = this.props;
     let customProps = {
       ...this.props,
       width: width || MODAL_WIDTH_MAP[type],
@@ -223,9 +247,10 @@ class Modal extends Component {
         ...this.props.style
       }
     };
-    return (
+    const modalFragment = (
       <React.Fragment>
         <StyledModalWrapper
+          className={className}
           innerRef={el => {
             if (el) {
               this.modalWrapRef = el;
@@ -243,6 +268,13 @@ class Modal extends Component {
         </MtModal>
       </React.Fragment>
     );
+    const comp = renderInPortal
+      ? ReactDOM.createPortal(
+          <div onClick={e => e.stopPropagation()}>{modalFragment}</div>,
+          this.modalContainer || this.defaultElement
+        )
+      : modalFragment;
+    return comp;
   }
 }
 
