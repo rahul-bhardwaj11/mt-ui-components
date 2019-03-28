@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Preview from './components/preview';
 import Editor from './components/editor';
 import { MODES } from './constants';
-import { errorToast } from '../Toast';
 import classnames from 'classnames';
 import StyledDescription from './css';
 
@@ -24,7 +23,6 @@ export default class Description extends Component {
     maxLength: PropTypes.number,
     ok: PropTypes.func,
     readOnly: PropTypes.bool,
-    required: PropTypes.bool,
     scrollingContainer: PropTypes.string
   };
   static defaultProps = {
@@ -44,7 +42,7 @@ export default class Description extends Component {
 
   onChange = (value, editor, trigger = true) => {
     //const { content } = this.state;
-    const { maxLength, required } = this.props;
+    const { maxLength } = this.props;
     let text = trimNewLine(editor.getText().trim());
     let contentLength = text.length;
     if (contentLength > maxLength && editor.deleteText) {
@@ -56,11 +54,7 @@ export default class Description extends Component {
       content: value,
       availableLength: maxLength - contentLength
     });
-    this.props.onChange(value, contentLength);
-    !contentLength &&
-      trigger &&
-      required &&
-      errorToast({ message: 'Description can not be empty' });
+    trigger && this.props.onChange(value, contentLength);
   };
 
   editorHelpers = {

@@ -24,10 +24,10 @@ const MtWrapper = styled.span`
        }
      }
    }
-  
-  .ant-select-dropdown-menu-item-disabled{	
-    opacity:0.3;	
-    pointer-events: none;	
+
+  .ant-select-dropdown-menu-item-disabled{
+    opacity:0.3;
+    pointer-events: none;
   }
 
   .icon-tick {
@@ -94,9 +94,9 @@ const MtWrapper = styled.span`
     margin: 8px;
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
-      margin-bottom: 4px;	
-      &:last-child{	
-        margin-bottom: 0px;	
+      margin-bottom: 4px;
+      &:last-child{
+        margin-bottom: 0px;
       }
       color: ${theme.colors.DARK_OUTER_SPACE};
       &:hover {
@@ -111,6 +111,7 @@ const MtWrapper = styled.span`
     }
 
   .ant-select-dropdown-menu-item-selected{
+       background-color:${theme.colors.TROPICAL_BLUE};
       .icon-tick {
         content: '';
         font-size: 7px;
