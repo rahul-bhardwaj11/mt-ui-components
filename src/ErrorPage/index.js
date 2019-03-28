@@ -64,7 +64,8 @@ class ErrorPage extends Component {
       })
     ]).isRequired,
     showLogo: PropTypes.bool,
-    reportError: PropTypes.func
+    reportError: PropTypes.func,
+    tryAgain: PropTypes.func
   };
   static defaultProps = {
     onSearch: () => {},
@@ -81,7 +82,8 @@ class ErrorPage extends Component {
       styleActionButton,
       pageType,
       showLogo,
-      reportError
+      reportError,
+      tryAgain
     } = this.props;
     const pageInfo = isObject(pageType)
       ? pageType
@@ -106,7 +108,7 @@ class ErrorPage extends Component {
         <div className={cs('errorPageDescription', styleDescription)}>
           <StringToHTML content={pageInfo.description} />
         </div>
-        {pageInfo.buttons(styleActionButton, reportError)}
+        {pageInfo.buttons(styleActionButton, reportError, tryAgain)}
       </ErrorpageWrapper>
     );
   }
