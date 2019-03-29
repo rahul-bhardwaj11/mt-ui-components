@@ -19,6 +19,7 @@ export CopyToClipboard from './CopyToClipboard';
 export DateFilter from './DateFilter';
 export DatePicker from './DatePicker';
 export Description from './Description';
+export DetectOnline from './DetectOnline';
 export Drawer from './Drawer';
 export Dropdown from './Dropdown';
 export EditableContent from './EditableContent';

@@ -56,7 +56,7 @@ export default class Editor extends Component {
           };
 
     return (
-      <div>
+      <React.Fragment>
         {!readOnly && type != VIEW_TYPES.FULL && <Toolbar id={toolbarId} />}
         <ReactQuill
           ref={el => {
@@ -75,7 +75,7 @@ export default class Editor extends Component {
         )}
         {showButtons && <UpdateBtns {...helpers} />}
         <span />
-      </div>
+      </React.Fragment>
     );
   }
 }

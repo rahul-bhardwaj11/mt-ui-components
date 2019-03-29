@@ -103,12 +103,15 @@ h3 {
     top: 0;
     width: 120px;
     height: 100%;
-    background: linear-gradient(
+    background: ${props =>
+      props.gradient
+        ? `linear-gradient(
       to right,
       rgba(255, 255, 255, 1),
       rgba(255, 255, 255, 0.6),
       rgba(255, 255, 255, 0)
-    );
+    )`
+        : 'transparent'}
   }
 &.slick-slider:after {
     content: "";
@@ -118,12 +121,15 @@ h3 {
     right: 0;
     width: 120px;
     height:100%;
-    background: linear-gradient(
+    background: ${props =>
+      props.gradient
+        ? `linear-gradient(
       to left,
       rgba(255, 255, 255, 1),
       rgba(255, 255, 255, 0.6),
       rgba(255, 255, 255, 0)
-    );
+    )`
+        : 'transparent'}
   }
   &.left_arrow--disabled{
     &.slick-slider:before{
@@ -146,7 +152,8 @@ class Carousel extends Component {
     afterChange: PropTypes.func,
     pageSize: PropTypes.number,
     className: PropTypes.string,
-    infinite: PropTypes.bool
+    infinite: PropTypes.bool,
+    gradient: PropTypes.bool
   };
   state = {
     current: 0,
@@ -155,7 +162,8 @@ class Carousel extends Component {
   };
   static defaultProps = {
     style: {},
-    pageSize: 6
+    pageSize: 6,
+    gradient: true
   };
   componentDidMount() {
     const { hasMore } = this.state;
@@ -225,12 +233,14 @@ class Carousel extends Component {
   render() {
     const { children } = this.state;
     const className = this.getClassName();
+    const { gradient } = this.props;
     return (
       <MtCarousel
         {...this.props}
         className={className}
         arrows={true}
         dots={false}
+        gradient={gradient}
         afterChange={this.afterChange}
       >
         {children}

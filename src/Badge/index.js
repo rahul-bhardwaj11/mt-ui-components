@@ -37,13 +37,14 @@ const MtBadge = styled(AntBadge)`
 class Badge extends Component {
   static propTypes = {
     children: PropTypes.node,
+    classsName: PropTypes.string,
     type: PropTypes.oneOf(Object.values(BADGE_TYPES)).isRequired
   };
 
   render() {
-    const { children, type } = this.props;
+    const { children, type, classsName } = this.props;
     return (
-      <MtBadge {...this.props} type={type}>
+      <MtBadge {...this.props} type={type} classsName={classsName}>
         {children}
       </MtBadge>
     );
