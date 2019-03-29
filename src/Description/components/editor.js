@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 import UpdateBtns from './updateBtns';
 import Toolbar from './toolbar';
-import { FORMATS } from '../constants';
-//import { debounce } from "@mt-ui-core/utils";
+import { FORMATS, VIEW_TYPES, FULL_TOOLBAR } from '../constants';
 
 const noop = () => undefined;
 export default class Editor extends Component {
@@ -19,7 +19,8 @@ export default class Editor extends Component {
     availableLength: PropTypes.number.isRequired,
     placeholder: PropTypes.string,
     readOnly: PropTypes.bool,
-    scrollingContainer: PropTypes.string
+    scrollingContainer: PropTypes.string,
+    type: PropTypes.string
   };
   static defaultProps = {
     onMount: noop
@@ -41,18 +42,22 @@ export default class Editor extends Component {
       id,
       placeholder,
       readOnly,
-      scrollingContainer
+      scrollingContainer,
+      type
     } = this.props;
     const toolbarId = `${id}-toolbar`;
     let modules = {};
     modules.toolbar = readOnly
       ? false
-      : {
-          container: `#${toolbarId}`
-        };
+      : type == VIEW_TYPES.FULL
+        ? FULL_TOOLBAR
+        : {
+            container: `#${toolbarId}`
+          };
+
     return (
       <React.Fragment>
-        {!readOnly && <Toolbar id={toolbarId} />}
+        {!readOnly && type != VIEW_TYPES.FULL && <Toolbar id={toolbarId} />}
         <ReactQuill
           ref={el => {
             this.quillRef = el;
