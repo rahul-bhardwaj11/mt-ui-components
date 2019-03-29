@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import style from './index.scss';
 import Draggable from '../../components/Draggable/index';
 import Video from '../../components/Video/index';
+import classnames from 'classnames';
 
 class Player extends Component {
   static propTypes = {
@@ -16,7 +17,9 @@ class Player extends Component {
     updateMediaAttributes: PropTypes.func,
     onRenderComplete: PropTypes.func,
     currentTime: PropTypes.number,
-    mediaState: PropTypes.oneOf(['PLAY', 'PAUSE'])
+    mediaState: PropTypes.oneOf(['PLAY', 'PAUSE']),
+    onVideoTimeUpdate: PropTypes.func,
+    onVideoEnded: PropTypes.func
   };
 
   pause() {
@@ -100,6 +103,7 @@ class Player extends Component {
 
   onVideoEndedHandler = () => {
     this.props.onVideoLoaded();
+    this.props.onVideoEnded();
     if (this.props.hidemedia) {
       return;
     }
@@ -115,10 +119,14 @@ class Player extends Component {
       onRenderComplete,
       hidemedia,
       currentTime,
-      mediaState
+      mediaState,
+      onVideoTimeUpdate
     } = this.props;
+    const className = classnames(style.playerContainer, {
+      [style.hide]: hidemedia
+    });
     return (
-      <div onClick={this.togglePlayPause} className={style.playerContainer}>
+      <div onClick={this.togglePlayPause} className={className}>
         <Video
           src={src}
           updateMediaAttributes={updateMediaAttributes}
@@ -131,10 +139,11 @@ class Player extends Component {
           onVideoLoaded={this.onVideoLoadedHandler}
           onVideoEnded={this.onVideoEndedHandler}
           onRenderComplete={onRenderComplete}
+          onVideoTimeUpdate={onVideoTimeUpdate}
         />
         {secondarySrc && (
           <Draggable>
-            <div style={{ width: '140px' }}>
+            <div style={{ width: '140px', height: '79px' }}>
               <Video
                 ref={e => (this.videoInset = e)}
                 src={secondarySrc}

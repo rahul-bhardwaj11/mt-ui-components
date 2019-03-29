@@ -34,6 +34,10 @@ class TimePicker extends Component {
     defaultValue: PropTypes.shape({
       hour: PropTypes.number,
       min: PropTypes.number
+    }),
+    value: PropTypes.shape({
+      hour: PropTypes.number,
+      min: PropTypes.number
     })
   };
   static defaultPropTypes = {
@@ -42,14 +46,26 @@ class TimePicker extends Component {
   onSelect = key => {
     this.props.onSelect(getHoursAndMinutesFromTimeSlot(key));
   };
+
+  getTimePickerProps = () => {
+    let timePickerProps = { ...this.props };
+    if (timePickerProps.value) {
+      timePickerProps.value = getTimeSlotFromTimeObject(timePickerProps.value);
+    }
+    if (timePickerProps.defaultValue) {
+      timePickerProps.defaultValue = getTimeSlotFromTimeObject(
+        timePickerProps.defaultValue
+      );
+    }
+    return timePickerProps;
+  };
   render() {
-    const { defaultValue: timeObject } = this.props;
+    const timePickerProps = this.getTimePickerProps();
     return (
       <Select
-        {...this.props}
+        {...timePickerProps}
         onSelect={this.onSelect}
         options={getTimeSelectOptions()}
-        defaultValue={getTimeSlotFromTimeObject(timeObject)}
       />
     );
   }

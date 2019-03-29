@@ -9,8 +9,12 @@ var ontimeUpdateHandler = function() {
   if (typeof this.props.updateMediaAttributes !== 'function') {
     return;
   }
+  const currentTime = this.video.currentTime;
+  this.props.onVideoTimeUpdate({
+    currentTime
+  });
   this.props.updateMediaAttributes({
-    currentTime: this.video.currentTime
+    currentTime
   });
 };
 
@@ -81,7 +85,12 @@ class Video extends Component {
     id: PropTypes.string,
     heightAuto: PropTypes.string,
     hidemedia: PropTypes.bool,
-    mediaState: PropTypes.oneOf(['PLAY', 'PAUSE'])
+    mediaState: PropTypes.oneOf(['PLAY', 'PAUSE']),
+    onVideoTimeUpdate: PropTypes.func
+  };
+
+  static defaultProps = {
+    onVideoTimeUpdate: () => {}
   };
 
   constructor(props) {
