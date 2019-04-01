@@ -217,10 +217,24 @@ const SelectBox = styled.div`
   }
 
   .mt-react-select__option--is-focused {
-    background-color:  ${theme.colors.INDIGO};
-    color: ${theme.colors.WHITE};
+    background-color:  ${theme.colors.WHITE};
+    color: ${theme.colors.OUTER_SPACE};
     cursor: pointer;
+    
+    &:hover {
+      background-color:  ${theme.colors.INDIGO};
+      color: ${theme.colors.WHITE};
+    }
   }
+  
+  .mt-react-select__option--is-disabled  {
+      color: ${theme.colors.SILVER};
+      
+    &:hover  {
+      background-color:  ${theme.colors.PORCELAIN};
+    }
+  }
+  
   .mt-react-select__indicator-separator {
     display: none;
   }
@@ -315,7 +329,6 @@ const SelectBox = styled.div`
 const PortalSelectBox = styled(SelectBox)`
   position: unset;
 `;
-
 class SelectWithSearch extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),
@@ -324,6 +337,7 @@ class SelectWithSearch extends Component {
     isMulti: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     isButton: PropTypes.bool,
+    fixedButtonLabel: PropTypes.string,
     buttonMaxWidth: PropTypes.string,
     buttonWidth: PropTypes.string,
     className: PropTypes.string,

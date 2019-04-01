@@ -62,6 +62,7 @@ const StyleAutoCompleteTag = styled.div`
     margin: 4px 8px 4px 0;
     float:left;
     cursor: pointer;
+    position: relative;
   }
 
   .tag-value {
@@ -74,7 +75,8 @@ const StyleAutoCompleteTag = styled.div`
     cursor: pointer;
     color:${theme.colors.SILVER};
     font-size:14px;
-    margin-left: 6px;
+    position: absolute;
+    right: 4px;
   }
 `;
 
@@ -127,25 +129,23 @@ class AutoCompleteTag extends React.Component {
     }
   };
 
-  state = {
-    tags: this.props.tags || []
-  };
-
-  handleChange = tags => {
-    this.setState({ tags });
-    this.props.onChange(tags);
-  };
-
   render() {
-    const { className, withSearch, inputProps, ...rest } = this.props;
+    const {
+      className,
+      withSearch,
+      inputProps,
+      tags = [],
+      onChange,
+      ...rest
+    } = this.props;
     return (
       <StyleAutoCompleteTag className={className} withSearch={withSearch}>
         <TagsInput
           inputProps={inputProps}
           {...rest}
           renderTag={RenderTag}
-          value={this.state.tags}
-          onChange={this.handleChange}
+          value={tags}
+          onChange={onChange}
           onlyUnique={true}
         />
       </StyleAutoCompleteTag>
