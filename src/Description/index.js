@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Preview from './components/preview';
 import Editor from './components/editor';
-import { MODES } from './constants';
+import { MODES, VIEW_TYPES } from './constants';
 import { errorToast } from '../Toast';
 import classnames from 'classnames';
 import StyledDescription from './css';
@@ -25,7 +25,8 @@ export default class Description extends Component {
     ok: PropTypes.func,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
-    scrollingContainer: PropTypes.string
+    scrollingContainer: PropTypes.string,
+    type: PropTypes.oneOf([VIEW_TYPES.FULL, VIEW_TYPES.DEFAULT])
   };
   static defaultProps = {
     content: '',
@@ -33,7 +34,8 @@ export default class Description extends Component {
     onChange: noop,
     ok: noop,
     maxLength: 1000,
-    preview: false
+    preview: false,
+    type: VIEW_TYPES.DEFAULT
   };
 
   state = {
@@ -91,7 +93,8 @@ export default class Description extends Component {
       heading,
       className,
       readOnly,
-      scrollingContainer
+      scrollingContainer,
+      type
     } = this.props;
 
     return mode == MODES.EDIT ? (
@@ -108,6 +111,7 @@ export default class Description extends Component {
           className={className}
           onMount={this.onChange.bind(this)}
           scrollingContainer={scrollingContainer}
+          type={type}
         />
       </div>
     ) : (
