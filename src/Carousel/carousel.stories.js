@@ -95,3 +95,14 @@ stories.add(
       <Carousel {...settings} pageSize={4} fetchData={promiseData} />
     ))
   );
+stories.add(
+  'Async Carousel Without Gradient',
+  withInfo('Adding type primary to Carousel')(() => (
+    <Carousel
+      {...settings}
+      pageSize={4}
+      fetchData={promiseData}
+      gradient={false}
+    />
+  ))
+);

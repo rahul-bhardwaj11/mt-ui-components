@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import Input from '../Input';
 import ConfirmBox from '../ConfirmBox';
 import Tag from '../Tag';
+import Icon from '../Icon';
+import MTPDFPlayer from './style';
 
+const DEFAULT_STYLE = { width: 650, height: 378 };
 class PdfPlayer extends Component {
   static propTypes = {
     nextPage: PropTypes.number,
@@ -14,11 +17,14 @@ class PdfPlayer extends Component {
     onRemove: PropTypes.func,
     onTitleEdit: PropTypes.func,
     style: PropTypes.object,
-    title: PropTypes.string
+    title: PropTypes.string,
+    deleteConfirmText: PropTypes.string
   };
 
   static defaultProps = {
-    style: { width: 650, height: 378 }
+    nextPage: 1,
+    style: {},
+    deleteConfirmText: 'Are you sure you want to delete this file ?'
   };
 
   state = {
@@ -26,14 +32,31 @@ class PdfPlayer extends Component {
     title: this.props.title
   };
 
-  componentDidMount() {
-    const { src, uuid } = this.props;
+  setRef = ref => {
+    if (this.ref || !ref) {
+      return;
+    }
+
+    this.ref = ref;
+    const { src, uuid, isEditMode } = this.props;
     let staticUrl = uuid + '&width=547&height=401';
     staticUrl = staticUrl.replace('crocodoc', 'pdfViewer');
 
+    let iframe = document.createElement('iframe');
+    this.iframe = iframe;
+    iframe.name = '1';
+    iframe.scrolling = 'no';
+    iframe.style.width = '100%';
+    iframe.style.height = isEditMode ? 'calc(100% - 48px)' : '100%';
+    iframe.style.border = '0';
+    iframe.style.position = 'absolute';
+    iframe.style.left = '0';
+
+    this.ref.appendChild(iframe);
+
     let form = document.createElement('form');
     form.action = staticUrl;
-    form.target = uuid;
+    form.target = '1';
     form.method = 'post';
     form.style.display = 'none';
 
@@ -43,30 +66,21 @@ class PdfPlayer extends Component {
     input.value = src;
     form.appendChild(input);
 
-    let iframe = document.createElement('iframe');
-    this.iframe = iframe;
-    iframe.name = uuid;
-    iframe.scrolling = 'no';
-    iframe.style.position = 'absolute';
-    iframe.style.width = '100%';
-    iframe.style.height = '100%';
-
-    this.ref.appendChild(iframe);
     this.ref.appendChild(form);
     form.submit();
 
     if (!window.addEventListener) {
-      window.attachEvent('onmessage', this.pageChanged);
+      window.attachEvent('onmessage', this.handleIncomingMessage);
     } else {
-      window.addEventListener('message', this.pageChanged, false);
+      window.addEventListener('message', this.handleIncomingMessage, false);
     }
-  }
+  };
 
   componentWillUnmount() {
     if (!window.removeEventListener) {
-      window.detachEvent('onmessage', this.pageChanged);
+      window.detachEvent('onmessage', this.handleIncomingMessage);
     } else {
-      window.removeEventListener('message', this.pageChanged, false);
+      window.removeEventListener('message', this.handleIncomingMessage, false);
     }
   }
 
@@ -74,14 +88,26 @@ class PdfPlayer extends Component {
     if (nextProps.nextPage != this.props.nextPage) {
       this.goToPage(nextProps.nextPage);
     }
+    if (nextProps.isEditMode != this.props.isEditMode && this.iframe) {
+      this.iframe.style.height = nextProps.isEditMode
+        ? 'calc(100% - 48px)'
+        : '100%';
+    }
   }
 
-  pageChanged = event => {
-    const { onPageChange } = this.props;
+  handleIncomingMessage = event => {
+    const { onPageChange, nextPage } = this.props;
+    if (!event.data || typeof event.data !== 'string') return;
+    if (event.data === 'viewerinitialized') {
+      this.goToPage(nextPage);
+    }
     var data = event.data.split('.');
     if (data[0] == 'A') {
       const pageNumber = parseInt(data[1]);
-      onPageChange && onPageChange(pageNumber);
+      if (this.pageNumber !== pageNumber) {
+        this.pageNumber = pageNumber;
+        onPageChange && onPageChange(pageNumber);
+      }
     }
   };
 
@@ -102,50 +128,71 @@ class PdfPlayer extends Component {
 
   renderEditTitleDiv = () => {
     const { edit, title } = this.state;
-    return edit ? (
-      <div>
-        <Input
-          defaultValue={title}
-          onChange={(e, value) => {
-            this.newTitle = value;
-          }}
-        />
-        <Tag onClick={this.handleTitleChange}>save</Tag>
-        <Tag onClick={() => this.setState({ edit: false })}>cancel</Tag>
+    return (
+      <div className="editMode">
+        {edit ? (
+          <React.Fragment>
+            <div className="inputBox">
+              <Input
+                className="inputTitle"
+                defaultValue={title}
+                onChange={(e, value) => {
+                  this.newTitle = value;
+                }}
+              />
+            </div>
+            <div className="tagBox">
+              <Tag
+                className="saveTag"
+                type="action"
+                onClick={this.handleTitleChange}
+              >
+                Save
+              </Tag>
+              <Tag onClick={() => this.setState({ edit: false })}>Cancel</Tag>
+            </div>
+          </React.Fragment>
+        ) : (
+          <div className="titleText" onClick={this.activeEditMode}>
+            {title}
+          </div>
+        )}
       </div>
-    ) : (
-      <div onClick={this.activeEditMode}>{title}</div>
     );
   };
 
   renderReplaceDiv = () => {
-    const { onRemove } = this.props;
+    const { onRemove, deleteConfirmText } = this.props;
     return (
       <ConfirmBox
+        title={deleteConfirmText}
+        placement="bottomRight"
         onConfirm={() => {
           onRemove && onRemove();
         }}
       >
-        Replace
+        <Icon type="delete2" className="replaceModeIcon" />
       </ConfirmBox>
     );
   };
 
   render() {
     const { style, isEditMode } = this.props;
+    const __style = {
+      minHeight: 'inherit',
+      position: 'relative',
+      ...DEFAULT_STYLE,
+      ...style
+    };
     return (
-      <React.Fragment>
+      <MTPDFPlayer style={__style} innerRef={this.setRef}>
         {isEditMode && (
-          <div>
+          <div className="uploaderHeader">
             {this.renderEditTitleDiv()}
             {this.renderReplaceDiv()}
           </div>
         )}
-        <div
-          ref={e => (this.ref = e)}
-          style={{ minHeight: 'inherit', position: 'relative', ...style }}
-        />
-      </React.Fragment>
+      </MTPDFPlayer>
     );
   }
 }
