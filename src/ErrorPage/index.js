@@ -17,9 +17,8 @@ const ErrorpageWrapper = styled.div`
 
   .errorPageTitle {
     width: 200px;
-    height: auto;
-    margin-top: 72px;
-    margin-bottom: 72px;
+    height: 64px;
+    margin: 72px auto;
   }
 
   .errorPageIcon {
@@ -91,9 +90,10 @@ class ErrorPage extends Component {
     return (
       <ErrorpageWrapper>
         {showLogo && (
-          <img
+          <Icon
+            gradient={true}
             className={cs('errorPageTitle', styleTitle)}
-            src="http://www.mindtickle.com/wp-content/uploads/2018/07/home-logo.png"
+            type="mindtickleLogo"
           />
         )}
         <Icon
