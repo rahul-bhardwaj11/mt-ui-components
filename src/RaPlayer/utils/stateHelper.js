@@ -33,6 +33,7 @@ const initialState = {
   videoControlsClassName: '',
   videoControlsButtonsClassName: '',
   videoSeekBarClassName: '',
+  disableComments: false,
   commentBoxHelperRenderer,
   commentBoxRenderer
 };

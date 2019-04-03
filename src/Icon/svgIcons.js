@@ -1,3 +1,4 @@
+import mindtickleLogo from './assests/images/mindtickleLogo.svg';
 import outlookCalendarSvg from './assests/images/outlookCalendar.svg';
 import googleCalendar from './assests/images/googleCalendar.svg';
 import keywordsFull from './assests/images/keywordsFull.svg';
@@ -19,6 +20,11 @@ import programDefault from './assests/images/programDefault.svg';
 import programSelected from './assests/images/programSelected.svg';
 
 export default {
+  mindtickleLogo: ({ width = 200, height = 64 }) => ({
+    background: `url(${mindtickleLogo})  no-repeat 0 0 / contain transparent`,
+    width: width,
+    height: height
+  }),
   outlookCalendar: ({ width = 30, height = 30 }) => ({
     background: `url(${outlookCalendarSvg})  no-repeat 0 0 / contain transparent`,
     width: width,
@@ -59,17 +65,18 @@ export default {
     width: width,
     height: height
   }),
-  internalError: ({ width = 100, height = 100 }) => ({
+  internalError: ({ width = 268, height = 200, ...style }) => ({
     background: `url(${internalError})  no-repeat 0 0 / contain transparent`,
     width: width,
-    height: height
+    height: height,
+    ...style
   }),
-  pageNotFound: ({ width = 100, height = 100 }) => ({
+  pageNotFound: ({ width = 200, height = 200 }) => ({
     background: `url(${pageNotFound})  no-repeat 0 0 / contain transparent`,
     width: width,
     height: height
   }),
-  serviceUnavailable: ({ width = 100, height = 100 }) => ({
+  serviceUnavailable: ({ width = 244, height = 200 }) => ({
     background: `url(${serviceUnavailable})  no-repeat 0 0 / contain transparent`,
     width: width,
     height: height
