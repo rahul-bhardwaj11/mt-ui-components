@@ -1,7 +1,7 @@
 import React from 'react';
 import cs from 'classnames';
 import Button from '../Button';
-
+import PropTypes from 'prop-types';
 import { reload } from '../utils';
 
 export const PAGE_TYPES = {
@@ -11,21 +11,43 @@ export const PAGE_TYPES = {
   CLIENT_ERROR: 'CLIENT_ERROR'
 };
 
+const ActionButtons = ({ reportError, tryAgain, styleActionButton }) => {
+  return (
+    <div className={cs('errorPageActionButtons', styleActionButton)}>
+      <Button
+        type="secondary"
+        className="errorCommonButtonStyling"
+        onClick={() => reload('/')}
+      >
+        Go to Home
+      </Button>
+      {reportError && (
+        <Button type="secondary" className="errorCommonButtonStyling">
+          Report Issue
+        </Button>
+      )}
+      {tryAgain && (
+        <Button type="secondary" className="errorCommonButtonStyling">
+          Try Again
+        </Button>
+      )}
+    </div>
+  );
+};
+
+ActionButtons.propTypes = {
+  reportError: PropTypes.func,
+  tryAgain: PropTypes.func,
+  styleActionButton: PropTypes.string
+};
+
 export const PAGE_TYPES_CONFIG = {
   [PAGE_TYPES.NOT_FOUND]: {
     image: 'pageNotFound',
     heading: 'Page not found',
     description: "We can't seem ot find the page you are looking for.",
     buttons: styleActionButton => (
-      <div className={cs('errorPageActionButtons', styleActionButton)}>
-        <Button
-          type="secondary"
-          className="errorCommonButtonStyling"
-          onClick={() => reload('/')}
-        >
-          Go to Home
-        </Button>
-      </div>
+      <ActionButtons styleActionButton={styleActionButton} />
     )
   },
   [PAGE_TYPES.INTERNAL_SERVER_ERROR]: {
@@ -34,22 +56,11 @@ export const PAGE_TYPES_CONFIG = {
     description:
       "Sorry your past request could't be completed <br /> Please try agaain after some time",
     buttons: (styleActionButton, reportError, tryAgain) => (
-      <div className={cs('errorPageActionButtons', styleActionButton)}>
-        {reportError && (
-          <Button type="secondary" className="errorCommonButtonStyling">
-            Report Issue
-          </Button>
-        )}
-        {tryAgain && (
-          <Button
-            type="primary"
-            className="errorCommonButtonStyling"
-            onClick={tryAgain}
-          >
-            Try Again
-          </Button>
-        )}
-      </div>
+      <ActionButtons
+        styleActionButton={styleActionButton}
+        reportError={reportError}
+        tryAgain={tryAgain}
+      />
     )
   },
   [PAGE_TYPES.SERVICE_UNAVAILABLE]: {
@@ -58,22 +69,11 @@ export const PAGE_TYPES_CONFIG = {
     description:
       'Sorry our service is not available currently. <br />  Please try again after some time',
     buttons: (styleActionButton, reportError, tryAgain) => (
-      <div className={cs('errorPageActionButtons', styleActionButton)}>
-        {reportError && (
-          <Button type="secondary" className="errorCommonButtonStyling">
-            Report Issue
-          </Button>
-        )}
-        {tryAgain && (
-          <Button
-            type="primary"
-            className="errorCommonButtonStyling"
-            onClick={tryAgain}
-          >
-            Try Again
-          </Button>
-        )}
-      </div>
+      <ActionButtons
+        styleActionButton={styleActionButton}
+        reportError={reportError}
+        tryAgain={tryAgain}
+      />
     )
   },
   [PAGE_TYPES.CLIENT_ERROR]: {
@@ -82,26 +82,11 @@ export const PAGE_TYPES_CONFIG = {
     description:
       "Sorry your past request could't be completed <br /> Please try agaain after some time",
     buttons: (styleActionButton, reportError, tryAgain) => (
-      <div className={cs('errorPageActionButtons', styleActionButton)}>
-        {tryAgain && (
-          <Button
-            type="secondary"
-            className="errorCommonButtonStyling"
-            onClick={tryAgain}
-          >
-            Reload
-          </Button>
-        )}
-        {reportError && (
-          <Button
-            type="primary"
-            className="errorCommonButtonStyling"
-            onClick={reportError}
-          >
-            Report Error
-          </Button>
-        )}
-      </div>
+      <ActionButtons
+        styleActionButton={styleActionButton}
+        reportError={reportError}
+        tryAgain={tryAgain}
+      />
     )
   }
 };

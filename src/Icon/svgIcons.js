@@ -1,3 +1,4 @@
+import mindtickleLogo from './assests/images/mindtickleLogo.svg';
 import outlookCalendarSvg from './assests/images/outlookCalendar.svg';
 import googleCalendar from './assests/images/googleCalendar.svg';
 import keywordsFull from './assests/images/keywordsFull.svg';
@@ -19,6 +20,11 @@ import programDefault from './assests/images/programDefault.svg';
 import programSelected from './assests/images/programSelected.svg';
 
 export default {
+  mindtickleLogo: ({ width = 200, height = 64 }) => ({
+    background: `url(${mindtickleLogo})  no-repeat 0 0 / contain transparent`,
+    width: width,
+    height: height
+  }),
   outlookCalendar: ({ width = 30, height = 30 }) => ({
     background: `url(${outlookCalendarSvg})  no-repeat 0 0 / contain transparent`,
     width: width,
