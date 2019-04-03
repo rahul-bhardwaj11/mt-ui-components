@@ -18,7 +18,7 @@ function generateIndexFile(files) {
   const filteredFolder = files.filter(item => {
     let itemPath = join(sourceDir, item);
     return (
-      new RegExp(/^(?!.*images|styles|Introduction).*$/g).test(item) &&
+      new RegExp(/^(?!.*images|styles|Introduction|utils).*$/g).test(item) &&
       lstatSync(itemPath).isDirectory()
     );
   });

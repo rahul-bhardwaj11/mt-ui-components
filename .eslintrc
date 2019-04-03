@@ -26,6 +26,7 @@
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "rules": {
     "react/no-children-prop" : 0,
-    "react/no-deprecated" : 0
+    "react/no-deprecated" : 0,
+    "react/display-name": 0
   }
 }
