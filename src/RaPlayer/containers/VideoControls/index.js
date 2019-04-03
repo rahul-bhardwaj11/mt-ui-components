@@ -47,7 +47,7 @@ class VideoControls extends Component {
     onSeekHandler: PropTypes.func,
     volumeUpdateHandler: PropTypes.func,
     videoPauseAtTimeHandler: PropTypes.func,
-    controlOptions: PropTypes.func,
+    controlOptions: PropTypes.object,
     downloadSrc: PropTypes.string,
     videoDuration: PropTypes.number,
     commentBarClassName: PropTypes.string,
