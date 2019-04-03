@@ -86,21 +86,22 @@ const StyledDescription = styled.div`
       &.ql-snow {
         border: 1px solid ${theme.colors.ALTO};
         background: ${theme.colors.WHITE};
-        border-radius: 4px 0 4px 4px;
+        border-radius: 0 0 4px 4px !important;
         height: 80px;
         &:hover,
         &:active,
         &.active {
-          border: 1px solid ${theme.colors.SILVER};
+          border-color: ${theme.colors.SILVER};
         }
       }
     }
 
     .ql-toolbar.ql-snow {
+      width: 100%;
       border: 1px solid ${theme.colors.ALTO};
       border-radius: 4px 4px 0 0;
       box-sizing: border-box;
-      position: absolute;
+      position: static;
       right: 0px;
       font-family: 'Open sans', arial, sans-serif;
       padding: 5px 0px 5px 5px;
