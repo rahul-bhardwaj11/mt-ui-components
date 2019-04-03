@@ -111,10 +111,6 @@ const MtSlider = styled.div`
 
 .toolTip{
   width:100%;
-  .ant-tooltip{
-    left:calc(${props => `${props.offsetLeft}`} - ${props =>
-  `${props.offset}px`}) !important;
-  }
 }
 `;
 
@@ -196,7 +192,7 @@ class Slider extends Component {
     if (!marks || disabled) return;
 
     const targetClass = e.target.className.split(' ');
-    if (targetClass[0] == SLIDER_MARK_CLASS) {
+    if (targetClass.includes(SLIDER_MARK_CLASS)) {
       const offsetLeft = e.clientX;
       const leftPercentage = e.target.style.left;
       const mark = this.percentageToMarksMap[leftPercentage];
