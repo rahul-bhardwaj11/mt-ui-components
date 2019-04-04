@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { PdfPlayer, RaPlayer, PhotoViewer, UnsupportedViewer } from './drivers';
+import {
+  PdfPlayer,
+  RaPlayer,
+  PhotoViewer,
+  UnsupportedViewer,
+  ZipViewer
+} from './drivers';
 
 const COMMON_PROPS = ['style'];
 
@@ -16,6 +22,10 @@ const DRIVER_MAP = {
   VIDEO: {
     types: ['mp3', 'mp4', 'webm'],
     props: ['src', 'primaryTracks', 'secondaryTracks']
+  },
+  ZIP: {
+    types: ['zip'],
+    props: ['src']
   }
 };
 
@@ -29,6 +39,10 @@ const isImage = type => {
 
 const isVideo = type => {
   return DRIVER_MAP.VIDEO.types.includes(type);
+};
+
+const isZip = type => {
+  return DRIVER_MAP.ZIP.types.includes(type);
 };
 
 class FileViewer extends Component {
@@ -51,6 +65,8 @@ class FileViewer extends Component {
       return RaPlayer;
     } else if (isPDF(type)) {
       return PdfPlayer;
+    } else if (isZip(type)) {
+      return ZipViewer;
     } else {
       return UnsupportedViewer;
     }
@@ -74,6 +90,8 @@ class FileViewer extends Component {
       }
     } else if (isPDF(type)) {
       DRIVER_MAP.PDF.props.forEach(p => (props[p] = this.props[p]));
+    } else if (isPDF(type)) {
+      DRIVER_MAP.ZIP.props.forEach(p => (props[p] = this.props[p]));
     }
 
     return props;

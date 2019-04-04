@@ -2,10 +2,10 @@ import React from 'react';
 import Icon from '../../Icon';
 import { UnsupportedFileViewer } from '../css';
 
-const UnsupportedViewer = () => (
+const ZipViewer = () => (
   <UnsupportedFileViewer>
-    <Icon type="media" className="Icon" />
+    <Icon type="zip" className="Icon" />
   </UnsupportedFileViewer>
 );
 
-export default UnsupportedViewer;
+export default ZipViewer;
