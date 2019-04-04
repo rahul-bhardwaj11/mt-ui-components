@@ -151,3 +151,8 @@ export class Offline extends Base {
 }
 Offline.propTypes = propTypes;
 Offline.defaultProps = defaultProps;
+
+export default {
+  Offline,
+  Online
+};

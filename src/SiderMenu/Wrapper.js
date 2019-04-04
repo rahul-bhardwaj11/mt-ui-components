@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import classnames from 'classnames';
 
-import Menu from 'mt-ui-components/Menu';
-import Layout from 'mt-ui-components/Layout';
+import Menu from '../Menu';
+import Layout from '../Layout';
 
 const { Item, ItemGroup: Group, SubMenu } = Menu;
 const { Sider } = Layout;
@@ -42,7 +42,9 @@ const SiderWrapper = ({
   width,
   className,
   siderPropsToPass,
-  menuPropsToPass
+  menuPropsToPass,
+  preMenuContent,
+  postMenuContent
 }) => {
   return (
     <Sider
@@ -50,9 +52,11 @@ const SiderWrapper = ({
       width={width}
       className={classnames('siderStyling', className)}
     >
+      {preMenuContent}
       <Menu theme="dark" mode="inline" inlineIndent={20} {...menuPropsToPass}>
         {renderItems(items)}
       </Menu>
+      {postMenuContent}
     </Sider>
   );
 };
@@ -62,7 +66,9 @@ SiderWrapper.propTypes = {
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   className: PropTypes.string,
   siderPropsToPass: PropTypes.object,
-  menuPropsToPass: PropTypes.object
+  menuPropsToPass: PropTypes.object,
+  preMenuContent: PropTypes.element,
+  postMenuContent: PropTypes.element
 };
 
 export default SiderWrapper;

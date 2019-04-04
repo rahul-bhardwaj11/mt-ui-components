@@ -337,7 +337,7 @@ class SelectWithSearch extends Component {
     isMulti: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     isButton: PropTypes.bool,
-    fixedButtonLabel: PropTypes.string,
+    fixedButtonLabel: PropTypes.oneOfType(PropTypes.string, PropTypes.node),
     buttonMaxWidth: PropTypes.string,
     buttonWidth: PropTypes.string,
     className: PropTypes.string,
