@@ -17,6 +17,7 @@ const MtTooltip = styled.div`
     background-color: #000000;
   }
   .ant-tooltip {
+    ${({ style = {} }) => (style.zIndex ? `z-index: ${style.zIndex} ` : '')};
     ${({ style = {} }) => (style.left ? `left: ${style.left} !important` : '')};
   }
 `;
