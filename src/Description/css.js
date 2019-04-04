@@ -88,7 +88,6 @@ const StyledDescription = styled.div`
         background: ${theme.colors.WHITE};
         border-radius: 0 0 4px 4px !important;
         height: 80px;
-        &:hover,
         &:active,
         &.active {
           border-color: ${theme.colors.SILVER};
