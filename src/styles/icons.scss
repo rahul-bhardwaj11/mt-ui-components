@@ -26,6 +26,15 @@
 }
 
 :global {
+  .icon-icsDownload:before {
+    content: '\e9d7';
+  }
+  .icon-media:before {
+    content: '\e9d5';
+  }
+  .icon-zip:before {
+    content: '\e9d6';
+  }
   .icon-bookmarkFill:before {
     content: '\e9d4';
   }

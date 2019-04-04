@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Scrollbar from 'mt-ui-components/Scrollbar';
+import Scrollbar from '../Scrollbar';
 
 import SiderWrapper from './Wrapper';
 import SiderStyle from './style';
@@ -21,7 +21,9 @@ class SiderMenu extends Component {
       menu: PropTypes.object
     }),
     sectionScroll: PropTypes.bool,
-    width: PropTypes.number
+    width: PropTypes.number,
+    preMenuContent: PropTypes.element,
+    postMenuContent: PropTypes.element
   };
   static defaultProps = {
     width: 280,
@@ -63,6 +65,8 @@ class SiderMenu extends Component {
       items,
       sectionScroll,
       propsToPass: { scrollbar = {}, sider = {}, menu = {} },
+      preMenuContent,
+      postMenuContent,
       ...rest
     } = this.props;
     const { scrollableHeight } = this.state;
@@ -88,15 +92,18 @@ class SiderMenu extends Component {
     return (
       <SiderStyle>
         {sectionScroll && (
-          <>
+          <React.Fragment>
             <div ref={this.beforeScrollableMenuRef}>
               <SiderWrapper
                 items={itemsBeforeScrollableItem}
                 {...commonProps}
+                preMenuContent={preMenuContent}
               />
             </div>
             <Scrollbar
-              style={{ height: scrollableHeight, width: rest.width }}
+              autoHeight
+              autoHeightMax={scrollableHeight}
+              style={{ width: rest.width }}
               {...scrollbar}
             >
               <SiderWrapper
@@ -111,10 +118,11 @@ class SiderMenu extends Component {
                 <SiderWrapper
                   items={itemsAfterScrollableItem}
                   {...commonProps}
+                  postMenuContent={postMenuContent}
                 />
               )}
             </div>
-          </>
+          </React.Fragment>
         )}
 
         {!sectionScroll && (
@@ -123,7 +131,12 @@ class SiderMenu extends Component {
               style={{ height: scrollableHeight, width: rest.width }}
               {...scrollbar}
             >
-              <SiderWrapper items={items} {...commonProps} />
+              <SiderWrapper
+                items={items}
+                preMenuContent={preMenuContent}
+                postMenuContent={postMenuContent}
+                {...commonProps}
+              />
             </Scrollbar>
           </div>
         )}

@@ -11,11 +11,11 @@ import arrowIcon from '../styles/icons/downFillcaret.svg';
 import classnames from 'classnames';
 
 const SelectBox = styled.div`
-  position: relative;  
+  position: relative;
   .mt-react-select__control {
     min-height: auto;
     background: ${theme.colors.WHITE};
-    line-height: 18px;        
+    line-height: 18px;
   }
 
   .mt-react-select__placeholder {
@@ -28,7 +28,7 @@ const SelectBox = styled.div`
        height: 32px;
        border-bottom-left-radius: 0px;
        border-bottom-right-radius: 0px;
-       border-bottom: 1px solid transparent;       
+       border-bottom: 1px solid transparent;
      }
 
     .selectedItems{
@@ -39,7 +39,7 @@ const SelectBox = styled.div`
       &:hover{
         border: 1px solid ${theme.colors.INDIGO};
         color: ${theme.colors.INDIGO};
-      }      
+      }
     }
     .activeSelect{
         color: ${theme.colors.INDIGO};
@@ -51,16 +51,16 @@ const SelectBox = styled.div`
     }
     .selectWithSearchText{
       display: inline-block;
-      line-height: 16px;      
+      line-height: 16px;
       .discIcon{
         font-size: 4px;
         margin: -2px 8px 0px;
         vertical-align: middle;
-        display: inline-block;        
+        display: inline-block;
       }
     }
   }
-  
+
   .mt-react-select__single-value {
     color: ${theme.colors.DARK_OUTER_SPACE};
     left: 0px;
@@ -96,7 +96,7 @@ const SelectBox = styled.div`
       props.showSearch
         ? `border-top-left-radius: 0px;
     border-top-right-radius: 0px;`
-        : `margin-top: 8px;`}        
+        : `margin-top: 8px;`}
     border: 1px solid ${theme.colors.PEARL};
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.08);
   }
@@ -105,12 +105,12 @@ const SelectBox = styled.div`
     padding: 8px 0;
     color: ${theme.colors.OUTER_SPACE};
   }
-  
-  .selectBoxWrapper{        
-    border-radius: 4px; 
+
+  .selectBoxWrapper{
+    border-radius: 4px;
     position: relative;
     z-index: 2;
-    ${props => (props.isButton ? 'margin-top: 10px' : '')};  
+    ${props => (props.isButton ? 'margin-top: 10px' : '')};
 
     .activeSearch {
       .mt-react-select__value-container{
@@ -131,11 +131,11 @@ const SelectBox = styled.div`
           }
         }
     }
-    .mt-react-select__control {      
+    .mt-react-select__control {
       height: 32px;
       border-bottom-left-radius: 0px;
-      border-bottom-right-radius: 0px;   
-      border-bottom: 1px solid transparent;  
+      border-bottom-right-radius: 0px;
+      border-bottom: 1px solid transparent;
       &:before {
         display: block;
         background: url('${searchIcon}') no-repeat 1px 0px;
@@ -182,21 +182,21 @@ const SelectBox = styled.div`
   }
 
   .mt-react-select__control {
-    border: 1px solid ${theme.colors.PEARL};    
+    border: 1px solid ${theme.colors.PEARL};
     position: relative;
     &:hover{
-      border: 1px solid ${theme.colors.PEARL};      
+      border: 1px solid ${theme.colors.PEARL};
     }
   }
 
-  .mt-react-select__control--is-focused {    
+  .mt-react-select__control--is-focused {
     border: 1px solid ${theme.colors.PEARL};
-    
+
     box-shadow: none;
   }
 
   .mt-react-select__control--is-focused:hover {
-    border: 1px solid ${theme.colors.PEARL};    
+    border: 1px solid ${theme.colors.PEARL};
   }
 
   .mt-react-select__option {
@@ -220,21 +220,21 @@ const SelectBox = styled.div`
     background-color:  ${theme.colors.WHITE};
     color: ${theme.colors.OUTER_SPACE};
     cursor: pointer;
-    
+
     &:hover {
       background-color:  ${theme.colors.INDIGO};
       color: ${theme.colors.WHITE};
     }
   }
-  
+
   .mt-react-select__option--is-disabled  {
       color: ${theme.colors.SILVER};
-      
+
     &:hover  {
       background-color:  ${theme.colors.PORCELAIN};
     }
   }
-  
+
   .mt-react-select__indicator-separator {
     display: none;
   }
@@ -273,7 +273,7 @@ const SelectBox = styled.div`
 
 .buttonWrapperL {
   float: left;
-  width: 50%; 
+  width: 50%;
 
 }
 
@@ -283,7 +283,7 @@ const SelectBox = styled.div`
   float: right;
   .activeBtnState {
    color: ${theme.colors.INDIGO};
-  } 
+  }
 }
 
 .buttonWrapperL, .buttonWrapperR {
@@ -302,7 +302,7 @@ const SelectBox = styled.div`
 }
 
 .checkboxWrapper {
-  float: none;  
+  float: none;
   padding: 6px 8px;
   margin: 0 8px;
   line-height: initial;
@@ -312,7 +312,7 @@ const SelectBox = styled.div`
   }
   .labelText{
     ${mixin.truncate('100%')};
-    display: block;    
+    display: block;
   }
 
   &:hover {
@@ -337,7 +337,7 @@ class SelectWithSearch extends Component {
     isMulti: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     isButton: PropTypes.bool,
-    fixedButtonLabel: PropTypes.string,
+    fixedButtonLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     buttonMaxWidth: PropTypes.string,
     buttonWidth: PropTypes.string,
     className: PropTypes.string,

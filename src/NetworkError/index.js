@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ErrorPage, { PAGE_TYPES } from '@mindtickle/mt-ui-components/ErrorPage';
+import ErrorPage, { PAGE_TYPES } from '../ErrorPage';
 
 import { reload } from '../utils';
 

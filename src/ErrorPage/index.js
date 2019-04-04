@@ -17,9 +17,8 @@ const ErrorpageWrapper = styled.div`
 
   .errorPageTitle {
     width: 200px;
-    height: auto;
-    margin-top: 72px;
-    margin-bottom: 72px;
+    height: 64px;
+    margin: 72px auto;
   }
 
   .errorPageIcon {
@@ -64,7 +63,8 @@ class ErrorPage extends Component {
       })
     ]).isRequired,
     showLogo: PropTypes.bool,
-    reportError: PropTypes.func
+    reportError: PropTypes.func,
+    tryAgain: PropTypes.func
   };
   static defaultProps = {
     onSearch: () => {},
@@ -81,7 +81,8 @@ class ErrorPage extends Component {
       styleActionButton,
       pageType,
       showLogo,
-      reportError
+      reportError,
+      tryAgain
     } = this.props;
     const pageInfo = isObject(pageType)
       ? pageType
@@ -89,9 +90,10 @@ class ErrorPage extends Component {
     return (
       <ErrorpageWrapper>
         {showLogo && (
-          <img
+          <Icon
+            gradient={true}
             className={cs('errorPageTitle', styleTitle)}
-            src="http://www.mindtickle.com/wp-content/uploads/2018/07/home-logo.png"
+            type="mindtickleLogo"
           />
         )}
         <Icon
@@ -106,7 +108,7 @@ class ErrorPage extends Component {
         <div className={cs('errorPageDescription', styleDescription)}>
           <StringToHTML content={pageInfo.description} />
         </div>
-        {pageInfo.buttons(styleActionButton, reportError)}
+        {pageInfo.buttons(styleActionButton, reportError, tryAgain)}
       </ErrorpageWrapper>
     );
   }
