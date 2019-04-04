@@ -44,7 +44,7 @@ class Badge extends Component {
   render() {
     const { children, type, classsName } = this.props;
     return (
-      <MtBadge {...this.props} type={type} classsName={classsName}>
+      <MtBadge {...this.props} type={type} className={classsName}>
         {children}
       </MtBadge>
     );
