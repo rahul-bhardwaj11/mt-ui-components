@@ -40,6 +40,12 @@ const MtSlider = styled.div`
   }
   .ant-slider-dot {
     background: white;
+    width:8px;
+    height:8px;
+    top:-2px;
+    &:hover{
+      border-color:${theme.colors.OUTER_SPACE};
+    }
     &.ant-slider-dot-active {
       border-color: ${theme.colors.INDIGO};
     }
@@ -135,12 +141,6 @@ class Slider extends Component {
       marks: this.formatMarks()
     };
   }
-
-  static defaultProps = {
-    min: 0,
-    max: 10,
-    step: 1
-  };
 
   formatMarks = () => {
     const { min, max, marks, step } = this.props;
