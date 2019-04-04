@@ -196,7 +196,9 @@ class Slider extends Component {
       const offsetLeft = e.clientX;
       const leftPercentage = e.target.style.left;
       const mark = this.percentageToMarksMap[leftPercentage];
-      const title = (marks[mark] && marks[mark].tooltip) || mark;
+      const title = this.state.marks[mark].tooltip
+        ? this.state.marks[mark].tooltip
+        : mark + '';
       this.setState({ showTooltip: true, offsetLeft, title });
 
       setTimeout(() => {
