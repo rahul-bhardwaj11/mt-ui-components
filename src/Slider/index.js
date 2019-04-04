@@ -40,6 +40,12 @@ const MtSlider = styled.div`
   }
   .ant-slider-dot {
     background: white;
+    width:8px;
+    height:8px;
+    top:-2px;
+    &:hover{
+      border-color:${theme.colors.OUTER_SPACE};
+    }
     &.ant-slider-dot-active {
       border-color: ${theme.colors.INDIGO};
     }
@@ -136,12 +142,6 @@ class Slider extends Component {
     };
   }
 
-  static defaultProps = {
-    min: 0,
-    max: 10,
-    step: 1
-  };
-
   formatMarks = () => {
     const { min, max, marks, step } = this.props;
     if (!marks) return {};
@@ -196,7 +196,9 @@ class Slider extends Component {
       const offsetLeft = e.clientX;
       const leftPercentage = e.target.style.left;
       const mark = this.percentageToMarksMap[leftPercentage];
-      const title = (marks[mark] && marks[mark].tooltip) || mark;
+      const title = this.state.marks[mark].tooltip
+        ? this.state.marks[mark].tooltip
+        : mark + '';
       this.setState({ showTooltip: true, offsetLeft, title });
 
       setTimeout(() => {
