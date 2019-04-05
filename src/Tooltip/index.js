@@ -35,6 +35,8 @@ class Tooltip extends Component {
   constructor(p) {
     super(p);
     this.element = document.createElement('div');
+    this.element.style.height = 0;
+    this.element.style.lineHeight = 0;
   }
 
   static defaultProps = {
