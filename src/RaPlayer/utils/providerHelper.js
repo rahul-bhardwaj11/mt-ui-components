@@ -89,9 +89,9 @@ export function connect(mapStateToProps = noop, actions) {
               // TODO: have to fix this through memorization
               let mergedProps = Object.assign(
                 {},
+                ownProps,
                 stateProps,
-                this.boundActions,
-                ownProps
+                this.boundActions
               );
               return <Comp ref={forwardedRef} {...mergedProps} />;
             }}
