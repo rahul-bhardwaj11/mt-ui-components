@@ -2,11 +2,16 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 const StyledDescription = styled.div`
   .desc_Heading {
-    float: left;
-    font-size: 13px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    width: 90%;
+    color: #989ca6;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: normal;
+    line-height: 32px;
+    display: inline-block;
+  }
+  .quill {
+    position: relative;
+    width: 100%;
   }
   .desc_preview {
     font-size: 13px;
@@ -34,7 +39,14 @@ const StyledDescription = styled.div`
     margin: 0px 2px;
   }
   .desc_editor {
-    float: left;
+    position: relative;
+    .customLength {
+      color: ${theme.colors.OUTER_SPACE};
+      font-size: 12px;
+      line-height: 16px;
+      text-align: right;
+      margin-top: 10px;
+    }
     .ql-editor {
       box-sizing: border-box;
       line-height: 20px;
@@ -51,6 +63,8 @@ const StyledDescription = styled.div`
         content: attr(data-placeholder);
         pointer-events: none;
         position: absolute;
+        font-style: normal;
+        color: ${theme.colors.DARK_OUTER_SPACE};
       }
     }
 
@@ -67,27 +81,25 @@ const StyledDescription = styled.div`
     .ql-editor,
     p {
       outline: none;
-      margin-bottom: 10px;
+      line-height: 20px;
+      margin-bottom: 0px;
       color: ${theme.colors.DARK_OUTER_SPACE};
-      dl {
-        padding-left: 15px;
-      }
-      ol,
-      ul {
-        padding-left: 15px;
-      }
+    }
+
+    ul,
+    ol {
+      color: ${theme.colors.DARK_OUTER_SPACE};
     }
     .ql-container {
       box-sizing: border-box;
       font-size: 13px;
-      height: 100%;
+      height: ${props => props.height + 'px'};
       margin: 0px;
       position: relative;
       &.ql-snow {
         border: 1px solid ${theme.colors.ALTO};
         background: ${theme.colors.WHITE};
-        border-radius: 0 0 4px 4px !important;
-        height: 80px;
+        border-radius: 0 0 4px 4px;
         &:active,
         &.active {
           border-color: ${theme.colors.SILVER};
@@ -96,18 +108,21 @@ const StyledDescription = styled.div`
     }
 
     .ql-toolbar.ql-snow {
-      width: 100%;
+      width: ${props => (props.fullToolbar ? '100%' : 'auto')};
+      top: ${props => (props.fullToolbar ? '0' : '-31px')};
+      position: ${props => (props.fullToolBar ? 'static' : 'absolute')};
+      right: 0;
       border: 1px solid ${theme.colors.ALTO};
       border-radius: 4px 4px 0 0;
       box-sizing: border-box;
-      position: static;
-      right: 0px;
       font-family: 'Open sans', arial, sans-serif;
-      padding: 5px 0px 5px 5px;
-      top: -31px;
+      padding: 5px;
       background: ${theme.colors.WHITE};
       cursor: pointer;
       box-shadow: none;
+      .ql-formats {
+        margin-right: 0;
+      }
     }
 
     .ql-snow.ql-toolbar button {

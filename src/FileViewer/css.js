@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import mixins from '../styles/mixins';
 
 export const UnsupportedFileViewer = styled.div`
   min-height: inherit;
@@ -14,5 +15,20 @@ export const UnsupportedFileViewer = styled.div`
     font-size: 98px;
     transform: translate(-50%, -50%);
     color: ${theme.colors.ICON};
+  }
+  .fileName{
+      display:none;
+  }
+  &:hover{
+    .fileName{
+        display: block;
+        ${mixins.darkText()} 
+        border-bottom: 1px solid ${theme.colors.PEARL};
+        position: absolute;
+        top: 0;
+        left: 0px;
+        padding: 10px;
+        width: 100%;
+    } 
   }
 `;

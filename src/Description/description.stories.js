@@ -11,9 +11,11 @@ stories.addDecorator(withKnobs);
 stories
   .add(
     'Default Description',
-    withInfo('Basic usage of Description')(() => <Description />)
+    withInfo('Basic usage of Description')(() => <Description heading="" />)
   )
   .add(
     'Full Description',
-    withInfo('Basic usage of Description')(() => <Description type={'full'} />)
+    withInfo('Basic usage of Description')(() => (
+      <Description type={'full'} height={300} />
+    ))
   );

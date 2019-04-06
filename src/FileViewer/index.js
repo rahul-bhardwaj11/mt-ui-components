@@ -8,7 +8,7 @@ import {
   ZipViewer
 } from './drivers';
 
-const COMMON_PROPS = ['style'];
+const COMMON_PROPS = ['style', 'title', 'src'];
 
 const DRIVER_MAP = {
   PDF: {
@@ -25,7 +25,7 @@ const DRIVER_MAP = {
   },
   ZIP: {
     types: ['zip'],
-    props: ['src']
+    props: ['src', 'title']
   }
 };
 
@@ -90,10 +90,9 @@ class FileViewer extends Component {
       }
     } else if (isPDF(type)) {
       DRIVER_MAP.PDF.props.forEach(p => (props[p] = this.props[p]));
-    } else if (isPDF(type)) {
+    } else if (isZip(type)) {
       DRIVER_MAP.ZIP.props.forEach(p => (props[p] = this.props[p]));
     }
-
     return props;
   };
 
