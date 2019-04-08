@@ -25,8 +25,7 @@ export default class Description extends Component {
     readOnly: PropTypes.bool,
     scrollingContainer: PropTypes.string,
     type: PropTypes.oneOf([VIEW_TYPES.FULL, VIEW_TYPES.DEFAULT]),
-    style: PropTypes.object,
-    height: PropTypes.number
+    style: PropTypes.string
   };
   static defaultProps = {
     content: '',
@@ -36,7 +35,7 @@ export default class Description extends Component {
     maxLength: 1000,
     preview: false,
     type: VIEW_TYPES.DEFAULT,
-    height: 100
+    style: { height: '150px' }
   };
 
   state = {
@@ -91,8 +90,7 @@ export default class Description extends Component {
       className,
       readOnly,
       scrollingContainer,
-      type,
-      style
+      type
     } = this.props;
 
     return mode == MODES.EDIT ? (
@@ -100,7 +98,6 @@ export default class Description extends Component {
         <Editor
           id="task-description"
           readOnly={readOnly}
-          style={style}
           value={content}
           onChange={this.onChange}
           placeholder={placeholder}
@@ -131,12 +128,12 @@ export default class Description extends Component {
   // }
 
   render() {
-    const { heading, className, type, height } = this.props;
+    const { heading, className, type, style } = this.props;
     return (
       <StyledDescription
         className={classnames('clearfix', className)}
-        fullToolBar={type === VIEW_TYPES.FULL ? true : false}
-        height={height}
+        fullToolBar={type === VIEW_TYPES.FULL}
+        descStyle={style}
       >
         {heading && <span className="desc_Heading">{heading}</span>}
         {this.renderContent()}

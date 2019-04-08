@@ -18,6 +18,6 @@ stories
   .add(
     'Full Description',
     withInfo('Basic usage of Description')(() => (
-      <Description type={'full'} height={300} />
+      <Description type={'full'} style={{ height: '300px' }} />
     ))
   );

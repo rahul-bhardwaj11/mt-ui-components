@@ -10,11 +10,17 @@ const MtRadioGroup = styled(AntRadio.Group)`
   &.ant-radio-group {
     font-family: inherit;
   }
+  .ant-radio-disabled {
+    .ant-radio-inner {
+      border-color: ${theme.colors.DISABLE} !important;
+      background-color: ${theme.colors.PEARL} !important;
+      &::after {
+        background-color: ${theme.colors.WHITE};
+      }
+    }
+  }
 `;
 const MtRadio = styled(AntRadio)`
-  .ant-radio-inner:after {
-    background-color: white;
-  }
   .ant-radio-checked {
     .ant-radio-inner {
       border-color: ${theme.colors.INDIGO};
@@ -47,10 +53,6 @@ const MtRadio = styled(AntRadio)`
     span.ant-radio + * {
       color: ${theme.colors.OUTER_SPACE};
     }
-  }
-  .ant-radio-disabled .ant-radio-inner {
-    border-color: ${theme.colors.DISABLE} !important;
-    background-color: #f8f8f8;
   }
   &.ant-radio-wrapper.ant-radio-wrapper-disabled:hover span.ant-radio + * {
     color: ${theme.colors.OUTER_SPACE};

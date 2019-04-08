@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
 
-export const UnsupportedFileViewer = styled.div`
-  min-height: inherit;
+export const FileIconPreview = styled.div`
+  height: inherit;
   border: 1px solid ${theme.colors.PEARL};
   border-radius: 8px;
   position: relative;

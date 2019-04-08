@@ -6,7 +6,7 @@ import Tag from '../Tag';
 import Icon from '../Icon';
 import MTPDFPlayer from './style';
 
-const DEFAULT_STYLE = { width: 650, height: 378 };
+const DEFAULT_STYLE = { width: 650, height: 'inherit' };
 class PdfPlayer extends Component {
   static propTypes = {
     nextPage: PropTypes.number,
@@ -41,10 +41,10 @@ class PdfPlayer extends Component {
     const { src, uuid, isEditMode } = this.props;
     let staticUrl = uuid + '&width=547&height=401';
     staticUrl = staticUrl.replace('crocodoc', 'pdfViewer');
-
+    const target = Math.random();
     let iframe = document.createElement('iframe');
     this.iframe = iframe;
-    iframe.name = '1';
+    iframe.name = target;
     iframe.scrolling = 'no';
     iframe.style.width = '100%';
     iframe.style.height = isEditMode ? 'calc(100% - 48px)' : '100%';
@@ -56,7 +56,7 @@ class PdfPlayer extends Component {
 
     let form = document.createElement('form');
     form.action = staticUrl;
-    form.target = '1';
+    form.target = target;
     form.method = 'post';
     form.style.display = 'none';
 
@@ -179,7 +179,7 @@ class PdfPlayer extends Component {
   render() {
     const { style, isEditMode } = this.props;
     const __style = {
-      minHeight: 'inherit',
+      minHeight: '378px',
       position: 'relative',
       ...DEFAULT_STYLE,
       ...style
