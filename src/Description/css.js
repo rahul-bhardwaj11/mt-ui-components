@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 const StyledDescription = styled.div`
   .desc_Heading {
-    color: #989ca6;
+    color: ${theme.colors.OUTER_SPACE};
     text-transform: uppercase;
     font-size: 11px;
     font-weight: normal;
@@ -64,7 +64,7 @@ const StyledDescription = styled.div`
         pointer-events: none;
         position: absolute;
         font-style: normal;
-        color: ${theme.colors.DARK_OUTER_SPACE};
+        color: ${theme.colors.SILVER};
       }
     }
 
