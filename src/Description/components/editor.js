@@ -71,10 +71,9 @@ export default class Editor extends Component {
           formats={FORMATS}
         />
         {!readOnly && (
-          <span className="customLength">{availableLength} Char</span>
+          <div className="customLength">{availableLength} Char</div>
         )}
         {showButtons && <UpdateBtns {...helpers} />}
-        <span />
       </React.Fragment>
     );
   }
