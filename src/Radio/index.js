@@ -12,15 +12,27 @@ const MtRadioGroup = styled(AntRadio.Group)`
   }
 `;
 const MtRadio = styled(AntRadio)`
-  .ant-radio-inner:after {
-    background-color: white;
-  }
   .ant-radio-checked {
     .ant-radio-inner {
       border-color: ${theme.colors.INDIGO};
-      background: ${theme.colors.INDIGO};
+      background-color: ${theme.colors.INDIGO};
+      &::after {
+        background-color: ${theme.colors.WHITE};
+      }
     }
   }
+  &.ant-radio-wrapper {
+    .ant-radio-disabled {
+      .ant-radio-inner {
+        border-color: ${theme.colors.DISABLE} !important;
+        background-color: ${theme.colors.PEARL};
+        &::after {
+          background-color: ${theme.colors.WHITE};
+        }
+      }
+    }
+  }
+
   &.ant-radio-wrapper {
     font-family: inherit;
     &:hover {
