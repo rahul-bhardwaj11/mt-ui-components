@@ -298,7 +298,7 @@ class VideoControls extends Component {
               style.F12,
               style.lineHeight20
             ].join(' ')}
-            style={{ width: '120px', marginTop: '1px' }}
+            style={{ width: 'auto', marginTop: '1px' }}
           >
             {currentTimeString}
           </div>
