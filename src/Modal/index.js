@@ -96,18 +96,18 @@ const MtModal = styled(AntModal)`
       top:0px;
       height: 100vh;
       background: ${theme.colors.WHITE};
-  
+
       .ant-modal-header{
         border-radius:0px;
       }
-  
+
       .ant-modal-footer {
         position: fixed;
         bottom: 0px;
         width: 100%;
         border-radius: 0px;
       }
-  
+
       .ant-modal-content{
         border-radius:0px;
         box-shadow:0 0px 0px rgba(0, 0, 0, 0.15);
@@ -146,7 +146,7 @@ const MtConfirmModal = styled.div`
       return showFooter ? 'block' : 'none';
     }};
   }
-  .ant-confirm-confirm .ant-confirm-body > .anticon {
+  .ant-confirm-body > .anticon {
     display: none;
   }
   .ant-confirm-body .ant-confirm-content {
@@ -214,6 +214,36 @@ class Modal extends Component {
       }
     };
     return AntModal.confirm(confirmModalProps);
+  };
+
+  static info = props => {
+    const { showFooter } = props;
+    const containerEl = document.body.appendChild(
+      document.createElement('div')
+    );
+    let MountNode;
+    ReactDOM.render(
+      <MtConfirmModal
+        showFooter={showFooter}
+        innerRef={e => (MountNode = e)}
+      />,
+      containerEl
+    );
+    let confirmModalProps = {
+      ...props,
+      getContainer: () => {
+        return MountNode;
+      },
+      onOk: (...okProps) => {
+        document.body.removeChild(containerEl);
+        props.onOk && props.onOk(okProps);
+      },
+      onCancel: (...cancelProps) => {
+        document.body.removeChild(containerEl);
+        props.onCancel && props.onCancel(cancelProps);
+      }
+    };
+    return AntModal.info(confirmModalProps);
   };
 
   defaultElement = document.createElement('div');

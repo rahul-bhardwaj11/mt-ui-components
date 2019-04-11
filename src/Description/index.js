@@ -25,7 +25,7 @@ export default class Description extends Component {
     readOnly: PropTypes.bool,
     scrollingContainer: PropTypes.string,
     type: PropTypes.oneOf([VIEW_TYPES.FULL, VIEW_TYPES.DEFAULT]),
-    style: PropTypes.string
+    style: PropTypes.object
   };
   static defaultProps = {
     content: '',

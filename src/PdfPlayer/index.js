@@ -99,7 +99,10 @@ class PdfPlayer extends Component {
     const { onPageChange, nextPage } = this.props;
     if (!event.data || typeof event.data !== 'string') return;
     if (event.data === 'viewerinitialized') {
-      this.goToPage(nextPage);
+      setTimeout(() => {
+        this.goToPage(nextPage);
+      }, 500);
+      return;
     }
     var data = event.data.split('.');
     if (data[0] == 'A') {
@@ -179,7 +182,7 @@ class PdfPlayer extends Component {
   render() {
     const { style, isEditMode } = this.props;
     const __style = {
-      minHeight: '378px',
+      minHeight: 'inherit',
       position: 'relative',
       ...DEFAULT_STYLE,
       ...style
