@@ -4,6 +4,7 @@ import mixins from '../styles/mixins';
 
 export const FileIconPreview = styled.div`
   height: inherit;
+  min-height:inherit;
   border: 1px solid ${theme.colors.PEARL};
   border-radius: 8px;
   position: relative;
