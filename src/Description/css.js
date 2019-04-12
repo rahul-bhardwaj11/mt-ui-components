@@ -112,7 +112,6 @@ const StyledDescription = styled.div`
       width: ${props => (props.fullToolbar ? '100%' : 'auto')};
       top: ${props => (props.fullToolbar ? '0' : '-35px')};
       position: ${props => (props.fullToolBar ? 'static' : 'absolute')};
-      border-bottom: 0;
       right: 0;
       border: 1px solid ${theme.colors.ALTO};
       border-radius: 4px 4px 0 0;
@@ -122,6 +121,7 @@ const StyledDescription = styled.div`
       background: ${theme.colors.WHITE};
       cursor: pointer;
       box-shadow: none;
+      border-bottom: 0;
       .ql-formats {
         margin-right: 0;
       }

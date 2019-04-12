@@ -179,7 +179,7 @@ class PdfPlayer extends Component {
   render() {
     const { style, isEditMode } = this.props;
     const __style = {
-      minHeight: '378px',
+      minHeight: 'inherit',
       position: 'relative',
       ...DEFAULT_STYLE,
       ...style
