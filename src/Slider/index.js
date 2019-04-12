@@ -16,14 +16,17 @@ const getSliderMarkColor = isEmpty => {
   return isEmpty ? theme.colors.DARK_OUTER_SPACE : theme.colors.INDIGO;
 };
 
+const MARKER_SIZE = 18;
+
 const MtSlider = styled.div`
   .ant-slider-handle {
+    margin-left: -4px;
     border: 2px solid ${props => getSliderMarkColor(props.isEmpty)};
     background-color: ${props => getSliderMarkColor(props.isEmpty)};
-    ${mixins.size('12px', '12px')};
+    ${mixins.size(`${MARKER_SIZE - 4}px`, `${MARKER_SIZE - 4}px`)};
     &:focus {
       box-shadow: 0 0 0 0 ${theme.colors.DARK_OUTER_SPACE};
-      border-color: 2px solid ${theme.colors.INDIGO};
+      border: none;
     }
     &.ant-tooltip-open {
       &:hover {
@@ -39,15 +42,32 @@ const MtSlider = styled.div`
     }
   }
   .ant-slider-dot {
-    background: white;
-    width:8px;
-    height:8px;
-    top:-2px;
+    width:${MARKER_SIZE}px;
+    height:${MARKER_SIZE}px;
+    top:-6px;
+    border: 0px;
+    border-radius: 0px;
+    background: transparent;
+    :before {
+      position: absolute;
+      left: 2px;
+      top: 3px;
+      background: white;
+      width: ${MARKER_SIZE - 8}px;
+      height: ${MARKER_SIZE - 8}px;
+      border-radius: 50%;
+      border: 1px solid ${theme.colors.PEARL};
+      content: "";
+    }
     &:hover{
+      :before {
       border-color:${theme.colors.OUTER_SPACE};
     }
+    }
     &.ant-slider-dot-active {
-      border-color: ${theme.colors.INDIGO};
+      :before {
+        border-color: ${theme.colors.INDIGO};
+      }
     }
     border-color: ${theme.colors.ALTO};
   }
@@ -75,7 +95,15 @@ const MtSlider = styled.div`
       }
     }
   }
-
+   .ant-slider-handle{
+     :focus{
+    box-shadow:none;
+    border:none;
+   }
+ }
+    .ant-tooltip-open{
+    border:none;
+   }
 
   // css for disabled
 
@@ -193,7 +221,8 @@ class Slider extends Component {
 
     const targetClass = e.target.className.split(' ');
     if (targetClass.includes(SLIDER_MARK_CLASS)) {
-      const offsetLeft = e.clientX;
+      const offsetLeft =
+        e.target.getBoundingClientRect().left + MARKER_SIZE / 2; //e.clientX;
       const leftPercentage = e.target.style.left;
       const mark = this.percentageToMarksMap[leftPercentage];
       const title = this.state.marks[mark].tooltip
