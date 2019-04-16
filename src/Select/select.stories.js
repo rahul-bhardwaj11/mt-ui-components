@@ -10,10 +10,44 @@ stories.addDecorator(withKnobs);
 const options = [
   { key: '1', content: 'First Item' },
   { key: '2', content: 'Second Item' },
-  { key: '3', content: 'Third Item', disabled: true }
+  { key: '3', content: 'Third Item' },
+  { key: '4', content: 'First Item' },
+  { key: '5', content: 'Second Item' },
+  { key: '6', content: 'Third Item' },
+  { key: '7', content: 'First Item' },
+  { key: '8', content: 'Second Item' },
+  { key: '9', content: 'Third Item' },
+  { key: '10', content: 'First Item' },
+  { key: '11', content: 'Second Item' },
+  { key: '12', content: 'Third Item' },
+  { key: '13', content: 'First Item' },
+  { key: '14', content: 'Second Item' },
+  { key: '15', content: 'Third Item' },
+  { key: '3', content: 'First Item' },
+  { key: '17', content: 'Second Item' },
+  { key: '18', content: 'Third Item' },
+  { key: '19', content: 'First Item' },
+  { key: '20', content: 'Second Item' },
+  { key: '21', content: 'Third Item' },
+  { key: '22', content: 'First Item' },
+  { key: '23', content: 'Second Item' },
+  { key: '24', content: 'Third Item' },
+  { key: '25', content: 'First Item' },
+  { key: '26', content: 'Second Item' },
+  { key: '27', content: 'Third Item' },
+  { key: '28', content: 'First Item' },
+  { key: '29', content: 'Second Item' },
+  { key: '30', content: 'Third Item' }
 ];
 
 class ControlledSelect extends React.Component {
+  componentDidMount() {
+    const t = () => {
+      this.forceUpdate();
+      setTimeout(t, 2000);
+    };
+    setTimeout(t, 2000);
+  }
   state = {
     value: '3'
   };

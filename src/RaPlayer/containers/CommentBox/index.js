@@ -137,17 +137,17 @@ class CommentBox extends Component {
     if (!this.commentTextArea) {
       return;
     }
-    this.commentTextArea.addEventListener('keydown', this.autosize.bind(this));
+    /*   this.commentTextArea.addEventListener('keydown', this.autosize.bind(this)); */
     this.commentTextArea.focus();
   }
 
   componentDidMount() {
-    this.autosize();
+    /*       this.autosize(); */
     if (!this.props.readOnly && this.commentTextArea) {
-      this.commentTextArea.addEventListener(
-        'keydown',
-        this.autosize.bind(this)
-      );
+      /*         this.commentTextArea.addEventListener(
+                'keydown',
+                this.autosize.bind(this)
+              ); */
       this.commentTextArea.focus();
     }
   }
@@ -199,24 +199,24 @@ class CommentBox extends Component {
   componentWillUnmount() {
     clearTimeout(this.state.timer);
     clearTimeout(this.autoSizeTimer);
-    this.commentTextArea &&
-      this.commentTextArea.removeEventListener('keydown', this.autosize);
+    /*  this.commentTextArea &&
+        this.commentTextArea.removeEventListener('keydown', this.autosize); */
   }
 
-  autosize() {
-    let el = this.commentTextArea;
-    if (!el) {
-      return;
-    }
-    this.autoSizeTimer = setTimeout(function() {
-      el.style.cssText = 'height:auto; padding:0';
-      el.style.cssText = 'height:' + el.scrollHeight + 'px';
-    }, 0);
-  }
+  /*   autosize() {
+      let el = this.commentTextArea;
+      if (!el) {
+        return;
+      }
+      this.autoSizeTimer = setTimeout(function () {
+        el.style.cssText = 'height:auto; padding:0';
+        el.style.cssText = 'height:' + el.scrollHeight + 'px';
+      }, 0);
+    } */
 
-  commentDidUpdate() {
-    this.autosize();
-  }
+  /*   commentDidUpdate() {
+      this.autosize();
+    } */
 
   render() {
     const {
