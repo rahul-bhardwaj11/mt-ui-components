@@ -34,6 +34,18 @@ const MtRadio = styled(AntRadio)`
   }
 
   &.ant-radio-wrapper {
+    .ant-radio-disabled {
+      .ant-radio-inner {
+        border-color: ${theme.colors.DISABLE} !important;
+        background-color: ${theme.colors.PEARL};
+        &::after {
+          background-color: ${theme.colors.WHITE};
+        }
+      }
+    }
+  }
+
+  &.ant-radio-wrapper {
     font-family: inherit;
     &:hover {
       span.ant-radio + * {

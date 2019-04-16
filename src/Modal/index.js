@@ -96,18 +96,18 @@ const MtModal = styled(AntModal)`
       top:0px;
       height: 100vh;
       background: ${theme.colors.WHITE};
-  
+
       .ant-modal-header{
         border-radius:0px;
       }
-  
+
       .ant-modal-footer {
         position: fixed;
         bottom: 0px;
         width: 100%;
         border-radius: 0px;
       }
-  
+
       .ant-modal-content{
         border-radius:0px;
         box-shadow:0 0px 0px rgba(0, 0, 0, 0.15);
@@ -146,7 +146,7 @@ const MtConfirmModal = styled.div`
       return showFooter ? 'block' : 'none';
     }};
   }
-  .ant-confirm-confirm .ant-confirm-body > .anticon {
+  .ant-confirm-body > .anticon {
     display: none;
   }
   .ant-confirm-body .ant-confirm-content {
@@ -180,15 +180,28 @@ class Modal extends Component {
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     fullScreenMobile: PropTypes.bool,
     getPopupContainer: PropTypes.func,
-    renderInPortal: PropTypes.bool.isRequired,
     className: PropTypes.string
   };
 
   static defaultProps = {
     type: 'medium',
-    fullScreenMobile: true,
-    renderInPortal: false
+    fullScreenMobile: true
   };
+
+  modalContainer = null;
+  element = null;
+  constructor(p) {
+    super(p);
+    this.element = document.createElement('div');
+  }
+
+  componentDidMount() {
+    document.body.appendChild(this.element);
+  }
+
+  componentWillUnmount() {
+    document.body.removeChild(this.element);
+  }
 
   static confirm = props => {
     const { showFooter } = props;
@@ -216,28 +229,38 @@ class Modal extends Component {
     return AntModal.confirm(confirmModalProps);
   };
 
-  defaultElement = document.createElement('div');
-  modalContainer = null;
-
-  componentDidMount() {
-    document.body.appendChild(this.defaultElement);
-    this.modalContainer =
-      this.props.getPopupContainer && this.props.getPopupContainer();
-  }
-
-  componentWillUnmount() {
-    document.body.removeChild(this.defaultElement);
-  }
+  static info = props => {
+    const { showFooter } = props;
+    const containerEl = document.body.appendChild(
+      document.createElement('div')
+    );
+    let MountNode;
+    ReactDOM.render(
+      <MtConfirmModal
+        showFooter={showFooter}
+        innerRef={e => (MountNode = e)}
+      />,
+      containerEl
+    );
+    let confirmModalProps = {
+      ...props,
+      getContainer: () => {
+        return MountNode;
+      },
+      onOk: (...okProps) => {
+        document.body.removeChild(containerEl);
+        props.onOk && props.onOk(okProps);
+      },
+      onCancel: (...cancelProps) => {
+        document.body.removeChild(containerEl);
+        props.onCancel && props.onCancel(cancelProps);
+      }
+    };
+    return AntModal.info(confirmModalProps);
+  };
 
   render() {
-    let {
-      children,
-      type,
-      width,
-      fullScreenMobile,
-      renderInPortal,
-      className
-    } = this.props;
+    let { children, type, width, fullScreenMobile, className } = this.props;
     let customProps = {
       ...this.props,
       width: width || MODAL_WIDTH_MAP[type],
@@ -247,20 +270,22 @@ class Modal extends Component {
         ...this.props.style
       }
     };
-    const modalFragment = (
+    const container =
+      this.props.getPopupContainer && this.props.getPopupContainer();
+
+    return (
       <React.Fragment>
-        <StyledModalWrapper
-          className={className}
-          innerRef={el => {
-            if (el) {
-              this.modalWrapRef = el;
-            }
-          }}
-        />
+        {ReactDOM.createPortal(
+          <StyledModalWrapper
+            className={className}
+            innerRef={e => e && (this.modalContainer = e)}
+          />,
+          container || this.element
+        )}
         <MtModal
           {...customProps}
-          getContainer={() => {
-            return this.modalWrapRef;
+          getPopupContainer={() => {
+            return this.modalContainer;
           }}
           wrapClassName="modalWrapper"
         >
@@ -268,13 +293,6 @@ class Modal extends Component {
         </MtModal>
       </React.Fragment>
     );
-    const comp = renderInPortal
-      ? ReactDOM.createPortal(
-          <div onClick={e => e.stopPropagation()}>{modalFragment}</div>,
-          this.modalContainer || this.defaultElement
-        )
-      : modalFragment;
-    return comp;
   }
 }
 

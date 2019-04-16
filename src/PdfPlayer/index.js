@@ -99,7 +99,10 @@ class PdfPlayer extends Component {
     const { onPageChange, nextPage } = this.props;
     if (!event.data || typeof event.data !== 'string') return;
     if (event.data === 'viewerinitialized') {
-      this.goToPage(nextPage);
+      setTimeout(() => {
+        this.goToPage(nextPage);
+      }, 500);
+      return;
     }
     var data = event.data.split('.');
     if (data[0] == 'A') {

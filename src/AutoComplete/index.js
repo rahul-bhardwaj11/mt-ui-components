@@ -42,8 +42,7 @@ const StyledAutoComplete = Styled.div`
       background-color: ${theme.colors.WHITE};
       color: ${theme.colors.SHARK};
     }
-
-  .ant-select-dropdown-menu-item-selected{
+   .ant-select-dropdown-menu-item-selected{
        background-color:${theme.colors.TROPICAL_BLUE};
     }
   }
