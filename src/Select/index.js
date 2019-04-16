@@ -92,6 +92,8 @@ const MtWrapper = styled.span`
     background-color: ${theme.colors.WHITE};
     color: ${theme.colors.GREY};
     margin: 8px;
+    max-height: 235px;
+    
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
       margin-bottom: 4px;
@@ -100,7 +102,7 @@ const MtWrapper = styled.span`
       }
       color: ${theme.colors.DARK_OUTER_SPACE};
       &:hover {
-        background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+        background-color: ${theme.colors.INDIGO};
         color: ${theme.colors.WHITE};
         border-radius: 4px;
       }

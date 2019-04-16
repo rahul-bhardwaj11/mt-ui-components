@@ -45,7 +45,7 @@ export const PAGE_TYPES_CONFIG = {
   [PAGE_TYPES.NOT_FOUND]: {
     image: 'pageNotFound',
     heading: 'Page not found',
-    description: "We can't seem ot find the page you are looking for.",
+    description: "We can't seem to find the page you are looking for.",
     buttons: styleActionButton => (
       <ActionButtons styleActionButton={styleActionButton} />
     )
@@ -54,7 +54,7 @@ export const PAGE_TYPES_CONFIG = {
     image: 'internalError',
     heading: 'Something went wrong',
     description:
-      "Sorry your past request could't be completed <br /> Please try agaain after some time",
+      "Sorry your past request couldn't be completed <br /> Please try again after some time",
     buttons: (styleActionButton, reportError, tryAgain) => (
       <ActionButtons
         styleActionButton={styleActionButton}
@@ -80,7 +80,7 @@ export const PAGE_TYPES_CONFIG = {
     image: 'serviceUnavailable',
     heading: 'Something went wrong',
     description:
-      "Sorry your past request could't be completed <br /> Please try agaain after some time",
+      "Sorry your past request couldn't be completed <br /> Please try again after some time",
     buttons: (styleActionButton, reportError, tryAgain) => (
       <ActionButtons
         styleActionButton={styleActionButton}

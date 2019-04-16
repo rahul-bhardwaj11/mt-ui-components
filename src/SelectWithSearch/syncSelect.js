@@ -20,7 +20,7 @@ export default class SyncSelect extends Component {
     isButton: PropTypes.bool,
     isDisabled: PropTypes.bool,
     buttonLabel: PropTypes.string,
-    fixedButtonLabel: PropTypes.oneOfType(PropTypes.string, PropTypes.node),
+    fixedButtonLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     buttonMaxWidth: PropTypes.string,
     buttonMinWidth: PropTypes.string,
     sortOptions: PropTypes.bool,
