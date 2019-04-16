@@ -95,7 +95,15 @@ const MtSlider = styled.div`
       }
     }
   }
-
+   .ant-slider-handle{
+     :focus{
+    box-shadow:none;
+    border:none;
+   }
+ }
+    .ant-tooltip-open{
+    border:none;
+   }
 
   // css for disabled
 
