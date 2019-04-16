@@ -58,16 +58,32 @@ class Popover extends Component {
     const container = getPopupContainer && getPopupContainer();
     return (
       <React.Fragment>
-        {ReactDOM.createPortal(
-          <StyledPopover
-            className={className}
-            innerRef={e => (this.popoverContainer = e)}
-          />,
-          container || this.element
-        )}
-        <AntPopover getPopupContainer={() => this.popoverContainer} {...rest}>
-          {children}
-        </AntPopover>
+        {getPopupContainer &&
+          ReactDOM.createPortal(
+            <StyledPopover
+              className={className}
+              innerRef={e => (this.popoverContainer = e)}
+            />,
+            this.element
+          )}
+        <StyledPopover
+          className={className}
+          innerRef={e => (this.popoverContainerDefault = e)}
+        >
+          <AntPopover
+            getPopupContainer={() => {
+              if (container) {
+                const cloned = this.popoverContainer.cloneNode(true);
+                container.appendChild(cloned);
+                return cloned;
+              }
+              return this.popoverContainerDefault;
+            }}
+            {...rest}
+          >
+            {children}
+          </AntPopover>
+        </StyledPopover>
       </React.Fragment>
     );
   }
