@@ -8,17 +8,14 @@ import theme from '../styles/theme';
 import mixins from '../styles/mixins';
 import './index.css';
 
-const StyledModalWrapper = styled.div`
+const MtModal = styled.div`
   .modalWrapper {
     z-index: ${mixins.zIndex.MODAL_WRAPPER};
   }
   .ant-modal-mask {
     z-index: ${mixins.zIndex.MODAL_MASK};
   }
-`;
-
-const MtModal = styled(AntModal)`
-&.ant-modal{
+.ant-modal{
   font-family: inherit;
   z-index: ${mixins.zIndex.MODAL};
   .ant-modal-content {
@@ -193,6 +190,8 @@ class Modal extends Component {
   constructor(p) {
     super(p);
     this.element = document.createElement('div');
+    this.selectRef = React.createRef();
+    this.selectRefDefault = React.createRef();
   }
 
   componentDidMount() {
@@ -260,7 +259,14 @@ class Modal extends Component {
   };
 
   render() {
-    let { children, type, width, fullScreenMobile, className } = this.props;
+    let {
+      children,
+      type,
+      width,
+      fullScreenMobile,
+      className,
+      getPopupContainer
+    } = this.props;
     let customProps = {
       ...this.props,
       width: width || MODAL_WIDTH_MAP[type],
@@ -270,26 +276,29 @@ class Modal extends Component {
         ...this.props.style
       }
     };
-    const container =
-      this.props.getPopupContainer && this.props.getPopupContainer();
 
     return (
       <React.Fragment>
-        {ReactDOM.createPortal(
-          <StyledModalWrapper
-            className={className}
-            innerRef={e => e && (this.modalContainer = e)}
-          />,
-          container || this.element
-        )}
-        <MtModal
-          {...customProps}
-          getPopupContainer={() => {
-            return this.modalContainer;
-          }}
-          wrapClassName="modalWrapper"
-        >
-          {children}
+        {getPopupContainer &&
+          ReactDOM.createPortal(
+            <MtModal className={className} innerRef={this.selectRef} />,
+            this.element
+          )}
+        <MtModal innerRef={this.selectRefDefault}>
+          <AntModal
+            {...customProps}
+            getContainer={() => {
+              const container = getPopupContainer && getPopupContainer();
+              if (container) {
+                var cloned = this.selectRef.current.cloneNode(true);
+                container.appendChild(cloned);
+              }
+              return container ? cloned : this.selectRefDefault.current;
+            }}
+            wrapClassName="modalWrapper"
+          >
+            {children}
+          </AntModal>
         </MtModal>
       </React.Fragment>
     );
