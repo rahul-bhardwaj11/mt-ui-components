@@ -12,7 +12,8 @@ stories.addDecorator(withKnobs);
 class ModalStoryComponent extends Component {
   state = { visible: false };
   static propTypes = {
-    type: PropTypes.oneOf(['small', 'medium', 'large', 'full'])
+    type: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
+    custom: PropTypes.bool
   };
   showModal = () => {
     this.setState({
@@ -31,14 +32,23 @@ class ModalStoryComponent extends Component {
       visible: false
     });
   };
-
+  element = null;
+  setRef = ele => {
+    this.element = ele;
+  };
   render() {
+    const { custom } = this.props;
+    const customProps = {};
+    if (custom) {
+      customProps.getPopupContainer = () => this.element;
+    }
     return (
-      <div>
+      <div id="customDiv" ref={this.setRef}>
         <Button type="primary" onClick={this.showModal}>
           Open
         </Button>
         <Modal
+          {...customProps}
           title="Basic Modal"
           visible={this.state.visible}
           onOk={this.handleOk}
@@ -65,6 +75,11 @@ function showConfirmModal(props) {
 stories.add(
   'Default Modal',
   withInfo('Basic usage of the Modal')(() => <ModalStoryComponent />)
+);
+
+stories.add(
+  'Default Modal with custom container',
+  withInfo('Basic usage of the Modal')(() => <ModalStoryComponent custom />)
 );
 
 stories.add(
