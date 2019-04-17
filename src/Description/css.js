@@ -97,6 +97,7 @@ const StyledDescription = styled.div`
       position: relative;
       height: calc(${({ descStyle: { height } }) => height} - 62px);
       &.ql-snow {
+        font-family: inherit;
         border: 1px solid ${theme.colors.ALTO};
         background: ${theme.colors.WHITE};
         border-radius: 0 0 4px 4px;
