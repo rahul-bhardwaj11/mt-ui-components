@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import style from './index.scss';
 import cs from 'classnames';
 import { actions } from '../../actions';
-import { toHHMMSS, getColorMap } from '../../utils/core';
+import { toHHMMSS, getColorMap, parseText } from '../../utils/core';
 import { connect } from '../../utils/providerHelper';
 import Modal from '../../../Modal';
 import {
@@ -137,17 +137,19 @@ class CommentBox extends Component {
     if (!this.commentTextArea) {
       return;
     }
-    /*   this.commentTextArea.addEventListener('keydown', this.autosize.bind(this)); */
+    this.commentTextArea.addEventListener('keydown', this.autosize.bind(this));
     this.commentTextArea.focus();
   }
 
   componentDidMount() {
-    /*       this.autosize(); */
+    this.autosize();
     if (!this.props.readOnly && this.commentTextArea) {
-      /*         this.commentTextArea.addEventListener(
-                'keydown',
-                this.autosize.bind(this)
-              ); */
+      this.commentTextArea.addEventListener(
+        'keydown',
+        this.autosize.bind(this)
+      );
+      this.commentTextArea.addEventListener('paste', this.autosize);
+      this.commentTextArea.value = parseText();
       this.commentTextArea.focus();
     }
   }
@@ -199,24 +201,24 @@ class CommentBox extends Component {
   componentWillUnmount() {
     clearTimeout(this.state.timer);
     clearTimeout(this.autoSizeTimer);
-    /*  this.commentTextArea &&
-        this.commentTextArea.removeEventListener('keydown', this.autosize); */
+    this.commentTextArea &&
+      this.commentTextArea.removeEventListener('keydown', this.autosize);
   }
 
-  /*   autosize() {
-      let el = this.commentTextArea;
-      if (!el) {
-        return;
-      }
-      this.autoSizeTimer = setTimeout(function () {
-        el.style.cssText = 'height:auto; padding:0';
-        el.style.cssText = 'height:' + el.scrollHeight + 'px';
-      }, 0);
-    } */
+  autosize() {
+    let el = this.commentTextArea;
+    if (!el) {
+      return;
+    }
+    this.autoSizeTimer = setTimeout(function() {
+      el.style.cssText = 'height:auto; padding:0';
+      el.style.cssText = 'height:' + el.scrollHeight + 'px';
+    }, 50);
+  }
 
-  /*   commentDidUpdate() {
-      this.autosize();
-    } */
+  commentDidUpdate() {
+    this.autosize();
+  }
 
   render() {
     const {

@@ -58,7 +58,6 @@ export default function CommentBox({
           onKeyUp={textAreaChangeHandler}
           maxLength={MAX_CHAR_LIMIT_COMMENT}
           {...textAreaOpts}
-          rows="3"
           ref={inputRef}
           value={parseText(commentText)}
         />
