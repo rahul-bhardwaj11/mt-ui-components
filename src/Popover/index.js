@@ -37,47 +37,44 @@ class Popover extends Component {
     getPopupContainer: PropTypes.func,
     className: PropTypes.string
   };
-
   element = null;
   constructor(p) {
     super(p);
     this.element = document.createElement('div');
+    this.popoverContainer = React.createRef();
+    this.popoverContainerDefault = React.createRef();
   }
-
   componentDidMount() {
     if (!this.props.getPopupContainer || !this.props.getPopupContainer())
       document.body.appendChild(this.element);
   }
-
   componentWillUnmount() {
     if (!this.props.getPopupContainer) document.body.removeChild(this.element);
   }
-
   render() {
     const { children, getPopupContainer, className, ...rest } = this.props;
-    const container = getPopupContainer && getPopupContainer();
     return (
       <React.Fragment>
         {getPopupContainer &&
           ReactDOM.createPortal(
             <StyledPopover
               className={className}
-              innerRef={e => (this.popoverContainer = e)}
+              innerRef={this.popoverContainer}
             />,
             this.element
           )}
         <StyledPopover
           className={className}
-          innerRef={e => (this.popoverContainerDefault = e)}
+          innerRef={this.popoverContainerDefault}
         >
           <AntPopover
             getPopupContainer={() => {
+              const container = getPopupContainer && getPopupContainer();
               if (container) {
-                const cloned = this.popoverContainer.cloneNode(true);
+                var cloned = this.popoverContainer.current.cloneNode(true);
                 container.appendChild(cloned);
-                return cloned;
               }
-              return this.popoverContainerDefault;
+              return container ? cloned : this.popoverContainerDefault.current;
             }}
             {...rest}
           >
@@ -88,5 +85,4 @@ class Popover extends Component {
     );
   }
 }
-
 export default Popover;
