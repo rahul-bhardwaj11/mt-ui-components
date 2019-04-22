@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import style from './index.scss';
 import cs from 'classnames';
 import { actions } from '../../actions';
-import { toHHMMSS, getColorMap } from '../../utils/core';
+import { toHHMMSS, getColorMap, parseText } from '../../utils/core';
 import { connect } from '../../utils/providerHelper';
 import Modal from '../../../Modal';
 import {
@@ -148,6 +148,8 @@ class CommentBox extends Component {
         'keydown',
         this.autosize.bind(this)
       );
+      this.commentTextArea.addEventListener('paste', this.autosize);
+      this.commentTextArea.value = parseText();
       this.commentTextArea.focus();
     }
   }
@@ -211,7 +213,7 @@ class CommentBox extends Component {
     this.autoSizeTimer = setTimeout(function() {
       el.style.cssText = 'height:auto; padding:0';
       el.style.cssText = 'height:' + el.scrollHeight + 'px';
-    }, 0);
+    }, 50);
   }
 
   commentDidUpdate() {

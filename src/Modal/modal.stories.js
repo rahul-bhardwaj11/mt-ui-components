@@ -72,6 +72,19 @@ function showConfirmModal(props) {
   });
 }
 
+function info() {
+  Modal.info({
+    title: 'This is a notification message',
+    content: (
+      <div>
+        <p>some messages...some messages...</p>
+        <p>some messages...some messages...</p>
+      </div>
+    ),
+    handleOk() {}
+  });
+}
+
 stories.add(
   'Default Modal',
   withInfo('Basic usage of the Modal')(() => <ModalStoryComponent />)
@@ -102,6 +115,20 @@ stories.add(
     <Button
       onClick={() => {
         showConfirmModal({ showFooter: false });
+      }}
+      type="primary"
+    >
+      Click
+    </Button>
+  ))
+);
+
+stories.add(
+  'Info Modal',
+  withInfo('Info Modal')(() => (
+    <Button
+      onClick={() => {
+        info();
       }}
       type="primary"
     >
