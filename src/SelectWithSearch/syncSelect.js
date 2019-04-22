@@ -25,6 +25,7 @@ export default class SyncSelect extends Component {
     buttonMinWidth: PropTypes.string,
     sortOptions: PropTypes.bool,
     defaultMenuIsOpen: PropTypes.bool,
+    menuIsOpen: PropTypes.bool,
     value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string)
@@ -45,6 +46,7 @@ export default class SyncSelect extends Component {
     options: [],
     hasNone: true,
     defaultMenuIsOpen: false,
+    menuIsOpen: false,
     noneLabel: 'None'
   };
 
@@ -54,9 +56,9 @@ export default class SyncSelect extends Component {
       options: this.filterOptions(this.props.options),
       selectedItems: [],
       prevSelectedItems: [],
-      menuIsOpen: this.props.defaultMenuIsOpen,
+      menuIsOpen: this.props.defaultMenuIsOpen || this.props.menuIsOpen,
       showSelect: true,
-      showInput: this.props.defaultMenuIsOpen,
+      showInput: this.props.defaultMenuIsOpen || this.props.menuIsOpen,
       inputValue: ''
     };
   }
@@ -69,9 +71,10 @@ export default class SyncSelect extends Component {
       isButton,
       options,
       value,
-      defaultMenuIsOpen
+      defaultMenuIsOpen,
+      menuIsOpen
     } = this.props;
-    if (isButton && !defaultMenuIsOpen) {
+    if (isButton && !defaultMenuIsOpen && !menuIsOpen) {
       this.setState({ showSelect: false });
     }
     const newValue = value ? value : defaultValue;
@@ -210,10 +213,10 @@ export default class SyncSelect extends Component {
   };
 
   getNewStateAfterOnSelect = () => {
-    const { isButton } = this.props;
+    const { isButton, menuIsOpen } = this.props;
     let newState = {
-      menuIsOpen: false,
-      showInput: false,
+      menuIsOpen: false || menuIsOpen,
+      showInput: false || menuIsOpen,
       inputValue: ''
     };
     newState = isButton
