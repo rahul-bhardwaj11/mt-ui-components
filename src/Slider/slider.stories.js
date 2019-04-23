@@ -49,6 +49,6 @@ stories.add(
 stories.add(
   'Slider disabled',
   withInfo('Slider with tooltip')(() => (
-    <Slider tipFormatter={formatter} disabled />
+    <Slider tipFormatter={formatter} disabled value={30} />
   ))
 );

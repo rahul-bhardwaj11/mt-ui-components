@@ -108,6 +108,25 @@ const MtSlider = styled.div`
   // css for disabled
 
   .ant-slider-disabled{
+    .ant-slider-dot {
+      width:${MARKER_SIZE}px;
+      height:${MARKER_SIZE}px;
+      top:-6px;
+      border: 0px;
+      border-radius: 0px;
+      background: transparent;
+      :before {
+        position: absolute;
+        left: 2px;
+        top: 3px;
+        background: white;
+        width: ${MARKER_SIZE - 8}px;
+        height: ${MARKER_SIZE - 8}px;
+        border-radius: 50%;
+        border: 1px solid ${theme.colors.SILVER};
+        content: "";
+      }
+    }
     cursor:default;
     .ant-slider-track{
       border:2px solid  ${theme.colors.SILVER} !important;
@@ -132,10 +151,10 @@ const MtSlider = styled.div`
     .ant-slider-mark-text, .ant-slider-disabled .ant-slider-dot{
       cursor:default !important;
     }
-    .ant-slider-dot{
-      display:none;
-      cursor:default !important;
-    }
+    // .ant-slider-dot{
+    //   //display:none;
+    //   cursor:default !important;
+    // }
     .ant-slider-handle{
       background-color: ${theme.colors.SILVER} !important;
       border-color: ${theme.colors.SILVER} !important;
@@ -146,11 +165,20 @@ const MtSlider = styled.div`
 .toolTip{
   width:100%;
 }
+.toolTipValue{
+  position: absolute;
+  bottom: 50px;
+  font-size: 14px;
+  left:calc(${props => props.handleLeft} - ${MARKER_SIZE}px);
+  width:40px;
+  text-align:center;
+}
 `;
 
 const SLIDER_STEP_CLASS = 'ant-slider-step',
   SLIDER_MARK_CLASS = 'ant-slider-dot',
-  SLIDER_TOOLTIP_CLASS = 'ant-tooltip-inner';
+  SLIDER_TOOLTIP_CLASS = 'ant-tooltip-inner',
+  SLIDER_HANDLE_CLASS = 'ant-slider-handle';
 
 class Slider extends Component {
   static propTypes = {
@@ -184,9 +212,13 @@ class Slider extends Component {
   percentageToMarksMap = {};
 
   componentDidMount() {
-    const { marks } = this.props;
+    const { marks, disabled } = this.props;
     if (marks) {
       this.calculatePercentageToMark();
+    }
+    if (disabled) {
+      let handleLeft = this.getHandleLeft();
+      this.setState({ handleLeft });
     }
   }
 
@@ -215,9 +247,9 @@ class Slider extends Component {
   };
 
   handleHover = e => {
-    const { marks, disabled } = this.props;
+    const { marks } = this.props;
     const { showTooltip } = this.state;
-    if (!marks || disabled) return;
+    if (!marks) return;
 
     const targetClass = e.target.className.split(' ');
     if (targetClass.includes(SLIDER_MARK_CLASS)) {
@@ -238,9 +270,23 @@ class Slider extends Component {
     showTooltip && this.setState({ showTooltip: false });
   };
 
+  getHandleLeft = () => {
+    if (!this.ref) return;
+    let handle = this.ref.getElementsByClassName(SLIDER_HANDLE_CLASS);
+    let handleLeft = handle && handle[0] && handle[0].style.left;
+    return handleLeft;
+  };
+
   render() {
-    const { value } = this.props;
-    const { offsetLeft, showTooltip, contentWidth, title, marks } = this.state;
+    const { value, disabled } = this.props;
+    const {
+      offsetLeft,
+      showTooltip,
+      contentWidth,
+      title,
+      marks,
+      handleLeft
+    } = this.state;
     const offset = contentWidth / 2 || 0;
     const toolTipLeftPos = `calc(${offsetLeft}px - ${offset}px)`;
     return (
@@ -248,6 +294,7 @@ class Slider extends Component {
         isEmpty={isEmpty(value)}
         offsetLeft={offsetLeft}
         offset={contentWidth / 2 || 0}
+        handleLeft={handleLeft}
       >
         <div
           onMouseOver={this.handleHover}
@@ -265,6 +312,7 @@ class Slider extends Component {
             ref={el => (this.tooltipRef = el)}
           >
             <div>
+              {disabled && <div className="toolTipValue">{value}</div>}
               <AntSlider {...this.props} marks={marks} />
             </div>
           </Tooltip>
