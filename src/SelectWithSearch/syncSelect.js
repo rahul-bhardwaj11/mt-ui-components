@@ -24,6 +24,7 @@ export default class SyncSelect extends Component {
     buttonMaxWidth: PropTypes.string,
     buttonMinWidth: PropTypes.string,
     sortOptions: PropTypes.bool,
+    defaultMenuIsOpen: PropTypes.bool,
     value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string)
@@ -43,6 +44,7 @@ export default class SyncSelect extends Component {
     sortOptions: true,
     options: [],
     hasNone: true,
+    defaultMenuIsOpen: false,
     noneLabel: 'None'
   };
 
@@ -52,9 +54,9 @@ export default class SyncSelect extends Component {
       options: this.filterOptions(this.props.options),
       selectedItems: [],
       prevSelectedItems: [],
-      menuIsOpen: false,
+      menuIsOpen: this.props.defaultMenuIsOpen,
       showSelect: true,
-      showInput: false,
+      showInput: this.props.defaultMenuIsOpen,
       inputValue: ''
     };
   }
@@ -62,8 +64,14 @@ export default class SyncSelect extends Component {
   filterOptions = options => options.filter(option => option.label);
 
   componentDidMount() {
-    const { defaultValue, isButton, options, value } = this.props;
-    if (isButton) {
+    const {
+      defaultValue,
+      isButton,
+      options,
+      value,
+      defaultMenuIsOpen
+    } = this.props;
+    if (isButton && !defaultMenuIsOpen) {
       this.setState({ showSelect: false });
     }
     const newValue = value ? value : defaultValue;

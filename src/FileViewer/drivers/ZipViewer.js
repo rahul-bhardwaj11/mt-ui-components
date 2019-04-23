@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Icon from '../../Icon';
 import { FileIconPreview } from '../css';
 
-class UnsupportedViewer extends Component {
+class ZipViewer extends Component {
   render() {
     const { title, src } = this.props;
     return (
@@ -11,15 +11,15 @@ class UnsupportedViewer extends Component {
         <a href={src} className="fileName">
           {title}
         </a>
-        <Icon type="media" className="Icon" />
+        <Icon type="zip" className="Icon" />
       </FileIconPreview>
     );
   }
 }
 
-UnsupportedViewer.propTypes = {
+ZipViewer.propTypes = {
   title: PropTypes.string,
   src: PropTypes.string
 };
 
-export default UnsupportedViewer;
+export default ZipViewer;

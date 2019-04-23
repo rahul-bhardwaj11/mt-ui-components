@@ -123,7 +123,7 @@ class Player extends Component {
       onVideoTimeUpdate
     } = this.props;
     const className = classnames(style.playerContainer, {
-      [style.hide]: hidemedia
+      [style.hide]: false //hidemedia
     });
     return (
       <div onClick={this.togglePlayPause} className={className}>

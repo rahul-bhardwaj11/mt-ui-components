@@ -10,6 +10,7 @@ import multipleConditionsFullActive from './assests/images/multipleConditionsFul
 import internalError from './assests/images/internalError.svg';
 import pageNotFound from './assests/images/pageNotFound.svg';
 import serviceUnavailable from './assests/images/serviceUnavailable.svg';
+import noSearchResults from './assests/images/noSearchResults.svg';
 import allProgramsDefault from './assests/images/allProgramsDefault.svg';
 import allProgramsSelected from './assests/images/allProgramsSelected.svg';
 import archiveDefault from './assests/images/archiveDefault.svg';
@@ -78,6 +79,11 @@ export default {
   }),
   serviceUnavailable: ({ width = 244, height = 200 }) => ({
     background: `url(${serviceUnavailable})  no-repeat 0 0 / contain transparent`,
+    width: width,
+    height: height
+  }),
+  noSearchResults: ({ width = 250, height = 216 }) => ({
+    background: `url(${noSearchResults})  no-repeat 0 0 / contain transparent`,
     width: width,
     height: height
   }),

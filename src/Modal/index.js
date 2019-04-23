@@ -156,6 +156,10 @@ const MtConfirmModal = styled.div`
     background: ${theme.colors.INDIGO};
     border: 1px solid ${theme.colors.INDIGO};
   }
+  .ant-confirm-info .ant-confirm-btns button {
+    background: ${theme.colors.INDIGO};
+    border: 1px solid ${theme.colors.INDIGO};
+  }
   .ant-confirm-body .ant-confirm-title {
     ${mixins.blackLink()};
   }
@@ -185,8 +189,7 @@ class Modal extends Component {
 
   static defaultProps = {
     type: 'medium',
-    fullScreenMobile: true,
-    renderInPortal: false
+    fullScreenMobile: true
   };
 
   modalContainer = null;
