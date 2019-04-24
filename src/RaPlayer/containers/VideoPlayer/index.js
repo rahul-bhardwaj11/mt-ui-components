@@ -6,6 +6,7 @@ import style from './index.scss';
 import Player from '../../components/Player';
 import VideoControls from '../VideoControls';
 import cs from 'classnames';
+import { getOptimizedTrack } from '../../utils/core';
 
 let showControls = Symbol('showControls');
 let hideControls = Symbol('hideControls');
@@ -24,7 +25,7 @@ let container = Symbol('container');
 class VideoPlayerContainer extends Component {
   static propTypes = {
     updateMediaAttributes: PropTypes.func,
-    defaultTrack: PropTypes.number,
+    selectedTrack: PropTypes.number,
     currentTime: PropTypes.number,
     primaryTracks: PropTypes.array.isRequired,
     secondaryTracks: PropTypes.array,
@@ -48,9 +49,21 @@ class VideoPlayerContainer extends Component {
   };
 
   [updateMediaAttributes] = this.props.updateMediaAttributes.bind(this.props);
-  state = {
-    selectedTrack: this.props.defaultTrack
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTrack: getOptimizedTrack(this.props.primaryTracks)
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.selectedTrack !== nextProps.selectedTrack) {
+      this.setState({
+        selectedTrack: nextProps.selectedTrack
+      });
+    }
+  }
 
   // Public Methods
   getCurrentTime = () => {
@@ -234,7 +247,7 @@ function mapStateToProps(state) {
     fullScreen: state.media.fullScreen,
     currentTime: state.media.currentTime,
     mediaState: state.media.state,
-    defaultTrack: state.defaultTrack,
+    selectedTrack: state.selectedTrack,
     videoControlsClassName: state.videoControlsClassName
   };
 }

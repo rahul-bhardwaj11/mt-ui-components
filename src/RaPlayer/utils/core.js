@@ -115,3 +115,17 @@ export function isIE() {
   // other browser
   return false;
 }
+
+export function getOptimizedTrack(tracks = []) {
+  /*
+      for now we will be selecting any 360p track by default .
+      Later we can optimize this method to check for best suitable track for end uses
+    */
+  let selectedTrack = 0;
+  tracks.forEach((track, i) => {
+    if (track.label.indexOf('360') > -1) {
+      selectedTrack = i;
+    }
+  });
+  return selectedTrack;
+}

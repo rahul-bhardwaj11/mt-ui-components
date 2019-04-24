@@ -23,7 +23,6 @@ const localState = {
 };
 
 const initialState = {
-  defaultTrack: 0,
   showControlsOnly: false,
   edit: true,
   autoplay: false,
