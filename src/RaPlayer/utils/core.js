@@ -123,7 +123,7 @@ export function getOptimizedTrack(tracks = []) {
     */
   let selectedTrack = 0;
   tracks.forEach((track, i) => {
-    if (track.label.indexOf('360') > -1) {
+    if (track.label && track.label.indexOf('360') > -1) {
       selectedTrack = i;
     }
   });
