@@ -58,9 +58,7 @@ const MtModal = styled(AntModal)`
     margin-top: 15px;
 
     .ant-btn {
-      ${mixins.textBtn()}
       color: ${theme.colors.OUTER_SPACE};
-      min-width: 75px;
 
       &.ant-btn-primary {
         ${mixins.primaryBtn()}
@@ -83,7 +81,6 @@ const MtModal = styled(AntModal)`
       }
       &:hover,
       &:focus {
-        ${mixins.textBtn()};
         color: ${theme.colors.GREY};
       }
     }
