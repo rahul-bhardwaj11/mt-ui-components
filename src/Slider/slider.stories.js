@@ -10,6 +10,7 @@ function formatter(value) {
 }
 const marks = {
   0: {
+    label: '0',
     tooltip: 'score is 0 here'
   },
   2: {
@@ -22,6 +23,7 @@ const marks = {
     tooltip: 'score is 8 here'
   },
   10: {
+    label: '10',
     tooltip: 'score is 10 here'
   }
 };
@@ -42,4 +44,11 @@ stories.add(
 stories.add(
   'Slider tooltip',
   withInfo('Slider with tooltip')(() => <Slider tipFormatter={formatter} />)
+);
+
+stories.add(
+  'Slider disabled',
+  withInfo('Slider with tooltip')(() => (
+    <Slider tipFormatter={formatter} disabled />
+  ))
 );
