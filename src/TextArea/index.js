@@ -49,7 +49,7 @@ class TextArea extends Component {
   validator = value => {
     const { type } = this.props;
     if (type == INPUT_TYPES.ALPHA) {
-      const match = value.match(/[^a-zA-Z_]/g);
+      const match = value.match(/[^a-zA-Z_ ]/g);
       return match == null ? true : false;
     }
     return true;
