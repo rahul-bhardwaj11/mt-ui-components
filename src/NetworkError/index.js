@@ -13,11 +13,12 @@ const NetworkError = ({
   unauthorisedRedirectionRoute,
   propsToPass
 }) => {
-  if (
-    ErrorCodes.unauthorised.indexOf(statusCode) > -1 ||
-    ErrorCodes.forbidden.indexOf(statusCode) > -1
-  ) {
+  if (ErrorCodes.unauthorised.indexOf(statusCode) > -1) {
     return reload(unauthorisedRedirectionRoute);
+  }
+
+  if (ErrorCodes.forbidden.indexOf(statusCode) > -1) {
+    return <ErrorPage {...propsToPass} pageType={PAGE_TYPES.FORBIDDEN} />;
   }
 
   if (

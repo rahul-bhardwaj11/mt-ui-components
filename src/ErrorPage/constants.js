@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { reload } from '../utils';
 
 export const PAGE_TYPES = {
+  FORBIDDEN: '403',
   NOT_FOUND: '404',
   INTERNAL_SERVER_ERROR: '500',
   SERVICE_UNAVAILABLE: '503',
@@ -61,6 +62,14 @@ export const PAGE_TYPES_CONFIG = {
         reportError={reportError}
         tryAgain={tryAgain}
       />
+    )
+  },
+  [PAGE_TYPES.FORBIDDEN]: {
+    image: 'internalError',
+    heading: 'Access Denied',
+    description: 'The content you are trying to access is restricted',
+    buttons: styleActionButton => (
+      <ActionButtons styleActionButton={styleActionButton} />
     )
   },
   [PAGE_TYPES.SERVICE_UNAVAILABLE]: {
