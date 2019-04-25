@@ -35,3 +35,10 @@ stories.add(
     <ErrorPage showLogo={false} pageType={PAGE_TYPES.SERVICE_UNAVAILABLE} />
   ))
 );
+
+stories.add(
+  '403 Forbidden',
+  withInfo('403 Error Pages')(() => (
+    <ErrorPage pageType={PAGE_TYPES.FORBIDDEN} />
+  ))
+);
