@@ -31,15 +31,28 @@ const MtSlider = styled.div`
       margin-bottom: 12px;
     }
     .ant-slider-handle {
+      width: 20px;
+      height: 20px;
+      border: none;
+      position: relative;
+      background: transparent;
       margin-left: -4px;
-      border: ${({ disabled, isEmpty }) => {
-        let borderColor = getSliderMarkColor(isEmpty, disabled);
-        return `2px solid ${borderColor} !important`;
-      }};
-      background-color: ${({ disabled, isEmpty }) => {
-        return getSliderMarkColor(isEmpty, disabled);
-      }};
-      ${mixins.size(`${MARKER_SIZE - 4}px`, `${MARKER_SIZE - 4}px`)};
+      margin-top: -6px;
+      :before {
+        content: '';
+        z-index: 2;
+        border: ${({ disabled, isEmpty }) => {
+          let borderColor = getSliderMarkColor(isEmpty, disabled);
+          return `2px solid ${borderColor} !important`;
+        }};
+        background-color: ${({ disabled, isEmpty }) => {
+          return getSliderMarkColor(isEmpty, disabled);
+        }};
+        ${mixins.size(`${MARKER_SIZE - 4}px`, `${MARKER_SIZE - 4}px`)};
+        border-radius: 50%;
+        display: block;
+        position: absolute;
+      }
       &:focus {
         box-shadow: 0 0 0 0 ${theme.colors.DARK_OUTER_SPACE};
         border: none;
@@ -182,7 +195,14 @@ class Slider extends Component {
     disabled: PropTypes.bool,
     min: PropTypes.number,
     max: PropTypes.number,
-    defaultValue: PropTypes.number
+    defaultValue: PropTypes.number,
+    onChange: PropTypes.func,
+    tooltipTimeout: PropTypes.number
+  };
+
+  static defaultProps = {
+    tooltipTimeout: 3000,
+    onChange: () => {}
   };
 
   constructor(props) {
@@ -190,12 +210,12 @@ class Slider extends Component {
     this.state = {
       showTooltip: false,
       marks: this.formatMarks(),
-      value: this.props.value
+      value: !isEmpty(props.value) ? props.value : props.defaultValue
     };
   }
 
   formatMarks = () => {
-    const { min, max, marks, step } = this.props;
+    const { min, max, marks, step = 1 } = this.props;
     if (!marks) return {};
 
     let newMarks = {};
@@ -242,7 +262,7 @@ class Slider extends Component {
 
   handleHover = e => {
     const { marks } = this.props;
-    const { showTooltip } = this.state;
+    const { showTooltip, persistTooltip } = this.state;
     if (!marks) return;
 
     const targetClass = e.target.className.split(' ');
@@ -257,14 +277,25 @@ class Slider extends Component {
       const title = this.state.marks[mark].tooltip
         ? this.state.marks[mark].tooltip
         : mark + '';
-      this.setState({ showTooltip: true, offsetLeft, title });
+
+      let newState = {
+        showTooltip: true,
+        offsetLeft,
+        title
+      };
+      if (persistTooltip && targetClass.includes(SLIDER_MARK_CLASS)) {
+        clearTimeout(this.tooltipTimerId);
+        newState.persistTooltip = false;
+      }
+      this.setState({ ...newState });
 
       setTimeout(() => {
         this.setTooltipWidth();
       }, 0);
       return;
     }
-    showTooltip && this.setState({ showTooltip: false });
+
+    !persistTooltip && showTooltip && this.setState({ showTooltip: false });
   };
 
   setHandleValue = value => {
@@ -275,6 +306,14 @@ class Slider extends Component {
   };
 
   onChange = value => {
+    const { onChange, tooltipTimeout } = this.props;
+    onChange(value);
+    this.setState({ persistTooltip: true, showTooltip: true }, () => {
+      this.tooltipTimerId = setTimeout(() => {
+        this.setState({ persistTooltip: false, showTooltip: false });
+      }, tooltipTimeout);
+    });
+
     this.setHandleValue(value);
   };
 
@@ -306,7 +345,7 @@ class Slider extends Component {
     const toolTipLeftPos = `calc(${offsetLeft}px - ${offset}px)`;
     return (
       <MtSlider
-        isEmpty={isEmpty(value || defaultValue)}
+        isEmpty={isEmpty(value) && isEmpty(defaultValue)}
         offsetLeft={offsetLeft}
         offset={contentWidth / 2 || 0}
         handleLeft={handleLeft}

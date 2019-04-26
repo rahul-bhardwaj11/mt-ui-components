@@ -39,7 +39,6 @@ class ControlledSlider extends React.Component {
         marks={marks}
         value={this.state.value}
         onChange={this.onChange}
-        tipFormatter={null}
         disabled={boolean('disabled', false)}
         dots={true}
         step={1}
@@ -61,10 +60,10 @@ stories.add(
     <Slider
       min={0}
       max={10}
-      marks={marks}
+      //marks={marks}
       defaultValue={6}
-      tipFormatter={null}
-      disabled={boolean('disabled', false)}
+      //step={1}
+      //disabled={boolean('disabled', false)}
     />
   ))
 );
