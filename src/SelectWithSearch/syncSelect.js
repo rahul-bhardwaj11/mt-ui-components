@@ -17,6 +17,7 @@ export default class SyncSelect extends Component {
     ]),
     isMulti: PropTypes.bool,
     onChange: PropTypes.func,
+    onCheckboxClick: PropTypes.func,
     isButton: PropTypes.bool,
     isDisabled: PropTypes.bool,
     buttonLabel: PropTypes.string,
@@ -42,6 +43,7 @@ export default class SyncSelect extends Component {
   static defaultProps = {
     buttonLabel: 'filter',
     onChange: noop,
+    onCheckboxClick: noop,
     sortOptions: true,
     options: [],
     hasNone: true,
@@ -205,6 +207,7 @@ export default class SyncSelect extends Component {
       selectedItems.splice(index, 1);
     }
     this.setState({ selectedItems });
+    this.props.onCheckboxClick(selectedItems);
   };
 
   onClearAll = () => {
