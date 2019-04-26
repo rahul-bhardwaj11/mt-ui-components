@@ -27,6 +27,9 @@ const MARKER_SIZE = 18;
 const MtSlider = styled.div`
   .toolTip {
     width: 100%;
+    .ant-slider-with-marks {
+      margin-bottom: 12px;
+    }
     .ant-slider-handle {
       margin-left: -4px;
       border: ${({ disabled, isEmpty }) => {
@@ -63,7 +66,7 @@ const MtSlider = styled.div`
       width: ${MARKER_SIZE - 8}px;
       height: ${MARKER_SIZE - 8}px;
       border-radius: 50%;
-      border: 2px solid ${theme.colors.PEARL};
+      border: 2px solid ${theme.colors.ALTO};
       content: '';
     }
     &:hover {
@@ -150,7 +153,7 @@ const MtSlider = styled.div`
   .toolTipValue {
     position: absolute;
     bottom: 30px;
-    left: ${props => props.handleLeft};
+    left: calc(${props => props.handleLeft});
     ${mixins.darkText()};
     text-align: center;
   }
@@ -186,7 +189,8 @@ class Slider extends Component {
     super(props);
     this.state = {
       showTooltip: false,
-      marks: this.formatMarks()
+      marks: this.formatMarks(),
+      value: this.props.value
     };
   }
 
@@ -204,14 +208,12 @@ class Slider extends Component {
   percentageToMarksMap = {};
 
   componentDidMount() {
-    const { marks, disabled } = this.props;
+    const { marks } = this.props;
     if (marks) {
       this.calculatePercentageToMark();
     }
-    if (disabled) {
-      let handleLeft = this.getHandleLeft();
-      this.setState({ handleLeft });
-    }
+    let handleLeft = this.getHandleLeft();
+    this.setState({ handleLeft });
   }
 
   calculatePercentageToMark = () => {
@@ -244,7 +246,10 @@ class Slider extends Component {
     if (!marks) return;
 
     const targetClass = e.target.className.split(' ');
-    if (targetClass.includes(SLIDER_MARK_CLASS)) {
+    if (
+      targetClass.includes(SLIDER_MARK_CLASS) ||
+      targetClass.includes(SLIDER_HANDLE_CLASS)
+    ) {
       const offsetLeft =
         e.target.getBoundingClientRect().left + MARKER_SIZE / 2; //e.clientX;
       const leftPercentage = e.target.style.left;
@@ -262,6 +267,23 @@ class Slider extends Component {
     showTooltip && this.setState({ showTooltip: false });
   };
 
+  setHandleValue = value => {
+    this.setState({ value }, () => {
+      const handleLeft = this.getHandleLeft();
+      this.setState({ handleLeft });
+    });
+  };
+
+  onChange = value => {
+    this.setHandleValue(value);
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value != this.props.value) {
+      this.setHandleValue(nextProps.value);
+    }
+  }
+
   getHandleLeft = () => {
     if (!this.ref) return;
     let handle = this.ref.getElementsByClassName(SLIDER_HANDLE_CLASS);
@@ -270,14 +292,15 @@ class Slider extends Component {
   };
 
   render() {
-    const { value, disabled, defaultValue } = this.props;
+    const { disabled, defaultValue, min, max } = this.props;
     const {
       offsetLeft,
       showTooltip,
       contentWidth,
       title,
       marks,
-      handleLeft
+      handleLeft,
+      value
     } = this.state;
     const offset = contentWidth / 2 || 0;
     const toolTipLeftPos = `calc(${offsetLeft}px - ${offset}px)`;
@@ -305,8 +328,18 @@ class Slider extends Component {
             ref={el => (this.tooltipRef = el)}
           >
             <div>
-              {disabled && <div className="toolTipValue">{value}</div>}
-              <AntSlider {...this.props} marks={marks} />
+              {
+                <div className="toolTipValue">
+                  {value != min && value != max ? value : ''}
+                </div>
+              }
+              <AntSlider
+                {...this.props}
+                marks={marks}
+                tipFormatter={null}
+                onChange={this.onChange}
+                value={value}
+              />
             </div>
           </Tooltip>
         </div>
