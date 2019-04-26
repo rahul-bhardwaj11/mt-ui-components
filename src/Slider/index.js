@@ -12,39 +12,49 @@ const isEmpty = value => {
   return typeof value === 'undefined' || value === null;
 };
 
-const getSliderMarkColor = isEmpty => {
-  return isEmpty ? theme.colors.DARK_OUTER_SPACE : theme.colors.INDIGO;
+const getSliderMarkColor = (isEmpty, disabled) => {
+  return isEmpty
+    ? disabled
+      ? theme.colors.ALTO
+      : theme.colors.DARK_OUTER_SPACE
+    : disabled
+      ? theme.colors.SILVER
+      : theme.colors.INDIGO;
 };
 
 const MARKER_SIZE = 18;
 
 const MtSlider = styled.div`
-  .ant-slider-handle {
-    margin-left: -4px;
-    border: 2px solid ${props => getSliderMarkColor(props.isEmpty)};
-    background-color: ${props => getSliderMarkColor(props.isEmpty)};
-    ${mixins.size(`${MARKER_SIZE - 4}px`, `${MARKER_SIZE - 4}px`)};
-    &:focus {
-      box-shadow: 0 0 0 0 ${theme.colors.DARK_OUTER_SPACE};
-      border: none;
+  .toolTip {
+    width: 100%;
+    .ant-slider-with-marks {
+      margin-bottom: 12px;
     }
-    &.ant-tooltip-open {
-      &:hover {
-        border: 2px solid ${props => getSliderMarkColor(props.isEmpty)};
+    .ant-slider-handle {
+      margin-left: -4px;
+      border: ${({ disabled, isEmpty }) => {
+        let borderColor = getSliderMarkColor(isEmpty, disabled);
+        return `2px solid ${borderColor} !important`;
+      }};
+      background-color: ${({ disabled, isEmpty }) => {
+        return getSliderMarkColor(isEmpty, disabled);
+      }};
+      ${mixins.size(`${MARKER_SIZE - 4}px`, `${MARKER_SIZE - 4}px`)};
+      &:focus {
+        box-shadow: 0 0 0 0 ${theme.colors.DARK_OUTER_SPACE};
+        border: none;
       }
-    }
-
-    &:hover {
-      .ant-slider-handle:not(.ant-tooltip-open) {
-        background-color: ${props => getSliderMarkColor(props.isEmpty)};
-        border: 2px solid ${props => getSliderMarkColor(props.isEmpty)};
+      &.ant-tooltip-open {
+        &:hover {
+          border: 2px solid ${props => props.type};
+        }
       }
     }
   }
   .ant-slider-dot {
-    width:${MARKER_SIZE}px;
-    height:${MARKER_SIZE}px;
-    top:-6px;
+    width: ${MARKER_SIZE}px;
+    height: ${MARKER_SIZE}px;
+    top: -6px;
     border: 0px;
     border-radius: 0px;
     background: transparent;
@@ -56,17 +66,17 @@ const MtSlider = styled.div`
       width: ${MARKER_SIZE - 8}px;
       height: ${MARKER_SIZE - 8}px;
       border-radius: 50%;
-      border: 1px solid ${theme.colors.PEARL};
-      content: "";
+      border: 2px solid ${theme.colors.ALTO};
+      content: '';
     }
-    &:hover{
+    &:hover {
       :before {
-      border-color:${theme.colors.OUTER_SPACE};
-    }
+        border-color: ${theme.colors.OUTER_SPACE};
+      }
     }
     &.ant-slider-dot-active {
       :before {
-        border-color: ${theme.colors.INDIGO};
+        border: 2px solid ${theme.colors.INDIGO};
       }
     }
     border-color: ${theme.colors.ALTO};
@@ -78,15 +88,6 @@ const MtSlider = styled.div`
   .ant-slider-track {
     background-color: ${theme.colors.INDIGO};
   }
-
-  .ant-slider {
-    &:hover {
-      .ant-slider-handle:not(.ant-tooltip-open) {
-        background-color: ${props => getSliderMarkColor(props.isEmpty)};
-        border: 2px solid ${props => getSliderMarkColor(props.isEmpty)};
-      }
-    }
-  }
   .ant-slider {
     &:hover {
       .ant-slider-track {
@@ -95,23 +96,21 @@ const MtSlider = styled.div`
       }
     }
   }
-   .ant-slider-handle{
-     :focus{
-    box-shadow:none;
-    border:none;
-   }
- }
-    .ant-tooltip-open{
-    border:none;
-   }
+  .ant-slider-handle {
+    :focus {
+      box-shadow: none;
+      border: none;
+    }
+  }
+  .ant-tooltip-open {
+    border: none;
+  }
 
-  // css for disabled
-
-  .ant-slider-disabled{
+  .ant-slider-disabled {
     .ant-slider-dot {
-      width:${MARKER_SIZE}px;
-      height:${MARKER_SIZE}px;
-      top:-6px;
+      width: ${MARKER_SIZE}px;
+      height: ${MARKER_SIZE}px;
+      top: -6px;
       border: 0px;
       border-radius: 0px;
       background: transparent;
@@ -123,56 +122,51 @@ const MtSlider = styled.div`
         width: ${MARKER_SIZE - 8}px;
         height: ${MARKER_SIZE - 8}px;
         border-radius: 50%;
-        border: 1px solid ${theme.colors.SILVER};
-        content: "";
+        border: 2px solid ${theme.colors.PEARL};
+        content: '';
       }
     }
-    cursor:default;
-    .ant-slider-track{
-      border:2px solid  ${theme.colors.SILVER} !important;
+    cursor: default;
+    .ant-slider-track {
+      border: 2px solid ${theme.colors.SILVER} !important;
     }
 
-    &.ant-slider:hover .ant-slider-track{
-      border:2px solid  ${theme.colors.SILVER};
+    &.ant-slider:hover .ant-slider-track {
+      border: 2px solid ${theme.colors.SILVER};
     }
-    &:hover{
-
-    .ant-slider-track{
-      background-color: ${theme.colors.SILVER}
-      &:hover{
-          background-color: ${theme.colors.SILVER}
+    &:hover {
+      .ant-slider-track {
+        background-color: ${theme.colors.SILVER};
+        &:hover {
+          background-color: ${theme.colors.SILVER};
+        }
       }
-     }
     }
-
-    .ant-slider-disabled.ant-slider:hover .ant-slider-track{
-       border:2px solid  ${theme.colors.SILVER};
+    .ant-slider-disabled.ant-slider:hover .ant-slider-track {
+      border: 2px solid ${theme.colors.SILVER};
     }
-    .ant-slider-mark-text, .ant-slider-disabled .ant-slider-dot{
-      cursor:default !important;
-    }
-    // .ant-slider-dot{
-    //   //display:none;
-    //   cursor:default !important;
-    // }
-    .ant-slider-handle{
-      background-color: ${theme.colors.SILVER} !important;
-      border-color: ${theme.colors.SILVER} !important;
-      cursor: default;
+    .ant-slider-mark-text,
+    .ant-slider-disabled .ant-slider-dot {
+      cursor: default !important;
     }
   }
-
-.toolTip{
-  width:100%;
-}
-.toolTipValue{
-  position: absolute;
-  bottom: 50px;
-  font-size: 14px;
-  left:calc(${props => props.handleLeft} - ${MARKER_SIZE}px);
-  width:40px;
-  text-align:center;
-}
+  .toolTipValue {
+    position: absolute;
+    bottom: 30px;
+    left: calc(${props => props.handleLeft});
+    ${mixins.darkText()};
+    text-align: center;
+  }
+  .ant-slider-disabled {
+    .ant-slider-rail {
+      background-color: ${theme.colors.PEARL};
+    }
+    .ant-slider-dot-active {
+      :before {
+        border: 2px solid ${theme.colors.SILVER};
+      }
+    }
+  }
 `;
 
 const SLIDER_STEP_CLASS = 'ant-slider-step',
@@ -187,14 +181,16 @@ class Slider extends Component {
     marks: PropTypes.object,
     disabled: PropTypes.bool,
     min: PropTypes.number,
-    max: PropTypes.number
+    max: PropTypes.number,
+    defaultValue: PropTypes.number
   };
 
   constructor(props) {
     super(props);
     this.state = {
       showTooltip: false,
-      marks: this.formatMarks()
+      marks: this.formatMarks(),
+      value: this.props.value
     };
   }
 
@@ -212,14 +208,12 @@ class Slider extends Component {
   percentageToMarksMap = {};
 
   componentDidMount() {
-    const { marks, disabled } = this.props;
+    const { marks } = this.props;
     if (marks) {
       this.calculatePercentageToMark();
     }
-    if (disabled) {
-      let handleLeft = this.getHandleLeft();
-      this.setState({ handleLeft });
-    }
+    let handleLeft = this.getHandleLeft();
+    this.setState({ handleLeft });
   }
 
   calculatePercentageToMark = () => {
@@ -252,7 +246,10 @@ class Slider extends Component {
     if (!marks) return;
 
     const targetClass = e.target.className.split(' ');
-    if (targetClass.includes(SLIDER_MARK_CLASS)) {
+    if (
+      targetClass.includes(SLIDER_MARK_CLASS) ||
+      targetClass.includes(SLIDER_HANDLE_CLASS)
+    ) {
       const offsetLeft =
         e.target.getBoundingClientRect().left + MARKER_SIZE / 2; //e.clientX;
       const leftPercentage = e.target.style.left;
@@ -270,6 +267,23 @@ class Slider extends Component {
     showTooltip && this.setState({ showTooltip: false });
   };
 
+  setHandleValue = value => {
+    this.setState({ value }, () => {
+      const handleLeft = this.getHandleLeft();
+      this.setState({ handleLeft });
+    });
+  };
+
+  onChange = value => {
+    this.setHandleValue(value);
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value != this.props.value) {
+      this.setHandleValue(nextProps.value);
+    }
+  }
+
   getHandleLeft = () => {
     if (!this.ref) return;
     let handle = this.ref.getElementsByClassName(SLIDER_HANDLE_CLASS);
@@ -278,23 +292,25 @@ class Slider extends Component {
   };
 
   render() {
-    const { value, disabled } = this.props;
+    const { disabled, defaultValue, min, max } = this.props;
     const {
       offsetLeft,
       showTooltip,
       contentWidth,
       title,
       marks,
-      handleLeft
+      handleLeft,
+      value
     } = this.state;
     const offset = contentWidth / 2 || 0;
     const toolTipLeftPos = `calc(${offsetLeft}px - ${offset}px)`;
     return (
       <MtSlider
-        isEmpty={isEmpty(value)}
+        isEmpty={isEmpty(value || defaultValue)}
         offsetLeft={offsetLeft}
         offset={contentWidth / 2 || 0}
         handleLeft={handleLeft}
+        disabled={disabled}
       >
         <div
           onMouseOver={this.handleHover}
@@ -312,8 +328,18 @@ class Slider extends Component {
             ref={el => (this.tooltipRef = el)}
           >
             <div>
-              {disabled && <div className="toolTipValue">{value}</div>}
-              <AntSlider {...this.props} marks={marks} />
+              {
+                <div className="toolTipValue">
+                  {value != min && value != max ? value : ''}
+                </div>
+              }
+              <AntSlider
+                {...this.props}
+                marks={marks}
+                tipFormatter={null}
+                onChange={this.onChange}
+                value={value}
+              />
             </div>
           </Tooltip>
         </div>

@@ -1,13 +1,9 @@
 import React from 'react';
-
 import { storiesOf } from '@storybook/react';
 import Slider from '.';
 import { withInfo } from '@storybook/addon-info';
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
 
-function formatter(value) {
-  return `${value}%`;
-}
 const marks = {
   0: {
     label: '0',
@@ -28,27 +24,53 @@ const marks = {
   }
 };
 
+class ControlledSlider extends React.Component {
+  state = {
+    value: 6
+  };
+  onChange = value => {
+    this.setState({ value });
+  };
+  render() {
+    return (
+      <Slider
+        min={0}
+        max={10}
+        marks={marks}
+        value={this.state.value}
+        onChange={this.onChange}
+        tipFormatter={null}
+        disabled={boolean('disabled', false)}
+        dots={true}
+        step={1}
+      />
+    );
+  }
+}
+
 const stories = storiesOf('Slider', module);
 stories.addDecorator(withKnobs);
 
 stories.add(
-  'Slider',
-  withInfo('Slider without tooltip')(() => <Slider defaultValue={6} />)
+  'Slider with dots',
+  withInfo('Slider without tooltip')(() => <ControlledSlider />)
 );
 stories.add(
-  'Slider step tooltip',
-  withInfo('Slider with  tooltip on every step')(() => (
-    <Slider dots={true} step={2} min={0} max={10} marks={marks} />
+  'Slider without dots',
+  withInfo('Slider without tooltip')(() => (
+    <Slider
+      min={0}
+      max={10}
+      marks={marks}
+      defaultValue={6}
+      tipFormatter={null}
+      disabled={boolean('disabled', false)}
+    />
   ))
 );
 stories.add(
-  'Slider tooltip',
-  withInfo('Slider with tooltip')(() => <Slider tipFormatter={formatter} />)
-);
-
-stories.add(
-  'Slider disabled',
-  withInfo('Slider with tooltip')(() => (
-    <Slider tipFormatter={formatter} disabled value={30} />
+  'Slider with only value',
+  withInfo('Slider without tooltip')(() => (
+    <Slider disabled={true} value={30} />
   ))
 );
