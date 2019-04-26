@@ -93,7 +93,7 @@ const MtWrapper = styled.span`
     color: ${theme.colors.GREY};
     margin: 8px;
     max-height: 235px;
-    
+
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
       margin-bottom: 4px;
@@ -212,7 +212,6 @@ class Select extends Component {
     super(p);
     this.element = document.createElement('div');
     this.selectRef = React.createRef();
-    this.selectRefDefault = React.createRef();
   }
 
   state = {
@@ -235,34 +234,23 @@ class Select extends Component {
   }
 
   render() {
-    let { options, style, showTick, getPopupContainer } = this.props;
-
+    let { options, style, showTick } = this.props;
+    const container =
+      this.props.getPopupContainer && this.props.getPopupContainer();
     return (
       <React.Fragment>
-        {getPopupContainer
-          ? ReactDOM.createPortal(
-              <MtWrapper style={style} innerRef={this.selectRef} />,
-              this.element
-            )
-          : null}
-        <MtWrapper
-          style={style}
-          key={this.state.key}
-          showTick={showTick}
-          innerRef={this.selectRefDefault}
-        >
+        {ReactDOM.createPortal(
+          <MtWrapper style={style} innerRef={this.selectRef} />,
+          container || this.element
+        )}
+        <MtWrapper style={style} key={this.state.key} showTick={showTick}>
           <AntSelect
             {...this.props}
             onClick={event => {
               event.stopPropagation();
             }}
             getPopupContainer={() => {
-              const container = getPopupContainer && getPopupContainer();
-              if (container) {
-                var cloned = this.selectRef.current.cloneNode(true);
-                container.appendChild(cloned);
-              }
-              return container ? cloned : this.selectRefDefault.current;
+              return this.selectRef.current;
             }}
             dropdownClassName={classnames(
               'selectDropdownStyle',

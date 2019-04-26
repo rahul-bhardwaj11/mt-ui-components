@@ -38,8 +38,6 @@ class Tooltip extends Component {
     this.element = document.createElement('div');
     this.element.style.height = 0;
     this.element.style.lineHeight = 0;
-    this.selectRef = React.createRef();
-    this.selectRefDefault = React.createRef();
   }
 
   static defaultProps = {
@@ -54,30 +52,28 @@ class Tooltip extends Component {
     document.body.removeChild(this.element);
   }
 
+  getRef = () => {
+    return this.popUpContainer;
+  };
+
   render() {
     const { children, className, getPopupContainer, style } = this.props;
+    const container = getPopupContainer && getPopupContainer();
     return (
       <React.Fragment>
-        {getPopupContainer
-          ? ReactDOM.createPortal(
-              <MtTooltip
-                style={style}
-                className={className}
-                innerRef={this.selectRef}
-              />,
-              this.element
-            )
-          : null}
-        <MtTooltip className={className} innerRef={this.selectRefDefault}>
+        {ReactDOM.createPortal(
+          <MtTooltip
+            style={style}
+            className={className}
+            innerRef={e => e && (this.popUpContainer = e)}
+          />,
+          container || this.element
+        )}
+        <MtTooltip className={className} innerRef={this.getRef}>
           <AntTooltip
             {...this.props}
             getPopupContainer={() => {
-              const container = getPopupContainer && getPopupContainer();
-              if (container) {
-                var cloned = this.selectRef.current.cloneNode(true);
-                container.appendChild(cloned);
-              }
-              return container ? cloned : this.selectRefDefault.current;
+              return this.popUpContainer;
             }}
           >
             {children}
