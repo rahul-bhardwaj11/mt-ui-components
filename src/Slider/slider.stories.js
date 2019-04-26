@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { storiesOf } from '@storybook/react';
 import Slider from '.';
 import { withInfo } from '@storybook/addon-info';
@@ -32,23 +31,55 @@ const stories = storiesOf('Slider', module);
 stories.addDecorator(withKnobs);
 
 stories.add(
-  'Slider',
-  withInfo('Slider without tooltip')(() => <Slider defaultValue={6} />)
-);
-stories.add(
-  'Slider step tooltip',
-  withInfo('Slider with  tooltip on every step')(() => (
-    <Slider dots={true} step={2} min={0} max={10} marks={marks} />
+  'Slider Empty',
+  withInfo('Slider without tooltip')(() => (
+    <Slider step={2} min={0} max={10} value={null} marks={marks} />
   ))
 );
 stories.add(
-  'Slider tooltip',
-  withInfo('Slider with tooltip')(() => <Slider tipFormatter={formatter} />)
+  'Slider filled with marker',
+  withInfo('Slider with  tooltip on every step')(() => (
+    <Slider
+      dots={true}
+      step={2}
+      min={0}
+      max={10}
+      marks={marks}
+      defaultValue={6}
+    />
+  ))
+);
+stories.add(
+  'Slider disabled filled without marker',
+  withInfo('Slider with tooltip')(() => (
+    <Slider tipFormatter={formatter} disabled value={30} />
+  ))
 );
 
 stories.add(
-  'Slider disabled',
-  withInfo('Slider with tooltip')(() => (
-    <Slider tipFormatter={formatter} disabled value={30} />
+  'Slider disabled without marker',
+  withInfo('Slider with tooltip ')(() => (
+    <Slider tipFormatter={formatter} disabled />
+  ))
+);
+
+stories.add(
+  'Slider Disabled  with marker',
+  withInfo('Slider with  tooltip on every step')(() => (
+    <Slider dots={true} step={1} min={0} max={10} marks={marks} disabled />
+  ))
+);
+stories.add(
+  'Slider Disabled Filled with marker',
+  withInfo('Slider with  tooltip on every step')(() => (
+    <Slider
+      dots={true}
+      step={1}
+      min={0}
+      max={10}
+      marks={marks}
+      disabled
+      defaultValue={6}
+    />
   ))
 );
