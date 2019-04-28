@@ -228,11 +228,11 @@ class Slider extends Component {
   percentageToMarksMap = {};
 
   componentDidMount() {
-    const { marks } = this.props;
-    if (marks) {
+    if (this.isTooltipEnabled()) {
       this.calculatePercentageToMark();
     }
-    let handleLeft = this.getHandleLeft();
+    let handle = this.getHandleNode();
+    const handleLeft = handle && handle.style.left;
     this.setState({ handleLeft });
   }
 
@@ -248,6 +248,11 @@ class Slider extends Component {
     }
   };
 
+  isTooltipEnabled = () => {
+    const { marks } = this.props;
+    return marks ? true : false;
+  };
+
   setTooltipWidth = () => {
     if (!this.tooltipRef) return;
     var tooltipContent = this.tooltipRef
@@ -261,73 +266,85 @@ class Slider extends Component {
   };
 
   handleHover = e => {
-    const { marks } = this.props;
     const { showTooltip, persistTooltip } = this.state;
-    if (!marks) return;
+    if (!this.isTooltipEnabled()) return;
 
     const targetClass = e.target.className.split(' ');
     if (
       targetClass.includes(SLIDER_MARK_CLASS) ||
       targetClass.includes(SLIDER_HANDLE_CLASS)
     ) {
-      const offsetLeft =
-        e.target.getBoundingClientRect().left + MARKER_SIZE / 2; //e.clientX;
-      const leftPercentage = e.target.style.left;
-      const mark = this.percentageToMarksMap[leftPercentage];
-      const title = this.state.marks[mark].tooltip
-        ? this.state.marks[mark].tooltip
-        : mark + '';
-
-      let newState = {
-        showTooltip: true,
-        offsetLeft,
-        title
-      };
+      let tooltipState = this.getTooltipState(e.target);
       if (persistTooltip && targetClass.includes(SLIDER_MARK_CLASS)) {
         clearTimeout(this.tooltipTimerId);
-        newState.persistTooltip = false;
+        tooltipState.persistTooltip = false;
       }
-      this.setState({ ...newState });
+      this.setState({ ...tooltipState });
 
       setTimeout(() => {
         this.setTooltipWidth();
       }, 0);
       return;
     }
-
     !persistTooltip && showTooltip && this.setState({ showTooltip: false });
   };
 
-  setHandleValue = value => {
+  getTooltipState = node => {
+    const offsetLeft = node.getBoundingClientRect().left + MARKER_SIZE / 2;
+    const leftPercentage = node.style.left;
+    const mark = this.percentageToMarksMap[leftPercentage];
+    const title = this.state.marks[mark].tooltip
+      ? this.state.marks[mark].tooltip
+      : mark + '';
+    let tooltipState = {
+      showTooltip: true,
+      offsetLeft,
+      title
+    };
+    return tooltipState;
+  };
+
+  setHandleValueAndTooltip = value => {
+    const { tooltipTimeout } = this.props;
     this.setState({ value }, () => {
-      const handleLeft = this.getHandleLeft();
-      this.setState({ handleLeft });
+      const handle = this.getHandleNode();
+      const handleLeft = handle && handle.style.left;
+      const isTooltipEnabled = this.isTooltipEnabled();
+      const tooltipState = isTooltipEnabled ? this.getTooltipState(handle) : {};
+      this.setState({ handleLeft, ...tooltipState, persistTooltip: true });
+
+      if (isTooltipEnabled) {
+        setTimeout(() => {
+          this.setTooltipWidth();
+        }, 0);
+
+        if (this.tooltipTimerId) {
+          clearTimeout(this.tooltipTimerId);
+        }
+        this.tooltipTimerId = setTimeout(() => {
+          this.setState({ persistTooltip: false, showTooltip: false });
+        }, tooltipTimeout);
+      }
     });
   };
 
   onChange = value => {
-    const { onChange, tooltipTimeout } = this.props;
+    const { onChange } = this.props;
     onChange(value);
-    this.setState({ persistTooltip: true, showTooltip: true }, () => {
-      this.tooltipTimerId = setTimeout(() => {
-        this.setState({ persistTooltip: false, showTooltip: false });
-      }, tooltipTimeout);
-    });
-
-    this.setHandleValue(value);
+    this.setHandleValueAndTooltip(value);
   };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.value != this.props.value) {
-      this.setHandleValue(nextProps.value);
+      this.setHandleValueAndTooltip(nextProps.value);
     }
   }
 
-  getHandleLeft = () => {
+  getHandleNode = () => {
     if (!this.ref) return;
     let handle = this.ref.getElementsByClassName(SLIDER_HANDLE_CLASS);
-    let handleLeft = handle && handle[0] && handle[0].style.left;
-    return handleLeft;
+    let handleNode = handle && handle[0];
+    return handleNode;
   };
 
   render() {
