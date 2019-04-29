@@ -277,7 +277,6 @@ class Slider extends Component {
   handleHover = e => {
     const { showTooltip, persistTooltip } = this.state;
     if (!this.isTooltipEnabled()) return;
-
     const targetClass = e.target.className.split(' ');
     if (
       targetClass.includes(SLIDER_MARK_CLASS) ||
@@ -356,6 +355,13 @@ class Slider extends Component {
     return handleNode;
   };
 
+  handleBlur = () => {
+    clearTimeout(this.tooltipTimerId);
+    this.setState({
+      showTooltip: false
+    });
+  };
+
   render() {
     const { disabled, defaultValue, min, max } = this.props;
     const {
@@ -378,6 +384,8 @@ class Slider extends Component {
         disabled={disabled}
       >
         <div
+          tabIndex={-1}
+          onBlur={this.handleBlur}
           onMouseOver={this.handleHover}
           style={{ position: 'relative' }}
           ref={el => {
@@ -393,11 +401,11 @@ class Slider extends Component {
             ref={el => (this.tooltipRef = el)}
           >
             <div>
-              {
+              {disabled && (
                 <div className="toolTipValue">
                   {value != min && value != max ? value : ''}
                 </div>
-              }
+              )}
               <AntSlider
                 {...this.props}
                 marks={marks}
