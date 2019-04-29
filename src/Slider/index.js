@@ -31,18 +31,18 @@ const MtSlider = styled.div`
       margin-bottom: 12px;
     }
     .ant-slider-handle {
-      width: 26px;
-      height: 26px;
+      width: 20px;
+      height: 20px;
       border: none;
       position: relative;
       background: transparent;
       margin-left: -8px;
-      margin-top: -10px;
+      margin-top: -7px;
       :before {
         content: '';
         z-index: 2;
-        top: 4px;
-        left: 3px;
+        top: 2px;
+        left: 2px;
         border: ${({ disabled, isEmpty }) => {
           let borderColor = getSliderMarkColor(isEmpty, disabled);
           return `2px solid ${borderColor} !important`;
@@ -70,9 +70,13 @@ const MtSlider = styled.div`
     width: ${MARKER_SIZE}px;
     height: ${MARKER_SIZE}px;
     top: -6px;
+    margin-left: -7px;
     border: 0px;
     border-radius: 0px;
     background: transparent;
+    :last-child {
+      margin-left: -7px;
+    }
     :before {
       position: absolute;
       left: 2px;
@@ -169,6 +173,7 @@ const MtSlider = styled.div`
     position: absolute;
     bottom: 30px;
     left: calc(${props => props.handleLeft});
+    transform: translateX(-${props => props.handleLeft});
     ${mixins.darkText()};
     text-align: center;
   }
