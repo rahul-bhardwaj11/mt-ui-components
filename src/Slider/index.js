@@ -38,6 +38,7 @@ const MtSlider = styled.div`
       background: transparent;
       margin-left: -8px;
       margin-top: -7px;
+      border-radius: 0;
       :before {
         content: '';
         z-index: 2;
