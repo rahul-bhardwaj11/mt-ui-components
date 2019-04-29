@@ -31,16 +31,18 @@ const MtSlider = styled.div`
       margin-bottom: 12px;
     }
     .ant-slider-handle {
-      width: 20px;
-      height: 20px;
+      width: 26px;
+      height: 26px;
       border: none;
       position: relative;
       background: transparent;
-      margin-left: -4px;
-      margin-top: -6px;
+      margin-left: -8px;
+      margin-top: -10px;
       :before {
         content: '';
         z-index: 2;
+        top: 4px;
+        left: 3px;
         border: ${({ disabled, isEmpty }) => {
           let borderColor = getSliderMarkColor(isEmpty, disabled);
           return `2px solid ${borderColor} !important`;
