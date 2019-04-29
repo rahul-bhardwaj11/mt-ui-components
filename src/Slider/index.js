@@ -356,6 +356,10 @@ class Slider extends Component {
   };
 
   handleBlur = () => {
+    const { disabled } = this.props;
+    if (!disabled) {
+      return;
+    }
     clearTimeout(this.tooltipTimerId);
     this.setState({
       showTooltip: false
