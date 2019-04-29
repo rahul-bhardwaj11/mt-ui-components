@@ -204,7 +204,8 @@ class Slider extends Component {
 
   static defaultProps = {
     tooltipTimeout: 3000,
-    onChange: () => {}
+    onChange: () => {},
+    step: 1
   };
 
   constructor(props) {
@@ -217,7 +218,7 @@ class Slider extends Component {
   }
 
   formatMarks = () => {
-    const { min, max, marks, step = 1 } = this.props;
+    const { min, max, marks, step } = this.props;
     if (!marks) return {};
 
     let newMarks = {};

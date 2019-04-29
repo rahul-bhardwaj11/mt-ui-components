@@ -51,24 +51,27 @@ const stories = storiesOf('Slider', module);
 stories.addDecorator(withKnobs);
 
 stories.add(
-  'Slider with dots',
-  withInfo('Slider without tooltip')(() => <ControlledSlider />)
+  'Slider default',
+  withInfo('Slider without tooltip')(() => <Slider defaultValue={6} />)
 );
 stories.add(
-  'Slider without dots',
-  withInfo('Slider without tooltip')(() => (
-    <Slider
-      min={0}
-      max={10}
-      //marks={marks}
-      defaultValue={6}
-      //step={1}
-      //disabled={boolean('disabled', false)}
-    />
+  'Slider with dots',
+  withInfo('Slider with tooltip')(() => (
+    <Slider dots={true} step={2} min={0} max={10} marks={marks} />
   ))
 );
 stories.add(
-  'Slider with only value',
+  'Controlled Slider with dots',
+  withInfo('Slider with tooltip')(() => <ControlledSlider />)
+);
+stories.add(
+  'Slider disabled',
+  withInfo('Slider with tooltip')(() => (
+    <Slider disabled={true} value={6} marks={marks} min={0} max={10} />
+  ))
+);
+stories.add(
+  'Slider disabled without tooltip',
   withInfo('Slider without tooltip')(() => (
     <Slider disabled={true} value={30} />
   ))
