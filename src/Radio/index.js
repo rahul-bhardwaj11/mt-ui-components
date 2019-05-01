@@ -75,7 +75,8 @@ const MtRadio = styled(AntRadio)`
 
 class Radio extends Component {
   static propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
+    checked: PropTypes.bool
   };
   render() {
     let { children } = this.props;
