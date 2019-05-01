@@ -40,7 +40,7 @@ const MtRadio = styled(AntRadio)`
       background-color: ${theme.colors.PEARL};
       &::after {
         background-color: ${props =>
-          props.isDisabledChecked
+          props.checked && props.disabled
             ? `${theme.colors.SILVER}`
             : `${theme.colors.PEARL}`};
       }
@@ -75,17 +75,11 @@ const MtRadio = styled(AntRadio)`
 
 class Radio extends Component {
   static propTypes = {
-    children: PropTypes.node,
-    checked: PropTypes.bool,
-    disabled: PropTypes.bool
+    children: PropTypes.node
   };
   render() {
-    let { children, checked, disabled } = this.props;
-    return (
-      <MtRadio {...this.props} isDisabledChecked={checked && disabled}>
-        {children}
-      </MtRadio>
-    );
+    let { children } = this.props;
+    return <MtRadio {...this.props}>{children}</MtRadio>;
   }
 }
 Radio.Group = MtRadioGroup;
