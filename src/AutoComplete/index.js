@@ -20,39 +20,38 @@ const StyledAutoComplete = Styled.div`
       box-shadow: none;
     }
   }
-  .ant-select-dropdown{
+  .ant-select-dropdown {
      ${props =>
        props.inputHeight
          ? `top: calc(${props.inputHeight} + 5px) !important`
          : ''}
   }
-  .ant-select-dropdown-menu{
-  background-color: ${theme.colors.WHITE};
-  color: ${theme.colors.GREY};
-  margin: 8px;
-
-    .ant-select-dropdown-menu-item{
-    border-radius: 4px;
-    margin-bottom: 4px;
-      &:last-child{
-      margin-bottom: 0px;
-    }
-    color: ${theme.colors.DARK_OUTER_SPACE};
-    font-weight: normal;
-      &:hover{
-      background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
-      color: ${theme.colors.WHITE};
-      border-radius: 4px;
-    }
-  }
-    .ant-select-dropdown-menu-item-active {
+  .ant-select-dropdown-menu {
     background-color: ${theme.colors.WHITE};
-    color: ${theme.colors.SHARK};
-  }
+    color: ${theme.colors.GREY};
+    margin: 8px;
+    .ant-select-dropdown-menu-item {
+      border-radius: 4px;
+      margin-bottom: 4px;
+      &:last-child{
+        margin-bottom: 0px;
+      }
+      color: ${theme.colors.DARK_OUTER_SPACE};
+      font-weight:normal;
+      &:hover {
+        background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+        color: ${theme.colors.WHITE};
+        border-radius: 4px;
+      }
+    }
+    .ant-select-dropdown-menu-item-active {
+      background-color: ${theme.colors.WHITE};
+      color: ${theme.colors.SHARK};
+    }
    .ant-select-dropdown-menu-item-selected{
-    background-color: ${theme.colors.TROPICAL_BLUE};
+       background-color:${theme.colors.TROPICAL_BLUE};
+    }
   }
-}
 `;
 
 class AutoComplete extends React.Component {
@@ -97,7 +96,6 @@ class AutoComplete extends React.Component {
         <AntAutoComplete
           {...rest}
           getPopupContainer={getPopupContainer}
-          backfill
           onInputKeyDown={this.handleInputKeyDown}
         />
       </StyledAutoComplete>
