@@ -20,40 +20,64 @@ const StyledAutoComplete = Styled.div`
       box-shadow: none;
     }
   }
-  .ant-select-dropdown-menu {
-    background-color: ${theme.colors.WHITE};
-    color: ${theme.colors.GREY};
-    margin: 8px;
-    .ant-select-dropdown-menu-item {
-      border-radius: 4px;
-      margin-bottom: 4px;
-      &:last-child{
-        margin-bottom: 0px;
-      }
-      color: ${theme.colors.DARK_OUTER_SPACE};
-      font-weight:normal;
-      &:hover {
-        background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
-        color: ${theme.colors.WHITE};
-        border-radius: 4px;
-      }
+  .ant-select-dropdown  {
+     ${props =>
+       props.inputHeight
+         ? `top: calc(${props.inputHeight} + 5px) !important`
+         : ''};
+  }
+  .ant - select - dropdown - menu {
+  background - color: ${theme.colors.WHITE};
+  color: ${theme.colors.GREY};
+  margin: 8px;
+
+    .ant - select - dropdown - menu - item {
+    border - radius: 4px;
+    margin - bottom: 4px;
+      &: last - child{
+      margin - bottom: 0px;
     }
-    .ant-select-dropdown-menu-item-active {
-      background-color: ${theme.colors.WHITE};
-      color: ${theme.colors.SHARK};
-    }
-   .ant-select-dropdown-menu-item-selected{
-       background-color:${theme.colors.TROPICAL_BLUE};
+    color: ${theme.colors.DARK_OUTER_SPACE};
+    font - weight: normal;
+      &: hover {
+      background - color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+      color: ${theme.colors.WHITE};
+      border - radius: 4px;
     }
   }
+    .ant - select - dropdown - menu - item - active {
+    background - color: ${theme.colors.WHITE};
+    color: ${theme.colors.SHARK};
+  }
+   .ant - select - dropdown - menu - item - selected{
+    background - color: ${theme.colors.TROPICAL_BLUE};
+  }
+}
 `;
 
 class AutoComplete extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    getPopupContainer: PropTypes.func
+    getPopupContainer: PropTypes.func,
+    children: PropTypes.node
+  };
+
+  state = {};
+
+  handleInputKeyDown = e => {
+    if (!this.props.children) return;
+    e.persist();
+    setTimeout(() => {
+      this.setState({ targetInput: e.target });
+    }, 0);
+  };
+  getElementHeight = element => {
+    return element && element.style && element.style.height;
   };
   render() {
+    const { targetInput } = this.state;
+    const inputHeight = this.getElementHeight(targetInput);
+
     const {
       className,
       getPopupContainer = () => {
@@ -64,12 +88,18 @@ class AutoComplete extends React.Component {
 
     return (
       <StyledAutoComplete
+        inputHeight={inputHeight}
         innerRef={ele => {
           if (ele) this.popUpContainer = ele;
         }}
         className={className}
       >
-        <AntAutoComplete {...rest} getPopupContainer={getPopupContainer} />
+        <AntAutoComplete
+          {...rest}
+          getPopupContainer={getPopupContainer}
+          backfill
+          onInputKeyDown={this.handleInputKeyDown}
+        />
       </StyledAutoComplete>
     );
   }
