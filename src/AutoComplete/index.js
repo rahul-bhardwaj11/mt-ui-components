@@ -20,6 +20,12 @@ const StyledAutoComplete = Styled.div`
       box-shadow: none;
     }
   }
+  .ant-select-dropdown {
+     ${props =>
+       props.inputHeight
+         ? `top: calc(${props.inputHeight} + 5px) !important`
+         : ''}
+  }
   .ant-select-dropdown-menu {
     background-color: ${theme.colors.WHITE};
     color: ${theme.colors.GREY};
@@ -51,9 +57,26 @@ const StyledAutoComplete = Styled.div`
 class AutoComplete extends React.Component {
   static propTypes = {
     className: PropTypes.string,
-    getPopupContainer: PropTypes.func
+    getPopupContainer: PropTypes.func,
+    children: PropTypes.node
+  };
+
+  state = {};
+
+  handleInputKeyDown = e => {
+    if (!this.props.children) return;
+    e.persist();
+    setTimeout(() => {
+      this.setState({ targetInput: e.target });
+    }, 0);
+  };
+  getElementHeight = element => {
+    return element && element.style && element.style.height;
   };
   render() {
+    const { targetInput } = this.state;
+    const inputHeight = this.getElementHeight(targetInput);
+
     const {
       className,
       getPopupContainer = () => {
@@ -64,12 +87,17 @@ class AutoComplete extends React.Component {
 
     return (
       <StyledAutoComplete
+        inputHeight={inputHeight}
         innerRef={ele => {
           if (ele) this.popUpContainer = ele;
         }}
         className={className}
       >
-        <AntAutoComplete {...rest} getPopupContainer={getPopupContainer} />
+        <AntAutoComplete
+          {...rest}
+          getPopupContainer={getPopupContainer}
+          onInputKeyDown={this.handleInputKeyDown}
+        />
       </StyledAutoComplete>
     );
   }
