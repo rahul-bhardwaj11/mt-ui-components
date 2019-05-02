@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import AntModal from 'antd/lib/modal';
 import 'antd/lib/modal/style/index.css';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import mixins from '../styles/mixins';
-import ReactDOM from 'react-dom';
 import './index.css';
 
 const StyledModalWrapper = styled.div`
@@ -96,18 +96,18 @@ const MtModal = styled(AntModal)`
       top:0px;
       height: 100vh;
       background: ${theme.colors.WHITE};
-  
+
       .ant-modal-header{
         border-radius:0px;
       }
-  
+
       .ant-modal-footer {
         position: fixed;
         bottom: 0px;
         width: 100%;
         border-radius: 0px;
       }
-  
+
       .ant-modal-content{
         border-radius:0px;
         box-shadow:0 0px 0px rgba(0, 0, 0, 0.15);
@@ -146,13 +146,17 @@ const MtConfirmModal = styled.div`
       return showFooter ? 'block' : 'none';
     }};
   }
-  .ant-confirm-confirm .ant-confirm-body > .anticon {
+  .ant-confirm-body > .anticon {
     display: none;
   }
   .ant-confirm-body .ant-confirm-content {
     margin-left: 0px;
   }
   .ant-confirm .ant-confirm-btns button + button {
+    background: ${theme.colors.INDIGO};
+    border: 1px solid ${theme.colors.INDIGO};
+  }
+  .ant-confirm-info .ant-confirm-btns button {
     background: ${theme.colors.INDIGO};
     border: 1px solid ${theme.colors.INDIGO};
   }
@@ -168,22 +172,40 @@ const MODAL_WIDTH_MAP = {
   small: 500,
   medium: 600,
   large: 720,
+  extraLarge: 856,
   full: '100%'
 };
 
 class Modal extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    type: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
+    type: PropTypes.oneOf(Object.keys(MODAL_WIDTH_MAP)),
     style: PropTypes.object,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    fullScreenMobile: PropTypes.bool
+    fullScreenMobile: PropTypes.bool,
+    getPopupContainer: PropTypes.func,
+    className: PropTypes.string
   };
 
   static defaultProps = {
     type: 'medium',
     fullScreenMobile: true
   };
+
+  modalContainer = null;
+  element = null;
+  constructor(p) {
+    super(p);
+    this.element = document.createElement('div');
+  }
+
+  componentDidMount() {
+    document.body.appendChild(this.element);
+  }
+
+  componentWillUnmount() {
+    document.body.removeChild(this.element);
+  }
 
   static confirm = props => {
     const { showFooter } = props;
@@ -211,8 +233,38 @@ class Modal extends Component {
     return AntModal.confirm(confirmModalProps);
   };
 
+  static info = props => {
+    const { showFooter } = props;
+    const containerEl = document.body.appendChild(
+      document.createElement('div')
+    );
+    let MountNode;
+    ReactDOM.render(
+      <MtConfirmModal
+        showFooter={showFooter}
+        innerRef={e => (MountNode = e)}
+      />,
+      containerEl
+    );
+    let confirmModalProps = {
+      ...props,
+      getContainer: () => {
+        return MountNode;
+      },
+      onOk: (...okProps) => {
+        document.body.removeChild(containerEl);
+        props.onOk && props.onOk(okProps);
+      },
+      onCancel: (...cancelProps) => {
+        document.body.removeChild(containerEl);
+        props.onCancel && props.onCancel(cancelProps);
+      }
+    };
+    return AntModal.info(confirmModalProps);
+  };
+
   render() {
-    let { children, type, width, fullScreenMobile } = this.props;
+    let { children, type, width, fullScreenMobile, className } = this.props;
     let customProps = {
       ...this.props,
       width: width || MODAL_WIDTH_MAP[type],
@@ -222,19 +274,22 @@ class Modal extends Component {
         ...this.props.style
       }
     };
+    const container =
+      this.props.getPopupContainer && this.props.getPopupContainer();
+
     return (
       <React.Fragment>
-        <StyledModalWrapper
-          innerRef={el => {
-            if (el) {
-              this.modalWrapRef = el;
-            }
-          }}
-        />
+        {ReactDOM.createPortal(
+          <StyledModalWrapper
+            className={className}
+            innerRef={e => e && (this.modalContainer = e)}
+          />,
+          container || this.element
+        )}
         <MtModal
           {...customProps}
-          getContainer={() => {
-            return this.modalWrapRef;
+          getPopupContainer={() => {
+            return this.modalContainer;
           }}
           wrapClassName="modalWrapper"
         >

@@ -20,10 +20,11 @@ export default class SyncSelect extends Component {
     isButton: PropTypes.bool,
     isDisabled: PropTypes.bool,
     buttonLabel: PropTypes.string,
-    placeholder: PropTypes.string,
+    fixedButtonLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     buttonMaxWidth: PropTypes.string,
     buttonMinWidth: PropTypes.string,
     sortOptions: PropTypes.bool,
+    defaultMenuIsOpen: PropTypes.bool,
     value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string)
@@ -31,7 +32,10 @@ export default class SyncSelect extends Component {
     style: PropTypes.object,
     optionRenderer: PropTypes.func,
     showSearch: PropTypes.bool,
-    hasNone: PropTypes.bool
+    hasNone: PropTypes.bool,
+    noneLabel: PropTypes.string,
+    menuPortalTarget: PropTypes.instanceOf(Element),
+    placeholder: PropTypes.string
   };
 
   static defaultProps = {
@@ -39,7 +43,9 @@ export default class SyncSelect extends Component {
     onChange: noop,
     sortOptions: true,
     options: [],
-    hasNone: true
+    hasNone: true,
+    defaultMenuIsOpen: false,
+    noneLabel: 'None'
   };
 
   constructor(props) {
@@ -48,9 +54,9 @@ export default class SyncSelect extends Component {
       options: this.filterOptions(this.props.options),
       selectedItems: [],
       prevSelectedItems: [],
-      menuIsOpen: false,
+      menuIsOpen: this.props.defaultMenuIsOpen,
       showSelect: true,
-      showInput: false,
+      showInput: this.props.defaultMenuIsOpen,
       inputValue: ''
     };
   }
@@ -58,8 +64,14 @@ export default class SyncSelect extends Component {
   filterOptions = options => options.filter(option => option.label);
 
   componentDidMount() {
-    const { defaultValue, isButton, options, value } = this.props;
-    if (isButton) {
+    const {
+      defaultValue,
+      isButton,
+      options,
+      value,
+      defaultMenuIsOpen
+    } = this.props;
+    if (isButton && !defaultMenuIsOpen) {
       this.setState({ showSelect: false });
     }
     const newValue = value ? value : defaultValue;
@@ -94,6 +106,12 @@ export default class SyncSelect extends Component {
   };
 
   handleClickOutside = event => {
+    if (
+      this.props.menuPortalTarget &&
+      this.props.menuPortalTarget.contains(event.target)
+    ) {
+      return;
+    }
     if (this.buttonRef && this.buttonRef.contains(event.target)) {
       this.isBlurActive = false;
     }
@@ -121,9 +139,9 @@ export default class SyncSelect extends Component {
   }
 
   normalizeOption = sortedOptions => {
-    const { isMulti, hasNone } = this.props;
+    const { isMulti, hasNone, noneLabel } = this.props;
     if (!isMulti && hasNone) {
-      sortedOptions.unshift({ label: 'None', value: 'None' });
+      sortedOptions.unshift({ label: noneLabel, value: 'None' });
     }
     return sortedOptions;
   };
@@ -453,6 +471,10 @@ export default class SyncSelect extends Component {
         width: base.width ? base.width : '210px',
         minWidth: '210px',
         position: isButton ? 'absolute' : 'inherit'
+      }),
+      menuPortal: base => ({
+        ...base,
+        zIndex: 9998
       })
     };
     const styles = { ...DEFAULT_SELECT_STYLE };
@@ -469,7 +491,13 @@ export default class SyncSelect extends Component {
   };
 
   render() {
-    const { isMulti, isButton, buttonMaxWidth, buttonMinWidth } = this.props;
+    const {
+      isMulti,
+      isButton,
+      buttonMaxWidth,
+      buttonMinWidth,
+      fixedButtonLabel
+    } = this.props;
     const {
       options,
       selectedItems,
@@ -538,7 +566,7 @@ export default class SyncSelect extends Component {
                 showSelect ? 'activeSelect' : ''
               )}
             >
-              {this.getButtonText()}
+              {fixedButtonLabel || this.getButtonText()}
             </Button>
           </div>
         )}

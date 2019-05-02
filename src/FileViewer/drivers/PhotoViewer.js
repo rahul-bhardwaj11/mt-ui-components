@@ -11,12 +11,12 @@ export default class PhotoViewer extends Component {
   };
 
   static defaultProps = {
-    height: 200
+    height: 400
   };
 
   componentDidMount() {
-    const { height } = this.props;
     const width = this.containerRef.clientWidth;
+    const height = this.containerRef.clientHeight;
     const containerBorderRadius = this.containerRef.style.borderRadius;
     const image = new Image();
     image.src = this.props.src;
@@ -27,26 +27,28 @@ export default class PhotoViewer extends Component {
       if (imageHeight >= height) {
         imageHeight = height;
       }
-      if (imageWidth > width) {
-        imageWidth = `${width}px`;
-      } else {
-        imageWidth = 'auto';
-      }
-
+      // maintaing aspect ratio for the given height
+      const __width = (imageHeight * 16) / 9;
+      imageWidth =
+        __width > width
+          ? 'auto'
+          : __width < imageWidth
+            ? `${__width}px`
+            : `${imageWidth}px`;
       imageHeight += 'px';
 
       self.imageRef.setAttribute('src', self.props.src);
       self.imageRef.setAttribute(
         'style',
         `display: block;
-         width: ${imageWidth};
-         height:${imageHeight};
-         position:absolute;
-         left: 50%;
-         top: 50%;
-         transform: translate(-50%,-50%);
-         border-radius: ${containerBorderRadius ? containerBorderRadius : 0}
-         `
+      width: ${imageWidth};
+      height: ${imageHeight};
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: ${containerBorderRadius ? containerBorderRadius : 0}
+      `
       );
     };
   }
@@ -56,8 +58,9 @@ export default class PhotoViewer extends Component {
     const containerStyle = {
       ...style,
       width: '100%',
+      minHeight: 'inherit',
       height,
-      background: `${theme.colors.IVORY}`,
+      background: `${theme.colors.IVORY} `,
       position: 'relative'
     };
 

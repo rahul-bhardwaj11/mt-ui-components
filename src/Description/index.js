@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Preview from './components/preview';
 import Editor from './components/editor';
-import { MODES } from './constants';
-import { errorToast } from '../Toast';
+import { MODES, VIEW_TYPES } from './constants';
 import classnames from 'classnames';
 import StyledDescription from './css';
 
@@ -24,8 +23,9 @@ export default class Description extends Component {
     maxLength: PropTypes.number,
     ok: PropTypes.func,
     readOnly: PropTypes.bool,
-    required: PropTypes.bool,
-    scrollingContainer: PropTypes.string
+    scrollingContainer: PropTypes.string,
+    type: PropTypes.oneOf([VIEW_TYPES.FULL, VIEW_TYPES.DEFAULT]),
+    style: PropTypes.object
   };
   static defaultProps = {
     content: '',
@@ -33,7 +33,9 @@ export default class Description extends Component {
     onChange: noop,
     ok: noop,
     maxLength: 1000,
-    preview: false
+    preview: false,
+    type: VIEW_TYPES.DEFAULT,
+    style: { height: '150px' }
   };
 
   state = {
@@ -44,7 +46,7 @@ export default class Description extends Component {
 
   onChange = (value, editor, trigger = true) => {
     //const { content } = this.state;
-    const { maxLength, required } = this.props;
+    const { maxLength } = this.props;
     let text = trimNewLine(editor.getText().trim());
     let contentLength = text.length;
     if (contentLength > maxLength && editor.deleteText) {
@@ -56,11 +58,7 @@ export default class Description extends Component {
       content: value,
       availableLength: maxLength - contentLength
     });
-    contentLength && this.props.onChange(value);
-    !contentLength &&
-      trigger &&
-      required &&
-      errorToast({ message: 'Description can not be empty' });
+    trigger && this.props.onChange(value, contentLength);
   };
 
   editorHelpers = {
@@ -91,11 +89,12 @@ export default class Description extends Component {
       heading,
       className,
       readOnly,
-      scrollingContainer
+      scrollingContainer,
+      type
     } = this.props;
 
     return mode == MODES.EDIT ? (
-      <div className={classnames('desc_editor', 'pos_rel')}>
+      <div className={classnames('desc_editor')}>
         <Editor
           id="task-description"
           readOnly={readOnly}
@@ -108,6 +107,7 @@ export default class Description extends Component {
           className={className}
           onMount={this.onChange.bind(this)}
           scrollingContainer={scrollingContainer}
+          type={type}
         />
       </div>
     ) : (
@@ -128,9 +128,13 @@ export default class Description extends Component {
   // }
 
   render() {
-    const { heading, className } = this.props;
+    const { heading, className, type, style } = this.props;
     return (
-      <StyledDescription className={classnames('clearfix', className)}>
+      <StyledDescription
+        className={classnames('clearfix', className)}
+        fullToolBar={type === VIEW_TYPES.FULL}
+        descStyle={style}
+      >
         {heading && <span className="desc_Heading">{heading}</span>}
         {this.renderContent()}
       </StyledDescription>

@@ -8,6 +8,7 @@ import theme from '../styles/theme';
 const BADGE_TYPES = {
   SUCCESS: 'success',
   ERROR: 'error',
+  PENDING: 'pending',
   WARNING: 'warning',
   ELSALVA: 'elsalva',
   DEFAULT: 'default'
@@ -15,6 +16,7 @@ const BADGE_TYPES = {
 
 const BADGE_COLOR_TYPE_MAP = {
   [BADGE_TYPES.SUCCESS]: `${theme.colors.PASTEL_GREEN}`,
+  [BADGE_TYPES.PENDING]: `${theme.colors.WARNING}`,
   [BADGE_TYPES.ERROR]: `${theme.colors.BITTERSWEET}`,
   [BADGE_TYPES.WARNING]: `${theme.colors.KOROMIKO}`,
   [BADGE_TYPES.ELSALVA]: `${theme.colors.ELSALVA}`,
@@ -35,13 +37,14 @@ const MtBadge = styled(AntBadge)`
 class Badge extends Component {
   static propTypes = {
     children: PropTypes.node,
+    className: PropTypes.string,
     type: PropTypes.oneOf(Object.values(BADGE_TYPES)).isRequired
   };
 
   render() {
-    const { children, type } = this.props;
+    const { children, type, className } = this.props;
     return (
-      <MtBadge {...this.props} type={type}>
+      <MtBadge {...this.props} type={type} className={className}>
         {children}
       </MtBadge>
     );

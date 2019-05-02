@@ -12,8 +12,9 @@ const StyleAutoCompleteTag = styled.div`
     position: relative;
     font-family:inherit;
     min-height: 32px;
+    max-height: 144px;
     background-color:${theme.colors.WHITE};
-    overflow: hidden;
+    overflow: auto;
     border-radius: 4px;
     border: 1px solid  ${theme.colors.ALTO};
     padding: 0 ${props => (props.withSearch ? `32px` : `12px`)};
@@ -60,47 +61,91 @@ const StyleAutoCompleteTag = styled.div`
     ${mixins.smallGreyLink()};
     margin: 4px 8px 4px 0;
     float:left;
+    cursor: pointer;
+    position: relative;
   }
+
+  .tag-value {
+    ${mixins.truncate()};
+    max-width: 250px;
+    float: left;
+  }
+
   .react-tagsinput-remove {
     cursor: pointer;
     color:${theme.colors.SILVER};
     font-size:14px;
-    margin-left: 6px;
+    position: absolute;
+    right: 4px;
   }
 `;
+
+const RenderTag = props => {
+  let {
+    tag,
+    key,
+    disabled,
+    onRemove,
+    classNameRemove,
+    getTagDisplayValue,
+    ...other
+  } = props;
+  const tagValue = getTagDisplayValue(tag);
+  return (
+    <span key={key} {...other}>
+      <span className="tag-value" title={tagValue}>
+        {tagValue}
+      </span>
+      {!disabled && (
+        <a className={classNameRemove} onClick={() => onRemove(key)} />
+      )}
+    </span>
+  );
+};
+
+RenderTag.propTypes = {
+  key: PropTypes.number,
+  tag: PropTypes.string,
+  onRemove: PropTypes.func,
+  disabled: PropTypes.bool,
+  classNameRemove: PropTypes.string,
+  getTagDisplayValue: PropTypes.func
+};
 
 class AutoCompleteTag extends React.Component {
   static propTypes = {
     onChange: PropTypes.func,
     tags: PropTypes.array,
     className: PropTypes.string,
-    withSearch: PropTypes.bool
+    withSearch: PropTypes.bool,
+    inputProps: PropTypes.object
   };
 
   static defaultProps = {
-    withSearch: true
-  };
-
-  state = {
-    tags: this.props.tags || []
-  };
-
-  handleChange = tags => {
-    this.setState({ tags });
-    this.props.onChange(tags);
+    withSearch: true,
+    inputProps: {
+      placeholder: 'Search words',
+      maxLength: 50
+    }
   };
 
   render() {
-    const { className, withSearch, ...rest } = this.props;
+    const {
+      className,
+      withSearch,
+      inputProps,
+      tags = [],
+      onChange,
+      ...rest
+    } = this.props;
     return (
       <StyleAutoCompleteTag className={className} withSearch={withSearch}>
         <TagsInput
-          inputProps={{
-            placeholder: 'Search words'
-          }}
+          inputProps={inputProps}
           {...rest}
-          value={this.state.tags}
-          onChange={this.handleChange}
+          renderTag={RenderTag}
+          value={tags}
+          onChange={onChange}
           onlyUnique={true}
         />
       </StyleAutoCompleteTag>

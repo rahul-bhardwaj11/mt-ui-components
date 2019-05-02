@@ -6,6 +6,7 @@ import style from './index.scss';
 import Player from '../../components/Player';
 import VideoControls from '../VideoControls';
 import cs from 'classnames';
+import { getOptimizedTrack } from '../../utils/core';
 
 let showControls = Symbol('showControls');
 let hideControls = Symbol('hideControls');
@@ -24,7 +25,7 @@ let container = Symbol('container');
 class VideoPlayerContainer extends Component {
   static propTypes = {
     updateMediaAttributes: PropTypes.func,
-    defaultTrack: PropTypes.number,
+    selectedTrack: PropTypes.number,
     currentTime: PropTypes.number,
     primaryTracks: PropTypes.array.isRequired,
     secondaryTracks: PropTypes.array,
@@ -38,13 +39,31 @@ class VideoPlayerContainer extends Component {
     downloadSrc: PropTypes.bool,
     mediaState: PropTypes.string,
     videoControlsClassName: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onVideoTimeUpdate: PropTypes.func,
+    onVideoEnded: PropTypes.func
+  };
+
+  static defaultProps = {
+    onVideoEnded: () => {}
   };
 
   [updateMediaAttributes] = this.props.updateMediaAttributes.bind(this.props);
-  state = {
-    selectedTrack: this.props.defaultTrack
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTrack: getOptimizedTrack(this.props.primaryTracks)
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.selectedTrack !== nextProps.selectedTrack) {
+      this.setState({
+        selectedTrack: nextProps.selectedTrack
+      });
+    }
+  }
 
   // Public Methods
   getCurrentTime = () => {
@@ -119,6 +138,7 @@ class VideoPlayerContainer extends Component {
   };
 
   [onVideoEndedHandler] = () => {
+    this.props.onVideoEnded();
     this.setState({
       showPlayButton: true,
       controls: false
@@ -151,7 +171,8 @@ class VideoPlayerContainer extends Component {
       currentTime,
       mediaState,
       className,
-      videoControlsClassName
+      videoControlsClassName,
+      onVideoTimeUpdate
     } = this.props;
     let { controls, selectedTrack, showPlayButton } = this.state;
     controls = showControlsOnly || controls;
@@ -166,6 +187,7 @@ class VideoPlayerContainer extends Component {
           style.videoContainer,
           style.posRel,
           fullScreen ? style.fullScreen : '',
+          showControlsOnly ? style.showControlsOnly : '',
           className
         ].join(' ')}
         onMouseEnter={this[showControls]}
@@ -186,6 +208,7 @@ class VideoPlayerContainer extends Component {
           onVideoEnded={this[onVideoEndedHandler]}
           onVideoPlayed={this[onVideoPlayedHandler]}
           onRenderComplete={onRenderComplete}
+          onVideoTimeUpdate={onVideoTimeUpdate}
           hidemedia={showControlsOnly}
           currentTime={currentTime}
           id={id}
@@ -224,7 +247,7 @@ function mapStateToProps(state) {
     fullScreen: state.media.fullScreen,
     currentTime: state.media.currentTime,
     mediaState: state.media.state,
-    defaultTrack: state.defaultTrack,
+    selectedTrack: state.selectedTrack,
     videoControlsClassName: state.videoControlsClassName
   };
 }

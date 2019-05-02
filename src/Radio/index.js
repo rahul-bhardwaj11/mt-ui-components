@@ -12,13 +12,38 @@ const MtRadioGroup = styled(AntRadio.Group)`
   }
 `;
 const MtRadio = styled(AntRadio)`
-  .ant-radio-inner:after {
-    background-color: white;
+  .ant-radio-inner {
+    width: 14px;
+    height: 14px;
+    border: 1px solid ${theme.colors.ALTO};
+    &::after {
+      top: 2px;
+      left: 2px;
+    }
   }
   .ant-radio-checked {
     .ant-radio-inner {
       border-color: ${theme.colors.INDIGO};
-      background: ${theme.colors.INDIGO};
+      &::after {
+        background-color: ${theme.colors.INDIGO};
+      }
+    }
+  }
+  .ant-radio:hover .ant-radio-inner,
+  &.ant-radio-wrapper:hover .ant-radio .ant-radio-inner {
+    border-color: ${theme.colors.INDIGO};
+  }
+
+  .ant-radio-disabled {
+    .ant-radio-inner {
+      border: 1px solid ${theme.colors.ALTO};
+      background-color: ${theme.colors.PEARL};
+      &::after {
+        background-color: ${props =>
+          props.checked && props.disabled
+            ? `${theme.colors.SILVER}`
+            : `${theme.colors.PEARL}`};
+      }
     }
   }
   &.ant-radio-wrapper {
@@ -26,11 +51,6 @@ const MtRadio = styled(AntRadio)`
     &:hover {
       span.ant-radio + * {
         color: ${theme.colors.SHARK};
-      }
-      .ant-radio {
-        .ant-radio-inner {
-          border: 1px solid ${theme.colors.OUTER_SPACE};
-        }
       }
     }
   }
@@ -47,10 +67,6 @@ const MtRadio = styled(AntRadio)`
     span.ant-radio + * {
       color: ${theme.colors.OUTER_SPACE};
     }
-  }
-  .ant-radio-disabled .ant-radio-inner {
-    border-color: ${theme.colors.DISABLE} !important;
-    background-color: #f8f8f8;
   }
   &.ant-radio-wrapper.ant-radio-wrapper-disabled:hover span.ant-radio + * {
     color: ${theme.colors.OUTER_SPACE};

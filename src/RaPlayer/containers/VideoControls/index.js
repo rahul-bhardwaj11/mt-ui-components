@@ -47,12 +47,13 @@ class VideoControls extends Component {
     onSeekHandler: PropTypes.func,
     volumeUpdateHandler: PropTypes.func,
     videoPauseAtTimeHandler: PropTypes.func,
-    controlOptions: PropTypes.func,
+    controlOptions: PropTypes.object,
     downloadSrc: PropTypes.string,
     videoDuration: PropTypes.number,
     commentBarClassName: PropTypes.string,
     videoControlsButtonsClassName: PropTypes.string,
-    videoSeekBarClassName: PropTypes.string
+    videoSeekBarClassName: PropTypes.string,
+    disableComments: PropTypes.bool
   };
 
   constructor(props) {
@@ -140,6 +141,7 @@ class VideoControls extends Component {
     let targetOffset = getElementOffset(e.target);
     let xPos = e.pageX - targetOffset.left;
     let percentage = (100 * xPos) / e.target.clientWidth;
+    xPos -= 5;
     if (percentage > 100) {
       percentage = 100;
     }
@@ -166,7 +168,7 @@ class VideoControls extends Component {
     }
 
     let style = window.getComputedStyle(e.target, null);
-    let xPos = parseInt(style.getPropertyValue('left'));
+    let xPos = Number(parseFloat(style.getPropertyValue('left')).toFixed()) - 8;
     let targetElement = e.target.parentElement;
     let clientWidth = targetElement.clientWidth;
 
@@ -223,7 +225,8 @@ class VideoControls extends Component {
       videoDuration,
       commentBarClassName,
       videoControlsButtonsClassName,
-      videoSeekBarClassName
+      videoSeekBarClassName,
+      disableComments
     } = this.props;
     const { showTrackList } = this.state;
     this.video = document.getElementById(targetPlayerId);
@@ -295,7 +298,7 @@ class VideoControls extends Component {
               style.F12,
               style.lineHeight20
             ].join(' ')}
-            style={{ width: '120px', marginTop: '1px' }}
+            style={{ width: 'auto', marginTop: '1px' }}
           >
             {currentTimeString}
           </div>
@@ -328,7 +331,6 @@ class VideoControls extends Component {
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ border: 'none' }}
-                    type="button"
                     href={downloadSrc}
                     download={downloadSrc}
                     className={style.download}
@@ -348,23 +350,27 @@ class VideoControls extends Component {
           </div>
           <div className={style.clear} />
         </div>
-        {commentBox.show ? <CommentBox edit={edit} /> : null}
-        {commentHelperBox.show && edit ? (
-          <CommentHelperBox
-            targetPlayerId={targetPlayerId}
-            onClickHandler={videoPauseAtTimeHandler}
-          />
-        ) : null}
+        {!disableComments && (
+          <React.Fragment>
+            {commentBox.show ? <CommentBox edit={edit} /> : null}
+            {commentHelperBox.show && edit ? (
+              <CommentHelperBox
+                targetPlayerId={targetPlayerId}
+                onClickHandler={videoPauseAtTimeHandler}
+              />
+            ) : null}
 
-        <CommentBarDot
-          comments={comments}
-          onMouseIn={this.commentBarDotOnMouseInHandler}
-          onMouseOut={this.commentBarDotOnMouseOutHandler}
-          targetPlayerId={targetPlayerId}
-          colorMap={colorMap}
-          videoDuration={videoDuration}
-          commentBarClassName={commentBarClassName}
-        />
+            <CommentBarDot
+              comments={comments}
+              onMouseIn={this.commentBarDotOnMouseInHandler}
+              onMouseOut={this.commentBarDotOnMouseOutHandler}
+              targetPlayerId={targetPlayerId}
+              colorMap={colorMap}
+              videoDuration={videoDuration}
+              commentBarClassName={commentBarClassName}
+            />
+          </React.Fragment>
+        )}
       </div>
     );
   };
@@ -373,6 +379,7 @@ class VideoControls extends Component {
 function mapStateToProps(state) {
   return {
     ...state,
+    disableComments: state.disableComments,
     comments: state.comments,
     mediaState: state.media.state,
     videoDuration: state.media.duration,

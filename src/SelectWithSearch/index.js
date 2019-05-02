@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import theme from '../styles/theme';
@@ -10,11 +11,11 @@ import arrowIcon from '../styles/icons/downFillcaret.svg';
 import classnames from 'classnames';
 
 const SelectBox = styled.div`
-  position: relative;  
+  position: relative;
   .mt-react-select__control {
     min-height: auto;
     background: ${theme.colors.WHITE};
-    line-height: 18px;        
+    line-height: 18px;
   }
 
   .mt-react-select__placeholder {
@@ -27,16 +28,18 @@ const SelectBox = styled.div`
        height: 32px;
        border-bottom-left-radius: 0px;
        border-bottom-right-radius: 0px;
-       border-bottom: 1px solid transparent;       
+       border-bottom: 1px solid transparent;
      }
+
     .selectedItems{
       color: ${theme.colors.INDIGO};
       border: 1px solid ${theme.colors.INDIGO};
       background-color: ${theme.colors.TROPICAL_BLUE};
+
       &:hover{
         border: 1px solid ${theme.colors.INDIGO};
         color: ${theme.colors.INDIGO};
-      }      
+      }
     }
     .activeSelect{
         color: ${theme.colors.INDIGO};
@@ -48,16 +51,16 @@ const SelectBox = styled.div`
     }
     .selectWithSearchText{
       display: inline-block;
-      line-height: 16px;      
+      line-height: 16px;
       .discIcon{
         font-size: 4px;
         margin: -2px 8px 0px;
         vertical-align: middle;
-        display: inline-block;        
+        display: inline-block;
       }
     }
   }
-  
+
   .mt-react-select__single-value {
     color: ${theme.colors.DARK_OUTER_SPACE};
     left: 0px;
@@ -93,25 +96,26 @@ const SelectBox = styled.div`
       props.showSearch
         ? `border-top-left-radius: 0px;
     border-top-right-radius: 0px;`
-        : `margin-top: 8px;`}        
+        : `margin-top: 8px;`}
     border: 1px solid ${theme.colors.PEARL};
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.08);
   }
+
   .mt-react-select__menu-list {
-    padding: 0;
-    margin: 8px 0;
+    padding: 8px 0;
     color: ${theme.colors.OUTER_SPACE};
   }
 
-  .selectBoxWrapper{        
-    border-radius: 4px; 
+  .selectBoxWrapper{
+    border-radius: 4px;
     position: relative;
     z-index: 2;
-    ${props => (props.isButton ? 'margin-top: 10px' : '')};  
+    ${props => (props.isButton ? 'margin-top: 10px' : '')};
+
     .activeSearch {
       .mt-react-select__value-container{
         margin-left: 34px;
-        line-height: 30px;
+        line-height: 18px;
       }
 
       .activeInput {
@@ -127,11 +131,11 @@ const SelectBox = styled.div`
           }
         }
     }
-    .mt-react-select__control {      
+    .mt-react-select__control {
       height: 32px;
       border-bottom-left-radius: 0px;
-      border-bottom-right-radius: 0px;   
-      border-bottom: 1px solid transparent;  
+      border-bottom-right-radius: 0px;
+      border-bottom: 1px solid transparent;
       &:before {
         display: block;
         background: url('${searchIcon}') no-repeat 1px 0px;
@@ -144,7 +148,7 @@ const SelectBox = styled.div`
         opacity: 0.6;
         left: 16px;
         top: 9px;
-        line-height: 30px;
+        line-height: 18px;
       }
     }
     .mt-react-select__dropdown-indicator {
@@ -154,12 +158,12 @@ const SelectBox = styled.div`
         margin-left: 20px;
         line-height: 26px;
       }
+    }
 
-      .mt-react-select__placeholder {
-          margin-left: 4px;
-          ${mixin.inactiveLink()};
-          ${mixin.truncate('100%')};
-      }
+   .mt-react-select__placeholder {
+      margin-left: 4px;
+      ${mixin.placeholderText()};
+      ${mixin.truncate('100%')};
     }
 
     .mt-react-select__dropdown-indicator {
@@ -178,21 +182,21 @@ const SelectBox = styled.div`
   }
 
   .mt-react-select__control {
-    border: 1px solid ${theme.colors.PEARL};    
+    border: 1px solid ${theme.colors.PEARL};
     position: relative;
     &:hover{
-      border: 1px solid ${theme.colors.PEARL};      
+      border: 1px solid ${theme.colors.PEARL};
     }
   }
 
-  .mt-react-select__control--is-focused {    
+  .mt-react-select__control--is-focused {
     border: 1px solid ${theme.colors.PEARL};
-    
+
     box-shadow: none;
   }
 
   .mt-react-select__control--is-focused:hover {
-    border: 1px solid ${theme.colors.PEARL};    
+    border: 1px solid ${theme.colors.PEARL};
   }
 
   .mt-react-select__option {
@@ -204,6 +208,7 @@ const SelectBox = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin: 0 8px;
   }
 
   .mt-react-select__option--is-selected {
@@ -212,10 +217,24 @@ const SelectBox = styled.div`
   }
 
   .mt-react-select__option--is-focused {
-    background-color:  ${theme.colors.INDIGO};
-    color: ${theme.colors.WHITE};
+    background-color:  ${theme.colors.WHITE};
+    color: ${theme.colors.OUTER_SPACE};
     cursor: pointer;
+
+    &:hover {
+      background-color:  ${theme.colors.INDIGO};
+      color: ${theme.colors.WHITE};
+    }
   }
+
+  .mt-react-select__option--is-disabled  {
+      color: ${theme.colors.SILVER};
+
+    &:hover  {
+      background-color:  ${theme.colors.PORCELAIN};
+    }
+  }
+
   .mt-react-select__indicator-separator {
     display: none;
   }
@@ -254,7 +273,7 @@ const SelectBox = styled.div`
 
 .buttonWrapperL {
   float: left;
-  width: 50%; 
+  width: 50%;
 
 }
 
@@ -264,7 +283,7 @@ const SelectBox = styled.div`
   float: right;
   .activeBtnState {
    color: ${theme.colors.INDIGO};
-  } 
+  }
 }
 
 .buttonWrapperL, .buttonWrapperR {
@@ -283,7 +302,7 @@ const SelectBox = styled.div`
 }
 
 .checkboxWrapper {
-  float: none;  
+  float: none;
   padding: 6px 8px;
   margin: 0 8px;
   line-height: initial;
@@ -293,7 +312,7 @@ const SelectBox = styled.div`
   }
   .labelText{
     ${mixin.truncate('100%')};
-    display: block;    
+    display: block;
   }
 
   &:hover {
@@ -306,6 +325,10 @@ const SelectBox = styled.div`
   margin-left: 5px;
 }
 `;
+
+const PortalSelectBox = styled(SelectBox)`
+  position: unset;
+`;
 class SelectWithSearch extends Component {
   static propTypes = {
     options: PropTypes.arrayOf(PropTypes.object),
@@ -314,10 +337,12 @@ class SelectWithSearch extends Component {
     isMulti: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     isButton: PropTypes.bool,
+    fixedButtonLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     buttonMaxWidth: PropTypes.string,
     buttonWidth: PropTypes.string,
     className: PropTypes.string,
-    showSearch: PropTypes.bool
+    showSearch: PropTypes.bool,
+    menuPortalTarget: PropTypes.instanceOf(Element)
   };
   static defaultProps = {
     placeholder: 'Type here to Search',
@@ -325,8 +350,36 @@ class SelectWithSearch extends Component {
     showSearch: true
   };
 
+  state = {
+    menuRef: null
+  };
+
+  setMenuRef = menuRef => {
+    const { menuRef: oldMenuRef } = this.state;
+    if (oldMenuRef || !menuRef) {
+      return;
+    }
+    this.setState({
+      menuRef
+    });
+  };
+
   render() {
-    let { async, isButton, className, showSearch } = this.props;
+    let {
+      async,
+      isButton,
+      className,
+      showSearch,
+      menuPortalTarget,
+      ...props
+    } = this.props;
+    const selectProps = {
+      async,
+      isButton,
+      showSearch,
+      ...props
+    };
+    const { menuRef } = this.state;
     let SelectComponent = SyncSelect;
     if (async) {
       SelectComponent = AsyncSelect;
@@ -337,14 +390,31 @@ class SelectWithSearch extends Component {
       },
       className
     );
+    if (menuPortalTarget) {
+      selectProps.menuPortalTarget = menuRef;
+      selectProps.menuPosition = 'absolute';
+    }
+
     return (
-      <SelectBox
-        className={componentClassName}
-        isButton={isButton}
-        showSearch={showSearch}
-      >
-        <SelectComponent {...this.props} />
-      </SelectBox>
+      <React.Fragment>
+        {menuPortalTarget &&
+          ReactDOM.createPortal(
+            <PortalSelectBox
+              innerRef={this.setMenuRef}
+              className={componentClassName}
+              isButton={isButton}
+              showSearch={showSearch}
+            />,
+            menuPortalTarget
+          )}
+        <SelectBox
+          className={componentClassName}
+          isButton={isButton}
+          showSearch={showSearch}
+        >
+          <SelectComponent {...selectProps} />
+        </SelectBox>
+      </React.Fragment>
     );
   }
 }

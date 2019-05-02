@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import mixins from '../styles/mixins.js';
 
 const MtActionBar = styled.div`
-  position: fixed;
+  position: ${({ position = 'fixed' }) => position};
   max-width: 100vw;
   bottom: 0;
   width: ${({ width = '1248px' }) => width};
@@ -19,6 +19,18 @@ const MtActionBar = styled.div`
   .countText {
     ${mixins.blackLink()};
     margin-right: 29px;
+  }
+  animation-name: fade-in;
+  animation-duration: 0.2s;
+
+  @keyframes fade-in {
+    0% {
+      padding: 0 32px;
+    }
+
+    100% {
+      padding: 16px 32px;
+    }
   }
 `;
 

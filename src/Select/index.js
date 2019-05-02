@@ -12,15 +12,7 @@ import Icon from '../Icon';
 const Option = AntSelect.Option;
 import ReactDOM from 'react-dom';
 
-const MtWrapper = styled.div`
-  display: inline-block;
-
-  .ant-select-dropdown-menu-item-disabled{    
-    background:${theme.colors.PORCELAIN};    
-    opacity:0.8;    
-    pointer-events: none;    
-  }
-  
+const MtWrapper = styled.span`
   .selectDropdownStyle {
     z-index: 999999;
     .ant-select-dropdown-menu-item {
@@ -32,6 +24,12 @@ const MtWrapper = styled.div`
        }
      }
    }
+
+  .ant-select-dropdown-menu-item-disabled{
+    opacity:0.3;
+    pointer-events: none;
+  }
+
   .icon-tick {
     display: none;
   }
@@ -72,22 +70,18 @@ const MtWrapper = styled.div`
         border: 1px solid ${theme.colors.SILVER};
       }
     }
-    &:hover, &:focus, &:active, &:focus-within, &:visited {
-      border-color: ${theme.colors.SILVER};
-      box-shadow: none;
-    }
   }
 
   .ant-select-open {
     .ant-select-selection {
       &.ant-select-selection--multiple {
-        border: 1px solid ${theme.colors.ALTO};
+        border: 1px solid transparent;
         outline: none;
         &:hover,
         &:focus,
         &:active {
-          border: 1px solid ${theme.colors.ALTO};
-          border-color: ${theme.colors.ALTO};
+          border: 0;
+          border-color: transparent;
           outline: none;
           box-shadow: none;
         }
@@ -98,21 +92,28 @@ const MtWrapper = styled.div`
     background-color: ${theme.colors.WHITE};
     color: ${theme.colors.GREY};
     margin: 8px;
+    max-height: 235px;
+
     .ant-select-dropdown-menu-item {
       border-radius: 4px;
+      margin-bottom: 4px;
+      &:last-child{
+        margin-bottom: 0px;
+      }
       color: ${theme.colors.DARK_OUTER_SPACE};
       &:hover {
-        background-color: ${theme.colors.TAG_HOVER_TEXT_COLOR};
+        background-color: ${theme.colors.INDIGO};
         color: ${theme.colors.WHITE};
         border-radius: 4px;
       }
     }
     .ant-select-dropdown-menu-item-active {
-      background-color: ${theme.colors.TROPICAL_BLUE};
+      background-color: ${theme.colors.WHITE};
       color: ${theme.colors.SHARK};
     }
 
   .ant-select-dropdown-menu-item-selected{
+       background-color:${theme.colors.TROPICAL_BLUE};
       .icon-tick {
         content: '';
         font-size: 7px;
@@ -139,10 +140,11 @@ const MtWrapper = styled.div`
     }
   }
   .ant-select-selection--multiple {
-    padding: 0;
-    border: 1px solid ${theme.colors.ALTO};
+    width: 688px;
+    padding: 5px;
+    border: 0px;
     &:focus {
-      border: 1px solid ${theme.colors.ALTO};
+      border-color: transparent;
       box-shadow: none;
     }
     .ant-select-selection__rendered {
@@ -178,11 +180,8 @@ const MtWrapper = styled.div`
       }
     }
   }
-  .ant-select-dropdown, .ant-select-dropdown--multiple {
+  .ant-select-dropdown--multiple {
     z-index: 999999;
-  }
-  .mt-react-select__placeholder {
-    color: ${theme.colors.SILVER};
   }
 `;
 

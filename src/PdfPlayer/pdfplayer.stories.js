@@ -13,11 +13,11 @@ stories
     'Default PdfViewer',
     withInfo('displaying PDF')(() => (
       <PdfPlayer
-        url={
-          '//s3-ap-southeast-1.amazonaws.com/mtdocs-conversion/51783e46-12d2-4f73-8773-401b51936e70/doc.pdf?AWSAccessKeyId=AKIAJSWL5CYIG6NTG6VA&Expires=1543919486&Signature=IL3icXV0p1PEGBgFQDC9EhwtGKk%3D'
-        }
         uuid={
-          '//mediaplayer.mindtickle.com/crocodoc/?data=NTE3ODNlNDYtMTJkMi00ZjczLTg3NzMtNDAxYjUxOTM2ZTcwIzE%3D&sig=emKSoUiUER6RYUN2AxM5SMm4YWE%3D&time=1543919486'
+          '//mediaplayer.mindtickle.com/crocodoc/?data=Ym94OTU2NDI0MzI5MjU2MDAwNjU2IzE%3D&sig=dTEgJ1H8NxxtvVQzxMGyJsRqoVY%3D&time=1547732778'
+        }
+        src={
+          'https://cf-ap1-mtdocs-box-processed.mindtickle.com/956424329256000656/doc.pdf?Policy=eyJTdGF0ZW1lbnQiOiBbeyJSZXNvdXJjZSI6Imh0dHBzOi8vY2YtYXAxLW10ZG9jcy1ib3gtcHJvY2Vzc2VkLm1pbmR0aWNrbGUuY29tLzk1NjQyNDMyOTI1NjAwMDY1Ni8qIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNTQ3NzMyNzc4fSwiSXBBZGRyZXNzIjp7IkFXUzpTb3VyY2VJcCI6IjAuMC4wLjAvMCJ9LCJEYXRlR3JlYXRlclRoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTQ0NDk3NzExNn19fV19&Signature=fjPs~DEV6k4ptWtxBsQZA4ZVk8nOtVQJd8l3pz8OEa-AXUSimJXVrSnLMUyDXtOVdEvieDktUozyLChQP3kV2zsLop6lDLtX8GjMpMZJ2Y7HpvIG3-6zpIzmK5nW-h3N6dM4c0G6WBAHLs1wDk3rnto~6TEqxpsWFNVZz~zuhnA_&Key-Pair-Id=APKAJRHSQBGT5CW7P2CA'
         }
         title={'Sample PDF'}
       />
@@ -27,15 +27,16 @@ stories
     'PdfViewer Edit Mode',
     withInfo('displaying PDF')(() => (
       <PdfPlayer
-        url={
-          '//s3-ap-southeast-1.amazonaws.com/mtdocs-conversion/51783e46-12d2-4f73-8773-401b51936e70/doc.pdf?AWSAccessKeyId=AKIAJSWL5CYIG6NTG6VA&Expires=1543919486&Signature=IL3icXV0p1PEGBgFQDC9EhwtGKk%3D'
-        }
         uuid={
-          '//mediaplayer.mindtickle.com/crocodoc/?data=NTE3ODNlNDYtMTJkMi00ZjczLTg3NzMtNDAxYjUxOTM2ZTcwIzE%3D&sig=emKSoUiUER6RYUN2AxM5SMm4YWE%3D&time=1543919486'
+          '//mediaplayer.mindtickle.com/crocodoc/?data=Ym94OTU2NDI0MzI5MjU2MDAwNjU2IzE%3D&sig=dTEgJ1H8NxxtvVQzxMGyJsRqoVY%3D&time=1547732778'
+        }
+        src={
+          'https://cf-ap1-mtdocs-box-processed.mindtickle.com/956424329256000656/doc.pdf?Policy=eyJTdGF0ZW1lbnQiOiBbeyJSZXNvdXJjZSI6Imh0dHBzOi8vY2YtYXAxLW10ZG9jcy1ib3gtcHJvY2Vzc2VkLm1pbmR0aWNrbGUuY29tLzk1NjQyNDMyOTI1NjAwMDY1Ni8qIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNTQ3NzMyNzc4fSwiSXBBZGRyZXNzIjp7IkFXUzpTb3VyY2VJcCI6IjAuMC4wLjAvMCJ9LCJEYXRlR3JlYXRlclRoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTQ0NDk3NzExNn19fV19&Signature=fjPs~DEV6k4ptWtxBsQZA4ZVk8nOtVQJd8l3pz8OEa-AXUSimJXVrSnLMUyDXtOVdEvieDktUozyLChQP3kV2zsLop6lDLtX8GjMpMZJ2Y7HpvIG3-6zpIzmK5nW-h3N6dM4c0G6WBAHLs1wDk3rnto~6TEqxpsWFNVZz~zuhnA_&Key-Pair-Id=APKAJRHSQBGT5CW7P2CA'
         }
         //onPageChange={page => console.log(page)}
         isEditMode={true}
         title={'Sample PDF'}
+        style={{ width: '100%', height: '400px' }}
       />
     ))
   );

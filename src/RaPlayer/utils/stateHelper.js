@@ -23,7 +23,6 @@ const localState = {
 };
 
 const initialState = {
-  defaultTrack: 0,
   showControlsOnly: false,
   edit: true,
   autoplay: false,
@@ -33,6 +32,7 @@ const initialState = {
   videoControlsClassName: '',
   videoControlsButtonsClassName: '',
   videoSeekBarClassName: '',
+  disableComments: false,
   commentBoxHelperRenderer,
   commentBoxRenderer
 };

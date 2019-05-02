@@ -55,6 +55,9 @@ const ALLOWED_HTML_TAGS = [
 
 const MTReadMore = styled.div`
   line-height: initial;
+  p {
+    margin-bottom: 0;
+  }
   ul,
   ol {
     list-style: none;

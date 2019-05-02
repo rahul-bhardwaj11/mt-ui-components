@@ -80,17 +80,24 @@ class Table extends Component {
   };
   tableRef = null;
 
-  fetch = async () => {
+  fetch = () => {
     const { fetchData, loading } = this.props;
     const { loadingMore } = this.state;
     if (loading || loadingMore) {
       return;
     }
-    this.setState({ loadingMore: true });
-    if (typeof fetchData === 'function') {
-      await fetchData();
-      this.setState({ loadingMore: false });
-    }
+    this.setState({ loadingMore: true }, () => {
+      if (typeof fetchData === 'function') {
+        const promise = fetchData();
+        if (promise && typeof promise.then === 'function') {
+          promise
+            .then(() => {
+              this.setState({ loadingMore: false });
+            })
+            .catch(() => this.setState({ loadingMore: false }));
+        }
+      }
+    });
   };
   onScroll = () => {
     const {

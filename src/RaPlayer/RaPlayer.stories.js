@@ -12,7 +12,8 @@ const stories = storiesOf('RaPlayer', module);
 const props = {
   primaryTracks: [
     {
-      src: '360p.mp4',
+      src:
+        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
       label: '360p'
     },
     {
@@ -69,9 +70,17 @@ const commentProps = {
   ...props,
   comments: [
     {
-      time: 2,
+      time: 46,
       id: '3',
-      cname: 4,
+      author: {
+        id: 12,
+        name: 'Rama'
+      },
+      text: 'Abc'
+    },
+    {
+      time: 120,
+      id: '4',
       author: {
         id: 12,
         name: 'Rama'
