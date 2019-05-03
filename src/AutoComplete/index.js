@@ -71,7 +71,12 @@ class AutoComplete extends React.Component {
     }, 0);
   };
   getElementHeight = element => {
-    return element && element.style && element.style.height;
+    let elementHeight = element && element.style && element.style.height;
+    if (this.popUpContainer) {
+      elementHeight =
+        parseInt(elementHeight) + this.popUpContainer.offsetTop + 'px';
+    }
+    return elementHeight;
   };
   render() {
     const { targetInput } = this.state;
