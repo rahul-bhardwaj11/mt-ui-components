@@ -10,6 +10,19 @@ const MtRadioGroup = styled(AntRadio.Group)`
   &.ant-radio-group {
     font-family: inherit;
   }
+
+  .ant-radio-disabled {
+    .ant-radio-inner {
+      border: 1px solid ${theme.colors.ALTO};
+      background-color: ${theme.colors.PEARL};
+      &::after {
+        background-color: ${props =>
+          props.disabled
+            ? `${theme.colors.SILVER}`
+            : `${theme.colors.PEARL}`} !important;
+      }
+    }
+  }
 `;
 const MtRadio = styled(AntRadio)`
   .ant-radio-inner {
