@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import AntDatePicker from 'antd/lib/date-picker';
 import Icon from '../Icon';
+import 'antd/lib/input/style/index.css';
 import 'antd/lib/date-picker/style/index.css';
 import styled from 'styled-components';
 import moment from 'moment';
