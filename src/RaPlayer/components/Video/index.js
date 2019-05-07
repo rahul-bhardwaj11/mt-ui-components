@@ -86,7 +86,8 @@ class Video extends Component {
     heightAuto: PropTypes.string,
     hidemedia: PropTypes.bool,
     mediaState: PropTypes.oneOf(['PLAY', 'PAUSE']),
-    onVideoTimeUpdate: PropTypes.func
+    onVideoTimeUpdate: PropTypes.func,
+    subtitleTrackSrc: PropTypes.string
   };
 
   static defaultProps = {
@@ -208,6 +209,19 @@ class Video extends Component {
     }
   };
 
+  toggleSubtitle = subtitlesOn => {
+    let vttTrack = this.video.textTracks[0]; // We only have one text track at the moment.
+    if (subtitlesOn) {
+      vttTrack.mode = 'showing';
+    } else {
+      vttTrack.mode = 'hidden';
+    }
+  };
+
+  disableSubtitles = () => {
+    this.video.textTracks[0].mode = 'disabled';
+  };
+
   componentDidMount() {
     this.attachEvents();
     this.video.volume = 0.5;
@@ -228,7 +242,14 @@ class Video extends Component {
   }
 
   render() {
-    const { id, src, hidemedia, heightAuto, mediaState } = this.props;
+    const {
+      id,
+      src,
+      hidemedia,
+      heightAuto,
+      mediaState,
+      subtitleTrackSrc
+    } = this.props;
     this.updateVideoState(mediaState);
     const { loading } = this.state;
     let kClass;
@@ -250,7 +271,15 @@ class Video extends Component {
           onWaiting={this.showLoading}
           onPlaying={this.hideLoading}
           onClick={this.togglePlayPause}
-        />
+        >
+          <track
+            src={subtitleTrackSrc}
+            label="Subtitles"
+            kind="captions"
+            srcLang="en"
+            default
+          />
+        </video>
       </div>
     );
   }
