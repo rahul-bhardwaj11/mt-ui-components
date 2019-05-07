@@ -19,8 +19,10 @@ let onVideoPlayedHandler = Symbol('onVideoPlayedHandler');
 let videoPauseAtTimeHandler = Symbol('videoPauseAtTimeHandler');
 let updateMediaAttributes = Symbol('updateMediaAttributes');
 let togglePlayPause = Symbol('togglePlayPause');
+let toggleSubtitle = Symbol('togglePlayPause');
 let videoPlayer = Symbol('videoPlayer');
 let container = Symbol('container');
+let disableSubtitles = Symbol('disableSubtitles');
 
 class VideoPlayerContainer extends Component {
   static propTypes = {
@@ -41,7 +43,8 @@ class VideoPlayerContainer extends Component {
     videoControlsClassName: PropTypes.string,
     className: PropTypes.string,
     onVideoTimeUpdate: PropTypes.func,
-    onVideoEnded: PropTypes.func
+    onVideoEnded: PropTypes.func,
+    subtitleTrackSrc: PropTypes.string
   };
 
   static defaultProps = {
@@ -156,6 +159,13 @@ class VideoPlayerContainer extends Component {
     this[videoPlayer].pauseAtTime(time);
   };
 
+  [toggleSubtitle] = subtitlesOn => {
+    this[videoPlayer].toggleSubtitle(subtitlesOn);
+  };
+  [disableSubtitles] = () => {
+    this[videoPlayer].disableSubtitles();
+  };
+
   render = () => {
     const {
       primaryTracks,
@@ -172,7 +182,8 @@ class VideoPlayerContainer extends Component {
       mediaState,
       className,
       videoControlsClassName,
-      onVideoTimeUpdate
+      onVideoTimeUpdate,
+      subtitleTrackSrc
     } = this.props;
     let { controls, selectedTrack, showPlayButton } = this.state;
     controls = showControlsOnly || controls;
@@ -214,6 +225,7 @@ class VideoPlayerContainer extends Component {
           id={id}
           secondaryId={secondaryId}
           mediaState={mediaState}
+          subtitleTrackSrc={subtitleTrackSrc}
         />
 
         <div
@@ -235,6 +247,8 @@ class VideoPlayerContainer extends Component {
             videoPauseAtTimeHandler={this[videoPauseAtTimeHandler]}
             controlOptions={controlOptions}
             currentTime={currentTime}
+            toggleSubtitle={this[toggleSubtitle]}
+            disableSubtitles={this[disableSubtitles]}
           />
         </div>
       </div>
