@@ -21,7 +21,8 @@ import TracksList from '../../components/TracksList';
 
 let defaultControlOptions = {
   download: true,
-  fullScreen: true
+  fullScreen: true,
+  subtitles: false
 };
 
 class VideoControls extends Component {
@@ -53,7 +54,9 @@ class VideoControls extends Component {
     commentBarClassName: PropTypes.string,
     videoControlsButtonsClassName: PropTypes.string,
     videoSeekBarClassName: PropTypes.string,
-    disableComments: PropTypes.bool
+    disableComments: PropTypes.bool,
+    toggleSubtitle: PropTypes.func.isRequired,
+    disableSubtitles: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -61,7 +64,9 @@ class VideoControls extends Component {
     this.showTrackList;
     this.togglePlayPause = this.togglePlayPause.bind(this);
     this.state = {
-      showTrackList: false
+      showTrackList: false,
+      subtitlesOn: false,
+      subtitlesDisabled: false
     };
   }
 
@@ -204,6 +209,30 @@ class VideoControls extends Component {
     this.props.hideCommentBox();
   };
 
+  toggleSubtitle = () => {
+    let subtitlesOn = !this.state.subtitlesOn;
+    // track(trackEvents.SUBTITLE_BUTTON_CLICKED, {
+    // 	prev_state: subtitlesOn ? 'On' : 'Off',
+    // 	next_state: subtitlesOn ? 'Off' : 'On'
+    // });
+    this.setState({ subtitlesOn: subtitlesOn }, () =>
+      this.props.toggleSubtitle(subtitlesOn)
+    );
+  };
+  componentDidMount() {
+    const { controlOptions, toggleSubtitle, disableSubtitles } = this.props;
+    let { subtitles: subtitlesOn } = {
+      ...defaultControlOptions,
+      ...controlOptions
+    };
+    const subtitlesDisabled = isIE() ? true : false;
+    this.setState(
+      { subtitlesOn, subtitlesDisabled },
+      () =>
+        subtitlesDisabled ? disableSubtitles() : toggleSubtitle(subtitlesOn)
+    );
+  }
+
   render = () => {
     const {
       targetPlayerId,
@@ -220,7 +249,7 @@ class VideoControls extends Component {
       onSeekHandler,
       volumeUpdateHandler,
       videoPauseAtTimeHandler,
-      controlOptions: controlOptionsProp = {},
+      controlOptions,
       downloadSrc,
       videoDuration,
       commentBarClassName,
@@ -228,9 +257,10 @@ class VideoControls extends Component {
       videoSeekBarClassName,
       disableComments
     } = this.props;
-    const { showTrackList } = this.state;
+    const { showTrackList, subtitlesOn, subtitlesDisabled } = this.state;
     this.video = document.getElementById(targetPlayerId);
-    let controlOptions = { ...defaultControlOptions, ...controlOptionsProp };
+    let controlOptionsProp = { ...defaultControlOptions, ...controlOptions };
+
     let currentTimeString = '00:00',
       seekTime = 0;
     if (videoDuration) {
@@ -303,6 +333,23 @@ class VideoControls extends Component {
             {currentTimeString}
           </div>
           <div className={style.floatR}>
+            {!subtitlesDisabled && (
+              <div className={style.controlButton}>
+                <div>
+                  <button
+                    style={{ border: 'none' }}
+                    type="button"
+                    className={style.subtitles}
+                    onClick={this.toggleSubtitle}
+                  />
+                </div>
+                <div
+                  className={[
+                    subtitlesOn ? style.subtitlesUnderline : null
+                  ].join(' ')}
+                />
+              </div>
+            )}
             {videoTracks &&
               videoTracks.length > 1 && (
                 <div
@@ -324,7 +371,7 @@ class VideoControls extends Component {
                   )}
                 </div>
               )}
-            {controlOptions.download &&
+            {controlOptionsProp.download &&
               downloadSrc && (
                 <div className={style.controlButton}>
                   <a
@@ -337,7 +384,7 @@ class VideoControls extends Component {
                   />
                 </div>
               )}
-            {controlOptions.fullScreen && (
+            {controlOptionsProp.fullScreen && (
               <div className={style.controlButton}>
                 <button
                   style={{ border: 'none' }}
