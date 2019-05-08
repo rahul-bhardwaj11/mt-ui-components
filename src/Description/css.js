@@ -57,7 +57,7 @@ const StyledDescription = styled.div`
       tab-size: 4;
       text-align: left;
       color: ${theme.colors.SILVER};
-      white-space: pre-line;
+      white-space: pre-wrap;
       word-wrap: break-word;
       &.ql-blank::before {
         content: attr(data-placeholder);
