@@ -19,7 +19,8 @@ class Player extends Component {
     currentTime: PropTypes.number,
     mediaState: PropTypes.oneOf(['PLAY', 'PAUSE']),
     onVideoTimeUpdate: PropTypes.func,
-    onVideoEnded: PropTypes.func
+    onVideoEnded: PropTypes.func,
+    subtitleTrackSrc: PropTypes.string
   };
 
   pause() {
@@ -109,6 +110,14 @@ class Player extends Component {
     }
   };
 
+  toggleSubtitle = subtitlesOn => {
+    return this.video.toggleSubtitle(subtitlesOn);
+  };
+
+  disableSubtitles = () => {
+    return this.video.disableSubtitles();
+  };
+
   render() {
     const {
       id,
@@ -120,11 +129,13 @@ class Player extends Component {
       hidemedia,
       currentTime,
       mediaState,
-      onVideoTimeUpdate
+      onVideoTimeUpdate,
+      subtitleTrackSrc
     } = this.props;
     const className = classnames(style.playerContainer, {
-      [style.hide]: hidemedia
+      [style.hide]: false //hidemedia
     });
+
     return (
       <div onClick={this.togglePlayPause} className={className}>
         <Video
@@ -140,6 +151,7 @@ class Player extends Component {
           onVideoEnded={this.onVideoEndedHandler}
           onRenderComplete={onRenderComplete}
           onVideoTimeUpdate={onVideoTimeUpdate}
+          subtitleTrackSrc={subtitleTrackSrc}
         />
         {secondarySrc && (
           <Draggable>

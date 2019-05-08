@@ -96,7 +96,7 @@ class CommentHelperBox extends Component {
 
     this.props.hideCommentBox();
     this.props.showCommentBox({
-      xPosRaw,
+      xPosRaw: xPosRaw - 5,
       time: time,
       clientWidth,
       downArrowXPosRaw: downArrowXPos

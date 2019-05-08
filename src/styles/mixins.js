@@ -77,6 +77,7 @@ const mixins = {
   zIndex: {
     GET_SUPPORT: 99999,
     TOAST: 9999,
+    STATUS_BAR: 9991,
     LOADER: 9990,
     OVERLAY: 9980,
     CONFIRM_BOX: 9970,

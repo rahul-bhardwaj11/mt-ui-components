@@ -58,6 +58,7 @@ export default class PhotoViewer extends Component {
     const containerStyle = {
       ...style,
       width: '100%',
+      minHeight: 'inherit',
       height,
       background: `${theme.colors.IVORY} `,
       position: 'relative'

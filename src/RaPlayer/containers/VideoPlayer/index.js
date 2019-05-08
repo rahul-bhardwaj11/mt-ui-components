@@ -6,6 +6,7 @@ import style from './index.scss';
 import Player from '../../components/Player';
 import VideoControls from '../VideoControls';
 import cs from 'classnames';
+import { getOptimizedTrack } from '../../utils/core';
 
 let showControls = Symbol('showControls');
 let hideControls = Symbol('hideControls');
@@ -18,13 +19,15 @@ let onVideoPlayedHandler = Symbol('onVideoPlayedHandler');
 let videoPauseAtTimeHandler = Symbol('videoPauseAtTimeHandler');
 let updateMediaAttributes = Symbol('updateMediaAttributes');
 let togglePlayPause = Symbol('togglePlayPause');
+let toggleSubtitle = Symbol('togglePlayPause');
 let videoPlayer = Symbol('videoPlayer');
 let container = Symbol('container');
+let disableSubtitles = Symbol('disableSubtitles');
 
 class VideoPlayerContainer extends Component {
   static propTypes = {
     updateMediaAttributes: PropTypes.func,
-    defaultTrack: PropTypes.number,
+    selectedTrack: PropTypes.number,
     currentTime: PropTypes.number,
     primaryTracks: PropTypes.array.isRequired,
     secondaryTracks: PropTypes.array,
@@ -40,7 +43,8 @@ class VideoPlayerContainer extends Component {
     videoControlsClassName: PropTypes.string,
     className: PropTypes.string,
     onVideoTimeUpdate: PropTypes.func,
-    onVideoEnded: PropTypes.func
+    onVideoEnded: PropTypes.func,
+    subtitleTrackSrc: PropTypes.string
   };
 
   static defaultProps = {
@@ -48,9 +52,21 @@ class VideoPlayerContainer extends Component {
   };
 
   [updateMediaAttributes] = this.props.updateMediaAttributes.bind(this.props);
-  state = {
-    selectedTrack: this.props.defaultTrack
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTrack: getOptimizedTrack(this.props.primaryTracks)
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.selectedTrack !== nextProps.selectedTrack) {
+      this.setState({
+        selectedTrack: nextProps.selectedTrack
+      });
+    }
+  }
 
   // Public Methods
   getCurrentTime = () => {
@@ -143,6 +159,13 @@ class VideoPlayerContainer extends Component {
     this[videoPlayer].pauseAtTime(time);
   };
 
+  [toggleSubtitle] = subtitlesOn => {
+    this[videoPlayer].toggleSubtitle(subtitlesOn);
+  };
+  [disableSubtitles] = () => {
+    this[videoPlayer].disableSubtitles();
+  };
+
   render = () => {
     const {
       primaryTracks,
@@ -159,7 +182,8 @@ class VideoPlayerContainer extends Component {
       mediaState,
       className,
       videoControlsClassName,
-      onVideoTimeUpdate
+      onVideoTimeUpdate,
+      subtitleTrackSrc
     } = this.props;
     let { controls, selectedTrack, showPlayButton } = this.state;
     controls = showControlsOnly || controls;
@@ -201,6 +225,7 @@ class VideoPlayerContainer extends Component {
           id={id}
           secondaryId={secondaryId}
           mediaState={mediaState}
+          subtitleTrackSrc={subtitleTrackSrc}
         />
 
         <div
@@ -222,6 +247,8 @@ class VideoPlayerContainer extends Component {
             videoPauseAtTimeHandler={this[videoPauseAtTimeHandler]}
             controlOptions={controlOptions}
             currentTime={currentTime}
+            toggleSubtitle={this[toggleSubtitle]}
+            disableSubtitles={this[disableSubtitles]}
           />
         </div>
       </div>
@@ -234,7 +261,7 @@ function mapStateToProps(state) {
     fullScreen: state.media.fullScreen,
     currentTime: state.media.currentTime,
     mediaState: state.media.state,
-    defaultTrack: state.defaultTrack,
+    selectedTrack: state.selectedTrack,
     videoControlsClassName: state.videoControlsClassName
   };
 }
