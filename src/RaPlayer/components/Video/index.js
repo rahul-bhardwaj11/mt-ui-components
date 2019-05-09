@@ -100,6 +100,7 @@ class Video extends Component {
       loading: false
     };
   }
+  video = null;
 
   togglePlayPause = () => {
     if (this.props.disableToggle) {
@@ -219,7 +220,8 @@ class Video extends Component {
   };
 
   disableSubtitles = () => {
-    this.video.textTracks[0].mode = 'disabled';
+    this.video.textTracks[0].mode = 'hidden';
+    // this.video.textTracks[0].mode = 'disabled';
   };
 
   componentDidMount() {
