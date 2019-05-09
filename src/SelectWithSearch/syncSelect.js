@@ -18,6 +18,7 @@ export default class SyncSelect extends Component {
     isMulti: PropTypes.bool,
     onChange: PropTypes.func,
     onCheckboxClick: PropTypes.func,
+    onApply: PropTypes.func,
     isButton: PropTypes.bool,
     isDisabled: PropTypes.bool,
     buttonLabel: PropTypes.string,
@@ -44,6 +45,7 @@ export default class SyncSelect extends Component {
     buttonLabel: 'filter',
     onChange: noop,
     onCheckboxClick: noop,
+    onApply: noop,
     sortOptions: true,
     options: [],
     hasNone: true,
@@ -259,6 +261,11 @@ export default class SyncSelect extends Component {
     this.setState({ ...newState });
   };
 
+  handleApply = () => {
+    this.handleMultiOnSelect(); //separates it from when user click outside.
+    this.props.onApply(); //different behaviour when persistent MenuIsOpen
+  };
+
   toggleButton = () => {
     if (this.isBlurActive) {
       this.isBlurActive = false;
@@ -372,7 +379,7 @@ export default class SyncSelect extends Component {
           <div className="buttonWrapperR">
             <Button
               type="text"
-              onClick={this.handleMultiOnSelect}
+              onClick={this.handleApply}
               className={selectedItems.length ? 'activeBtnState' : ' '}
             >
               {'Apply'}
