@@ -34,7 +34,7 @@ const MtSlider = styled.div`
       width: 20px;
       height: 20px;
       border: none;
-      position: relative;
+      position: ${props => (props.range ? '' : 'relative')};
       background: transparent;
       margin-left: -8px;
       margin-top: -7px;
@@ -205,7 +205,8 @@ class Slider extends Component {
     max: PropTypes.number,
     defaultValue: PropTypes.number,
     onChange: PropTypes.func,
-    tooltipTimeout: PropTypes.number
+    tooltipTimeout: PropTypes.number,
+    range: PropTypes.bool
   };
 
   static defaultProps = {
@@ -367,7 +368,7 @@ class Slider extends Component {
   };
 
   render() {
-    const { disabled, defaultValue, min, max } = this.props;
+    const { disabled, defaultValue, min, max, range } = this.props;
     const {
       offsetLeft,
       showTooltip,
@@ -386,6 +387,7 @@ class Slider extends Component {
         offset={contentWidth / 2 || 0}
         handleLeft={handleLeft}
         disabled={disabled}
+        range={range}
       >
         <div
           tabIndex={-1}
