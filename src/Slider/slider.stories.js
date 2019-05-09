@@ -76,3 +76,9 @@ stories.add(
     <Slider disabled={true} value={30} />
   ))
 );
+stories.add(
+  'Slider with double handle',
+  withInfo('Slider without tooltip')(() => (
+    <Slider range defaultValue={[20, 50]} />
+  ))
+);
