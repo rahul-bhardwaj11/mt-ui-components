@@ -5,6 +5,7 @@
  * */
 
 export ActionBar from './ActionBar';
+export Affix from './Affix';
 export Alert from './Alert';
 export AutoComplete from './AutoComplete';
 export AutoCompleteTag from './AutoCompleteTag';

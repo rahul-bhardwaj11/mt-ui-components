@@ -101,7 +101,7 @@ h3 {
     z-index:1;
     left: 0;
     top: 0;
-    width: 120px;
+    width: 100px;
     height: 100%;
     background: ${props =>
       props.gradient
@@ -119,7 +119,7 @@ h3 {
     z-index:1;
     top: 0;
     right: 0;
-    width: 120px;
+    width: 100px;
     height:100%;
     background: ${props =>
       props.gradient

@@ -20,16 +20,23 @@ const MtTextArea = styled.div`
     }
   }
 `;
+
+const INPUT_TYPES = {
+  ALPHA: 'alpha',
+  ALPHA_NUMERIC: 'alphaNumeric'
+};
 class TextArea extends Component {
   static propTypes = {
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     placeholder: PropTypes.string,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    type: PropTypes.oneOf([INPUT_TYPES.ALPHA, INPUT_TYPES.ALPHA_NUMERIC])
   };
 
   static defaultProps = {
-    onChange: () => {}
+    onChange: () => {},
+    type: INPUT_TYPES.ALPHA_NUMERIC
   };
 
   constructor(props) {
@@ -39,11 +46,22 @@ class TextArea extends Component {
     };
   }
 
+  validator = value => {
+    const { type } = this.props;
+    if (type == INPUT_TYPES.ALPHA) {
+      const match = value.match(/[^a-zA-Z_ ]/g);
+      return match == null ? true : false;
+    }
+    return true;
+  };
+
   onChange = event => {
     const { onChange } = this.props;
     const value = event.target.value;
-    this.setState({ value });
-    onChange(event, value);
+    if (this.validator(value)) {
+      this.setState({ value });
+      onChange(event, value);
+    }
   };
 
   componentWillReceiveProps(newProps) {
