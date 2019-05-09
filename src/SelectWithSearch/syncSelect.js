@@ -218,8 +218,8 @@ export default class SyncSelect extends Component {
   getNewStateAfterOnSelect = () => {
     const { isButton, menuIsOpen } = this.props;
     let newState = {
-      menuIsOpen: false || menuIsOpen,
-      showInput: false || menuIsOpen
+      menuIsOpen: menuIsOpen,
+      showInput: menuIsOpen
     };
     if (!menuIsOpen) {
       newState.inputValue = '';
