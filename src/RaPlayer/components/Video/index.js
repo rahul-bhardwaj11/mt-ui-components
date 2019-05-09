@@ -271,6 +271,7 @@ class Video extends Component {
           onWaiting={this.showLoading}
           onPlaying={this.hideLoading}
           onClick={this.togglePlayPause}
+          crossOrigin={'anonymous'}
         >
           <track
             src={subtitleTrackSrc}
