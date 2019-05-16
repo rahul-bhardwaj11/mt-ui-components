@@ -225,7 +225,7 @@ class VideoControls extends Component {
       ...defaultControlOptions,
       ...controlOptions
     };
-    const subtitlesDisabled = isIE() ? true : false;
+    const subtitlesDisabled = isIE() || !subtitlesOn ? true : false;
     this.setState(
       { subtitlesOn, subtitlesDisabled },
       () =>
