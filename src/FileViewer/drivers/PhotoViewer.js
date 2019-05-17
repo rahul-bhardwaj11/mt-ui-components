@@ -29,12 +29,14 @@ export default class PhotoViewer extends Component {
       }
       // maintaing aspect ratio for the given height
       const __width = (imageHeight * 16) / 9;
-      imageWidth =
-        __width > width
-          ? 'auto'
-          : __width < imageWidth
-            ? `${__width}px`
-            : `${imageWidth}px`;
+      if (__width > width) {
+        imageWidth = width;
+      } else {
+        imageWidth = __width < imageWidth ? __width : imageWidth;
+      }
+
+      imageHeight = (imageWidth * 9) / 16;
+      imageWidth += 'px';
       imageHeight += 'px';
 
       self.imageRef.setAttribute('src', self.props.src);
