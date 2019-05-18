@@ -52,6 +52,7 @@ export Search from './Search';
 export Select from './Select';
 export SelectWithSearch from './SelectWithSearch';
 export SiderMenu from './SiderMenu';
+export Skeleton from './Skeleton';
 export Slider from './Slider';
 export StringToHTML from './StringToHTML';
 export Switch from './Switch';
