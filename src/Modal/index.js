@@ -261,7 +261,14 @@ class Modal extends Component {
   };
 
   render() {
-    let { children, type, width, fullScreenMobile, className } = this.props;
+    let {
+      children,
+      type,
+      width,
+      fullScreenMobile,
+      className,
+      getPopupContainer
+    } = this.props;
     let customProps = {
       ...this.props,
       width: width || MODAL_WIDTH_MAP[type],
@@ -271,29 +278,31 @@ class Modal extends Component {
         ...this.props.style
       }
     };
-    const container =
-      this.props.getPopupContainer && this.props.getPopupContainer();
-
-    return (
-      <React.Fragment>
-        {ReactDOM.createPortal(
-          <StyledModalWrapper
-            className={className}
-            innerRef={e => e && (this.modalContainer = e)}
-          />,
-          container || this.element
-        )}
-        <MtModal
-          {...customProps}
-          getPopupContainer={() => {
-            return this.modalContainer;
-          }}
-          wrapClassName="modalWrapper"
-        >
-          {children}
-        </MtModal>
-      </React.Fragment>
-    );
+    const container = getPopupContainer && getPopupContainer();
+    if (!getPopupContainer || getPopupContainer()) {
+      return (
+        <React.Fragment>
+          {ReactDOM.createPortal(
+            <StyledModalWrapper
+              className={className}
+              innerRef={e => e && (this.modalContainer = e)}
+            />,
+            container || this.element
+          )}
+          <MtModal
+            {...customProps}
+            getContainer={() => {
+              return this.modalContainer;
+            }}
+            wrapClassName="modalWrapper"
+          >
+            {children}
+          </MtModal>
+        </React.Fragment>
+      );
+    } else {
+      return null;
+    }
   }
 }
 
