@@ -58,7 +58,7 @@ export default class Description extends Component {
       content: value,
       availableLength: maxLength - contentLength
     });
-    trigger && this.props.onChange(value, contentLength);
+    trigger && this.props.onChange(value, contentLength, text);
   };
 
   editorHelpers = {
