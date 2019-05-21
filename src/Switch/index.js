@@ -51,7 +51,8 @@ class Switch extends Component {
   static propTypes = {
     checked: PropTypes.bool,
     onChange: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
+    wrapperClassname: PropTypes.string
   };
 
   static defaultProps = {
@@ -75,8 +76,9 @@ class Switch extends Component {
   render() {
     let { checked } = this.state;
     return (
-      <MtSwitch>
+      <MtSwitch className={this.props.wrapperClassname}>
         <AntSwitch
+          {...this.props}
           checked={checked}
           className={this.props.className}
           onChange={this.onChange}
