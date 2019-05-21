@@ -77,6 +77,7 @@ class Switch extends Component {
     return (
       <MtSwitch>
         <AntSwitch
+          {...this.props}
           checked={checked}
           className={this.props.className}
           onChange={this.onChange}
