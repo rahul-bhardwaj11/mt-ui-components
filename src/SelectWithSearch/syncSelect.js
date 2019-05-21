@@ -17,6 +17,8 @@ export default class SyncSelect extends Component {
     ]),
     isMulti: PropTypes.bool,
     onChange: PropTypes.func,
+    onOptionClick: PropTypes.func,
+    onApply: PropTypes.func,
     isButton: PropTypes.bool,
     isDisabled: PropTypes.bool,
     buttonLabel: PropTypes.string,
@@ -25,6 +27,7 @@ export default class SyncSelect extends Component {
     buttonMinWidth: PropTypes.string,
     sortOptions: PropTypes.bool,
     defaultMenuIsOpen: PropTypes.bool,
+    menuIsOpen: PropTypes.bool,
     value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string)
@@ -41,10 +44,13 @@ export default class SyncSelect extends Component {
   static defaultProps = {
     buttonLabel: 'filter',
     onChange: noop,
+    onOptionClick: noop,
+    onApply: noop,
     sortOptions: true,
     options: [],
     hasNone: true,
     defaultMenuIsOpen: false,
+    menuIsOpen: false,
     noneLabel: 'None'
   };
 
@@ -54,9 +60,9 @@ export default class SyncSelect extends Component {
       options: this.filterOptions(this.props.options),
       selectedItems: [],
       prevSelectedItems: [],
-      menuIsOpen: this.props.defaultMenuIsOpen,
+      menuIsOpen: this.props.defaultMenuIsOpen || this.props.menuIsOpen,
       showSelect: true,
-      showInput: this.props.defaultMenuIsOpen,
+      showInput: this.props.defaultMenuIsOpen || this.props.menuIsOpen,
       inputValue: ''
     };
   }
@@ -69,9 +75,10 @@ export default class SyncSelect extends Component {
       isButton,
       options,
       value,
-      defaultMenuIsOpen
+      defaultMenuIsOpen,
+      menuIsOpen
     } = this.props;
-    if (isButton && !defaultMenuIsOpen) {
+    if (isButton && !defaultMenuIsOpen && !menuIsOpen) {
       this.setState({ showSelect: false });
     }
     const newValue = value ? value : defaultValue;
@@ -202,6 +209,7 @@ export default class SyncSelect extends Component {
       selectedItems.splice(index, 1);
     }
     this.setState({ selectedItems });
+    this.props.onOptionClick(selectedItems);
   };
 
   onClearAll = () => {
@@ -210,12 +218,14 @@ export default class SyncSelect extends Component {
   };
 
   getNewStateAfterOnSelect = () => {
-    const { isButton } = this.props;
+    const { isButton, menuIsOpen } = this.props;
     let newState = {
-      menuIsOpen: false,
-      showInput: false,
-      inputValue: ''
+      menuIsOpen: menuIsOpen,
+      showInput: menuIsOpen
     };
+    if (!menuIsOpen) {
+      newState.inputValue = '';
+    }
     newState = isButton
       ? Object.assign(newState, { showSelect: false })
       : newState;
@@ -249,6 +259,11 @@ export default class SyncSelect extends Component {
     let newState = this.getNewStateAfterOnSelect();
     newState.options = sortedOptions;
     this.setState({ ...newState });
+  };
+
+  handleApply = () => {
+    this.handleMultiOnSelect(); //separates it from when user click outside.
+    this.props.onApply(); //different behaviour when persistent MenuIsOpen
   };
 
   toggleButton = () => {
@@ -364,7 +379,7 @@ export default class SyncSelect extends Component {
           <div className="buttonWrapperR">
             <Button
               type="text"
-              onClick={this.handleMultiOnSelect}
+              onClick={this.handleApply}
               className={selectedItems.length ? 'activeBtnState' : ' '}
             >
               {'Apply'}
