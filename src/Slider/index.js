@@ -207,7 +207,7 @@ class Slider extends Component {
     onChange: PropTypes.func,
     tooltipTimeout: PropTypes.number,
     range: PropTypes.bool,
-    getPopupContainer: PropTypes.fun
+    getPopupContainer: PropTypes.func
   };
 
   static defaultProps = {
