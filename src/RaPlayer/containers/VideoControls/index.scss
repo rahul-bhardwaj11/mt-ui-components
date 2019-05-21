@@ -86,10 +86,17 @@
 .controlButton {
   float: left;
   margin-left: 15px;
-  button {
+  /*    button {
     display: block;
   }
   a {
     display: block;
+  }  */
+}
+@media (max-width: 576px) {
+  .subtitles,
+  .subtitlesUnderline,
+  .hd {
+    display: none;
   }
 }

@@ -25,12 +25,18 @@
 
 .play {
   background: url(../../images/play-large.png) no-repeat 0px 0px transparent;
-  top: 40%;
-  left: 44%;
+  top: 50%;
+  left: 50%;
   width: 76px;
   height: 76px;
   position: absolute;
   cursor: pointer;
+  transform: translate(-50%, -50%);
+  @media (max-width: 576px) {
+    width: 25px;
+    height: 25px;
+    background-size: 100%;
+  }
 }
 
 .videoControls {
