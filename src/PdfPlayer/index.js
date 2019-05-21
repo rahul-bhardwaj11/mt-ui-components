@@ -5,8 +5,33 @@ import ConfirmBox from '../ConfirmBox';
 import Tag from '../Tag';
 import Icon from '../Icon';
 import MTPDFPlayer from './style';
-
+import styled from 'styled-components';
 const DEFAULT_STYLE = { width: 650, height: 'inherit' };
+
+const Loader = styled.div`
+  position: absolute;
+  background-color: rgb(0, 0, 0);
+  opacity: 0.5;
+  color: white;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  right: 0;
+  align-items: center;
+  text-shadow: 1px 2px rgba(0, 0, 0, 0.5);
+  &:before {
+    content: 'Loading...';
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: normal;
+  }
+`;
+
 class PdfPlayer extends Component {
   static propTypes = {
     nextPage: PropTypes.number,
@@ -18,18 +43,21 @@ class PdfPlayer extends Component {
     onTitleEdit: PropTypes.func,
     style: PropTypes.object,
     title: PropTypes.string,
-    deleteConfirmText: PropTypes.string
+    deleteConfirmText: PropTypes.string,
+    onLoaded: PropTypes.func
   };
 
   static defaultProps = {
     nextPage: 1,
     style: {},
-    deleteConfirmText: 'Are you sure you want to delete this file ?'
+    deleteConfirmText: 'Are you sure you want to delete this file ?',
+    onLoaded: () => {}
   };
 
   state = {
     edit: false,
-    title: this.props.title
+    title: this.props.title,
+    loading: true
   };
 
   setRef = ref => {
@@ -95,10 +123,18 @@ class PdfPlayer extends Component {
     }
   }
 
+  onLoaded = () => {
+    this.props.onLoaded();
+    this.setState({
+      loading: false
+    });
+  };
+
   handleIncomingMessage = event => {
     const { onPageChange, nextPage } = this.props;
     if (!event.data || typeof event.data !== 'string') return;
     if (event.data === 'viewerinitialized') {
+      this.onLoaded();
       setTimeout(() => {
         this.goToPage(nextPage);
       }, 500);
@@ -181,6 +217,7 @@ class PdfPlayer extends Component {
 
   render() {
     const { style, isEditMode } = this.props;
+    const { loading } = this.state;
     const __style = {
       minHeight: 'inherit',
       position: 'relative',
@@ -189,6 +226,7 @@ class PdfPlayer extends Component {
     };
     return (
       <MTPDFPlayer style={__style} innerRef={this.setRef}>
+        {loading && <Loader />}
         {isEditMode && (
           <div className="uploaderHeader">
             {this.renderEditTitleDiv()}
