@@ -206,13 +206,15 @@ class Slider extends Component {
     defaultValue: PropTypes.number,
     onChange: PropTypes.func,
     tooltipTimeout: PropTypes.number,
-    range: PropTypes.bool
+    range: PropTypes.bool,
+    getPopupContainer: PropTypes.fun
   };
 
   static defaultProps = {
     tooltipTimeout: 3000,
     onChange: () => {},
-    step: 1
+    step: 1,
+    getPopupContainer: () => document.body
   };
 
   constructor(props) {
@@ -367,8 +369,20 @@ class Slider extends Component {
     });
   };
 
+  handleMouseLeave = () => {
+    const { showTooltip, persistTooltip } = this.state;
+    !persistTooltip && showTooltip && this.setState({ showTooltip: false });
+  };
+
   render() {
-    const { disabled, defaultValue, min, max, range } = this.props;
+    const {
+      disabled,
+      defaultValue,
+      min,
+      max,
+      range,
+      getPopupContainer
+    } = this.props;
     const {
       offsetLeft,
       showTooltip,
@@ -393,6 +407,7 @@ class Slider extends Component {
           tabIndex={-1}
           onBlur={this.handleBlur}
           onMouseOver={this.handleHover}
+          onMouseLeave={this.handleMouseLeave}
           style={{ position: 'relative' }}
           ref={el => {
             if (el) this.ref = el;
@@ -403,7 +418,7 @@ class Slider extends Component {
             visible={showTooltip}
             className="toolTip"
             style={{ left: toolTipLeftPos }}
-            getPopupContainer={() => document.body}
+            getPopupContainer={getPopupContainer}
             ref={el => (this.tooltipRef = el)}
           >
             <div>
