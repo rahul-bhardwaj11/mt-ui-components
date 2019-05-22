@@ -6,7 +6,8 @@ import { isIE } from '../../utils/core';
 class VolumeBar extends Component {
   static propTypes = {
     volume: PropTypes.number,
-    volumeUpdateHandler: PropTypes.func
+    volumeUpdateHandler: PropTypes.func,
+    isMobile: PropTypes.bool
   };
 
   constructor(props) {
@@ -69,18 +70,20 @@ class VolumeBar extends Component {
           className={[style.floatL, volumeKlass, style.marginR12].join(' ')}
           onClick={this.mute}
         />
-        <div className={style.volumeBarParent}>
-          <input
-            type="range"
-            className={[style.volumeBar, style.rangeBar].join(' ')}
-            ref={e => (this.volumeBar = e)}
-            min="0"
-            max="1"
-            step="0.1"
-            defaultValue={volume}
-            style={volumeBarStyle}
-          />
-        </div>
+        {!this.props.isMobile ? (
+          <div className={style.volumeBarParent}>
+            <input
+              type="range"
+              className={[style.volumeBar, style.rangeBar].join(' ')}
+              ref={e => (this.volumeBar = e)}
+              min="0"
+              max="1"
+              step="0.1"
+              defaultValue={volume}
+              style={volumeBarStyle}
+            />
+          </div>
+        ) : null}
       </div>
     );
   }

@@ -33,8 +33,10 @@
   overflow: hidden;
   position: relative;
   margin-right: 15px;
-  &:hover {
-    width: 89px;
+  @media (min-width: 1199px) {
+    &:hover {
+      width: 90px;
+    }
   }
   [type='range'] {
     -webkit-appearance: none;

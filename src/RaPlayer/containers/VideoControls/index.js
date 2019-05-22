@@ -56,7 +56,8 @@ class VideoControls extends Component {
     videoSeekBarClassName: PropTypes.string,
     disableComments: PropTypes.bool,
     toggleSubtitle: PropTypes.func.isRequired,
-    disableSubtitles: PropTypes.func.isRequired
+    disableSubtitles: PropTypes.func.isRequired,
+    isMobile: PropTypes.bool
   };
 
   constructor(props) {
@@ -255,7 +256,8 @@ class VideoControls extends Component {
       commentBarClassName,
       videoControlsButtonsClassName,
       videoSeekBarClassName,
-      disableComments
+      disableComments,
+      isMobile
     } = this.props;
     const { showTrackList, subtitlesOn, subtitlesDisabled } = this.state;
     this.video = document.getElementById(targetPlayerId);
@@ -320,6 +322,7 @@ class VideoControls extends Component {
           <VolumeBar
             volumeUpdateHandler={volumeUpdateHandler}
             volume={volume}
+            isMobile={isMobile}
           />
           <div
             className={[
@@ -335,14 +338,12 @@ class VideoControls extends Component {
           <div className={style.floatR}>
             {!subtitlesDisabled && (
               <div className={style.controlButton}>
-                <div>
-                  <button
-                    style={{ border: 'none' }}
-                    type="button"
-                    className={style.subtitles}
-                    onClick={this.toggleSubtitle}
-                  />
-                </div>
+                <button
+                  style={{ border: 'none' }}
+                  type="button"
+                  className={style.subtitles}
+                  onClick={this.toggleSubtitle}
+                />
                 <div
                   className={[
                     subtitlesOn ? style.subtitlesUnderline : null
