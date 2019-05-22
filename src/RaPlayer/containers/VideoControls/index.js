@@ -22,7 +22,8 @@ import TracksList from '../../components/TracksList';
 let defaultControlOptions = {
   download: true,
   fullScreen: true,
-  subtitles: false
+  subtitles: false,
+  volumeBar: true
 };
 
 class VideoControls extends Component {
@@ -56,8 +57,7 @@ class VideoControls extends Component {
     videoSeekBarClassName: PropTypes.string,
     disableComments: PropTypes.bool,
     toggleSubtitle: PropTypes.func.isRequired,
-    disableSubtitles: PropTypes.func.isRequired,
-    isMobile: PropTypes.bool
+    disableSubtitles: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -256,8 +256,7 @@ class VideoControls extends Component {
       commentBarClassName,
       videoControlsButtonsClassName,
       videoSeekBarClassName,
-      disableComments,
-      isMobile
+      disableComments
     } = this.props;
     const { showTrackList, subtitlesOn, subtitlesDisabled } = this.state;
     this.video = document.getElementById(targetPlayerId);
@@ -322,7 +321,7 @@ class VideoControls extends Component {
           <VolumeBar
             volumeUpdateHandler={volumeUpdateHandler}
             volume={volume}
-            isMobile={isMobile}
+            showVolumeBar={controlOptionsProp.volumeBar}
           />
           <div
             className={[

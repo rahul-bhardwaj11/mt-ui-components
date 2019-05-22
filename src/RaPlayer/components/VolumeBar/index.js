@@ -7,7 +7,7 @@ class VolumeBar extends Component {
   static propTypes = {
     volume: PropTypes.number,
     volumeUpdateHandler: PropTypes.func,
-    isMobile: PropTypes.bool
+    showVolumeBar: PropTypes.bool
   };
 
   constructor(props) {
@@ -45,7 +45,7 @@ class VolumeBar extends Component {
   }
 
   componentDidMount() {
-    this.attachEvent();
+    this.props.showVolumeBar && this.attachEvent();
   }
 
   render() {
@@ -70,7 +70,7 @@ class VolumeBar extends Component {
           className={[style.floatL, volumeKlass, style.marginR12].join(' ')}
           onClick={this.mute}
         />
-        {!this.props.isMobile ? (
+        {this.props.showVolumeBar ? (
           <div className={style.volumeBarParent}>
             <input
               type="range"
