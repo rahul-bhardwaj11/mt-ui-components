@@ -22,7 +22,8 @@ import TracksList from '../../components/TracksList';
 let defaultControlOptions = {
   download: true,
   fullScreen: true,
-  subtitles: false
+  subtitles: false,
+  volumeBar: true
 };
 
 class VideoControls extends Component {
@@ -320,6 +321,7 @@ class VideoControls extends Component {
           <VolumeBar
             volumeUpdateHandler={volumeUpdateHandler}
             volume={volume}
+            showVolumeBar={controlOptionsProp.volumeBar}
           />
           <div
             className={[
@@ -335,14 +337,12 @@ class VideoControls extends Component {
           <div className={style.floatR}>
             {!subtitlesDisabled && (
               <div className={style.controlButton}>
-                <div>
-                  <button
-                    style={{ border: 'none' }}
-                    type="button"
-                    className={style.subtitles}
-                    onClick={this.toggleSubtitle}
-                  />
-                </div>
+                <button
+                  style={{ border: 'none' }}
+                  type="button"
+                  className={style.subtitles}
+                  onClick={this.toggleSubtitle}
+                />
                 <div
                   className={[
                     subtitlesOn ? style.subtitlesUnderline : null
