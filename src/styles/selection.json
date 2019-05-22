@@ -17,7 +17,7 @@
       "properties": {
         "order": 715,
         "id": 229,
-        "name": "video",
+        "name": "iconVideo",
         "prevSize": 32,
         "code": 59876
       },
@@ -2565,7 +2565,7 @@
         "ligatures": "",
         "prevSize": 32,
         "code": 59704,
-        "name": "video1"
+        "name": "video"
       },
       "setIdx": 0,
       "setId": 0,
