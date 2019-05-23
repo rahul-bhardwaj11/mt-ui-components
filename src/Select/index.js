@@ -15,7 +15,10 @@ import ReactDOM from 'react-dom';
 const MtWrapper = styled.span`
   .selectDropdownStyle {
     z-index: 999999;
+
     .ant-select-dropdown-menu-item {
+      padding: 5px 20px;
+      
      div {
          width: ${props => (props.showTick ? '95%' : null)};
          text-overflow: ellipsis;
