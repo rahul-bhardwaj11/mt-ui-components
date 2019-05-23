@@ -1,13 +1,14 @@
 import AntSkeleton from 'antd/lib/skeleton';
 import 'antd/lib/skeleton/style/index.css';
 import styled from 'styled-components';
+//import theme from '../styles/theme';
 
 export const THEME = {
   LIGHT: 'light',
   DARK: 'dark'
 };
 
-const LOADER_COLOR = {
+export const LOADER_COLOR = {
   [THEME.LIGHT]:
     'linear-gradient(90deg, #f2f2f2 25%, #e6e6e6 37%, #f2f2f2 63%)',
   [THEME.DARK]: 'linear-gradient(90deg, #29364a 25%, #353d50 37%, #29364a 63%)'
@@ -35,7 +36,7 @@ const StyledSkeletonLoader = styled(AntSkeleton)`
                 return '5px';
             }
           }};
-          background: ${({ theme }) => LOADER_COLOR[theme]};
+          background: ${({ bgColor }) => bgColor};
           animation: skeleton-loading 1.4s ease infinite;
           background-size: 400% 100%;
         }
@@ -46,7 +47,7 @@ const StyledSkeletonLoader = styled(AntSkeleton)`
           margin: ${({ title: { margin } }) => margin || '0 auto 12px 0'};
           height: ${({ title: { height } }) => height || '10px'};
           border-radius: ${({ title: { height } }) => height || '5px'};
-          background: ${({ theme }) => LOADER_COLOR[theme]};
+          background: ${({ bgColor }) => bgColor};
           animation: skeleton-loading 1.4s ease infinite;
           background-size: 400% 100%;
         }
@@ -64,6 +65,7 @@ const StyledSkeletonLoader = styled(AntSkeleton)`
         li {
           border-radius: ${({ paragraph: { height } }) => height || '5px'};
           height: ${({ paragraph: { height } }) => height || '10px'};
+          background: ${({ bgColor }) => bgColor};
         }
 
         li + li {
