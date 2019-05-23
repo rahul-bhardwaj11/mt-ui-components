@@ -16,17 +16,19 @@ const MtWrapper = styled.span`
   .selectDropdownStyle {
     z-index: 999999;
 
-    .ant-select-dropdown-menu-item {
+  .ant-select-dropdown-menu-item {  
+    &.ant-select-dropdown-menu-item-selected {
       padding: 5px 20px;
-      
-     div {
-         width: ${props => (props.showTick ? '95%' : null)};
-         text-overflow: ellipsis;
-         overflow: hidden;
-         white-space: nowrap;
-       }
-     }
-   }
+    } 
+
+    div {
+        width: ${props => (props.showTick ? '95%' : null)};
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    }
+  }
 
   .ant-select-dropdown-menu-item-disabled{
     opacity:0.3;
