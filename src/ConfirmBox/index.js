@@ -75,26 +75,31 @@ class ConfirmBox extends Component {
   }
 
   render() {
-    let { children } = this.props;
+    let { children, getPopupContainer } = this.props;
     const container =
       this.props.getPopupContainer && this.props.getPopupContainer();
-
-    return (
-      <React.Fragment>
-        {ReactDOM.createPortal(
-          <StyledPopconfirm innerRef={e => e && (this.confirmContainer = e)} />,
-          container || this.element
-        )}
-        <AntPopconfirm
-          {...this.props}
-          getPopupContainer={() => {
-            return this.confirmContainer;
-          }}
-        >
-          {children}
-        </AntPopconfirm>
-      </React.Fragment>
-    );
+    if (!getPopupContainer || getPopupContainer()) {
+      return (
+        <React.Fragment>
+          {ReactDOM.createPortal(
+            <StyledPopconfirm
+              innerRef={e => e && (this.confirmContainer = e)}
+            />,
+            container || this.element
+          )}
+          <AntPopconfirm
+            {...this.props}
+            getPopupContainer={() => {
+              return this.confirmContainer;
+            }}
+          >
+            {children}
+          </AntPopconfirm>
+        </React.Fragment>
+      );
+    } else {
+      return null;
+    }
   }
 }
 
