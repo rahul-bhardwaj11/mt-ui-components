@@ -19,6 +19,7 @@ import collapsePanel from './assests/images/collapsePanel.svg';
 import expandPanel from './assests/images/expandPanel.svg';
 import programDefault from './assests/images/programDefault.svg';
 import programSelected from './assests/images/programSelected.svg';
+import emptyStateParameters from './assests/images/emptyStateParameters.svg';
 
 export default {
   mindtickleLogo: ({ width = 200, height = 64 }) => ({
@@ -124,6 +125,11 @@ export default {
   }),
   programSelected: ({ width = 16, height = 16 }) => ({
     background: `url(${programSelected})  no-repeat 0 0 / contain transparent`,
+    width: width,
+    height: height
+  }),
+  emptyStateParameters: ({ width = 264, height = 264 }) => ({
+    background: `url(${emptyStateParameters})  no-repeat 0 0 / contain transparent`,
     width: width,
     height: height
   })
