@@ -18,7 +18,7 @@ const MtWrapper = styled.span`
 
   .ant-select-dropdown-menu-item {  
     &.ant-select-dropdown-menu-item-selected {
-      padding: 5px 20px;
+      padding-right: 20px;
     } 
 
     div {
