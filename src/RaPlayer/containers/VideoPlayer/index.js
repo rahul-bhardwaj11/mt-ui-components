@@ -44,11 +44,13 @@ class VideoPlayerContainer extends Component {
     className: PropTypes.string,
     onVideoTimeUpdate: PropTypes.func,
     onVideoEnded: PropTypes.func,
-    subtitleTrackSrc: PropTypes.string
+    subtitleTrackSrc: PropTypes.string,
+    track: PropTypes.func
   };
 
   static defaultProps = {
-    onVideoEnded: () => {}
+    onVideoEnded: () => {},
+    track: () => {}
   };
 
   [updateMediaAttributes] = this.props.updateMediaAttributes.bind(this.props);
@@ -183,7 +185,8 @@ class VideoPlayerContainer extends Component {
       className,
       videoControlsClassName,
       onVideoTimeUpdate,
-      subtitleTrackSrc
+      subtitleTrackSrc,
+      track
     } = this.props;
     let { controls, selectedTrack, showPlayButton } = this.state;
     controls = showControlsOnly || controls;
@@ -226,6 +229,7 @@ class VideoPlayerContainer extends Component {
           secondaryId={secondaryId}
           mediaState={mediaState}
           subtitleTrackSrc={subtitleTrackSrc}
+          track={track}
         />
 
         <div
@@ -235,6 +239,7 @@ class VideoPlayerContainer extends Component {
           })}
         >
           <VideoControls
+            track={track}
             edit={edit}
             targetPlayerId={id}
             videoTracks={primaryTracks}
