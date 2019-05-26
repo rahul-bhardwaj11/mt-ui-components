@@ -9,7 +9,8 @@ export default function CommentHelperBox({
   commentHelperBoxClickHandler,
   emojiOnSelectHandler,
   downArrowStyle,
-  boxRef
+  boxRef,
+  track
 }) {
   return (
     <div ref={boxRef} className={style.chBox}>
@@ -24,7 +25,7 @@ export default function CommentHelperBox({
           }
         </div>
         <div className={style.chBoxControls}>
-          <EmojiPicker onSelect={emojiOnSelectHandler} />
+          <EmojiPicker onSelect={emojiOnSelectHandler} track={track} />
         </div>
         <div className={style.clear} />
       </div>
@@ -36,5 +37,6 @@ CommentHelperBox.propTypes = {
   timestampReadable: PropTypes.string,
   emojiOnSelectHandler: PropTypes.func,
   downArrowStyle: PropTypes.object,
-  boxRef: PropTypes.func
+  boxRef: PropTypes.func,
+  track: PropTypes.func
 };

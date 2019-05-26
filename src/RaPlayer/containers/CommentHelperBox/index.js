@@ -5,6 +5,7 @@ import { actions } from '../../actions';
 import { toHHMMSS } from '../../utils/core';
 import { connect } from '../../utils/providerHelper';
 import style from './index.scss';
+import event from '../../config/trackEvents';
 
 class CommentHelperBox extends Component {
   static propTypes = {
@@ -20,7 +21,8 @@ class CommentHelperBox extends Component {
     postComment: PropTypes.func,
     videoWidth: PropTypes.number,
     clientWidth: PropTypes.number,
-    comments: PropTypes.array
+    comments: PropTypes.array,
+    track: PropTypes.func
   };
 
   state = {
@@ -86,11 +88,11 @@ class CommentHelperBox extends Component {
 
   commentHelperBoxClickHandler = () => {
     /*
-			300px: width of comment box
-			8px: default left for down arrow
-		*/
+      300px: width of comment box
+      8px: default left for down arrow
+    */
 
-    let { time, xPosRaw } = this.props;
+    let { time, xPosRaw, track } = this.props;
     let { downArrowXPos } = this.state;
     let clientWidth = this.props.videoWidth - 20;
 
@@ -105,6 +107,7 @@ class CommentHelperBox extends Component {
     if (typeof this.props.onClickHandler === 'function') {
       this.props.onClickHandler(time);
     }
+    track(event.ADD_COMMENT);
   };
 
   emojiOnSelectHandler = selectedEmoji => {
@@ -115,7 +118,7 @@ class CommentHelperBox extends Component {
   };
 
   render() {
-    const { time, commentBoxHelperRenderer } = this.props;
+    const { time, commentBoxHelperRenderer, track } = this.props;
     const { xPos, downArrowXPos } = this.state;
     const divCls = cs(style.boxWrapper, {
       [style.hide]: xPos === null
@@ -137,7 +140,8 @@ class CommentHelperBox extends Component {
           timestampReadable,
           commentHelperBoxClickHandler: this.commentHelperBoxClickHandler,
           downArrowStyle,
-          boxRef: this.ref
+          boxRef: this.ref,
+          track
         })}
       </div>
     );

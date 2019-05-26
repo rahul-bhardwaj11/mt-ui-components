@@ -57,7 +57,8 @@ class VideoControls extends Component {
     videoSeekBarClassName: PropTypes.string,
     disableComments: PropTypes.bool,
     toggleSubtitle: PropTypes.func.isRequired,
-    disableSubtitles: PropTypes.func.isRequired
+    disableSubtitles: PropTypes.func.isRequired,
+    track: PropTypes.func
   };
 
   constructor(props) {
@@ -256,7 +257,8 @@ class VideoControls extends Component {
       commentBarClassName,
       videoControlsButtonsClassName,
       videoSeekBarClassName,
-      disableComments
+      disableComments,
+      track
     } = this.props;
     const { showTrackList, subtitlesOn, subtitlesDisabled } = this.state;
     this.video = document.getElementById(targetPlayerId);
@@ -402,6 +404,7 @@ class VideoControls extends Component {
             {commentBox.show ? <CommentBox edit={edit} /> : null}
             {commentHelperBox.show && edit ? (
               <CommentHelperBox
+                track={track}
                 targetPlayerId={targetPlayerId}
                 onClickHandler={videoPauseAtTimeHandler}
               />
