@@ -8,7 +8,7 @@ const noop = () => undefined;
 export default class Icon extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     className: PropTypes.string,
     onClick: PropTypes.func,
     gradient: PropTypes.bool,
