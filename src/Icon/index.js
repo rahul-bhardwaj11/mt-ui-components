@@ -8,7 +8,7 @@ const noop = () => undefined;
 export default class Icon extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     className: PropTypes.string,
     onClick: PropTypes.func,
     gradient: PropTypes.bool,
@@ -21,7 +21,7 @@ export default class Icon extends Component {
   };
 
   render() {
-    const { type, onClick, gradient, alt } = this.props;
+    const { type, onClick, gradient, title } = this.props;
     let { style, className } = this.props;
     let svgIcon = {};
     if (gradient) {
@@ -33,7 +33,7 @@ export default class Icon extends Component {
       className,
       style,
       onClick,
-      alt
+      title
     };
     return (
       <React.Fragment>
